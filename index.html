@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PAINEL DO CRIME — Brasil em Estado Crítico</title>
+<title>Painel Investigativo — Brasil em Estado Crítico</title>
+<meta name="description" content="Central de inteligência civil sobre crime organizado, corrupção sistêmica e colapso institucional no Brasil. Dados públicos, análises investigativas e artefatos baseados em evidências.">
+<meta name="keywords" content="corrupção, crime organizado, judiciário, transparência, accountability, investigação jornalística, brasil">
+<meta property="og:title" content="Painel Investigativo — Brasil em Estado Crítico">
+<meta property="og:description" content="Central de análise civil baseada em dados públicos e investigações jornalísticas verificadas.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -1808,19 +1813,54 @@
 
 </div>
 
+<!-- CONTRIBUIÇÃO -->
+<div class="main" style="padding-top:0; padding-bottom:0;">
+  <div class="sep" style="margin-top:0;"></div>
+  <div class="section-head reveal">
+    <div class="section-title">CONTRIBUIR COM O PROJETO</div>
+    <div class="section-count">OPEN SOURCE</div>
+    <div class="section-line"></div>
+  </div>
+  <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-bottom:56px;" class="reveal">
+    <a href="https://github.com/araguaci/painel-do-crime/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+" target="_blank" class="contrib-card" style="background:var(--bg-surface);border:1px solid var(--border-dim);border-radius:8px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:all .2s;">
+      <div style="font-size:24px;">📋</div>
+      <div style="font-family:var(--body);font-size:14px;font-weight:700;color:var(--text-primary);">Sugerir Pauta ou Tema</div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.55;">Identificou um padrão de corrupção ou tema que merece análise? Abra uma issue com sua sugestão.</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:.1em;margin-top:auto;">ABRIR ISSUE →</div>
+    </a>
+    <a href="https://github.com/araguaci/painel-do-crime/issues/new?template=ocorrencia.md&labels=ocorr%C3%AAncia&title=%5BOCORR%C3%8ANCIA%5D+" target="_blank" class="contrib-card" style="background:var(--bg-surface);border:1px solid var(--border-dim);border-radius:8px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:all .2s;">
+      <div style="font-size:24px;">🚨</div>
+      <div style="font-family:var(--body);font-size:14px;font-weight:700;color:var(--text-primary);">Reportar Ocorrência (BO)</div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.55;">Tem informação verificável baseada em fontes públicas sobre um fato investigável? Reporte aqui.</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--red-bright);letter-spacing:.1em;margin-top:auto;">REGISTRAR BO →</div>
+    </a>
+    <a href="https://github.com/araguaci/painel-do-crime/issues/new?template=sugestao.md&labels=sugest%C3%A3o&title=%5BSUGEST%C3%83O%5D+" target="_blank" class="contrib-card" style="background:var(--bg-surface);border:1px solid var(--border-dim);border-radius:8px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:all .2s;">
+      <div style="font-size:24px;">💡</div>
+      <div style="font-family:var(--body);font-size:14px;font-weight:700;color:var(--text-primary);">Propor Melhoria</div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.55;">Ideia para melhorar dados, visualizações, design ou adicionar novos artefatos ao painel.</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:.1em;margin-top:auto;">SUGERIR →</div>
+    </a>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="footer">
   <div>
     <div class="footer-brand">PAINEL DO <span>CRIME</span></div>
     <div class="footer-note">
       Central de análise civil baseada em dados públicos, investigações jornalísticas<br>
-      e documentos oficiais. Nenhum conteúdo incentiva violência ou ilegalidade.
+      e documentos oficiais. Nenhum conteúdo incentiva violência ou ilegalidade.<br>
+      <a href="README.md" style="color:var(--text-muted);font-size:10px;" target="_blank">README</a>
+      &nbsp;·&nbsp;
+      <a href="LICENSE" style="color:var(--text-muted);font-size:10px;" target="_blank">MIT License</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/araguaci/painel-do-crime" style="color:var(--text-muted);font-size:10px;" target="_blank">GitHub</a>
     </div>
   </div>
   <div class="footer-copy">
-    VERSÃO 2.0 // 2026-03-21<br>
+    VERSÃO 2.1 // 2026-03-21<br>
     BR-001 // ANÁLISE CRÍTICA<br>
-    DOMÍNIO PÚBLICO
+    LICENÇA MIT — OPEN SOURCE
   </div>
 </div>
 
@@ -1877,7 +1917,48 @@
   const pad = n => String(n).padStart(2, '0');
   document.querySelector('.date-stamp').textContent =
     `ATUALIZADO: ${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} // BR-001`;
+
+  // DISCLAIMER MODAL — show once per session
+  (function() {
+    if (!sessionStorage.getItem('disclaimer-accepted')) {
+      document.getElementById('disclaimer-modal').style.display = 'flex';
+    }
+  })();
+
+  function acceptDisclaimer() {
+    sessionStorage.setItem('disclaimer-accepted', '1');
+    const modal = document.getElementById('disclaimer-modal');
+    modal.style.opacity = '0';
+    modal.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => modal.style.display = 'none', 300);
+  }
 </script>
+
+<!-- DISCLAIMER MODAL -->
+<div id="disclaimer-modal" style="display:none; position:fixed; inset:0; background:rgba(7,8,10,0.92); z-index:9999; align-items:center; justify-content:center; padding:24px;">
+  <div style="background:var(--bg-surface); border:1px solid var(--border-mid); border-top:3px solid var(--amber); border-radius:10px; max-width:560px; width:100%; padding:36px; position:relative;">
+    <div style="font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--amber); margin-bottom:16px; text-transform:uppercase;">⚠ Aviso de Conteúdo Investigativo</div>
+    <div style="font-family:var(--display); font-size:32px; letter-spacing:.04em; color:var(--text-primary); margin-bottom:16px; line-height:1.1;">MATERIAL<br>JORNALÍSTICO</div>
+    <p style="font-size:13px; color:var(--text-secondary); line-height:1.7; margin-bottom:14px;">
+      Este painel contém análises investigativas baseadas <strong style="color:var(--text-primary)">exclusivamente em fontes públicas verificáveis</strong> — dados governamentais abertos, processos judiciais públicos e investigações jornalísticas publicadas.
+    </p>
+    <p style="font-size:13px; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">
+      O conteúdo tem <strong style="color:var(--text-primary)">caráter educativo, analítico e de accountability democrático</strong>. Nenhum material incentiva ou instrui atividades ilegais. Temas sensíveis (exploração infantil, crime organizado) são abordados estritamente como denúncia investigativa.
+    </p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--green); background:var(--green-dim); border:1px solid rgba(34,197,94,.15); padding:4px 10px; border-radius:4px;">✓ FONTES PÚBLICAS</div>
+      <div style="font-family:var(--mono); font-size:10px; color:var(--green); background:var(--green-dim); border:1px solid rgba(34,197,94,.15); padding:4px 10px; border-radius:4px;">✓ SEM DADOS PRIVADOS</div>
+      <div style="font-family:var(--mono); font-size:10px; color:var(--green); background:var(--green-dim); border:1px solid rgba(34,197,94,.15); padding:4px 10px; border-radius:4px;">✓ LICENÇA MIT</div>
+      <div style="font-family:var(--mono); font-size:10px; color:var(--red-bright); background:var(--red-pulse); border:1px solid rgba(220,38,38,.2); padding:4px 10px; border-radius:4px;">⚠ CONTEÚDO ADULTO — +18</div>
+    </div>
+    <button onclick="acceptDisclaimer()" style="width:100%; background:var(--amber); border:none; color:#000; font-family:var(--display); font-size:18px; letter-spacing:.08em; padding:14px; border-radius:6px; cursor:pointer; transition:opacity .15s;">
+      ENTENDI — ACESSAR O PAINEL
+    </button>
+    <div style="margin-top:12px; text-align:center;">
+      <a href="README.md" target="_blank" style="font-family:var(--mono); font-size:10px; color:var(--text-muted); letter-spacing:.08em;">Ler aviso legal completo (README)</a>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
