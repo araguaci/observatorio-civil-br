@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Mental — Os Donos do Banco Master</title>
+<meta name="description" content="Mapa mental interativo sobre as conexões investigativas envolvendo o Banco Master, Daniel Vorcaro e Alexandre de Moraes">
+<link rel="canonical" href="https://gosurf.site/banco-master-os-donos">
+<!-- Open Graph / Sharecard -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gosurf.site/banco-master-os-donos">
+<meta property="og:title" content="Mapa Mental — Os Donos do Banco Master">
+<meta property="og:description" content="Mapa mental das alegações, conexões e personagens centrais nas investigações sobre o Banco Master, Daniel Vorcaro e Alexandre de Moraes.">
+<meta property="og:image" content="https://gosurf.site/og-banco-master-os-donos.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="gosurf.site">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mapa Mental — Os Donos do Banco Master">
+<meta name="twitter:description" content="Mapa mental das alegações, conexões e personagens centrais nas investigações sobre o Banco Master, Daniel Vorcaro e Alexandre de Moraes.">
+<meta name="twitter:image" content="https://gosurf.site/og-banco-master-os-donos.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b0e;
+    --surface: #111318;
+    --border: #1e2330;
+    --accent: #e8c84a;
+    --accent2: #e05a4a;
+    --accent3: #4a9ee8;
+    --accent4: #7ee8a2;
+    --text: #e8e4d8;
+    --muted: #7a7d8a;
+    --line: rgba(232,200,74,0.25);
+    --focus: #e8c84a;
+  }
+  .high-contrast {
+    --bg: #000000;
+    --surface: #111111;
+    --border: #ffffff44;
+    --accent: #ffff00;
+    --accent2: #ff4444;
+    --accent3: #44aaff;
+    --accent4: #44ff88;
+    --text: #ffffff;
+    --muted: #aaaaaa;
+    --line: rgba(255,255,0,0.4);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; --font-scale: 1; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: calc(100% * var(--font-scale));
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: var(--accent);
+    color: #000;
+    padding: .5rem 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    z-index: 9999;
+    transition: top .2s;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .85rem;
+  }
+  .skip-link:focus { top: 1rem; }
+
+  /* Toolbar (mobile-first) */
+  .toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,11,14,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    gap: .5rem;
+  }
+  .toolbar-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .toolbar-controls {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .ctrl-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: .4rem .6rem;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    cursor: pointer;
+    transition: all .2s;
+    letter-spacing: .05em;
+    white-space: nowrap;
+  }
+  .ctrl-btn:hover, .ctrl-btn:focus {
+    border-color: var(--accent);
+    color: var(--accent);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .ctrl-btn.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+  .ctrl-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+  .ctrl-btn:disabled:hover, .ctrl-btn:disabled:focus {
+    border-color: var(--border);
+    color: var(--text);
+    outline: none;
+  }
+  .font-size-group {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+  }
+  .font-size-display {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    color: var(--muted);
+    min-width: 3.5ch;
+    text-align: center;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Legend (hidden on mobile) */
+  .legend {
+    display: none;
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    z-index: 100;
+    background: rgba(17,19,24,.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: .72rem;
+    font-family: 'IBM Plex Mono', monospace;
+    min-width: 160px;
+  }
+  .legend-title {
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+    font-size: .65rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .35rem;
+    color: var(--text);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Main content (mobile-first) */
+  main {
+    padding-top: 52px;
+  }
+
+  /* Hero (mobile-first) */
+  .hero {
+    text-align: center;
+    padding: 2rem 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    color: var(--accent);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--text);
+    max-width: min(800px, 100%);
+    margin: 0 auto 1rem;
+    overflow-wrap: break-word;
+  }
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .hero-sub {
+    font-size: .85rem;
+    color: var(--muted);
+    max-width: 100%;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Mind map container (mobile-first) */
+  .map-wrapper {
+    padding: 1.5rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Central node */
+  .center-node {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+  .center-card {
+    background: linear-gradient(135deg, #1a1500 0%, #2a1f00 100%);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 40px rgba(232,200,74,.15);
+  }
+  .center-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), transparent 60%);
+    opacity: .1;
+    pointer-events: none;
+  }
+  .center-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    color: var(--accent);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: .4rem;
+  }
+  .center-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 900;
+    color: var(--accent);
+  }
+  .center-sub {
+    font-size: .8rem;
+    color: var(--muted);
+    margin-top: .3rem;
+  }
+
+  /* Branch groups (mobile-first) */
+  .branches {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Branch */
+  .branch {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow .25s;
+  }
+  .branch:focus-within {
+    box-shadow: 0 0 0 2px var(--focus);
+  }
+
+  .branch-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    transition: background .2s;
+  }
+  .branch-header:hover { background: rgba(255,255,255,.03); }
+  .branch-header:focus {
+    outline: 2px solid var(--focus);
+    outline-offset: -2px;
+  }
+
+  .branch-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .branch-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    flex: 1;
+  }
+  .branch-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    color: var(--muted);
+    margin-right: .5rem;
+  }
+  .toggle-icon {
+    font-size: .8rem;
+    color: var(--muted);
+    transition: transform .3s;
+    flex-shrink: 0;
+  }
+  .branch-header[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .branch-body {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease, padding .3s;
+  }
+  .branch-body.open {
+    max-height: 1000px;
+    padding: 1rem 1.25rem;
+  }
+
+  /* Nodes */
+  .node-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+  .node-item {
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .75rem 1rem;
+    cursor: pointer;
+    transition: all .2s;
+    border-left: 3px solid transparent;
+  }
+  .node-item:hover, .node-item:focus {
+    background: rgba(255,255,255,.05);
+    outline: none;
+    border-left-color: currentColor;
+    transform: translateX(3px);
+  }
+  .node-item[tabindex]:focus {
+    box-shadow: 0 0 0 2px var(--focus);
+  }
+  .node-title {
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: .25rem;
+  }
+  .node-desc {
+    font-size: .77rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .node-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .6rem;
+    padding: .15rem .4rem;
+    border-radius: 3px;
+    background: rgba(255,255,255,.07);
+    color: var(--muted);
+    letter-spacing: .05em;
+    margin-top: .3rem;
+  }
+  .node-body-print {
+    display: none;
+  }
+
+  /* Color themes per branch */
+  .branch-amarelo .branch-icon { background: rgba(232,200,74,.15); color: var(--accent); }
+  .branch-amarelo .branch-name { color: var(--accent); }
+  .branch-amarelo .node-item:hover { color: var(--accent); }
+  .branch-amarelo .branch-header { border-bottom-color: rgba(232,200,74,.2); }
+
+  .branch-vermelho .branch-icon { background: rgba(224,90,74,.15); color: var(--accent2); }
+  .branch-vermelho .branch-name { color: var(--accent2); }
+  .branch-vermelho .node-item:hover { color: var(--accent2); }
+  .branch-vermelho .branch-header { border-bottom-color: rgba(224,90,74,.2); }
+
+  .branch-azul .branch-icon { background: rgba(74,158,232,.15); color: var(--accent3); }
+  .branch-azul .branch-name { color: var(--accent3); }
+  .branch-azul .node-item:hover { color: var(--accent3); }
+  .branch-azul .branch-header { border-bottom-color: rgba(74,158,232,.2); }
+
+  .branch-verde .branch-icon { background: rgba(126,232,162,.15); color: var(--accent4); }
+  .branch-verde .branch-name { color: var(--accent4); }
+  .branch-verde .node-item:hover { color: var(--accent4); }
+  .branch-verde .branch-header { border-bottom-color: rgba(126,232,162,.2); }
+
+  /* Detail panel (mobile-first: full width) */
+  .detail-panel {
+    position: fixed;
+    right: 0; top: 0; bottom: 0;
+    width: 100%;
+    background: #0d0f14;
+    border-left: 1px solid var(--border);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+    overflow-y: auto;
+    padding: 5rem 1.5rem 2rem;
+  }
+  .detail-panel.open {
+    transform: translateX(0);
+    box-shadow: -20px 0 60px rgba(0,0,0,.5);
+  }
+  .detail-close {
+    position: absolute;
+    top: 4.5rem; right: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+  }
+  .detail-close:hover, .detail-close:focus {
+    border-color: var(--accent);
+    color: var(--accent);
+    outline: 2px solid var(--accent);
+  }
+  .detail-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    color: var(--muted);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .detail-body {
+    font-size: .85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .detail-body strong { color: var(--text); }
+  .detail-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.2rem 0;
+  }
+  .detail-fact {
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .75rem;
+    margin-bottom: .6rem;
+    font-size: .8rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .detail-fact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .6rem;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .25rem;
+  }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s;
+  }
+  .overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Disclaimer (mobile-first) */
+  .disclaimer {
+    margin: 2rem 1rem;
+    max-width: 700px;
+    background: rgba(224,90,74,.05);
+    border: 1px solid rgba(224,90,74,.3);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-size: .8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    text-align: center;
+  }
+  .disclaimer strong { color: var(--accent2); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  .reduce-motion *, .reduce-motion *::before, .reduce-motion *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+
+  /* Keyboard nav hint */
+  .kbd-hint {
+    display: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    color: var(--muted);
+    text-align: center;
+    padding: .5rem;
+  }
+  .using-keyboard .kbd-hint { display: block; }
+
+  /* Breakpoints: tablet+ */
+  @media (min-width: 640px) {
+    .toolbar { padding: .75rem 1.5rem; gap: 1rem; }
+    .toolbar-title { font-size: .75rem; letter-spacing: .15em; }
+    .ctrl-btn { padding: .35rem .75rem; font-size: .72rem; }
+    main { padding-top: 64px; }
+    .hero { padding: 3rem 1.5rem 2rem; }
+    .hero-sub { font-size: .9rem; max-width: 560px; }
+    .map-wrapper { padding: 2rem 1.5rem; }
+    .center-card { padding: 1.5rem 2.5rem; }
+    .branches { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .legend { display: block; }
+    .detail-panel { width: 360px; }
+    .disclaimer { margin: 3rem auto; padding: 1.25rem 1.5rem; }
+  }
+
+  @media (min-width: 768px) {
+    .center-node { margin-bottom: 3rem; }
+  }
+
+  /* Export / Print — tema light */
+  @media print {
+    .skip-link, .toolbar, .overlay, .detail-panel, .legend, .share-bar, #gosurf-share-bar { display: none !important; }
+    body { background: #fff !important; color: #1a1a1a !important; }
+    main { padding-top: 0 !important; }
+    .hero { padding: 2rem 0 1.5rem !important; border-bottom-color: #ddd !important; }
+    .hero-eyebrow { color: #8b6914 !important; }
+    .hero h1 { color: #1a1a1a !important; }
+    .hero h1 em { color: #8b6914 !important; }
+    .hero-sub { color: #555 !important; }
+    .kbd-hint { display: none !important; }
+    .map-wrapper { padding: 1rem 0 !important; }
+    .center-card { background: #faf8f0 !important; border-color: #c9a227 !important; box-shadow: none !important; }
+    .center-label { color: #8b6914 !important; }
+    .center-title { color: #6b5010 !important; }
+    .center-sub { color: #555 !important; }
+    .branch { break-inside: avoid; }
+    .branch-header { border-bottom-color: #ddd !important; background: #f8f8f8 !important; color: #1a1a1a !important; }
+    .branch-amarelo .branch-icon { background: #f5e6b3 !important; color: #8b6914 !important; }
+    .branch-amarelo .branch-name { color: #8b6914 !important; }
+    .branch-vermelho .branch-icon { background: #f5d5d0 !important; color: #a63d2e !important; }
+    .branch-vermelho .branch-name { color: #a63d2e !important; }
+    .branch-azul .branch-icon { background: #d0e5f5 !important; color: #2a6ba8 !important; }
+    .branch-azul .branch-name { color: #2a6ba8 !important; }
+    .branch-verde .branch-icon { background: #d5f0e0 !important; color: #2d7a4a !important; }
+    .branch-verde .branch-name { color: #2d7a4a !important; }
+    .branch-body { max-height: none !important; overflow: visible !important; padding: 1rem 1.25rem !important; }
+    .node-item { background: #fafafa !important; border-color: #e0e0e0 !important; color: #1a1a1a !important; }
+    .node-title { color: #1a1a1a !important; }
+    .node-desc { color: #555 !important; }
+    .node-tag { background: #eee !important; color: #666 !important; }
+    .node-body-print { display: block !important; margin-top: .5rem; padding-top: .5rem; border-top: 1px solid #e0e0e0; font-size: .8rem; line-height: 1.6; color: #333 !important; }
+    .node-body-print strong { color: #1a1a1a !important; }
+    .disclaimer { background: #fff5f5 !important; border-color: #d4a5a5 !important; color: #444 !important; }
+    .disclaimer strong { color: #a63d2e !important; }
+    a[href]::after { content: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+<div id="font-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Toolbar -->
+<header role="banner">
+  <nav class="toolbar" aria-label="Controles de acessibilidade">
+    <span class="toolbar-title" aria-hidden="true">⬡ Mapa Mental</span>
+    <div class="toolbar-controls" role="group" aria-label="Opções de acessibilidade">
+      <button class="ctrl-btn" id="btn-expand-all" aria-label="Expandir todos os grupos">Expandir tudo</button>
+      <button class="ctrl-btn" id="btn-collapse-all" aria-label="Recolher todos os grupos">Recolher tudo</button>
+      <button class="ctrl-btn" id="btn-contrast" aria-label="Alternar alto contraste" aria-pressed="false">Alto Contraste</button>
+      <div class="font-size-group" role="group" aria-label="Tamanho da fonte">
+        <button class="ctrl-btn" id="btn-font-down" aria-label="Diminuir tamanho da fonte" title="Diminuir (Ctrl+-)">A−</button>
+        <span class="font-size-display" id="font-size-display" aria-live="polite" aria-atomic="true">100%</span>
+        <button class="ctrl-btn" id="btn-font-up" aria-label="Aumentar tamanho da fonte" title="Aumentar (Ctrl++)">A+</button>
+        <button class="ctrl-btn" id="btn-font-reset" aria-label="Restaurar tamanho padrão da fonte" title="Restaurar 100% (Ctrl+0)">Reset</button>
+      </div>
+      <button class="ctrl-btn" id="btn-motion" aria-label="Reduzir animações" aria-pressed="false">⚡ Reduzir movimento</button>
+      <button class="ctrl-btn" id="btn-export" aria-label="Exportar relatório completo em tema claro (PDF)" title="Exportar PDF em tema claro">📄 Exportar PDF</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" aria-hidden="true" role="presentation"></div>
+
+<!-- Detail Panel -->
+<aside class="detail-panel" id="detail-panel" role="complementary" aria-label="Detalhes do tópico" aria-hidden="true">
+  <button class="detail-close" id="detail-close" aria-label="Fechar painel de detalhes">✕</button>
+  <div id="detail-content">
+    <p class="detail-eyebrow">Selecione um tópico</p>
+    <h2 class="detail-title">Detalhes</h2>
+    <p class="detail-body">Clique em um item do mapa para ver mais informações.</p>
+  </div>
+</aside>
+
+<main id="main-content">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <p class="hero-eyebrow" aria-hidden="true">07 de março de 2026 · Análise Investigativa</p>
+    <h1 id="hero-heading">Os Donos do <em>Banco Master</em></h1>
+    <p class="hero-sub">Mapa mental das alegações, conexões e personagens centrais nas investigações sobre o Banco Master, Daniel Vorcaro e Alexandre de Moraes.</p>
+    <p class="kbd-hint" aria-live="polite">Navegação por teclado ativa — use Tab e Enter para interagir</p>
+  </section>
+
+  <div class="map-wrapper" aria-label="Mapa mental interativo">
+
+    <!-- Centro -->
+    <div class="center-node" role="region" aria-label="Nó central do mapa">
+      <div class="center-card" aria-describedby="center-desc">
+        <div class="center-label">Epicentro</div>
+        <div class="center-title">Banco Master</div>
+        <div class="center-sub" id="center-desc">Daniel Vorcaro · Investigação R$ 12 bilhões</div>
+      </div>
+    </div>
+
+    <!-- Branches -->
+    <div class="branches" role="list" aria-label="Ramos do mapa mental">
+
+      <!-- 1. Vorcaro -->
+      <div class="branch branch-amarelo" role="listitem">
+        <button class="branch-header" id="header-1" aria-expanded="true" aria-controls="body-1"
+          aria-describedby="count-1">
+          <div class="branch-icon" aria-hidden="true">🏦</div>
+          <span class="branch-name">Daniel Vorcaro</span>
+          <span class="branch-count" id="count-1" aria-label="5 itens">5 itens</span>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="branch-body open" id="body-1" role="region" aria-labelledby="header-1">
+          <ul class="node-list" aria-label="Tópicos sobre Daniel Vorcaro">
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Origem e ascensão — clique para detalhes"
+              data-title="Origem e Ascensão" data-cat="Vorcaro"
+              data-body="Segundo o artigo, Vorcaro teria se tornado bilionário graças a articulações políticas de <strong>Rui Costa</strong> e <strong>Jaques Wagner</strong> na Bahia. Descrito como ambicioso e sem escrúpulos, teria construído fortuna em negócios com envolvimento político.">
+              <div class="node-title">Origem e Ascensão</div>
+              <div class="node-desc">Articulações com Rui Costa e Jaques Wagner na Bahia.</div>
+              <span class="node-tag">Bahia</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Mansão em Trancoso — clique para detalhes"
+              data-title="Mansão em Trancoso" data-cat="Vorcaro"
+              data-body="O autor alega que Vorcaro comprou uma <strong>mansão em Trancoso</strong> (BA), instalou câmeras em vários cômodos e gravou conversas e encontros com figuras de poder. A tese é que esse material seria usado como <em>kompromat</em> — material comprometedor para chantagem ou proteção.">
+              <div class="node-title">Mansão em Trancoso</div>
+              <div class="node-desc">Câmeras escondidas, gravações de reuniões e "bacanais".</div>
+              <span class="node-tag">Kompromat</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Investigação de R$ 12 bilhões — clique para detalhes"
+              data-title="Investigação R$ 12 bi" data-cat="Vorcaro"
+              data-body="Vorcaro está envolvido em investigações por suspeita de <strong>fraude de R$ 12 bilhões</strong>. O banco foi submetido a processo de liquidação extrajudicial. A defesa alega que as movimentações financeiras tinham finalidade legítima.">
+              <div class="node-title">Suspeita de Fraude</div>
+              <div class="node-desc">Investigação de R$ 12 bilhões e liquidação extrajudicial.</div>
+              <span class="node-tag">Fraude</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Prisão em Guarulhos — clique para detalhes"
+              data-title="Prisão no Aeroporto" data-cat="Vorcaro"
+              data-body="Em <strong>17 de novembro de 2025</strong>, Vorcaro foi preso pela Polícia Federal no Aeroporto de Guarulhos ao tentar embarcar em jato particular com destino a Malta (parada técnica antes de Dubai). A defesa alegou que a viagem tinha fins legais — assinar a venda do banco à Fictor Holding — e que o BC havia sido notificado.">
+              <div class="node-title">Prisão em Guarulhos</div>
+              <div class="node-desc">17/11/2025 — detido antes de embarcar para Malta/Dubai.</div>
+              <span class="node-tag">PF</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Patrocínio de políticos — clique para detalhes"
+              data-title="Rede Política" data-cat="Vorcaro"
+              data-body="O artigo afirma que Vorcaro patrocinou políticos em diferentes espectros — <strong>esquerda</strong> e <strong>centrão</strong> — como estratégia de blindagem para suas operações. A tese é que favores e privilégios a políticos não seriam suficientes para os objetivos mais ambiciosos.">
+              <div class="node-title">Rede Política</div>
+              <div class="node-desc">Patrocínio a políticos da esquerda ao centrão.</div>
+              <span class="node-tag">Influência</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. Alexandre de Moraes -->
+      <div class="branch branch-vermelho" role="listitem">
+        <button class="branch-header" id="header-2" aria-expanded="true" aria-controls="body-2"
+          aria-describedby="count-2">
+          <div class="branch-icon" aria-hidden="true">⚖️</div>
+          <span class="branch-name">Alexandre de Moraes</span>
+          <span class="branch-count" id="count-2" aria-label="5 itens">5 itens</span>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="branch-body open" id="body-2" role="region" aria-labelledby="header-2">
+          <ul class="node-list" aria-label="Tópicos sobre Alexandre de Moraes">
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Tese do sócio oculto — clique para detalhes"
+              data-title="Tese: Sócio Oculto" data-cat="Moraes"
+              data-body="A tese central do artigo — sem provas apresentadas — é que Moraes seria o <strong>'sócio oculto'</strong> de Vorcaro no Banco Master. O autor alega que Moraes reúne as características necessárias: ambição, poder, ausência de escrúpulos. Trata-se de uma alegação especulativa.">
+              <div class="node-title">Tese: "Sócio Oculto"</div>
+              <div class="node-desc">Alegação especulativa do autor — sem provas documentais.</div>
+              <span class="node-tag">Especulação</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Contrato de R$ 129 milhões — clique para detalhes"
+              data-title="Contrato R$ 129 mi" data-cat="Moraes"
+              data-body="O artigo menciona um <strong>contrato vazado</strong> envolvendo o escritório jurídico da família de Moraes no valor de <strong>R$ 129 milhões</strong>. O autor questiona se esse valor seria um 'pró-labore' pela participação societária no banco ou lavagem de dinheiro. Não há documentos apresentados no texto para confirmar essa tese.">
+              <div class="node-title">Contrato R$ 129 mi</div>
+              <div class="node-desc">Escritório da família — suposto pró-labore ou lavagem?</div>
+              <span class="node-tag">Financeiro</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Viagem a Dubai — clique para detalhes"
+              data-title="Viagem a Dubai" data-cat="Moraes"
+              data-body="O casal Moraes foi <strong>filmado e fotografado em Dubai</strong> durante o Réveillon 2025-2026 (final de dezembro de 2025 / início de janeiro de 2026). As imagens mostram-os caminhando em áreas comerciais. O autor faz uma correlação com as viagens de Vorcaro a Dubai e os investidores árabes, mas não apresenta evidência de ligação direta.">
+              <div class="node-title">Viagem a Dubai</div>
+              <div class="node-desc">Réveillon 2025-2026 — correlacionado com conexões de Vorcaro.</div>
+              <span class="node-tag">Dubai</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Aspiração à presidência — clique para detalhes"
+              data-title="Aspiração Presidencial" data-cat="Moraes"
+              data-body="O autor afirma que pessoas próximas a Moraes saberiam de seu desejo de <strong>tornar-se presidente do Brasil</strong>. Essa ambição seria, na tese do artigo, o vetor que o tornaria receptivo à parceria com Vorcaro. Não há fontes identificadas citadas.">
+              <div class="node-title">Ambição Presidencial</div>
+              <div class="node-desc">Alegação de aspiração de Moraes à presidência.</div>
+              <span class="node-tag">Política</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Cenário de queda — clique para detalhes"
+              data-title="Cenário de Queda" data-cat="Moraes"
+              data-body="O artigo afirma que <strong>Lula, PT, Globo, família Setúbal e JSB</strong> estariam articulados para derrubar Moraes. A tese é que o PT enxerga Moraes como ameaça ao seu projeto de poder. O autor conclui que sua queda seria 'apenas uma questão de tempo'.">
+              <div class="node-title">Cenário de Queda</div>
+              <div class="node-desc">Articulação PT + Globo + Setúbal contra Moraes.</div>
+              <span class="node-tag">Queda</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. Conexões Dubai/Árabes -->
+      <div class="branch branch-azul" role="listitem">
+        <button class="branch-header" id="header-3" aria-expanded="true" aria-controls="body-3"
+          aria-describedby="count-3">
+          <div class="branch-icon" aria-hidden="true">🌍</div>
+          <span class="branch-name">Conexões Dubai / EAU</span>
+          <span class="branch-count" id="count-3" aria-label="4 itens">4 itens</span>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="branch-body open" id="body-3" role="region" aria-labelledby="header-3">
+          <ul class="node-list" aria-label="Conexões com Dubai e Emirados Árabes">
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Fundos árabes — clique para detalhes"
+              data-title="Fundos Árabes" data-cat="Dubai"
+              data-body="Segundo documentos citados no artigo, Vorcaro teria prometido injeções de capital provenientes de fundos dos <strong>Emirados Árabes Unidos</strong>:<br><br>• <strong>Patronus Wealth Privé Limited</strong> — US$ 200 milhões<br>• <strong>Royal Capital PSC</strong> — US$ 100–400 milhões<br><br>As promessas fariam parte de uma proposta de venda do banco ao grupo Fictor.">
+              <div class="node-title">Fundos Árabes</div>
+              <div class="node-desc">Patronus Wealth (US$200mi) e Royal Capital PSC (US$100-400mi).</div>
+              <span class="node-tag">EAU</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Venda para Fictor — clique para detalhes"
+              data-title="Venda para Fictor Holding" data-cat="Dubai"
+              data-body="A proposta de venda do Banco Master ao <strong>grupo Fictor</strong>, coordenada com investidores árabes, foi questionada pelas autoridades como possível simulação para evitar falência. A viagem de Vorcaro a Dubai em novembro de 2025 seria para finalizar essa negociação, segundo a defesa.">
+              <div class="node-title">Venda para Fictor Holding</div>
+              <div class="node-desc">Transação questionada como possível simulação de falência.</div>
+              <span class="node-tag">M&A</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Suite presidencial Four Seasons — clique para detalhes"
+              data-title="Four Seasons Dubai" data-cat="Dubai"
+              data-body="Vorcaro havia reservado a <strong>suíte presidencial do Four Seasons Resort Dubai at Jumeirah Beach</strong> por cinco dias (18 a 22 de novembro de 2025) no valor de aproximadamente <strong>R$ 524 mil</strong>, para supostas reuniões de negócios — antes de ser preso no dia 17.">
+              <div class="node-title">Four Seasons Dubai</div>
+              <div class="node-desc">Suíte presidencial: R$ 524 mil / 5 dias (18–22 nov 2025).</div>
+              <span class="node-tag">Luxo</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Familiar preso em fevereiro — clique para detalhes"
+              data-title="Familiar Preso (Fev 2026)" data-cat="Dubai"
+              data-body="Em <strong>fevereiro de 2026</strong>, um familiar de Vorcaro foi preso tentando embarcar para Dubai, reforçando, segundo o artigo, as suspeitas de que o local seja um ponto central de conexões financeiras do grupo. Dubai é citado como paraíso fiscal no texto.">
+              <div class="node-title">Familiar Preso (Fev 2026)</div>
+              <div class="node-desc">Tentativa de embarque para Dubai — suspeitas de lavagem.</div>
+              <span class="node-tag">PF</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. Contexto político -->
+      <div class="branch branch-verde" role="listitem">
+        <button class="branch-header" id="header-4" aria-expanded="true" aria-controls="body-4"
+          aria-describedby="count-4">
+          <div class="branch-icon" aria-hidden="true">🏛️</div>
+          <span class="branch-name">Contexto Político</span>
+          <span class="branch-count" id="count-4" aria-label="4 itens">4 itens</span>
+          <span class="toggle-icon" aria-hidden="true">▾</span>
+        </button>
+        <div class="branch-body open" id="body-4" role="region" aria-labelledby="header-4">
+          <ul class="node-list" aria-label="Tópicos do contexto político">
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Paralelo com Epstein — clique para detalhes"
+              data-title="Paralelo com Epstein" data-cat="Política"
+              data-body="O autor traça um paralelo entre <strong>Jeffrey Epstein</strong> e Vorcaro, comparando métodos: uso de material comprometedor (<em>kompromat</em>), lavagem de dinheiro e blindagem via figuras de poder. Epstein é descrito como 'operador financeiro dos Rothschilds', e Vorcaro como seu equivalente brasileiro. O paralelo é retórico e não apresenta evidências documentais.">
+              <div class="node-title">Paralelo com Epstein</div>
+              <div class="node-desc">Métodos de kompromat e rede de proteção via poder.</div>
+              <span class="node-tag">Analogia</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Temer e o centrão — clique para detalhes"
+              data-title="Temer e o Centrão" data-cat="Política"
+              data-body="O artigo menciona <strong>Michel Temer</strong> como figura operando 'nas sombras' de um sistema paralelo (denominado 'parte B') que incluiria Moraes. O centrão é descrito como parte da rede de proteção de Vorcaro, recebendo favores e privilégios em troca de blindagem política.">
+              <div class="node-title">Temer e o Centrão</div>
+              <div class="node-desc">Temer operando "nas sombras" — parte de sistema com Moraes.</div>
+              <span class="node-tag">Centrão</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Lula e PT versus Moraes — clique para detalhes"
+              data-title="PT vs Moraes" data-cat="Política"
+              data-body="O artigo sustenta que <strong>Lula e o PT</strong> veem Moraes como ameaça ao projeto de poder e estariam mobilizando a <strong>Globo, família Setúbal e JSB</strong> para desgastá-lo. A tese é que o desgaste de Moraes atende aos interesses do PT, que controlaria a 'parte A' do sistema político brasileiro descrito no artigo.">
+              <div class="node-title">PT vs Moraes</div>
+              <div class="node-desc">Lula articulando queda de Moraes com Globo e Setúbal.</div>
+              <span class="node-tag">Disputa</span>
+            </li>
+            <li class="node-item" tabindex="0" role="button"
+              aria-label="Origem baiana de Vorcaro — clique para detalhes"
+              data-title="Origem Baiana" data-cat="Política"
+              data-body="A ascensão de Vorcaro teria raízes na Bahia, com articulações de <strong>Rui Costa</strong> (ex-ministro da Casa Civil) e <strong>Jaques Wagner</strong> (ex-governador e ministro). Esses nomes são apresentados como patrocinadores políticos que viabilizaram a ascensão de Vorcaro, sem que o artigo apresente evidências documentais específicas.">
+              <div class="node-title">Origem Baiana</div>
+              <div class="node-desc">Rui Costa e Jaques Wagner como articuladores da ascensão.</div>
+              <span class="node-tag">Bahia</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /branches -->
+
+    <!-- Disclaimer -->
+    <div class="disclaimer" role="note" aria-label="Nota editorial importante">
+      <strong>⚠️ Nota Editorial:</strong> Este mapa mental organiza as <em>alegações e teses</em> apresentadas no artigo de opinião de 07/03/2026. O conteúdo é predominantemente especulativo e não representa fatos verificados. Afirmações sobre Alexandre de Moraes, Vorcaro e demais figuras devem ser tratadas como <strong>hipóteses do autor</strong>, não como fatos comprovados. As investigações sobre o Banco Master são reais e estão em andamento.
+    </div>
+
+  </div><!-- /map-wrapper -->
+</main>
+
+<!-- Legend -->
+<aside class="legend" aria-label="Legenda do mapa">
+  <div class="legend-title">Legenda</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e8c84a" aria-hidden="true"></div> Vorcaro / Banco</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e05a4a" aria-hidden="true"></div> Moraes / STF</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4a9ee8" aria-hidden="true"></div> Dubai / EAU</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7ee8a2" aria-hidden="true"></div> Política</div>
+</aside>
+
+<script>
+// Keyboard detection
+document.addEventListener('keydown', () => document.body.classList.add('using-keyboard'));
+document.addEventListener('mousedown', () => document.body.classList.remove('using-keyboard'));
+
+// Toggle branches
+document.querySelectorAll('.branch-header').forEach(btn => {
+  btn.addEventListener('click', () => toggle(btn));
+  btn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn); }
+  });
+});
+
+function toggle(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!expanded));
+  const body = document.getElementById(btn.getAttribute('aria-controls'));
+  body.classList.toggle('open', !expanded);
+}
+
+// Exportar relatório completo em tema light (PDF) — inclui data-body de cada item
+document.getElementById('btn-export').addEventListener('click', () => {
+  document.querySelectorAll('.branch-header').forEach(btn => {
+    btn.setAttribute('aria-expanded', 'true');
+    const body = document.getElementById(btn.getAttribute('aria-controls'));
+    if (body) body.classList.add('open');
+  });
+  document.querySelectorAll('.node-item').forEach(item => {
+    let el = item.querySelector('.node-body-print');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'node-body-print';
+      item.appendChild(el);
+    }
+    el.innerHTML = item.dataset.body || '';
+  });
+  const cleanup = () => {
+    document.querySelectorAll('.node-body-print').forEach(el => el.remove());
+    window.removeEventListener('afterprint', cleanup);
+  };
+  window.addEventListener('afterprint', cleanup);
+  window.print();
+});
+
+// Expand/collapse all
+document.getElementById('btn-expand-all').addEventListener('click', () => {
+  document.querySelectorAll('.branch-header').forEach(btn => {
+    btn.setAttribute('aria-expanded', 'true');
+    document.getElementById(btn.getAttribute('aria-controls')).classList.add('open');
+  });
+});
+document.getElementById('btn-collapse-all').addEventListener('click', () => {
+  document.querySelectorAll('.branch-header').forEach(btn => {
+    btn.setAttribute('aria-expanded', 'false');
+    document.getElementById(btn.getAttribute('aria-controls')).classList.remove('open');
+  });
+});
+
+// Detail panel
+const panel = document.getElementById('detail-panel');
+const overlay = document.getElementById('overlay');
+const detailContent = document.getElementById('detail-content');
+const closeBtn = document.getElementById('detail-close');
+let lastFocused = null;
+
+document.querySelectorAll('.node-item').forEach(item => {
+  item.addEventListener('click', () => openDetail(item));
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(item); }
+  });
+});
+
+function openDetail(item) {
+  lastFocused = item;
+  const title = item.dataset.title;
+  const body = item.dataset.body;
+  const cat = item.dataset.cat;
+
+  detailContent.innerHTML = `
+    <p class="detail-eyebrow">${cat}</p>
+    <h2 class="detail-title">${title}</h2>
+    <hr class="detail-divider">
+    <div class="detail-fact">
+      <div class="detail-fact-label">Conteúdo do Artigo</div>
+      <p class="detail-body">${body}</p>
+    </div>
+    <hr class="detail-divider">
+    <p class="detail-body" style="font-size:.75rem;color:var(--muted)">ℹ️ As informações acima refletem as alegações do artigo e podem ser especulativas ou não verificadas.</p>
+  `;
+
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  overlay.classList.add('visible');
+  overlay.setAttribute('aria-hidden', 'false');
+  closeBtn.focus();
+}
+
+function closeDetail() {
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+  overlay.classList.remove('visible');
+  overlay.setAttribute('aria-hidden', 'true');
+  if (lastFocused) lastFocused.focus();
+}
+
+closeBtn.addEventListener('click', closeDetail);
+overlay.addEventListener('click', closeDetail);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+// High contrast
+const btnContrast = document.getElementById('btn-contrast');
+btnContrast.addEventListener('click', () => {
+  const on = document.documentElement.classList.toggle('high-contrast');
+  btnContrast.setAttribute('aria-pressed', String(on));
+  btnContrast.classList.toggle('active', on);
+});
+
+// Font size — acessibilidade: indicador, persistência, atalhos, anúncio
+const FONT_STORAGE = 'banco-master-font-points';
+const FONT_MIN = 0;
+const FONT_MAX = 10;
+const FONT_BASE = 4; // 4 = 100%
+let fontPoints = FONT_BASE;
+
+function getFontScale() { return 0.8 + (fontPoints * 0.05); }
+function getFontPercent() { return Math.round(getFontScale() * 100); }
+
+function applyFontScale() {
+  const scale = getFontScale();
+  document.documentElement.style.setProperty('--font-scale', String(scale));
+  const display = document.getElementById('font-size-display');
+  const pct = getFontPercent();
+  display.textContent = pct + '%';
+  display.setAttribute('aria-label', 'Tamanho atual: ' + pct + ' por cento');
+  document.getElementById('btn-font-up').disabled = fontPoints >= FONT_MAX;
+  document.getElementById('btn-font-up').setAttribute('aria-disabled', fontPoints >= FONT_MAX ? 'true' : 'false');
+  document.getElementById('btn-font-down').disabled = fontPoints <= FONT_MIN;
+  document.getElementById('btn-font-down').setAttribute('aria-disabled', fontPoints <= FONT_MIN ? 'true' : 'false');
+  try { localStorage.setItem(FONT_STORAGE, String(fontPoints)); } catch (_) {}
+}
+
+function announceFontChange() {
+  const ann = document.getElementById('font-announcer');
+  if (ann) ann.textContent = `Tamanho da fonte: ${getFontPercent()}%`;
+}
+
+function fontUp() {
+  if (fontPoints >= FONT_MAX) return;
+  fontPoints = Math.min(fontPoints + 1, FONT_MAX);
+  applyFontScale();
+  announceFontChange();
+}
+function fontDown() {
+  if (fontPoints <= FONT_MIN) return;
+  fontPoints = Math.max(fontPoints - 1, FONT_MIN);
+  applyFontScale();
+  announceFontChange();
+}
+function fontReset() {
+  fontPoints = FONT_BASE;
+  applyFontScale();
+  announceFontChange();
+}
+
+// Restaurar preferência salva
+try {
+  const saved = parseInt(localStorage.getItem(FONT_STORAGE), 10);
+  if (!isNaN(saved) && saved >= FONT_MIN && saved <= FONT_MAX) fontPoints = saved;
+} catch (_) {}
+
+document.getElementById('btn-font-up').addEventListener('click', fontUp);
+document.getElementById('btn-font-down').addEventListener('click', fontDown);
+document.getElementById('btn-font-reset').addEventListener('click', fontReset);
+
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '=')) { e.preventDefault(); fontUp(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === '-') { e.preventDefault(); fontDown(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === '0') { e.preventDefault(); fontReset(); }
+});
+
+applyFontScale();
+
+// Reduce motion
+const btnMotion = document.getElementById('btn-motion');
+btnMotion.addEventListener('click', () => {
+  const on = document.body.classList.toggle('reduce-motion');
+  btnMotion.setAttribute('aria-pressed', String(on));
+  btnMotion.classList.toggle('active', on);
+});
+
+// Respect prefers-reduced-motion on load
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.body.classList.add('reduce-motion');
+  btnMotion.setAttribute('aria-pressed', 'true');
+  btnMotion.classList.add('active');
+}
+</script>
+<script src="https://gosurf.site/share-bar.js"></script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

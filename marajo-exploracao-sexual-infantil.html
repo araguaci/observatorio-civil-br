@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exploração Sexual Infantil — Ilha do Marajó | Dashboard Investigativo</title>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="article">
+<meta property="og:url" content=" https://gosurf.site/marajo-exploracao-sexual-infantil.html">
+<meta property="og:title" content="Exploração Sexual Infantil — Ilha do Marajó | Dashboard Investigativo">
+<meta property="og:description" content="Relatório completo com fatos verificados, timeline histórica, legislação aplicada e canais de denúncia sobre a situação no Marajó.">
+<meta property="og:image" content=" https://gosurf.site/marajo-og.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://gosurf.site/marajo-exploracao-sexual-infantil.html">
+<meta property="twitter:title" content="Exploração Sexual Infantil — Ilha do Marajó | Dashboard Investigativo">
+<meta property="twitter:description" content="Relatório completo com fatos verificados, timeline histórica, legislação aplicada e canais de denúncia sobre a situação no Marajó.">
+<meta property="twitter:image" content=" https://gosurf.site/marajo-og.png">
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg2: #0f1318;
+    --bg3: #141820;
+    --border: #1e2530;
+    --border2: #2a3340;
+    --text: #c8d4e0;
+    --text2: #7a8fa0;
+    --text3: #4a5a6a;
+    --accent-red: #e84040;
+    --accent-amber: #f59e0b;
+    --accent-orange: #f97316;
+    --accent-blue: #3b82f6;
+    --accent-green: #22c55e;
+    --accent-purple: #a855f7;
+    --accent-teal: #14b8a6;
+    --glow-red: rgba(232,64,64,0.15);
+    --glow-amber: rgba(245,158,11,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #0d1117 0%, #1a0a0a 50%, #0d1117 100%);
+    border-bottom: 1px solid var(--accent-red);
+    padding: 32px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 30% 50%, rgba(232,64,64,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,64,64,0.12);
+    border: 1px solid rgba(232,64,64,0.4);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .pulse {
+    width: 7px; height: 7px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .header h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .header h1 span { color: var(--accent-red); }
+  .header-sub {
+    font-size: 13px;
+    color: var(--text2);
+    max-width: 700px;
+    font-style: italic;
+  }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+  }
+  .header-meta span { color: var(--text2); }
+
+  /* ── AVISO CRÍTICO ── */
+  .alert-banner {
+    background: linear-gradient(90deg, rgba(232,64,64,0.15) 0%, rgba(232,64,64,0.05) 100%);
+    border-left: 4px solid var(--accent-red);
+    border-bottom: 1px solid rgba(232,64,64,0.2);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    color: #fca5a5;
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+
+  /* ── LEGENDA ── */
+  .legend-bar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .legend-bar strong { color: var(--text2); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  .legend-item { display: flex; align-items: center; gap: 6px; color: var(--text2); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1400px; margin: 0 auto; padding: 32px 40px; }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: var(--border2); }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .stat-card.red::before { background: var(--accent-red); }
+  .stat-card.amber::before { background: var(--accent-amber); }
+  .stat-card.blue::before { background: var(--accent-blue); }
+  .stat-card.green::before { background: var(--accent-green); }
+  .stat-card.purple::before { background: var(--accent-purple); }
+  .stat-card.orange::before { background: var(--accent-orange); }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-card.red .stat-num { color: var(--accent-red); }
+  .stat-card.amber .stat-num { color: var(--accent-amber); }
+  .stat-card.blue .stat-num { color: var(--accent-blue); }
+  .stat-card.green .stat-num { color: var(--accent-green); }
+  .stat-card.purple .stat-num { color: var(--accent-purple); }
+  .stat-card.orange .stat-num { color: var(--accent-orange); }
+  .stat-label { font-size: 11px; color: var(--text2); line-height: 1.3; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 28px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    width: 28px;
+    text-align: right;
+  }
+  .section-icon { font-size: 16px; }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    flex: 1;
+  }
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .tag-verified { background: rgba(34,197,94,0.1); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+  .tag-partial { background: rgba(245,158,11,0.1); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.3); }
+  .tag-fake { background: rgba(168,85,247,0.1); color: var(--accent-purple); border: 1px solid rgba(168,85,247,0.3); }
+  .tag-legal { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+  .tag-risk { background: rgba(232,64,64,0.1); color: var(--accent-red); border: 1px solid rgba(232,64,64,0.3); }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .container { padding: 20px; }
+    .header, .legend-bar, .alert-banner { padding-left: 20px; padding-right: 20px; }
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent-red), var(--border) 80%, transparent);
+  }
+  .tl-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--bg2);
+    box-sizing: content-box;
+  }
+  .tl-dot.red { background: var(--accent-red); }
+  .tl-dot.amber { background: var(--accent-amber); }
+  .tl-dot.blue { background: var(--accent-blue); }
+  .tl-dot.green { background: var(--accent-green); }
+  .tl-dot.purple { background: var(--accent-purple); }
+  .tl-dot.teal { background: var(--accent-teal); }
+  .tl-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-amber);
+    flex-shrink: 0;
+    width: 40px;
+    margin-top: 2px;
+  }
+  .tl-content { flex: 1; }
+  .tl-event {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .tl-detail {
+    font-size: 11px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .tl-badge {
+    display: inline-block;
+    margin-top: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── RISK ITEMS ── */
+  .risk-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-level {
+    width: 4px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+  .risk-level.critical { background: var(--accent-red); }
+  .risk-level.high { background: var(--accent-orange); }
+  .risk-level.medium { background: var(--accent-amber); }
+  .risk-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .risk-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+  /* ── LAW ITEM ── */
+  .law-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 0 4px 4px 0;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .law-title { font-size: 12px; font-weight: 600; color: var(--accent-blue); margin-bottom: 4px; }
+  .law-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+  .law-pena {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    background: rgba(59,130,246,0.1);
+    color: var(--accent-blue);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* ── ACTOR ── */
+  .actor-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .actor-item:last-child { border-bottom: none; }
+  .actor-icon { font-size: 20px; flex-shrink: 0; }
+  .actor-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .actor-role { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+  /* ── FACT/FAKE ── */
+  .factcheck-item {
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .factcheck-item.fact {
+    background: rgba(34,197,94,0.06);
+    border: 1px solid rgba(34,197,94,0.2);
+  }
+  .factcheck-item.fake {
+    background: rgba(168,85,247,0.06);
+    border: 1px solid rgba(168,85,247,0.2);
+  }
+  .factcheck-item.parcial {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+  }
+  .fact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .fact-label.v { color: var(--accent-green); }
+  .fact-label.f { color: var(--accent-purple); }
+  .fact-label.p { color: var(--accent-amber); }
+  .fact-text { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+  /* ── PROGRAM ── */
+  .program-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .program-name { font-size: 12px; font-weight: 600; color: var(--accent-teal); margin-bottom: 4px; }
+  .program-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+  /* ── REF ── */
+  .ref-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .ref-item:last-child { border-bottom: none; }
+  .ref-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    flex-shrink: 0;
+    width: 22px;
+    padding-top: 1px;
+  }
+  .ref-content { flex: 1; }
+  .ref-title { font-size: 11px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .ref-src { font-size: 10px; color: var(--text3); }
+  .ref-link { font-size: 10px; color: var(--accent-blue); text-decoration: none; word-break: break-all; }
+  .ref-link:hover { text-decoration: underline; }
+
+  /* ── JURIDICAL ── */
+  .juridical-box {
+    background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(59,130,246,0.02) 100%);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 6px;
+    padding: 24px;
+    margin-top: 28px;
+  }
+  .juridical-box h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+    color: var(--accent-blue);
+    margin-bottom: 4px;
+  }
+  .juridical-box .jur-sub { font-size: 11px; color: var(--text2); margin-bottom: 20px; font-style: italic; }
+  .jur-section { margin-bottom: 18px; }
+  .jur-section h3 { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 10px; }
+  .jur-section p, .jur-section li { font-size: 12px; color: var(--text2); line-height: 1.7; }
+  .jur-section ul { padding-left: 16px; }
+  .jur-section li { margin-bottom: 4px; }
+  .jur-section strong { color: var(--text); }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 40px;
+    gap: 12px;
+  }
+  .footer a { color: var(--accent-blue); text-decoration: none; }
+
+  /* ── HOTLINE ── */
+  .hotline-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .hotline-card {
+    flex: 1;
+    min-width: 200px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-red);
+    border-radius: 6px;
+    padding: 16px 18px;
+    text-align: center;
+  }
+  .hotline-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--accent-red);
+    margin-bottom: 4px;
+  }
+  .hotline-label { font-size: 11px; color: var(--text2); }
+
+  /* ── SEPARATOR ── */
+  .sep { height: 1px; background: var(--border); margin: 32px 0; }
+
+  /* ── NEW ALERT & SHARE ── */
+  .floating-share {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+  }
+  .share-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    background: rgba(15, 19, 24, 0.8);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
+  .share-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    border-color: var(--accent-red);
+    color: #fff;
+    background: var(--bg3);
+  }
+  .share-btn.wa:hover { color: #25D366; border-color: #25D366; }
+  .share-btn.x:hover { color: #fff; border-color: #fff; }
+  .share-btn.li:hover { color: #0077b5; border-color: #0077b5; }
+
+  .disque-100-hero-alert {
+    background: linear-gradient(135deg, rgba(232, 64, 64, 0.15) 0%, rgba(15, 19, 24, 0.9) 100%);
+    border: 1px solid rgba(232, 64, 64, 0.4);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .disque-100-hero-alert::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(232, 64, 64, 0.05) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .disque-icon-large {
+    font-size: 48px;
+    background: rgba(232, 64, 64, 0.1);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 64, 64, 0.3);
+    flex-shrink: 0;
+  }
+  .disque-content h2 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .disque-content p {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 12px;
+  }
+  .disque-tags {
+    display: flex;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-red);
+  }
+  .disque-btn {
+    margin-left: auto;
+    background: var(--accent-red);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(232, 64, 64, 0.4);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+  }
+  .disque-btn span { font-size: 10px; font-weight: 400; text-transform: uppercase; margin-top: 4px; opacity: 0.8; }
+  .disque-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 64, 64, 0.6);
+  }
+
+  @media (max-width: 768px) {
+    .disque-100-hero-alert { flex-direction: column; text-align: center; }
+    .disque-btn { margin: 0 auto; width: 100%; }
+    .floating-share { 
+      right: 0; bottom: 0; left: 0; 
+      flex-direction: row; 
+      justify-content: center;
+      padding: 12px;
+      background: rgba(10, 12, 16, 0.9);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid var(--border);
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-badge"><span class="pulse"></span> RELATÓRIO INVESTIGATIVO VERIFICADO</div>
+      <h1>Exploração Sexual Infantil<br><span>Ilha do Marajó</span> — Pará, Brasil</h1>
+      <p class="header-sub">Mapa mental completo com fatos verificados, timeline histórica, legislação aplicada, atores, riscos e referências. Produzido para fins de informação pública, advocacy e proteção da infância.</p>
+    </div>
+    <div class="header-meta">
+      <div>ATUALIZAÇÃO: <span>MARÇO 2026</span></div>
+      <div>ESCOPO: <span>2000 – 2026</span></div>
+      <div>STATUS: <span style="color:var(--accent-amber)">EM CURSO</span></div>
+      <div>FONTES: <span>18 verificadas</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert-banner">
+  <div class="alert-icon">⚠️</div>
+  <div>
+    <strong>AVISO IMPORTANTE:</strong> Este documento trata de violações gravíssimas de direitos humanos contra crianças. Todo o conteúdo é baseado em fontes jornalísticas, parlamentares e jurídicas verificadas. Afirmações não comprovadas são claramente identificadas. Para denúncias: <strong>Disque 100</strong> (gratuito, 24h). Conteúdo destinado a pesquisadores, profissionais, jornalistas e formuladores de políticas públicas.
+  </div>
+</div>
+
+<!-- LEGENDA -->
+<div class="legend-bar">
+  <strong>Legenda:</strong>
+  <div class="legend-item"><div class="dot" style="background:var(--accent-green)"></div> Fato verificado</div>
+  <div class="legend-item"><div class="dot" style="background:var(--accent-amber)"></div> Parcialmente verificado</div>
+  <div class="legend-item"><div class="dot" style="background:var(--accent-purple)"></div> Não comprovado / Desinformação</div>
+  <div class="legend-item"><div class="dot" style="background:var(--accent-red)"></div> Alerta / Risco crítico</div>
+  <div class="legend-item"><div class="dot" style="background:var(--accent-blue)"></div> Marco legal / Jurídico</div>
+  <div class="legend-item"><div class="dot" style="background:var(--accent-teal)"></div> Política pública / Ação</div>
+</div>
+
+<!-- EMERGENCY ALERT -->
+<div class="container" style="padding-bottom: 0;">
+  <div class="disque-100-hero-alert">
+    <div class="disque-icon-large">📞</div>
+    <div class="disque-content">
+      <h2>Denuncie agora: DISQUE 100</h2>
+      <p>Gratuito · Anônimo · 24h disponível em todo o território nacional.</p>
+      <div class="disque-tags">
+        <span>#Marajó</span>
+        <span>#ProteçãoInfantil</span>
+        <span>#Disque100</span>
+      </div>
+    </div>
+    <a href="tel:100" class="disque-btn">
+      DISQUE 100
+      <span>Ligar Agora</span>
+    </a>
+  </div>
+</div>
+
+
+<!-- CONTAINER PRINCIPAL -->
+<div class="container">
+
+  <!-- CANAIS DE DENÚNCIA -->
+  <div class="hotline-row">
+    <div class="hotline-card">
+      <div class="hotline-num">100</div>
+      <div class="hotline-label">Disque Direitos Humanos<br>Gratuito · 24h · Anônimo</div>
+    </div>
+    <div class="hotline-card">
+      <div class="hotline-num">190</div>
+      <div class="hotline-label">Polícia Militar<br>Emergências</div>
+    </div>
+    <div class="hotline-card">
+      <div class="hotline-num">197</div>
+      <div class="hotline-label">Polícia Civil<br>Denúncias</div>
+    </div>
+    <div class="hotline-card">
+      <div class="hotline-num">180</div>
+      <div class="hotline-label">Central de Atend. à Mulher<br>Violência doméstica/sexual</div>
+    </div>
+  </div>
+
+  <!-- ESTATÍSTICAS -->
+  <div class="stats-row">
+    <div class="stat-card red">
+      <div class="stat-num">5.440</div>
+      <div class="stat-label">Denúncias Disque 100 no Pará<br>2016–2022 (exploração sexual)</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-num">5×/dia</div>
+      <div class="stat-label">Média de casos de abuso sexual<br>infanto-juvenil no Pará (MPF)</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="stat-num">2,5×</div>
+      <div class="stat-label">Taxa de estupro no Marajó vs<br>média nacional (Aos Fatos)</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num">0,418</div>
+      <div class="stat-label">IDH municipal do Marajó —<br>menor do Brasil</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-num">500k</div>
+      <div class="stat-label">Crianças vítimas de exploração<br>sexual no Brasil por ano (Liberta)</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-num">11%</div>
+      <div class="stat-label">Vítimas de violência sexual<br>que denunciam (Datafolha 2022)</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-icon">📅</div>
+      <div class="section-title">Linha do Tempo Histórica</div>
+      <span class="section-tag tag-verified">Verificado</span>
+    </div>
+    <div class="card">
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div class="tl-year">2000s</div>
+          <div class="tl-content">
+            <div class="tl-event">Primeiras denúncias sistematizadas</div>
+            <div class="tl-detail">Senadora Damares Alves relata que seu primeiro contato com a situação no Marajó foi no início dos anos 2000, pela Comissão de Direitos Humanos da Câmara. Casos de "balseiras" — meninas de 12 a 16 anos no Rio Tajapuru — já circulavam entre autoridades religiosas.</div>
+            <span class="tl-badge" style="background:rgba(245,158,11,0.1);color:var(--accent-amber)">ORIGEM DAS DENÚNCIAS</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div class="tl-year">2006</div>
+          <div class="tl-content">
+            <div class="tl-event">Dom José Luís Azcona formaliza denúncias na Câmara</div>
+            <div class="tl-detail">O bispo emérito de Marajó apresenta denúncias ao chefe de Gabinete do presidente Lula (Gilberto Carvalho) e ao presidente da CDHM, deputado Luiz Eduardo Greenhalgh (PT/SP). A Comissão de Direitos Humanos e Minorias da Câmara abre inquérito. Assessor Formentini se infiltra entre aliciadores, documentando rota para a Guiana Francesa.</div>
+            <span class="tl-badge" style="background:rgba(232,64,64,0.1);color:var(--accent-red)">MARCO OFICIAL</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div class="tl-year">2007</div>
+          <div class="tl-content">
+            <div class="tl-event">Morte do assessor Formentini + Levantamento CEDECA-Emaús</div>
+            <div class="tl-detail">Formentini falece em acidente rodoviário no Pará enquanto apurava denúncias locais. O CEDECA-Emaús realiza levantamento nos municípios de Portel e Breves, encontrando "realidade estarrecedora". Fantástico (TV Globo) veicula reportagem sobre Portel mostrando mãe comercializando filhas.</div>
+            <span class="tl-badge" style="background:rgba(245,158,11,0.1);color:var(--accent-amber)">INVESTIGAÇÃO CAMPO</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot blue"></div>
+          <div class="tl-year">2008</div>
+          <div class="tl-content">
+            <div class="tl-event">CPI da Pedofilia — Senado Federal</div>
+            <div class="tl-detail">Criada no Senado para apurar dezenas de denúncias. Relatório final de quase 1.700 páginas documentou casos "ostensivos" de pedofilia no Pará com envolvimento de autoridades (relator: ex-senador Demóstenes Torres). Recomendou ao TJPA criação de comissão especial para processos de exploração sexual infantil.</div>
+            <span class="tl-badge" style="background:rgba(59,130,246,0.1);color:var(--accent-blue)">CPI SENADO 2008–2010</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div class="tl-year">2009</div>
+          <div class="tl-content">
+            <div class="tl-event">CPI da ALEPA encerrada + Bispo denuncia imobilismo</div>
+            <div class="tl-detail">CPI da exploração sexual da Assembléia Legislativa do Pará (iniciada em 2005) é encerrada. Dom Azcona denuncia "imobilismo criminoso" das autoridades. Folha de São Paulo publica reportagem sobre meninas se prostituindo "pelo preço de um cachorro-quente".</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot blue"></div>
+          <div class="tl-year">2012</div>
+          <div class="tl-content">
+            <div class="tl-event">CPI da Exploração Sexual — Câmara Federal</div>
+            <div class="tl-detail">Presidida pela deputada Érika Kokay (PT/DF), relatora Liliam Sá (PSD/RJ). Atuou até 2014 na apuração de redes criminosas nacionais de exploração sexual infantil. Questionou falta de ações estatais de combate.</div>
+            <span class="tl-badge" style="background:rgba(59,130,246,0.1);color:var(--accent-blue)">CPI CÂMARA 2012–2014</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div class="tl-year">2020</div>
+          <div class="tl-content">
+            <div class="tl-event">Declarações de Damares Alves (Ministra)</div>
+            <div class="tl-detail">Em culto evangélico em Goiânia, ministra Damares afirma ter evidências de mutilações e tráfico de crianças no Marajó. Após MPF solicitar informações, declara que denúncias se baseavam apenas em relatos, não em provas — reconhecimento público da ausência de documentação.</div>
+            <span class="tl-badge" style="background:rgba(168,85,247,0.1);color:var(--accent-purple)">SEM COMPROVAÇÃO</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot teal"></div>
+          <div class="tl-year">2022</div>
+          <div class="tl-content">
+            <div class="tl-event">Programa "Abrace o Marajó" + Novas declarações não comprovadas</div>
+            <div class="tl-detail">Damares lança programa federal. Em discurso em igreja, afirma que crianças teriam dentes arrancados para abuso sexual — afirmação nunca comprovada, que gera ação civil pública do MPF pedindo R$ 5 milhões por danos sociais. Pará registra média de 5 casos/dia de abuso infantojuvenil (MPF).</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div class="tl-year">2023</div>
+          <div class="tl-content">
+            <div class="tl-event">Desaparecimento de Elisa Rodrigues + Programa Cidadania Marajó</div>
+            <div class="tl-detail">Menina Elisa Rodrigues, 2 anos, desaparece em comunidade rural de Anajás. Caso passa a centralizar investigações. Governo federal lança Programa Cidadania Marajó (Ministério dos Direitos Humanos e da Cidadania) para enfrentamento da exploração sexual com abordagem intersetorial.</div>
+            <span class="tl-badge" style="background:rgba(20,184,166,0.1);color:var(--accent-teal)">CASO ELISA · ATIVO</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div class="tl-year">2024</div>
+          <div class="tl-content">
+            <div class="tl-event">Cantora Aymeê viraliza + Onda de desinformação + CPI proposta</div>
+            <div class="tl-detail">Apresentação no "Dom Reality" (fev/2024) gera repercussão nacional. 13 promotores do MPPA emitem nota negando tráfico de órgãos. Deputados Eduardo Bolsonaro e Paulo Bilynskyj (PL) protocolam pedido de CPI com 171 assinaturas. Ex-deputado Arthur do Val produz vídeo de flagrante questionado legalmente. AGU aciona Procuradoria contra desinformação.</div>
+            <span class="tl-badge" style="background:rgba(245,158,11,0.1);color:var(--accent-amber)">REPERCUSSÃO NACIONAL</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot teal"></div>
+          <div class="tl-year">2025</div>
+          <div class="tl-content">
+            <div class="tl-event">Missão Marajó — CDH Senado (jun/2025)</div>
+            <div class="tl-detail">Comissão de Direitos Humanos do Senado, presidida por Damares Alves, realiza diligência oficial no arquipélago com apoio da FAB. Foco no caso Elisa Rodrigues e denúncias de tráfico. Ministério da Justiça estuda federalização das investigações. Missão percorre municípios até 28 de junho.</div>
+            <span class="tl-badge" style="background:rgba(20,184,166,0.1);color:var(--accent-teal)">MISSÃO MARAJÓ · CDH 2025</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot teal"></div>
+          <div class="tl-year">2026</div>
+          <div class="tl-content">
+            <div class="tl-event">Investigações em andamento</div>
+            <div class="tl-detail">Caso Elisa Rodrigues permanece aberto. Câmara debate ações do Programa Cidadania Marajó. Entrega de lanchas (parceria Itaipu) para transporte de crianças em andamento. Debate sobre indicadores socioeconômicos como raiz estrutural do problema permanece central.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- VERIFICAÇÃO FATOS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-icon">🔍</div>
+      <div class="section-title">Verificação de Fatos — O que é Real e o que é Desinformação</div>
+      <span class="section-tag tag-verified">Fact-Check</span>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">✅ Fatos Verificados por Autoridades</div>
+        <div class="factcheck-item fact">
+          <div class="fact-label v">✔ VERIFICADO</div>
+          <div class="fact-text">Existem registros documentados de exploração sexual de crianças e adolescentes no Marajó desde pelo menos 2006, confirmados por CPIs, MP e organizações locais.</div>
+        </div>
+        <div class="factcheck-item fact">
+          <div class="fact-label v">✔ VERIFICADO</div>
+          <div class="fact-text">A taxa de estupro de crianças e adolescentes no arquipélago é 2,5 vezes maior que a média nacional (Aos Fatos, com base em dados oficiais).</div>
+        </div>
+        <div class="factcheck-item fact">
+          <div class="fact-label v">✔ VERIFICADO</div>
+          <div class="fact-text">O Marajó possui o menor IDH municipal do Brasil (0,418), fator estrutural reconhecido pelo MPF, MP-PA e especialistas como raiz da vulnerabilidade.</div>
+        </div>
+        <div class="factcheck-item fact">
+          <div class="fact-label v">✔ VERIFICADO</div>
+          <div class="fact-text">Dados do Disque 100 registram 5.440 denúncias de exploração sexual de menores no Pará entre 2016 e 2022 (Ministério dos Direitos Humanos).</div>
+        </div>
+        <div class="factcheck-item fact">
+          <div class="fact-label v">✔ VERIFICADO</div>
+          <div class="fact-text">O desaparecimento de Elisa Rodrigues (2 anos, 2023, Anajás) é real e alvo de investigação oficial com possível federalização.</div>
+        </div>
+        <div class="factcheck-item parcial">
+          <div class="fact-label p">⚠ PARCIAL</div>
+          <div class="fact-text">Relatos sobre "balseiras" (meninas prostituídas em embarcações no Rio Tajapuru) foram documentados pelo bispo Azcona e pela Folha de S.Paulo, mas a escala exata e atualidade são incertas.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">❌ Alegações Não Comprovadas / Desinformação</div>
+        <div class="factcheck-item fake">
+          <div class="fact-label f">✗ NÃO COMPROVADO</div>
+          <div class="fact-text">Alegação de que crianças teriam dentes arrancados para facilitar abuso sexual (Damares, 2022). Afirmação reconhecida pela própria senadora como baseada em "relatos, não em provas".</div>
+        </div>
+        <div class="factcheck-item fake">
+          <div class="fact-label f">✗ FALSO (MPF + 13 promotores)</div>
+          <div class="fact-text">Tráfico de órgãos na Ilha do Marajó. O MPF e 13 promotores estaduais emitiram nota afirmando que "não há qualquer notícia de crimes relacionados a tráfico de órgãos" na região.</div>
+        </div>
+        <div class="factcheck-item fake">
+          <div class="fact-label f">✗ VÍDEO FALSO</div>
+          <div class="fact-text">Vídeo viral em 2024 alegando mostrar "crianças salvas do tráfico sexual no Marajó" foi filmado no Uzbequistão. Outro vídeo, gravado no Mato Grosso do Sul, foi falsamente atribuído ao Marajó.</div>
+        </div>
+        <div class="factcheck-item fake">
+          <div class="fact-label f">✗ DESCONTEXTUALIZADO</div>
+          <div class="fact-text">Vídeo de Maricélia Pereira Leal: ela denunciava ameaça de um assaltante no Amazonas — nunca mencionou o Marajó. Criminosos foram presos pela polícia. Narrativa falsa atribuiu o caso ao Pará.</div>
+        </div>
+        <div class="factcheck-item parcial">
+          <div class="fact-label p">⚠ CONTEXTO DISTORCIDO</div>
+          <div class="fact-text">A cantora Aymeê declarou "pedofilia em nível hard" e crianças se prostituindo "por R$ 5". A gravidade é real, mas Observatório do Marajó e organizações locais alertam que a dramatização extrema estigmatiza a população e atrapalha políticas públicas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAUSAS + RISCOS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-icon">🎯</div>
+      <div class="section-title">Causas Estruturais e Fatores de Risco</div>
+      <span class="section-tag tag-risk">Alerta</span>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🔴 Fatores de Risco Críticos</div>
+        <div class="risk-item">
+          <div class="risk-level critical"></div>
+          <div>
+            <div class="risk-title">Pobreza extrema e IDH 0,418</div>
+            <div class="risk-desc">Menor IDH municipal do Brasil. Municípios marajoaras entre os mais pobres do país, com ausência de renda alternativa tornando crianças alvos de aliciadores que oferecem recursos básicos.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level critical"></div>
+          <div>
+            <div class="risk-title">Isolamento geográfico e ausência do Estado</div>
+            <div class="risk-desc">Arquipélago acessível apenas por embarcação. Baixa presença policial, judicial e de serviços sociais. Dificuldade de acesso a Conselho Tutelar, assistência social e saúde.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level critical"></div>
+          <div>
+            <div class="risk-title">Subnotificação elevada</div>
+            <div class="risk-desc">Apenas 11% das vítimas de violência sexual denunciam (Datafolha 2022). No Marajó, a falta de infraestrutura de coleta de dados agrava o problema, tornando os dados oficiais subestimados.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level high"></div>
+          <div>
+            <div class="risk-title">Envolvimento de familiares no aliciamento</div>
+            <div class="risk-desc">Relatórios da CPI do Senado (2010) e da Folha (2009) documentaram casos de mães comercializando filhas. Contexto de desespero econômico e normalização da violência intrafamiliar.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level high"></div>
+          <div>
+            <div class="risk-title">Rotas de tráfico para o exterior</div>
+            <div class="risk-desc">Assessor Formentini documentou rota de aliciamento para Belém e Guiana Francesa antes de morrer em 2007. Investigações parlamentares identificaram conexões internacionais.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level medium"></div>
+          <div>
+            <div class="risk-title">Gravidez precoce como indicador</div>
+            <div class="risk-desc">Dados citados na audiência da Câmara (2024) mostram registros de gravidez precoce em quase todos os municípios marajoaras — indicador indireto de abuso sexual.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🟡 Fatores Agravantes Sistêmicos</div>
+        <div class="risk-item">
+          <div class="risk-level high"></div>
+          <div>
+            <div class="risk-title">Falta de saneamento básico e infraestrutura</div>
+            <div class="risk-desc">Procuradora Rejane Alves (MPT/PA-AP): "São crianças que também têm o seu direito ao saneamento básico negado, não conseguem acessar o lazer, a educação, a saúde, os serviços da assistência social."</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level high"></div>
+          <div>
+            <div class="risk-title">Ausência histórica de Conselhos Tutelares efetivos</div>
+            <div class="risk-desc">Programa Cidadania Marajó (2023) incluiu formação de conselheiros tutelares como uma das prioridades, indicando déficit histórico nesse mecanismo de proteção.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level high"></div>
+          <div>
+            <div class="risk-title">Turismo como vetor de exploração</div>
+            <div class="risk-desc">Organizações locais alertam que o estigma midiático pode paradoxalmente atrair criminosos ao mesmo tempo que reduz a atratividade turística legítima da região.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level medium"></div>
+          <div>
+            <div class="risk-title">Envolvimento de autoridades locais</div>
+            <div class="risk-desc">O relator da CPI do Senado (2010), Demóstenes Torres, documentou envolvimento de autoridades locais nos casos de pedofilia — obstáculo histórico para investigações.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-level medium"></div>
+          <div>
+            <div class="risk-title">Desinformação como obstáculo às políticas públicas</div>
+            <div class="risk-desc">Instituto Liberta e advogada Luciana Temer alertam que afirmações fantasiosas "impedem um diagnóstico real do problema" e "mascaram a situação, impedindo a construção de políticas públicas".</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATORES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-icon">👥</div>
+      <div class="section-title">Atores-Chave</div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">🏛️ Poder Público</div>
+        <div class="actor-item">
+          <div class="actor-icon">⛪</div>
+          <div>
+            <div class="actor-name">Dom José Luís Azcona</div>
+            <div class="actor-role">Bispo emérito de Marajó. Primeiro a formalizar denúncias em 2006. Apresentou casos ao governo Lula e à CDHM. Denunciou "imobilismo criminoso" em 2009.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">👩‍⚖️</div>
+          <div>
+            <div class="actor-name">Senadora Damares Alves</div>
+            <div class="actor-role">Republicanos-DF. Ex-ministra (Direitos Humanos 2019–2023). Autora do "Abrace o Marajó" (2022). Presidiu CDH do Senado e liderou "Missão Marajó" (jun/2025). Algumas afirmações não comprovadas geraram ação do MPF.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">🏛️</div>
+          <div>
+            <div class="actor-name">Demóstenes Torres</div>
+            <div class="actor-role">Ex-senador (DEM/GO). Relator da CPI da Pedofilia (Senado, 2008–2010). Documentou envolvimento de autoridades e casos "ostensivos" de pedofilia no Pará.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">👩‍💼</div>
+          <div>
+            <div class="actor-name">Dep. Delegada Ione (Avante-MG)</div>
+            <div class="actor-role">Requereu audiência na Comissão de Segurança Pública da Câmara em 2024 sobre o tema. Cobrou prazos de implementação das ações governamentais.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚖️ Ministério Público e Órgãos</div>
+        <div class="actor-item">
+          <div class="actor-icon">⚖️</div>
+          <div>
+            <div class="actor-name">MPF — Ministério Público Federal</div>
+            <div class="actor-role">Acionou Damares por desinformação (pedido de R$ 5 mi). Atuou contra disseminação de fake news via AGU/Procuradoria Nacional. Processo aguarda julgamento na Justiça Federal.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">⚖️</div>
+          <div>
+            <div class="actor-name">13 Promotores do MPPA</div>
+            <div class="actor-role">Emitiram nota conjunta em 2024 confirmando ausência de registro de tráfico de órgãos no arquipélago. Responsáveis pelas investigações e recebimento de denúncias locais.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">👩‍⚖️</div>
+          <div>
+            <div class="actor-name">Procuradora Rejane Alves (MPT-PA/AP)</div>
+            <div class="actor-role">Alertou que a violação sexual vem acompanhada de "pacote de desrespeito a direitos" — saneamento, lazer, educação e saúde. Defendeu abordagem intersetorial obrigatória.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">🔍</div>
+          <div>
+            <div class="actor-name">Diego Martins (Comitê Enfrentamento/PA)</div>
+            <div class="actor-role">Coordenador do Comitê de Enfrentamento à Violência Sexual contra Criança e Adolescente do Pará. Confirma situações de violência e exploração sexual "muito por conta da falta de oportunidade e geração de renda".</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🌱 Sociedade Civil e Organizações</div>
+        <div class="actor-item">
+          <div class="actor-icon">🔭</div>
+          <div>
+            <div class="actor-name">Observatório do Marajó</div>
+            <div class="actor-role">Atua há mais de uma década na região. Alerta contra desinformação e estigmatização. Nota "Não acredite em tudo o que vês na internet". Reforça que a população marajoara não normaliza a violência.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">🌿</div>
+          <div>
+            <div class="actor-name">COJAD — Coop. Juventude Amazônica</div>
+            <div class="actor-role">Organização local de desenvolvimento sustentável. Adverte que misturar mentiras com realidades "gera pânico e vulnerabiliza ainda mais toda a comunidade local".</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">🏫</div>
+          <div>
+            <div class="actor-name">CEDECA-Emaús</div>
+            <div class="actor-role">Realizou levantamento em Portel e Breves em 2007, documentando "realidade estarrecedora". Centro de defesa da criança e do adolescente ativo no Pará.</div>
+          </div>
+        </div>
+        <div class="actor-item">
+          <div class="actor-icon">⚖️</div>
+          <div>
+            <div class="actor-name">Instituto Liberta (Luciana Temer)</div>
+            <div class="actor-role">Advogada e presidente da ONG alerta que narrativas fantasiosas "impedem diagnóstico real". Cita 500 mil vítimas/ano no Brasil e dados sobre subnotificação de 89% das vítimas.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRAMAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-icon">🎯</div>
+      <div class="section-title">Programas e Ações Governamentais</div>
+      <span class="section-tag tag-verified">Políticas Públicas</span>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🟢 Iniciativas em Curso (2023–2026)</div>
+        <div class="program-item">
+          <div class="program-name">Cidadania Marajó (Ministério DDHC, 2023)</div>
+          <div class="program-desc">Programa federal que substituiu o "Abrace o Marajó". Foco em enfrentamento da exploração sexual com base nos fatores de vulnerabilidade social. Inclui formação de conselheiros tutelares, instalação de centros de atendimento e entrega de lanchas (parceria Itaipu) para transporte de crianças e adolescentes.</div>
+        </div>
+        <div class="program-item">
+          <div class="program-name">Missão Marajó — CDH Senado (jun/2025)</div>
+          <div class="program-desc">Diligência oficial da Comissão de Direitos Humanos do Senado com apoio da FAB. Investigação do caso Elisa Rodrigues, tráfico de pessoas e rede de proteção à infância. Federalização das investigações em análise pelo MJ.</div>
+        </div>
+        <div class="program-item">
+          <div class="program-name">Capacitação de Conselhos Tutelares</div>
+          <div class="program-desc">Investimento específico em formação de conselheiros tutelares no arquipélago como parte do Cidadania Marajó. Resposta ao histórico déficit de proteção institucional local.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 Recomendações Pendentes</div>
+        <div class="program-item" style="border-left-color:var(--accent-amber)">
+          <div class="program-name" style="color:var(--accent-amber)">Melhoria de Indicadores Socioeconômicos</div>
+          <div class="program-desc">Secretaria do MDHC enfatiza que o enfrentamento da exploração sexual só será efetivo com melhoria do IDH. Municípios marajoaras entre os menores do Brasil necessitam de política de desenvolvimento integral.</div>
+        </div>
+        <div class="program-item" style="border-left-color:var(--accent-amber)">
+          <div class="program-name" style="color:var(--accent-amber)">Coleta de Dados Desagregados</div>
+          <div class="program-desc">A falta de dados específicos sobre exploração sexual no Marajó (não discriminados por faixa etária e município) impede diagnóstico preciso. Necessidade de sistema de informação local robusto.</div>
+        </div>
+        <div class="program-item" style="border-left-color:var(--accent-red)">
+          <div class="program-name" style="color:var(--accent-red)">Comissão no TJPA (rec. CPI 2010)</div>
+          <div class="program-desc">A CPI do Senado de 2010 recomendou ao Tribunal de Justiça do Pará criar comissão especial para processos de exploração sexual infantil. Implementação dessa medida permanece como obrigação institucional.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGISLAÇÃO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-icon">📜</div>
+      <div class="section-title">Legislação Aplicável — Arcabouço Jurídico</div>
+      <span class="section-tag tag-legal">Direito Aplicado</span>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🏛️ Normas Constitucionais e Penais</div>
+        <div class="law-item">
+          <div class="law-title">CF/88 — Art. 227</div>
+          <div class="law-desc">É dever da família, da sociedade e do Estado assegurar à criança e ao adolescente, com absoluta prioridade, o direito à vida, saúde, alimentação, educação, dignidade, respeito e liberdade. O §4º determina: "A lei punirá severamente o abuso, a violência e a exploração sexual da criança e do adolescente."</div>
+          <span class="law-pena">PROTEÇÃO CONSTITUCIONAL ABSOLUTA</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">CP — Art. 217-A: Estupro de Vulnerável</div>
+          <div class="law-desc">Qualquer conjunção carnal ou ato libidinoso com pessoa menor de 14 anos, independente do consentimento. Introduzido pela Lei 12.015/2009.</div>
+          <span class="law-pena">Pena: 8 a 15 anos de reclusão (hediondo)</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">CP — Art. 218-B: Favorecimento da Prostituição Infantil</div>
+          <div class="law-desc">Favorecimento da prostituição ou de outra forma de exploração sexual de criança ou adolescente ou de vulnerável. Inclui o frequentador do local que pratica conjunção carnal.</div>
+          <span class="law-pena">Pena: 4 a 10 anos de reclusão</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">Lei 8.072/1990 — Crimes Hediondos</div>
+          <div class="law-desc">Estupro e estupro de vulnerável são crimes hediondos: sem direito a fiança, sem indulto, regime inicial fechado, cumprimento mínimo de 40% para progressão (reincidentes: 60%).</div>
+          <span class="law-pena">INAFIANÇÁVEL · SEM ANISTIA</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 ECA e Legislação Específica</div>
+        <div class="law-item">
+          <div class="law-title">ECA — Lei 8.069/1990</div>
+          <div class="law-desc">Arts. 240-244: criminaliza pornografia infantil, exploração sexual, aliciamento. Art. 5º: nenhuma criança será objeto de negligência, exploração ou violência. Garante prioridade absoluta à proteção integral. Art. 227 CF regulamentado.</div>
+          <span class="law-pena">Art. 244-A: exploração sexual → 4 a 10 anos</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">Lei 14.344/2022 — Lei Henry Borel</div>
+          <div class="law-desc">Cria mecanismos para prevenção e enfrentamento da violência doméstica e familiar contra criança e adolescente. Inclui medidas protetivas. Alterou CP, ECA e Lei de Execução Penal.</div>
+          <span class="law-pena">MEDIDAS PROTETIVAS AMPLIADAS</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">Lei 14.811/2024 — Política Nacional de Prevenção</div>
+          <div class="law-desc">Institui a Política Nacional de Prevenção e Combate ao Abuso e Exploração Sexual. Tornou mais rigorosas as penalidades. Obriga estabelecimentos a manter certidões criminais de colaboradores. Alterou CP, ECA e Lei de Crimes Hediondos.</div>
+          <span class="law-pena">MARCO MAIS RECENTE · 2024</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">Lei 13.431/2017 — Sistema de Garantia de Direitos</div>
+          <div class="law-desc">Estabelece sistema de garantia de direitos da criança e adolescente vítima ou testemunha de violência. Regulamentada pelo Decreto 9.603/2018. Define escuta especializada e depoimento especial.</div>
+          <span class="law-pena">PROTOCOLO DE ESCUTA PROTEGIDA</span>
+        </div>
+        <div class="law-item">
+          <div class="law-title">Protocolo de Palermo / Decreto 5.017/2004</div>
+          <div class="law-desc">Protocolo Adicional de Prevenção, Repressão e Punição ao Tráfico de Pessoas (ONU 2000), ratificado pelo Brasil. Especialmente focado em mulheres e crianças. Base para criminalização do tráfico com fins de exploração sexual.</div>
+          <span class="law-pena">COMPROMETIMENTO INTERNACIONAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANÁLISE JURÍDICA -->
+  <div class="juridical-box">
+    <h2>⚖️ Síntese Jurídica</h2>
+    <p class="jur-sub">Análise técnico-jurídica com base no ordenamento brasileiro. Não substitui consulta a advogado habilitado (OAB). Data: março/2026.</p>
+
+    <div class="jur-section">
+      <h3>I. Quadro Normativo</h3>
+      <p>O ordenamento jurídico brasileiro oferece <strong>proteção robusta e multicamadas</strong> à criança e ao adolescente vítimas de exploração sexual. A CF/88 (art. 227) impõe dever constitucional tripartite (família + sociedade + Estado), elevando a proteção infantil a princípio de <em>absoluta prioridade</em>. O ECA (Lei 8.069/90), o CP (especialmente arts. 213, 217-A, 218-B), a Lei de Crimes Hediondos (8.072/90) e a Lei 14.811/2024 formam arcabouço penal de alta severidade. O Brasil também está vinculado ao Protocolo de Palermo sobre tráfico de pessoas.</p>
+    </div>
+
+    <div class="jur-section">
+      <h3>II. Enquadramento Penal dos Fatos Documentados</h3>
+      <ul>
+        <li><strong>Exploração sexual de menores em embarcações (balseiras):</strong> Enquadra-se no Art. 218-B do CP (favorecimento da prostituição infantil) — pena de 4 a 10 anos — e possivelmente no Art. 217-A (estupro de vulnerável) se as vítimas têm menos de 14 anos.</li>
+        <li><strong>Aliciamento para tráfico interno/externo:</strong> Art. 149-A do CP (tráfico de pessoas) c/c Lei 13.344/2016 — pena de 4 a 8 anos, aumentada em 1/3 a 2/3 se vítima for criança ou adolescente.</li>
+        <li><strong>Mãe que comercializa filho:</strong> Art. 232 do ECA (submeter criança a trabalho forçado) + Art. 218-B CP + possível Art. 229 CP (manter casa de prostituição).</li>
+        <li><strong>Omissão de autoridade que tem conhecimento e não age:</strong> Art. 319 CP (prevaricação) e Art. 66 da Lei de Contravenções Penais (omissão de notificação de crime contra criança).</li>
+      </ul>
+    </div>
+
+    <div class="jur-section">
+      <h3>III. Pontos Juridicamente Críticos</h3>
+      <ul>
+        <li><strong>Competência jurisdicional:</strong> Crimes estaduais são julgados pela Justiça do Pará, mas conexão com tráfico internacional pode atrair competência da Justiça Federal (Art. 109 CF). A federalização cogitada pelo MJ seria juridicamente adequada para casos com indícios de internacionalização.</li>
+        <li><strong>Prescrição:</strong> Em crimes sexuais contra menores, o prazo prescricional começa a correr apenas quando a vítima completa 18 anos (Art. 111, V, CP). O STJ consolidou que a contagem pode iniciar a partir da ciência do dano — ampliando a janela de persecução penal.</li>
+        <li><strong>Responsabilidade do Estado por omissão:</strong> A inação estatal comprovada por décadas (documentada em CPIs desde 2006) pode ensejar responsabilidade civil do Estado (Art. 37, §6º CF) por danos às crianças vitimadas, mediante ação de ressarcimento.</li>
+        <li><strong>Diligências parlamentares:</strong> A "Missão Marajó" (CDH Senado) não tem poder investigatório judicial, mas pode fundamentar requerimentos ao MPF e à PGR para instauração de inquéritos, além de pressão institucional sobre o Executivo.</li>
+      </ul>
+    </div>
+
+    <div class="jur-section">
+      <h3>IV. Obrigações Estatais não Cumpridas</h3>
+      <ul>
+        <li>A recomendação da CPI do Senado (2010) ao TJPA para criação de comissão especial para processos de exploração sexual infantil <strong>permanece sem implementação documentada</strong> — configura descumprimento de recomendação parlamentar.</li>
+        <li>O Art. 70-A do ECA (incluído pela Lei 13.010/2014) obriga Union, estados e municípios a integrarem sistemas de informação sobre violência contra crianças. A <strong>ausência de dados desagregados para o Marajó</strong> constitui potencial omissão normativa.</li>
+        <li>A Lei 14.811/2024 obriga a manutenção de certidões criminais de colaboradores em estabelecimentos que atendem crianças — necessidade de fiscalização efetiva no arquipélago.</li>
+      </ul>
+    </div>
+
+    <div class="jur-section">
+      <h3>V. Conclusão</h3>
+      <p>É <strong>juridicamente indubitável</strong> que os fatos documentados sobre exploração sexual no Marajó configuram crimes gravíssimos, com penas severas previstas no ordenamento. O problema não é de lacuna legislativa — o Brasil possui um dos sistemas normativos de proteção infantil mais completos do mundo. O nó crítico é a <strong>falha sistemática na implementação</strong>: ausência do Estado na fiscalização, subnotificação crônica, Conselhos Tutelares insuficientes e desigualdade socioeconômica estrutural que alimenta a vulnerabilidade. A responsabilidade penal dos perpetradores é clara; a responsabilidade institucional do Estado por omissão é juridicamente sustentável e deve ser perseguida através dos mecanismos do controle difuso de constitucionalidade e da ação civil pública.</p>
+    </div>
+  </div>
+
+  <!-- REFERÊNCIAS -->
+  <div class="section" style="margin-top:28px">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-icon">📚</div>
+      <div class="section-title">Referências Verificadas com Fontes e Links</div>
+    </div>
+    <div class="card">
+      <div class="ref-item">
+        <div class="ref-num">01</div>
+        <div class="ref-content">
+          <div class="ref-title">Câmara dos Deputados — Comissão debate denúncias de exploração sexual infantil na Ilha do Marajó</div>
+          <div class="ref-src">Portal da Câmara · 2024</div>
+          <a class="ref-link" href="https://www.camara.leg.br/noticias/1049030-comissao-debate-denuncias-de-exploracao-sexual-infantil-na-ilha-do-marajo/" target="_blank">camara.leg.br/noticias/1049030</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">02</div>
+        <div class="ref-content">
+          <div class="ref-title">Câmara dos Deputados — Governo explica ações de combate à exploração sexual infantil no Marajó</div>
+          <div class="ref-src">Portal da Câmara · 2024</div>
+          <a class="ref-link" href="https://www.camara.leg.br/noticias/1050962-representantes-do-governo-explicam-acoes-de-combate-a-exploracao-sexual-infantil-no-marajo/" target="_blank">camara.leg.br/noticias/1050962</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">03</div>
+        <div class="ref-content">
+          <div class="ref-title">Gazeta do Povo — Casos de prostituição e pedofilia no Marajó são investigados desde 2006</div>
+          <div class="ref-src">Gazeta do Povo · out/2022</div>
+          <a class="ref-link" href="https://www.gazetadopovo.com.br/vida-e-cidadania/casos-de-prostituicao-e-pedofilia-no-marajo-sao-investigados-desde-2006/" target="_blank">gazetadopovo.com.br — Marajó desde 2006</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">04</div>
+        <div class="ref-content">
+          <div class="ref-title">Gazeta do Povo — Casos de exploração infantil denunciados por Damares voltam ao debate</div>
+          <div class="ref-src">Gazeta do Povo · mar/2024</div>
+          <a class="ref-link" href="https://www.gazetadopovo.com.br/vida-e-cidadania/casos-de-exploracao-infantil-na-ilha-de-marajo-denunciados-por-damares-voltam-ao-debate/" target="_blank">gazetadopovo.com.br — Damares debate 2024</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">05</div>
+        <div class="ref-content">
+          <div class="ref-title">CNN Brasil — Rede de exploração infantil em Ilha de Marajó já foi tema de CPI no Senado</div>
+          <div class="ref-src">CNN Brasil · fev/2024</div>
+          <a class="ref-link" href="https://www.cnnbrasil.com.br/nacional/rede-de-exploracao-infantil-em-ilha-de-marajo-ja-foi-tema-de-cpi-no-senado/" target="_blank">cnnbrasil.com.br — CPI Senado Marajó</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">06</div>
+        <div class="ref-content">
+          <div class="ref-title">Aos Fatos — O que é fato sobre as denúncias de abuso infantil na Ilha de Marajó</div>
+          <div class="ref-src">Aos Fatos (fact-check) · 2024</div>
+          <a class="ref-link" href="https://www.aosfatos.org/noticias/explicamos-abuso-infantil-marajo/" target="_blank">aosfatos.org — fact-check Marajó</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">07</div>
+        <div class="ref-content">
+          <div class="ref-title">Wikipedia — Alegações de abuso sexual infantil na Ilha de Marajó</div>
+          <div class="ref-src">Wikipedia PT-BR · 2025</div>
+          <a class="ref-link" href="https://pt.wikipedia.org/wiki/Alega%C3%A7%C3%B5es_de_abuso_sexual_infantil_na_Ilha_de_Maraj%C3%B3" target="_blank">pt.wikipedia.org — Alegações Marajó</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">08</div>
+        <div class="ref-content">
+          <div class="ref-title">IstoÉ Mulher — Exploração sexual de crianças e adolescentes: entenda o que acontece na Ilha do Marajó</div>
+          <div class="ref-src">IstoÉ Mulher · fev/2024</div>
+          <a class="ref-link" href="https://mulher.istoe.com.br/exploracao-sexual-de-criancas-e-adolescentes-entenda-o-que-acontece-na-ilha-do-marajo" target="_blank">mulher.istoe.com.br — Marajó 2024</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">09</div>
+        <div class="ref-content">
+          <div class="ref-title">Senado Federal — Senadores visitam Marajó para investigar desaparecimento e tráfico (Missão Marajó)</div>
+          <div class="ref-src">Rádio Senado · jun/2025</div>
+          <a class="ref-link" href="https://www12.senado.leg.br/radio/1/noticia/2025/06/26/senadores-visitam-marajo-para-investigar-desaparecimento-de-crianca-e-trafico-de-pessoas" target="_blank">senado.leg.br — Missão Marajó 2025</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">10</div>
+        <div class="ref-content">
+          <div class="ref-title">Senado Federal — CDH investiga denúncias de tráfico humano e criança desaparecida</div>
+          <div class="ref-src">Portal Senado · jun/2025</div>
+          <a class="ref-link" href="https://www12.senado.leg.br/noticias/audios/2025/06/no-marajo-cdh-investiga-denuncias-de-trafico-humano-e-crianca-desaparecida" target="_blank">senado.leg.br — CDH Marajó</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">11</div>
+        <div class="ref-content">
+          <div class="ref-title">UNICEF — Proteção de Crianças e Adolescentes contra as Violências</div>
+          <div class="ref-src">UNICEF Brasil · legislação</div>
+          <a class="ref-link" href="https://www.unicef.org/brazil/protecao-de-criancas-e-adolescentes-contra-violencias" target="_blank">unicef.org/brazil — proteção</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">12</div>
+        <div class="ref-content">
+          <div class="ref-title">Lei 14.811/2024 — Política Nacional de Prevenção e Combate ao Abuso e Exploração Sexual</div>
+          <div class="ref-src">Planalto.gov.br · 2024</div>
+          <a class="ref-link" href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm" target="_blank">planalto.gov.br/L14811</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">13</div>
+        <div class="ref-content">
+          <div class="ref-title">Migalhas — 18 de maio: Leis protegem crianças e adolescentes de abuso sexual</div>
+          <div class="ref-src">Migalhas · mai/2022</div>
+          <a class="ref-link" href="https://www.migalhas.com.br/quentes/366184/18-de-maio-leis-protegem-criancas-e-adolescentes-de-abuso-sexual" target="_blank">migalhas.com.br — leis proteção infantil</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">14</div>
+        <div class="ref-content">
+          <div class="ref-title">Conjur — Mello e Amorim: Direito da criança contra a violência sexual</div>
+          <div class="ref-src">Conjur · mai/2023</div>
+          <a class="ref-link" href="https://www.conjur.com.br/2023-mai-02/mello-amorim-direito-crianca-violencia-sexual/" target="_blank">conjur.com.br — direito criança violência</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">15</div>
+        <div class="ref-content">
+          <div class="ref-title">OAB — Cartilha: Crianças e Adolescentes — Direitos, Garantias e Violações</div>
+          <div class="ref-src">OAB Federal · referência jurídica</div>
+          <a class="ref-link" href="https://www.oab.org.br/Content/pdf/cartilha_crianca_adolescente.pdf" target="_blank">oab.org.br — cartilha crianças</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">16</div>
+        <div class="ref-content">
+          <div class="ref-title">Fundação Abrinq — O que diz a lei sobre violência sexual contra crianças e adolescentes</div>
+          <div class="ref-src">FADC · referência legislativa</div>
+          <a class="ref-link" href="https://www.fadc.org.br/noticias/lei-violencia-sexual" target="_blank">fadc.org.br — lei violência sexual</a>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">17</div>
+        <div class="ref-content">
+          <div class="ref-title">TJ-PB — Lei 14.811/2024 torna mais duras penalidades para crimes contra crianças</div>
+          <div class="ref-src">TJPB · jan/2024</div>
+          <a class="ref-link" href="https://www.tjpb.jus.br/noticia/mudanca-em-lei-torna-mais-duras-penalidades-para-criancas-e-adolescentes" target="_blank">tjpb.jus.br — Lei 14.811/2024</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <div>Dashboard Investigativo — Exploração Sexual Infantil | Ilha do Marajó · Pará · Brasil</div>
+  <div>Todos os dados têm fontes verificáveis listadas. Análise jurídica não substitui assessoria advocatícia.</div>
+  <div>Denúncias: <span style="color:var(--accent-red);font-weight:600">DISQUE 100</span> · Março 2026</div>
+</div>
+
+<!-- FLOATING SHARE -->
+<div class="floating-share">
+  <a href="https://api.whatsapp.com/send?text=Confira%20este%20dashboard%20investigativo%20sobre%20a%20Ilha%20do%20Maraj%C3%B3:%20https://gosurf.site/marajo-exploracao-sexual-infantil.html" target="_blank" class="share-btn wa" title="Partilhar no WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-2.32 0-4.525.903-6.163 2.541a8.68 8.68 0 0 0-2.541 6.164c0 1.25.267 2.478.793 3.606l-1.071 3.906 3.997-1.047a8.67 8.67 0 0 0 4.985 1.543l.004-.001c2.32 0 4.524-.903 6.163-2.541a8.682 8.682 0 0 0 2.541-6.164 8.682 8.682 0 0 0-8.711-8.71zM16.513 18.067a6.38 6.38 0 0 1-4.482 1.84h-.003c-1.22 0-2.417-.333-3.456-.963l-.248-.15-2.568.673.685-2.5a6.37 6.37 0 0 1-.65-2.73 6.38 6.38 0 0 1 1.868-4.536 6.382 6.382 0 0 1 4.537-1.868c1.711 0 3.32.666 4.533 1.868a6.382 6.382 0 0 1 1.869 4.537 6.383 6.383 0 0 1-3.045 5.639z"/></svg>
+  </a>
+  <a href="https://twitter.com/intent/tweet?text=Confira%20o%20Relat%C3%B3rio%20Investigativo:%20Explora%C3%A7%C3%A3o%20Sexual%20Infantil%20na%20Ilha%20do%20Maraj%C3%B3&url=https://gosurf.site/marajo-exploracao-sexual-infantil.html&hashtags=Marajo,ProtecaoInfantil,Disque100" target="_blank" class="share-btn x" title="Partilhar no X">
+    <svg width="20" height="20" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"/></svg>
+  </a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://gosurf.site/marajo-exploracao-sexual-infantil.html" target="_blank" class="share-btn li" title="Partilhar no LinkedIn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+  </a>
+  <button onclick="copyLink()" class="share-btn cp" title="Copiar Link">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+  </button>
+</div>
+
+<script>
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+  const btn = document.querySelector('.share-btn.cp');
+  const oldIcon = btn.innerHTML;
+  btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  setTimeout(() => { btn.innerHTML = oldIcon; }, 2000);
+}
+</script>
+
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>
+

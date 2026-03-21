@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oliver Ortiz — Linha do Tempo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --cream: #ede8da;
+    --red: #c0392b;
+    --red-dim: #7a2318;
+    --gold: #b8922a;
+    --muted: #7a7060;
+    --wire: #2c2820;
+    --highlight: #fff3cd;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 3px double var(--ink);
+    padding: 40px 0 24px;
+    margin-bottom: 0;
+  }
+
+  .masthead {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .masthead span { opacity: 0.7; }
+
+  .classified-badge {
+    background: var(--red);
+    color: white;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--muted);
+  }
+
+  /* DOSSIER SUMMARY */
+  .dossier {
+    background: var(--cream);
+    border: 1px solid #c5bfb0;
+    border-left: 4px solid var(--red);
+    padding: 24px 28px;
+    margin: 28px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px 32px;
+    position: relative;
+  }
+
+  .dossier::before {
+    content: 'DOSSIÊ';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--cream);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    padding: 0 8px;
+  }
+
+  .dossier-field label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .dossier-field value {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+  }
+
+  .dossier-field value.alert { color: var(--red); font-weight: 600; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 24px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* FILTER TABS */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .filter-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink);
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .filter-btn.cat-trafico.active { background: var(--red); border-color: var(--red); color: white; }
+  .filter-btn.cat-lavagem.active { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .filter-btn.cat-prisao.active { background: #2c3e50; border-color: #2c3e50); color: white; }
+  .filter-btn.cat-financeiro.active { background: #27ae60; border-color: #27ae60; color: white; }
+  .filter-btn.cat-judicial.active { background: #8e44ad; border-color: #8e44ad; color: white; }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 110px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--ink) 0,
+      var(--ink) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    opacity: 0.25;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 100px 24px 1fr;
+    gap: 0 16px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    transition: opacity 0.2s;
+  }
+
+  .timeline-item.hidden { display: none; }
+
+  .timeline-date {
+    text-align: right;
+    padding-top: 14px;
+  }
+
+  .timeline-date .year {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .timeline-date .month {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot.cat-trafico { background: var(--red); border-color: var(--red); }
+  .timeline-dot.cat-lavagem { background: var(--gold); border-color: var(--gold); }
+  .timeline-dot.cat-prisao { background: #2c3e50; border-color: #2c3e50; }
+  .timeline-dot.cat-financeiro { background: #27ae60; border-color: #27ae60; }
+  .timeline-dot.cat-judicial { background: #8e44ad; border-color: #8e44ad; }
+
+  .timeline-line {
+    flex: 1;
+    width: 2px;
+    background: var(--ink);
+    opacity: 0.15;
+    margin-top: 4px;
+  }
+
+  .timeline-card {
+    background: white;
+    border: 1px solid #ddd8cc;
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .timeline-card:hover {
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: translate(-2px, -2px);
+    border-color: var(--ink);
+  }
+
+  .timeline-card.expanded {
+    border-color: var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .cat-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .cat-tag.cat-trafico { background: #fde8e6; color: var(--red); border: 1px solid var(--red); }
+  .cat-tag.cat-lavagem { background: #fef9e7; color: #7d6608; border: 1px solid var(--gold); }
+  .cat-tag.cat-prisao { background: #eaf0fb; color: #2c3e50; border: 1px solid #2c3e50; }
+  .cat-tag.cat-financeiro { background: #e8f8f5; color: #1a7a4c; border: 1px solid #27ae60; }
+  .cat-tag.cat-judicial { background: #f4ecfb; color: #6c3483; border: 1px solid #8e44ad; }
+
+  .card-location {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+  .card-location::before { content: '📍 '; }
+
+  .card-body {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #ccc;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  .card-body.open { display: block; }
+
+  .card-body p { margin-bottom: 8px; }
+
+  .card-body p:last-child { margin-bottom: 0; }
+
+  .expand-icon {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--highlight);
+    border: 1px solid var(--gold);
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    margin: 8px 0;
+    font-size: 12px;
+  }
+
+  .highlight-box strong {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* NETWORK MAP */
+  .network-section {
+    margin: 40px 0;
+    padding: 32px;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .network-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.02) 40px,
+      rgba(255,255,255,0.02) 41px
+    );
+  }
+
+  .network-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 24px;
+    color: var(--paper);
+    position: relative;
+  }
+
+  .network-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    position: relative;
+  }
+
+  .network-node {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .network-node:hover { border-color: rgba(255,255,255,0.6); }
+
+  .node-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+  }
+
+  .node-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 4px;
+  }
+
+  .node-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  .node-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    margin-top: 8px;
+    padding: 2px 6px;
+    display: inline-block;
+  }
+
+  .node-status.alvo { background: rgba(192,57,43,0.3); color: #e74c3c; border: 1px solid rgba(192,57,43,0.5); }
+  .node-status.ativo { background: rgba(39,174,96,0.3); color: #2ecc71; border: 1px solid rgba(39,174,96,0.5); }
+  .node-status.investigado { background: rgba(243,156,18,0.3); color: #f39c12; border: 1px solid rgba(243,156,18,0.5); }
+  .node-status.liquidado { background: rgba(149,165,166,0.3); color: #bdc3c7; border: 1px solid rgba(149,165,166,0.5); }
+
+  /* SOURCES */
+  .sources {
+    margin: 40px 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .sources h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .sources ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sources li {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .sources li::before { content: '— '; }
+
+  footer {
+    border-top: 3px double var(--ink);
+    padding: 20px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .timeline-item { animation: fadeIn 0.4s ease forwards; }
+
+  @media (max-width: 600px) {
+    .timeline::before { left: 70px; }
+    .timeline-item { grid-template-columns: 60px 20px 1fr; }
+    .timeline-date .year { font-size: 16px; }
+    h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="masthead">
+      <span>INVESTIGAÇÃO JORNALÍSTICA · BRASIL · 2026</span>
+      <span class="classified-badge">Caso Documentado</span>
+    </div>
+    <h1><em>Oliver Ortiz</em><br>de Zarate Martin</h1>
+    <p class="subtitle">Narcotráfico Internacional · Lavagem de Dinheiro · Sistema Financeiro Brasileiro</p>
+  </header>
+
+  <!-- DOSSIER -->
+  <div class="dossier">
+    <div class="dossier-field">
+      <label>Nome Completo</label>
+      <value>Oliver Ortiz de Zarate Martin</value>
+    </div>
+    <div class="dossier-field">
+      <label>Nacionalidade</label>
+      <value>Espanhola</value>
+    </div>
+    <div class="dossier-field">
+      <label>Nascimento (estimado)</label>
+      <value>c. 1978 · Espanha</value>
+    </div>
+    <div class="dossier-field">
+      <label>Operação de Prisão</label>
+      <value class="alert">Operação Monte Perdido</value>
+    </div>
+    <div class="dossier-field">
+      <label>Condenação</label>
+      <value class="alert">16 anos · Tráfico + Lavagem</value>
+    </div>
+    <div class="dossier-field">
+      <label>Cooperação Internacional</label>
+      <value>DEA (EUA) · Austrália · Portugal · Receita Federal</value>
+    </div>
+    <div class="dossier-field">
+      <label>Patrimônio Apreendido</label>
+      <value>R$ 20 milhões em bens + moedas estrangeiras</value>
+    </div>
+    <div class="dossier-field">
+      <label>Status Atual (2024–2026)</label>
+      <value class="alert">PF notificou expulsão do Brasil após pena</value>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Linha do Tempo</h2>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn cat-trafico" data-filter="trafico">Narcotráfico</button>
+    <button class="filter-btn cat-lavagem" data-filter="lavagem">Lavagem de Dinheiro</button>
+    <button class="filter-btn cat-prisao" data-filter="prisao">Prisão / Judicial</button>
+    <button class="filter-btn cat-financeiro" data-filter="financeiro">Sistema Financeiro</button>
+    <button class="filter-btn cat-judicial" data-filter="judicial">Investigações</button>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline" id="timeline">
+
+    <!-- 2009 -->
+    <div class="timeline-item" data-cats="trafico lavagem">
+      <div class="timeline-date"><div class="year">2009</div><div class="month">—</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-trafico"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Início documentado das atividades criminosas no Brasil</div>
+          <span class="cat-tag cat-trafico">Narcotráfico</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Rio de Janeiro, Brasil</div>
+        <div class="card-body">
+          <p>Segundo os autos do processo, Oliver Ortiz se fixou no Brasil a partir de 2009, instalando-se em uma cobertura triplex de luxo na Barra da Tijuca, Rio de Janeiro. Passou a se apresentar como empresário, embora nenhum de seus negócios declarados fosse bem-sucedido.</p>
+          <p>Sua função no Brasil era exclusivamente a <strong>lavagem do dinheiro</strong> proveniente do tráfico internacional. Nenhum quilo de cocaína da quadrilha passou pelo Rio de Janeiro.</p>
+          <p>Nesse período, começou a adquirir imóveis na Baixada Fluminense e na zona oeste do Rio, declarados abaixo do valor real, utilizando laranjas e empresas de fachada.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2009–2012 -->
+    <div class="timeline-item" data-cats="trafico">
+      <div class="timeline-date"><div class="year">2009</div><div class="month">a 2012</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-trafico"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Liderança de esquema internacional: cocaína Colômbia → Europa e Oceania</div>
+          <span class="cat-tag cat-trafico">Narcotráfico</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Colômbia → Austrália / Europa (Atlântico e Pacífico Sul)</div>
+        <div class="card-body">
+          <p>Oliver Ortiz liderava uma estrutura hierarquizada especializada no <strong>tráfico marítimo de cocaína por veleiros</strong>, com rotas da Colômbia para a Austrália e da Colômbia para a Europa.</p>
+          <p>A operação tinha conexões com <strong>cartéis colombianos</strong>. Ortiz era mergulhador profissional e participava pessoalmente da elaboração de rotas e imersões para fixação de cargas.</p>
+          <div class="highlight-box">
+            <strong>Dado de mercado</strong>
+            1 kg de cocaína na Oceania atingia mais de R$ 200.000 na época — altíssima margem de lucro comparada ao mercado europeu.
+          </div>
+          <p>O elo inicial que ativou as investigações foi a <strong>apreensão de um veleiro com 300 kg de cocaína e quatro espanhóis na costa australiana</strong> — o que levou a Polícia Australiana a acionar o Brasil.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2012 -->
+    <div class="timeline-item" data-cats="judicial">
+      <div class="timeline-date"><div class="year">2012</div><div class="month">—</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-judicial"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Polícia Australiana ativa a Polícia Federal brasileira</div>
+          <span class="cat-tag cat-judicial">Investigação</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Austrália → Brasil</div>
+        <div class="card-body">
+          <p>Após a apreensão do veleiro com 300 kg de cocaína na costa australiana, as autoridades australianas repassaram informações ao Brasil sobre a rede de tráfico e a atuação de Oliver Ortiz.</p>
+          <p>A investigação no Brasil ficou sob comando do delegado <strong>Paulo Telles</strong>, da Delegacia de Repressão a Entorpecentes (DRE) da Polícia Federal, com suporte da DEA (EUA), policiais portugueses e da Receita Federal brasileira.</p>
+          <p>A partir daí, a PF passou a <strong>monitorar a evolução patrimonial</strong> de Ortiz no Brasil — traçando a incompatibilidade entre seus negócios fracassados e seus ativos de luxo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jun 2013 -->
+    <div class="timeline-item" data-cats="prisao">
+      <div class="timeline-date"><div class="year">2013</div><div class="month">Jun</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-prisao"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Prisão — Operação Monte Perdido · Barra da Tijuca</div>
+          <span class="cat-tag cat-prisao">Prisão</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Barra da Tijuca, Rio de Janeiro · 27 de junho de 2013</div>
+        <div class="card-body">
+          <p>Com 20 agentes da Polícia Federal, Oliver Ortiz foi preso na manhã de 27 de junho de 2013 em sua <strong>cobertura triplex de luxo</strong> na Barra da Tijuca. Tinha 35 anos à época.</p>
+          <p>A operação foi batizada de <strong>Monte Perdido</strong> — referência à cordilheira espanhola que remete ao sobrenome "Zarate".</p>
+          <div class="highlight-box">
+            <strong>Bens apreendidos no momento da prisão</strong>
+            R$ 175 mil em reais · US$ 150 mil em dólares · € 110 mil em euros · 7 imóveis · 3 automóveis (incluindo uma Ferrari Califórnia 2011, avaliada em R$ 1,19 milhão) · 1 motocicleta · Total estimado: R$ 20 milhões
+          </div>
+          <p>Ortiz era casado com uma brasileira e tinha um filho. Vivia como cidadão comum, tentando integrar-se à sociedade carioca.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dez 2013 -->
+    <div class="timeline-item" data-cats="prisao judicial">
+      <div class="timeline-date"><div class="year">2013</div><div class="month">Dez</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-judicial"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Condenação: 16 anos por tráfico internacional + lavagem de dinheiro</div>
+          <span class="cat-tag cat-judicial">Condenação</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Justiça Federal · Rio de Janeiro</div>
+        <div class="card-body">
+          <p>Em dezembro de 2013, Oliver Ortiz foi condenado à pena de <strong>16 anos de prisão</strong> pelos crimes de tráfico internacional de drogas e lavagem de dinheiro.</p>
+          <p>A denúncia do MPF-RJ descreveu o esquema de lavagem: aquisição de imóveis abaixo do valor real, uso de empresas de fachada, registro de bens em nome de laranjas e, posteriormente, integração em fundos de investimento.</p>
+          <p>A investigação contou com cooperação formal de <strong>Portugal, Austrália e Estados Unidos (DEA)</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2013–2017 -->
+    <div class="timeline-item" data-cats="lavagem financeiro">
+      <div class="timeline-date"><div class="year">2013</div><div class="month">a 2017</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-lavagem"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Dinheiro do tráfico integrado a fundos imobiliários via Grupo Aquilla / Sefer</div>
+          <span class="cat-tag cat-lavagem">Lavagem</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">São Paulo · Rio de Janeiro · Bahamas (offshore)</div>
+        <div class="card-body">
+          <p>Mesmo preso, evidências apontam que recursos oriundos do esquema de Ortiz continuaram circulando no sistema financeiro por meio de operadores.</p>
+          <p>Oliver Ortiz aparece como <strong>cotista de fundos geridos pelo Grupo Aquilla e pela Sefer Investimentos</strong> (antiga Foco DTVM), com valores estimados em centenas de milhões de reais, segundo fonte da reportagem.</p>
+          <p>A engenharia de lavagem incluía <strong>integralização de terrenos baratos da Baixada Fluminense em fundos imobiliários</strong>, inflando artificialmente o patrimônio do cotista.</p>
+          <div class="highlight-box">
+            <strong>Elo operacional</strong>
+            Benjamim Botelho de Almeida — ex-Banco Garantia (origem do BTG Pactual), com dupla nacionalidade portuguesa e brasileira, residente em Lisboa — é apontado pela PF como sócio oculto de Daniel Vorcaro e intermediário entre Ortiz e o universo financeiro.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2017 -->
+    <div class="timeline-item" data-cats="financeiro lavagem">
+      <div class="timeline-date"><div class="year">2017</div><div class="month">—</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-financeiro"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Fundo ligado a Ortiz participa da compra do Banco Máxima por Vorcaro</div>
+          <span class="cat-tag cat-financeiro">Sistema Financeiro</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Brasil · Faria Lima, São Paulo</div>
+        <div class="card-body">
+          <p>Daniel Vorcaro adquiriu o <strong>Banco Máxima</strong> em 2017 — negociação intermediada por Benjamim Botelho. A instituição seria posteriormente rebatizada como <strong>Banco Master</strong>.</p>
+          <p>Segundo a fonte da reportagem (ICL Notícias), um <strong>fundo do Grupo Aquilla participou estruturalmente da operação de compra</strong>, conectando Oliver Ortiz ao negócio.</p>
+          <p>Documentos da CVM analisados pela reportagem indicam a presença de Ortiz como cotista nos fundos que aportaram recursos na transação.</p>
+          <p>A fonte afirmou: <em>"Recursos utilizados na constituição dos fundos imobiliários e na aquisição do Banco Master são oriundos de lavagem de dinheiro do traficante Oliver Ortiz."</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div class="timeline-item" data-cats="judicial prisao">
+      <div class="timeline-date"><div class="year">2024</div><div class="month">—</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-judicial"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">PF notifica Oliver Ortiz de expulsão do Brasil após cumprimento de pena</div>
+          <span class="cat-tag cat-judicial">Judicial</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Brasil</div>
+        <div class="card-body">
+          <p>A Polícia Federal notificou formalmente Oliver Ortiz de que, ao término do cumprimento da pena de 16 anos, ele seria <strong>expulso do território nacional</strong> e deportado para a Espanha.</p>
+          <p>Paralelamente, as investigações sobre o Banco Master avançaram e passaram a tramitar no <strong>Supremo Tribunal Federal (STF)</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jan 2025 -->
+    <div class="timeline-item" data-cats="judicial financeiro">
+      <div class="timeline-date"><div class="year">2025</div><div class="month">Jan</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-financeiro"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Operação Compliance Zero (2ª fase) mira Sefer Investimentos</div>
+          <span class="cat-tag cat-financeiro">Investigação Financeira</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">São Paulo · Faria Lima</div>
+        <div class="card-body">
+          <p>Em janeiro de 2025, a <strong>Operação Compliance Zero</strong> em sua segunda fase investigou a corretora Sefer Investimentos — antiga Foco DTVM — suspeita de integrar esquema de repasse de recursos para negócios da família Vorcaro.</p>
+          <p>Apenas nove dias após o Banco Central decretar a liquidação do Banco Master, <strong>uma offshore nas Bahamas ligada à Sefer foi aberta</strong> — movimento considerado altamente suspeito pelas autoridades.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="timeline-item" data-cats="financeiro judicial">
+      <div class="timeline-date"><div class="year">2025</div><div class="month">—</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-financeiro"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Banco Central liquida o Banco Master · Fraudes bilionárias confirmadas</div>
+          <span class="cat-tag cat-financeiro">Sistema Financeiro</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Brasil · Banco Central</div>
+        <div class="card-body">
+          <p>O Banco Central do Brasil decretou a <strong>liquidação do Banco Master</strong> após investigações que revelaram fraudes bilionárias.</p>
+          <p>Segundo a PF, o esquema incluía: compra de empresas de baixo valor para inflar artificialmente resultados; desvio de recursos de fundos de investimento; uso de informações privilegiadas; manipulação de preços; e venda de ativos podres.</p>
+          <p>As investigações que relacionam a origem dos recursos ao tráfico de drogas de Oliver Ortiz passaram a tramitar no STF.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mar 2026 -->
+    <div class="timeline-item" data-cats="judicial financeiro">
+      <div class="timeline-date"><div class="year">2026</div><div class="month">Mar</div></div>
+      <div class="timeline-connector"><div class="timeline-dot cat-judicial"></div><div class="timeline-line"></div></div>
+      <div class="timeline-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-title">Reportagem ICL Notícias revela conexão Oliver Ortiz → Banco Master</div>
+          <span class="cat-tag cat-judicial">Exposição Pública</span>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="card-location">Brasil · Mídia Nacional</div>
+        <div class="card-body">
+          <p>Em março de 2026, o ICL Notícias publicou reportagem com base em documentos de transações financeiras, processos judiciais e registros da CVM, revelando a cadeia: <strong>Oliver Ortiz → Grupo Aquilla / Sefer → Benjamim Botelho → Banco Master / Daniel Vorcaro</strong>.</p>
+          <p>O caso passa a ter repercussão nacional, dada a magnitude do Banco Master e o envolvimento de recursos originados no narcotráfico internacional na estrutura de compra de uma instituição financeira brasileira.</p>
+          <div class="highlight-box">
+            <strong>Ponto de atenção</strong>
+            Os valores exatos investidos por Ortiz nos fundos não foram confirmados publicamente, e tanto Vorcaro quanto Botelho não foram ouvidos na reportagem. As alegações partem de fonte identificada como participante das operações.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- END TIMELINE -->
+
+  <!-- NETWORK -->
+  <div class="network-section">
+    <h2>Rede de Conexões</h2>
+    <div class="network-grid">
+      <div class="network-node">
+        <div class="node-role">Núcleo Central</div>
+        <div class="node-name">Oliver Ortiz de Zarate Martin</div>
+        <div class="node-desc">Espanhol, 35 anos na prisão. Chefe de quadrilha, mergulhador, conexão com cartéis colombianos.</div>
+        <span class="node-status alvo">CONDENADO · 16 anos</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Operador Financeiro</div>
+        <div class="node-name">Benjamim Botelho de Almeida</div>
+        <div class="node-desc">Ex-Banco Garantia. Dupla nacionalidade PT/BR. Residente em Lisboa. Sócio oculto apontado pela PF.</div>
+        <span class="node-status investigado">INVESTIGADO</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Empresário</div>
+        <div class="node-name">Daniel Vorcaro</div>
+        <div class="node-desc">Fundador e dono do Banco Master. Comprou o Banco Máxima em 2017 com intermediação de Botelho.</div>
+        <span class="node-status investigado">SOB INVESTIGAÇÃO · STF</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Veículo Financeiro</div>
+        <div class="node-name">Grupo Aquilla / Sefer Investimentos</div>
+        <div class="node-desc">Fundos com Ortiz como cotista. Sefer = antiga Foco DTVM. Alvo da Operação Compliance Zero.</div>
+        <span class="node-status alvo">ALVO DA PF</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Instituição Financeira</div>
+        <div class="node-name">Banco Master (ex-Máxima)</div>
+        <div class="node-desc">Adquirido em 2017. Liquidado pelo Banco Central em 2025 após investigações de fraudes bilionárias.</div>
+        <span class="node-status liquidado">LIQUIDADO · 2025</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Offshore suspeita</div>
+        <div class="node-name">Empresa Bahamas / Sefer</div>
+        <div class="node-desc">Aberta 9 dias após a liquidação do Banco Master. Sinaliza possível fuga de recursos.</div>
+        <span class="node-status alvo">EM INVESTIGAÇÃO</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Cobertura Internacional</div>
+        <div class="node-name">DEA · Austrália · Portugal</div>
+        <div class="node-desc">Cooperação multilateral que viabilizou a prisão de Ortiz em 2013. Informação inicial: PF Australiana.</div>
+        <span class="node-status ativo">PARCEIROS DA PF</span>
+      </div>
+      <div class="network-node">
+        <div class="node-role">Origem da droga</div>
+        <div class="node-name">Cartéis Colombianos</div>
+        <div class="node-desc">Fornecedores de cocaína transportada por veleiros. Rotas: Colômbia → Europa e Colômbia → Oceania.</div>
+        <span class="node-status alvo">ORGANIZAÇÃO CRIMINOSA</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h3>Fontes Documentais</h3>
+    <ul>
+      <li>ICL Notícias — "Fundo que comprou Master para Vorcaro teria usado dinheiro de narcotraficante espanhol" (Mar 2026)</li>
+      <li>Brasil de Fato — Republicação da reportagem ICL (Mar 2026)</li>
+      <li>BNews — "Denunciante abre o jogo e revela fundo do Master com dinheiro de narcotraficante" (Mar 2026)</li>
+      <li>Agência Brasil (EBC) — Cobertura da prisão de Oliver Ortiz (Jun 2013)</li>
+      <li>Terra / Diálogos Políticos — Operação Monte Perdido, bens apreendidos (Jun/Jul 2013)</li>
+      <li>Registros CVM · Autos judiciais da Justiça Federal RJ · Documentos de transações financeiras</li>
+    </ul>
+  </div>
+
+  <footer>
+    Compilação jornalística para fins informativos e de análise pública · Dados baseados em fontes abertas e reportagens de 2013–2026
+  </footer>
+
+</div>
+
+<script>
+  function toggleCard(card) {
+    const body = card.querySelector('.card-body');
+    const icon = card.querySelector('.expand-icon');
+    const isOpen = body.classList.toggle('open');
+    card.classList.toggle('expanded', isOpen);
+    icon.textContent = isOpen ? '−' : '+';
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filter = this.dataset.filter;
+
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        if (filter === 'all') {
+          item.classList.remove('hidden');
+        } else {
+          const cats = item.dataset.cats || '';
+          item.classList.toggle('hidden', !cats.includes(filter));
+        }
+      });
+    });
+  });
+
+  // Open first card by default
+  const firstCard = document.querySelector('.timeline-card');
+  if (firstCard) toggleCard(firstCard);
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

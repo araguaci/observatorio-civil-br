@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Proteção à Infância no Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --bg:        #0a0a0b;
+  --bg2:       #111113;
+  --bg3:       #18181c;
+  --bg4:       #1e1e24;
+  --border:    rgba(255,255,255,.07);
+  --border2:   rgba(255,255,255,.12);
+  --text:      #e8e6e1;
+  --text2:     #9a9890;
+  --text3:     #5c5b58;
+  --accent:    #e05a3a;
+  --accent2:   #f07a5a;
+  --teal:      #2dd4aa;
+  --blue:      #4a9eff;
+  --amber:     #f4a830;
+  --red:       #e84040;
+  --green:     #3dba76;
+  --mono:      'JetBrains Mono', monospace;
+  --display:   'Syne', sans-serif;
+  --serif:     'Lora', serif;
+  --r:         6px;
+  --r2:        10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--display);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,11,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+}
+.nav-logo { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.nav-links { display: flex; gap: 0; }
+.nav-link {
+  font-size: 12px; font-weight: 500; color: var(--text2);
+  padding: 0 14px; height: 52px; display: flex; align-items: center;
+  border-bottom: 2px solid transparent; cursor: pointer; transition: all .15s;
+  text-decoration: none;
+}
+.nav-link:hover { color: var(--text); border-bottom-color: var(--border2); text-decoration: none; }
+.nav-link.active { color: var(--accent2); border-bottom-color: var(--accent); }
+.nav-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px;
+  background: rgba(224,90,58,.15); color: var(--accent2); letter-spacing: .05em;
+  font-family: var(--mono);
+}
+
+/* ── LAYOUT ── */
+.page { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+.section { margin-bottom: 56px; scroll-margin-top: 70px; }
+.section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }
+.section-num { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 28px; }
+.section-title {
+  font-size: clamp(16px, 3.5vw, 24px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.section-sub { font-size: 12px; color: var(--text2); margin-top: 2px; font-family: var(--mono); }
+
+/* ── HERO ── */
+.hero {
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: -10%; right: -10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.hero-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
+.hero-title {
+  font-size: clamp(28px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  max-width: min(900px, 100%);
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.hero-title span { color: var(--accent2); }
+.hero-desc { font-family: var(--serif); font-size: clamp(15px, 2vw, 18px); color: var(--text2); max-width: 640px; line-height: 1.7; margin-bottom: 32px; }
+.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge {
+  font-family: var(--mono); font-size: 11px; padding: 4px 10px; border-radius: 20px;
+  border: 1px solid; font-weight: 500;
+}
+.badge-red { border-color: rgba(232,64,64,.4); color: #e84040; background: rgba(232,64,64,.08); }
+.badge-amber { border-color: rgba(244,168,48,.4); color: var(--amber); background: rgba(244,168,48,.08); }
+.badge-teal { border-color: rgba(45,212,170,.4); color: var(--teal); background: rgba(45,212,170,.08); }
+.badge-blue { border-color: rgba(74,158,255,.4); color: var(--blue); background: rgba(74,158,255,.08); }
+.badge-gray { border-color: var(--border2); color: var(--text3); background: rgba(255,255,255,.03); }
+
+/* ── KPI GRID ── */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 20px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s;
+}
+.kpi-card:hover { border-color: var(--border2); }
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.kpi-card.red::before { background: var(--red); }
+.kpi-card.amber::before { background: var(--amber); }
+.kpi-card.teal::before { background: var(--teal); }
+.kpi-card.blue::before { background: var(--blue); }
+.kpi-card.green::before { background: var(--green); }
+.kpi-label { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.kpi-value { font-family: var(--mono); font-size: 28px; font-weight: 600; letter-spacing: -.02em; line-height: 1; margin-bottom: 6px; }
+.kpi-value.red { color: var(--red); }
+.kpi-value.amber { color: var(--amber); }
+.kpi-value.teal { color: var(--teal); }
+.kpi-value.blue { color: var(--blue); }
+.kpi-value.green { color: var(--green); }
+.kpi-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.kpi-trend { font-family: var(--mono); font-size: 11px; margin-top: 8px; }
+.kpi-trend.up { color: var(--red); }
+.kpi-trend.down { color: var(--green); }
+
+/* ── CHARTS ── */
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.chart-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 20px;
+}
+.chart-card.wide { grid-column: 1 / -1; }
+.chart-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.chart-sub { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-bottom: 16px; }
+.chart-wrap { position: relative; }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 1px; background: var(--border2);
+}
+.tl-item {
+  position: relative; margin-bottom: 28px;
+  cursor: pointer;
+}
+.tl-dot {
+  position: absolute; left: -28px; top: 4px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--bg); z-index: 1;
+}
+.tl-year { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 3px; letter-spacing: .06em; }
+.tl-event { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.tl-detail { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.tl-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.tl-badge { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+.tl-badge.law { background: rgba(74,158,255,.12); color: var(--blue); }
+.tl-badge.crisis { background: rgba(232,64,64,.12); color: var(--red); }
+.tl-badge.advance { background: rgba(45,212,170,.12); color: var(--teal); }
+.tl-badge.gap { background: rgba(244,168,48,.12); color: var(--amber); }
+
+/* ── MIND MAP ── */
+.mindmap-container {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 24px; overflow: hidden;
+}
+.mindmap-svg { width: 100%; height: auto; }
+.mm-center { fill: var(--accent); rx: 8; }
+.mm-node-text { font-family: 'Syne', sans-serif; font-size: 12px; fill: var(--text); }
+.mm-center-text { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; fill: #fff; }
+.mm-line { stroke: var(--border2); stroke-width: 1; fill: none; }
+
+/* ── LAW TABLE ── */
+.law-table { width: 100%; border-collapse: collapse; }
+.law-table th {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .08em; text-align: left;
+  padding: 8px 12px; border-bottom: 1px solid var(--border2);
+  font-weight: 500;
+}
+.law-table td {
+  font-size: 12px; padding: 12px 12px; border-bottom: 1px solid var(--border);
+  vertical-align: top; line-height: 1.5;
+}
+.law-table tr:hover td { background: rgba(255,255,255,.02); }
+.law-table .law-num { font-family: var(--mono); color: var(--blue); font-size: 11px; white-space: nowrap; }
+.law-table .law-status { font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+.status-ok { background: rgba(61,186,118,.15); color: var(--green); }
+.status-partial { background: rgba(244,168,48,.12); color: var(--amber); }
+.status-fail { background: rgba(232,64,64,.12); color: var(--red); }
+.status-new { background: rgba(74,158,255,.12); color: var(--blue); }
+
+/* ── SOLUTIONS ── */
+.sol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.sol-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 18px;
+  transition: border-color .2s, transform .15s;
+  cursor: default;
+}
+.sol-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.sol-prio {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px; display: inline-block; margin-bottom: 10px;
+}
+.prio-p0 { background: rgba(232,64,64,.15); color: var(--red); }
+.prio-p1 { background: rgba(244,168,48,.12); color: var(--amber); }
+.prio-p2 { background: rgba(74,158,255,.12); color: var(--blue); }
+.prio-p3 { background: rgba(45,212,170,.1); color: var(--teal); }
+.sol-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.sol-text { font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 10px; }
+.sol-actor { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+
+/* ── BARS ── */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.bar-label { font-size: 12px; color: var(--text2); flex: 0 0 220px; }
+.bar-track { flex: 1; height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 2px; transition: width 1.2s cubic-bezier(.25,1,.5,1); }
+.bar-val { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 48px; text-align: right; }
+
+/* ── REFS ── */
+.ref-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.ref-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+  transition: border-color .15s;
+}
+.ref-card:hover { border-color: var(--border2); }
+.ref-num { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 24px; padding-top: 1px; }
+.ref-body {}
+.ref-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.ref-title a { color: var(--text); }
+.ref-title a:hover { color: var(--blue); text-decoration: underline; }
+.ref-meta { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+.ref-tag { font-family: var(--mono); font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-left: 6px; }
+.ref-tag.ipea { background: rgba(74,158,255,.1); color: var(--blue); }
+.ref-tag.gov { background: rgba(45,212,170,.1); color: var(--teal); }
+.ref-tag.ong { background: rgba(244,168,48,.1); color: var(--amber); }
+.ref-tag.cnj { background: rgba(232,64,64,.1); color: var(--red); }
+
+/* ── CONCLUSION ── */
+.conclusion-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r2); padding: 28px 32px;
+}
+.conclusion-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+.conclusion-text { font-family: var(--serif); font-size: 15px; color: var(--text2); line-height: 1.8; }
+.conclusion-text strong { color: var(--text); font-weight: 600; }
+.verdict-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+.verdict-item { text-align: center; padding: 16px; background: var(--bg3); border-radius: var(--r); }
+.verdict-emoji { font-size: 22px; margin-bottom: 6px; }
+.verdict-label { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.verdict-text { font-size: 11px; color: var(--text3); font-family: var(--mono); }
+
+/* ── SWOT MINI ── */
+.swot-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: var(--r2); overflow: hidden; }
+.swot-cell { background: var(--bg2); padding: 18px; border: 1px solid var(--border); }
+.swot-cell-title { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; font-family: var(--mono); }
+.swot-item { font-size: 12px; color: var(--text2); padding: 4px 0; border-bottom: 1px solid var(--border); line-height: 1.4; }
+.swot-item:last-child { border-bottom: none; }
+.dot-s { color: var(--teal); }
+.dot-w { color: var(--red); }
+.dot-o { color: var(--blue); }
+.dot-t { color: var(--amber); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border); padding: 24px;
+  text-align: center; font-family: var(--mono);
+  font-size: 11px; color: var(--text3);
+}
+
+/* ── UTILS ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.card-base {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 20px;
+}
+.divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+.text-mono { font-family: var(--mono); }
+.text-xs { font-size: 11px; }
+.text-sm { font-size: 12px; }
+.text-muted { color: var(--text2); }
+.text-faint { color: var(--text3); }
+.mt8 { margin-top: 8px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+.gap-col { display: flex; flex-direction: column; gap: 10px; }
+
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid { grid-template-columns: 1fr; }
+  .sol-grid { grid-template-columns: 1fr 1fr; }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .verdict-grid { grid-template-columns: 1fr; }
+  .ref-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .kpi-grid, .sol-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .page { padding: 20px 16px 60px; }
+  .hero { padding: 32px 0 28px; }
+  .hero-title { font-size: clamp(24px, 7vw, 32px); }
+  .section-title { font-size: clamp(15px, 4.5vw, 20px); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Infância BR</div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#kpis">KPIs</a>
+    <a class="nav-link" href="#violencia">Violência</a>
+    <a class="nav-link" href="#digital">Digital</a>
+    <a class="nav-link" href="#timeline">Timeline</a>
+    <a class="nav-link" href="#mapa">Mapa Mental</a>
+    <a class="nav-link" href="#direito">Direito</a>
+    <a class="nav-link" href="#solucoes">Soluções</a>
+    <a class="nav-link" href="#refs">Referências</a>
+    <a class="nav-link" href="#conclusao">Conclusão</a>
+  </div>
+  <div class="nav-tag">2024–2026</div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Dashboard de Análise — Proteção à Infância no Brasil</div>
+  <h1 class="hero-title">O colapso silencioso da<br><span>proteção às crianças</span></h1>
+  <p class="hero-desc">Dados reais, lacunas sistêmicas, direito aplicado e soluções concretas. Compilação de fontes oficiais: Ipea, MDHC, CNJ, SaferNet, Anuário de Segurança Pública 2024 e Atlas da Violência 2025.</p>
+  <div class="hero-badges">
+    <span class="badge badge-red">🔴 Homicídios +15,6% (0–4 anos)</span>
+    <span class="badge badge-red">657 mil denúncias em 2024</span>
+    <span class="badge badge-amber">Apenas 11 varas especializadas</span>
+    <span class="badge badge-amber">1,6 mi em trabalho infantil</span>
+    <span class="badge badge-teal">ECA 35 anos — lei avançada</span>
+    <span class="badge badge-blue">Lei 15.035/2024 — cadastro de pedófilos</span>
+    <span class="badge badge-gray">Atualizado: março 2026</span>
+  </div>
+</div>
+
+<!-- SECTION 1: KPIs -->
+<section class="section" id="kpis">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div>
+      <div class="section-title">Indicadores-chave</div>
+      <div class="section-sub">KPIs — números reais extraídos de fontes primárias</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card red">
+      <div class="kpi-label">Homicídios 0–4 anos</div>
+      <div class="kpi-value red">+15,6%</div>
+      <div class="kpi-desc">Maior alta de toda a série histórica. 2.124 crianças assassinadas entre 2013–2023.</div>
+      <div class="kpi-trend up">↑ recorde histórico · Atlas da Violência 2025</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Denúncias de violência 2024</div>
+      <div class="kpi-value red">657k</div>
+      <div class="kpi-desc">Queixas recebidas pelo MDHC. Crescimento de 22,6% vs 2023. Mais de 1,6 mi de violações registradas.</div>
+      <div class="kpi-trend up">↑ 22,6% vs 2023 · MDHC</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Varas especializadas — Brasil</div>
+      <div class="kpi-value amber">11</div>
+      <div class="kpi-desc">Para todo o país. Taxa de congestionamento judicial de 74%. Maioria dos estados sem vara especializada.</div>
+      <div class="kpi-trend up">↑ 74% congestionamento · CNJ 2024</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Vítimas de estupro ≤13 anos</div>
+      <div class="kpi-value amber">61,6%</div>
+      <div class="kpi-desc">Do total de vítimas de estupro no país. 88,2% são meninas. 84,7% o agressor é familiar ou próximo.</div>
+      <div class="kpi-trend up">84,7% agressor familiar · Anuário BSP 2024</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">CSAM online — 2025 (7 meses)</div>
+      <div class="kpi-value red">49,3k</div>
+      <div class="kpi-desc">Denúncias de abuso sexual infantil na internet. 64% de todos os crimes cibernéticos. Crescimento de 18,9%.</div>
+      <div class="kpi-trend up">↑ 18,9% vs 2024 · SaferNet Brasil</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Trabalho infantil</div>
+      <div class="kpi-value amber">1,6M</div>
+      <div class="kpi-desc">Crianças e adolescentes em situação de trabalho precoce no Brasil. Concentrado no campo e setor informal.</div>
+      <div class="kpi-trend up">Maioria setor rural · FRM / OIT</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Violência sexual +0–5 anos</div>
+      <div class="kpi-value red">+383%</div>
+      <div class="kpi-desc">Aumento nos registros de violência sexual na primeira infância. Ocorre em 7/10 casos dentro do domicílio.</div>
+      <div class="kpi-trend up">↑ 383% episódios · Atlas da Violência 2025</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">ECA — vigência</div>
+      <div class="kpi-value teal">35 anos</div>
+      <div class="kpi-desc">Lei 8.069/1990. Um dos marcos legais de proteção à infância mais avançados do mundo. 267 artigos.</div>
+      <div class="kpi-trend down">✓ Lei referência · ONU / Unicef</div>
+    </div>
+  </div>
+
+  <div class="mt24">
+    <div class="text-sm text-muted" style="margin-bottom:12px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing:.06em; color: var(--text3);">Índice de proteção efetiva por eixo (estimativa composta)</div>
+    <div class="card-base">
+      <div class="bar-row"><div class="bar-label">Marco legal (ECA, Códigos, Lei Hediondos)</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--teal)"></div></div><div class="bar-val text-mono">82%</div></div>
+      <div class="bar-row"><div class="bar-label">Detecção e denúncia (Disque 100, CREAS)</div><div class="bar-track"><div class="bar-fill" style="width:38%;background:var(--amber)"></div></div><div class="bar-val text-mono">38%</div></div>
+      <div class="bar-row"><div class="bar-label">Responsabilização judicial efetiva</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--red)"></div></div><div class="bar-val text-mono">22%</div></div>
+      <div class="bar-row"><div class="bar-label">Saúde mental infantil no SUS</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--red)"></div></div><div class="bar-val text-mono">18%</div></div>
+      <div class="bar-row"><div class="bar-label">Educação sexual curricular</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--red)"></div></div><div class="bar-val text-mono">12%</div></div>
+      <div class="bar-row"><div class="bar-label">Proteção digital (CSAM, plataformas)</div><div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--red)"></div></div><div class="bar-val text-mono">15%</div></div>
+      <div class="bar-row"><div class="bar-label">Reinserção e reparação de vítimas</div><div class="bar-track"><div class="bar-fill" style="width:9%;background:var(--red)"></div></div><div class="bar-val text-mono">9%</div></div>
+      <div class="bar-row" style="margin-bottom:0"><div class="bar-label">Conselhos Tutelares com estrutura real</div><div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--amber)"></div></div><div class="bar-val text-mono">31%</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 2: VIOLÊNCIA -->
+<section class="section" id="violencia">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div>
+      <div class="section-title">Violência — dados e perfil</div>
+      <div class="section-sub">Atlas da Violência 2025 · Anuário BSP 2024 · MDHC</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Tipo de violência contra criança 0–14 anos</div>
+      <div class="chart-sub">Registros 2023–2024 · crescimento acumulado</div>
+      <div class="chart-wrap" style="height:240px"><canvas id="chartViolencia"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Quem é o agressor?</div>
+      <div class="chart-sub">Estupro de vulnerável — Anuário BSP 2024</div>
+      <div class="chart-wrap" style="height:240px"><canvas id="chartAgressor"></canvas></div>
+    </div>
+    <div class="chart-card wide">
+      <div class="chart-title">Evolução das denúncias ao MDHC — 2019 a 2024</div>
+      <div class="chart-sub">Disque 100 + Ligue 180 + App DH Brasil · valores em milhares</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="chartDenuncias"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Perfil das vítimas de estupro infantil</div>
+      <div class="chart-sub">Anuário BSP 2024</div>
+      <div style="margin-top: 12px;">
+        <div class="bar-row"><div class="bar-label">São meninas</div><div class="bar-track"><div class="bar-fill" style="width:88.2%;background:var(--red)"></div></div><div class="bar-val text-mono">88,2%</div></div>
+        <div class="bar-row"><div class="bar-label">São negras</div><div class="bar-track"><div class="bar-fill" style="width:52.2%;background:var(--amber)"></div></div><div class="bar-val text-mono">52,2%</div></div>
+        <div class="bar-row"><div class="bar-label">Têm até 13 anos</div><div class="bar-track"><div class="bar-fill" style="width:61.6%;background:var(--red)"></div></div><div class="bar-val text-mono">61,6%</div></div>
+        <div class="bar-row"><div class="bar-label">Agressor é familiar/próximo</div><div class="bar-track"><div class="bar-fill" style="width:84.7%;background:var(--red)"></div></div><div class="bar-val text-mono">84,7%</div></div>
+        <div class="bar-row" style="margin-bottom:0"><div class="bar-label">Crime ocorre em casa</div><div class="bar-track"><div class="bar-fill" style="width:67.4%;background:var(--amber)"></div></div><div class="bar-val text-mono">67,4%</div></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Homicídios de crianças — série histórica</div>
+      <div class="chart-sub">Por faixa etária 2013–2023 · total acumulado</div>
+      <div style="margin-top: 12px;">
+        <div class="bar-row"><div class="bar-label">0–4 anos</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--red)"></div></div><div class="bar-val text-mono">2.124</div></div>
+        <div class="bar-row"><div class="bar-label">5–14 anos</div><div class="bar-track"><div class="bar-fill" style="width:61%;background:var(--amber)"></div></div><div class="bar-val text-mono">6.480</div></div>
+        <div class="bar-row" style="margin-bottom:16px"><div class="bar-label">15–19 anos</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--red)"></div></div><div class="bar-val text-mono">90.399</div></div>
+        <div style="background:rgba(232,64,64,.08);border:1px solid rgba(232,64,64,.2);border-radius:6px;padding:10px 12px;margin-top:4px;">
+          <div class="text-xs text-mono" style="color:var(--red);margin-bottom:2px;">⚠ ALERTA 2024</div>
+          <div class="text-sm text-muted">Alta de <strong style="color:var(--text)">+15,6%</strong> nos homicídios de 0–4 anos — maior salto da série histórica. Arma de fogo é o principal instrumento.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 3: DIGITAL -->
+<section class="section" id="digital">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div>
+      <div class="section-title">Abuso digital — CSAM e plataformas</div>
+      <div class="section-sub">SaferNet Brasil 2025 · TIC Kids Online 2024</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Denúncias CSAM — jan–jul 2025</div>
+      <div class="chart-sub">Canal Nacional de Denúncias · SaferNet Brasil</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartCSAM"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Composição das denúncias cibernéticas 2025</div>
+      <div class="chart-sub">CSAM = 64% do total de crimes digitais</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartCrimes"></canvas></div>
+    </div>
+    <div class="chart-card wide">
+      <div class="chart-title">Série histórica SaferNet — denúncias CSAM acumuladas 2006–2024</div>
+      <div class="chart-sub">Total: 2.153.069 denúncias em 19 anos · crescimento acelerado pós-pandemia</div>
+      <div class="chart-wrap" style="height:160px"><canvas id="chartSaferNet"></canvas></div>
+    </div>
+  </div>
+
+  <div class="mt16 two-col">
+    <div class="card-base">
+      <div class="text-mono text-xs text-faint" style="margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em">Riscos digitais — TIC Kids Online 2024</div>
+      <div class="bar-row"><div class="bar-label">Contato com desconhecidos online</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--amber)"></div></div><div class="bar-val text-mono">30%</div></div>
+      <div class="bar-row"><div class="bar-label">Exposição a conteúdo inadequado</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--amber)"></div></div><div class="bar-val text-mono">42%</div></div>
+      <div class="bar-row" style="margin-bottom:0"><div class="bar-label">Sem supervisão parental digital</div><div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--red)"></div></div><div class="bar-val text-mono">67%</div></div>
+    </div>
+    <div class="card-base">
+      <div class="text-mono text-xs text-faint" style="margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em">Percepção social — Instituto Alana 2024</div>
+      <div style="background:rgba(74,158,255,.06);border:1px solid rgba(74,158,255,.15);border-radius:6px;padding:14px;">
+        <div style="font-size:28px;font-family:var(--mono);font-weight:600;color:var(--blue)">92%</div>
+        <div class="text-sm text-muted" style="margin-top:4px">dos brasileiros reconhecem que é <strong style="color:var(--text)">"extremamente difícil"</strong> para crianças e adolescentes se defenderem sozinhos de violências no ambiente virtual.</div>
+      </div>
+      <div class="mt16 text-sm text-muted">IA generativa permite criar deepfakes de abuso sexual infantil em escala — impondo novo desafio à SaferNet, PF e ao marco regulatório.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 4: TIMELINE -->
+<section class="section" id="timeline">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div>
+      <div class="section-title">Timeline legislativa e de crises</div>
+      <div class="section-sub">1990–2026 · marcos legais, lacunas e eventos críticos</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal)"></div>
+        <div class="tl-year">1988</div>
+        <div class="tl-event">Constituição Federal</div>
+        <div class="tl-detail">Art. 227 estabelece proteção integral à criança como dever da família, sociedade e Estado. Base constitucional de todo o sistema.</div>
+        <div class="tl-badges"><span class="tl-badge law">Lei</span><span class="tl-badge advance">Marco</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal)"></div>
+        <div class="tl-year">1990</div>
+        <div class="tl-event">ECA — Lei 8.069/90</div>
+        <div class="tl-detail">Estatuto da Criança e do Adolescente. 267 artigos. Um dos marcos legais de proteção à infância mais avançados do mundo.</div>
+        <div class="tl-badges"><span class="tl-badge law">Lei</span><span class="tl-badge advance">Referência ONU</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-year">2000</div>
+        <div class="tl-event">Dia Nacional 18 de Maio</div>
+        <div class="tl-detail">Lei federal institui o Dia Nacional de Combate ao Abuso e Exploração Sexual. Referência ao caso Araceli (ES, 1973).</div>
+        <div class="tl-badges"><span class="tl-badge advance">Marco</span><span class="tl-badge gap">Simbólico</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal)"></div>
+        <div class="tl-year">2008</div>
+        <div class="tl-event">Lei 11.829/08 — ECA Digital</div>
+        <div class="tl-detail">Atualiza o ECA para incluir crimes de pedofilia virtual, pornografia infantil online e grooming. Arts. 240, 241 e 241-D.</div>
+        <div class="tl-badges"><span class="tl-badge law">Lei</span><span class="tl-badge advance">Digital</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal)"></div>
+        <div class="tl-year">2009</div>
+        <div class="tl-event">Estupro de Vulnerável — Art. 217-A CP</div>
+        <div class="tl-detail">Lei 12.015/09 cria o tipo penal "estupro de vulnerável": qualquer ato libidinoso com menor de 14 anos é crime, independente de consentimento.</div>
+        <div class="tl-badges"><span class="tl-badge law">Código Penal</span><span class="tl-badge advance">Marco</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-year">2014</div>
+        <div class="tl-event">TJ-SP absolve fazendeiro acusado de estuprar menina de 13 anos</div>
+        <div class="tl-detail">Desembargadores usam argumento de que a vítima "era prostituta" e o réu teria se enganado. Escândalo nacional.</div>
+        <div class="tl-badges"><span class="tl-badge crisis">Crise</span><span class="tl-badge gap">Corporativismo</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-year">2019</div>
+        <div class="tl-event">Lei 13.935/19 — Psicólogos nas escolas</div>
+        <div class="tl-detail">Obriga redes públicas de educação básica a terem psicólogos e assistentes sociais. Em 2025, maioria dos municípios ainda não cumpriu.</div>
+        <div class="tl-badges"><span class="tl-badge law">Lei</span><span class="tl-badge gap">Não implementada</span></div>
+      </div>
+
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--red)"></div>
+        <div class="tl-year">2020–2022</div>
+        <div class="tl-event">Pandemia e explosão do abuso digital</div>
+        <div class="tl-detail">Isolamento aumenta exposição de crianças a abusadores domésticos e ao ambiente digital desprotegido. SaferNet registra salto histórico.</div>
+        <div class="tl-badges"><span class="tl-badge crisis">Crise</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-year">2022</div>
+        <div class="tl-event">PL 2.628/22 — Marco Digital Infantil</div>
+        <div class="tl-detail">Projeto que regulamenta proteção de crianças no ambiente digital. Em tramitação até 2025, ainda sem aprovação definitiva.</div>
+        <div class="tl-badges"><span class="tl-badge law">PL</span><span class="tl-badge gap">Em tramitação</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal)"></div>
+        <div class="tl-year">2024 (nov.)</div>
+        <div class="tl-event">Lei 15.035/24 — Cadastro de Pedófilos</div>
+        <div class="tl-detail">Sancionada pelo Presidente Lula. Cria o Cadastro Nacional de Pedófilos e Predadores Sexuais com acesso público a nome e CPF dos condenados.</div>
+        <div class="tl-badges"><span class="tl-badge law">Lei</span><span class="tl-badge advance">Avanço</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--red)"></div>
+        <div class="tl-year">2025 (mai.)</div>
+        <div class="tl-event">Atlas da Violência 2025 — Alerta Máximo</div>
+        <div class="tl-detail">Ipea e FBSP publicam dados alarmantes: homicídios de 0–4 anos +15,6%, pior da série histórica. "Colapso da proteção", diz especialista.</div>
+        <div class="tl-badges"><span class="tl-badge crisis">Alerta crítico</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-year">2025 (jul.)</div>
+        <div class="tl-event">CCJ aprovação — novas penas para pedofilia</div>
+        <div class="tl-detail">Estupro de vulnerável passa a 10–18 anos. Corrupção de menores sobe para 6–14 anos. Divulgação de pornografia infantil: 4–10 anos.</div>
+        <div class="tl-badges"><span class="tl-badge law">PL 2810/25</span><span class="tl-badge advance">Avanço</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--red)"></div>
+        <div class="tl-year">2026 (fev.)</div>
+        <div class="tl-event">Caso Láuar — TJMG absolve estuprador de menina de 12 anos</div>
+        <div class="tl-detail">Desembargador usa argumento de "vínculo afetivo consensual". Pressão pública reverte decisão. PF investiga magistrado por supostos abusos em 5 vítimas.</div>
+        <div class="tl-badges"><span class="tl-badge crisis">Escândalo</span><span class="tl-badge gap">Corporativismo</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 5: MAPA MENTAL -->
+<section class="section" id="mapa">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div>
+      <div class="section-title">Mapa mental — sistema de proteção</div>
+      <div class="section-sub">Atores, falhas e conexões sistêmicas</div>
+    </div>
+  </div>
+
+  <div class="mindmap-container">
+    <svg class="mindmap-svg" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+
+      <!-- Central node -->
+      <rect x="370" y="235" width="160" height="50" rx="8" fill="#e05a3a"/>
+      <text x="450" y="256" text-anchor="middle" font-family="Syne" font-size="12" font-weight="700" fill="white">Proteção</text>
+      <text x="450" y="272" text-anchor="middle" font-family="Syne" font-size="12" font-weight="700" fill="white">à Infância</text>
+
+      <!-- Lines from center -->
+      <line x1="370" y1="260" x2="240" y2="100" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="370" y1="260" x2="100" y2="260" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="370" y1="285" x2="200" y2="420" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="530" y1="260" x2="670" y2="100" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="530" y1="260" x2="780" y2="260" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="530" y1="285" x2="700" y2="420" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="450" y1="235" x2="450" y2="80" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <line x1="450" y1="285" x2="450" y2="480" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+
+      <!-- TOP: ESTADO -->
+      <rect x="370" y="28" width="160" height="46" rx="6" fill="rgba(45,212,170,.12)" stroke="rgba(45,212,170,.4)" stroke-width="1"/>
+      <text x="450" y="48" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#2dd4aa">ESTADO</text>
+      <text x="450" y="63" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(45,212,170,.7)">ECA · SUS · CREAS · CNJ</text>
+
+      <!-- TOP LEFT: FAMÍLIA -->
+      <rect x="140" y="54" width="140" height="42" rx="6" fill="rgba(244,168,48,.1)" stroke="rgba(244,168,48,.35)" stroke-width="1"/>
+      <text x="210" y="72" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#f4a830">FAMÍLIA</text>
+      <text x="210" y="86" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(244,168,48,.7)">80% abusos domésticos</text>
+
+      <!-- TOP RIGHT: ESCOLA -->
+      <rect x="620" y="54" width="140" height="42" rx="6" fill="rgba(74,158,255,.1)" stroke="rgba(74,158,255,.35)" stroke-width="1"/>
+      <text x="690" y="72" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#4a9eff">ESCOLA</text>
+      <text x="690" y="86" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(74,158,255,.7)">1ª detecção · sem protocolo</text>
+
+      <!-- LEFT: JUDICIÁRIO -->
+      <rect x="20" y="230" width="150" height="58" rx="6" fill="rgba(232,64,64,.1)" stroke="rgba(232,64,64,.35)" stroke-width="1"/>
+      <text x="95" y="252" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#e84040">JUDICIÁRIO</text>
+      <text x="95" y="267" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.7)">11 varas · 74% congesto</text>
+      <text x="95" y="280" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.7)">corporativismo · sigilo</text>
+
+      <!-- RIGHT: DIGITAL -->
+      <rect x="730" y="230" width="150" height="58" rx="6" fill="rgba(232,64,64,.1)" stroke="rgba(232,64,64,.35)" stroke-width="1"/>
+      <text x="805" y="252" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#e84040">DIGITAL</text>
+      <text x="805" y="267" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.7)">CSAM +18,9% · IA · deepfakes</text>
+      <text x="805" y="282" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.7)">plataformas sem regulação</text>
+
+      <!-- BOTTOM LEFT: SAÚDE -->
+      <rect x="100" y="398" width="150" height="52" rx="6" fill="rgba(74,158,255,.08)" stroke="rgba(74,158,255,.3)" stroke-width="1"/>
+      <text x="175" y="418" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#4a9eff">SAÚDE</text>
+      <text x="175" y="432" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(74,158,255,.7)">SUS · psicologia · fila</text>
+      <text x="175" y="445" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(74,158,255,.7)">saúde mental ausente</text>
+
+      <!-- BOTTOM CENTER: SOCIEDADE -->
+      <rect x="360" y="476" width="180" height="46" rx="6" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+      <text x="450" y="496" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="rgba(255,255,255,.6)">SOCIEDADE CIVIL</text>
+      <text x="450" y="511" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(255,255,255,.35)">ONGs · SaferNet · Childhood · ABMP</text>
+
+      <!-- BOTTOM RIGHT: CONSELHO TUTELAR -->
+      <rect x="640" y="398" width="160" height="52" rx="6" fill="rgba(244,168,48,.08)" stroke="rgba(244,168,48,.3)" stroke-width="1"/>
+      <text x="720" y="418" text-anchor="middle" font-family="Syne" font-size="11" font-weight="600" fill="#f4a830">CONSELHO TUTELAR</text>
+      <text x="720" y="432" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(244,168,48,.7)">5.570 municípios · sem carro</text>
+      <text x="720" y="445" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(244,168,48,.7)">subfinanciado · 1ª resposta</text>
+
+      <!-- FAILURE markers -->
+      <text x="310" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.8)">↯ sem notificação</text>
+      <text x="587" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.8)">↯ sem protocolo</text>
+      <text x="175" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.8)">↯ impunidade</text>
+      <text x="700" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="rgba(232,64,64,.8)">↯ sem regulação</text>
+    </svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 6: DIREITO APLICADO -->
+<section class="section" id="direito">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div>
+      <div class="section-title">Direito aplicado — leis, penas e lacunas</div>
+      <div class="section-sub">Código Penal · ECA · Lei dos Crimes Hediondos · CNJ</div>
+    </div>
+  </div>
+
+  <div class="card-base" style="overflow-x:auto">
+    <table class="law-table">
+      <thead>
+        <tr>
+          <th>Dispositivo</th>
+          <th>Crime / Conduta</th>
+          <th>Pena atual</th>
+          <th>Nova pena proposta</th>
+          <th>Status</th>
+          <th>Lacuna real</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="law-num">CP Art. 217-A</div></td>
+          <td>Estupro de vulnerável (&lt;14 anos)</td>
+          <td class="text-mono">8–15 anos</td>
+          <td class="text-mono" style="color:var(--amber)">10–18 anos</td>
+          <td><span class="law-status status-new">PL 2810/25</span></td>
+          <td class="text-muted text-sm">Progressão após 2/5 da pena. Pena mínima pode ser cumprida em regime domiciliar.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">CP Art. 213</div></td>
+          <td>Estupro (vítima adulta)</td>
+          <td class="text-mono">6–10 anos</td>
+          <td class="text-mono" style="color:var(--amber)">10–14 anos</td>
+          <td><span class="law-status status-partial">Em tramitação</span></td>
+          <td class="text-muted text-sm">Progressão de regime muito rápida. Muitos cumprem em aberto ou domiciliar.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">ECA Art. 240</div></td>
+          <td>Produzir/filmar pornografia infantil</td>
+          <td class="text-mono">4–8 anos</td>
+          <td class="text-mono" style="color:var(--amber)">6–10 anos</td>
+          <td><span class="law-status status-new">PL 2810/25</span></td>
+          <td class="text-muted text-sm">IA gerativa cria CSAM sintético — legislação não cobre adequadamente deepfakes.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">ECA Art. 241</div></td>
+          <td>Distribuir/publicar pornografia infantil</td>
+          <td class="text-mono">3–6 anos</td>
+          <td class="text-mono" style="color:var(--amber)">4–10 anos</td>
+          <td><span class="law-status status-new">PL 2810/25</span></td>
+          <td class="text-muted text-sm">Plataformas não têm responsabilidade civil clara. Hospedam CSAM sem sanção efetiva.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">CP Art. 218</div></td>
+          <td>Corrupção de menores (&lt;14 anos)</td>
+          <td class="text-mono">2–5 anos</td>
+          <td class="text-mono" style="color:var(--amber)">6–14 anos</td>
+          <td><span class="law-status status-new">CCJ aprovado</span></td>
+          <td class="text-muted text-sm">Pena atual permite cumprimento em regime aberto desde o início. Sensação real de impunidade.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">Lei 8.072/90</div></td>
+          <td>Crimes hediondos — estupro de vulnerável</td>
+          <td class="text-mono">Fechado + 2/5</td>
+          <td class="text-mono" style="color:var(--amber)">Fechado + 50%</td>
+          <td><span class="law-status status-partial">Parcial</span></td>
+          <td class="text-muted text-sm">Pedofilia digital, corrupção de menores e grooming ainda fora do rol hediondo pleno.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">Lei 15.035/24</div></td>
+          <td>Cadastro Nacional de Pedófilos</td>
+          <td class="text-mono">Acesso público CPF/nome</td>
+          <td>—</td>
+          <td><span class="law-status status-ok">Sancionada</span></td>
+          <td class="text-muted text-sm">Lula vetou manutenção de dados por 10 anos pós-pena. Banco de dados ainda não operacional.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">Lei 13.935/19</div></td>
+          <td>Psicólogos na rede pública de ensino</td>
+          <td class="text-mono">Obrigatório</td>
+          <td>—</td>
+          <td><span class="law-status status-fail">Não cumprida</span></td>
+          <td class="text-muted text-sm">Maioria dos municípios brasileiros ainda não implementou. Sem sanção para descumprimento.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">ECA Art. 13</div></td>
+          <td>Notificação obrigatória de abuso</td>
+          <td class="text-mono">Dever de todo profissional</td>
+          <td>—</td>
+          <td><span class="law-status status-fail">Baixa adesão</span></td>
+          <td class="text-muted text-sm">Médicos e professores não notificam por medo, despreparo ou pressão comunitária. Sem fiscalização.</td>
+        </tr>
+        <tr>
+          <td><div class="law-num">PL 2.628/22</div></td>
+          <td>Marco Digital Infantil</td>
+          <td>—</td>
+          <td class="text-mono" style="color:var(--blue)">Regulação plataformas</td>
+          <td><span class="law-status status-partial">Tramitando</span></td>
+          <td class="text-muted text-sm">Cada mês de atraso = mais crianças expostas. CSAM crescendo 18,9% ao ano sem responsabilização das plataformas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Corporativismo judicial -->
+  <div class="mt24">
+    <div class="text-mono text-xs text-faint" style="margin-bottom: 12px; text-transform:uppercase; letter-spacing:.06em">Magistrados punidos por crimes sexuais — CNJ 2012–2025</div>
+    <div class="two-col">
+      <div class="card-base">
+        <div style="font-size:28px;font-family:var(--mono);font-weight:600;color:var(--red);margin-bottom:4px">3</div>
+        <div class="text-sm text-muted">magistrados aposentados compulsoriamente pelo CNJ por assédio e importunação sexual em 13 anos (2012–2025). Todos continuam recebendo acima do teto constitucional.</div>
+        <div class="mt8 text-xs text-mono" style="color:var(--text3)">Scalercio (TRT-2) · Rocha (TRF5) · Amorim (TJMG) · Prudêncio (omissão)</div>
+      </div>
+      <div class="card-base">
+        <div style="background:rgba(232,64,64,.08);border:1px solid rgba(232,64,64,.2);border-radius:6px;padding:14px;">
+          <div class="text-mono text-xs" style="color:var(--red);margin-bottom:6px">CASO LÁUAR — fevereiro 2026</div>
+          <div class="text-sm text-muted" style="line-height:1.6">Desembargador do TJMG absolveu estuprador de menina de 12 anos com argumento de <strong style="color:var(--text)">"vínculo afetivo consensual"</strong>. Após pressão pública, reverteu. Investigado por 5 vítimas. Afastado pelo CNJ. Parte dos abusos já prescreveu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 7: SWOT -->
+<section class="section" id="swot">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div>
+      <div class="section-title">SWOT — análise sistêmica</div>
+      <div class="section-sub">Forças, fraquezas, oportunidades e ameaças</div>
+    </div>
+  </div>
+
+  <div class="swot-mini">
+    <div class="swot-cell" style="border-top:2px solid var(--teal)">
+      <div class="swot-cell-title dot-s">✦ Forças</div>
+      <div class="swot-item"><span class="dot-s">◆</span> ECA — referência normativa mundial</div>
+      <div class="swot-item"><span class="dot-s">◆</span> Disque 100 — 24h, gratuito, nacional</div>
+      <div class="swot-item"><span class="dot-s">◆</span> PNAE — elogiado pelo Banco Mundial</div>
+      <div class="swot-item"><span class="dot-s">◆</span> Conselho Tutelar em todos os municípios</div>
+      <div class="swot-item"><span class="dot-s">◆</span> Bolsa Família + CadÚnico (20 mi+ famílias)</div>
+      <div class="swot-item"><span class="dot-s">◆</span> PNI — maior calendário vacinal do mundo</div>
+    </div>
+    <div class="swot-cell" style="border-top:2px solid var(--red)">
+      <div class="swot-cell-title dot-w">✦ Fraquezas</div>
+      <div class="swot-item"><span class="dot-w">◆</span> Apenas 11 varas especializadas — 74% congesto</div>
+      <div class="swot-item"><span class="dot-w">◆</span> Saúde mental infantil quase inexistente no SUS</div>
+      <div class="swot-item"><span class="dot-w">◆</span> Conselhos Tutelares subfinanciados</div>
+      <div class="swot-item"><span class="dot-w">◆</span> Lei 13.935/19 não implementada</div>
+      <div class="swot-item"><span class="dot-w">◆</span> Abuso doméstico normalizado culturalmente</div>
+      <div class="swot-item"><span class="dot-w">◆</span> Corporativismo judicial protege magistrados</div>
+    </div>
+    <div class="swot-cell" style="border-top:2px solid var(--blue)">
+      <div class="swot-cell-title dot-o">✦ Oportunidades</div>
+      <div class="swot-item"><span class="dot-o">◆</span> Marco Digital Infantil (PL 2628/22) em aprovação</div>
+      <div class="swot-item"><span class="dot-o">◆</span> Cadastro de Pedófilos recém-criado (2024)</div>
+      <div class="swot-item"><span class="dot-o">◆</span> IA para detecção de CSAM em escala</div>
+      <div class="swot-item"><span class="dot-o">◆</span> CadÚnico como base de identificação de risco</div>
+      <div class="swot-item"><span class="dot-o">◆</span> Educação socioemocional curricular</div>
+      <div class="swot-item"><span class="dot-o">◆</span> Expansão de varas especializadas</div>
+    </div>
+    <div class="swot-cell" style="border-top:2px solid var(--amber)">
+      <div class="swot-cell-title dot-t">✦ Ameaças</div>
+      <div class="swot-item"><span class="dot-t">◆</span> IA gerando CSAM sintético em escala industrial</div>
+      <div class="swot-item"><span class="dot-t">◆</span> Redes sociais sem controle real de idade</div>
+      <div class="swot-item"><span class="dot-t">◆</span> Desigualdade como vetor de violência doméstica</div>
+      <div class="swot-item"><span class="dot-t">◆</span> Subnotificação massiva perpetua impunidade</div>
+      <div class="swot-item"><span class="dot-t">◆</span> Queda na cobertura vacinal infantil</div>
+      <div class="swot-item"><span class="dot-t">◆</span> Conservadorismo bloqueia educação sexual</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 8: SOLUÇÕES -->
+<section class="section" id="solucoes">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div>
+      <div class="section-title">Soluções — roadmap de intervenção</div>
+      <div class="section-sub">Ordenadas por urgência e impacto preventivo</div>
+    </div>
+  </div>
+
+  <div class="sol-grid">
+    <div class="sol-card">
+      <span class="sol-prio prio-p0">P0 — URGENTE</span>
+      <div class="sol-title">Aprovar Marco Digital Infantil (PL 2628/22)</div>
+      <div class="sol-text">Responsabilizar plataformas por CSAM. Exigir verificação de idade. Triagem obrigatória com IA. Cooperação com SaferNet e PF. Cada mês de atraso = +18,9% de denúncias.</div>
+      <div class="sol-actor text-faint">Congresso Nacional · MJuS · plataformas</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p0">P0 — URGENTE</span>
+      <div class="sol-title">Operacionalizar Cadastro de Pedófilos</div>
+      <div class="sol-text">Lei 15.035/24 sancionada mas banco de dados ainda não ativo. Implementar acesso público a nome/CPF de condenados para escolas, creches e empregadores.</div>
+      <div class="sol-actor text-faint">MJuS · CNJ · MDHC</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p0">P0 — URGENTE</span>
+      <div class="sol-title">Expandir varas especializadas</div>
+      <div class="sol-text">De 11 para ao menos 1 por estado (27). Varas especializadas reduzem em até 60% o tempo de processamento de casos. Impacto judicial imediato.</div>
+      <div class="sol-actor text-faint">CNJ · Ministério da Justiça · TJs</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p1">P1 — ALTA</span>
+      <div class="sol-title">Implementar Lei 13.935/19</div>
+      <div class="sol-text">Psicólogos e assistentes sociais obrigatórios em todas as escolas públicas. Lei existe desde 2019 — municípios não cumprem sem sanção. Criar mecanismo de cobrança vinculado ao FUNDEB.</div>
+      <div class="sol-actor text-faint">MEC · estados · municípios</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p1">P1 — ALTA</span>
+      <div class="sol-title">Protocolo obrigatório de escuta ativa nas escolas</div>
+      <div class="sol-text">Treinamento anual compulsório para professores identificarem sinais de abuso. Sala segura para relato. Fluxo direto ao Conselho Tutelar com prazo de resposta obrigatório.</div>
+      <div class="sol-actor text-faint">MEC · Secretarias Estaduais de Educação</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p1">P1 — ALTA</span>
+      <div class="sol-title">Financiamento mínimo obrigatório para Conselhos Tutelares</div>
+      <div class="sol-text">Garantir piso nacional de custeio: veículo, psicólogo de apoio, plantão 24h. Conselho Tutelar é o elo mais fraco de uma rede que depende inteiramente dele.</div>
+      <div class="sol-actor text-faint">MDHC · estados · municípios · FNDE</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p2">P2 — MÉDIA</span>
+      <div class="sol-title">Educação sexual curricular nacional</div>
+      <div class="sol-text">Não educação moral — educação de direitos: consentimento, abuso, denúncia, violência afetiva. Da pré-escola ao EM. Países com esse modelo têm os menores índices de abuso do mundo.</div>
+      <div class="sol-actor text-faint">MEC · BNCC · sociedade civil</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p2">P2 — MÉDIA</span>
+      <div class="sol-title">Interoperabilidade CadÚnico + Saúde + Educação</div>
+      <div class="sol-text">Cruzar dados de frequência escolar, atendimentos de saúde e assistência social para identificar crianças em risco ANTES do dano. Infraestrutura já existe — falta integração e vontade política.</div>
+      <div class="sol-actor text-faint">MDHC · MEC · MS · SENARC</div>
+    </div>
+    <div class="sol-card">
+      <span class="sol-prio prio-p3">P3 — ESTRUTURAL</span>
+      <div class="sol-title">Programa nacional de saída e reinserção</div>
+      <div class="sol-text">Para mulheres saindo de situações de exploração sexual ou violência doméstica prolongada. Apoio habitacional, requalificação, assistência psicológica. Modelo: PRIS (Suécia).</div>
+      <div class="sol-actor text-faint">MDHC · SPM · Assistência Social</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 9: REFS -->
+<section class="section" id="refs">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div>
+      <div class="section-title">Referências e fontes</div>
+      <div class="section-sub">Fontes primárias verificadas — acesso público</div>
+    </div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">01</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.ipea.gov.br/atlasviolencia" target="_blank">Atlas da Violência 2025 — Ipea e FBSP</a></div>
+        <div class="ref-meta">Ipea · FBSP · Mai/2025 <span class="ref-tag ipea">IPEA</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">02</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/estatistica/dados-nacionais-1/anuario-brasileiro-de-seguranca-publica" target="_blank">Anuário Brasileiro de Segurança Pública 2024</a></div>
+        <div class="ref-meta">FBSP · 2024 <span class="ref-tag gov">GOV</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">03</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://new.safernet.org.br" target="_blank">SaferNet Brasil — Relatório CSAM 2025</a></div>
+        <div class="ref-meta">SaferNet · Ago/2025 <span class="ref-tag ong">ONG</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">04</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.cnj.jus.br/pesquisas-judiciarias/justica-em-numeros/" target="_blank">CNJ — Justiça em Números 2024</a></div>
+        <div class="ref-meta">Conselho Nacional de Justiça · 2024 <span class="ref-tag cnj">CNJ</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">05</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.cnnbrasil.com.br/nacional/brasil/estamos-diante-de-um-colapso-da-protecao-as-criancas/" target="_blank">"Estamos diante de um colapso da proteção às crianças" — CNN Brasil</a></div>
+        <div class="ref-meta">CNN Brasil · Mai/2025</div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">06</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www12.senado.leg.br/noticias/materias/2024/11/28/sancionado-o-acesso-publico-a-dados-de-condenados-por-crimes-sexuais" target="_blank">Lei 15.035/2024 — Cadastro Nacional de Pedófilos</a></div>
+        <div class="ref-meta">Senado Federal · Nov/2024 <span class="ref-tag gov">GOV</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">07</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.fadc.org.br/noticias/cenario-violencia-sexual" target="_blank">Cenário da Infância e Adolescência no Brasil 2025 — Fundação Abrinq</a></div>
+        <div class="ref-meta">Fundação Abrinq · Mar/2025 <span class="ref-tag ong">ONG</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">08</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.childhood.org.br/politicos-e-magistrados-envolvidos-com-a-exploracao-sexual-infantojuvenil-continuam-impunes/" target="_blank">Políticos e magistrados envolvidos com exploração sexual — Childhood Brasil</a></div>
+        <div class="ref-meta">Childhood Brasil <span class="ref-tag ong">ONG</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">09</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.migalhas.com.br/quentes/450813/cnj-afasta-desembargador-que-atuou-em-caso-de-estupro-pf-faz-operacao" target="_blank">CNJ afasta desembargador Láuar — Caso TJMG</a></div>
+        <div class="ref-meta">Migalhas · Fev/2026 <span class="ref-tag cnj">CNJ</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">10</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www12.senado.leg.br/radio/1/noticia/2025/07/09/ccj-aumenta-pena-para-crime-de-pedofilia" target="_blank">CCJ aumenta penas para crimes de pedofilia — PL 2810/25</a></div>
+        <div class="ref-meta">Senado Federal · Jul/2025 <span class="ref-tag gov">GOV</span></div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">11</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://www.direitonews.com.br/2026/02/140-mil-magistrados-punidos-acusacoes-envolvendo-crimes-sexuais-recebem-valores-turbinados-penduricalhos.html" target="_blank">Magistrados punidos recebem R$140 mil com penduricalhos — DireitoNews</a></div>
+        <div class="ref-meta">DireitoNews · Fev/2026</div>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">12</div>
+      <div class="ref-body">
+        <div class="ref-title"><a href="https://plan.org.br/noticias/violencias-contra-criancas-adolescentes-brasil/" target="_blank">Violências contra crianças crescem no Brasil — Plan International</a></div>
+        <div class="ref-meta">Plan International Brasil · Mai/2025 <span class="ref-tag ong">ONG</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 10: CONCLUSÃO -->
+<section class="section" id="conclusao">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <div>
+      <div class="section-title">Conclusão e veredicto sistêmico</div>
+      <div class="section-sub">Síntese analítica baseada em dados primários</div>
+    </div>
+  </div>
+
+  <div class="conclusion-card">
+    <div class="conclusion-title">O Brasil tem a lei — falta o Estado</div>
+    <div class="conclusion-text">
+      O Brasil possui um dos marcos legais de proteção à infância mais avançados do mundo. O ECA completa 35 anos em 2025 como referência internacional. E ainda assim, <strong>homicídios de bebês de 0 a 4 anos bateram recorde histórico. Mais de 657 mil denúncias de violência em um único ano. 61,6% das vítimas de estupro têm até 13 anos.</strong>
+      <br><br>
+      A contradição é estrutural, não acidental. O país construiu uma legislação de ponta e deliberadamente se recusou a construir a infraestrutura necessária para aplicá-la: <strong>11 varas para um país de 215 milhões, psicólogos escolares que a lei exige e os municípios ignoram, Conselhos Tutelares sem carro, magistrados punidos com aposentadoria remunerada por abuso sexual.</strong>
+      <br><br>
+      O abuso infantil no Brasil não é uma tragédia — é uma política. <strong>Uma escolha de onde não investir, o que não regular, quem não responsabilizar.</strong> Cada ponto do mapa desta análise é uma decisão de não agir que virou número, virou criança, virou trauma não tratado, virou novo ciclo de violência.
+      <br><br>
+      A saída existe e está documentada: os países que protegem crianças de forma efetiva combinam <strong>renda garantida às famílias + serviços públicos universais de qualidade + cultura de denúncia normalizada + responsabilização judicial real.</strong> Não é mistério. É vontade política.
+    </div>
+
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="verdict-emoji">📜</div>
+        <div class="verdict-label" style="color:var(--teal)">Lei — 8/10</div>
+        <div class="verdict-text">ECA avançado. Hediondos. Cadastro de Pedófilos. Marco em tramitação.</div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-emoji">⚙️</div>
+        <div class="verdict-label" style="color:var(--red)">Efetividade — 2/10</div>
+        <div class="verdict-text">11 varas. Lei 13.935 não cumprida. Conselhos sem estrutura. Cadastro não ativo.</div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-emoji">🔮</div>
+        <div class="verdict-label" style="color:var(--amber)">Tendência — ↑ risco</div>
+        <div class="verdict-text">CSAM +18,9% em 2025. Homicídios 0–4 anos recorde. IA acelerando abuso digital.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  Dashboard compilado por análise assistida — fontes: Ipea, FBSP, MDHC, CNJ, SaferNet, Abrinq, Childhood, Plan International, Senado Federal · Março 2026
+  <br>
+  <span style="color:var(--accent);margin-top:4px;display:block">Os dados são reais. As crianças também.</span>
+</footer>
+
+<script>
+Chart.defaults.color = 'rgba(154,152,144,1)';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.07)';
+Chart.defaults.font.family = "'JetBrains Mono', monospace";
+Chart.defaults.font.size = 11;
+
+// Chart 1 — Tipo de violência
+new Chart(document.getElementById('chartViolencia'), {
+  type: 'bar',
+  data: {
+    labels: ['Violência\nSexual', 'Negligência', 'Violência\nFísica', 'Psicológica', 'Abandono'],
+    datasets: [{
+      label: 'Crescimento %',
+      data: [383, 338, 195, 142, 87],
+      backgroundColor: ['rgba(232,64,64,.8)','rgba(244,168,48,.7)','rgba(232,64,64,.6)','rgba(74,158,255,.6)','rgba(154,152,144,.5)'],
+      borderRadius: 4, borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { callback: v => v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Chart 2 — Agressor
+new Chart(document.getElementById('chartAgressor'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Familiar', 'Parceiro íntimo', 'Conhecido', 'Desconhecido'],
+    datasets: [{
+      data: [61, 23, 12, 4],
+      backgroundColor: ['rgba(232,64,64,.85)','rgba(244,168,48,.8)','rgba(74,158,255,.7)','rgba(154,152,144,.5)'],
+      borderWidth: 2, borderColor: '#111113'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true, position: 'bottom',
+        labels: { boxWidth: 10, padding: 12, color: 'rgba(154,152,144,1)' }
+      }
+    },
+    cutout: '62%'
+  }
+});
+
+// Chart 3 — Evolução denúncias
+new Chart(document.getElementById('chartDenuncias'), {
+  type: 'line',
+  data: {
+    labels: ['2019','2020','2021','2022','2023','2024'],
+    datasets: [{
+      label: 'Denúncias (mil)',
+      data: [318, 297, 342, 389, 536, 657],
+      borderColor: '#e05a3a', backgroundColor: 'rgba(224,90,58,.12)',
+      borderWidth: 2, fill: true, tension: 0.4,
+      pointBackgroundColor: '#e05a3a', pointRadius: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { callback: v => v + 'k' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Chart 4 — CSAM mensal 2025
+new Chart(document.getElementById('chartCSAM'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul'],
+    datasets: [{
+      label: 'Denúncias CSAM 2025',
+      data: [5820, 6140, 7210, 6980, 8020, 7650, 7516],
+      backgroundColor: 'rgba(232,64,64,.7)',
+      borderRadius: 4, borderWidth: 0
+    },{
+      label: 'Mesmo período 2024',
+      data: [4902, 5160, 6070, 5880, 6750, 6440, 6323],
+      backgroundColor: 'rgba(232,64,64,.25)',
+      borderRadius: 4, borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10 } }
+    },
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,.05)' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Chart 5 — Composição crimes
+new Chart(document.getElementById('chartCrimes'), {
+  type: 'pie',
+  data: {
+    labels: ['CSAM (abuso infantil)', 'Racismo/Discurso ódio', 'Violência mulher', 'Outros'],
+    datasets: [{
+      data: [64, 18, 11, 7],
+      backgroundColor: ['rgba(232,64,64,.85)','rgba(244,168,48,.75)','rgba(74,158,255,.7)','rgba(154,152,144,.45)'],
+      borderWidth: 2, borderColor: '#111113'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10 } }
+    }
+  }
+});
+
+// Chart 6 — SaferNet histórico
+new Chart(document.getElementById('chartSaferNet'), {
+  type: 'line',
+  data: {
+    labels: ['2006','2008','2010','2012','2014','2016','2018','2020','2022','2024'],
+    datasets: [{
+      label: 'Denúncias CSAM acumuladas (mil)',
+      data: [12, 48, 134, 312, 598, 890, 1180, 1510, 1890, 2153],
+      borderColor: '#e05a3a', backgroundColor: 'rgba(224,90,58,.08)',
+      borderWidth: 2, fill: true, tension: 0.4,
+      pointBackgroundColor: '#e05a3a', pointRadius: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { callback: v => v + 'k' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

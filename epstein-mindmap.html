@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso Epstein — Mapa de Conexões</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&family=Oswald:wght@300;400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a08;
+    font-family: 'Courier Prime', monospace;
+    color: #d4c5a0;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  #header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 12px 24px;
+    background: linear-gradient(to bottom, #0a0a08 60%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #header h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #c8a45a;
+    text-transform: uppercase;
+  }
+
+  #header .sub {
+    font-size: 10px;
+    color: #5a5040;
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+
+  #header .stamp {
+    font-family: 'Special Elite', cursive;
+    font-size: 13px;
+    color: #8b2020;
+    border: 2px solid #8b2020;
+    padding: 4px 10px;
+    transform: rotate(-3deg);
+    opacity: 0.85;
+    letter-spacing: 1px;
+  }
+
+  #legend {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    background: rgba(10,10,8,0.92);
+    border: 1px solid #2a2518;
+    padding: 14px 18px;
+    font-size: 11px;
+  }
+
+  #legend .leg-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #c8a45a;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    color: #9a8c70;
+  }
+
+  .leg-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  #tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    background: rgba(8,8,6,0.97);
+    border: 1px solid #3a3020;
+    border-left: 3px solid #c8a45a;
+    padding: 12px 16px;
+    max-width: 300px;
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  #tooltip .tt-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    color: #c8a45a;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  #tooltip .tt-role {
+    color: #8a7a58;
+    font-size: 11px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #tooltip .tt-detail {
+    color: #b0a080;
+    font-size: 12px;
+  }
+
+  #tooltip .tt-status {
+    margin-top: 8px;
+    font-size: 11px;
+    padding: 3px 8px;
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .status-preso { background: #8b0000; color: #ffaaaa; }
+  .status-morto { background: #1a1a1a; color: #888; border: 1px solid #444; }
+  .status-demitido { background: #4a3800; color: #ffcc44; }
+  .status-investigado { background: #1a2a4a; color: #88aaff; }
+  .status-condenado { background: #5a0a0a; color: #ff6666; }
+  .status-pago { background: #0a3a1a; color: #66ff99; }
+
+  #controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ctrl-btn {
+    background: rgba(10,10,8,0.92);
+    border: 1px solid #2a2518;
+    color: #c8a45a;
+    padding: 8px 14px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .ctrl-btn:hover {
+    background: #1a1508;
+    border-color: #c8a45a;
+  }
+
+  svg { display: block; }
+
+  .node circle {
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+
+  .node circle:hover {
+    filter: brightness(1.4);
+  }
+
+  .node text {
+    pointer-events: none;
+    font-family: 'Courier Prime', monospace;
+  }
+
+  .link {
+    stroke-opacity: 0.35;
+  }
+
+  .link:hover {
+    stroke-opacity: 0.8;
+  }
+
+  #filter-bar {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20px;
+  }
+
+  .filter-btn {
+    background: rgba(10,10,8,0.85);
+    border: 1px solid #2a2518;
+    color: #7a6a48;
+    padding: 5px 12px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    color: #c8a45a;
+    border-color: #c8a45a;
+  }
+
+  #count-bar {
+    position: fixed;
+    top: 98px;
+    right: 20px;
+    z-index: 100;
+    font-size: 10px;
+    color: #4a4030;
+    letter-spacing: 1px;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  #footer {
+    position: fixed;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    font-size: 9px;
+    color: #3a3028;
+    letter-spacing: 1px;
+  }
+  #footer a {
+    color: #7a6a48;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  #footer a:hover {
+    color: #c8a45a;
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div>
+    <h1>Caso Epstein — Mapa de Conexões</h1>
+    <div class="sub">RESSONÂNCIA COGNITIVA #14 · MARÇO 2026 · 880.000+ DOCUMENTOS</div>
+  </div>
+  <div class="stamp">CLASSIFICADO</div>
+</div>
+
+<div id="filter-bar">
+  <button class="filter-btn active" data-cat="all">Todos</button>
+  <button class="filter-btn" data-cat="central">Central</button>
+  <button class="filter-btn" data-cat="preso">Presos</button>
+  <button class="filter-btn" data-cat="morte">Mortes</button>
+  <button class="filter-btn" data-cat="financeiro">Financeiro</button>
+  <button class="filter-btn" data-cat="politico">Políticos</button>
+  <button class="filter-btn" data-cat="corporativo">Corporativo</button>
+  <button class="filter-btn" data-cat="brasil">Brasil</button>
+  <button class="filter-btn" data-cat="academia">Academia</button>
+  <button class="filter-btn" data-cat="investigacao">Investigações</button>
+</div>
+
+<div id="count-bar">
+  <div>NODOS: <span id="cnt-nodes">—</span></div>
+  <div>CONEXÕES: <span id="cnt-links">—</span></div>
+</div>
+
+<div id="tooltip">
+  <div class="tt-name" id="tt-name"></div>
+  <div class="tt-role" id="tt-role"></div>
+  <div class="tt-detail" id="tt-detail"></div>
+  <div id="tt-status"></div>
+</div>
+
+<div id="legend">
+  <div class="leg-title">Categorias</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c8a45a"></div> Central</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#cc2222"></div> Preso / Condenado</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#444444"></div> Morto</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#d4822a"></div> Demitido / Banido</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#3a6aaa"></div> Político / Gov.</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#2a8a4a"></div> Financeiro</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#7a3aaa"></div> Tech / Corporativo</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#228888"></div> Brasil</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#886622"></div> Academia / ONG</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4a3a6a"></div> Investigação</div>
+  <div style="margin-top:10px; font-size:10px; color:#3a3028;">
+    🖱 Arraste · Role para zoom<br>Clique p/ fixar nodo
+  </div>
+</div>
+
+<div id="controls">
+  <button class="ctrl-btn" id="btn-reset">↺ Reset</button>
+  <button class="ctrl-btn" id="btn-freeze">⏸ Congelar</button>
+</div>
+
+<div id="footer">
+  Fonte: <a href="https://x.com/leonardodias/article/2030799345247760657" target="_blank" rel="noopener noreferrer">@leonardodias · X</a>
+</div>
+
+<svg id="graph"></svg>
+
+<script>
+const W = window.innerWidth, H = window.innerHeight;
+const svg = d3.select('#graph').attr('width', W).attr('height', H);
+
+// Arrow markers
+const defs = svg.append('defs');
+['#cc2222','#2a8a4a','#3a6aaa','#d4822a','#7a3aaa','#228888','#886622','#444444','#4a3a6a','#c8a45a'].forEach(c => {
+  defs.append('marker')
+    .attr('id', 'arr-' + c.replace('#',''))
+    .attr('viewBox','0 -4 8 8').attr('refX',16).attr('refY',0)
+    .attr('markerWidth',6).attr('markerHeight',6).attr('orient','auto')
+    .append('path').attr('d','M0,-4L8,0L0,4').attr('fill',c).attr('opacity',0.5);
+});
+
+const g = svg.append('g');
+
+// Zoom
+const zoom = d3.zoom().scaleExtent([0.2, 3]).on('zoom', e => g.attr('transform', e.transform));
+svg.call(zoom);
+
+// ── DATA ──────────────────────────────────────────────────────────────
+const nodes = [
+  // CENTRAL
+  { id: 'epstein', label: 'Jeffrey Epstein', cat: 'central', role: 'Financeiro / Traficante', detail: 'Morto em 10/08/2019 na prisão federal de Manhattan. Causa oficial: suicídio. Câmeras inoperantes, rondas não realizadas. Enfrentava 60 acusações.', status: 'morto', r: 36 },
+
+  // PRESOS
+  { id: 'maxwell', label: 'Ghislaine Maxwell', cat: 'preso', role: 'Cúmplice principal', detail: 'Condenada a 20 anos em junho/2022. Apelações rejeitadas. Invocou 5ª Emenda no Congresso (fev/2026). Pediu clemência a Trump — negada.', status: 'condenado', r: 26 },
+  { id: 'andrew', label: 'Príncipe Andrew', cat: 'preso', role: 'Família Real Britânica', detail: 'Detido em 19/02/2026 por "misconduct in public office". 11h de operação. Residências revistadas. Títulos retirados por Charles III. Primeira prisão de membro da realeza britânica em ~400 anos.', status: 'preso', r: 24 },
+  { id: 'mandelson', label: 'Peter Mandelson', cat: 'preso', role: 'Embaixador UK / New Labour', detail: 'Preso em 23/02/2026. Suspeita de vazamento de documentos de mercado a Epstein para lucro com informações privilegiadas.', status: 'preso', r: 22 },
+  { id: 'jagland', label: 'Thorbjørn Jagland', cat: 'preso', role: 'Ex-PM Noruega / Comitê Nobel', detail: 'Indiciado por "corrupção agravada" em 12/02/2026. Pena possível: 10 anos. Imunidade diplomática renunciada. Hospitalizado após alegada tentativa de suicídio.', status: 'preso', r: 20 },
+
+  // MORTOS
+  { id: 'brunel', label: 'Jean-Luc Brunel', cat: 'morte', role: 'Agente de modelos / MC2', detail: 'Encontrado enforcado em Paris em 19/02/2022. Estava negociando cooperação com investigadores. Operou no Brasil via circuito de moda de SP.', status: 'morto', r: 20 },
+  { id: 'giuffre', label: 'Virginia Giuffre', cat: 'morte', role: 'Principal vítima pública', detail: 'Morta em abril/2025, Australia. Causa oficial: suicídio. Sua denúncia levou à condenação de Maxwell e gerou acordo de £16M com Príncipe Andrew.', status: 'morto', r: 20 },
+  { id: 'andriano', label: 'Carolyn Andriano', cat: 'morte', role: 'Vítima acusadora', detail: 'Encontrada morta em hotel na Flórida em 23/05/2024. 36 anos. Causa oficial: overdose acidental.', status: 'morto', r: 14 },
+  { id: 'mortes22', label: '+22 Mortes\nSuspeitas', cat: 'morte', role: 'Conexões ao caso', detail: 'Investigadores independentes catalogaram 22+ indivíduos conectados a Epstein que morreram sob circunstâncias descritas como suspeitas ou suicídio.', status: 'morto', r: 16 },
+
+  // POLÍTICOS / GOV
+  { id: 'trump', label: 'Donald Trump', cat: 'politico', role: 'Presidente EUA', detail: 'Documentos DOJ parcialmente bloqueados. Depoimento de vítima mencionando Trump removido e parcialmente restaurado. 1.000 agentes FBI instruídos a sinalizar registros com seu nome. Assinou o Epstein Files Transparency Act em 19/11/2025.', status: 'investigado', r: 22 },
+  { id: 'bclinton', label: 'Bill Clinton', cat: 'politico', role: 'Ex-Presidente EUA', detail: 'Primeiro ex-presidente intimado a depor em décadas (fev/2026). Afirmou conhecer Epstein desde 2001/2002, apresentado por Larry Summers. Disse nunca ter visto abusos.', status: 'investigado', r: 20 },
+  { id: 'hclinton', label: 'Hillary Clinton', cat: 'politico', role: 'Ex-Secretária de Estado', detail: 'Depôs ao Comitê de Supervisão (fev/2026). Negou qualquer encontro com Epstein.', status: 'investigado', r: 18 },
+  { id: 'lutnick', label: 'Howard Lutnick', cat: 'politico', role: 'Secretário de Comércio / Cantor Fitzgerald', detail: 'Afirmou cortar laços em 2005 — contradito pelos arquivos. Aparece convidando filhos para a ilha em 2012. Recebeu doação de $50K de Epstein em 2017.', status: 'investigado', r: 20 },
+  { id: 'bondi', label: 'Pam Bondi', cat: 'politico', role: 'Procuradora-Geral EUA', detail: 'DOJ sob sua liderança emitiu memorando de 2 páginas em jul/2025 dizendo não haver evidências para novas acusações. Intimada pelo próprio Congresso em março/2026.', status: 'investigado', r: 16 },
+  { id: 'wasschultz', label: 'D. Wasserman\nSchultz', cat: 'politico', role: 'Congressista Democrata (FL)', detail: 'Sofreu consequências políticas severas após revelações dos arquivos.', status: 'investigado', r: 14 },
+  { id: 'jacklang', label: 'Jack Lang', cat: 'politico', role: 'Ex-Ministro Cultura França', detail: 'Sob escrutínio investigativo na França após abertura de investigações em fev/2026.', status: 'investigado', r: 14 },
+  { id: 'juul', label: 'Mona Juul', cat: 'politico', role: 'Ex-Embaixadora Norueguesa', detail: 'Renunciou após revelação de que seus filhos constavam no testamento de Epstein como beneficiários de $10 milhões.', status: 'demitido', r: 14 },
+  { id: 'bannon', label: 'Steve Bannon', cat: 'politico', role: 'Estrategista político', detail: '18 meses de relacionamento documentado com Epstein (jan/2018 – jul/2019). Em abril/2019 ofereceu "reconstruir imagem" de Epstein e realizou ~15h de filmagem.', status: 'investigado', r: 16 },
+  { id: 'chomsky', label: 'Noam Chomsky', cat: 'politico', role: 'Intelectual / Linguista', detail: 'iMessages de 2018 revelam que Chomsky ligou para Epstein enquanto falava com Lula (então preso). Conexão com política brasileira em momento crítico.', status: 'investigado', r: 16 },
+  { id: 'summers', label: 'Larry Summers', cat: 'politico', role: 'Ex-Secretário do Tesouro EUA', detail: 'Renunciou a todas as posições em fev/2026. Introduziu Clinton a Epstein. Emails mostram pedidos de "conselho de namoro". Ex-presidente Harvard, ex-membro conselho OpenAI.', status: 'demitido', r: 18 },
+
+  // FINANCEIRO
+  { id: 'jpmorgan', label: 'JPMorgan Chase', cat: 'financeiro', role: 'Banco / $365M em acordos', detail: 'Pagou $290M a vítimas (jun/2023) + $75M ao governo das Ilhas Virgens (set/2023). Staley sobrescreveu 4 advertências internas de compliance. Maior liquidação de tráfico sexual contra inst. financeira.', status: 'pago', r: 22 },
+  { id: 'deutsche', label: 'Deutsche Bank', cat: 'financeiro', role: 'Banco / $225M em acordos', detail: 'Multado em $150M (NYDFS, 2020) + $75M em ação coletiva (2023). Processou transações suspeitas ignorando sinais de compliance.', status: 'pago', r: 20 },
+  { id: 'leonblack', label: 'Leon Black', cat: 'financeiro', role: 'Apollo Global Management', detail: 'Pagou $170M a Epstein entre 2012-2017. Senado concluiu que fundou operações de tráfico. $62,5M às Ilhas Virgens (2023). Ação coletiva de acionistas protocolada em mar/2026.', status: 'investigado', r: 22 },
+  { id: 'wexner', label: 'Leslie Wexner', cat: 'financeiro', role: 'L Brands / Victoria\'s Secret', detail: 'Principal sustentador financeiro de Epstein. Nome surge 1.000+ vezes nos documentos. Testemunhou que foi "enganado". Identificado como proffer pelo FBI. Nunca acusado.', status: 'investigado', r: 20 },
+  { id: 'apollo', label: 'Apollo Global / Acionistas', cat: 'financeiro', role: 'Ação coletiva mar/2026', detail: 'Ação coletiva contra Apollo, Leon Black e Marc Rowan alegando que mentiram a reguladores sobre conexões com Epstein.', status: 'investigado', r: 16 },
+  { id: 'bankamerica', label: 'Bank of America', cat: 'financeiro', role: 'Julgamento mai/2026 ($170M)', detail: 'Enfrenta julgamento com potencial de $170M por ter sido "beneficiário informado" de recursos de Leon Black enviados a Epstein.', status: 'investigado', r: 16 },
+  { id: 'espolio', label: 'Espólio Epstein', cat: 'financeiro', role: '$35M — coexecutores', detail: 'Acordo de $35M entre espólio e vítimas contra coexecutores Darren Indyke (advogado) e Richard Kahn (contador). Criaram rede de corporações para esconder abusos.', status: 'pago', r: 16 },
+
+  // CORPORATIVO / TECH
+  { id: 'staley', label: 'Jes Staley', cat: 'corporativo', role: 'Ex-CEO Barclays / Ex-JPMorgan', detail: 'Banido vitaliciamente pela FCA britânica (jul/2025). Multa de £1,1M. 1.200+ emails com Epstein. Mulheres com "nomes Disney". $22M em bônus congelados.', status: 'demitido', r: 20 },
+  { id: 'gates', label: 'Bill Gates', cat: 'corporativo', role: 'Microsoft / Filantropia', detail: 'Jantou dezenas de vezes com Epstein (2010-2017), APÓS a condenação de 2008. Entrevista solicitada pelo Congresso para 19/05/2026. Separação de Melinda atribuída ao escândalo.', status: 'investigado', r: 22 },
+  { id: 'thiel', label: 'Peter Thiel', cat: 'corporativo', role: 'PayPal / Palantir / Valar', detail: '$40M investidos via recursos de Epstein (2015-2016). 2.000+ mensagens trocadas. Primeiro encontro em 2014, intermediado por Reid Hoffman. Nega ter visitado a ilha.', status: 'investigado', r: 20 },
+  { id: 'musk', label: 'Elon Musk', cat: 'corporativo', role: 'Tesla / SpaceX / X (DOGE)', detail: '16 emails (2012-2013). Convites para a ilha em nov/2012 e out/2014. Afirma ter recusado "convites repetidos". Inundou X com posts sobre "encobrimento" — posição irônica dado seu papel no governo.', status: 'investigado', r: 20 },
+  { id: 'pritzker', label: 'Tom Pritzker', cat: 'corporativo', role: 'Hyatt Hotels', detail: 'Renunciou em 16/02/2026. Emails revelam contato contínuo com Epstein e Maxwell de 2010 a 2019 — década após condenação. Admitiu "péssimo julgamento".', status: 'demitido', r: 18 },
+  { id: 'ruemmler', label: 'Kathryn Ruemmler', cat: 'corporativo', role: 'Goldman Sachs / Ex-Casa Branca', detail: 'Renunciou após ser revelado que chamava Epstein de "Tio Jeffrey", recebia presentes de luxo e mantinha correspondência íntima.', status: 'demitido', r: 18 },
+  { id: 'karp', label: 'Brad Karp', cat: 'corporativo', role: 'Paul, Weiss (Advogados)', detail: 'Renunciou após email de agradecimento por "uma noite que nunca esquecerei" tornar-se público.', status: 'demitido', r: 16 },
+  { id: 'brende', label: 'Børge Brende', cat: 'corporativo', role: 'Fórum Econômico Mundial', detail: 'Ex-Ministro Relações Exteriores Noruega. Presidente do WEF. Deixou o cargo após revelações.', status: 'demitido', r: 16 },
+  { id: 'nikolic', label: 'Boris Nikolic', cat: 'corporativo', role: 'Nexo Gates-Epstein', detail: 'Mencionado 1.334 vezes nos documentos. Nomeado executor testamentário surpresa de Epstein, sem saber, véspera da prisão de 2019.', status: 'investigado', r: 14 },
+  { id: 'tamince', label: 'Fettah Tamince', cat: 'corporativo', role: 'Rede Rixos Hotels (Turquia)', detail: 'Aparece 89 vezes nos documentos. Laços com Epstein voltaram à atenção das autoridades turcas (fev/2026).', status: 'investigado', r: 14 },
+
+  // BRASIL
+  { id: 'brasil_vitima', label: 'Vítima de São Paulo', cat: 'brasil', role: 'EFTA00091003', detail: 'Documento EFTA00091003: vítima abusada em SP e traficada para "pelo menos dois outros homens". Identidade dos perpetradores sob tarjas negras.', status: 'investigado', r: 16 },
+  { id: 'brasil_prop', label: 'Propriedades BR', cat: 'brasil', role: 'Ipanema & Florianópolis', detail: 'Denúncia formal ao FBI (EFTA00020470) menciona propriedades em Ipanema (RJ) e Florianópolis (SC). Nenhuma investigada pelas autoridades brasileiras.', status: 'investigado', r: 16 },
+  { id: 'brasil_moda', label: 'Circuito Moda SP', cat: 'brasil', role: 'Joy Models / SPFW', detail: 'Brunel operou no Brasil via contatos com indústria da moda. Testemunhos de 2010 descrevem recrutamento de modelos e adolescentes para Epstein via SP Fashion Week.', status: 'investigado', r: 14 },
+  { id: 'lula', label: 'Lula da Silva', cat: 'brasil', role: 'Ex-Presidente Brasil', detail: 'iMessages de 2018: Chomsky ligou para Epstein "com Lula. Da prisão." Conexão levanta questões sobre rede de influência de Epstein no Brasil em momento crítico.', status: 'investigado', r: 16 },
+  { id: 'damares', label: 'Senadora Damares', cat: 'brasil', role: 'Comissão Direitos Humanos', detail: 'Declarou em fev/2026 que a CDH "vai acompanhar de perto as citações ao Brasil" nos arquivos liberados.', status: 'investigado', r: 12 },
+
+  // ACADEMIA / ONG
+  { id: 'mit', label: 'MIT Media Lab', cat: 'academia', role: '$850K em doações', detail: 'Recebeu ~$850K de Epstein, incluindo $525K APÓS a condenação de 2008. Diretor Joi Ito renunciou em 2019. Presidente Rafael Reif assinou carta de agradecimento em 2012.', status: 'investigado', r: 18 },
+  { id: 'harvard', label: 'Harvard', cat: 'academia', role: '$9,1M identificados', detail: 'Doações ao Programa de Dinâmica Evolutiva (Prof. Martin Nowak). $9,1M rastreados. Nowak foi sancionado pela universidade em 2021.', status: 'investigado', r: 18 },
+
+  // INVESTIGAÇÕES
+  { id: 'doj', label: 'DOJ / FBI', cat: 'investigacao', role: '3,5M páginas liberadas', detail: 'Epstein Files Transparency Act assinado em 19/11/2025. Votação 427-1 na Câmara. Documentos criticados por redações extensivas. Memorando de 2 páginas "sem evidências" para novas acusações.', status: 'investigado', r: 20 },
+  { id: 'oversight', label: 'Comitê de Supervisão', cat: 'investigacao', role: 'Câmara dos Representantes', detail: 'Emitiu subpoenas para Clinton, Gates, Black, Bondi e outros. Votou 24-19 em 04/03/2026 para intimar a própria AG Pam Bondi.', status: 'investigado', r: 18 },
+  { id: 'uk_inv', label: 'Thames Valley\nPolice (UK)', cat: 'investigacao', role: 'Investigação criminal UK', detail: 'Prendeu Príncipe Andrew em 19/02/2026. Operação de 11 horas, revistas em Berkshire e Norfolk.', status: 'investigado', r: 16 },
+  { id: 'eu_inv', label: 'Investigações\nEuropeias', cat: 'investigacao', role: 'Noruega / França / Turquia\nLituânia / Letônia / Polônia', detail: 'Múltiplos países abriram ou reabriram investigações em fev/2026. França (Jack Lang), Turquia (Rixos/Tamince), países bálticos.', status: 'investigado', r: 16 },
+  { id: 'fca', label: 'FCA (UK)', cat: 'investigacao', role: 'Regulador Financeiro Britânico', detail: 'Baniu Jes Staley permanentemente em jul/2025. Multa de £1,1M. Concluiu que Staley "imprudentemente enganou" os reguladores.', status: 'investigado', r: 14 },
+];
+
+const links = [
+  // Maxwell
+  { source: 'epstein', target: 'maxwell', label: 'cúmplice central', color: '#cc2222' },
+  { source: 'maxwell', target: 'giuffre', label: 'condenada por', color: '#cc2222' },
+  { source: 'maxwell', target: 'andrew', label: 'conectou vítimas', color: '#cc2222' },
+  { source: 'maxwell', target: 'brunel', label: 'rede de recrutamento', color: '#cc2222' },
+
+  // Epstein — Mortos
+  { source: 'epstein', target: 'brunel', label: 'agência MC2', color: '#444' },
+  { source: 'epstein', target: 'giuffre', label: 'tráfico sexual', color: '#444' },
+  { source: 'epstein', target: 'andriano', label: 'vítima', color: '#444' },
+  { source: 'epstein', target: 'mortes22', label: '22+ mortes suspeitas', color: '#444' },
+
+  // Epstein — Políticos
+  { source: 'epstein', target: 'trump', label: 'documentos bloqueados', color: '#3a6aaa' },
+  { source: 'epstein', target: 'bclinton', label: 'viagens / contato', color: '#3a6aaa' },
+  { source: 'epstein', target: 'summers', label: 'emails / namoro', color: '#3a6aaa' },
+  { source: 'summers', target: 'bclinton', label: 'apresentou Clinton', color: '#3a6aaa' },
+  { source: 'epstein', target: 'bannon', label: 'proposta reimage', color: '#3a6aaa' },
+  { source: 'epstein', target: 'chomsky', label: 'iMessages 2018', color: '#3a6aaa' },
+  { source: 'chomsky', target: 'lula', label: 'ligação da prisão', color: '#228888' },
+  { source: 'epstein', target: 'lutnick', label: 'ilha / doações', color: '#3a6aaa' },
+  { source: 'epstein', target: 'hclinton', label: 'captação c/ Lutnick', color: '#3a6aaa' },
+  { source: 'epstein', target: 'jagland', label: 'viagens / hospedagens', color: '#3a6aaa' },
+  { source: 'epstein', target: 'jacklang', label: 'investigado França', color: '#3a6aaa' },
+  { source: 'jagland', target: 'juul', label: 'testamento $10M filhos', color: '#3a6aaa' },
+
+  // Epstein — Financeiro
+  { source: 'epstein', target: 'jpmorgan', label: '$365M em acordos', color: '#2a8a4a' },
+  { source: 'epstein', target: 'deutsche', label: '$225M em acordos', color: '#2a8a4a' },
+  { source: 'epstein', target: 'leonblack', label: '$170M recebidos', color: '#2a8a4a' },
+  { source: 'epstein', target: 'wexner', label: 'principal financiador', color: '#2a8a4a' },
+  { source: 'epstein', target: 'espolio', label: 'coexecutores', color: '#2a8a4a' },
+  { source: 'leonblack', target: 'apollo', label: 'ação acionistas', color: '#2a8a4a' },
+  { source: 'leonblack', target: 'bankamerica', label: 'recursos via BofA', color: '#2a8a4a' },
+  { source: 'staley', target: 'jpmorgan', label: 'gerenciou conta', color: '#2a8a4a' },
+
+  // Epstein — Corporativo/Tech
+  { source: 'epstein', target: 'gates', label: 'jantares 2010-2017', color: '#7a3aaa' },
+  { source: 'epstein', target: 'thiel', label: '2000 msgs / $40M', color: '#7a3aaa' },
+  { source: 'epstein', target: 'musk', label: '16 emails / convites ilha', color: '#7a3aaa' },
+  { source: 'epstein', target: 'staley', label: '1200 emails', color: '#7a3aaa' },
+  { source: 'epstein', target: 'ruemmler', label: '"Tio Jeffrey"', color: '#7a3aaa' },
+  { source: 'epstein', target: 'karp', label: 'email "noite inesquecível"', color: '#7a3aaa' },
+  { source: 'epstein', target: 'brende', label: 'conexão WEF', color: '#7a3aaa' },
+  { source: 'epstein', target: 'pritzker', label: '10 anos de contato', color: '#7a3aaa' },
+  { source: 'epstein', target: 'nikolic', label: 'executor testamentário', color: '#7a3aaa' },
+  { source: 'epstein', target: 'tamince', label: '89 menções / Turquia', color: '#7a3aaa' },
+  { source: 'gates', target: 'nikolic', label: 'nexo Gates-Epstein', color: '#7a3aaa' },
+  { source: 'thiel', target: 'nikolic', label: 'via Reid Hoffman', color: '#7a3aaa' },
+
+  // Brasil
+  { source: 'epstein', target: 'brasil_vitima', label: 'EFTA00091003', color: '#228888' },
+  { source: 'epstein', target: 'brasil_prop', label: 'Ipanema/Floripa', color: '#228888' },
+  { source: 'brunel', target: 'brasil_moda', label: 'MC2 / SPFW', color: '#228888' },
+  { source: 'brasil_moda', target: 'brasil_vitima', label: 'recrutamento', color: '#228888' },
+  { source: 'brasil_prop', target: 'damares', label: 'CDH monitorando', color: '#228888' },
+
+  // Academia
+  { source: 'epstein', target: 'mit', label: '$850K / Joi Ito', color: '#886622' },
+  { source: 'epstein', target: 'harvard', label: '$9,1M / Nowak', color: '#886622' },
+  { source: 'gates', target: 'mit', label: 'doações conjuntas', color: '#886622' },
+  { source: 'gates', target: 'harvard', label: 'doações conjuntas', color: '#886622' },
+
+  // Investigações
+  { source: 'doj', target: 'epstein', label: '3,5M páginas', color: '#4a3a6a' },
+  { source: 'doj', target: 'bondi', label: 'memorando 2 pgs', color: '#4a3a6a' },
+  { source: 'oversight', target: 'gates', label: 'subpoena mai/2026', color: '#4a3a6a' },
+  { source: 'oversight', target: 'bclinton', label: 'depoimento fev/2026', color: '#4a3a6a' },
+  { source: 'oversight', target: 'hclinton', label: 'depoimento fev/2026', color: '#4a3a6a' },
+  { source: 'oversight', target: 'leonblack', label: 'subpoena', color: '#4a3a6a' },
+  { source: 'oversight', target: 'bondi', label: 'intimação 04/03/2026', color: '#4a3a6a' },
+  { source: 'uk_inv', target: 'andrew', label: 'prendeu 19/02/2026', color: '#4a3a6a' },
+  { source: 'uk_inv', target: 'mandelson', label: 'prendeu 23/02/2026', color: '#4a3a6a' },
+  { source: 'fca', target: 'staley', label: 'banimento vitalício', color: '#4a3a6a' },
+  { source: 'eu_inv', target: 'jagland', label: 'Noruega / indiciou', color: '#4a3a6a' },
+  { source: 'eu_inv', target: 'jacklang', label: 'França / escrutínio', color: '#4a3a6a' },
+  { source: 'eu_inv', target: 'tamince', label: 'Turquia / reabertura', color: '#4a3a6a' },
+];
+
+// ── COLORS MAP ─────────────────────────────────────────────
+const catColor = {
+  central: '#c8a45a',
+  preso: '#cc2222',
+  morte: '#555555',
+  financeiro: '#2a8a4a',
+  politico: '#3a6aaa',
+  corporativo: '#7a3aaa',
+  brasil: '#228888',
+  academia: '#886622',
+  investigacao: '#4a3a6a',
+};
+
+// ── SIMULATION ─────────────────────────────────────────────
+const simulation = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(d => d.id).distance(d => {
+    const rSum = (nodes.find(n=>n.id===d.source.id||n.id===d.source)?.r||16) + (nodes.find(n=>n.id===d.target.id||n.id===d.target)?.r||16);
+    return rSum + 80;
+  }).strength(0.4))
+  .force('charge', d3.forceManyBody().strength(-500))
+  .force('center', d3.forceCenter(W/2, H/2))
+  .force('collision', d3.forceCollide().radius(d => d.r + 12))
+  .force('x', d3.forceX(W/2).strength(0.04))
+  .force('y', d3.forceY(H/2).strength(0.04));
+
+// Fix Epstein at center
+nodes.find(n=>n.id==='epstein').fx = W/2;
+nodes.find(n=>n.id==='epstein').fy = H/2;
+
+// ── DRAW LINKS ─────────────────────────────────────────────
+const linkSel = g.append('g').selectAll('line').data(links).join('line')
+  .attr('class', 'link')
+  .attr('stroke', d => d.color)
+  .attr('stroke-width', 1.5);
+
+// ── DRAW NODES ─────────────────────────────────────────────
+const nodeSel = g.append('g').selectAll('.node').data(nodes).join('g')
+  .attr('class', 'node')
+  .call(d3.drag()
+    .on('start', (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
+    .on('end', (event, d) => {
+      if (!event.active) simulation.alphaTarget(0);
+      if (!d.pinned) { d.fx = null; d.fy = null; }
+    })
+  )
+  .on('click', (event, d) => {
+    d.pinned = !d.pinned;
+    if (!d.pinned) { d.fx = null; d.fy = null; }
+    else { d.fx = d.x; d.fy = d.y; }
+    d3.select(event.currentTarget).select('circle')
+      .attr('stroke-dasharray', d.pinned ? '4,2' : null);
+  })
+  .on('mouseover', (event, d) => showTooltip(event, d))
+  .on('mousemove', (event) => moveTooltip(event))
+  .on('mouseout', hideTooltip);
+
+// Glow filter
+const glowFilter = defs.append('filter').attr('id','glow');
+glowFilter.append('feGaussianBlur').attr('stdDeviation','4').attr('result','coloredBlur');
+const feMerge = glowFilter.append('feMerge');
+feMerge.append('feMergeNode').attr('in','coloredBlur');
+feMerge.append('feMergeNode').attr('in','SourceGraphic');
+
+nodeSel.append('circle')
+  .attr('r', d => d.r)
+  .attr('fill', d => catColor[d.cat] + '22')
+  .attr('stroke', d => catColor[d.cat])
+  .attr('stroke-width', d => d.cat === 'central' ? 3 : 1.5)
+  .attr('filter', d => d.cat === 'central' ? 'url(#glow)' : null);
+
+// Inner dot
+nodeSel.append('circle')
+  .attr('r', d => Math.max(3, d.r * 0.2))
+  .attr('fill', d => catColor[d.cat])
+  .attr('opacity', 0.8);
+
+// Label
+nodeSel.append('text')
+  .attr('text-anchor', 'middle')
+  .attr('dy', d => d.r + 12)
+  .attr('font-size', d => d.cat === 'central' ? 13 : 10)
+  .attr('fill', d => catColor[d.cat])
+  .attr('opacity', 0.9)
+  .each(function(d) {
+    const lines = d.label.split('\n');
+    const el = d3.select(this);
+    el.selectAll('tspan').data(lines).join('tspan')
+      .attr('x', 0)
+      .attr('dy', (_, i) => i === 0 ? 0 : 12)
+      .text(t => t);
+  });
+
+// ── TICK ─────────────────────────────────────────────────
+simulation.on('tick', () => {
+  linkSel
+    .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+    .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+  nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+});
+
+// ── TOOLTIP ─────────────────────────────────────────────
+const tooltip = document.getElementById('tooltip');
+function showTooltip(event, d) {
+  document.getElementById('tt-name').textContent = d.label.replace('\n', ' ');
+  document.getElementById('tt-role').textContent = d.role;
+  document.getElementById('tt-detail').textContent = d.detail;
+  const st = document.getElementById('tt-status');
+  const labels = { preso:'⛓ PRESO', morto:'✝ MORTO', demitido:'📤 DEMITIDO/BANIDO', investigado:'🔍 INVESTIGADO', condenado:'⚖ CONDENADO', pago:'💸 ACORDO PAGO' };
+  const cls = { preso:'status-preso', morto:'status-morto', demitido:'status-demitido', investigado:'status-investigado', condenado:'status-condenado', pago:'status-pago' };
+  st.textContent = labels[d.status] || '';
+  st.className = 'tt-status ' + (cls[d.status] || '');
+  tooltip.style.opacity = 1;
+  moveTooltip(event);
+}
+function moveTooltip(event) {
+  let x = event.clientX + 16, y = event.clientY - 10;
+  if (x + 310 > W) x = event.clientX - 326;
+  if (y + 200 > H) y = H - 210;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+function hideTooltip() { tooltip.style.opacity = 0; }
+
+// ── FILTERS ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const cat = this.dataset.cat;
+    nodeSel.attr('opacity', d => cat === 'all' || d.cat === cat ? 1 : 0.08);
+    linkSel.attr('opacity', d => {
+      if (cat === 'all') return 0.35;
+      const sn = nodes.find(n=>n.id===d.source.id); const tn = nodes.find(n=>n.id===d.target.id);
+      return (sn?.cat===cat || tn?.cat===cat) ? 0.7 : 0.04;
+    });
+  });
+});
+
+// ── CONTROLS ────────────────────────────────────────────
+let frozen = false;
+document.getElementById('btn-freeze').addEventListener('click', function() {
+  frozen = !frozen;
+  if (frozen) { simulation.stop(); this.textContent = '▶ Continuar'; }
+  else { simulation.restart(); this.textContent = '⏸ Congelar'; }
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  nodes.forEach(d => { d.fx = null; d.fy = null; d.pinned = false; });
+  nodes.find(n=>n.id==='epstein').fx = W/2;
+  nodes.find(n=>n.id==='epstein').fy = H/2;
+  simulation.alpha(0.5).restart();
+  svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity);
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-cat="all"]').classList.add('active');
+  nodeSel.attr('opacity', 1);
+  linkSel.attr('opacity', 0.35);
+});
+
+// ── COUNTS ──────────────────────────────────────────────
+document.getElementById('cnt-nodes').textContent = nodes.length;
+document.getElementById('cnt-links').textContent = links.length;
+
+// ── RESIZE ──────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  const nW = window.innerWidth, nH = window.innerHeight;
+  svg.attr('width', nW).attr('height', nH);
+  simulation.force('center', d3.forceCenter(nW/2, nH/2)).alpha(0.3).restart();
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

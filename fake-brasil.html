@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NADA É O QUE PARECE — Painel do Consumidor Brasileiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a08;
+    --surface: #111110;
+    --surface2: #1a1a17;
+    --border: #2a2a25;
+    --accent-red: #c0392b;
+    --accent-orange: #e67e22;
+    --accent-yellow: #f1c40f;
+    --accent-green: #27ae60;
+    --text: #e8e4d9;
+    --text-muted: #7a7870;
+    --text-dim: #4a4840;
+    --ink: #1a1a17;
+    --stamp: #8b1a1a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 60px 40px 50px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    background: linear-gradient(180deg, #120f08 0%, var(--bg) 100%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent-red);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 140px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .hero-title span.strike {
+    position: relative;
+    color: var(--text-muted);
+  }
+  .hero-title span.strike::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 6px;
+    background: var(--accent-red);
+    transform: translateY(-50%) rotate(-1.5deg);
+  }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--text-muted);
+    max-width: 680px;
+    margin-top: 24px;
+    line-height: 1.5;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    border-left: 2px solid var(--accent-red);
+    padding-left: 14px;
+  }
+
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--accent-red);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .hero-stamp {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-12deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--stamp);
+    border: 4px solid var(--stamp);
+    padding: 10px 20px;
+    letter-spacing: 0.15em;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 40px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .section-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* GRID PRODUTOS */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    margin-bottom: 80px;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    transition: background 0.2s, transform 0.2s;
+    cursor: default;
+  }
+
+  .product-card:hover {
+    background: var(--surface2);
+    transform: translateY(-2px);
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+
+  .card-risk {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .card-risk.alto { background: var(--accent-red); color: #fff; }
+  .card-risk.medio { background: var(--accent-orange); color: #fff; }
+  .card-risk.baixo { background: #2a4a2a; color: var(--accent-green); }
+
+  .card-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .card-change {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0;
+    flex-wrap: wrap;
+  }
+
+  .tag-before {
+    background: #1e3a1e;
+    color: var(--accent-green);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .tag-arrow {
+    color: var(--accent-red);
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .tag-after {
+    background: #3a1e1e;
+    color: #e57373;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .card-quote {
+    border-left: 2px solid var(--accent-red);
+    padding-left: 12px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: #9a9080;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .card-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .metric-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .metric-value.red { color: var(--accent-red); }
+  .metric-value.orange { color: var(--accent-orange); }
+  .metric-value.green { color: var(--accent-green); }
+
+  /* ALERTAS */
+  .alerts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2px;
+    margin-bottom: 80px;
+  }
+
+  .alert-card {
+    padding: 24px 28px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: var(--surface);
+    transition: background 0.15s;
+  }
+
+  .alert-card:hover { background: var(--surface2); }
+
+  .alert-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .alert-content {}
+
+  .alert-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .alert-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .alert-card.critical { border-left: 3px solid var(--accent-red); }
+  .alert-card.warning  { border-left: 3px solid var(--accent-orange); }
+  .alert-card.info     { border-left: 3px solid #3a5a8a; }
+  .alert-card.legal    { border-left: 3px solid #5a4a8a; }
+
+  /* TABELA RISCOS */
+  .risk-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 80px;
+  }
+
+  .risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .risk-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .risk-table td {
+    padding: 16px;
+    border-bottom: 1px solid #1a1a17;
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  .risk-table tr:hover td { background: var(--surface2); }
+
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .badge-red { background: #2a1010; color: #e57373; }
+  .badge-orange { background: #2a1a08; color: #ffb74d; }
+  .badge-green { background: #0e2a0e; color: #81c784; }
+  .badge-blue { background: #0e1a2a; color: #64b5f6; }
+
+  .price-change {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .price-up { color: var(--accent-red); }
+  .price-same { color: var(--text-muted); }
+  .price-down { color: var(--accent-green); }
+
+  /* CONCLUSÃO */
+  .conclusion {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-red);
+    padding: 48px;
+    margin-bottom: 80px;
+    position: relative;
+  }
+
+  .conclusion-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .conclusion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .conclusion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .conclusion-block {}
+
+  .conclusion-block-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .conclusion-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .conclusion-block li {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+  }
+
+  .conclusion-block li::before {
+    content: '→';
+    color: var(--accent-red);
+    flex-shrink: 0;
+    font-weight: bold;
+  }
+
+  /* RODAPÉ TICKER */
+  .ticker-wrap {
+    background: var(--accent-red);
+    overflow: hidden;
+    padding: 10px 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    animation: ticker 40s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #fff;
+    padding: 0 32px;
+    text-transform: uppercase;
+  }
+
+  .ticker-sep {
+    color: rgba(255,255,255,0.4);
+    padding: 0 8px;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    max-width: 480px;
+    line-height: 1.5;
+  }
+
+  /* DIVIDER PROSE */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* CARDS GRANDES */
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  @media (max-width: 800px) {
+    .hero { padding: 40px 20px 36px; }
+    .container { padding: 0 20px; }
+    .hero-stamp { display: none; }
+    .feature-row { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .alerts-grid { grid-template-columns: 1fr; }
+    .conclusion { padding: 28px 20px; }
+    .footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* Legenda */
+  .legend-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 16px 0 32px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    margin-top: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  /* Animate in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .product-card, .alert-card { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Relatório do Consumidor · Brasil 2025–2026</div>
+    <h1 class="hero-title">
+      NADA É<br>
+      O QUE <span class="strike">PARECE</span>
+    </h1>
+    <p class="hero-sub">O mapa completo das adulterações, substituições e reduflações que estão esvaziando o carrinho do brasileiro — sem que ninguém avise direito.</p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="hero-stat-num">+16%</div>
+        <div class="hero-stat-label">Reclamações Procon-SP 2024</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">9.360</div>
+        <div class="hero-stat-label">Ações consumeristas (CNJ 2024)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">+12,54%</div>
+        <div class="hero-stat-label">Alta alimentos 12 meses (IBGE)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">47%</div>
+        <div class="hero-stat-label">Consumidores migrando para marcas próprias</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stamp">FRAUDE?</div>
+</header>
+
+<!-- LEGENDA -->
+<div class="container">
+  <div class="legend-row">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--accent-red)"></span> Risco alto — impacto nutricional grave ou prática enganosa documentada</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--accent-orange)"></span> Risco médio — mudança de fórmula/quantidade sem comunicação clara</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--accent-green)"></span> Risco baixo — alteração legal e comunicada, mas impacto ao bolso</div>
+  </div>
+</div>
+
+<!-- PRODUTOS -->
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag">§ 01</span>
+    <h2 class="section-title">Produtos que Mudaram</h2>
+    <span class="section-count">12 casos documentados</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="products-grid">
+
+    <!-- CHOCOLATE -->
+    <div class="product-card">
+      <span class="card-risk alto">Risco Alto</span>
+      <div class="card-category">Confeitaria · Alimentos Industrializados</div>
+      <div class="card-title">Chocolate</div>
+      <div class="card-change">
+        <span class="tag-before">Cacau real</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">"Sabor chocolate"</span>
+      </div>
+      <p class="card-desc">Barras que antes tinham 200g foram reduzidas para 90g. Fórmulas reformuladas com gordura vegetal hidrogenada, açúcar e cacau processado em baixa concentração. Marcas como Nestlé, Lacta e Garoto sofreram pressão brutal com o cacau acima de US$ 10 mil/tonelada em 2025 — o maior preço já registrado historicamente.</p>
+      <div class="card-quote">"Sabonete de glicerina! Cadê o cacau? Só açúcar e gordura." — Instagram 2025, milhares de replies</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Redução de peso</span>
+          <span class="metric-value red">até −55%</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Preço por kg</span>
+          <span class="metric-value red">↑ disparado</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Comunicação</span>
+          <span class="metric-value orange">QR code escondido</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Status legal</span>
+          <span class="metric-value orange">Discutível</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:90%;background:var(--accent-red)"></div></div>
+    </div>
+
+    <!-- LEITE CONDENSADO -->
+    <div class="product-card">
+      <span class="card-risk alto">Risco Alto</span>
+      <div class="card-category">Lácteos · Derivados</div>
+      <div class="card-title">Leite Condensado</div>
+      <div class="card-change">
+        <span class="tag-before">Leite + açúcar</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">Mistura láctea</span>
+      </div>
+      <p class="card-desc">Embalagens praticamente idênticas às originais passaram a conter "mistura láctea" com leite, soro de leite e amido — produto diferente, vendido na mesma gôndola. Gerou processo de R$ 60 milhões. Consumidores não percebem a diferença pelo visual da lata.</p>
+      <div class="card-quote">"Parece leite condensado, custa igual, mas é outra coisa. Isso deveria ser crime." — Comentário viral Instagram</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Valor nutricional</span>
+          <span class="metric-value red">Significativamente menor</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Diferença visual</span>
+          <span class="metric-value red">Mínima</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Processo judicial</span>
+          <span class="metric-value orange">R$ 60 mi em disputa</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">ANVISA</span>
+          <span class="metric-value orange">Regulamentado</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:88%;background:var(--accent-red)"></div></div>
+    </div>
+
+    <!-- QUEIJO RALADO -->
+    <div class="product-card">
+      <span class="card-risk alto">Risco Alto</span>
+      <div class="card-category">Lácteos · Fatiados</div>
+      <div class="card-title">Queijo Muçarela / Ralado</div>
+      <div class="card-change">
+        <span class="tag-before">Queijo real</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">Processado / Análogo</span>
+      </div>
+      <p class="card-desc">"Mistura alimentícia de queijo ralado" com fécula de batata, amidos modificados e aditivos substitui o queijo real. Derrete mal em pizzas. Amplamente usado em lanchonetes e mercados populares. Vendido na mesma embalagem visual do produto original.</p>
+      <div class="card-quote">"Minha pizza ficou borrachuda. Descobri depois que não era queijo de verdade — era análogo." — YouTube review 2025</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Proteína</span>
+          <span class="metric-value red">Muito reduzida</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Preço cobrado</span>
+          <span class="metric-value red">Igual ao original</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Transparência</span>
+          <span class="metric-value red">Letra miúda</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Impacto</span>
+          <span class="metric-value red">Consumidor enganado</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:82%;background:var(--accent-red)"></div></div>
+    </div>
+
+    <!-- CAFÉ -->
+    <div class="product-card">
+      <span class="card-risk medio">Risco Médio</span>
+      <div class="card-category">Bebidas · Cafés Solúveis</div>
+      <div class="card-title">Café Solúvel ("Cafake")</div>
+      <div class="card-change">
+        <span class="tag-before">Café puro</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">"Sabor café" + glicose</span>
+      </div>
+      <p class="card-desc">Pós solúveis com xarope de glicose, aromatizantes e baixíssima concentração de café. Popularizados como opção "premium" ou "instantâneo gourmet", mas com composição oposta ao que o rótulo visual sugere. Apelido "cafake" viralizou no YouTube e TikTok.</p>
+      <div class="card-quote">"Mais caro e pior que nunca. É xarope de milho com cheiro de café." — Vídeo viral YouTube</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Cafeína real</span>
+          <span class="metric-value orange">Muito reduzida</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Açúcar adicionado</span>
+          <span class="metric-value red">Alto</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Preço</span>
+          <span class="metric-value red">↑ acima do café real</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Engano visual</span>
+          <span class="metric-value orange">Embalagem sofisticada</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:70%;background:var(--accent-orange)"></div></div>
+    </div>
+
+    <!-- IOGURTE BAUNILHA -->
+    <div class="product-card">
+      <span class="card-risk medio">Risco Médio</span>
+      <div class="card-category">Lácteos · Sobremesas</div>
+      <div class="card-title">Sorvetes e Iogurtes</div>
+      <div class="card-change">
+        <span class="tag-before">Extrato natural</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">"Sabor baunilha"</span>
+      </div>
+      <p class="card-desc">Extrato natural de baunilha substituído por vanilina sintética e aromatizantes de baixo custo. Linhas populares de supermercado e grandes marcas adotaram a mudança sem destaque no rótulo. Consumidores mais sensíveis ao paladar notaram imediatamente.</p>
+      <div class="card-quote">"Antigamente cheirava baunilha de verdade. Agora é químico, artificial, enjoativo." — Reels 2025</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Custo matéria-prima</span>
+          <span class="metric-value green">−80% para empresa</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Preço ao consumidor</span>
+          <span class="metric-value red">Mantido ou maior</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Alerta na embalagem</span>
+          <span class="metric-value orange">Ausente ou mínimo</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Risco saúde</span>
+          <span class="metric-value orange">Alérgenos sintéticos</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:65%;background:var(--accent-orange)"></div></div>
+    </div>
+
+    <!-- SALGADINHOS -->
+    <div class="product-card">
+      <span class="card-risk medio">Risco Médio</span>
+      <div class="card-category">Snacks · Salgados</div>
+      <div class="card-title">Salgadinhos (Ruffles, Torcida)</div>
+      <div class="card-change">
+        <span class="tag-before">200g real</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">Embalagem cheia de ar</span>
+      </div>
+      <p class="card-desc">Ruffles reduziu 9,5% do conteúdo sem alterar a embalagem. Torcida cortou 15,56%. Sacos cada vez mais inflados de gás nitrogênio com menos produto. Estratégia de reduflação clássica: o consumidor compra pela embalagem, não pelo peso.</p>
+      <div class="card-quote">"Abri o pacotão e era metade de ar. Parecia pegadinha de Primeiro de Abril." — Twitter/X viral</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Ruffles: redução</span>
+          <span class="metric-value orange">−9,5%</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Torcida: redução</span>
+          <span class="metric-value orange">−15,56%</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Embalagem</span>
+          <span class="metric-value orange">Inalterada</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Aviso ao consumidor</span>
+          <span class="metric-value red">Não comunicado</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:62%;background:var(--accent-orange)"></div></div>
+    </div>
+
+    <!-- BISCOITOS -->
+    <div class="product-card">
+      <span class="card-risk medio">Risco Médio</span>
+      <div class="card-category">Confeitaria · Biscoitos</div>
+      <div class="card-title">Biscoitos e Tortinhas</div>
+      <div class="card-change">
+        <span class="tag-before">Fórmula original</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">Nova fórmula (sem aviso)</span>
+      </div>
+      <p class="card-desc">Nestlé e Bauducco citados em reclamações por alterações de fórmula em biscoitos recheados e tortinhas. Pacotes passaram de 200g para 160g. Alerta de mudança escondido em QR code ou em letras minúsculas. Textura e sabor diferentes do produto "original".</p>
+      <div class="card-quote">"Biscoito virou papelão molhado. Comprei o mesmo pacote de sempre e era outra coisa." — Reel Instagram 2025</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Redução peso</span>
+          <span class="metric-value orange">200g → 160g (−20%)</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Marcas citadas</span>
+          <span class="metric-value orange">Nestlé, Bauducco</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Alerta visível</span>
+          <span class="metric-value red">QR code oculto</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Transparência</span>
+          <span class="metric-value red">Insuficiente</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--accent-orange)"></div></div>
+    </div>
+
+    <!-- OVOS -->
+    <div class="product-card">
+      <span class="card-risk medio">Risco Médio</span>
+      <div class="card-category">Proteínas · Básicos</div>
+      <div class="card-title">Ovos — "Dúzia de 10"</div>
+      <div class="card-change">
+        <span class="tag-before">Dúzia = 12 ovos</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">Bandeja com 10 ovos</span>
+      </div>
+      <p class="card-desc">Bandejas de ovos com 10 unidades passaram a ser vendidas no mesmo espaço visual das bandejas tradicionais de 12. Embora tecnicamente correto no rótulo, o consumidor habituado é enganado pela expectativa histórica. Fenômeno que viralizou como "dúzia de 10".</p>
+      <div class="card-quote">"Comprei uma dúzia, cheguei em casa: 10 ovos. Li o pacote: 10 unidades. Mas quem mudou a dúzia?" — Twitter viral</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Diferença</span>
+          <span class="metric-value orange">−2 ovos (−16,6%)</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Legalidade</span>
+          <span class="metric-value green">Tecnicamente legal</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Comunicação</span>
+          <span class="metric-value orange">Subentendida</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Impacto bolso</span>
+          <span class="metric-value red">Alto (alimento básico)</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:55%;background:var(--accent-orange)"></div></div>
+    </div>
+
+    <!-- SABÃO EM PÓ -->
+    <div class="product-card">
+      <span class="card-risk baixo">Risco Baixo</span>
+      <div class="card-category">Limpeza · Higiene</div>
+      <div class="card-title">Sabão em Pó e Detergentes</div>
+      <div class="card-change">
+        <span class="tag-before">4 kg</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">3,8 kg (mesmo preço)</span>
+      </div>
+      <p class="card-desc">Sabão em pó de 4kg passou a 3,8kg sem redução de preço. Fósforos de 240 para 200 unidades. Produtos de limpeza em geral sofreram reduções disfarçadas de "nova fórmula concentrada" — que às vezes é real, às vezes é apenas marketing para justificar a quantidade menor.</p>
+      <div class="card-quote">"Comprei o mesmo tamanho de sempre. Acabou em 3 semanas em vez de um mês. Fui conferir: 3,8kg!" — Reclamação Procon-SP</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Redução</span>
+          <span class="metric-value orange">−5% a −17%</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Preço</span>
+          <span class="metric-value red">Mantido</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Alerta embalagem</span>
+          <span class="metric-value orange">Parcial</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Justificativa empresa</span>
+          <span class="metric-value green">"Fórmula concentrada"</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:40%;background:var(--accent-green)"></div></div>
+    </div>
+
+    <!-- AÇÚCAR -->
+    <div class="product-card">
+      <span class="card-risk baixo">Risco Baixo</span>
+      <div class="card-category">Básicos · Mercearia</div>
+      <div class="card-title">Açúcar Refinado</div>
+      <div class="card-change">
+        <span class="tag-before">1 kg padrão</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">800g (mesmo visual)</span>
+      </div>
+      <p class="card-desc">Pacotes de açúcar refinado de 800g foram vendidos no mesmo formato visual do pacote de 1kg, com desconto de R$ 0,10. Consumidores relataram "economia" que na verdade representava pagar mais por kg do produto. Caso viralizou no Twitter como símbolo da reduflação.</p>
+      <div class="card-quote">"Paguei dez centavos a menos por 800g. Grande economia." — Thread viral Twitter/X</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Redução real</span>
+          <span class="metric-value orange">−200g (−20%)</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Desconto dado</span>
+          <span class="metric-value red">−R$ 0,10 apenas</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Custo/kg final</span>
+          <span class="metric-value red">Mais caro</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Legalidade</span>
+          <span class="metric-value green">Legal (informado)</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:38%;background:var(--accent-green)"></div></div>
+    </div>
+
+    <!-- DOCE DE LEITE -->
+    <div class="product-card">
+      <span class="card-risk alto">Risco Alto</span>
+      <div class="card-category">Lácteos · Confeitaria</div>
+      <div class="card-title">Doce de Leite</div>
+      <div class="card-change">
+        <span class="tag-before">Doce de leite</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">"Doce de soro sabor leite"</span>
+      </div>
+      <p class="card-desc">"Doce de soro de leite sabor doce de leite" vendido no mesmo espaço do produto original. O soro de leite é o subproduto da fabricação de queijos — ingrediente baratíssimo, valor nutricional completamente diferente. Embalagem quase idêntica. Aprovado pela ANVISA, gerou escândalo nas redes.</p>
+      <div class="card-quote">"Doce de soro com sabor de doce de leite. Isso é um trocadilho ou é crime alimentar?" — Post viral Instagram</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Ingrediente principal</span>
+          <span class="metric-value red">Soro (resíduo)</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Custo produção</span>
+          <span class="metric-value green">80% menor p/ empresa</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Preço ao consumidor</span>
+          <span class="metric-value red">Similar ao original</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Aprovação regulatória</span>
+          <span class="metric-value orange">ANVISA aprovado</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:85%;background:var(--accent-red)"></div></div>
+    </div>
+
+    <!-- PAÇOCA -->
+    <div class="product-card">
+      <span class="card-risk baixo">Risco Baixo</span>
+      <div class="card-category">Confeitaria · Doces Regionais</div>
+      <div class="card-title">Paçoquita Santa Helena</div>
+      <div class="card-change">
+        <span class="tag-before">Peso original</span>
+        <span class="tag-arrow">→</span>
+        <span class="tag-after">−4g por unidade</span>
+      </div>
+      <p class="card-desc">Santa Helena confirmou redução de 4g nas embalagens retangulares, incluindo a marca Cuida Bem, citando aumento de 50% no amendoim e 39% nas embalagens. Empresa foi uma das poucas a comunicar publicamente a mudança. Mesmo assim, gerou revolta por ser "um clássico nacional".</p>
+      <div class="card-quote">"Nem a paçoquinha escapou. Isso dói mais no coração do que no bolso." — Post viral Instagram</div>
+      <div class="card-metrics">
+        <div class="card-metric">
+          <span class="metric-label">Redução</span>
+          <span class="metric-value orange">−4g por unidade</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Alta amendoim</span>
+          <span class="metric-value red">+50%</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Alta embalagem</span>
+          <span class="metric-value red">+39%</span>
+        </div>
+        <div class="card-metric">
+          <span class="metric-label">Transparência</span>
+          <span class="metric-value green">Comunicada (rara)</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:30%;background:var(--accent-green)"></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ALERTAS -->
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag">§ 02</span>
+    <h2 class="section-title">Alertas e Riscos</h2>
+    <span class="section-count">8 alertas críticos</span>
+  </div>
+  <div class="alerts-grid">
+
+    <div class="alert-card critical">
+      <div class="alert-icon">🚨</div>
+      <div class="alert-content">
+        <div class="alert-title">ALERTA CRÍTICO — Cacau a US$ 10 mil/ton</div>
+        <div class="alert-text">Em 2025, o preço do cacau ultrapassou US$ 10 mil por tonelada — o maior valor histórico registrado. A indústria chocolateira global está reformulando fórmulas em ritmo acelerado, usando mais gordura vegetal, açúcar e cacau processado com menos teor real. Espere mais mudanças nos próximos 12 meses.</div>
+      </div>
+    </div>
+
+    <div class="alert-card critical">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <div class="alert-title">RISCO SAÚDE — Análogos e Substitutos</div>
+        <div class="alert-text">Produtos alternativos com valor nutricional muito inferior ao original encontram-se lado a lado nas prateleiras em embalagens similares. Crianças, idosos e pessoas com restrições alimentares são os mais vulneráveis. Casos envolvendo análogos de queijo já geraram processos milionários.</div>
+      </div>
+    </div>
+
+    <div class="alert-card warning">
+      <div class="alert-icon">📉</div>
+      <div class="alert-content">
+        <div class="alert-title">REDUFLAÇÃO ESTRUTURAL — Não é coincidência</div>
+        <div class="alert-text">A reduflação é uma resposta estrutural à inflação de matérias-primas, logística e energia. Com inflação de alimentos acumulando +12,54% em 12 meses (IBGE), as empresas preferiram reduzir conteúdo a aumentar preço — que seria percebido imediatamente pelo consumidor. É uma forma disfarçada de repassar inflação.</div>
+      </div>
+    </div>
+
+    <div class="alert-card warning">
+      <div class="alert-icon">🏷️</div>
+      <div class="alert-content">
+        <div class="alert-title">QR CODES OCULTOS — Transparência mínima</div>
+        <div class="alert-text">Marcas têm usado QR codes impressos em letras minúsculas ou em posições pouco visíveis para "cumprir" a obrigação de informar mudanças. A lei exige alerta em destaque, negrito, letras maiúsculas e cor contrastante por 6 meses. Na prática, a comunicação é cuidadosamente planejada para não ser percebida.</div>
+      </div>
+    </div>
+
+    <div class="alert-card warning">
+      <div class="alert-icon">⚖️</div>
+      <div class="alert-content">
+        <div class="alert-title">LACUNA LEGAL — Portaria 392/2021 é fraca</div>
+        <div class="alert-text">A regra atual (Portaria 392/2021) é mera portaria ministerial — pode ser alterada por qualquer governo a qualquer momento. O PL 6.122/2023 no Senado propõe obrigação de informar reduções acima de 10% por 2 anos mínimos, mas ainda não foi aprovado. Empresas operam no limbo regulatório.</div>
+      </div>
+    </div>
+
+    <div class="alert-card legal">
+      <div class="alert-icon">🔍</div>
+      <div class="alert-content">
+        <div class="alert-title">PROCON-SP — Reclamações +16% em 2024</div>
+        <div class="alert-text">O Procon-SP registrou aumento de 16% nas reclamações em 2024. O setor de alimentos e saúde representa 9,4% das queixas. No CNJ, a defesa do consumidor foi a 4ª maior área em processos (9.360 ações). A expectativa é de mais litígios em 2025–2026 com a expansão do consumo online.</div>
+      </div>
+    </div>
+
+    <div class="alert-card info">
+      <div class="alert-icon">📱</div>
+      <div class="alert-content">
+        <div class="alert-title">REDES SOCIAIS — O novo Procon popular</div>
+        <div class="alert-text">Instagram, TikTok e YouTube tornaram-se canais de fiscalização paralelos. Reels e Shorts com comparações antes/depois de produtos chegam a milhões de visualizações. Empresas têm respondido publicamente às crises de imagem, às vezes mais rápido do que respondem ao Procon oficial.</div>
+      </div>
+    </div>
+
+    <div class="alert-card info">
+      <div class="alert-icon">🛒</div>
+      <div class="alert-content">
+        <div class="alert-title">FUGA PARA MARCAS PRÓPRIAS — 47% em 2025</div>
+        <div class="alert-text">47% dos consumidores brasileiros afirmam que vão comprar mais marcas próprias de supermercados em 2025 (NIQ/NielsenIQ). A erosão de confiança nas grandes marcas nacionais está acelerando a migração para produtos sem nome — ironicamente, muitas vezes fabricados pelas mesmas indústrias.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TABELA DE RISCOS -->
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag">§ 03</span>
+    <h2 class="section-title">Tabela de Impacto por Categoria</h2>
+    <span class="section-count">Análise comparativa</span>
+  </div>
+  <div class="risk-table-wrap">
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Tipo de Mudança</th>
+          <th>Risco Saúde</th>
+          <th>Risco Bolso</th>
+          <th>Transparência</th>
+          <th>Situação Legal</th>
+          <th>Tendência 2026</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Chocolate</strong></td>
+          <td>Fórmula + Peso</td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Precária</span></td>
+          <td><span class="badge badge-orange">Cinza</span></td>
+          <td class="price-change price-up">↑ Piora (cacau caro)</td>
+        </tr>
+        <tr>
+          <td><strong>Leite condensado / Mistura láctea</strong></td>
+          <td>Substituição produto</td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Embalagem enganosa</span></td>
+          <td><span class="badge badge-orange">Em disputa judicial</span></td>
+          <td class="price-change price-same">→ Estável (regulado)</td>
+        </tr>
+        <tr>
+          <td><strong>Queijo análogo</strong></td>
+          <td>Substituição ingrediente</td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Letra miúda</span></td>
+          <td><span class="badge badge-orange">Cinza</span></td>
+          <td class="price-change price-up">↑ Expansão prevista</td>
+        </tr>
+        <tr>
+          <td><strong>Café solúvel</strong></td>
+          <td>Adulteração</td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Oculta</span></td>
+          <td><span class="badge badge-red">Suspeito</span></td>
+          <td class="price-change price-up">↑ Piora (moda cafés)</td>
+        </tr>
+        <tr>
+          <td><strong>Salgadinhos</strong></td>
+          <td>Redução peso</td>
+          <td><span class="badge badge-blue">Baixo</span></td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-red">Não comunicado</span></td>
+          <td><span class="badge badge-red">Irregular</span></td>
+          <td class="price-change price-same">→ Estável</td>
+        </tr>
+        <tr>
+          <td><strong>Biscoitos</strong></td>
+          <td>Fórmula + Peso</td>
+          <td><span class="badge badge-blue">Baixo</span></td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-orange">QR code oculto</span></td>
+          <td><span class="badge badge-orange">Questionável</span></td>
+          <td class="price-change price-same">→ Estável</td>
+        </tr>
+        <tr>
+          <td><strong>Ovos (dúzia de 10)</strong></td>
+          <td>Redução quantidade</td>
+          <td><span class="badge badge-blue">Nenhum</span></td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-orange">Ambígua</span></td>
+          <td><span class="badge badge-green">Legal</span></td>
+          <td class="price-change price-up">↑ Consolidando</td>
+        </tr>
+        <tr>
+          <td><strong>Doce de leite</strong></td>
+          <td>Substituição total</td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-red">Alto</span></td>
+          <td><span class="badge badge-red">Embalagem similar</span></td>
+          <td><span class="badge badge-orange">Aprovado ANVISA</span></td>
+          <td class="price-change price-up">↑ Expansão</td>
+        </tr>
+        <tr>
+          <td><strong>Sabão em pó</strong></td>
+          <td>Redução peso</td>
+          <td><span class="badge badge-blue">Nenhum</span></td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-orange">Parcial</span></td>
+          <td><span class="badge badge-green">Legal</span></td>
+          <td class="price-change price-same">→ Estável</td>
+        </tr>
+        <tr>
+          <td><strong>Açúcar refinado</strong></td>
+          <td>Redução peso</td>
+          <td><span class="badge badge-blue">Nenhum</span></td>
+          <td><span class="badge badge-orange">Médio</span></td>
+          <td><span class="badge badge-orange">Informado no rótulo</span></td>
+          <td><span class="badge badge-green">Legal</span></td>
+          <td class="price-change price-same">→ Estável</td>
+        </tr>
+        <tr>
+          <td><strong>Paçoquita</strong></td>
+          <td>Redução peso</td>
+          <td><span class="badge badge-blue">Nenhum</span></td>
+          <td><span class="badge badge-blue">Baixo</span></td>
+          <td><span class="badge badge-green">Comunicou</span></td>
+          <td><span class="badge badge-green">Legal</span></td>
+          <td class="price-change price-down">↓ Pode reverter</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CONCLUSÃO -->
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag">§ 04</span>
+    <h2 class="section-title">Conclusões</h2>
+  </div>
+  <div class="conclusion">
+    <div class="conclusion-label">Análise Final · Março 2026</div>
+    <div class="conclusion-title">
+      O problema não é isolado.<br>É sistêmico, legal e calculado.
+    </div>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.65;max-width:800px;">
+      A reduflação e a adulteração de fórmulas no Brasil não são bugs do sistema — são funcionalidades. Em um ambiente com inflação estrutural, alta tributária e consumidor com poder de compra comprimido, as empresas encontraram um mecanismo legal e invisível de repassar custos. O CDC existe, a ANVISA regula, mas a execução é frouxa e a punição é rara.
+    </p>
+
+    <div class="conclusion-grid">
+      <div class="conclusion-block">
+        <div class="conclusion-block-title">🔍 Para o consumidor — como se proteger</div>
+        <ul>
+          <li>Compare preço por kg/litro, nunca por embalagem</li>
+          <li>Leia a lista de ingredientes antes do nome do produto</li>
+          <li>Desconfie de nomes como "mistura", "sabor", "análogo" e "bebida láctea"</li>
+          <li>Use o app do Procon ou Consumidor.gov.br para registrar irregularidades</li>
+          <li>Siga perfis de fiscalização no Instagram e YouTube</li>
+          <li>Se a embalagem não mudou mas o produto acabou antes: reclame</li>
+        </ul>
+      </div>
+
+      <div class="conclusion-block">
+        <div class="conclusion-block-title">📋 O que a lei diz (e como é ignorada)</div>
+        <ul>
+          <li>Reduflação é legal SE informada por 6 meses em destaque (Portaria 392/2021)</li>
+          <li>Na prática, avisos ficam em letras minúsculas ou QR codes</li>
+          <li>Mudança de fórmula precisa constar no rótulo em ingredientes — mas ninguém lê</li>
+          <li>PL 6.122/2023 propõe aviso obrigatório por 2 anos para reduções &gt;10%</li>
+          <li>ANVISA aprova "análogos" que concorrem com produtos originais na mesma gôndola</li>
+          <li>CDC prevê responsabilidade objetiva — mas ação judicial é lenta</li>
+        </ul>
+      </div>
+
+      <div class="conclusion-block">
+        <div class="conclusion-block-title">📈 Tendências para 2026</div>
+        <ul>
+          <li>Cacau permanece caro: mais chocolates "sabor" chegando</li>
+          <li>Alta do dólar pressiona todos os insumos importados</li>
+          <li>Fuga para marcas próprias deve atingir 50%+ do mercado</li>
+          <li>Redes sociais continuarão como principal canal de denúncia</li>
+          <li>Pressão por regulação mais dura no Senado (PL 6.122)</li>
+          <li>IA começando a ser usada por consumidores para comparar rótulos</li>
+        </ul>
+      </div>
+
+      <div class="conclusion-block">
+        <div class="conclusion-block-title">⚡ Verdict — o que realmente está acontecendo</div>
+        <ul>
+          <li>Inflação real do alimentício é maior que o IPCA oficial</li>
+          <li>Consumidor paga mais por produto de qualidade inferior</li>
+          <li>Grandes marcas apostam na fidelidade/hábito para sustentar a mudança</li>
+          <li>Pequenas marcas e marcas próprias ganham mercado no vácuo</li>
+          <li>Órgãos reguladores aprovam o que a indústria pressiona a aprovar</li>
+          <li>A revolta nas redes é genuína — e está mudando comportamentos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">CHOCOLATE → "SABOR CHOCOLATE"</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">LEITE CONDENSADO → MISTURA LÁCTEA</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">QUEIJO REAL → ANÁLOGO DE QUEIJO</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">CAFÉ → "SABOR CAFÉ"</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">BAUNILHA NATURAL → AROMATIZANTE SINTÉTICO</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">DÚZIA = 12 → BANDEJA COM 10</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">200G → 90G / MESMO PREÇO</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">DOCE DE LEITE → "SABOR DOCE DE LEITE"</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">PROCON-SP: +16% RECLAMAÇÕES 2024</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">CACAU: US$ 10.000/TON EM 2025</span>
+    <span class="ticker-sep">//</span>
+    <!-- duplicado para loop contínuo -->
+    <span class="ticker-item">CHOCOLATE → "SABOR CHOCOLATE"</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">LEITE CONDENSADO → MISTURA LÁCTEA</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">QUEIJO REAL → ANÁLOGO DE QUEIJO</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">CAFÉ → "SABOR CAFÉ"</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">BAUNILHA NATURAL → AROMATIZANTE SINTÉTICO</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">DÚZIA = 12 → BANDEJA COM 10</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">200G → 90G / MESMO PREÇO</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">DOCE DE LEITE → "SABOR DOCE DE LEITE"</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">PROCON-SP: +16% RECLAMAÇÕES 2024</span>
+    <span class="ticker-sep">//</span>
+    <span class="ticker-item">CACAU: US$ 10.000/TON EM 2025</span>
+    <span class="ticker-sep">//</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">PAINEL DO CONSUMIDOR BRASILEIRO · 2026</div>
+  <div class="footer-note">
+    Dados compilados de: Procon-SP, CNJ (Relatório Justiça em Números 2024), IBGE, NIQ/NielsenIQ, CNN Brasil, Correio Braziliense, Infomoney, Diário do Nordeste, Michel Jasper, BM&C News, Click Petróleo e Gás. Fontes secundárias: Instagram reels virais (2025), posts Twitter/X, YouTube. Este documento é jornalismo de dados para fins informativos.
+  </div>
+</footer>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liberdade Econômica Mundial 2024</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060810;
+    --surface: #0d1117;
+    --surface2: #161b22;
+    --border: #21262d;
+    --accent: #f0c040;
+    --accent2: #4da6ff;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --free: #22c55e;
+    --mostly-free: #84cc16;
+    --mod-free: #eab308;
+    --mostly-unfree: #f97316;
+    --repressed: #ef4444;
+    --no-data: #2d333b;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    padding: 24px 32px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+    background: linear-gradient(180deg, #0a0e1a 0%, var(--bg) 100%);
+  }
+  .header-title h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .header-title p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* MAIN LAYOUT */
+  .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: calc(100vh - 90px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .filter-group label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .filter-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .filter-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent2); }
+  .filter-btn.active { border-color: var(--accent); background: rgba(240,192,64,0.08); color: var(--accent); }
+  .filter-btn .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .filter-btn span.count {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .search-box {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Space Grotesk', sans-serif;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-box:focus { border-color: var(--accent2); }
+  .search-box::placeholder { color: var(--muted); }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* COUNTRY LIST */
+  .country-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 340px;
+    overflow-y: auto;
+  }
+  .country-list::-webkit-scrollbar { width: 3px; }
+  .country-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .country-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.1s;
+    font-size: 12px;
+  }
+  .country-item:hover { background: var(--surface2); }
+  .country-item.selected { background: rgba(240,192,64,0.1); }
+  .country-item .rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    width: 22px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .country-item .name { flex: 1; }
+  .country-item .score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .country-item .bar {
+    width: 40px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .country-item .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  /* MAP AREA */
+  .map-area {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 12px 16px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .tab {
+    padding: 6px 14px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+  }
+  .tab.active { color: var(--accent); border-color: var(--accent); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  #map-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  #world-map {
+    width: 100%;
+    height: 100%;
+  }
+  .country-path {
+    stroke: #1a2030;
+    stroke-width: 0.4;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .country-path:hover { stroke: #fff; stroke-width: 1; opacity: 0.85; }
+  .country-path.dimmed { opacity: 0.18; }
+  .country-path.highlighted { stroke: #fff; stroke-width: 1.5; }
+
+  /* TOOLTIP */
+  #tooltip {
+    position: fixed;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    pointer-events: none;
+    display: none;
+    z-index: 100;
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+  #tooltip h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .tt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    font-size: 11px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .tt-row:last-child { border-bottom: none; }
+  .tt-label { color: var(--muted); }
+  .tt-value { font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+  .tt-badge {
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  /* LEGEND */
+  .legend-panel {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(13,17,23,0.9);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    backdrop-filter: blur(8px);
+  }
+  .legend-title {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .legend-item:last-child { margin-bottom: 0; }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+  }
+  .stat-chip {
+    background: rgba(13,17,23,0.85);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11px;
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .stat-chip .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  /* DETAIL PANEL */
+  #detail-panel {
+    position: absolute;
+    top: 50px;
+    right: 16px;
+    width: 240px;
+    background: rgba(13,17,23,0.92);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: none;
+    backdrop-filter: blur(8px);
+    z-index: 50;
+  }
+  #detail-panel h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  #detail-panel .rank-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .metric-row {
+    margin-bottom: 8px;
+  }
+  .metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .metric-bar {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 2px;
+  }
+  .metric-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  .metric-val {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    float: right;
+    margin-top: -16px;
+  }
+  .close-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: none; border: none;
+    color: var(--muted); cursor: pointer;
+    font-size: 16px; padding: 4px;
+  }
+  .close-btn:hover { color: var(--text); }
+
+  /* COLOR LEGEND GRADIENT */
+  .gradient-legend {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(13,17,23,0.9);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    backdrop-filter: blur(8px);
+    width: 180px;
+  }
+  .gradient-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #ef4444, #f97316, #eab308, #84cc16, #22c55e);
+    margin: 8px 0 4px;
+  }
+  .gradient-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* SOURCES */
+  .sources {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .zoom-controls {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .zoom-btn {
+    background: rgba(13,17,23,0.85);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 28px; height: 28px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .zoom-btn:hover { background: var(--surface2); }
+
+  @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+  .fade-in { animation: fadeIn 0.3s ease forwards; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-title">
+    <h1>🌐 Liberdade Econômica Mundial</h1>
+    <p>Heritage Foundation Index 2024 · 176 países · Cruzamento IDH × Corrupção × Paz</p>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="filter-group">
+      <label>🔍 Buscar País</label>
+      <input type="text" class="search-box" id="search" placeholder="Digite o nome...">
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filter-group">
+      <label>💰 Liberdade Econômica</label>
+      <div class="filter-btn-group" id="ef-filters">
+        <button class="filter-btn active" data-filter="ef" data-val="all">
+          <span class="dot" style="background:#7d8590"></span>Todos
+          <span class="count">176</span>
+        </button>
+        <button class="filter-btn" data-filter="ef" data-val="free">
+          <span class="dot" style="background:#22c55e"></span>Livre (80–100)
+          <span class="count" id="cnt-free">-</span>
+        </button>
+        <button class="filter-btn" data-filter="ef" data-val="mostly-free">
+          <span class="dot" style="background:#84cc16"></span>Maioritariamente Livre (70–79.9)
+          <span class="count" id="cnt-mf">-</span>
+        </button>
+        <button class="filter-btn" data-filter="ef" data-val="mod-free">
+          <span class="dot" style="background:#eab308"></span>Moderadamente Livre (60–69.9)
+          <span class="count" id="cnt-mod">-</span>
+        </button>
+        <button class="filter-btn" data-filter="ef" data-val="mostly-unfree">
+          <span class="dot" style="background:#f97316"></span>Principalmente Reprimido (50–59.9)
+          <span class="count" id="cnt-mu">-</span>
+        </button>
+        <button class="filter-btn" data-filter="ef" data-val="repressed">
+          <span class="dot" style="background:#ef4444"></span>Reprimido (0–49.9)
+          <span class="count" id="cnt-rep">-</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filter-group">
+      <label>📊 IDH (Desenvolvimento Humano)</label>
+      <div class="filter-btn-group">
+        <button class="filter-btn active" data-filter="hdh" data-val="all">
+          <span class="dot" style="background:#7d8590"></span>Todos
+        </button>
+        <button class="filter-btn" data-filter="hdh" data-val="very-high">
+          <span class="dot" style="background:#06b6d4"></span>Muito Alto (≥0.800)
+        </button>
+        <button class="filter-btn" data-filter="hdh" data-val="high">
+          <span class="dot" style="background:#3b82f6"></span>Alto (0.700–0.799)
+        </button>
+        <button class="filter-btn" data-filter="hdh" data-val="medium">
+          <span class="dot" style="background:#8b5cf6"></span>Médio (0.550–0.699)
+        </button>
+        <button class="filter-btn" data-filter="hdh" data-val="low">
+          <span class="dot" style="background:#ec4899"></span>Baixo (&lt;0.550)
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filter-group">
+      <label>☮️ Índice de Paz (GPI)</label>
+      <div class="filter-btn-group">
+        <button class="filter-btn active" data-filter="peace" data-val="all">
+          <span class="dot" style="background:#7d8590"></span>Todos
+        </button>
+        <button class="filter-btn" data-filter="peace" data-val="very-peaceful">
+          <span class="dot" style="background:#10b981"></span>Muito Pacífico
+        </button>
+        <button class="filter-btn" data-filter="peace" data-val="peaceful">
+          <span class="dot" style="background:#6ee7b7"></span>Pacífico
+        </button>
+        <button class="filter-btn" data-filter="peace" data-val="moderate">
+          <span class="dot" style="background:#fbbf24"></span>Moderado
+        </button>
+        <button class="filter-btn" data-filter="peace" data-val="conflict">
+          <span class="dot" style="background:#f43f5e"></span>Conflito/Instável
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filter-group">
+      <label>🏛️ Corrupção (IPC — Transparência Internacional)</label>
+      <div class="filter-btn-group">
+        <button class="filter-btn active" data-filter="corr" data-val="all">
+          <span class="dot" style="background:#7d8590"></span>Todos
+        </button>
+        <button class="filter-btn" data-filter="corr" data-val="clean">
+          <span class="dot" style="background:#22d3ee"></span>Transparente (IPC ≥ 60)
+        </button>
+        <button class="filter-btn" data-filter="corr" data-val="moderate">
+          <span class="dot" style="background:#a78bfa"></span>Moderado (40–59)
+        </button>
+        <button class="filter-btn" data-filter="corr" data-val="corrupt">
+          <span class="dot" style="background:#fb7185"></span>Corrupto (&lt; 40)
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filter-group">
+      <label>📋 Lista de Países (<span id="list-count">176</span>)</label>
+      <div class="country-list" id="country-list"></div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-area">
+    <div class="map-tabs">
+      <div class="tab active" id="tab-ef" onclick="switchColorMode('ef')">Liberdade Econômica</div>
+      <div class="tab" id="tab-hdh" onclick="switchColorMode('hdh')">IDH</div>
+      <div class="tab" id="tab-peace" onclick="switchColorMode('peace')">Paz</div>
+      <div class="tab" id="tab-corr" onclick="switchColorMode('corr')">Corrupção</div>
+    </div>
+
+    <div id="map-container">
+      <svg id="world-map"></svg>
+
+      <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomIn()">+</button>
+        <button class="zoom-btn" onclick="zoomOut()">−</button>
+        <button class="zoom-btn" onclick="resetZoom()" title="Reset">⌂</button>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-chip">
+          <span style="color:var(--muted)">Top 1</span>
+          <span class="val" style="color:var(--free)">🇸🇬 84.4</span>
+        </div>
+        <div class="stat-chip">
+          <span style="color:var(--muted)">Média Global</span>
+          <span class="val" style="color:var(--accent)" id="avg-score">—</span>
+        </div>
+        <div class="stat-chip">
+          <span style="color:var(--muted)">Brasil</span>
+          <span class="val" style="color:var(--mostly-unfree)">52.4 #134</span>
+        </div>
+      </div>
+
+      <div class="legend-panel" id="legend-panel"></div>
+      <div class="gradient-legend">
+        <div class="legend-title" id="grad-title">Liberdade Econômica</div>
+        <div class="gradient-bar" id="grad-bar"></div>
+        <div class="gradient-labels">
+          <span>Reprimido</span><span>Livre</span>
+        </div>
+      </div>
+
+      <div id="detail-panel">
+        <button class="close-btn" onclick="closeDetail()">✕</button>
+        <h3 id="dp-name">—</h3>
+        <div class="rank-badge" id="dp-rank">—</div>
+        <div class="metric-row">
+          <div class="metric-label">Liberdade Econômica</div>
+          <div class="metric-bar"><div class="metric-fill" id="dp-ef-bar" style="background:var(--accent)"></div></div>
+          <div class="metric-val" id="dp-ef-val">—</div>
+          <div style="clear:both"></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">IDH Estimado</div>
+          <div class="metric-bar"><div class="metric-fill" id="dp-hdh-bar" style="background:#06b6d4"></div></div>
+          <div class="metric-val" id="dp-hdh-val">—</div>
+          <div style="clear:both"></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Índice de Paz (0–10)</div>
+          <div class="metric-bar"><div class="metric-fill" id="dp-peace-bar" style="background:#10b981"></div></div>
+          <div class="metric-val" id="dp-peace-val">—</div>
+          <div style="clear:both"></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">IPC Corrupção (0–100)</div>
+          <div class="metric-bar"><div class="metric-fill" id="dp-corr-bar" style="background:#22d3ee"></div></div>
+          <div class="metric-val" id="dp-corr-val">—</div>
+          <div style="clear:both"></div>
+        </div>
+        <div id="dp-badges" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;"></div>
+      </div>
+
+      <div class="sources">
+        Fontes: Heritage Foundation (2024) · PNUD IDH (2023) · Vision of Humanity GPI (2023) · Transparência Internacional IPC (2023)
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tooltip">
+  <h3 id="tt-name">—</h3>
+  <div class="tt-row"><span class="tt-label">Liberdade Econômica</span><span class="tt-value" id="tt-ef">—</span></div>
+  <div class="tt-row"><span class="tt-label">Ranking</span><span class="tt-value" id="tt-rank">—</span></div>
+  <div class="tt-row"><span class="tt-label">IDH</span><span class="tt-value" id="tt-hdh">—</span></div>
+  <div class="tt-row"><span class="tt-label">Paz</span><span class="tt-value" id="tt-peace">—</span></div>
+  <div class="tt-row"><span class="tt-label">Corrupção (IPC)</span><span class="tt-value" id="tt-corr">—</span></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+// ef=economic freedom, hdh=HDI approx, peace=GPI approx (1=best,5=worst), corr=CPI approx (100=clean)
+// iso = ISO 3166-1 numeric for topojson matching
+const COUNTRIES = [
+  {rank:1,name:"Singapore",iso:"702",ef:84.4,hdh:0.939,peace:1.3,corr:85},
+  {rank:2,name:"Switzerland",iso:"756",ef:83.7,hdh:0.962,peace:1.4,corr:82},
+  {rank:3,name:"Ireland",iso:"372",ef:83.3,hdh:0.945,peace:1.3,corr:77},
+  {rank:4,name:"Australia",iso:"036",ef:80.1,hdh:0.946,peace:1.5,corr:75},
+  {rank:5,name:"Taiwan",iso:"158",ef:79.8,hdh:0.916,peace:1.5,corr:67},
+  {rank:6,name:"Luxembourg",iso:"442",ef:79.7,hdh:0.930,peace:1.5,corr:78},
+  {rank:7,name:"Denmark",iso:"208",ef:79.0,hdh:0.952,peace:1.3,corr:90},
+  {rank:8,name:"Norway",iso:"578",ef:78.8,hdh:0.966,peace:1.5,corr:84},
+  {rank:9,name:"Estonia",iso:"233",ef:78.7,hdh:0.899,peace:1.6,corr:76},
+  {rank:10,name:"Netherlands",iso:"528",ef:78.5,hdh:0.941,peace:1.4,corr:79},
+  {rank:11,name:"Sweden",iso:"752",ef:77.8,hdh:0.952,peace:1.3,corr:85},
+  {rank:12,name:"New Zealand",iso:"554",ef:77.8,hdh:0.939,peace:1.3,corr:85},
+  {rank:13,name:"Finland",iso:"246",ef:76.6,hdh:0.940,peace:1.3,corr:87},
+  {rank:14,name:"Canada",iso:"124",ef:75.6,hdh:0.935,peace:1.4,corr:76},
+  {rank:15,name:"Lithuania",iso:"440",ef:75.3,hdh:0.879,peace:1.6,corr:61},
+  {rank:16,name:"Iceland",iso:"352",ef:75.0,hdh:0.959,peace:1.1,corr:72},
+  {rank:17,name:"Chile",iso:"152",ef:74.3,hdh:0.860,peace:1.8,corr:67},
+  {rank:18,name:"Cyprus",iso:"196",ef:74.1,hdh:0.896,peace:1.8,corr:53},
+  {rank:19,name:"South Korea",iso:"410",ef:73.7,hdh:0.925,peace:1.8,corr:63},
+  {rank:20,name:"Czech Republic",iso:"203",ef:73.2,hdh:0.895,peace:1.5,corr:57},
+  {rank:21,name:"Mauritius",iso:"480",ef:73.0,hdh:0.802,peace:1.5,corr:55},
+  {rank:22,name:"United States",iso:"840",ef:72.8,hdh:0.926,peace:2.4,corr:69},
+  {rank:23,name:"UAE",iso:"784",ef:71.9,hdh:0.911,peace:2.0,corr:68},
+  {rank:24,name:"Germany",iso:"276",ef:71.7,hdh:0.942,peace:1.4,corr:78},
+  {rank:25,name:"Latvia",iso:"428",ef:71.6,hdh:0.879,peace:1.7,corr:59},
+  {rank:26,name:"Cabo Verde",iso:"132",ef:71.4,hdh:0.665,peace:1.5,corr:58},
+  {rank:27,name:"Portugal",iso:"620",ef:71.2,hdh:0.866,peace:1.3,corr:62},
+  {rank:28,name:"Barbados",iso:"052",ef:70.4,hdh:0.814,peace:1.6,corr:60},
+  {rank:29,name:"United Kingdom",iso:"826",ef:70.4,hdh:0.940,peace:1.7,corr:71},
+  {rank:30,name:"Japan",iso:"392",ef:70.3,hdh:0.920,peace:1.3,corr:73},
+  {rank:31,name:"Qatar",iso:"634",ef:70.2,hdh:0.855,peace:2.0,corr:58},
+  {rank:32,name:"Uruguay",iso:"858",ef:69.8,hdh:0.830,peace:1.6,corr:73},
+  {rank:33,name:"Austria",iso:"040",ef:69.8,hdh:0.916,peace:1.4,corr:71},
+  {rank:34,name:"Slovenia",iso:"705",ef:69.7,hdh:0.918,peace:1.4,corr:57},
+  {rank:35,name:"Georgia",iso:"268",ef:69.6,hdh:0.812,peace:2.2,corr:53},
+  {rank:36,name:"Belgium",iso:"056",ef:69.2,hdh:0.937,peace:1.5,corr:73},
+  {rank:37,name:"Costa Rica",iso:"188",ef:69.1,hdh:0.809,peace:1.7,corr:54},
+  {rank:38,name:"Bulgaria",iso:"100",ef:68.9,hdh:0.795,peace:1.6,corr:46},
+  {rank:39,name:"Oman",iso:"512",ef:68.5,hdh:0.816,peace:1.9,corr:49},
+  {rank:40,name:"Poland",iso:"616",ef:68.5,hdh:0.876,peace:1.9,corr:55},
+  {rank:41,name:"Israel",iso:"376",ef:68.4,hdh:0.919,peace:2.8,corr:62},
+  {rank:42,name:"Jamaica",iso:"388",ef:68.2,hdh:0.706,peace:2.5,corr:44},
+  {rank:43,name:"Malta",iso:"470",ef:68.2,hdh:0.918,peace:1.4,corr:53},
+  {rank:44,name:"Samoa",iso:"882",ef:68.0,hdh:0.707,peace:1.4,corr:52},
+  {rank:45,name:"Malaysia",iso:"458",ef:68.0,hdh:0.803,peace:1.6,corr:47},
+  {rank:46,name:"Albania",iso:"008",ef:68.0,hdh:0.789,peace:1.8,corr:37},
+  {rank:47,name:"Slovakia",iso:"703",ef:67.7,hdh:0.855,peace:1.6,corr:53},
+  {rank:48,name:"Botswana",iso:"072",ef:67.7,hdh:0.693,peace:1.7,corr:59},
+  {rank:49,name:"Croatia",iso:"191",ef:67.5,hdh:0.878,peace:1.5,corr:50},
+  {rank:50,name:"Saint Lucia",iso:"662",ef:67.5,hdh:0.715,peace:1.7,corr:55},
+  {rank:51,name:"Brunei",iso:"096",ef:67.5,hdh:0.829,peace:1.6,corr:62},
+  {rank:52,name:"Armenia",iso:"051",ef:67.1,hdh:0.791,peace:3.1,corr:46},
+  {rank:53,name:"Spain",iso:"724",ef:66.8,hdh:0.905,peace:1.4,corr:60},
+  {rank:54,name:"Seychelles",iso:"690",ef:66.5,hdh:0.785,peace:1.7,corr:70},
+  {rank:55,name:"Paraguay",iso:"600",ef:66.4,hdh:0.717,peace:2.0,corr:28},
+  {rank:56,name:"Peru",iso:"604",ef:66.3,hdh:0.762,peace:2.2,corr:36},
+  {rank:57,name:"Bahrain",iso:"048",ef:65.7,hdh:0.875,peace:2.5,corr:42},
+  {rank:58,name:"Romania",iso:"642",ef:65.4,hdh:0.821,peace:1.8,corr:46},
+  {rank:59,name:"Saudi Arabia",iso:"682",ef:65.4,hdh:0.875,peace:2.7,corr:53},
+  {rank:60,name:"Indonesia",iso:"360",ef:65.1,hdh:0.705,peace:1.8,corr:34},
+  {rank:61,name:"Bahamas",iso:"044",ef:65.1,hdh:0.812,peace:2.0,corr:64},
+  {rank:62,name:"Serbia",iso:"688",ef:65.0,hdh:0.805,peace:1.8,corr:36},
+  {rank:63,name:"Panama",iso:"591",ef:64.9,hdh:0.805,peace:1.9,corr:34},
+  {rank:64,name:"Belize",iso:"084",ef:64.7,hdh:0.683,peace:2.1,corr:32},
+  {rank:65,name:"France",iso:"250",ef:64.6,hdh:0.910,peace:1.8,corr:71},
+  {rank:66,name:"Vietnam",iso:"704",ef:64.4,hdh:0.703,peace:1.8,corr:41},
+  {rank:67,name:"Azerbaijan",iso:"031",ef:64.3,hdh:0.745,peace:2.8,corr:27},
+  {rank:68,name:"Kazakhstan",iso:"398",ef:64.2,hdh:0.802,peace:1.9,corr:35},
+  {rank:69,name:"Mongolia",iso:"496",ef:63.9,hdh:0.739,peace:1.8,corr:38},
+  {rank:70,name:"Montenegro",iso:"499",ef:63.8,hdh:0.832,peace:1.6,corr:45},
+  {rank:71,name:"Dominican Republic",iso:"214",ef:63.8,hdh:0.767,peace:2.1,corr:34},
+  {rank:72,name:"Guatemala",iso:"320",ef:63.5,hdh:0.627,peace:2.6,corr:24},
+  {rank:73,name:"Italy",iso:"380",ef:63.3,hdh:0.906,peace:1.7,corr:56},
+  {rank:74,name:"North Macedonia",iso:"807",ef:63.3,hdh:0.770,peace:1.7,corr:42},
+  {rank:75,name:"Greece",iso:"300",ef:63.2,hdh:0.893,peace:1.8,corr:49},
+  {rank:76,name:"Bosnia and Herzegovina",iso:"070",ef:63.1,hdh:0.780,peace:1.6,corr:34},
+  {rank:77,name:"Philippines",iso:"608",ef:62.9,hdh:0.710,peace:2.6,corr:34},
+  {rank:78,name:"Micronesia",iso:"583",ef:62.9,hdh:0.628,peace:1.6,corr:35},
+  {rank:79,name:"Hungary",iso:"348",ef:62.5,hdh:0.851,peace:1.6,corr:42},
+  {rank:80,name:"Trinidad and Tobago",iso:"780",ef:62.4,hdh:0.810,peace:2.4,corr:41},
+  {rank:81,name:"Kosovo",iso:"383",ef:62.4,hdh:0.739,peace:1.8,corr:41},
+  {rank:82,name:"Thailand",iso:"764",ef:62.2,hdh:0.800,peace:2.2,corr:36},
+  {rank:83,name:"Morocco",iso:"504",ef:61.8,hdh:0.683,peace:2.0,corr:37},
+  {rank:84,name:"Vanuatu",iso:"548",ef:61.1,hdh:0.610,peace:1.5,corr:42},
+  {rank:85,name:"São Tomé and Príncipe",iso:"678",ef:60.6,hdh:0.618,peace:1.6,corr:48},
+  {rank:86,name:"Uzbekistan",iso:"860",ef:60.3,hdh:0.727,peace:1.8,corr:31},
+  {rank:87,name:"Namibia",iso:"516",ef:60.2,hdh:0.615,peace:1.6,corr:49},
+  {rank:88,name:"Benin",iso:"204",ef:60.0,hdh:0.526,peace:1.9,corr:43},
+  {rank:89,name:"St. Vincent & Grenadines",iso:"670",ef:60.0,hdh:0.751,peace:1.7,corr:61},
+  {rank:90,name:"Kuwait",iso:"414",ef:59.9,hdh:0.847,peace:2.1,corr:44},
+  {rank:91,name:"Colombia",iso:"170",ef:59.8,hdh:0.752,peace:2.8,corr:39},
+  {rank:92,name:"Mexico",iso:"484",ef:59.8,hdh:0.781,peace:2.9,corr:31},
+  {rank:93,name:"Fiji",iso:"242",ef:59.5,hdh:0.730,peace:1.8,corr:52},
+  {rank:94,name:"Jordan",iso:"400",ef:59.3,hdh:0.736,peace:1.9,corr:47},
+  {rank:95,name:"Honduras",iso:"340",ef:59.1,hdh:0.621,peace:2.6,corr:23},
+  {rank:96,name:"Tanzania",iso:"834",ef:59.0,hdh:0.532,peace:1.9,corr:38},
+  {rank:97,name:"Tonga",iso:"776",ef:58.9,hdh:0.740,peace:1.5,corr:43},
+  {rank:98,name:"Cambodia",iso:"116",ef:58.7,hdh:0.593,peace:1.7,corr:21},
+  {rank:99,name:"Guyana",iso:"328",ef:58.7,hdh:0.714,peace:2.0,corr:40},
+  {rank:100,name:"South Africa",iso:"710",ef:58.6,hdh:0.713,peace:2.2,corr:41},
+  {rank:101,name:"Moldova",iso:"498",ef:58.1,hdh:0.767,peace:1.9,corr:39},
+  {rank:102,name:"Côte d'Ivoire",iso:"384",ef:58.1,hdh:0.550,peace:2.2,corr:37},
+  {rank:103,name:"El Salvador",iso:"222",ef:57.7,hdh:0.675,peace:2.5,corr:31},
+  {rank:104,name:"Eswatini",iso:"748",ef:57.5,hdh:0.597,peace:2.0,corr:33},
+  {rank:105,name:"Bhutan",iso:"064",ef:57.5,hdh:0.666,peace:1.5,corr:68},
+  {rank:106,name:"Argentina",iso:"032",ef:57.4,hdh:0.842,peace:1.8,corr:37},
+  {rank:107,name:"Ghana",iso:"288",ef:57.3,hdh:0.632,peace:1.8,corr:43},
+  {rank:108,name:"Madagascar",iso:"450",ef:57.0,hdh:0.489,peace:1.7,corr:26},
+  {rank:109,name:"Gabon",iso:"266",ef:56.6,hdh:0.706,peace:1.7,corr:33},
+  {rank:110,name:"Rwanda",iso:"646",ef:56.5,hdh:0.543,peace:1.8,corr:53},
+  {rank:111,name:"Djibouti",iso:"262",ef:56.3,hdh:0.509,peace:2.0,corr:29},
+  {rank:112,name:"Gambia",iso:"270",ef:56.3,hdh:0.500,peace:1.9,corr:37},
+  {rank:113,name:"Dominica",iso:"212",ef:56.1,hdh:0.724,peace:1.6,corr:55},
+  {rank:114,name:"Kyrgyz Republic",iso:"417",ef:56.0,hdh:0.692,peace:2.0,corr:26},
+  {rank:115,name:"Ecuador",iso:"218",ef:55.6,hdh:0.765,peace:2.2,corr:34},
+  {rank:116,name:"Kenya",iso:"404",ef:55.5,hdh:0.601,peace:2.3,corr:31},
+  {rank:117,name:"Türkiye",iso:"792",ef:55.0,hdh:0.838,peace:2.7,corr:34},
+  {rank:118,name:"Lesotho",iso:"426",ef:54.9,hdh:0.518,peace:1.8,corr:39},
+  {rank:119,name:"Nigeria",iso:"566",ef:54.8,hdh:0.535,peace:3.2,corr:25},
+  {rank:120,name:"Bangladesh",iso:"050",ef:54.8,hdh:0.661,peace:1.9,corr:24},
+  {rank:121,name:"Angola",iso:"024",ef:54.4,hdh:0.586,peace:2.2,corr:33},
+  {rank:122,name:"Papua New Guinea",iso:"598",ef:54.3,hdh:0.558,peace:2.4,corr:26},
+  {rank:123,name:"Mauritania",iso:"478",ef:53.9,hdh:0.556,peace:2.1,corr:31},
+  {rank:124,name:"Solomon Islands",iso:"090",ef:53.7,hdh:0.564,peace:1.7,corr:42},
+  {rank:125,name:"Nicaragua",iso:"558",ef:53.6,hdh:0.667,peace:2.3,corr:19},
+  {rank:126,name:"Senegal",iso:"686",ef:53.2,hdh:0.511,peace:1.9,corr:43},
+  {rank:127,name:"Guinea",iso:"324",ef:53.1,hdh:0.465,peace:2.3,corr:27},
+  {rank:128,name:"Suriname",iso:"740",ef:53.0,hdh:0.730,peace:2.0,corr:35},
+  {rank:129,name:"Nepal",iso:"524",ef:52.9,hdh:0.602,peace:2.0,corr:35},
+  {rank:130,name:"Comoros",iso:"174",ef:52.7,hdh:0.558,peace:1.7,corr:27},
+  {rank:131,name:"Tajikistan",iso:"762",ef:52.5,hdh:0.685,peace:2.2,corr:19},
+  {rank:132,name:"India",iso:"356",ef:52.5,hdh:0.644,peace:2.3,corr:39},
+  {rank:133,name:"Uganda",iso:"800",ef:52.4,hdh:0.544,peace:2.5,corr:26},
+  {rank:134,name:"Brazil",iso:"076",ef:52.4,hdh:0.760,peace:2.5,corr:36},
+  {rank:135,name:"Mali",iso:"466",ef:52.1,hdh:0.428,peace:3.0,corr:29},
+  {rank:136,name:"Cameroon",iso:"120",ef:52.0,hdh:0.576,peace:2.7,corr:25},
+  {rank:137,name:"Zambia",iso:"894",ef:51.9,hdh:0.565,peace:1.9,corr:34},
+  {rank:138,name:"Togo",iso:"768",ef:51.6,hdh:0.539,peace:1.8,corr:30},
+  {rank:139,name:"Chad",iso:"148",ef:51.2,hdh:0.394,peace:3.3,corr:20},
+  {rank:140,name:"Niger",iso:"562",ef:51.0,hdh:0.400,peace:2.6,corr:31},
+  {rank:141,name:"Laos",iso:"418",ef:50.9,hdh:0.607,peace:1.9,corr:28},
+  {rank:142,name:"Kiribati",iso:"296",ef:50.8,hdh:0.624,peace:1.5,corr:40},
+  {rank:143,name:"Malawi",iso:"454",ef:50.7,hdh:0.512,peace:1.8,corr:34},
+  {rank:144,name:"Sri Lanka",iso:"144",ef:50.3,hdh:0.780,peace:1.9,corr:36},
+  {rank:145,name:"Russia",iso:"643",ef:50.3,hdh:0.821,peace:3.5,corr:26},
+  {rank:146,name:"Egypt",iso:"818",ef:50.3,hdh:0.728,peace:2.9,corr:35},
+  {rank:147,name:"Liberia",iso:"430",ef:49.8,hdh:0.481,peace:2.2,corr:33},
+  {rank:148,name:"Sierra Leone",iso:"694",ef:49.6,hdh:0.477,peace:2.0,corr:35},
+  {rank:149,name:"Mozambique",iso:"508",ef:49.6,hdh:0.456,peace:2.4,corr:26},
+  {rank:150,name:"Belarus",iso:"112",ef:49.1,hdh:0.808,peace:2.3,corr:42},
+  {rank:151,name:"Burkina Faso",iso:"854",ef:49.1,hdh:0.449,peace:3.3,corr:26},
+  {rank:152,name:"Pakistan",iso:"586",ef:48.9,hdh:0.540,peace:3.1,corr:28},
+  {rank:153,name:"Rep. of Congo",iso:"178",ef:48.6,hdh:0.571,peace:2.7,corr:21},
+  {rank:154,name:"China",iso:"156",ef:48.3,hdh:0.788,peace:2.0,corr:45},
+  {rank:155,name:"Ethiopia",iso:"231",ef:48.1,hdh:0.492,peace:2.8,corr:37},
+  {rank:156,name:"Tunisia",iso:"788",ef:48.1,hdh:0.731,peace:2.0,corr:41},
+  {rank:157,name:"Timor-Leste",iso:"626",ef:47.9,hdh:0.607,peace:1.8,corr:42},
+  {rank:158,name:"Maldives",iso:"462",ef:47.6,hdh:0.762,peace:1.7,corr:40},
+  {rank:159,name:"Equatorial Guinea",iso:"226",ef:47.4,hdh:0.596,peace:2.0,corr:17},
+  {rank:160,name:"Turkmenistan",iso:"795",ef:47.0,hdh:0.745,peace:2.2,corr:18},
+  {rank:161,name:"Dem. Rep. of Congo",iso:"180",ef:47.0,hdh:0.481,peace:3.4,corr:20},
+  {rank:162,name:"Haiti",iso:"332",ef:46.1,hdh:0.535,peace:3.4,corr:17},
+  {rank:163,name:"Algeria",iso:"012",ef:45.8,hdh:0.745,peace:2.2,corr:36},
+  {rank:164,name:"Burma",iso:"104",ef:44.5,hdh:0.585,peace:2.9,corr:23},
+  {rank:165,name:"Guinea-Bissau",iso:"624",ef:43.2,hdh:0.461,peace:2.3,corr:21},
+  {rank:166,name:"Lebanon",iso:"422",ef:43.1,hdh:0.723,peace:3.0,corr:24},
+  {rank:167,name:"Central African Republic",iso:"140",ef:43.1,hdh:0.404,peace:3.7,corr:24},
+  {rank:168,name:"Bolivia",iso:"068",ef:42.4,hdh:0.698,peace:2.0,corr:31},
+  {rank:169,name:"Iran",iso:"364",ef:41.8,hdh:0.774,peace:3.2,corr:25},
+  {rank:170,name:"Burundi",iso:"108",ef:40.2,hdh:0.426,peace:2.9,corr:19},
+  {rank:171,name:"Eritrea",iso:"232",ef:39.6,hdh:0.493,peace:2.9,corr:22},
+  {rank:172,name:"Zimbabwe",iso:"716",ef:35.2,hdh:0.593,peace:2.2,corr:24},
+  {rank:173,name:"Sudan",iso:"729",ef:32.5,hdh:0.510,peace:3.3,corr:21},
+  {rank:174,name:"Venezuela",iso:"862",ef:27.3,hdh:0.699,peace:3.3,corr:13},
+  {rank:175,name:"Cuba",iso:"192",ef:25.2,hdh:0.764,peace:2.1,corr:45},
+  {rank:176,name:"North Korea",iso:"408",ef:3.1,hdh:0.733,peace:3.5,corr:8}
+];
+
+// Build lookup
+const byISO = {};
+COUNTRIES.forEach(c => { byISO[c.iso] = c; });
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+function efCategory(score) {
+  if (score >= 80) return 'free';
+  if (score >= 70) return 'mostly-free';
+  if (score >= 60) return 'mod-free';
+  if (score >= 50) return 'mostly-unfree';
+  return 'repressed';
+}
+function hdhCategory(hdh) {
+  if (hdh >= 0.8) return 'very-high';
+  if (hdh >= 0.7) return 'high';
+  if (hdh >= 0.55) return 'medium';
+  return 'low';
+}
+function peaceCategory(gpi) {
+  if (gpi <= 1.5) return 'very-peaceful';
+  if (gpi <= 2.0) return 'peaceful';
+  if (gpi <= 2.8) return 'moderate';
+  return 'conflict';
+}
+function corrCategory(cpi) {
+  if (cpi >= 60) return 'clean';
+  if (cpi >= 40) return 'moderate';
+  return 'corrupt';
+}
+
+const EF_COLORS = {
+  'free': '#22c55e',
+  'mostly-free': '#84cc16',
+  'mod-free': '#eab308',
+  'mostly-unfree': '#f97316',
+  'repressed': '#ef4444'
+};
+const HDH_COLORS = {
+  'very-high': '#06b6d4',
+  'high': '#3b82f6',
+  'medium': '#8b5cf6',
+  'low': '#ec4899'
+};
+const PEACE_COLORS = {
+  'very-peaceful': '#10b981',
+  'peaceful': '#6ee7b7',
+  'moderate': '#fbbf24',
+  'conflict': '#f43f5e'
+};
+const CORR_COLORS = {
+  'clean': '#22d3ee',
+  'moderate': '#a78bfa',
+  'corrupt': '#fb7185'
+};
+
+function getColor(country, mode) {
+  if (!country) return '#2d333b';
+  switch(mode) {
+    case 'ef': return EF_COLORS[efCategory(country.ef)];
+    case 'hdh': return HDH_COLORS[hdhCategory(country.hdh)];
+    case 'peace': return PEACE_COLORS[peaceCategory(country.peace)];
+    case 'corr': return CORR_COLORS[corrCategory(country.corr)];
+  }
+  return '#2d333b';
+}
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let colorMode = 'ef';
+let activeFilters = { ef:'all', hdh:'all', peace:'all', corr:'all' };
+let selectedISO = null;
+
+// ─────────────────────────────────────────────
+// MAP
+// ─────────────────────────────────────────────
+const svg = d3.select('#world-map');
+const g = svg.append('g');
+let projection, path, zoom;
+
+function initMap() {
+  const W = document.getElementById('map-container').clientWidth;
+  const H = document.getElementById('map-container').clientHeight;
+
+  svg.attr('width', W).attr('height', H);
+
+  projection = d3.geoNaturalEarth1()
+    .scale(W / 6.1)
+    .translate([W/2, H/2]);
+
+  path = d3.geoPath().projection(projection);
+
+  zoom = d3.zoom()
+    .scaleExtent([1, 10])
+    .on('zoom', (e) => g.attr('transform', e.transform));
+
+  svg.call(zoom);
+
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r => r.json())
+    .then(world => {
+      const countries = topojson.feature(world, world.objects.countries);
+      g.selectAll('.country-path')
+        .data(countries.features)
+        .enter().append('path')
+        .attr('class', 'country-path')
+        .attr('d', path)
+        .attr('id', d => 'iso-' + d.id)
+        .attr('fill', d => getColor(byISO[String(d.id).padStart(3,'0')], colorMode))
+        .on('mousemove', onMouseMove)
+        .on('mouseleave', onMouseLeave)
+        .on('click', onCountryClick);
+
+      updateCounts();
+      renderLegend();
+      updateListDisplay();
+      computeAvg();
+    })
+    .catch(() => {
+      // Fallback if fetch fails
+      document.getElementById('map-container').innerHTML +=
+        '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#7d8590;font-size:13px;">Mapa requer conexão com a internet para carregar<br><small>Os filtros e lista de países funcionam normalmente</small></div>';
+    });
+}
+
+function updateMapColors(filtered) {
+  g.selectAll('.country-path')
+    .attr('fill', d => {
+      const c = byISO[String(d.id).padStart(3,'0')];
+      if (!c) return '#2d333b';
+      const pass = filtered.find(f => f.iso === c.iso);
+      return pass ? getColor(c, colorMode) : '#1e2530';
+    })
+    .classed('dimmed', d => {
+      const c = byISO[String(d.id).padStart(3,'0')];
+      if (!c) return false;
+      return !filtered.find(f => f.iso === c.iso);
+    });
+}
+
+function onMouseMove(event, d) {
+  const c = byISO[String(d.id).padStart(3,'0')];
+  if (!c) return;
+  const tt = document.getElementById('tooltip');
+  document.getElementById('tt-name').textContent = c.name;
+  document.getElementById('tt-ef').textContent = c.ef + ' (#' + c.rank + ')';
+  document.getElementById('tt-rank').textContent = '#' + c.rank + ' / 176';
+  document.getElementById('tt-hdh').textContent = c.hdh.toFixed(3) + ' (' + hdhLabel(hdhCategory(c.hdh)) + ')';
+  document.getElementById('tt-peace').textContent = c.peace.toFixed(1) + ' — ' + peaceLabel(peaceCategory(c.peace));
+  document.getElementById('tt-corr').textContent = c.corr + ' — ' + corrLabel(corrCategory(c.corr));
+  tt.style.display = 'block';
+  tt.style.left = (event.clientX + 14) + 'px';
+  tt.style.top = (event.clientY - 20) + 'px';
+  if (event.clientX + 250 > window.innerWidth) {
+    tt.style.left = (event.clientX - 240) + 'px';
+  }
+}
+function onMouseLeave() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+function onCountryClick(event, d) {
+  const c = byISO[String(d.id).padStart(3,'0')];
+  if (!c) return;
+  showDetail(c);
+  selectedISO = c.iso;
+  g.selectAll('.country-path').classed('highlighted', dd =>
+    String(dd.id).padStart(3,'0') === c.iso
+  );
+}
+
+// ─────────────────────────────────────────────
+// DETAIL PANEL
+// ─────────────────────────────────────────────
+function showDetail(c) {
+  document.getElementById('detail-panel').style.display = 'block';
+  document.getElementById('dp-name').textContent = c.name;
+  document.getElementById('dp-rank').textContent = 'Rank #' + c.rank + ' de 176 · EF Score: ' + c.ef;
+  document.getElementById('dp-ef-bar').style.width = c.ef + '%';
+  document.getElementById('dp-ef-val').textContent = c.ef;
+  document.getElementById('dp-ef-bar').style.background = getColor(c, 'ef');
+  const hdh100 = (c.hdh * 100).toFixed(0);
+  document.getElementById('dp-hdh-bar').style.width = hdh100 + '%';
+  document.getElementById('dp-hdh-val').textContent = c.hdh.toFixed(3);
+  const peaceW = ((5 - c.peace) / 4 * 100).toFixed(0);
+  document.getElementById('dp-peace-bar').style.width = peaceW + '%';
+  document.getElementById('dp-peace-val').textContent = c.peace.toFixed(1);
+  document.getElementById('dp-corr-bar').style.width = c.corr + '%';
+  document.getElementById('dp-corr-val').textContent = c.corr + '/100';
+  document.getElementById('dp-corr-bar').style.background = getColor(c, 'corr');
+
+  const badges = document.getElementById('dp-badges');
+  badges.innerHTML = '';
+  const badgeData = [
+    { label: efCatLabel(efCategory(c.ef)), color: getColor(c,'ef') },
+    { label: hdhLabel(hdhCategory(c.hdh)), color: getColor(c,'hdh') },
+    { label: peaceLabel(peaceCategory(c.peace)), color: getColor(c,'peace') },
+    { label: corrLabel(corrCategory(c.corr)), color: getColor(c,'corr') },
+  ];
+  badgeData.forEach(b => {
+    const el = document.createElement('span');
+    el.className = 'tt-badge';
+    el.textContent = b.label;
+    el.style.background = b.color + '22';
+    el.style.color = b.color;
+    el.style.border = '1px solid ' + b.color + '55';
+    badges.appendChild(el);
+  });
+}
+function closeDetail() {
+  document.getElementById('detail-panel').style.display = 'none';
+  g.selectAll('.country-path').classed('highlighted', false);
+  selectedISO = null;
+}
+
+// ─────────────────────────────────────────────
+// LABELS
+// ─────────────────────────────────────────────
+function efCatLabel(c) {
+  return {free:'Livre',['mostly-free']:'Maioritariamente Livre',['mod-free']:'Moderadamente Livre',['mostly-unfree']:'Principalmente Reprimido',repressed:'Reprimido'}[c];
+}
+function hdhLabel(c) {
+  return {['very-high']:'IDH Muito Alto',high:'IDH Alto',medium:'IDH Médio',low:'IDH Baixo'}[c];
+}
+function peaceLabel(c) {
+  return {['very-peaceful']:'Muito Pacífico',peaceful:'Pacífico',moderate:'Moderado',conflict:'Conflito'}[c];
+}
+function corrLabel(c) {
+  return {clean:'Transparente',moderate:'Moderado',corrupt:'Corrupto'}[c];
+}
+
+// ─────────────────────────────────────────────
+// LEGEND
+// ─────────────────────────────────────────────
+function renderLegend() {
+  const panel = document.getElementById('legend-panel');
+  let items = [];
+  switch(colorMode) {
+    case 'ef':
+      items = [
+        {color:'#22c55e',label:'Livre (80–100)'},
+        {color:'#84cc16',label:'Maioritariamente Livre (70–79.9)'},
+        {color:'#eab308',label:'Moderadamente Livre (60–69.9)'},
+        {color:'#f97316',label:'Principalmente Reprimido (50–59.9)'},
+        {color:'#ef4444',label:'Reprimido (0–49.9)'},
+        {color:'#2d333b',label:'Sem dados'},
+      ]; break;
+    case 'hdh':
+      items = [
+        {color:'#06b6d4',label:'IDH Muito Alto (≥0.800)'},
+        {color:'#3b82f6',label:'IDH Alto (0.700–0.799)'},
+        {color:'#8b5cf6',label:'IDH Médio (0.550–0.699)'},
+        {color:'#ec4899',label:'IDH Baixo (<0.550)'},
+      ]; break;
+    case 'peace':
+      items = [
+        {color:'#10b981',label:'Muito Pacífico (GPI ≤1.5)'},
+        {color:'#6ee7b7',label:'Pacífico (1.5–2.0)'},
+        {color:'#fbbf24',label:'Moderado (2.0–2.8)'},
+        {color:'#f43f5e',label:'Conflito (>2.8)'},
+      ]; break;
+    case 'corr':
+      items = [
+        {color:'#22d3ee',label:'Transparente (IPC ≥ 60)'},
+        {color:'#a78bfa',label:'Moderado (IPC 40–59)'},
+        {color:'#fb7185',label:'Corrupto (IPC < 40)'},
+      ]; break;
+  }
+  panel.innerHTML = '<div class="legend-title">' + {ef:'Liberdade Econômica',hdh:'IDH 2023',peace:'Índice de Paz',corr:'Corrupção (IPC)'}[colorMode] + '</div>' +
+    items.map(i => `<div class="legend-item"><div class="legend-dot" style="background:${i.color}"></div><span>${i.label}</span></div>`).join('');
+}
+
+// ─────────────────────────────────────────────
+// FILTERS
+// ─────────────────────────────────────────────
+function getFilteredCountries() {
+  let list = COUNTRIES;
+  const s = document.getElementById('search').value.toLowerCase().trim();
+  if (s) list = list.filter(c => c.name.toLowerCase().includes(s));
+  if (activeFilters.ef !== 'all') list = list.filter(c => efCategory(c.ef) === activeFilters.ef);
+  if (activeFilters.hdh !== 'all') list = list.filter(c => hdhCategory(c.hdh) === activeFilters.hdh);
+  if (activeFilters.peace !== 'all') list = list.filter(c => peaceCategory(c.peace) === activeFilters.peace);
+  if (activeFilters.corr !== 'all') list = list.filter(c => corrCategory(c.corr) === activeFilters.corr);
+  return list;
+}
+
+function updateAll() {
+  const filtered = getFilteredCountries();
+  updateMapColors(filtered);
+  updateListDisplay(filtered);
+  document.getElementById('list-count').textContent = filtered.length;
+  computeAvg(filtered);
+}
+
+function updateListDisplay(filtered) {
+  if (!filtered) filtered = getFilteredCountries();
+  const container = document.getElementById('country-list');
+  container.innerHTML = filtered.slice(0,100).map(c => {
+    const color = getColor(c, colorMode);
+    const pct = c.ef;
+    return `<div class="country-item ${selectedISO===c.iso?'selected':''}" onclick="selectFromList('${c.iso}')">
+      <span class="rank">${c.rank}</span>
+      <span class="name">${c.name}</span>
+      <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+      <span class="score" style="color:${color}">${c.ef}</span>
+    </div>`;
+  }).join('');
+  if (filtered.length > 100) {
+    container.innerHTML += `<div style="text-align:center;padding:6px;font-size:11px;color:var(--muted)">+${filtered.length-100} países</div>`;
+  }
+}
+
+function selectFromList(iso) {
+  const c = COUNTRIES.find(x => x.iso === iso);
+  if (c) showDetail(c);
+}
+
+function updateCounts() {
+  document.getElementById('cnt-free').textContent = COUNTRIES.filter(c => efCategory(c.ef)==='free').length;
+  document.getElementById('cnt-mf').textContent = COUNTRIES.filter(c => efCategory(c.ef)==='mostly-free').length;
+  document.getElementById('cnt-mod').textContent = COUNTRIES.filter(c => efCategory(c.ef)==='mod-free').length;
+  document.getElementById('cnt-mu').textContent = COUNTRIES.filter(c => efCategory(c.ef)==='mostly-unfree').length;
+  document.getElementById('cnt-rep').textContent = COUNTRIES.filter(c => efCategory(c.ef)==='repressed').length;
+}
+
+function computeAvg(list) {
+  if (!list) list = COUNTRIES;
+  const avg = list.reduce((s,c) => s+c.ef, 0) / list.length;
+  document.getElementById('avg-score').textContent = avg.toFixed(1);
+}
+
+// ─────────────────────────────────────────────
+// FILTER BUTTONS
+// ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filterType = btn.dataset.filter;
+    const val = btn.dataset.val;
+    activeFilters[filterType] = val;
+    // Update UI
+    document.querySelectorAll(`.filter-btn[data-filter="${filterType}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updateAll();
+  });
+});
+
+document.getElementById('search').addEventListener('input', updateAll);
+
+// ─────────────────────────────────────────────
+// COLOR MODE TABS
+// ─────────────────────────────────────────────
+function switchColorMode(mode) {
+  colorMode = mode;
+  ['ef','hdh','peace','corr'].forEach(m => {
+    document.getElementById('tab-'+m).classList.toggle('active', m===mode);
+  });
+  updateAll();
+  renderLegend();
+  document.getElementById('grad-title').textContent = {ef:'Liberdade Econômica',hdh:'IDH',peace:'Paz Global',corr:'Percepção de Corrupção'}[mode];
+  document.getElementById('grad-bar').style.background = {
+    ef:'linear-gradient(to right,#ef4444,#f97316,#eab308,#84cc16,#22c55e)',
+    hdh:'linear-gradient(to right,#ec4899,#8b5cf6,#3b82f6,#06b6d4)',
+    peace:'linear-gradient(to right,#f43f5e,#fbbf24,#6ee7b7,#10b981)',
+    corr:'linear-gradient(to right,#fb7185,#a78bfa,#22d3ee)'
+  }[mode];
+}
+
+// ─────────────────────────────────────────────
+// ZOOM
+// ─────────────────────────────────────────────
+function zoomIn() { svg.transition().call(zoom.scaleBy, 1.5); }
+function zoomOut() { svg.transition().call(zoom.scaleBy, 0.667); }
+function resetZoom() { svg.transition().call(zoom.transform, d3.zoomIdentity); }
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+window.addEventListener('load', () => {
+  initMap();
+  updateListDisplay();
+  computeAvg();
+  renderLegend();
+  updateCounts();
+});
+
+window.addEventListener('resize', () => {
+  const W = document.getElementById('map-container').clientWidth;
+  const H = document.getElementById('map-container').clientHeight;
+  svg.attr('width', W).attr('height', H);
+  if (projection) {
+    projection.scale(W/6.1).translate([W/2, H/2]);
+    g.selectAll('.country-path').attr('d', path);
+  }
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Sobrevivência — Sistemas Corruptos</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-elevated: #111113;
+    --bg-card: #16161a;
+    --bg-hover: #1c1c22;
+    --border: rgba(255,255,255,0.07);
+    --border-accent: rgba(255,255,255,0.12);
+    --fg: #e8e6e1;
+    --fg-secondary: #9e9b94;
+    --fg-muted: #5a5852;
+    --fg-faint: #2e2d2a;
+    --accent: #c9a84c;
+    --accent-dim: rgba(201,168,76,0.15);
+    --accent-glow: rgba(201,168,76,0.06);
+    --red: #c45c5c;
+    --green: #5c9e6e;
+    --blue: #5c7ec4;
+    --purple: #8b6ec4;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Crimson Pro', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--fg-secondary);
+    max-width: 560px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-quote {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--fg-muted);
+    font-style: italic;
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    text-align: left;
+    max-width: 420px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-quote strong {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-muted);
+    letter-spacing: 0.1em;
+    margin-top: 8px;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,11,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 52px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--fg-muted);
+    text-decoration: none;
+    padding: 0 16px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-item:hover { color: var(--fg); border-color: var(--accent); }
+  .nav-item.active { color: var(--accent); border-color: var(--accent); }
+
+  /* MAIN */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .section-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 8px;
+    min-width: 32px;
+  }
+
+  .section-title-block {}
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    line-height: 1.1;
+  }
+
+  /* INTRO BLOCK */
+  .intro-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+    font-size: 17px;
+    color: var(--fg-secondary);
+    font-style: italic;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+
+  .card:hover {
+    border-color: var(--border-accent);
+    background: var(--bg-hover);
+  }
+
+  .card-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--fg-secondary);
+    line-height: 1.6;
+    font-family: var(--font-body);
+  }
+
+  .card.accent { border-color: var(--accent-dim); background: var(--accent-glow); }
+  .card.accent .card-title { color: var(--accent); }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 16px;
+    color: var(--fg-secondary);
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .checklist li:hover { border-color: var(--border-accent); }
+
+  .checklist li::before {
+    content: '›';
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  .checklist li strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* ALERT */
+  .alert {
+    display: flex;
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    font-size: 15px;
+  }
+
+  .alert-warning {
+    background: rgba(196,92,92,0.08);
+    border: 1px solid rgba(196,92,92,0.2);
+    color: #e8a0a0;
+  }
+
+  .alert-info {
+    background: rgba(92,126,196,0.08);
+    border: 1px solid rgba(92,126,196,0.2);
+    color: #a0b4e8;
+  }
+
+  .alert-success {
+    background: rgba(92,158,110,0.08);
+    border: 1px solid rgba(92,158,110,0.2);
+    color: #a0cca8;
+  }
+
+  .alert-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 2px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--accent-glow);
+  }
+
+  .quote-text {
+    font-size: 19px;
+    font-style: italic;
+    color: var(--fg);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* TOOL TABLE */
+  .tool-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+
+  .tool-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+
+  .tool-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-secondary);
+    vertical-align: top;
+  }
+
+  .tool-table tr:hover td { background: var(--bg-hover); }
+
+  .tool-name {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg);
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-left: 6px;
+  }
+
+  .badge-free { background: rgba(92,158,110,0.15); color: var(--green); }
+  .badge-paid { background: rgba(92,126,196,0.15); color: var(--blue); }
+  .badge-essential { background: rgba(201,168,76,0.15); color: var(--accent); }
+
+  /* PRINCIPLES */
+  .principles {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .principle {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color 0.2s;
+  }
+
+  .principle:hover { border-color: var(--border-accent); }
+
+  .principle-num {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--fg-faint);
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .principle-content {}
+
+  .principle-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .principle-text {
+    font-size: 15px;
+    color: var(--fg-secondary);
+    line-height: 1.65;
+  }
+
+  /* HISTORICAL */
+  .historical-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .historical-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .historical-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .historical-who {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+
+  .historical-where {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .historical-lesson {
+    font-size: 14px;
+    color: var(--fg-secondary);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* MANIFESTO */
+  .manifesto {
+    text-align: center;
+    padding: 80px 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    position: relative;
+  }
+
+  .manifesto::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 300px;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .manifesto-symbol {
+    font-size: 32px;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: block;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .manifesto-text {
+    font-family: var(--font-body);
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--fg-secondary);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+
+  .manifesto-text strong {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--fg);
+  }
+
+  .manifesto-footer {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* PROGRESS BAR */
+  .reading-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 200;
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--fg-faint);
+    text-transform: uppercase;
+  }
+
+  /* BODY TEXT */
+  .body-text {
+    font-size: 17px;
+    color: var(--fg-secondary);
+    line-height: 1.75;
+    margin-bottom: 24px;
+  }
+
+  .body-text strong { color: var(--fg); font-weight: 600; }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 40px; height: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--fg-muted);
+    transition: all 0.2s;
+    opacity: 0;
+    z-index: 50;
+  }
+
+  .scroll-top:hover { border-color: var(--accent); color: var(--accent); }
+  .scroll-top.visible { opacity: 1; }
+
+  @media (max-width: 600px) {
+    .section-header { flex-direction: column; gap: 8px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .historical-grid { grid-template-columns: 1fr; }
+    .tool-table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reading-progress" id="progress"></div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-eyebrow">Documento de Resistência — 2026</div>
+  <h1 class="hero-title">Manual de<br><em>Sobrevivência</em><br>em Sistemas Corruptos</h1>
+  <p class="hero-subtitle">Para quem perdeu plataforma, renda ou voz — e ainda recusa perder a esperança.</p>
+  <blockquote class="hero-quote">
+    "O poder do sem-poder está em viver dentro da verdade. Em não fingir que o rei tem roupa."
+    <strong>— Václav Havel, Tchecoslováquia, 1978</strong>
+  </blockquote>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#entender" class="nav-item">01 Entender</a>
+    <a href="#digital" class="nav-item">02 Digital</a>
+    <a href="#juridico" class="nav-item">03 Jurídico</a>
+    <a href="#mental" class="nav-item">04 Mental</a>
+    <a href="#redes" class="nav-item">05 Redes</a>
+    <a href="#historico" class="nav-item">06 Histórico</a>
+    <a href="#manifesto" class="nav-item">07 Manifesto</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- 01 ENTENDER -->
+  <section class="section" id="entender">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div class="section-title-block">
+        <div class="section-tag">Fundamento</div>
+        <h2 class="section-title">Entenda o que está acontecendo</h2>
+      </div>
+    </div>
+
+    <div class="intro-block">
+      Antes de qualquer tática, é preciso nomear a realidade com precisão. Sistemas corruptos sobrevivem porque a maioria das pessoas não consegue ver o padrão — só os episódios isolados.
+    </div>
+
+    <div class="cards-grid">
+      <div class="card accent">
+        <span class="card-icon">⚖️</span>
+        <div class="card-title">Lawfare</div>
+        <div class="card-desc">Uso seletivo do sistema legal para silenciar opositores. A lei existe — mas é aplicada apenas contra quem incomoda.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">📡</span>
+        <div class="card-title">Captura de narrativa</div>
+        <div class="card-desc">Influenciadores comprados com dinheiro público para promover a versão oficial dos fatos em escala industrial.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔇</span>
+        <div class="card-title">Silenciamento técnico</div>
+        <div class="card-desc">Mass reporting, demonetização, restrições de algoritmo — sem processo, sem defesa, sem recurso efetivo.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏛️</span>
+        <div class="card-title">Captura institucional</div>
+        <div class="card-desc">Quando as instituições que deveriam fiscalizar fazem parte do ecossistema que precisa ser fiscalizado.</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-text">"Em sistemas assim, o inimigo não é um vilão com cara de vilão. É o funcionário que só cumpre ordens, o algoritmo que só aplica regras, o promotor que só processa o que lhe é conveniente."</div>
+    </div>
+
+    <div class="divider"><span class="divider-text">O que você pode controlar</span></div>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">I</div>
+        <div class="principle-content">
+          <div class="principle-title">Você não pode mudar o sistema sozinho</div>
+          <div class="principle-text">Mas pode recusar ser destruído por ele. Sobreviver com integridade é um ato político em si.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">II</div>
+        <div class="principle-content">
+          <div class="principle-title">A raiva é combustível — não é estratégia</div>
+          <div class="principle-text">Raiva sem direção alimenta o sistema que você quer resistir. Canalize para documentação, construção e conexão.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">III</div>
+        <div class="principle-content">
+          <div class="principle-title">Longo prazo é vantagem competitiva</div>
+          <div class="principle-text">Sistemas corruptos operam no curto prazo — eleições, ciclos de notícia, janelas políticas. Quem pensa em décadas tem vantagem estrutural.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 DIGITAL -->
+  <section class="section" id="digital">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <div class="section-title-block">
+        <div class="section-tag">Proteção</div>
+        <h2 class="section-title">Blindagem digital</h2>
+      </div>
+    </div>
+
+    <div class="intro-block">
+      Sua presença digital é sua infraestrutura. Antes de qualquer outro passo, proteja-a. Não por paranoia — por higiene básica de quem opera em ambiente hostil.
+    </div>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">⚠️</span>
+      <div>Centralizar tudo em uma plataforma é o maior risco operacional. Se derrubarem uma conta, você perde tudo. Diversifique antes que seja necessário.</div>
+    </div>
+
+    <table class="tool-table">
+      <thead>
+        <tr>
+          <th>Ferramenta</th>
+          <th>Para quê</th>
+          <th>Prioridade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tool-name">Proton Mail</span><span class="badge badge-free">grátis</span></td>
+          <td>E-mail criptografado, servidores na Suíça, fora da jurisdição brasileira</td>
+          <td><span class="badge badge-essential">essencial</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Signal</span><span class="badge badge-free">grátis</span></td>
+          <td>Mensagens criptografadas end-to-end. Substituto para WhatsApp em conversas sensíveis</td>
+          <td><span class="badge badge-essential">essencial</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Mullvad VPN</span><span class="badge badge-paid">pago</span></td>
+          <td>VPN sem logs, aceita pagamento anônimo. Não guarda histórico de uso</td>
+          <td><span class="badge badge-essential">essencial</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Tor Browser</span><span class="badge badge-free">grátis</span></td>
+          <td>Navegação anônima para pesquisas sensíveis. Não use para logins pessoais</td>
+          <td>recomendado</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">2FA com app</span><span class="badge badge-free">grátis</span></td>
+          <td>Autenticação de dois fatores via app (Aegis, Authy) — nunca via SMS</td>
+          <td><span class="badge badge-essential">essencial</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Bitwarden</span><span class="badge badge-free">grátis</span></td>
+          <td>Gerenciador de senhas open source. Uma senha forte diferente para cada serviço</td>
+          <td><span class="badge badge-essential">essencial</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Archive.org</span><span class="badge badge-free">grátis</span></td>
+          <td>Arquivar conteúdo antes de publicar. Se deletarem, o registro permanece</td>
+          <td>recomendado</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">GitHub + Vercel</span><span class="badge badge-free">grátis</span></td>
+          <td>Hospedagem fora do Brasil para conteúdo que precisa sobreviver a pressão regulatória</td>
+          <td>recomendado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="divider"><span class="divider-text">Princípios de segurança operacional</span></div>
+
+    <ul class="checklist">
+      <li><div><strong>Separe identidades.</strong> Conta pessoal ≠ conta de ativismo. Nunca misture os dois universos no mesmo dispositivo ou e-mail.</div></li>
+      <li><div><strong>Documente antes de publicar.</strong> Archive toda evidência em pelo menos dois lugares antes de postar. O post pode ser deletado. O arquivo, não.</div></li>
+      <li><div><strong>Nunca confie em plataformas monolíticas.</strong> Instagram, YouTube, TikTok operam sob pressão regulatória brasileira. Tenha sempre um canal alternativo ativo.</div></li>
+      <li><div><strong>Backups automáticos e geográficos.</strong> Pelo menos uma cópia fora do Brasil. Google Drive + repositório GitHub é o mínimo.</div></li>
+      <li><div><strong>Metadados revelam localização.</strong> Fotos tiradas com celular contêm GPS. Antes de publicar imagens sensíveis, remova os metadados EXIF.</div></li>
+      <li><div><strong>Comunicação sensível = Signal.</strong> WhatsApp faz backup no Google/iCloud. Signal tem opção de não fazer backup. Use para conversas que importam.</div></li>
+    </ul>
+  </section>
+
+  <!-- 03 JURÍDICO -->
+  <section class="section" id="juridico">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div class="section-title-block">
+        <div class="section-tag">Proteção</div>
+        <h2 class="section-title">Seus direitos se for investigado</h2>
+      </div>
+    </div>
+
+    <div class="intro-block">
+      Ser investigado não é ser culpado. Sistemas corruptos usam o processo como punição — o objetivo é o desgaste, não necessariamente a condenação. Conhecer seus direitos é a primeira linha de defesa.
+    </div>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Regra número um:</strong> Na presença de autoridade, não fale sem advogado presente. Silêncio não é confissão. É direito constitucional (art. 5°, LXIII — CF/88).</div>
+    </div>
+
+    <ul class="checklist">
+      <li><div><strong>Direito ao silêncio.</strong> Você pode — e deve — se recusar a responder perguntas sem advogado. Isso vale para qualquer tipo de intimação ou abordagem.</div></li>
+      <li><div><strong>Habeas corpus é sempre disponível.</strong> Se houver ameaça de prisão ilegal ou constrangimento à liberdade de locomoção, qualquer pessoa pode impetrar HC — inclusive você mesmo.</div></li>
+      <li><div><strong>Intimação ≠ obrigação de comparecer imediatamente.</strong> Você tem direito a prazo razoável e a ser informado sobre o motivo. Consulte advogado antes de comparecer.</div></li>
+      <li><div><strong>Busca e apreensão exige mandado judicial.</strong> Nenhuma autoridade pode revistar sua residência, dispositivos ou papéis sem ordem escrita de juiz competente.</div></li>
+      <li><div><strong>Direito de ter cópia de tudo.</strong> Todo ato processual que te afeta deve ser documentado. Você tem direito a cópia de qualquer peça que te envolva.</div></li>
+      <li><div><strong>Gravar interações com autoridades é legal.</strong> No Brasil, a gravação por um dos interlocutores da conversa é permitida — mesmo sem aviso à outra parte.</div></li>
+      <li><div><strong>OAB oferece assistência jurídica gratuita.</strong> Se não tiver condições financeiras, a Ordem dos Advogados do Brasil tem serviço de atendimento ao público.</div></li>
+    </ul>
+
+    <div class="alert alert-info">
+      <span class="alert-icon">ℹ️</span>
+      <div>Mantenha contato de um advogado de confiança salvo e acessível offline. Não espere precisar para procurar.</div>
+    </div>
+
+    <div class="divider"><span class="divider-text">Se sua conta for derrubada</span></div>
+
+    <ul class="checklist">
+      <li><div><strong>Documente tudo imediatamente.</strong> Screenshots, datas, IDs de conteúdo removido. Esse material é sua evidência para recurso ou ação judicial futura.</div></li>
+      <li><div><strong>Use o canal de apelação da plataforma.</strong> Mesmo sabendo que pode ser ineficaz, o protocolo formal cria registro legal da tentativa.</div></li>
+      <li><div><strong>Notifique extrajudicialmente a plataforma.</strong> Um advogado pode enviar notificação formal exigindo fundamentação técnica para a remoção — isso cria pressão legal.</div></li>
+      <li><div><strong>Marco Civil da Internet (Lei 12.965/14)</strong> garante que plataformas só podem remover conteúdo por ordem judicial, salvo casos específicos de lei. Conheça seus direitos.</div></li>
+    </ul>
+  </section>
+
+  <!-- 04 MENTAL -->
+  <section class="section" id="mental">
+    <div class="section-header">
+      <div class="section-number">04</div>
+      <div class="section-title-block">
+        <div class="section-tag">Resistência</div>
+        <h2 class="section-title">Saúde mental em ambiente hostil</h2>
+      </div>
+    </div>
+
+    <div class="intro-block">
+      Sistemas corruptos não precisam prender todo mundo. Basta exaurir, desmoralizar e isolar o suficiente para que a maioria desista. Manter a saúde mental é um ato de resistência.
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-text">"Eles podem tomar tudo. Mas não podem tomar a maneira como você responde ao que fazem com você."</div>
+      <div class="quote-author">— Viktor Frankl, sobrevivente dos campos de concentração nazistas</div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">🎯</span>
+        <div class="card-title">Defina o que você controla</div>
+        <div class="card-desc">Você não controla o sistema, as plataformas ou as decisões de juízes. Controla sua conduta, sua documentação e como você trata as pessoas ao redor.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">⏱️</span>
+        <div class="card-title">Limite o consumo de notícias</div>
+        <div class="card-desc">Ciclos de notícia são projetados para manter você agitado. Estabeleça horários fixos para se informar. Fora desses horários, produza.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🤝</span>
+        <div class="card-title">Comunidade antes de audiência</div>
+        <div class="card-desc">100 pessoas que confiam em você valem mais que 100 mil que te assistem. Invista em relações, não em métricas.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">📖</span>
+        <div class="card-title">Leia quem sobreviveu</div>
+        <div class="card-desc">Havel, Solzhenitsyn, Mandela, Frankl. Gente que passou por sistemas piores e encontrou sentido. Eles deixaram o manual.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌱</span>
+        <div class="card-title">Construa algo tangível</div>
+        <div class="card-desc">Um arquivo, um produto, uma habilidade. Construção concreta protege contra a paralisia da impotência política.</div>
+      </div>
+      <div class="card accent">
+        <span class="card-icon">🔥</span>
+        <div class="card-title">A raiva é informação</div>
+        <div class="card-desc">Não suprima a indignação — use-a como bússola. Ela aponta para o que você valoriza. Deixe que guie o que você constrói.</div>
+      </div>
+    </div>
+
+    <div class="divider"><span class="divider-text">Sinais de alerta</span></div>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">⚠️</span>
+      <div>Se você perceber que está consumindo conteúdo político por mais de 4 horas por dia, dormindo mal por causa de notícias, ou sentindo que nada que você faz importa — esses são sinais de que o sistema está ganhando sem precisar te processar. Pare. Respire. Recalibra.</div>
+    </div>
+
+    <ul class="checklist">
+      <li><div><strong>Separe análise de consumo emocional.</strong> Analisar o que acontece é produtivo. Ficar rolando o feed em loop buscando indignação não é.</div></li>
+      <li><div><strong>Celebre vitórias pequenas.</strong> Um artigo publicado, uma fonte verificada, uma conexão formada. O longo prazo é feito de pequenos atos acumulados.</div></li>
+      <li><div><strong>Descanso é estratégia.</strong> Quem queima no primeiro ano não dura para ver o colapso do sistema no décimo. Pace yourself.</div></li>
+      <li><div><strong>Busque apoio profissional quando necessário.</strong> Não há mérito em sofrer desnecessariamente. Psicólogos existem para isso.</div></li>
+    </ul>
+  </section>
+
+  <!-- 05 REDES -->
+  <section class="section" id="redes">
+    <div class="section-header">
+      <div class="section-number">05</div>
+      <div class="section-title-block">
+        <div class="section-tag">Organização</div>
+        <h2 class="section-title">Como se organizar sem ser capturado</h2>
+      </div>
+    </div>
+
+    <div class="intro-block">
+      A Solidarność polonesa não ganhou enfrentando o Estado frontalmente. Construiu uma sociedade paralela — imprensa alternativa, redes de distribuição, memória histórica. Levou uma década. Funcionou.
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">I</div>
+        <div class="principle-content">
+          <div class="principle-title">Redes pequenas são mais resilientes</div>
+          <div class="principle-text">Uma rede de 20 pessoas confiáveis é mais resistente a infiltração e silenciamento do que um canal com 2 milhões de seguidores anônimos. Qualidade sobre quantidade.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">II</div>
+        <div class="principle-content">
+          <div class="principle-title">Conteúdo descentralizado sobrevive</div>
+          <div class="principle-text">Publique em múltiplas plataformas simultâneamente. Mirrors em GitHub Pages, Archive.org, IPFS. Se derrubarem um, os outros continuam.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">III</div>
+        <div class="principle-content">
+          <div class="principle-title">Jurisdição importa</div>
+          <div class="principle-text">Domínios registrados fora do Brasil, hospedagem internacional, e-mails com servidores suíços. Isso não é paranoia — é infraestrutura de sobrevivência.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">IV</div>
+        <div class="principle-content">
+          <div class="principle-title">Fontes verificadas valem mais que velocidade</div>
+          <div class="principle-text">Uma informação incorreta compromete toda a credibilidade construída. Seja o mais lento e mais preciso da sala. Isso é vantagem competitiva real.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">V</div>
+        <div class="principle-content">
+          <div class="principle-title">Não recrute — atraia</div>
+          <div class="principle-text">Quem bate à porta por conta própria é mais confiável do que quem foi convencido. Produza conteúdo de qualidade e deixe as pessoas virem até você.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><span class="divider-text">Plataformas alternativas ativas</span></div>
+
+    <table class="tool-table">
+      <thead>
+        <tr>
+          <th>Plataforma</th>
+          <th>Vantagem</th>
+          <th>Limitação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tool-name">X / Twitter</span></td>
+          <td>Menor pressão regulatória brasileira atual, alcance real</td>
+          <td>Sujeito a mudanças de política</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Substack</span></td>
+          <td>Newsletter com lista própria de assinantes — você é dono do canal</td>
+          <td>Requer construção de audiência</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Nostr</span></td>
+          <td>Protocolo descentralizado, impossível de censurar por design</td>
+          <td>Audiência ainda pequena no Brasil</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Telegram</span></td>
+          <td>Grupos e canais com alcance real, resistente a pressão</td>
+          <td>Metadados visíveis em grupos públicos</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">GitHub Pages</span></td>
+          <td>Hospedagem gratuita fora do Brasil, versionamento de conteúdo</td>
+          <td>Requer conhecimento técnico básico</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-success">
+      <span class="alert-icon">✓</span>
+      <div><strong>Regra de ouro:</strong> Nunca dependa de uma plataforma que você não controla como canal único. Mantenha sempre uma lista de e-mails própria — é o único canal que ninguém pode te tirar.</div>
+    </div>
+  </section>
+
+  <!-- 06 HISTÓRICO -->
+  <section class="section" id="historico">
+    <div class="section-header">
+      <div class="section-number">06</div>
+      <div class="section-title-block">
+        <div class="section-tag">Esperança</div>
+        <h2 class="section-title">Quem sobreviveu — e o que ensinaram</h2>
+      </div>
+    </div>
+
+    <div class="intro-block">
+      O Brasil não é exceção. Sistemas corruptos surgiram e colapsaram em todo o mundo. O que os resistentes tinham em comum: documentaram, construíram redes pequenas, mantiveram integridade e pensaram em décadas.
+    </div>
+
+    <div class="historical-grid">
+      <div class="historical-card">
+        <div class="historical-who">Václav Havel</div>
+        <div class="historical-where">Tchecoslováquia — 1970s/80s</div>
+        <div class="historical-lesson">"Viver dentro da verdade." Teatro underground, textos circulados em cópias datilografadas. Preso. Continuou. Tornou-se presidente quando o sistema colapsou.</div>
+      </div>
+      <div class="historical-card">
+        <div class="historical-who">Solidarność</div>
+        <div class="historical-where">Polônia — 1980s</div>
+        <div class="historical-lesson">Movimento operário que construiu imprensa alternativa, rádio clandestina e redes de distribuição paralelas. Proibido. Continuou. Ganhou.</div>
+      </div>
+      <div class="historical-card">
+        <div class="historical-who">Nelson Mandela</div>
+        <div class="historical-where">África do Sul — 1964/1990</div>
+        <div class="historical-lesson">27 anos preso. Recusou a liberdade condicionada. "Não posso e não vou me render quando você e eu ainda não somos livres." O sistema que o prendeu colapsou.</div>
+      </div>
+      <div class="historical-card">
+        <div class="historical-who">Samizdat</div>
+        <div class="historical-where">URSS — 1950s/80s</div>
+        <div class="historical-lesson">Rede de distribuição de textos proibidos datilografados manualmente. Sem internet. Sem impressora. Circulou por décadas até o sistema desmoronar.</div>
+      </div>
+      <div class="historical-card">
+        <div class="historical-who">Ditadura Militar BR</div>
+        <div class="historical-where">Brasil — 1964/1985</div>
+        <div class="historical-lesson">Jornalistas, advogados e professores documentaram abusos à exaustão. O arquivo deles tornou possível a redemocratização e a Comissão da Verdade décadas depois.</div>
+      </div>
+      <div class="historical-card">
+        <div class="historical-who">Viktor Frankl</div>
+        <div class="historical-where">Campos nazistas — 1942/45</div>
+        <div class="historical-lesson">"A última liberdade humana é a de escolher a própria atitude diante de qualquer circunstância." Sobreviveu. Escreveu. Ajudou milhões a encontrar sentido no sofrimento.</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-text">"Todos os sistemas corruptos têm uma coisa em comum: uma hora terminam. O que dura é o arquivo, a memória e as pessoas que se recusaram a fingir que estava tudo bem."</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <span class="manifesto-symbol">🜋</span>
+  <p class="manifesto-text">
+    Você não perdeu. Perdeu uma plataforma. Perdeu uma fonte de renda. Perdeu, talvez, a ingenuidade de acreditar que as regras valem para todos.<br><br>
+    Mas não perdeu o que importa: <strong>a capacidade de ver com clareza, de documentar com precisão e de recusar a mentira como modo de vida.</strong><br><br>
+    Isso não tem preço. E ninguém consegue tirar de você por decreto, por algoritmo ou por lawfare.<br><br>
+    <strong>O arquivo continua. A memória permanece. O sistema passa.</strong>
+  </p>
+  <div class="manifesto-footer">Manual de Sobrevivência — 2026 · O arquivo continua 🜋</div>
+</section>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Reading progress
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    progress.style.width = scrolled + '%';
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Intersection observer for sections
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  // Active nav
+  const navItems = document.querySelectorAll('.nav-item');
+  const sectionIds = ['entender','digital','juridico','mental','redes','historico','manifesto'];
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 100) current = id;
+    });
+    navItems.forEach(item => {
+      item.classList.toggle('active', item.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Mental — Tragédias do Governo Lula 3</title>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gosurf.site/lula3">
+<meta property="og:title" content="Tragédias do Governo Lula 3 — Mapa Mental Completo">
+<meta property="og:description" content="Relatório completo com fatos verificados, indicadores econômicos, dívida pública e escândalos. Veja os dados atualizados de 2026.">
+<meta property="og:image" content="https://gosurf.site/lula3_share.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://gosurf.site/lula3">
+<meta property="twitter:title" content="Tragédias do Governo Lula 3 — Mapa Mental Completo">
+<meta property="twitter:description" content="Relatório completo com fatos verificados, indicadores econômicos, dívida pública e escândalos. Veja os dados atualizados de 2026.">
+<meta property="twitter:image" content="https://gosurf.site/lula3_share.png">
+
+<!-- CSS Imports -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --surface: #111114;
+    --surface2: #1a1a1f;
+    --border: #2a2a35;
+    --border2: #3a3a45;
+    --red: #c0392b;
+    --red-bright: #e74c3c;
+    --red-glow: rgba(192,57,43,0.25);
+    --amber: #d4830a;
+    --amber-light: #f39c12;
+    --green: #1e8449;
+    --text: #e8e6e1;
+    --text-dim: #9e9b94;
+    --text-faint: #5a5850;
+    --gold: #c9a84c;
+    --connector: #3a3a45;
+    --accent-blue: #3b82f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Libre Baskerville', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 24px;
+    position: relative;
+    background: linear-gradient(180deg, #100a0a 0%, var(--bg) 100%);
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 5vw, 64px);
+    letter-spacing: 3px;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  h1 span {
+    color: var(--red-bright);
+  }
+
+  .header-sub {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-top: 8px;
+    letter-spacing: 1.5px;
+  }
+
+  .header-meta {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+  }
+
+  .header-meta .date {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 1px;
+  }
+
+  .header-meta .mandate {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--amber);
+    letter-spacing: 2px;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .stat-item {
+    padding: 24px 20px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-item:hover {
+    background: var(--surface2);
+  }
+
+  .stat-item:hover .stat-num {
+    transform: translateY(-2px);
+    text-shadow: 0 0 15px var(--red-glow);
+  }
+
+  /* Removendo bordas laterais da última coluna */
+  .stat-item:nth-child(4n) { border-right: none; }
+  
+  /* Removendo borda inferior da última linha (itens 5-8) */
+  .stat-item:nth-child(n+5) { border-bottom: none; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: var(--red-bright);
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .stat-label {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 5px;
+    display: block;
+  }
+
+  /* MAIN MAP */
+  .map-container {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* CENTER NODE */
+  .center-col {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .center-node {
+    background: linear-gradient(135deg, #1a0a0a, #200d0d);
+    border: 2px solid var(--red);
+    border-radius: 4px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 60px var(--red-glow), inset 0 0 40px rgba(192,57,43,0.05);
+    width: 100%;
+  }
+
+  .center-node::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(192,57,43,0.02) 20px,
+      rgba(192,57,43,0.02) 21px
+    );
+    border-radius: 4px;
+  }
+
+  .center-node .icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .center-node h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    color: var(--red-bright);
+    line-height: 1;
+  }
+
+  .center-node .period {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  .center-node .desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 12px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* CATEGORY CARDS */
+  .category-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .category-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 4px 40px rgba(192,57,43,0.1);
+  }
+
+  .card-header {
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .card-count {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .card-color-bar {
+    height: 2px;
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 14px 18px;
+  }
+
+  .item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .item:last-child { margin-bottom: 0; }
+
+  .item-bullet {
+    color: var(--red);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .item-text {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .item-text strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .item-text .highlight {
+    color: var(--amber-light);
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+  }
+
+  .source-tag {
+    display: inline-block;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 9px;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-top: 3px;
+  }
+
+  /* COLOR ACCENTS PER CATEGORY */
+  .cat-fiscal .card-color-bar { background: linear-gradient(90deg, #c0392b, #922b21); }
+  .cat-fiscal .card-header { border-left: 3px solid #c0392b; }
+  .cat-political .card-color-bar { background: linear-gradient(90deg, #7d3c98, #5b2c6f); }
+  .cat-political .card-header { border-left: 3px solid #7d3c98; }
+  .cat-social .card-color-bar { background: linear-gradient(90deg, #d4830a, #b7770d); }
+  .cat-social .card-header { border-left: 3px solid #d4830a; }
+  .cat-diplomatic .card-color-bar { background: linear-gradient(90deg, #148f77, #0e6655); }
+  .cat-diplomatic .card-header { border-left: 3px solid #148f77; }
+  .cat-corruption .card-color-bar { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+  .cat-corruption .card-header { border-left: 3px solid #e74c3c; }
+  .cat-freedom .card-color-bar { background: linear-gradient(90deg, #2980b9, #1a5276); }
+  .cat-freedom .card-header { border-left: 3px solid #2980b9; }
+  .cat-exodus .card-color-bar { background: linear-gradient(90deg, #f39c12, #d68910); }
+  .cat-exodus .card-header { border-left: 3px solid #f39c12; }
+  .cat-security .card-color-bar { background: linear-gradient(90deg, #922b21, #7b241c); }
+  .cat-security .card-header { border-left: 3px solid #922b21; }
+
+  /* FULL WIDTH CARDS */
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .full-width .card-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .full-width .item-group {
+    border-left: 2px solid var(--border);
+    padding-left: 14px;
+  }
+
+  .full-width .item-group-title {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  /* LEGEND */
+  .legend {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+  }
+
+  .legend-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  /* SOURCES FOOTER */
+  .sources-section {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+  }
+
+  .sources-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px;
+  }
+
+  .source-item {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .source-code {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 9px;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 1px 5px;
+    flex-shrink: 0;
+  }
+
+  .source-name {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    color: var(--text-faint);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+  }
+
+  .footer-left {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 1px;
+  }
+
+  .footer-right {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 9px;
+    color: var(--text-faint);
+  }
+
+  /* TIMELINE STRIP */
+  .timeline-strip {
+    grid-column: 1 / -1;
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .timeline-year {
+    flex: 1;
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+  }
+
+  .timeline-year:last-child { border-right: none; }
+
+  .tl-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--red);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .tl-event {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+
+  .tl-event::before {
+    content: '→ ';
+    color: var(--text-faint);
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--red); }
+
+  /* SHARE SECTION */
+  .share-section {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--surface), #1a0a0a);
+    border: 1px solid var(--red);
+    border-radius: 8px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 24px;
+    box-shadow: 0 0 30px var(--red-glow);
+  }
+
+  .share-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .share-desc {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+  }
+
+  .btn-wa { background: #25d366; }
+  .btn-tw { background: #000000; border: 1px solid #333; }
+  .btn-tg { background: #0088cc; }
+
+  .share-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .hashtags {
+    margin-top: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    color: var(--red-bright);
+    opacity: 0.8;
+  }
+
+  /* FLOATING SHARE (MARAJO STYLE) */
+  .floating-share {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+  }
+
+  .share-btn-f {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    background: rgba(17, 17, 20, 0.8);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
+
+  .share-btn-f:hover {
+    transform: scale(1.1) translateY(-5px);
+    border-color: var(--red);
+    color: #fff;
+    background: var(--surface2);
+  }
+
+  .share-btn-f.wa:hover { color: #25D366; border-color: #25D366; }
+  .share-btn-f.x:hover { color: #fff; border-color: #fff; }
+  .share-btn-f.tg:hover { color: #0088cc; border-color: #0088cc; }
+
+  /* HERO ALERT (MARAJO STYLE) */
+  .hero-alert {
+    background: linear-gradient(135deg, rgba(192, 57, 43, 0.15) 0%, rgba(17, 17, 20, 0.9) 100%);
+    border: 1px solid rgba(192, 57, 43, 0.4);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px auto;
+    max-width: 1300px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-alert::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(192, 57, 43, 0.05) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .hero-icon-large {
+    font-size: 48px;
+    background: rgba(192, 57, 43, 0.1);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(192, 57, 43, 0.3);
+    flex-shrink: 0;
+  }
+
+  .hero-content h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+  }
+
+  .hero-content p {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 8px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    color: var(--red);
+  }
+
+  .hero-btn {
+    margin-left: auto;
+    background: var(--red);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .hero-btn span { font-family: 'Source Code Pro', monospace; font-size: 10px; font-weight: 400; text-transform: uppercase; margin-top: 4px; opacity: 0.8; }
+  
+  .hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(192, 57, 43, 0.6);
+    filter: brightness(1.1);
+  }
+
+  @media (max-width: 768px) {
+    .floating-share { 
+      right: 0; bottom: 0; left: 0; 
+      flex-direction: row; 
+      justify-content: center;
+      padding: 12px;
+      gap: 16px;
+      background: rgba(10, 10, 12, 0.9);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid var(--border);
+    }
+    .hero-alert { flex-direction: column; text-align: center; margin: 20px; }
+    .hero-btn { margin: 0 auto; width: 100%; }
+  }
+
+  @media (max-width: 1100px) {
+    .map-container { grid-template-columns: 1fr 1fr; }
+    .center-col { grid-column: 1 / -1; grid-row: auto; }
+    .full-width { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 700px) {
+    .map-container { grid-template-columns: 1fr; padding: 20px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2n) { border-right: none; }
+    .stat-item:nth-child(n+7) { border-bottom: none; }
+    .stat-item:nth-child(5), .stat-item:nth-child(6) { border-bottom: 1px solid var(--border); }
+    .header-meta { display: none; }
+    header { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO ALERT -->
+<div class="hero-alert">
+  <div class="hero-icon-large">📜</div>
+  <div class="hero-content">
+    <h2>Relatório Investigativo Verificado</h2>
+    <p>Mapa mental interativo com dados auditáveis, indicadores econômicos e denúncias documentadas (2023-2026).</p>
+    <div class="hero-tags">
+      <span>#Lula3</span>
+      <span>#Transparencia</span>
+      <span>#Fiscalizacao</span>
+    </div>
+  </div>
+  <a href="https://gosurf.site/lula3" class="hero-btn">
+    ACESSAR DADOS
+    <span>Relatório Completo</span>
+  </a>
+</div>
+
+<header>
+  <div class="header-badge">Relatório Investigativo — Governo Lula 3</div>
+  <h1>TRAGÉDIAS DO <span>GOVERNO LULA 3</span></h1>
+  <div class="header-sub">SÍNTESE DE DADOS PÚBLICOS · MARCOS HISTÓRICOS · INDICADORES ECONÔMICOS</div>
+  <div class="header-meta">
+    <div class="date">ATUALIZADO: MARÇO/2026</div>
+    <div class="mandate">3.º MANDATO PT</div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">28+</span>
+    <span class="stat-label">Aumentos de Impostos</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">R$8,5T</span>
+    <span class="stat-label">Dívida Pública</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">15%</span>
+    <span class="stat-label">Selic — Maior desde 2006</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2.000+</span>
+    <span class="stat-label">Exilados Políticos</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">1.500+</span>
+    <span class="stat-label">Com Tornozeleira</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">R$6,3B</span>
+    <span class="stat-label">Fraude INSS</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">21,8%</span>
+    <span class="stat-label">Desvalorização Real 2024</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">86,3%</span>
+    <span class="stat-label">Dívida/PIB Projeção 2026</span>
+  </div>
+</div>
+
+<div class="map-container">
+
+  <!-- TIMELINE -->
+  <div class="timeline-strip">
+    <div class="timeline-year">
+      <span class="tl-year">2023</span>
+      <div class="tl-event">Arcabouço fiscal aprovado e já violado</div>
+      <div class="tl-event">Retomada de gastos sem controle</div>
+      <div class="tl-event">Início dos 28+ aumentos de impostos</div>
+      <div class="tl-event">Operações contra manifestantes de 8/Jan</div>
+    </div>
+    <div class="timeline-year">
+      <span class="tl-year">2024</span>
+      <div class="tl-event">Real: pior moeda do G20 (−21,8%)</div>
+      <div class="tl-event">Dólar bate R$6,20 em dezembro</div>
+      <div class="tl-event">Inundações RS: resposta caótica</div>
+      <div class="tl-event">Fraude INSS identificada, governo omisso</div>
+      <div class="tl-event">Incêndios florestais históricos</div>
+    </div>
+    <div class="timeline-year">
+      <span class="tl-year">2025</span>
+      <div class="tl-event">Megaescândalo INSS — R$6,3B</div>
+      <div class="tl-event">Lulinha investigado pela PF</div>
+      <div class="tl-event">Banco Master liquidado — 1,6M afetados</div>
+      <div class="tl-event">Selic sobe para 15% ao ano</div>
+      <div class="tl-event">Operação Contenção — foto viral de mortos</div>
+    </div>
+    <div class="timeline-year">
+      <span class="tl-year">2026</span>
+      <div class="tl-event">CPMI INSS quebra sigilo de Lulinha</div>
+      <div class="tl-event">PF suspeita de evasão de Lulinha ao exterior</div>
+      <div class="tl-event">Dívida projeta 86,3% do PIB</div>
+      <div class="tl-event">Haddad anuncia saída do Ministério</div>
+    </div>
+  </div>
+
+  <!-- COLUMN LEFT -->
+  <!-- FISCAL DISASTER -->
+  <div class="category-card cat-fiscal">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">💣</span>
+      <span class="card-title">DESASTRE FISCAL</span>
+      <span class="card-count">8 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>28+ aumentos de impostos</strong> — IOF, PIS/Cofins, Perse, LCI/LCA, fintechs, bets. Carga tributária <span class="highlight">&gt; 34% do PIB</span>
+          <div><span class="source-tag">Guia do Investidor · Receita Federal</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Dívida pública: R$ 8,5 trilhões</strong> (≈ 78–79% do PIB) — maior patamar em anos
+          <div><span class="source-tag">Guia do Investidor · BC · IFI/Senado</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Projeção IFI: 86,3% do PIB em 2026</strong> — para estabilizar precisaria de superávit de 2,4% ao ano
+          <div><span class="source-tag">IFI · Gazeta do Povo</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Arcabouço fiscal virou ficção</strong> — governo torpedoou a própria âncora em velocidade recorde
+          <div><span class="source-tag">Gazeta do Povo · Editorial 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Maior déficit nominal desde o Plano Real</strong> — gasto primário +12% real acumulado em 2023–24
+          <div><span class="source-tag">Gazeta do Povo · Banco Central</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>SELIC a 15% ao ano</strong> — maior patamar em quase 20 anos. Juros mais caros, crédito inacessível
+          <div><span class="source-tag">Banco Central do Brasil · Jan/2026</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>2ª maior dívida pública entre emergentes</strong> — 87,6% do PIB, atrás só da China (88,6%)
+          <div><span class="source-tag">IIF · Gazeta do Povo</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Metas fiscais sistematicamente desidratadas</strong> — de superávit a déficit zero, de déficit zero para nada
+          <div><span class="source-tag">Tesouro Nacional · Câmara dos Deputados</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORRUPTION -->
+  <div class="category-card cat-corruption">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">🕳️</span>
+      <span class="card-title">CORRUPÇÃO E ESCÂNDALOS</span>
+      <span class="card-count">7 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Megafraude INSS — R$ 6,3 bilhões</strong> — descontos ilegais em aposentadorias e pensões de 2019 a 2024
+          <div><span class="source-tag">Polícia Federal · CGU · Wikipedia</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Lulinha (filho do presidente) investigado</strong> — suspeita de receber R$ 25 milhões + mesada R$ 300 mil/mês do "Careca do INSS"
+          <div><span class="source-tag">PF · CPMI INSS · STF · Senado Federal</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>PF suspeita de evasão de Lulinha</strong> — transferiu residência para Madri durante investigações
+          <div><span class="source-tag">PF · Times Brasil/CNBC · Jan/2026</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Frei Chico (irmão de Lula)</strong> — citado como dirigente de entidade investigada pelo INSS (Sindinapi)
+          <div><span class="source-tag">Agência Brasil · Polícia Federal</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Banco Master liquidado</strong> — rombo bilionário; 1,6 milhão de clientes afetados; investigação ligada ao INSS
+          <div><span class="source-tag">Banco Central · Gazeta do Povo · Fev/2026</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Correios com perdas bilionárias</strong> — gestão política apontada como causa central do rombo operacional
+          <div><span class="source-tag">Guia do Investidor · 2025</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Governo soube e se omitiu</strong> — ata da CGU de ago/2024 revela que INSS sabia do esquema e nada fez
+          <div><span class="source-tag">CGU · Metrópoles · Wikipedia</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER NODE -->
+  <div class="center-col">
+    <div class="center-node">
+      <span class="icon">🇧🇷</span>
+      <h2>GOVERNO LULA III</h2>
+      <div class="period">JAN 2023 — DEZ 2026</div>
+      <div class="desc">
+        "O governo que gastou mais, arrecadou mais, endividou mais, desvalorizou a moeda, elevou os juros ao maior patamar em 20 anos, e foi assombrado por escândalos de corrupção envolvendo a família direta do presidente."
+      </div>
+    </div>
+
+    <!-- EXODUS CARD inside center col -->
+    <div class="category-card cat-exodus" style="width:100%">
+      <div class="card-color-bar"></div>
+      <div class="card-header">
+        <span class="card-icon">✈️</span>
+        <span class="card-title">ÊXODO DE CAPITAIS E TALENTOS</span>
+        <span class="card-count">6 itens</span>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <span class="item-bullet">▸</span>
+          <div class="item-text">
+            <strong>Milionários e empresários migrando</strong> — Portugal, EUA, Espanha, Dubai e Emirados como destinos preferidos
+            <div><span class="source-tag">Folha de S.Paulo · Forbes Brasil</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-bullet">▸</span>
+          <div class="item-text">
+            <strong>Carga tributária recorde (34% do PIB)</strong> como principal motivador da fuga de capital humano
+            <div><span class="source-tag">Receita Federal · 2025</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-bullet">▸</span>
+          <div class="item-text">
+            <strong>Remessas ao exterior explodem</strong> — fuga "em massa" de investimentos para os EUA após pacote fiscal de nov/2024
+            <div><span class="source-tag">CNN Brasil · Avenue · Dez/2024</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-bullet">▸</span>
+          <div class="item-text">
+            <strong>Empresas quebrando em série</strong> — recorde de recuperações judiciais e inadimplência empresarial
+            <div><span class="source-tag">Serasa Experian · Câmara dos Deputados</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-bullet">▸</span>
+          <div class="item-text">
+            <strong>Juros a 15% inviabilizam empresas</strong> — custo de capital inacessível para PMEs; empréstimos pessoais e empresariais encarecidos
+            <div><span class="source-tag">Banco Central · Fecomercio · 2025</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-bullet">▸</span>
+          <div class="item-text">
+            <strong>Mercado de ativos sob custódia nos EUA potencialmente triplicaria em 2025</strong> — ritmo projetado de evasão de capital
+            <div><span class="source-tag">CNN Brasil · Avenue · Dez/2024</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN RIGHT -->
+  <!-- FREEDOM CARD -->
+  <div class="category-card cat-freedom">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">⛓️</span>
+      <span class="card-title">LIBERDADES CIVIS E REPRESSÃO</span>
+      <span class="card-count">8 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Mais de 2.000 exilados políticos</strong> — brasileiros que deixaram o país por perseguição judicial e/ou política
+          <div><span class="source-tag">Relatórios OAB · Mídia Independente</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>1.500+ com tornozeleira eletrônica</strong> — presos e monitorados sem devido processo legal; muitos réus primários
+          <div><span class="source-tag">STF · STJ · Defensorias Públicas</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Prisões de manifestantes do 8 de Janeiro</strong> — condenações severas a penas superiores às aplicadas a traficantes
+          <div><span class="source-tag">STF · OAB · Amnesty International</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Ministro Alexandre de Moraes</strong> — decisões monocráticas sem contraditório; bloqueia plataformas por decreto
+          <div><span class="source-tag">STF · JOTA · ConJur</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Censura de redes sociais</strong> — X (Twitter) bloqueado por meses; youtubers e influencers perseguidos
+          <div><span class="source-tag">STF · Poder360 · Reuters</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Polarização extrema</strong> — 46% dos brasileiros acreditam que o país vai na direção errada (Quaest, Dez/2024)
+          <div><span class="source-tag">Quaest · Dez/2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Inelegibilidade de Bolsonaro</strong> — principal candidato da oposição barrado sem julgamento definitivo
+          <div><span class="source-tag">TSE · STF · 2023</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Tentativa de blindagem de Lulinha</strong> — bancada PT rejeitou convocação do filho do presidente na CPMI do INSS
+          <div><span class="source-tag">Senado Federal · CPMI INSS · 2025</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIPLOMATIC -->
+  <div class="category-card cat-diplomatic">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">🌐</span>
+      <span class="card-title">DESASTRES DIPLOMÁTICOS</span>
+      <span class="card-count">6 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Relação deteriorada com os EUA</strong> — recusa de Lula em classificar PCC e CV como terroristas gerou atrito com Trump em 2025
+          <div><span class="source-tag">Diário do Poder · Casa Branca · 2025</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Defesa tácita de Maduro</strong> — após fraude eleitoral venezuelana de 2024, Lula recusou-se a reconhecer Edmundo González
+          <div><span class="source-tag">Reuters · Folha de S.Paulo · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Aproximação com Cuba, Nicarágua e Irã</strong> — alinhamento com regimes autoritários isola o Brasil no Ocidente
+          <div><span class="source-tag">Itamaraty · OEA · Estadão</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Atrito com Israel</strong> — Lula comparou operações em Gaza ao Holocausto; embaixador israelense convocado
+          <div><span class="source-tag">Haaretz · Folha · BBC Brasil · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Desconfiança de investidores estrangeiros</strong> — CDS de 5 anos bateu 218 pontos, maior desde mar/2023; risco-país elevado
+          <div><span class="source-tag">CNN Brasil · IIF · Dez/2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Brasil marginalizado no G7</strong> — postura ideológica do governo afasta o país das democracias ocidentais
+          <div><span class="source-tag">Estadão · O Globo · 2024–2025</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIAL DISASTERS -->
+  <div class="category-card cat-social">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">🌊</span>
+      <span class="card-title">CATÁSTROFES SOCIAIS E AMBIENTAIS</span>
+      <span class="card-count">7 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Inundações do Rio Grande do Sul — Maio/2024</strong> — pior desastre climático do Brasil; resposta federal criticada como lenta e caótica. Mais de 150 mortos, 400 mil desalojados
+          <div><span class="source-tag">Defesa Civil RS · Agência Brasil · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Incêndios florestais históricos 2024</strong> — pior ano desde início das medições; Pantanal e Amazônia em chamas
+          <div><span class="source-tag">INPE · Ibama · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Golpes digitais +408%</strong> — de 2018 a 2024 explodiram os estelionatos virtuais: 4 golpes por minuto no Brasil
+          <div><span class="source-tag">FBSP · Anuário Segurança Pública 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>97 assassinatos por dia</strong> — mesmo com queda de 6,3% em 2024, o Brasil ainda registra 35.365 homicídios dolosos/ano
+          <div><span class="source-tag">MJSP · Mapa Segurança Pública 2025</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Brasil = 10% de todos homicídios do planeta</strong> — com apenas 3% da população mundial
+          <div><span class="source-tag">UNODC · FBSP · Anuário 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>59 milhões de pobres</strong> — dados de 2023 ainda mostram 59 milhões em pobreza monetária apesar dos programas
+          <div><span class="source-tag">IBGE · PNAD · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Inflação acima da meta desde out/2024</strong> — IPCA acumulou 4,46% em nov/2024 (teto da meta = 4,5%); pressão sobre o bolso dos pobres
+          <div><span class="source-tag">IBGE · Banco Central · Dez/2024</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POLITICAL CRISIS -->
+  <div class="category-card cat-political">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">⚡</span>
+      <span class="card-title">CRISE POLÍTICA E INSTITUCIONAL</span>
+      <span class="card-count">7 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Congresso em oposição permanente</strong> — governo tem minoria no Legislativo; aprovações exigem custo altíssimo em concessões
+          <div><span class="source-tag">Câmara dos Dep. · Senado Federal</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Lula sofre cirurgia cerebral (Dez/2024)</strong> — hematoma na cabeça; redução de ritmo e vulnerabilidade política
+          <div><span class="source-tag">Presidência da República · Infomoney</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Aprovação despencando</strong> — 46% acham país vai na direção errada; governo "melhor do que a percepção", admite Lula
+          <div><span class="source-tag">Quaest · Dez/2024 · Infomoney</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>PT perde municípios nas eleições 2024</strong> — Centrão (MDB, PSD, PP, União) cresce e exige mais espaço no governo
+          <div><span class="source-tag">TSE · Infomoney · Dez/2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Isenção IR até R$5.000 — bomba fiscal</strong> — promessa eleitoreira gerou pânico no mercado e corrida ao dólar
+          <div><span class="source-tag">Câmara · Banco Central · Nov/2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Haddad: 28 aumentos de impostos + saída anunciada</strong> — ministério deixa legado de recordes negativos
+          <div><span class="source-tag">Ministério da Fazenda · 2026</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>CPI do Crime Organizado</strong> — criada em resposta à crise de segurança e à Operação Contenção com foto viral de mortos
+          <div><span class="source-tag">Câmara dos Deputados · ND Mais</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMBIAL / ECONOMY -->
+  <div class="category-card cat-fiscal" style="border-left-color: #d4830a;">
+    <div class="card-color-bar" style="background: linear-gradient(90deg, #d4830a, #7d6608);"></div>
+    <div class="card-header" style="border-left-color: #d4830a;">
+      <span class="card-icon">📉</span>
+      <span class="card-title">CÂMBIO E ECONOMIA REAL</span>
+      <span class="card-count">6 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Real: pior moeda do G20 em 2024</strong> — desvalorização de 21,82%; terceira maior desde 2010
+          <div><span class="source-tag">CNN Brasil · Elos Ayta · Dez/2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Dólar bate R$ 6,20 em dezembro de 2024</strong> — após pacote fiscal considerado insuficiente pelo mercado
+          <div><span class="source-tag">Banco Central · TradeMap · Dez/2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Fuga de capitais acelerada</strong> — CDS bateu 218 pontos; investidores fogem para segurança do dólar
+          <div><span class="source-tag">CNN Brasil · Credit Default Swap · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Importações encarecem com dólar alto</strong> — pressão inflacionária por insumos e commodities dolarizadas
+          <div><span class="source-tag">TradeMap · Banco Central · 2024</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Recordes de recuperação judicial e inadimplência</strong> — empresas incapazes de honrar dívidas com juros de 15% ao ano
+          <div><span class="source-tag">Serasa · Câmara dos Dep. · 2025</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-bullet">▸</span>
+        <div class="item-text">
+          <strong>Informalidade estrutural persiste</strong> — empregos gerados são majoritariamente de baixíssima remuneração
+          <div><span class="source-tag">IBGE · PNAD Contínua · 2024</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL-WIDTH: SECURITY/ORGANIZED CRIME -->
+  <div class="category-card cat-security full-width">
+    <div class="card-color-bar"></div>
+    <div class="card-header">
+      <span class="card-icon">🔫</span>
+      <span class="card-title">SEGURANÇA PÚBLICA E CRIME ORGANIZADO</span>
+      <span class="card-count">8 itens</span>
+    </div>
+    <div class="card-body">
+      <div class="item-group">
+        <div class="item-group-title">Homicídios</div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>97 assassinatos por dia</strong> em 2024 — 35.365 homicídios dolosos; 10% de todos do planeta <span class="source-tag">MJSP · UNODC</span></div></div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text">Tentativas de homicídio <strong>+7,4%</strong> em 2024 — violência migrando para formas menos letais mas mais frequentes <span class="source-tag">MJSP · 2025</span></div></div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>6.134 mortos por intervenção policial</strong> em 2024 — equivalente a 16 mortes por dia só pela polícia <span class="source-tag">MJSP · FBSP</span></div></div>
+      </div>
+      <div class="item-group">
+        <div class="item-group-title">Crime Organizado</div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>PCC e CV dominam territórios</strong> — Lula recusou classificação como terroristas quando pressionado por Trump em 2025 <span class="source-tag">Diário do Poder · 2025</span></div></div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>Operação Contenção — foto viral mundial</strong> — crise de imagem global sobre capacidade do governo <span class="source-tag">ND Mais · 2025</span></div></div>
+      </div>
+      <div class="item-group">
+        <div class="item-group-title">Crime Digital</div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>Golpes virtuais +408%</strong> em 6 anos — 4 golpes/minuto; 2,1 milhões de registros em 2024 <span class="source-tag">FBSP · Anuário 2024</span></div></div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>83.114 casos de estupro</strong> em 2024 (+1,1%) — violência de gênero persiste sem solução estrutural <span class="source-tag">MJSP · Mapa Segurança 2025</span></div></div>
+      </div>
+      <div class="item-group">
+        <div class="item-group-title">Estados Esquecidos</div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>Bahia: 6.024 mortes violentas em 2024</strong> — 2ª maior taxa do Brasil (40,6/100mil); 5 das 10 cidades mais violentas do país <span class="source-tag">FBSP · Anuário 2024</span></div></div>
+        <div class="item"><span class="item-bullet">▸</span><div class="item-text"><strong>Ceará: chacinas e ataques à infraestrutura</strong> — crime organizado ataca telecomunicações da Grande Fortaleza em 2025 <span class="source-tag">Gazeta do Povo · 2025</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-title">LEGENDA — CATEGORIAS DO MAPA MENTAL</div>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #c0392b;"></div>
+        <span class="legend-text">🔴 Desastre Fiscal e Econômico</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #e74c3c;"></div>
+        <span class="legend-text">🔴 Corrupção e Escândalos</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #7d3c98;"></div>
+        <span class="legend-text">🟣 Crise Política e Institucional</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #2980b9;"></div>
+        <span class="legend-text">🔵 Liberdades Civis e Repressão</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #148f77;"></div>
+        <span class="legend-text">🟢 Desastres Diplomáticos</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #d4830a;"></div>
+        <span class="legend-text">🟠 Catástrofes Sociais e Ambientais</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #f39c12;"></div>
+        <span class="legend-text">🟡 Êxodo de Capitais e Talentos</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #922b21;"></div>
+        <span class="legend-text">🔴 Segurança Pública e Crime</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources-section">
+    <div class="sources-title">FONTES VERIFICADAS E REFERÊNCIAS</div>
+    <div class="sources-grid">
+      <div class="source-item"><span class="source-code">S01</span><span class="source-name">Banco Central do Brasil — bcb.gov.br</span></div>
+      <div class="source-item"><span class="source-code">S02</span><span class="source-name">Receita Federal — receita.economia.gov.br</span></div>
+      <div class="source-item"><span class="source-code">S03</span><span class="source-name">IFI (Inst. Fiscal Independente/Senado) — ifi.senado.leg.br</span></div>
+      <div class="source-item"><span class="source-code">S04</span><span class="source-name">IBGE (PNAD Contínua) — ibge.gov.br</span></div>
+      <div class="source-item"><span class="source-code">S05</span><span class="source-name">Polícia Federal do Brasil — pf.gov.br</span></div>
+      <div class="source-item"><span class="source-code">S06</span><span class="source-name">STF (Supremo Tribunal Federal) — stf.jus.br</span></div>
+      <div class="source-item"><span class="source-code">S07</span><span class="source-name">Senado Federal / CPMI INSS — senado.leg.br</span></div>
+      <div class="source-item"><span class="source-code">S08</span><span class="source-name">CGU (Controladoria-Geral) — cgu.gov.br</span></div>
+      <div class="source-item"><span class="source-code">S09</span><span class="source-name">MJSP — Mapa Segurança Pública 2025</span></div>
+      <div class="source-item"><span class="source-code">S10</span><span class="source-name">FBSP — Anuário Brasileiro de Seg. Pública 2024</span></div>
+      <div class="source-item"><span class="source-code">S11</span><span class="source-name">INPE — Monitoramento de Queimadas 2024</span></div>
+      <div class="source-item"><span class="source-code">S12</span><span class="source-name">Serasa Experian — Indicadores de Inadimplência</span></div>
+      <div class="source-item"><span class="source-code">S13</span><span class="source-name">Gazeta do Povo — Editorial/Economia 2024–26</span></div>
+      <div class="source-item"><span class="source-code">S14</span><span class="source-name">CNN Brasil — Economia e Mercados 2024–26</span></div>
+      <div class="source-item"><span class="source-code">S15</span><span class="source-name">Agência Brasil (EBC) — agenciabrasil.ebc.com.br</span></div>
+      <div class="source-item"><span class="source-code">S16</span><span class="source-name">Guia do Investidor — Resumo Governo Lula 2025</span></div>
+      <div class="source-item"><span class="source-code">S17</span><span class="source-name">Quaest — Pesquisa de Opinião Dez/2024</span></div>
+      <div class="source-item"><span class="source-code">S18</span><span class="source-name">TradeMap / Elos Ayta — Câmbio 2024</span></div>
+      <div class="source-item"><span class="source-code">S19</span><span class="source-name">TSE (Tribunal Superior Eleitoral) — tse.jus.br</span></div>
+      <div class="source-item"><span class="source-code">S20</span><span class="source-name">Defesa Civil RS — Relatório Enchentes 2024</span></div>
+      <div class="source-item"><span class="source-code">S21</span><span class="source-name">IIF (Inst. Int. de Finanças) — iif.com</span></div>
+      <div class="source-item"><span class="source-code">S22</span><span class="source-name">Wikipedia PT — Esquema Fraudes no INSS</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+
+</div><!-- /map-container -->
+
+<footer>
+  <div class="footer-left">
+    MAPA MENTAL — ANÁLISE INDEPENDENTE · DADOS VERIFICÁVEIS · BRASIL 2023–2026
+  </div>
+  <div class="footer-right">
+    Todas as informações têm fontes identificadas. Atualizado em Março/2026.
+    Este documento não representa nenhuma afiliação partidária — é uma síntese jornalística de dados públicos.
+  </div>
+</footer>
+
+<!-- FLOATING SHARE (MARAJO STYLE) -->
+<div class="floating-share">
+  <a href="https://api.whatsapp.com/send?text=Confira%20este%20relat%C3%B3rio%20investigativo%20sobre%20as%20Trag%C3%A9dias%20do%20Governo%20Lula%203:%20https://gosurf.site/lula3" target="_blank" class="share-btn-f wa" title="Partilhar no WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-2.32 0-4.525.903-6.163 2.541a8.68 8.68 0 0 0-2.541 6.164c0 1.25.267 2.478.793 3.606l-1.071 3.906 3.997-1.047a8.67 8.67 0 0 0 4.985 1.543l.004-.001c2.32 0 4.524-.903 6.163-2.541a8.682 8.682 0 0 0 2.541-6.164 8.682 8.682 0 0 0-8.711-8.71zM16.513 18.067a6.38 6.38 0 0 1-4.482 1.84h-.003c-1.22 0-2.417-.333-3.456-.963l-.248-.15-2.568.673.685-2.5a6.37 6.37 0 0 1-.65-2.73 6.38 6.38 0 0 1 1.868-4.536 6.382 6.382 0 0 1 4.537-1.868c1.711 0 3.32.666 4.533 1.868a6.382 6.382 0 0 1 1.869 4.537 6.383 6.383 0 0 1-3.045 5.639z"/></svg>
+  </a>
+  <a href="https://twitter.com/intent/tweet?text=Relat%C3%B3rio%20Investigativo:%20Trag%C3%A9dias%20do%20Governo%20Lula%203&url=https://gosurf.site/lula3&hashtags=Lula3,Brasil,Economia" target="_blank" class="share-btn-f x" title="Partilhar no X">
+    <svg width="20" height="20" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"/></svg>
+  </a>
+  <a href="https://telegram.me/share/url?url=https://gosurf.site/lula3&text=Relatório Investigativo: Tragédias do Governo Lula 3 (2023-2026)." target="_blank" class="share-btn-f tg" title="Partilhar no Telegram">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+  </a>
+  <button onclick="copyLink()" class="share-btn-f cp" title="Copiar Link">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+  </button>
+</div>
+
+<script>
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+  const btn = document.querySelector('.share-btn-f.cp');
+  const oldIcon = btn.innerHTML;
+  btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  setTimeout(() => { btn.innerHTML = oldIcon; }, 2000);
+}
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

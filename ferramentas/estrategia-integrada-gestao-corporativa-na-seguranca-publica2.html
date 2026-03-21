@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estratégia Integrada: Gestão Corporativa na Segurança Pública</title>
+    <!-- https://gemini.google.com/share/6ce9e2493740 -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Markdown Parser for AI responses -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #1f2937; }
+        
+        /* Chart Container Utilities */
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 400px; /* Altura base para desktop */
+            max-height: 50vh;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-wrapper {
+                height: 300px; /* Altura ajustada para mobile */
+            }
+        }
+
+        /* Custom Scrollbar for sleek look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animation utilities */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .card-hover:hover { transform: translateY(-2px); transition: all 0.3s ease; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+        /* AI Response Styling */
+        .prose h3 { font-size: 1.25rem; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+        .prose ul { list-style-type: disc; }
+        .prose ol { list-style-type: decimal; }
+        .prose strong { color: #0f172a; font-weight: 600; }
+        .prose table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1rem; font-size: 0.875rem; }
+        .prose th { background-color: #f1f5f9; font-weight: 600; text-align: left; padding: 0.5rem; border: 1px solid #e2e8f0; }
+        .prose td { padding: 0.5rem; border: 1px solid #e2e8f0; }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header / Hero -->
+    <header class="bg-slate-800 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">Gestão Corporativa & Governança Criminal</h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-4xl mx-auto">
+                Aplicando metodologias de elite (OODA, Six Sigma, Pareto) para enfrentar o desafio de <strong>26% da população brasileira</strong> vivendo sob regras de facções.
+            </p>
+            <div class="mt-8 flex justify-center gap-4 flex-wrap">
+                <a href="#ooda" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition">Agilidade (OODA)</a>
+                <a href="#pareto" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full font-semibold transition">Foco Financeiro (80/20)</a>
+                <a href="#ai-assistant" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-full font-semibold transition flex items-center gap-2">
+                    <span>✨ IA Estratégica</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 bg-white shadow-md z-50 overflow-x-auto">
+        <div class="container mx-auto flex whitespace-nowrap px-4">
+            <button onclick="scrollToSection('ooda')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">OODA Loop (Setorial)</button>
+            <button onclick="scrollToSection('pdca')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">PDCA & Eficiência</button>
+            <button onclick="scrollToSection('pestel')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">PESTEL Brasil</button>
+            <button onclick="scrollToSection('5w2h')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">5W2H (PRONASCI)</button>
+            <button onclick="scrollToSection('first-principles')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">Inovação</button>
+            <button onclick="scrollToSection('pareto')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">Pareto Financeiro</button>
+            <button onclick="scrollToSection('lideranca')" class="px-4 py-3 text-sm font-medium text-slate-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 focus:outline-none transition">Liderança</button>
+            <button onclick="scrollToSection('ai-assistant')" class="px-4 py-3 text-sm font-medium text-indigo-600 hover:text-indigo-800 border-b-2 border-transparent hover:border-indigo-600 focus:outline-none transition flex items-center gap-1">✨ IA</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 space-y-16">
+
+        <!-- 1. OODA Loop Section (EXPANDED) -->
+        <section id="ooda" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-blue-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">1. Agilidade Decisória: O Ciclo OODA Setorial</h2>
+                <p class="text-slate-600 mt-1">Aplicação tática do Ciclo de Boyd para resolver problemas específicos apontados no Atlas da Violência 2025 e Relatórios de Inteligência.</p>
+            </div>
+            
+            <p class="mb-6 text-slate-700 leading-relaxed">
+                As facções operam com ciclos de decisão rápidos. Para combatê-las, o Estado precisa adaptar sua resposta a cada domínio específico. Selecione um <strong>Setor Crítico</strong> abaixo para ver a estratégia OODA correspondente.
+            </p>
+
+            <!-- Sector Selector -->
+            <div class="flex flex-wrap gap-2 mb-6 justify-center md:justify-start">
+                <button onclick="selectOodaSector('territory')" class="ooda-btn px-4 py-2 rounded-full bg-blue-100 text-blue-800 font-semibold text-sm hover:bg-blue-200 transition focus:ring-2 ring-blue-400 border border-blue-200" id="btn-territory">🏙️ Território & Cidades</button>
+                <button onclick="selectOodaSector('finance')" class="ooda-btn px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-semibold text-sm hover:bg-slate-200 transition focus:ring-2 ring-slate-400 border border-slate-200" id="btn-finance">💸 Finanças & Lavagem</button>
+                <button onclick="selectOodaSector('social')" class="ooda-btn px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-semibold text-sm hover:bg-slate-200 transition focus:ring-2 ring-slate-400 border border-slate-200" id="btn-social">🎓 Social & Juventude</button>
+                <button onclick="selectOodaSector('amazon')" class="ooda-btn px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-semibold text-sm hover:bg-slate-200 transition focus:ring-2 ring-slate-400 border border-slate-200" id="btn-amazon">🌿 Fronteiras & Amazônia</button>
+                <button onclick="selectOodaSector('prison')" class="ooda-btn px-4 py-2 rounded-full bg-slate-100 text-slate-600 font-semibold text-sm hover:bg-slate-200 transition focus:ring-2 ring-slate-400 border border-slate-200" id="btn-prison">🔒 Sistema Prisional</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <!-- Interactive Cards for OODA Phases -->
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                    <div class="text-3xl mb-2">👁️</div>
+                    <h3 class="font-bold text-slate-700">Observar</h3>
+                    <p id="ooda-observe-text" class="text-xs text-slate-500 mt-2">Dados e Sensores</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                    <div class="text-3xl mb-2">🧠</div>
+                    <h3 class="font-bold text-slate-700">Orientar</h3>
+                    <p id="ooda-orient-text" class="text-xs text-slate-500 mt-2">Contexto e Cultura</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
+                    <div class="text-3xl mb-2">⚖️</div>
+                    <h3 class="font-bold text-slate-700">Decidir</h3>
+                    <p id="ooda-decide-text" class="text-xs text-slate-500 mt-2">Hipótese Tática</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h3 class="font-bold text-slate-700">Agir</h3>
+                    <p id="ooda-act-text" class="text-xs text-slate-500 mt-2">Execução</p>
+                </div>
+            </div>
+
+            <div id="ooda-detail-content" class="bg-blue-50 text-blue-900 p-6 rounded-lg shadow-inner border border-blue-100">
+                <h4 class="text-lg font-bold mb-2 flex items-center gap-2">
+                    <span id="ooda-detail-icon">🏙️</span>
+                    <span id="ooda-detail-title">Cenário: Interiorização da Violência</span>
+                </h4>
+                <p id="ooda-detail-desc" class="text-sm">O Atlas 2025 mostra que o crime migrou para cidades médias. A resposta exige sair do modelo reativo para o preditivo.</p>
+            </div>
+        </section>
+
+        <!-- 2. PDCA & Six Sigma Section -->
+        <section id="pdca" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-emerald-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">2. Eficiência Prisional: PDCA & Six Sigma (DEA)</h2>
+                <p class="text-slate-600 mt-1">Análise de Envoltória de Dados (DEA) para medir se a prisão realmente ressocializa.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2 text-slate-700 leading-relaxed">
+                    <p class="mb-4">
+                        O Brasil possui a 3ª maior população carcerária do mundo. Estudos de <strong>DEA (Data Envelopment Analysis)</strong> sugerem que aumentar apenas o número de vagas sem melhorar os processos de ressocialização é desperdício (Lean).
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 mb-4 bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                        <li><strong>Lean (Desperdício):</strong> Superlotação que fortalece facções dentro dos presídios.</li>
+                        <li><strong>Six Sigma (Defeito):</strong> Alta taxa de reincidência. O sistema falha em entregar o produto "cidadão recuperado".</li>
+                        <li><strong>PDCA:</strong> Ajuste contínuo baseado em indicadores de reincidência, não apenas em número de prisões.</li>
+                    </ul>
+                    <p class="text-sm text-slate-500">
+                        O gráfico simula a correlação entre investimento em inteligência prisional (Eficiência) e queda na reincidência.
+                    </p>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="chart-wrapper">
+                        <canvas id="pdcaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PESTEL & SWOT Section -->
+        <section id="pestel" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-amber-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">3. Cenário Brasil 2025: PESTEL & SWOT</h2>
+                <p class="text-slate-600 mt-1">Dados reais do relatório "A Anatomia da Governança Criminal".</p>
+            </div>
+
+            <p class="mb-6 text-slate-700">
+                O Brasil lidera o ranking latino de governança criminal. A análise PESTEL abaixo mapeia os fatores estruturais citados nos relatórios recentes.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- PESTEL Cards Populated with Report Data -->
+                <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                    <h3 class="font-bold text-amber-800 mb-2">🏛️ Político (Duopólio)</h3>
+                    <p class="text-sm text-slate-700">Estado e Crime dividem soberania. O "vácuo de poder" é preenchido por leis paralelas das facções.</p>
+                </div>
+                <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                    <h3 class="font-bold text-amber-800 mb-2">💰 Econômico (R$ 9,6 Bi)</h3>
+                    <p class="text-sm text-slate-700">Em 2025, a PF apreendeu R$ 9,6 bilhões do crime. As facções lavam dinheiro em postos, transportes e cripto.</p>
+                </div>
+                <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                    <h3 class="font-bold text-amber-800 mb-2">👥 Social (26% Pop.)</h3>
+                    <p class="text-sm text-slate-700"><strong>50M+ de brasileiros</strong> vivem sob regras de facções. 19% relatam presença explícita em seus bairros.</p>
+                </div>
+                <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                    <h3 class="font-bold text-amber-800 mb-2">📡 Tecnológico</h3>
+                    <p class="text-sm text-slate-700">Crime usando drones e Fintechs vs. Estado usando IA (ex: Crime Nabi) e bancos de dados integrados.</p>
+                </div>
+                <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                    <h3 class="font-bold text-amber-800 mb-2">⚖️ Legal (Abordagem Adm.)</h3>
+                    <p class="text-sm text-slate-700">Necessidade de usar leis administrativas (alvarás, fiscalização sanitária) para fechar negócios de fachada.</p>
+                </div>
+                <div class="bg-white p-4 rounded border-2 border-slate-800 flex items-center justify-center shadow-sm">
+                    <div class="text-center">
+                        <p class="font-bold text-slate-800 border-b pb-1 mb-1">SWOT Cruzada</p>
+                        <p class="text-xs text-slate-600"><strong>Ameaça:</strong> Hegemonia do PCC (SP) e Fragmentação do CV (RJ/Norte).</p>
+                        <p class="text-xs text-slate-600 mt-1"><strong>Oportunidade:</strong> Uso de Ativos Apreendidos para financiar a própria polícia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 5W2H Section (EXPANDED) -->
+        <section id="5w2h" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-purple-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">4. Execução: Plano Tático 5W2H do PRONASCI II</h2>
+                <p class="text-slate-600 mt-1">Detalhamento operacional dos 5 eixos prioritários e investimento de R$ 1,37 Bilhão.</p>
+            </div>
+
+            <p class="mb-6 text-slate-700">
+                O PRONASCI II, relançado em 2023, articula segurança com cidadania. A tabela abaixo aplica a metodologia 5W2H para transformar as diretrizes abstratas do documento oficial em ações concretas e mensuráveis para cada um dos 5 Eixos.
+            </p>
+
+            <!-- 5W2H Interactive Tabs -->
+            <div class="mb-6 flex flex-wrap gap-2 justify-center md:justify-start">
+                <button onclick="update5w2h('mulher')" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 font-semibold text-sm transition focus:ring-2 ring-purple-300">1. Mulheres</button>
+                <button onclick="update5w2h('territorios')" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 font-semibold text-sm transition focus:ring-2 ring-purple-300">2. Territórios</button>
+                <button onclick="update5w2h('juventude')" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 font-semibold text-sm transition focus:ring-2 ring-purple-300">3. Juventude</button>
+                <button onclick="update5w2h('ensino')" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 font-semibold text-sm transition focus:ring-2 ring-purple-300">4. Ensino</button>
+                <button onclick="update5w2h('penal')" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 font-semibold text-sm transition focus:ring-2 ring-purple-300">5. Racionalidade Penal</button>
+            </div>
+
+            <div id="5w2h-content" class="bg-purple-50 rounded-lg p-6 border border-purple-200 shadow-inner">
+                <!-- Content injected via JS -->
+                <div class="text-center text-purple-400 py-10">
+                    <svg class="w-12 h-12 mx-auto mb-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    Carregando plano tático...
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. First Principles Section -->
+        <section id="first-principles" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-cyan-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">5. Inovação: Primeiros Princípios (Deconstruindo Problemas)</h2>
+                <p class="text-slate-600 mt-1">Evitando soluções por analogia ("sempre foi assim") para encontrar causas raiz.</p>
+            </div>
+
+            <!-- Toggle Buttons -->
+            <div class="flex justify-center mb-8 gap-4">
+                <button onclick="toggleFirstPrinciples('iceland')" id="btn-iceland" class="px-6 py-2 rounded-full font-semibold bg-cyan-600 text-white shadow-md transition transform hover:scale-105">
+                    Caso 1: Prevenção (Modelo Islandês)
+                </button>
+                <button onclick="toggleFirstPrinciples('corruption')" id="btn-corruption" class="px-6 py-2 rounded-full font-semibold bg-slate-200 text-slate-600 shadow-sm transition transform hover:scale-105 hover:bg-slate-300">
+                    Caso 2: Estado Corrupto (Governança)
+                </button>
+            </div>
+
+            <!-- Content Container: Iceland (Default) -->
+            <div id="fp-iceland" class="flex flex-col md:flex-row gap-6 items-center justify-center transition-opacity duration-500">
+                <div class="bg-slate-100 p-6 rounded-xl w-full md:w-1/2 h-80 flex flex-col justify-center items-center text-center border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-500 mb-2">Pensamento Tradicional (Analogia)</h3>
+                    <p class="text-slate-600 font-medium">"Jovens usam drogas porque não têm disciplina."</p>
+                    <div class="text-2xl my-3 text-slate-400">⬇️</div>
+                    <p class="font-bold text-red-600">Ação Padrão:</p>
+                    <p class="text-sm text-slate-600 px-4">"Precisamos de mais polícia nas ruas e palestras 'Diga Não' nas escolas."</p>
+                    <p class="text-xs text-slate-400 mt-4 italic">Resultado: Baixa eficácia, reincidência.</p>
+                </div>
+
+                <div class="hidden md:block text-3xl font-bold text-cyan-500">VS</div>
+
+                <div class="bg-cyan-50 border-2 border-cyan-200 p-6 rounded-xl w-full md:w-1/2 h-80 flex flex-col justify-center items-center text-center shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-cyan-200 text-cyan-800 text-xs px-2 py-1 rounded-bl">Sucesso Comprovado</div>
+                    <h3 class="text-xl font-bold text-cyan-800 mb-2">Primeiros Princípios (Islândia)</h3>
+                    <p class="text-cyan-700 font-medium">"Por que o jovem usa droga? (Química cerebral/Tédio)"</p>
+                    <div class="text-2xl my-3 text-cyan-400">⬇️</div>
+                    <p class="font-bold text-green-600">Solução Fundamental:</p>
+                    <p class="text-sm text-cyan-700 px-4">"Oferecer uma mudança química natural: Esportes, música, tempo em família e tickets culturais."</p>
+                    <p class="text-xs text-cyan-600 mt-4 italic">Resultado: Redução drástica do uso de substâncias.</p>
+                </div>
+            </div>
+
+            <!-- Content Container: Corruption (Hidden) -->
+            <div id="fp-corruption" class="hidden flex flex-col md:flex-row gap-6 items-center justify-center transition-opacity duration-500">
+                <div class="bg-slate-100 p-6 rounded-xl w-full md:w-1/2 h-96 flex flex-col justify-center items-center text-center border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-500 mb-2">Pensamento Tradicional (Analogia)</h3>
+                    <p class="text-slate-600 font-medium">"O Estado falha na segurança por falta de recursos."</p>
+                    <div class="text-2xl my-3 text-slate-400">⬇️</div>
+                    <p class="font-bold text-red-600">Ação Padrão:</p>
+                    <p class="text-sm text-slate-600 px-4">"Aumentar o orçamento da polícia e comprar mais viaturas."</p>
+                    <div class="mt-4 bg-red-100 p-2 rounded text-xs text-red-800 border border-red-200 w-full">
+                        <strong>Falha Crítica:</strong> Em um sistema corrupto, mais recursos = mais desvio. O dinheiro financia a própria criminalidade (armas desviadas).
+                    </div>
+                </div>
+
+                <div class="hidden md:block text-3xl font-bold text-purple-500">VS</div>
+
+                <div class="bg-purple-50 border-2 border-purple-200 p-6 rounded-xl w-full md:w-1/2 h-96 flex flex-col justify-center items-center text-center shadow-lg relative">
+                    <div class="absolute top-0 right-0 bg-purple-200 text-purple-800 text-xs px-2 py-1 rounded-bl">Inovação Institucional</div>
+                    <h3 class="text-xl font-bold text-purple-800 mb-2">Primeiros Princípios (Governança)</h3>
+                    <p class="text-purple-700 font-medium">"A corrupção prospera na opacidade e no monopólio da decisão."</p>
+                    <div class="text-2xl my-3 text-purple-400">⬇️</div>
+                    <p class="font-bold text-green-600">Solução Fundamental:</p>
+                    <ul class="text-sm text-purple-700 text-left list-disc pl-6 space-y-2">
+                        <li><strong>Transparência Radical:</strong> Blockchain para rastrear cada centavo do orçamento de segurança (Auditoria Algorítmica).</li>
+                        <li><strong>Abordagem Administrativa:</strong> Cortar contratos com empresas de fachada via cruzamento de dados fiscais (Zero Trust).</li>
+                        <li><strong>Controle Social:</strong> Descentralizar a fiscalização para conselhos comunitários locais.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Pareto Section (UPDATED) -->
+        <section id="pareto" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-red-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">6. Foco Financeiro: Pareto e a "Economia Lícita" do Crime</h2>
+                <p class="text-slate-600 mt-1">Regra 80/20: Onde está o dinheiro real? (Bets, Fintechs, Imobiliário)</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <p class="mb-4 text-slate-700 leading-relaxed text-sm">
+                        Em 2025, a Polícia Federal apreendeu um recorde de <strong>R$ 9,6 bilhões</strong> (aumento de 64% em relação a 2024). A análise de Pareto revela um dado crucial: a grande maioria desse valor (80%) não vem do "tráfico de rua", mas da infiltração em setores da economia formal.
+                    </p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-bold text-slate-800 text-sm mb-2">Onde os "20% Vitais" estão escondidos:</h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                            <li><strong>Bets e Jogos:</strong> Lavagem de alta velocidade e baixo rastreio.</li>
+                            <li><strong>Fintechs:</strong> Movimentação digital fracionada.</li>
+                            <li><strong>Setor de Serviços:</strong> Postos de gasolina, transporte urbano e coleta de lixo (contratos públicos).</li>
+                            <li><strong>Imobiliário:</strong> Construção civil para lavar grandes montantes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded border-l-4 border-green-500">
+                        <h4 class="font-bold text-green-800 flex items-center gap-2">
+                            <span>🔄</span> Ciclo Virtuoso de Gestão de Ativos
+                        </h4>
+                        <p class="text-xs text-green-800 mt-1 mb-2">
+                            O dinheiro do crime financiando a polícia. Em 2024/2025, R$ 7,4 milhões em bens alienados foram reinvestidos diretamente em:
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs font-semibold text-green-700">
+                            <span class="bg-green-100 px-2 py-1 rounded">🔬 Perícia Criminal (DNA/Drogas)</span>
+                            <span class="bg-green-100 px-2 py-1 rounded">🛡️ Equipamentos de Proteção</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="chart-wrapper">
+                        <canvas id="paretoChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-2">Estimativa proporcional baseada em padrões de lavagem de dinheiro (2025).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Leadership Section -->
+        <section id="lideranca" class="bg-white rounded-xl shadow-md p-6 md:p-8 fade-in">
+            <div class="border-l-4 border-indigo-500 pl-4 mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">7. Liderança em Crise: Six Hats (O Inimigo Interno)</h2>
+                <p class="text-slate-600 mt-1">Gerenciando a crise de infiltração e corrupção institucional.</p>
+            </div>
+
+            <p class="mb-6 text-slate-700">
+                Quando o crime organizado se infiltra no sistema de justiça e segurança, a crise não é mais externa, mas existencial. Os "Seis Chapéus" ajudam a navegar no campo minado da contra-inteligência e da purga interna.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+                <button onclick="showHat('white')" class="bg-white border border-slate-300 text-slate-700 py-2 rounded hover:bg-slate-100 font-bold transition">⚪ Branco</button>
+                <button onclick="showHat('red')" class="bg-red-100 border border-red-300 text-red-700 py-2 rounded hover:bg-red-200 font-bold transition">🔴 Vermelho</button>
+                <button onclick="showHat('black')" class="bg-gray-800 border border-gray-900 text-white py-2 rounded hover:bg-gray-700 font-bold transition">⚫ Preto</button>
+                <button onclick="showHat('yellow')" class="bg-yellow-100 border border-yellow-300 text-yellow-800 py-2 rounded hover:bg-yellow-200 font-bold transition">🟡 Amarelo</button>
+                <button onclick="showHat('green')" class="bg-green-100 border border-green-300 text-green-800 py-2 rounded hover:bg-green-200 font-bold transition">🟢 Verde</button>
+                <button onclick="showHat('blue')" class="bg-blue-100 border border-blue-300 text-blue-800 py-2 rounded hover:bg-blue-200 font-bold transition">🔵 Azul</button>
+            </div>
+
+            <div id="hat-display" class="bg-slate-50 p-6 rounded-lg border-2 border-dashed border-slate-300 text-center min-h-[150px] flex items-center justify-center">
+                <p class="text-slate-500 italic">Clique em um chapéu acima para ver a perspectiva estratégica sobre infiltração.</p>
+            </div>
+        </section>
+
+        <!-- 8. AI Assistant Section (Enhanced Feature) -->
+        <section id="ai-assistant" class="bg-indigo-50 rounded-xl shadow-lg p-6 md:p-8 fade-in border border-indigo-100">
+            <div class="border-l-4 border-indigo-600 pl-4 mb-6 flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">✨ Assistente Estratégico com IA</h2>
+                    <p class="text-slate-600 mt-1">Utilize a Inteligência Artificial Gemini para simular cenários, analisar causas raiz e gerar planos táticos em tempo real.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Input Area -->
+                <div class="w-full lg:w-1/3 space-y-4">
+                    <label for="scenarioInput" class="block text-sm font-medium text-slate-700">Descreva o Cenário ou Objetivo:</label>
+                    <textarea id="scenarioInput" rows="6" class="w-full p-4 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition shadow-sm resize-none" placeholder="Ex: Operação policial na Comunidade X para combater o tráfico de drogas... OU Crise de imagem após ação policial..."></textarea>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="runAiAnalysis('ooda')" class="flex items-center justify-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm">
+                            <span>🔄</span> Ciclo OODA
+                        </button>
+                        <button onclick="runAiAnalysis('sixhats')" class="flex items-center justify-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm">
+                            <span>🎩</span> 6 Chapéus
+                        </button>
+                        <button onclick="runAiAnalysis('fivewhys')" class="flex items-center justify-center gap-1 bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm">
+                            <span>❓</span> 5 Porquês (Causa Raiz)
+                        </button>
+                        <button onclick="runAiAnalysis('5w2h')" class="flex items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm">
+                            <span>📋</span> Gerar Plano 5W2H
+                        </button>
+                        <button onclick="runAiAnalysis('redteam')" class="flex items-center justify-center gap-1 bg-red-700 hover:bg-red-800 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm col-span-1">
+                            <span>👹</span> Red Team (Inimigo)
+                        </button>
+                        <button onclick="runAiAnalysis('press')" class="flex items-center justify-center gap-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm col-span-1">
+                            <span>📢</span> Nota à Imprensa
+                        </button>
+                        <button onclick="runAiAnalysis('counterintel')" class="flex items-center justify-center gap-1 bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm col-span-1 border border-slate-600">
+                            <span>🕵️</span> Contra-Inteligência
+                        </button>
+                        <button onclick="runAiAnalysis('corruptionrisk')" class="flex items-center justify-center gap-1 bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm col-span-1">
+                            <span>💸</span> Risco de Corrupção
+                        </button>
+                        <button onclick="runAiAnalysis('premortem')" class="flex items-center justify-center gap-1 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm col-span-1">
+                            <span>💀</span> Pre-Mortem
+                        </button>
+                        <button onclick="runAiAnalysis('leadership')" class="flex items-center justify-center gap-1 bg-cyan-700 hover:bg-cyan-800 text-white text-sm font-semibold py-3 px-2 rounded-lg transition shadow-sm col-span-1">
+                            <span>🗣️</span> Discurso Líder
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 italic mt-2 text-center">IA Gemini treinada em metodologias de gestão.</p>
+                </div>
+
+                <!-- Output Area -->
+                <div class="w-full lg:w-2/3">
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Resultado da Análise:</label>
+                    <div id="aiOutput" class="w-full h-[500px] p-6 rounded-lg bg-white border border-slate-200 overflow-y-auto prose max-w-none text-slate-700 shadow-inner">
+                        <div class="flex flex-col items-center justify-center h-full text-slate-400">
+                            <svg class="w-12 h-12 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <p>Selecione uma ferramenta estratégica para começar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Grid -->
+        <section class="bg-slate-800 text-white rounded-xl shadow-lg p-6 md:p-8 fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-center">Quadro Resumo: Dados e Ações (Brasil 2025/2026)</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-separate border-spacing-0 rounded-lg overflow-hidden">
+                    <thead>
+                        <tr class="bg-slate-700">
+                            <th class="p-4 border-b border-slate-600">Metodologia</th>
+                            <th class="p-4 border-b border-slate-600">Dado Crítico (Relatórios)</th>
+                            <th class="p-4 border-b border-slate-600">Aplicação Estratégica</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm bg-slate-800">
+                        <tr>
+                            <td class="p-4 border-b border-slate-700 font-bold text-blue-400">OODA Loop</td>
+                            <td class="p-4 border-b border-slate-700">Interiorização do Crime (Atlas)</td>
+                            <td class="p-4 border-b border-slate-700">Antecipar rotas em cidades médias antes que as facções se estabeleçam.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-700 font-bold text-red-400">Pareto (80/20)</td>
+                            <td class="p-4 border-b border-slate-700">R$ 9,6 Bi apreendidos (2025)</td>
+                            <td class="p-4 border-b border-slate-700">Focar nos ativos financeiros de alto valor para asfixiar a operação.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-700 font-bold text-amber-400">PESTEL</td>
+                            <td class="p-4 border-b border-slate-700">26% Pop. sob regras de facções</td>
+                            <td class="p-4 border-b border-slate-700">Reconhecer a governança criminal e competir por legitimidade (serviços).</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-700 font-bold text-purple-400">5W2H</td>
+                            <td class="p-4 border-b border-slate-700">Foco em Jovens (15-24 anos)</td>
+                            <td class="p-4 border-b border-slate-700">PRONASCI II: Projetos focados na base demográfica do recrutamento.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-700 font-bold text-cyan-400">Primeiros Princípios</td>
+                            <td class="p-4 border-b border-slate-700">Corrupção Sistêmica</td>
+                            <td class="p-4 border-b border-slate-700">Transparência Radical (Blockchain) e Governança Algorítmica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center mt-auto">
+        <p class="text-sm">Desenvolvido com base no cruzamento de dados de Gestão Corporativa e Relatórios de Governança Criminal (2025).</p>
+    </footer>
+
+    <script>
+        // --- Navigation Logic ---
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- First Principles Toggle Logic ---
+        function toggleFirstPrinciples(scenario) {
+            const icelandDiv = document.getElementById('fp-iceland');
+            const corruptionDiv = document.getElementById('fp-corruption');
+            const btnIceland = document.getElementById('btn-iceland');
+            const btnCorruption = document.getElementById('btn-corruption');
+
+            if (scenario === 'iceland') {
+                icelandDiv.classList.remove('hidden');
+                corruptionDiv.classList.add('hidden');
+                
+                // Style Active Button
+                btnIceland.classList.add('bg-cyan-600', 'text-white', 'shadow-md');
+                btnIceland.classList.remove('bg-slate-200', 'text-slate-600', 'shadow-sm');
+                
+                // Style Inactive Button
+                btnCorruption.classList.add('bg-slate-200', 'text-slate-600', 'shadow-sm');
+                btnCorruption.classList.remove('bg-purple-600', 'text-white', 'shadow-md');
+            } else {
+                icelandDiv.classList.add('hidden');
+                corruptionDiv.classList.remove('hidden');
+                
+                // Style Active Button
+                btnCorruption.classList.add('bg-purple-600', 'text-white', 'shadow-md');
+                btnCorruption.classList.remove('bg-slate-200', 'text-slate-600', 'shadow-sm');
+                
+                // Style Inactive Button
+                btnIceland.classList.add('bg-slate-200', 'text-slate-600', 'shadow-sm');
+                btnIceland.classList.remove('bg-cyan-600', 'text-white', 'shadow-md');
+            }
+        }
+
+        // --- OODA Interactive Logic (SECTORIAL EXPANSION) ---
+        const oodaSectors = {
+            territory: {
+                observe: "Dados do Atlas 2025: Monitorar manchas criminais em médias cidades. Uso da IA 'Crime Nabi' para predição.",
+                orient: "Entender a dinâmica do 'Novo Cangaço' e a disputa territorial. O crime busca cidades com menor aparato policial.",
+                decide: "Implementar Policiamento Orientado por Problemas (POP) e Hotspot Policing. Decisão estratégica: Saturação em áreas de disputa.",
+                act: "Operações integradas (Civil/Militar/Federal). Bloqueio de rotas de fuga e cerco logístico ('Muralha').",
+                icon: "🏙️",
+                title: "Cenário: Território & Cidades",
+                desc: "Foco na interiorização da violência e combate ao domínio territorial."
+            },
+            finance: {
+                observe: "Rastrear movimentações atípicas em Fintechs, Crypto e Bets. Monitorar empresas de fachada (postos, transporte).",
+                orient: "O crime age como holding empresarial. O lucro 'limpo' é o oxigênio da facção. A fachada legal é o ponto fraco.",
+                decide: "Abordagem Administrativa: Cassar alvarás e licenças sem esperar condenação penal.",
+                act: "Bloqueio judicial relâmpago de bens. Alienação antecipada e reinvestimento na polícia (Ciclo Virtuoso).",
+                icon: "💸",
+                title: "Cenário: Finanças & Lavagem",
+                desc: "Asfixia financeira focada em R$ 9,6 bi de ativos ilícitos."
+            },
+            social: {
+                observe: "Monitorar evasão escolar e desemprego jovem (15-24 anos) em áreas vulneráveis.",
+                orient: "Jovens buscam pertencimento e status. O crime oferece 'carreira' onde o Estado falha.",
+                decide: "Competir pela juventude. Investir em prevenção primária (PRONASCI II).",
+                act: "Centros CONVIVES, Bolsa-Formação e projetos culturais para ocupar o tempo ocioso.",
+                icon: "🎓",
+                title: "Cenário: Social & Juventude",
+                desc: "Prevenção ao recrutamento de jovens pelo crime organizado."
+            },
+            amazon: {
+                observe: "Imagens de satélite (SWOT/Landsat) para identificar pistas clandestinas e desmatamento.",
+                orient: "Convergência entre narcotráfico e crime ambiental (Narco-garimpo). Rota de escoamento internacional.",
+                decide: "Soberania Híbrida: Forças Armadas + PF em operações de GLO e ambientais.",
+                act: "Destruição de maquinário no local, bloqueio de rios e controle de fronteiras.",
+                icon: "🌿",
+                title: "Cenário: Fronteiras & Amazônia",
+                desc: "Combate ao narco-garimpo e controle de rotas transnacionais."
+            },
+            prison: {
+                observe: "Análise de vínculos e comunicação entre presos. Monitoramento de advogados 'pombos-correio'.",
+                orient: "Presídios são QGs de comando, não depósitos. A superlotação fortalece a facção.",
+                decide: "Racionalidade Penal: Isolar lideranças (RDD) e ressocializar a massa carcerária (trabalho/estudo).",
+                act: "Bloqueadores de sinal, separação rigorosa de facções e remição de pena por trabalho.",
+                icon: "🔒",
+                title: "Cenário: Sistema Prisional",
+                desc: "Neutralização do comando intra-muros e redução da reincidência."
+            }
+        };
+
+        function selectOodaSector(sector) {
+            const data = oodaSectors[sector];
+            
+            // Update Text in Cards
+            document.getElementById('ooda-observe-text').innerText = data.observe;
+            document.getElementById('ooda-orient-text').innerText = data.orient;
+            document.getElementById('ooda-decide-text').innerText = data.decide;
+            document.getElementById('ooda-act-text').innerText = data.act;
+
+            // Update Detail Box
+            document.getElementById('ooda-detail-icon').innerText = data.icon;
+            document.getElementById('ooda-detail-title').innerText = data.title;
+            document.getElementById('ooda-detail-desc').innerText = data.desc;
+
+            // Update Button Styles
+            const buttons = document.querySelectorAll('.ooda-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-blue-100', 'text-blue-800', 'ring-blue-400');
+                btn.classList.add('bg-slate-100', 'text-slate-600', 'ring-slate-400');
+            });
+            const activeBtn = document.getElementById(`btn-${sector}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-600', 'ring-slate-400');
+            activeBtn.classList.add('bg-blue-100', 'text-blue-800', 'ring-blue-400');
+        }
+
+        // Initialize OODA with Territory
+        selectOodaSector('territory');
+
+
+        // --- PESTEL Interactive Logic (NEW) ---
+        const pestelData = {
+            politico: {
+                title: "🏛️ Político: O Duopólio da Violência",
+                problem: "O Brasil enfrenta um 'Duopólio da Violência' onde facções e milícias exercem soberania paralela. A legislação recente tenta tipificar o 'domínio social estruturado' como crime específico, mas a vontade política para implementar o 'Administrative Approach' (negar acesso do crime a serviços estatais) ainda é incipiente.",
+                solution: "Solução Estratégica: Implementar a Abordagem Administrativa (Modelo Europeu/Holandês). Prefeituras e órgãos reguladores devem cassar alvarás e negar contratos a empresas ligadas ao crime, removendo a fachada de legalidade, independente de condenação criminal (foco na prevenção administrativa)."
+            },
+            economico: {
+                title: "💰 Econômico: A Lavagem em Escala Industrial",
+                problem: "A apreensão recorde de R$ 9,6 bilhões (PF, 2025) revela a sofisticação da lavagem. O crime não está apenas no tráfico; está em Bets, Fintechs, Postos de Gasolina e no Transporte Público, financiando campanhas e corrompendo o tecido econômico formal.",
+                solution: "Solução Estratégica: Ciclo Virtuoso de Gestão de Ativos. Acelerar a alienação antecipada de bens (como feito em 2024/25, gerando R$ 7,4 mi para a polícia) e investir massivamente em tecnologia de rastreio financeiro (Big Data/IA) para identificar padrões de lavagem em tempo real nas Fintechs e Bets."
+            },
+            social: {
+                title: "👥 Social: Governança de 26% da População",
+                problem: "Com 26% da população (50M+ pessoas) sob regras de facções, o Estado perdeu a legitimidade em vastos territórios. O crime oferece 'ordem' e 'justiça' onde o Estado oferece apenas repressão intermitente. A interiorização da violência leva esse modelo para cidades médias.",
+                solution: "Solução Estratégica: PRONASCI II e Modelo Islandês. O Estado deve competir por legitimidade oferecendo serviços superiores. Foco total na juventude (15-24 anos) com bolsas e centros comunitários (CONVIVES) para quebrar a base de recrutamento, tratando a segurança como cidadania, não apenas polícia."
+            },
+            tecnologico: {
+                title: "📡 Tecnológico: A Corrida Armamentista Digital",
+                problem: "Facções utilizam drones para monitoramento e entrega, criptoativos para pagamentos anônimos e redes sociais para recrutamento. O Estado muitas vezes reage com ferramentas analógicas e burocracia lenta.",
+                solution: "Solução Estratégica: Adoção de IA Preditiva (ex: 'Crime Nabi' japonês, já em teste no Brasil) para otimizar patrulhamento. Uso intensivo de câmeras corporais e reconhecimento facial integrado para reduzir a letalidade e aumentar a produção de provas técnicas irrefutáveis."
+            },
+            ambiental: {
+                title: "🌿 Ambiental: O Narcotráfico na Amazônia",
+                problem: "A Amazônia Legal tornou-se rota crítica para o narcotráfico global, convergindo com crimes ambientais (garimpo/madeira). A vastidão do território dificulta o patrulhamento convencional.",
+                solution: "Solução Estratégica: Soberania Híbrida e Satélite. Integração total entre Forças Armadas (SIVAM) e Polícia Federal para monitoramento via satélite. Bloqueio financeiro de empresas que compram 'ouro sujo' ou madeira ilegal, tratando o crime ambiental como crime financeiro de alta periculosidade."
+            },
+            legal: {
+                title: "⚖️ Legal: Arcabouço Contra o Domínio",
+                problem: "Leis antigas focavam apenas no indivíduo ou na droga apreendida, ignorando a estrutura de poder territorial ('governança'). A impunidade de líderes e a comunicação de dentro dos presídios perpetuam o comando.",
+                solution: "Solução Estratégica: Tipificação do 'Domínio Social Estruturado' e RDD Financeiro. Isolar comunicativamente as lideranças (Racionalidade Penal do PRONASCI) e aplicar a perda de bens como pena principal, não acessória. Fortalecer a cooperação jurídica internacional para confisco de bens no exterior."
+            }
+        };
+
+        function updatePestel(factor) {
+            const content = pestelData[factor];
+            const container = document.getElementById('pestel-content');
+            
+            container.innerHTML = `
+                <div class="animate-fade-in-up">
+                    <h3 class="text-xl font-bold text-amber-900 mb-2">${content.title}</h3>
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                            <h4 class="font-bold text-red-800 text-sm uppercase mb-1">Diagnóstico (O Problema)</h4>
+                            <p class="text-slate-700 text-sm">${content.problem}</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+                            <h4 class="font-bold text-green-800 text-sm uppercase mb-1">Proposta (A Solução)</h4>
+                            <p class="text-slate-700 text-sm">${content.solution}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Six Hats Logic (Updated Examples for Infiltration/Corruption) ---
+        const hatContent = {
+            white: { title: "Chapéu Branco (Fatos Sombrios)", text: "Fato: Operações vazam sistematicamente. Fato: 21% dos bairros têm 'segurança privada' irregular (milícia). Há evidências de decisões judiciais anômalas favorecendo líderes." },
+            red: { title: "Chapéu Vermelho (Paranoia)", text: "Clima de paranoia interna ('quem é o traidor?'). Moral da tropa honesta está destruída. Medo de represália interna (fogo amigo) é maior que o medo do bandido." },
+            black: { title: "Chapéu Preto (Riscos Extremos)", text: "Purgar a corrupção pode gerar motins policiais ou paralisação do sistema (efeito 'Greve de 2017'). O crime pode usar seus infiltrados para criar caos social como chantagem." },
+            yellow: { title: "Chapéu Amarelo (Oportunidade)", text: "Limpar a casa restaura a autoridade moral. Tecnologia (Bodycams/IA) não se corrompe. Recuperar um batalhão chave tem efeito multiplicador na confiança pública." },
+            green: { title: "Chapéu Verde (Os Intocáveis)", text: "Solução 'Intocáveis': Criar força-tarefa federal isolada, com vetting financeiro contínuo e mandatos curtos. Usar 'armadilhas de canário' (informação falsa) para identificar vazadores." },
+            blue: { title: "Chapéu Azul (Controle de Danos)", text: "Protocolo de Crise Institucional: 1. Compartimentar inteligência (Need-to-know). 2. Acionar corregedoria externa. 3. Monitorar patrimônio de agentes em tempo real." }
+        };
+
+        function showHat(color) {
+            const display = document.getElementById('hat-display');
+            const data = hatContent[color];
+            
+            // Color mapping for styles
+            const bgColors = {
+                white: 'bg-white', red: 'bg-red-50', black: 'bg-gray-100', 
+                yellow: 'bg-yellow-50', green: 'bg-green-50', blue: 'bg-blue-50'
+            };
+            const textColors = {
+                white: 'text-slate-800', red: 'text-red-800', black: 'text-gray-900',
+                yellow: 'text-yellow-800', green: 'text-green-800', blue: 'text-blue-800'
+            };
+
+            display.className = `p-6 rounded-lg border shadow-sm transition-all duration-300 ${bgColors[color]} ${textColors[color]}`;
+            display.innerHTML = `<h4 class="text-xl font-bold mb-2">${data.title}</h4><p class="text-lg">${data.text}</p>`;
+        }
+
+        // --- 5W2H Interactive Logic ---
+        const pronasciData = {
+            mulher: {
+                what: "Combate à Violência contra a Mulher",
+                why: "Feminicídios são a ponta do iceberg da cultura de violência doméstica.",
+                where: "Municípios prioritários e áreas de fronteira.",
+                when: "Biênio 2023-2024 (Ações imediatas e continuadas).",
+                who: "MJSP, Prefeituras, ONGs e Segurança Pública.",
+                how: "Casas da Mulher Brasileira e Patrulhas Maria da Penha.",
+                cost: "Parte dos R$ 1,37 bilhão (investimento prioritário)."
+            },
+            territorios: {
+                what: "Foco em Territórios Vulneráveis (PRONASCI)",
+                why: "Disputar a juventude com o crime organizado em áreas críticas.",
+                where: "163 municípios que concentram 50% das mortes violentas.",
+                when: "Longo prazo (prevenção primária).",
+                who: "Articulação Interministerial (Segurança + Social).",
+                how: "Centros Comunitários pela Vida (CONVIVES) e editais culturais.",
+                cost: "R$ 30 milhões em editais culturais (exemplo)."
+            },
+            juventude: {
+                what: "Bolsa-Formação e Projetos Jovens",
+                why: "Reduzir o recrutamento de jovens (15-24 anos), principais vítimas e autores.",
+                where: "Áreas de baixo IDH e alta criminalidade.",
+                when: "Ciclos de formação contínua.",
+                who: "Institutos Federais e Sistema S.",
+                how: "Capacitação profissional e bolsas de estudo.",
+                cost: "Bolsas de ~R$ 900,00 (valor base estimado)."
+            },
+            ensino: {
+                what: "Bolsa-Formação para Agentes de Segurança",
+                why: "Valorização profissional e atualização técnica (uso da força, direitos humanos).",
+                where: "Todo o território nacional (EAD e presencial).",
+                when: "Fluxo contínuo mediante edital.",
+                who: "SENASP e Escolas de Governo.",
+                how: "Cursos de especialização e mestrado.",
+                cost: "Investimento direto no CPF do agente (salário indireto)."
+            },
+            penal: {
+                what: "Trabalho e Educação Prisional",
+                why: "Reduzir a reincidência e o poder das facções nos presídios.",
+                where: "Sistema Penitenciário Federal e Estadual.",
+                when: "Meta até 2030.",
+                who: "DEPEN e parceiros privados.",
+                how: "Oficinas de trabalho (remição de pena) e EJA.",
+                cost: "Isenção fiscal para empresas parceiras + Fundo Penitenciário."
+            }
+        };
+
+        function update5w2h(axis) {
+            const content = pronasciData[axis];
+            const container = document.getElementById('5w2h-content');
+            
+            container.innerHTML = `
+                <div class="animate-fade-in-up">
+                    <h3 class="text-xl font-bold text-purple-800 mb-4 flex items-center gap-2">
+                        <span>🎯</span> ${content.what}
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-700">
+                        <div class="bg-white p-3 rounded shadow-sm border border-purple-100">
+                            <strong class="block text-purple-600 text-xs uppercase mb-1">Why (Por que?)</strong>
+                            ${content.why}
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm border border-purple-100">
+                            <strong class="block text-purple-600 text-xs uppercase mb-1">Where (Onde?)</strong>
+                            ${content.where}
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm border border-purple-100">
+                            <strong class="block text-purple-600 text-xs uppercase mb-1">Who (Quem?)</strong>
+                            ${content.who}
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm border border-purple-100">
+                            <strong class="block text-purple-600 text-xs uppercase mb-1">How (Como?)</strong>
+                            ${content.how}
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm border border-purple-100 col-span-1 md:col-span-2">
+                            <strong class="block text-purple-600 text-xs uppercase mb-1">How Much (Quanto?)</strong>
+                            ${content.cost}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Initial load for 5W2H
+        update5w2h('mulher');
+
+        // --- AI Assistant Logic ---
+        const apiKey = ""; // System populates this
+
+        async function runAiAnalysis(mode) {
+            const input = document.getElementById('scenarioInput').value;
+            const outputDiv = document.getElementById('aiOutput');
+
+            if (!input.trim()) {
+                outputDiv.innerHTML = `<p class="text-red-500 font-semibold text-center mt-10">Por favor, descreva um cenário antes de solicitar a análise.</p>`;
+                return;
+            }
+
+            // Show loading state
+            outputDiv.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full text-indigo-600">
+                    <div class="typing-indicator mb-2"><span></span><span></span><span></span></div>
+                    <p class="text-sm font-semibold">O Consultor Virtual está processando...</p>
+                </div>
+            `;
+
+            let prompt = "";
+            
+            if (mode === 'ooda') {
+                prompt = `Atue como um estrategista sênior de segurança pública. Analise o seguinte cenário sob a ótica do Ciclo OODA (John Boyd): "${input}". Gere HTML limpo com: 
+                <h3>👁️ Observar</h3> (Dados a coletar), 
+                <h3>🧠 Orientar</h3> (Contexto criminal/cultural), 
+                <h3>⚖️ Decidir</h3> (Hipóteses de ação), 
+                <h3>⚡ Agir</h3> (Ação tática).`;
+                
+            } else if (mode === 'sixhats') {
+                prompt = `Atue como um gestor de crises. Analise: "${input}" usando os Seis Chapéus de De Bono. Gere HTML limpo com:
+                <h3>⚪ Branco (Fatos)</h3>, 
+                <h3>🔴 Vermelho (Emoções)</h3>, 
+                <h3>⚫ Preto (Riscos)</h3>, 
+                <h3>🟡 Amarelo (Benefícios)</h3>, 
+                <h3>🟢 Verde (Ideias)</h3>, 
+                <h3>🔵 Azul (Controle)</h3>.`;
+                
+            } else if (mode === 'fivewhys') {
+                prompt = `Atue como um especialista em melhoria contínua (Lean/Six Sigma). Aplique a técnica dos "5 Porquês" para encontrar a Causa Raiz do seguinte problema de segurança pública: "${input}".
+                
+                Gere uma resposta em HTML estruturada como uma lista numerada, aprofundando a cada nível, e termine com um bloco de destaque para a Causa Raiz e uma Contramedida sugerida.`;
+                
+            } else if (mode === '5w2h') {
+                prompt = `Atue como um gerente de projetos do PRONASCI. Crie um Plano de Ação 5W2H detalhado para o seguinte objetivo: "${input}".
+                
+                Gere uma resposta em HTML contendo uma tabela bem formatada com as colunas: What (O que), Why (Por que), Where (Onde), When (Quando), Who (Quem), How (Como), How Much (Quanto). Seja realista com base no contexto brasileiro de segurança pública.`;
+            } else if (mode === 'redteam') {
+                prompt = `Atue como uma equipe vermelha (Red Team) simulando a resposta de uma facção criminal. Analise a medida de segurança proposta: "${input}". 
+                
+                Com base na teoria da 'Governança Criminal' e 'Arquitetura da Resiliência', gere uma resposta em HTML identificando 3 falhas na proposta e descrevendo como o crime se adaptaria (ex: deslocamento de rotas, corrupção, mudança de modus operandi).`;
+            } else if (mode === 'press') {
+                prompt = `Atue como um Secretário de Segurança Pública utilizando Inteligência Emocional. Redija uma nota oficial para a imprensa sobre a situação: "${input}". 
+                
+                Gere uma resposta em HTML com a nota formatada. A nota deve demonstrar: 
+                1. Empatia com as vítimas (se houver), 
+                2. Transparência sobre os fatos, 
+                3. Autoridade e controle da situação. 
+                Use uma linguagem corporativa, sóbria e focada na ordem pública.`;
+            } else if (mode === 'counterintel') {
+                prompt = `Atue como um chefe de Corregedoria e Contra-Inteligência. Desenvolva um plano para identificar vazamentos de informações e infiltrados no cenário: "${input}".
+                
+                Utilize técnicas como 'Armadilhas de Canário' (Canary Traps), análise de padrões de vida e compartimentação de dados.
+                Gere uma resposta em HTML com um protocolo passo-a-passo, focado em limpar a instituição sem causar colapso operacional.`;
+            } else if (mode === 'corruptionrisk') {
+                prompt = `Atue como um auditor de riscos institucionais usando "Primeiros Princípios". Analise o processo ou departamento descrito em: "${input}".
+                
+                Identifique onde a discricionariedade humana cria oportunidades para corrupção. Proponha uma solução estrutural baseada em tecnologia (ex: Blockchain, automação) ou redesenho de processo que elimine a oportunidade de desvio, não apenas a punição posterior.`;
+            } else if (mode === 'premortem') {
+                prompt = `Atue como um estrategista usando o modelo mental de 'Inversão' (Pre-Mortem). Imagine que a operação ou iniciativa descrita em "${input}" foi realizada e, 6 meses depois, foi considerada um fracasso total.
+                
+                Gere uma resposta em HTML descrevendo a 'autópsia' desse fracasso hipotético. Identifique:
+                1. O ponto cego que foi ignorado.
+                2. A reação inesperada do crime organizado.
+                3. A falha na execução ou no planejamento.
+                O objetivo é antecipar erros catastróficos antes que eles ocorram.`;
+            } else if (mode === 'leadership') {
+                prompt = `Atue como um Comandante-Geral dirigindo-se à sua tropa. Escreva um discurso de liderança inspirador e técnico para preparar os policiais para o cenário: "${input}".
+                
+                Utilize os princípios de Inteligência Emocional de Daniel Goleman:
+                1. Valide o sentimento da tropa (medo, frustração, cansaço).
+                2. Reforce o propósito maior da missão (proteger a sociedade, não apenas 'dar tiro').
+                3. Transmita confiança técnica e operacional.
+                Gere uma resposta em HTML com o texto do discurso, usando tom solene, motivador e profissional.`;
+            }
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0].content) {
+                    const aiText = data.candidates[0].content.parts[0].text;
+                    const htmlContent = marked.parse(aiText);
+                    outputDiv.innerHTML = htmlContent;
+                } else {
+                    throw new Error('Sem resposta da IA');
+                }
+
+            } catch (error) {
+                console.error("Erro na API:", error);
+                outputDiv.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-red-500">
+                        <p class="font-bold">Erro na conexão com o estrategista virtual.</p>
+                        <p class="text-sm">Verifique sua chave de API ou tente novamente.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // --- Chart.js Implementations ---
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. PDCA Efficiency Chart
+            const ctxPdca = document.getElementById('pdcaChart').getContext('2d');
+            new Chart(ctxPdca, {
+                type: 'line',
+                data: {
+                    labels: ['2021', '2022', '2023', '2024', '2025'],
+                    datasets: [
+                        {
+                            label: 'Taxa de Reincidência (Defeito)',
+                            data: [70, 68, 60, 50, 40],
+                            borderColor: '#ef4444', 
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            yAxisID: 'y',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Índice de Eficiência DEA (Ressocialização)',
+                            data: [30, 35, 45, 60, 75],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            yAxisID: 'y1',
+                            tension: 0.4,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        title: { display: true, text: 'Correlação: Eficiência de Gestão vs Reincidência' },
+                        tooltip: { callbacks: { label: function(context) { return context.dataset.label + ': ' + context.parsed.y + '%'; } } }
+                    },
+                    scales: {
+                        y: { type: 'linear', display: true, position: 'left', title: { display: true, text: '% Reincidência' } },
+                        y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Índice DEA' } }
+                    }
+                }
+            });
+
+            // 2. Pareto Chart
+            const ctxPareto = document.getElementById('paretoChart').getContext('2d');
+            new Chart(ctxPareto, {
+                type: 'bar',
+                data: {
+                    labels: ['Fintechs & Cripto', 'Imobiliário & Construção', 'Bets & Jogos', 'Logística & Combustível', 'Varejo de Drogas', 'Pequenos Delitos'],
+                    datasets: [
+                        {
+                            label: 'Volume Financeiro Apreendido (Proporcional)',
+                            data: [35, 25, 20, 15, 4, 1], // Hypothetical distribution based on "White Collar" focus
+                            backgroundColor: [
+                                '#3b82f6', // Blue (Fintech)
+                                '#8b5cf6', // Purple (Real Estate)
+                                '#10b981', // Green (Bets)
+                                '#f59e0b', // Amber (Logistics)
+                                '#ef4444', // Red (Street Drugs - Low Value)
+                                '#64748b'  // Slate (Small Crimes)
+                            ],
+                            order: 2
+                        },
+                        {
+                            label: '% Acumulada de Impacto Financeiro',
+                            data: [35, 60, 80, 95, 99, 100],
+                            borderColor: '#1e293b',
+                            backgroundColor: 'transparent',
+                            type: 'line',
+                            order: 1,
+                            yAxisID: 'y1',
+                            tension: 0.1,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: 'Pareto da Lavagem de Dinheiro (Economia Lícita vs Ilícita)' },
+                        tooltip: {
+                            callbacks: {
+                                footer: (tooltipItems) => {
+                                    if(tooltipItems[0].dataIndex <= 2) return "Atenção: Fintechs, Imóveis e Bets somam 80% do fluxo.";
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Volume Financeiro Estimado (%)' } },
+                        y1: { beginAtZero: true, position: 'right', max: 100, title: { display: true, text: '% Acumulada' }, grid: { drawOnChartArea: false } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

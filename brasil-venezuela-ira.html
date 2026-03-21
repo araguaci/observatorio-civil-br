@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasil × Venezuela × Irã — Análise Comparativa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090b;--bg1:#111115;--bg2:#17171d;--bg3:#1f1f27;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);--border3:rgba(255,255,255,0.18);
+  --text:#e4e2db;--text2:#9a9890;--text3:#56544f;
+  --br: #c9553a; /* Brazil */
+  --ve: #c9a83a; /* Venezuela */
+  --ir: #4c8ec9; /* Iran */
+  --danger:#c94c4c;--warn:#c97c3a;--ok:#4c9c7a;--info:#4c7bc9;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(9,9,11,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hdr-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text2)}
+.hdr-flags{display:flex;gap:8px;align-items:center}
+.flag-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid}
+.flag-br{border-color:var(--br);color:var(--br);background:rgba(201,85,58,.1)}
+.flag-ve{border-color:var(--ve);color:var(--ve);background:rgba(201,168,58,.1)}
+.flag-ir{border-color:var(--ir);color:var(--ir);background:rgba(76,142,201,.1)}
+.hdr-note{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+
+/* NAV */
+.nav{display:flex;gap:4px;padding:16px 28px 0;flex-wrap:wrap}
+.npill{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:5px 13px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;transition:all .18s;font-family:'Syne',sans-serif}
+.npill:hover{color:var(--text2);border-color:var(--border3)}
+.npill.active{background:var(--text);color:#000;border-color:var(--text)}
+
+/* MAIN */
+.main{padding:20px 28px 48px;display:flex;flex-direction:column;gap:20px}
+
+/* SECTION */
+.sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.sec-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+
+/* VERDICT HERO */
+.verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.verdict-grid{grid-template-columns:1fr}}
+.verdict-card{background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+.verdict-card.primary{grid-column:1/-1;border-color:var(--border2)}
+.vc-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.vc-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3}
+.vc-body{font-size:12px;color:var(--text2);line-height:1.7}
+.vc-accent{position:absolute;top:0;left:0;right:0;height:2px}
+.verdict-meter{margin-top:14px}
+.vm-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:5px}
+.vm-track{height:5px;background:var(--border2);border-radius:3px}
+.vm-fill{height:100%;border-radius:3px;transition:width .4s}
+
+/* COMPARISON TABLE */
+.comp-table{width:100%;border-collapse:collapse;font-size:12px}
+.comp-table th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border2);white-space:nowrap}
+.comp-table th.br{color:var(--br)}
+.comp-table th.ve{color:var(--ve)}
+.comp-table th.ir{color:var(--ir)}
+.comp-table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.5}
+.comp-table td.dim{color:var(--text3);font-weight:600;font-size:11px;white-space:nowrap}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:hover td{background:rgba(255,255,255,.015)}
+.score-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.s-danger{background:rgba(201,76,76,.14);color:#e87a7a;border:1px solid rgba(201,76,76,.22)}
+.s-warn{background:rgba(201,124,58,.14);color:#e8a06a;border:1px solid rgba(201,124,58,.22)}
+.s-ok{background:rgba(76,156,122,.14);color:#6acca0;border:1px solid rgba(76,156,122,.22)}
+.s-gray{background:rgba(255,255,255,.06);color:var(--text2);border:1px solid var(--border2)}
+.s-br{background:rgba(201,85,58,.12);color:#e87a60;border:1px solid rgba(201,85,58,.2)}
+
+/* RADAR */
+.radar-wrap{background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:20px;display:flex;flex-direction:column;align-items:center}
+.radar-legend{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+.rl-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.rl-dot{width:10px;height:10px;border-radius:50%}
+
+/* DIMENSION PANELS */
+.dim-panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.dpanel{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:16px;border-top:2px solid}
+.dp-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.dp-sub{font-size:11px;color:var(--text3);margin-bottom:12px;font-family:'DM Mono',monospace}
+.dp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.dp-flag{font-size:10px;font-weight:700;width:20px;flex-shrink:0;font-family:'DM Mono',monospace}
+.dp-bar-track{flex:1;height:4px;background:var(--border2);border-radius:2px}
+.dp-bar-fill{height:100%;border-radius:2px}
+.dp-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);width:36px;text-align:right;flex-shrink:0}
+.dp-note{font-size:11px;color:var(--text2);line-height:1.55;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+
+/* MECHANISM CARDS */
+.mech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.mcard{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:14px;border-left:3px solid}
+.mcard-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px}
+.mcard-body{font-size:11px;color:var(--text2);line-height:1.6}
+.mcard-footer{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.mf-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;padding:2px 7px;border-radius:3px}
+.mf-br{background:rgba(201,85,58,.12);color:var(--br)}
+.mf-ve{background:rgba(201,168,58,.12);color:var(--ve)}
+.mf-ir{background:rgba(76,142,201,.12);color:var(--ir)}
+
+/* TRAJECTORY */
+.traj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:600px){.traj-grid{grid-template-columns:1fr}}
+.tcard{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:16px;position:relative;overflow:hidden}
+.tcard-num{font-family:'DM Mono',monospace;font-size:36px;font-weight:300;color:var(--border2);position:absolute;top:6px;right:10px;line-height:1}
+.tcard-flag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-family:'DM Mono',monospace}
+.tcard-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.tcard-body{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.tcard-metrics{}
+.tm-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid var(--border);font-size:10px}
+.tm-row:last-child{border-bottom:none}
+.tm-key{color:var(--text3);font-family:'DM Mono',monospace}
+.tm-val{color:var(--text);font-family:'DM Mono',monospace;font-weight:500}
+
+/* QUOTE */
+.qblock{border-left:3px solid var(--border2);padding:12px 18px;background:rgba(255,255,255,.02);border-radius:0 6px 6px 0;font-family:'Libre Baskerville',serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:6px}
+
+/* CONCLUSION */
+.conc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.ccard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px}
+.ccard-title{font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ccard-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.ccard-body{font-size:11px;color:var(--text2);line-height:1.6}
+
+/* SOURCES */
+.src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px}
+.src-card{background:var(--bg1);border:1px solid var(--border);border-radius:6px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;text-decoration:none;transition:border-color .18s}
+.src-card:hover{border-color:var(--border3)}
+.src-type{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 5px;border-radius:3px;flex-shrink:0;margin-top:1px}
+.st-data{background:rgba(76,156,122,.12);color:#6acca0;border:1px solid rgba(76,156,122,.2)}
+.st-news{background:rgba(201,124,58,.12);color:#e8a06a;border:1px solid rgba(201,124,58,.2)}
+.st-acad{background:rgba(76,142,201,.12);color:#7ab0e8;border:1px solid rgba(76,142,201,.2)}
+.st-org{background:rgba(201,85,58,.12);color:#e87a60;border:1px solid rgba(201,85,58,.2)}
+.src-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:1px}
+.src-sub{font-size:10px;color:var(--text3)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.main>div{animation:fadeUp .25s ease both}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-title">Análise comparativa de deterioração institucional</div>
+  <div class="hdr-flags">
+    <div class="flag-pill flag-br">Brasil</div>
+    <div class="flag-pill flag-ve">Venezuela</div>
+    <div class="flag-pill flag-ir">Irã</div>
+  </div>
+  <div class="hdr-note">Dados: TI · WB · GOCI · Freedom House · 2024–2026</div>
+</div>
+
+<div class="nav" id="nav">
+  <button class="npill active" onclick="show('veredicto')">Veredicto</button>
+  <button class="npill" onclick="show('metricas')">Métricas</button>
+  <button class="npill" onclick="show('dimensoes')">Dimensões</button>
+  <button class="npill" onclick="show('mecanismos')">Mecanismos</button>
+  <button class="npill" onclick="show('trajetoria')">Trajetória</button>
+  <button class="npill" onclick="show('conclusao')">Conclusão</button>
+  <button class="npill" onclick="show('fontes')">Fontes</button>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════ VEREDICTO ═══════════════ -->
+<div id="sec-veredicto">
+  <div class="sec-hdr"><span class="sec-label">Veredicto analítico</span><div class="sec-line"></div><span class="sec-tag">resposta direta</span></div>
+
+  <div class="verdict-grid">
+    <div class="verdict-card primary">
+      <div class="vc-accent" style="background:linear-gradient(90deg,var(--br) 40%,var(--ve) 70%,var(--ir) 100%)"></div>
+      <div class="vc-label">Diagnóstico central</div>
+      <div class="vc-title">O Brasil não é Venezuela nem Irã — mas bebe dos dois venenos</div>
+      <div class="vc-body">
+        Em termos de <strong style="color:var(--text)">estrutura de deterioração</strong>, o Brasil está mais próximo da Venezuela: ambos são democracias formais capturadas progressivamente por corrupção sistêmica, crime organizado com capilaridade estatal e insegurança jurídica seletiva. O mecanismo é econômico-institucional, não ideológico-teocrático como no Irã.<br><br>
+        Em termos de <strong style="color:var(--text)">mecanismo psicopolítico</strong>, o Brasil apresenta semelhanças com o Irã: silêncio como estratégia de sobrevivência, narrativa controlada via STF, conformidade forçada via medo de "estar do lado errado", fragmentação da oposição por redirecionamento narrativo.<br><br>
+        A diferença crítica: o Brasil ainda tem <strong style="color:var(--text)">eleições competitivas, imprensa plural e resistência institucional</strong>. Venezuela e Irã perderam isso. O Brasil está em deterioração acelerada — mas não chegou ao ponto de não retorno.
+      </div>
+    </div>
+
+    <div class="verdict-card">
+      <div class="vc-accent" style="background:var(--ve)"></div>
+      <div class="vc-label">Semelhança maior</div>
+      <div class="vc-title">Venezuela — pelo mecanismo</div>
+      <div class="vc-body">Ambos têm democracia formal com corrupção estrutural, crime organizado capturando o Estado, aparato jurídico seletivo, elite política imune e economia estagnada. A Venezuela é o Brasil sem os freios institucionais.</div>
+      <div class="verdict-meter">
+        <div class="vm-label">Grau de semelhança</div>
+        <div class="vm-track"><div class="vm-fill" style="width:72%;background:var(--ve)"></div></div>
+      </div>
+    </div>
+
+    <div class="verdict-card">
+      <div class="vc-accent" style="background:var(--ir)"></div>
+      <div class="vc-label">Semelhança parcial</div>
+      <div class="vc-title">Irã — pelo mecanismo psicopolítico</div>
+      <div class="vc-body">Brasil e Irã compartilham o uso do medo social como ferramenta de conformidade, narrativa que divide entre "do bem" e "inimigo da democracia", e fragmentação intencional da oposição. Mas o Irã é um regime teocrático sem eleições reais.</div>
+      <div class="verdict-meter">
+        <div class="vm-label">Grau de semelhança</div>
+        <div class="vm-track"><div class="vm-fill" style="width:38%;background:var(--ir)"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MÉTRICAS ═══════════════ -->
+<div id="sec-metricas" style="display:none">
+  <div class="sec-hdr"><span class="sec-label">Comparativo por indicadores</span><div class="sec-line"></div><span class="sec-tag">dados verificados 2024–2025</span></div>
+
+  <div class="radar-wrap" style="margin-bottom:16px">
+    <svg viewBox="0 0 480 360" width="100%" style="max-width:520px">
+      <defs>
+        <polygon id="hex" points="240,30 420,120 420,240 240,330 60,240 60,120"/>
+      </defs>
+      <!-- Grid hexágonos -->
+      <g opacity=".15" stroke="rgba(255,255,255,.3)" fill="none" stroke-width=".5">
+        <polygon points="240,80 380,152 380,224 240,296 100,224 100,152"/>
+        <polygon points="240,110 355,170 355,210 240,270 125,210 125,170"/>
+        <polygon points="240,140 330,188 330,196 240,244 150,196 150,188"/>
+        <polygon points="240,170 305,206 305,182 240,218 175,182 175,206"/>
+      </g>
+      <!-- Eixos -->
+      <g stroke="rgba(255,255,255,.12)" stroke-width=".5">
+        <line x1="240" y1="30" x2="240" y2="330"/>
+        <line x1="60" y1="120" x2="420" y2="240"/>
+        <line x1="60" y1="240" x2="420" y2="120"/>
+      </g>
+      <!-- Labels eixos -->
+      <text x="240" y="18" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">Corrupção</text>
+      <text x="440" y="115" text-anchor="start" fill="#56544f" font-family="DM Mono,monospace" font-size="10">Crime org.</text>
+      <text x="440" y="248" text-anchor="start" fill="#56544f" font-family="DM Mono,monospace" font-size="10">Economia</text>
+      <text x="240" y="348" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">Inseg. jurídica</text>
+      <text x="40" y="248" text-anchor="end" fill="#56544f" font-family="DM Mono,monospace" font-size="10">Liberdade</text>
+      <text x="40" y="115" text-anchor="end" fill="#56544f" font-family="DM Mono,monospace" font-size="10">Insatisfação</text>
+
+      <!-- Brasil — corruption 0.65, crime 0.80, eco 0.50, sec_jur 0.65, lib 0.55, insat 0.60 -->
+      <!-- Pontos no hexágono: top=corrupção, right-top=crime, right-bot=eco, bot=sec_jur, left-bot=lib, left-top=insat -->
+      <!-- top: 240, 30+v*(330-30) → y=30+(1-v)*300. v=corr deterioração = maior é pior -->
+      <!-- Brasil(corr=.65): y=30+.35*300=135, x=240 -->
+      <!-- crime(.80): direita topo: x=60+.8*(420-60)=348, y=120+.8*(240-120)=216 → não é linear em hex... simplificar para polígono visual -->
+
+      <!-- Polígono Brasil (valores de deterioração 0-1, pior=1) -->
+      <!-- Corrupção Brasil=.65, VE=.95, IR=.78 -->
+      <!-- Crime BR=.78, VE=.80, IR=.60 -->
+      <!-- Eco BR=.48, VE=.97, IR=.72 -->
+      <!-- InsegJur BR=.62, VE=.98, IR=.82 -->
+      <!-- Liberdade BR=.48, VE=.92, IR=.90 -->
+      <!-- Insat BR=.58, VE=.90, IR=.75 -->
+
+      <!-- BR radar polygon: mapear 6 eixos em coordenadas -->
+      <!-- Eixo 0°(top) corr, 60° crime, 120° eco, 180° sec_jur, 240° lib, 300° insat -->
+      <!-- Cx=240, Cy=180, R=150 -->
+      <!-- px = cx + r*v*sin(ang), py = cy - r*v*cos(ang) -->
+      <!-- BR: 
+        corr .65: 240+0=240, 180-97.5=82.5 → (240,82)
+        crime .80: 240+150*.80*sin(60°)=240+103.9=344, 180-150*.80*cos(60°)=180-60=120 → (344,120)
+        eco .48: 240+150*.48*sin(120°)=240+62.4=302, 180-150*.48*cos(120°)=180+36=216 → (302,216)
+        secjur .62: 240+0=240, 180+93=273 → (240,273)
+        lib .48: 240-150*.48*sin(60°)=240-62.4=178, 180+150*.48*cos(60°)=180+36=216 → (178,216)
+        insat .58: 240-150*.58*sin(60°)=240-75.4=165, 180-150*.58*cos(60°)=180-43.5=137 → (165,137)
+      -->
+      <polygon points="240,82 344,120 302,216 240,273 178,216 165,137"
+        fill="rgba(201,85,58,.18)" stroke="var(--br)" stroke-width="1.5" stroke-linejoin="round"/>
+
+      <!-- VE:
+        corr .95: (240,36)
+        crime .80: (344,120)
+        eco .97: 240+150*.97*sin(120°)=240+126=366,180+150*.97*cos(60°)=180+72.75=253 → (366,253)
+        secjur .98: (240,327)
+        lib .92: 240-150*.92*sin(60°)=240-119.5=121,180+150*.92*cos(60°)=180+69=249 → (121,249)
+        insat .90: 240-150*.90*sin(60°)=240-116.9=123,180-150*.90*cos(60°)=180-67.5=113 → (123,113)
+      -->
+      <polygon points="240,36 344,120 366,253 240,327 121,249 123,113"
+        fill="rgba(201,168,58,.12)" stroke="var(--ve)" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="4 2"/>
+
+      <!-- IR:
+        corr .78: 240, 180-117=63 → (240,63)
+        crime .60: 240+150*.60*sin(60°)=240+77.9=318, 180-150*.60*cos(60°)=180-45=135 → (318,135)
+        eco .72: 240+150*.72*sin(120°)=240+93.5=334, 180+150*.72*cos(60°)=180+54=234 → (334,234)
+        secjur .82: (240,303)
+        lib .90: (121,249)→ .90: 240-150*.90*sin(60°)=240-116.9=123, 180+150*.90*cos(60°)=180+67.5=248 → (123,248)
+        insat .75: 240-150*.75*sin(60°)=240-97.4=143, 180-150*.75*cos(60°)=180-56.25=124 → (143,124)
+      -->
+      <polygon points="240,63 318,135 334,234 240,303 123,248 143,124"
+        fill="rgba(76,142,201,.10)" stroke="var(--ir)" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="2 3"/>
+
+      <!-- Pontos Brasil -->
+      <circle cx="240" cy="82" r="3" fill="var(--br)"/>
+      <circle cx="344" cy="120" r="3" fill="var(--br)"/>
+      <circle cx="302" cy="216" r="3" fill="var(--br)"/>
+      <circle cx="240" cy="273" r="3" fill="var(--br)"/>
+      <circle cx="178" cy="216" r="3" fill="var(--br)"/>
+      <circle cx="165" cy="137" r="3" fill="var(--br)"/>
+    </svg>
+    <div class="radar-legend">
+      <div class="rl-item"><div class="rl-dot" style="background:var(--br)"></div> Brasil</div>
+      <div class="rl-item"><div class="rl-dot" style="background:var(--ve)"></div> Venezuela (tracejado)</div>
+      <div class="rl-item"><div class="rl-dot" style="background:var(--ir)"></div> Irã (pontilhado)</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)">Área maior = pior desempenho</div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:0;overflow:hidden">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th class="br">Brasil</th>
+          <th class="ve">Venezuela</th>
+          <th class="ir">Irã</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="dim">Corrupção CPI 2024</td>
+          <td><span class="score-badge s-warn">34/100</span><br><span style="font-size:10px;color:var(--text3)">107º/180 · pior desde 2012</span></td>
+          <td><span class="score-badge s-danger">10/100</span><br><span style="font-size:10px;color:var(--text3)">178º/180 · quase último</span></td>
+          <td><span class="score-badge s-danger">24/100</span><br><span style="font-size:10px;color:var(--text3)">149º/180 · deteriorando</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Índice criminalidade</td>
+          <td><span class="score-badge s-warn">55.3</span><br><span style="font-size:10px;color:var(--text3)">GOCI criminalidade: 7.07/10</span></td>
+          <td><span class="score-badge s-danger">80.7</span><br><span style="font-size:10px;color:var(--text3)">1º ou 2º mundo (Numbeo)</span></td>
+          <td><span class="score-badge s-warn">48.1</span><br><span style="font-size:10px;color:var(--text3)">GOCI: 6.88/10</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Homicídios/100k</td>
+          <td><span class="score-badge s-warn">~22</span><br><span style="font-size:10px;color:var(--text3)">~47.000/ano · em queda lenta</span></td>
+          <td><span class="score-badge s-danger">~40</span><br><span style="font-size:10px;color:var(--text3)">pico >80 em 2018; caindo c/ êxodo</span></td>
+          <td><span class="score-badge s-ok">~4</span><br><span style="font-size:10px;color:var(--text3)">baixo — repressão do Estado</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Liberdade (Freedom House)</td>
+          <td><span class="score-badge s-warn">73/100</span><br><span style="font-size:10px;color:var(--text3)">"Livre" · mas queda recente</span></td>
+          <td><span class="score-badge s-danger">16/100</span><br><span style="font-size:10px;color:var(--text3)">"Não livre" · ditadura</span></td>
+          <td><span class="score-badge s-danger">14/100</span><br><span style="font-size:10px;color:var(--text3)">"Não livre" · teocracia</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Estado de direito (WJP)</td>
+          <td><span class="score-badge s-warn">0.49</span><br><span style="font-size:10px;color:var(--text3)">61º/142 · seletividade crítica</span></td>
+          <td><span class="score-badge s-danger">0.27</span><br><span style="font-size:10px;color:var(--text3)">139º/142 · colapso total</span></td>
+          <td><span class="score-badge s-danger">0.30</span><br><span style="font-size:10px;color:var(--text3)">135º/142 · sham judiciary</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Inflação (2024/25)</td>
+          <td><span class="score-badge s-warn">~5.5%</span><br><span style="font-size:10px;color:var(--text3)">alta mas controlável; juros 15%</span></td>
+          <td><span class="score-badge s-danger">~60%</span><br><span style="font-size:10px;color:var(--text3)">foi >1.000.000% em 2018</span></td>
+          <td><span class="score-badge s-danger">~42%</span><br><span style="font-size:10px;color:var(--text3)">sanções + má gestão</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Crime organizado (GOCI)</td>
+          <td><span class="score-badge s-warn">7.07/10</span><br><span style="font-size:10px;color:var(--text3)">14º do mundo · PCC/CV dominantes</span></td>
+          <td><span class="score-badge s-danger">6.97/10</span><br><span style="font-size:10px;color:var(--text3)">20º · narcoestado reconhecido</span></td>
+          <td><span class="score-badge s-warn">6.88/10</span><br><span style="font-size:10px;color:var(--text3)">23º · IRGC como ator criminal</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Eleições competitivas</td>
+          <td><span class="score-badge s-ok">SIM</span><br><span style="font-size:10px;color:var(--text3)">com riscos crescentes</span></td>
+          <td><span class="score-badge s-danger">NÃO</span><br><span style="font-size:10px;color:var(--text3)">fraude sistemática (2024)</span></td>
+          <td><span class="score-badge s-danger">NÃO</span><br><span style="font-size:10px;color:var(--text3)">candidatos vetados pelo regime</span></td>
+        </tr>
+        <tr>
+          <td class="dim">Captura estatal pelo crime</td>
+          <td><span class="score-badge s-warn">INCIPIENTE</span><br><span style="font-size:10px;color:var(--text3)">PCC infiltrando política/judiciário</span></td>
+          <td><span class="score-badge s-danger">CONSOLIDADA</span><br><span style="font-size:10px;color:var(--text3)">Estado = braço do crime</span></td>
+          <td><span class="score-badge s-gray">IRGC</span><br><span style="font-size:10px;color:var(--text3)">o regime É o crime organizado</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════ DIMENSÕES ═══════════════ -->
+<div id="sec-dimensoes" style="display:none">
+  <div class="sec-hdr"><span class="sec-label">Análise por dimensão</span><div class="sec-line"></div><span class="sec-tag">dados verificados</span></div>
+
+  <div class="dim-panels">
+
+    <div class="dpanel" style="border-top-color:var(--danger)">
+      <div class="dp-title">Corrupção</div>
+      <div class="dp-sub">CPI Transparency International 2024</div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--br)">BR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:65%;background:var(--br)"></div></div><span class="dp-val">34/100</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ve)">VE</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:95%;background:var(--ve)"></div></div><span class="dp-val">10/100</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ir)">IR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:76%;background:var(--ir)"></div></div><span class="dp-val">24/100</span></div>
+      <div class="dp-note">Brasil em queda constante desde 2012 (era 43). Bolsonaro desmantelou instrumentos anti-corrupção; Lula não reverteu. Orçamento secreto, emendas parlamentares sem controle. Venezuela e Irã: corrupção como sistema de governança.</div>
+    </div>
+
+    <div class="dpanel" style="border-top-color:var(--warn)">
+      <div class="dp-title">Crime organizado</div>
+      <div class="dp-sub">Global Organized Crime Index 2023–24</div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--br)">BR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:78%;background:var(--br)"></div></div><span class="dp-val">7.07</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ve)">VE</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:77%;background:var(--ve)"></div></div><span class="dp-val">6.97</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ir)">IR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:74%;background:var(--ir)"></div></div><span class="dp-val">6.88</span></div>
+      <div class="dp-note">Brasil (14º mundo) supera Venezuela e Irã no GOCI. PCC com 40.000 membros em 28 países, controlando gasolina, transporte, saúde e agora Faria Lima (fundos de R$30 bi). Especialistas falam em "duopólio de violência" — Estado e crime coexistem.</div>
+    </div>
+
+    <div class="dpanel" style="border-top-color:var(--info)">
+      <div class="dp-title">Segurança jurídica</div>
+      <div class="dp-sub">World Justice Project Rule of Law 2024</div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--br)">BR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:49%;background:var(--br)"></div></div><span class="dp-val">0.49</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ve)">VE</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:27%;background:var(--ve)"></div></div><span class="dp-val">0.27</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ir)">IR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:30%;background:var(--ir)"></div></div><span class="dp-val">0.30</span></div>
+      <div class="dp-note">Brasil tem judiciário formalmente independente — mas na prática seletivo. STF: anulou Lava Jato, prendeu aliados de Bolsonaro em 24h, mas demora décadas para julgar políticos do centrão. Dois pesos, duas medidas = erosão da confiança.</div>
+    </div>
+
+    <div class="dpanel" style="border-top-color:var(--ok)">
+      <div class="dp-title">Economia / Decadência</div>
+      <div class="dp-sub">Crescimento, inflação, dívida pública</div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--br)">BR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:48%;background:var(--br)"></div></div><span class="dp-val">médio</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ve)">VE</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:97%;background:var(--ve)"></div></div><span class="dp-val">colapso</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ir)">IR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:72%;background:var(--ir)"></div></div><span class="dp-val">grave</span></div>
+      <div class="dp-note">Brasil: estagnação secular (crescimento médio &lt;2% desde 2014), dívida pública 87% do PIB, carga tributária 33% sem retorno proporcional. Não é colapso venezuelano — mas é decadência crônica de potencial desperdiçado. Irã: sanções + corrupção = inflação 42%.</div>
+    </div>
+
+    <div class="dpanel" style="border-top-color:#7c4cc9">
+      <div class="dp-title">Liberdade e democracia</div>
+      <div class="dp-sub">Freedom House 2024</div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--br)">BR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:73%;background:var(--br)"></div></div><span class="dp-val">73/100</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ve)">VE</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:16%;background:var(--ve)"></div></div><span class="dp-val">16/100</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ir)">IR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:14%;background:var(--ir)"></div></div><span class="dp-val">14/100</span></div>
+      <div class="dp-note">Brasil ainda é classificado como "Livre" — esta é a diferença fundamental. Mas o score vem caindo. Ameaças ao sistema eleitoral, criminalização de opositores por órgãos judiciais e concentração de poder no STF são alertas concretos.</div>
+    </div>
+
+    <div class="dpanel" style="border-top-color:var(--warn)">
+      <div class="dp-title">Insatisfação social</div>
+      <div class="dp-sub">Latinobarômetro + Pesquisas nacionais</div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--br)">BR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:58%;background:var(--br)"></div></div><span class="dp-val">alta</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ve)">VE</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:90%;background:var(--ve)"></div></div><span class="dp-val">máxima</span></div>
+      <div class="dp-row"><span class="dp-flag" style="color:var(--ir)">IR</span><div class="dp-bar-track"><div class="dp-bar-fill" style="width:75%;background:var(--ir)"></div></div><span class="dp-val">muito alta</span></div>
+      <div class="dp-note">Brasil: 80%+ não confiam nos partidos políticos. Aprovação do Congresso: ~15%. Mas a insatisfação é difusa e despolitizada — sem canal claro de transformação, diferente do Irã onde há memória coletiva de um país melhor e do movimento Mahsa Amini.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ MECANISMOS ═══════════════ -->
+<div id="sec-mecanismos" style="display:none">
+  <div class="sec-hdr"><span class="sec-label">Mecanismos de deterioração compartilhados</span><div class="sec-line"></div><span class="sec-tag">análise comparativa</span></div>
+
+  <div class="qblock" style="margin-bottom:14px">
+    "O Brasil não está no mesmo lugar que a Venezuela ou o Irã — mas o manual de deterioração é o mesmo. O que muda é o capítulo em que cada país se encontra."
+  </div>
+
+  <div class="mech-grid">
+
+    <div class="mcard" style="border-left-color:var(--danger)">
+      <div class="mcard-title">Captura do judiciário pela política</div>
+      <div class="mcard-body">Venezuela e Irã: judiciário como braço do regime — sem independência real. Brasil: STF com hiperativismo político, decisões monocráticas sem plenário, censura de redes por um único ministro. Diferente em grau, similar no princípio da seletividade.</div>
+      <div class="mcard-footer">
+        <span class="mf-tag mf-br">BR parcial</span>
+        <span class="mf-tag mf-ve">VE total</span>
+        <span class="mf-tag mf-ir">IR total</span>
+      </div>
+    </div>
+
+    <div class="mcard" style="border-left-color:var(--warn)">
+      <div class="mcard-title">Crime organizado capturando o Estado</div>
+      <div class="mcard-body">PCC: 40k membros, R$30bi em fundos de investimento, controle de transporte, saúde, 111 policiais presos por ligação com facção entre 2019–2024. Sociólogos falam em "duopólio de violência". Venezuela: o regime É o crime. Irã: IRGC controla 40% da economia.</div>
+      <div class="mcard-footer">
+        <span class="mf-tag mf-br">BR avançado</span>
+        <span class="mf-tag mf-ve">VE completo</span>
+        <span class="mf-tag mf-ir">IR institucional</span>
+      </div>
+    </div>
+
+    <div class="mcard" style="border-left-color:var(--ir)">
+      <div class="mcard-title">Medo social como ferramenta de conformidade</div>
+      <div class="mcard-body">Irã: medo de ser rotulado como imoral, antipatriótico. Brasil: medo de ser chamado de "golpista" ou "fascista" — igualmente poderoso no sentido contrário. Em ambos os casos, o silêncio como estratégia de sobrevivência substitui o debate genuíno.</div>
+      <div class="mcard-footer">
+        <span class="mf-tag mf-br">BR presente</span>
+        <span class="mf-tag mf-ir">IR fundacional</span>
+      </div>
+    </div>
+
+    <div class="mcard" style="border-left-color:var(--ve)">
+      <div class="mcard-title">Narrativa que divide entre "bons" e "inimigos"</div>
+      <div class="mcard-body">Venezuela: chavismo vs. "oligarquia imperialista". Irã: fiéis vs. "agentes do Ocidente". Brasil: "defensores da democracia" vs. "golpistas". O mecanismo é idêntico — a narrativa binária que torna qualquer crítica ao governo uma ameaça à ordem pública.</div>
+      <div class="mcard-footer">
+        <span class="mf-tag mf-br">BR presente</span>
+        <span class="mf-tag mf-ve">VE fundacional</span>
+        <span class="mf-tag mf-ir">IR fundacional</span>
+      </div>
+    </div>
+
+    <div class="mcard" style="border-left-color:var(--ok)">
+      <div class="mcard-title">Resistência institucional ativa (diferencial)</div>
+      <div class="mcard-body">Esta é a maior diferença do Brasil: TCU, AGU, PGR, Polícia Federal, imprensa privada e mercado financeiro funcionam como freios reais. Venezuela e Irã destruíram esses contrapesos. O Brasil ainda os tem — mas estão sendo testados.</div>
+      <div class="mcard-footer">
+        <span class="mf-tag mf-br">BR tem</span>
+        <span class="mf-tag mf-ve">VE perdeu</span>
+        <span class="mf-tag mf-ir">IR nunca teve</span>
+      </div>
+    </div>
+
+    <div class="mcard" style="border-left-color:var(--danger)">
+      <div class="mcard-title">Impunidade seletiva como norma</div>
+      <div class="mcard-body">Brasil: políticos do centrão com dezenas de processos continuam governando. Lula teve condenação anulada. Bolsonaro condenado e inelegível mas sem preso. Venezuela e Irã: oposição presa, governo imune. Grau diferente, mecanismo idêntico.</div>
+      <div class="mcard-footer">
+        <span class="mf-tag mf-br">BR crescente</span>
+        <span class="mf-tag mf-ve">VE absoluta</span>
+        <span class="mf-tag mf-ir">IR absoluta</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ TRAJETÓRIA ═══════════════ -->
+<div id="sec-trajetoria" style="display:none">
+  <div class="sec-hdr"><span class="sec-label">Trajetórias comparadas</span><div class="sec-line"></div><span class="sec-tag">onde cada país estava e onde está</span></div>
+
+  <div class="traj-grid">
+
+    <div class="tcard">
+      <div class="tcard-num">BR</div>
+      <div class="tcard-flag" style="color:var(--br)">Brasil</div>
+      <div class="tcard-title">Democracia em erosão crônica</div>
+      <div class="tcard-body">Partiu de uma democracia funcional (1988–2013), passou por escândalos massivos (Mensalão, Lava Jato), instabilidade política (impeachments, golpismo), e hoje enfrenta deterioração institucional acelerada. Não entrou em colapso, mas perde terreno sistematicamente.</div>
+      <div class="tcard-metrics">
+        <div class="tm-row"><span class="tm-key">CPI 2012</span><span class="tm-val">43/100</span></div>
+        <div class="tm-row"><span class="tm-key">CPI 2024</span><span class="tm-val">34/100 ↓</span></div>
+        <div class="tm-row"><span class="tm-key">GOCI criminalidade</span><span class="tm-val">7.07 (14º)</span></div>
+        <div class="tm-row"><span class="tm-key">Freedom House</span><span class="tm-val">73 "Livre"</span></div>
+        <div class="tm-row"><span class="tm-key">Status</span><span class="tm-val" style="color:var(--warn)">DETERIORANDO</span></div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tcard-num">VE</div>
+      <div class="tcard-flag" style="color:var(--ve)">Venezuela</div>
+      <div class="tcard-title">Colapso completo — narcoestado</div>
+      <div class="tcard-body">Foi uma das democracias mais ricas da América Latina. Chávez (1999) iniciou o desmonte institucional gradual. Maduro (2013+) completou. Hoje é um narcoestado com eleições fraudadas, 7 milhões de emigrantes, inflação pós-hiperinflacionária e criminalidade extrema.</div>
+      <div class="tcard-metrics">
+        <div class="tm-row"><span class="tm-key">CPI 2024</span><span class="tm-val">10/100 · 178º</span></div>
+        <div class="tm-row"><span class="tm-key">Homicídios/100k</span><span class="tm-val">~40</span></div>
+        <div class="tm-row"><span class="tm-key">Êxodo</span><span class="tm-val">7 milhões</span></div>
+        <div class="tm-row"><span class="tm-key">Freedom House</span><span class="tm-val">16 "Não livre"</span></div>
+        <div class="tm-row"><span class="tm-key">Status</span><span class="tm-val" style="color:var(--danger)">COLAPSADO</span></div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tcard-num">IR</div>
+      <div class="tcard-flag" style="color:var(--ir)">Irã</div>
+      <div class="tcard-title">Teocracia autoritária sob pressão</div>
+      <div class="tcard-body">Foi uma das sociedades mais modernas do Oriente Médio (anos 60–70). A revolução de 1979 instalou um regime teocrático que sobreviveu por medo, não por crença. Hoje enfrenta pressão convergente: econômica, geracional, geopolítica e informacional.</div>
+      <div class="tcard-metrics">
+        <div class="tm-row"><span class="tm-key">CPI 2024</span><span class="tm-val">24/100 · 149º</span></div>
+        <div class="tm-row"><span class="tm-key">Inflação</span><span class="tm-val">~42%</span></div>
+        <div class="tm-row"><span class="tm-key">VPN users</span><span class="tm-val">35M+ (40%)</span></div>
+        <div class="tm-row"><span class="tm-key">Freedom House</span><span class="tm-val">14 "Não livre"</span></div>
+        <div class="tm-row"><span class="tm-key">Status</span><span class="tm-val" style="color:var(--danger)">AUTORITÁRIO</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:16px;background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:18px">
+    <div class="sec-hdr" style="margin-bottom:12px"><span class="sec-label">Linha do tempo comparada — deterioração</span><div class="sec-line"></div></div>
+    <svg viewBox="0 0 800 200" width="100%" style="max-width:100%">
+      <!-- Eixo X -->
+      <line x1="60" y1="170" x2="760" y2="170" stroke="rgba(255,255,255,.15)" stroke-width=".8"/>
+      <!-- Anos -->
+      <text x="60" y="188" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">1990</text>
+      <text x="180" y="188" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">2000</text>
+      <text x="300" y="188" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">2010</text>
+      <text x="420" y="188" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">2015</text>
+      <text x="540" y="188" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">2020</text>
+      <text x="700" y="188" text-anchor="middle" fill="#56544f" font-family="DM Mono,monospace" font-size="10">2026</text>
+      <!-- Eixo Y -->
+      <text x="50" y="35" text-anchor="end" fill="#56544f" font-family="DM Mono,monospace" font-size="9">PIOR</text>
+      <text x="50" y="170" text-anchor="end" fill="#56544f" font-family="DM Mono,monospace" font-size="9">MELHOR</text>
+
+      <!-- BRASIL: linha de deterioração -->
+      <!-- anos: 1990(60),2000(180),2010(300),2015(420),2020(540),2026(700) -->
+      <!-- score normalizado (1=melhor, 0=pior): 1990=.75,2000=.72,2010=.70,2013=.65,2016=.55,2018=.52,2022=.48,2024=.44 -->
+      <!-- y = 170 - score*140 -->
+      <polyline points="60,65 180,71 300,78 390,79 480,91 560,98 640,108 700,115"
+        fill="none" stroke="var(--br)" stroke-width="2" stroke-linejoin="round"/>
+      <text x="710" y="112" fill="var(--br)" font-family="DM Mono,monospace" font-size="10">BR</text>
+
+      <!-- VENEZUELA: colapso rápido a partir de Chávez 1999 -->
+      <polyline points="60,50 180,55 252,60 300,80 390,120 480,150 560,160 700,163"
+        fill="none" stroke="var(--ve)" stroke-width="2" stroke-linejoin="round" stroke-dasharray="4 2"/>
+      <text x="710" y="160" fill="var(--ve)" font-family="DM Mono,monospace" font-size="10">VE</text>
+
+      <!-- IRÃ: já baixo desde 1979, pequenas flutuações -->
+      <polyline points="60,145 180,148 300,142 390,145 480,150 560,155 700,152"
+        fill="none" stroke="var(--ir)" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="2 3"/>
+      <text x="710" y="149" fill="var(--ir)" font-family="DM Mono,monospace" font-size="10">IR</text>
+
+      <!-- Marcadores -->
+      <circle cx="252" cy="60" r="3" fill="var(--ve)"/>
+      <text x="254" y="52" fill="var(--ve)" font-family="DM Mono,monospace" font-size="8">Chávez</text>
+      <circle cx="390" cy="79" r="3" fill="var(--br)"/>
+      <text x="392" y="72" fill="var(--br)" font-family="DM Mono,monospace" font-size="8">Lava Jato</text>
+      <circle cx="540" cy="98" r="3" fill="var(--br)"/>
+      <text x="542" y="91" fill="var(--br)" font-family="DM Mono,monospace" font-size="8">Covid/PCC boom</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ═══════════════ CONCLUSÃO ═══════════════ -->
+<div id="sec-conclusao" style="display:none">
+  <div class="sec-hdr"><span class="sec-label">Conclusão estratégica</span><div class="sec-line"></div></div>
+
+  <div style="background:var(--bg1);border:1px solid var(--border2);border-radius:10px;padding:20px;margin-bottom:16px">
+    <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase">Veredito final</div>
+    <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px">O Brasil está em deterioração acelerada, mas ainda tem janela de reversão</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75">
+      Metricamente, o Brasil está mais próximo da <strong style="color:var(--ve)">Venezuela de ~2005–2008</strong> do que da Venezuela atual — no meio do processo de captura, não no fim. Psicopoliticamente, compartilha mais com o <strong style="color:var(--ir)">Irã</strong> no uso do medo social e da narrativa binária. A diferença crítica é que o Brasil ainda tem eleições livres, imprensa plural e contrapesos institucionais funcionando. Venezuela e Irã perderam esses freios em momentos distintos — e não voltaram atrás.
+    </div>
+  </div>
+
+  <div class="conc-grid">
+    <div class="ccard">
+      <div class="ccard-title"><div class="ccard-dot" style="background:var(--danger)"></div>O que o Brasil tem que a VE/IR não têm</div>
+      <div class="ccard-body">Eleições competitivas com resultado imprevisível. Imprensa privada plural. Banco Central com autonomia formal. Mercado financeiro como freio real. Sociedade civil organizada. STF independente (mesmo que politizado). Conexão global com comércio e investimento.</div>
+    </div>
+    <div class="ccard">
+      <div class="ccard-title"><div class="ccard-dot" style="background:var(--warn)"></div>O que o Brasil compartilha com a Venezuela</div>
+      <div class="ccard-body">Corrupção estrutural sem punição real. Crime organizado infiltrando política e economia. Elite política acima da lei. Judiciário seletivo. Insatisfação popular difusa sem canal de transformação. Dívida pública crescente. Fuga de capital e talentos. Carga tributária sem retorno proporcional.</div>
+    </div>
+    <div class="ccard">
+      <div class="ccard-title"><div class="ccard-dot" style="background:var(--ir)"></div>O que o Brasil compartilha com o Irã</div>
+      <div class="ccard-body">Medo social como mecanismo de conformidade política. Narrativa binária "defensores da democracia × golpistas". Silêncio como estratégia de sobrevivência em ambientes polarizados. Fragmentação da oposição por redirecionamento narrativo. Memória de um país melhor (anos 90–2000) sem canal claro de volta.</div>
+    </div>
+    <div class="ccard">
+      <div class="ccard-title"><div class="ccard-dot" style="background:var(--ok)"></div>O ponto de não retorno — o que observar</div>
+      <div class="ccard-body">Se o Brasil perder: (1) eleições competitivas com resultado respeitado; (2) autonomia do MP e PF para investigar o governo; (3) imprensa sem censura judicial sistemática; (4) banco central independente. Se perder dois ou mais simultaneamente, entra no caminho venezuelano sem freios.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FONTES ═══════════════ -->
+<div id="sec-fontes" style="display:none">
+  <div class="sec-hdr"><span class="sec-label">Fontes e referências</span><div class="sec-line"></div></div>
+  <div class="src-grid">
+    <a class="src-card" href="https://www.transparency.org/en/cpi/2024" target="_blank">
+      <span class="src-type st-data">TI</span><div><div class="src-title">Corruption Perceptions Index 2024</div><div class="src-sub">Transparency International · todos os países</div></div>
+    </a>
+    <a class="src-card" href="https://worldjusticeproject.org/rule-of-law-index/" target="_blank">
+      <span class="src-type st-data">WJP</span><div><div class="src-title">Rule of Law Index 2024</div><div class="src-sub">World Justice Project · 142 países</div></div>
+    </a>
+    <a class="src-card" href="https://ocindex.net/rankings" target="_blank">
+      <span class="src-type st-data">GOCI</span><div><div class="src-title">Global Organized Crime Index</div><div class="src-sub">GI-TOC · Brasil 14º · Venezuela 20º · Irã 23º</div></div>
+    </a>
+    <a class="src-card" href="https://freedomhouse.org/report/freedom-world" target="_blank">
+      <span class="src-type st-data">FH</span><div><div class="src-title">Freedom in the World 2024</div><div class="src-sub">Freedom House · democracia e liberdades civis</div></div>
+    </a>
+    <a class="src-card" href="https://www.gov.uk/government/publications/brazil-country-policy-and-information-notes/country-policy-and-information-note-organised-criminal-groups-brazil-march-2025-accessible" target="_blank">
+      <span class="src-type st-org">GOV.UK</span><div><div class="src-title">Brazil: Organised Criminal Groups — CPIN 2025</div><div class="src-sub">UK Home Office · relatório de campo detalhado</div></div>
+    </a>
+    <a class="src-card" href="https://insightcrime.org/brazil-organized-crime-news/first-capital-command-pcc-profile/" target="_blank">
+      <span class="src-type st-news">InSight</span><div><div class="src-title">PCC — First Capital Command Profile</div><div class="src-sub">InSight Crime · 40k membros · 28 países</div></div>
+    </a>
+    <a class="src-card" href="https://www.riskadvisory.com/news/major-operation-against-brazils-largest-drug-cartel/" target="_blank">
+      <span class="src-type st-news">RA</span><div><div class="src-title">Major operation against Brazil's largest drug cartel</div><div class="src-sub">Risk Advisory 2025 · Faria Lima R$30bi PCC</div></div>
+    </a>
+    <a class="src-card" href="https://en.wikipedia.org/wiki/Corruption_in_Venezuela" target="_blank">
+      <span class="src-type st-acad">WIKI</span><div><div class="src-title">Corruption in Venezuela</div><div class="src-sub">Wikipedia · US$70bi em casos internacionais</div></div>
+    </a>
+    <a class="src-card" href="https://knowledgehub.transparencycdn.org/helpdesk/For-Publishing_Brazil-Corruption-and-Anti-corruption.pdf" target="_blank">
+      <span class="src-type st-acad">U4</span><div><div class="src-title">Brazil: Corruption and Anti-corruption 2025</div><div class="src-sub">U4 Helpdesk · análise estrutural completa</div></div>
+    </a>
+    <a class="src-card" href="https://worldpopulationreview.com/country-rankings/crime-rate-by-country" target="_blank">
+      <span class="src-type st-data">WPR</span><div><div class="src-title">Crime Rate by Country 2026</div><div class="src-sub">World Pop. Review · Numbeo + UNODC</div></div>
+    </a>
+    <a class="src-card" href="https://thedialogue.org/wp-content/uploads/2024/11/Policy-Brief-Brazil_EN-1.pdf" target="_blank">
+      <span class="src-type st-acad">IAD</span><div><div class="src-title">Brazil Public Security — Rule of Law 2024</div><div class="src-sub">Inter-American Dialogue · PCC/CV análise</div></div>
+    </a>
+    <a class="src-card" href="https://interlira-reports.com/security/the-pccs-expansion-organized-crime-security-force-infiltration-and-economic-disruption/06/02/2025/" target="_blank">
+      <span class="src-type st-news">IL</span><div><div class="src-title">PCC Expansion — State Infiltration 2025</div><div class="src-sub">Interlira · 111 policiais condenados</div></div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div style="text-align:center;padding:18px 28px;border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)">
+  Análise comparativa com base em dados abertos verificados · Março 2026 · Uso educacional e estratégico · Não constitui aconselhamento jurídico ou político
+</div>
+
+<script>
+const secs = ['veredicto','metricas','dimensoes','mecanismos','trajetoria','conclusao','fontes'];
+function show(id) {
+  secs.forEach(s => {
+    document.getElementById('sec-'+s).style.display = s===id ? 'block' : 'none';
+  });
+  document.querySelectorAll('.npill').forEach((p,i) => {
+    p.classList.toggle('active', secs[i]===id);
+  });
+}
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

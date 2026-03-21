@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Lava Jato — Mapa Mental Investigativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg: #060810;
+  --surface: #0b0d16;
+  --border: rgba(255,255,255,0.07);
+  --text: rgba(255,255,255,0.85);
+  --muted: rgba(255,255,255,0.35);
+  --faint: rgba(255,255,255,0.12);
+  --gold: #e8c84a;
+  --red: #e85555;
+  --blue: #4f9de0;
+  --green: #4de880;
+  --orange: #e89444;
+  --yellow: #e8d84a;
+  --purple: #c44de8;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+}
+body{
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+/* noise texture overlay */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:.6;
+}
+
+/* HEADER */
+.header{
+  position: relative; z-index:10;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(6,8,16,0.92);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-title{
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.badge{
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+}
+.badge-gold{ background: rgba(232,200,74,.1); color: var(--gold); border: 1px solid rgba(232,200,74,.25); }
+.badge-red{ background: rgba(232,85,85,.1); color: var(--red); border: 1px solid rgba(232,85,85,.25); }
+.header-hint{
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* CANVAS */
+#canvas-wrap{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+  cursor:grab;
+}
+#canvas-wrap:active{ cursor:grabbing; }
+#mindmap{ width:100%; height:100%; display:block; }
+
+/* DETAIL PANEL */
+#detail{
+  position:absolute;
+  top:0; right:0;
+  width:360px;
+  height:100%;
+  background:#090b15;
+  border-left: 1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  transform: translateX(100%);
+  transition: transform 0.22s cubic-bezier(.25,1,.5,1);
+  z-index:20;
+  backdrop-filter: blur(8px);
+}
+#detail.open{ transform: translateX(0); }
+.dp-head{
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.dp-cat{
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  opacity: .55;
+}
+.dp-title{
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.dp-close{
+  position:absolute;
+  top:16px; right:16px;
+  width:24px;height:24px;
+  border-radius:3px;
+  background:var(--faint);
+  border:1px solid var(--border);
+  color:var(--muted);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+  font-family: var(--mono);
+  transition: background 0.15s, color 0.15s;
+}
+.dp-close:hover{ background:rgba(255,255,255,.1); color:var(--text); }
+.dp-body{
+  flex:1;
+  overflow-y:auto;
+  padding:18px 20px;
+}
+.dp-body::-webkit-scrollbar{ width:3px; }
+.dp-body::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.1); border-radius:2px; }
+.dp-section{ margin-bottom:18px; }
+.dp-sh{
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.dp-sp{
+  font-size: 12.5px;
+  line-height: 1.78;
+  color: rgba(255,255,255,.68);
+}
+.dp-divider{ height:1px; background:var(--border); margin:14px 0; }
+
+/* BOTTOM BAR */
+.bottom{
+  position:relative;z-index:10;
+  padding: 9px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(6,8,16,.9);
+  display:flex;
+  gap:20px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.leg-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:var(--mono);
+  font-size:9.5px;
+  color:var(--muted);
+  letter-spacing:0.05em;
+}
+.leg-dot{
+  width:9px;height:9px;
+  border-radius:2px;
+  flex-shrink:0;
+}
+.zoom-ctrl{
+  margin-left:auto;
+  display:flex;
+  gap:6px;
+}
+.zoom-btn{
+  width:26px;height:26px;
+  border-radius:3px;
+  background:var(--faint);
+  border:1px solid var(--border);
+  color:var(--muted);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  font-family:var(--mono);
+  transition:background .15s;
+}
+.zoom-btn:hover{ background:rgba(255,255,255,.1); color:var(--text); }
+
+/* SVG node hover */
+.node-g{ cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">Operação Lava Jato</div>
+  <span class="badge badge-gold">2014 — 2021</span>
+  <span class="badge badge-red">ENCERRADA</span>
+  <span class="badge" style="background:rgba(200,200,255,.06);color:rgba(180,180,255,.6);border:1px solid rgba(180,180,255,.15);">580 condenados</span>
+  <span class="badge" style="background:rgba(78,222,128,.06);color:rgba(78,222,128,.7);border:1px solid rgba(78,222,128,.2);">R$ 4bi+ recuperados</span>
+  <div class="header-hint">Clique nos nós · Scroll = zoom · Arraste = mover</div>
+</div>
+
+<div id="canvas-wrap">
+  <svg id="mindmap"></svg>
+</div>
+
+<div id="detail">
+  <div class="dp-head">
+    <div class="dp-cat" id="dp-cat">—</div>
+    <div class="dp-title" id="dp-title">Selecione um nó</div>
+    <div class="dp-close" id="dp-close">✕</div>
+  </div>
+  <div class="dp-body" id="dp-body"></div>
+</div>
+
+<div class="bottom">
+  <div class="leg-item"><div class="leg-dot" style="background:#e85555"></div>Crimes Investigados</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4f9de0"></div>Atores Principais</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4de880"></div>Acertos</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#e89444"></div>Erros &amp; Ilegalidades</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#e8d84a"></div>Anulação &amp; STF</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c44de8"></div>Conexões Criminosas</div>
+  <div class="zoom-ctrl">
+    <button class="zoom-btn" id="zoom-in">+</button>
+    <button class="zoom-btn" id="zoom-out">−</button>
+    <button class="zoom-btn" id="zoom-reset" style="font-size:10px;width:36px;letter-spacing:.05em">FIT</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const BRANCHES = [
+  {
+    id:"crimes", label:["CRIMES","INVESTIGADOS"], color:"#e85555", angle:270,
+    detail:{ cat:"TIPIFICAÇÃO PENAL", title:"Crimes Investigados",
+      secs:[
+        {h:"Escopo",p:"A Lava Jato investigou crimes de colarinho branco em escala sistêmica: corrupção ativa e passiva, lavagem de dinheiro, cartel em licitações, evasão de divisas e organização criminosa. Estima-se desvio total de R$ 40+ bilhões da Petrobras."},
+        {h:"Base legal",p:"CP arts. 317/333 (corrupção), Lei 9.613/98 (lavagem), Lei 12.850/2013 (OCRIM), Lei 8.666/93 e 12.529/2011 (cartel em licitações), Lei 7.492/86 (crimes financeiros)."}
+      ]
+    },
+    children:[
+      {id:"c1",label:["Corrupção","Ativa/Passiva"],detail:{cat:"CRIMES — CORRUPÇÃO",title:"Corrupção Ativa e Passiva",secs:[
+        {h:"Mecanismo",p:"Pagamento de propinas a diretores da Petrobras em troca de contratos superfaturados. A propina era calculada como percentual fixo sobre o valor da obra — entre 1% e 3% destinados a partidos e operadores."},
+        {h:"Principais acusados",p:"Diretores da Petrobras: Paulo Roberto Costa (Abastecimento), Renato Duque (Serviços), Jorge Zelada (Internacional). Empreiteiras: Odebrecht, OAS, UTC, Andrade Gutierrez, Camargo Corrêa, Queiroz Galvão."},
+        {h:"Código Penal",p:"Art. 317 — Corrupção Passiva (servidor): 2 a 12 anos. Art. 333 — Corrupção Ativa (particular): 2 a 12 anos. Com agravantes por organização criminosa: até +50%."}
+      ]}},
+      {id:"c2",label:["Lavagem de","Dinheiro"],detail:{cat:"CRIMES — LAVAGEM",title:"Lavagem de Dinheiro",secs:[
+        {h:"Departamento de Operações Estruturadas",p:"A Odebrecht mantinha uma divisão interna clandestina ('setor de operações estruturadas') que geria propinas em 12 países. Contas no exterior (Suíça, Panamá, Luxemburgo, Ilhas Cayman) eram usadas para distribuição."},
+        {h:"Doleiros",p:"Operadores de câmbio informal (doleiros) convertiam reais em dólares. Os reais usados tinham pontos de contato com o narcotráfico — o PCC gerava montanhas de dinheiro físico que precisavam ser convertidas em ativos financeiros (Coutinho, 2026)."},
+        {h:"Legislação",p:"Lei 9.613/1998 alterada pela 12.683/2012. Pena: 3 a 10 anos + multa. Permite confisco de ativos e sem prescrição para valores elevados."}
+      ]}},
+      {id:"c3",label:["Cartel em","Licitações"],detail:{cat:"CRIMES — CARTEL",title:"Cartel entre Empreiteiras",secs:[
+        {h:"O 'Clube'",p:"As maiores empreiteiras brasileiras formavam um cartel informal que dividia previamente as obras da Petrobras e outras estatais, combinando vencedores fictícios e preços superfaturados. A margem de superfaturamento era de 20–30%."},
+        {h:"Membros identificados",p:"Odebrecht, OAS, UTC, Andrade Gutierrez, Camargo Corrêa, Queiroz Galvão, Engevix, Iesa, Galvão Engenharia, Mendes Júnior — praticamente toda a engenharia pesada brasileira."},
+        {h:"Legislação",p:"Lei 8.666/93 (licitações), Lei 12.529/2011 (antitruste — art. 36 cartel), CP art. 90 (fraude à licitação): até 3 anos para cada. CADE também aplicou sanções administrativas."}
+      ]}},
+      {id:"c4",label:["Evasão de","Divisas"],detail:{cat:"CRIMES — CÂMBIO",title:"Evasão de Divisas",secs:[
+        {h:"Operação",p:"Remessas ilegais ao exterior via doleiros, contas fantasmas e offshores em paraísos fiscais. O dinheiro era convertido em dólares e distribuído como propinas fora do sistema financeiro formal."},
+        {h:"Paraísos fiscais utilizados",p:"Suíça (UBS, Credit Suisse), Panamá, Ilhas Cayman, Luxemburgo, Andorra, Liechtenstein. A Odebrecht chegou a ter mais de 300 contas no exterior para esse fim."},
+        {h:"Legislação",p:"Lei 7.492/86, art. 22: pena de 2 a 6 anos + multa. Agrava com crime organizado. O DOJ dos EUA processou pela FCPA (Foreign Corrupt Practices Act), resultando em US$ 2,6 bilhões em acordos."}
+      ]}},
+      {id:"c5",label:["Organização","Criminosa"],detail:{cat:"CRIMES — OCRIM",title:"Organização Criminosa Estruturada",secs:[
+        {h:"Estrutura identificada",p:"A Lava Jato identificou OCRIMs com hierarquia definida: líderes (presidentes de empreiteiras e diretores de estatais), gerentes (lobistas e operadores), financeiros (doleiros e contadores) e beneficiários (políticos e partidos)."},
+        {h:"Partidos investigados",p:"PT (maior beneficiário), PMDB, PP, PSDB, PDT, PTB, PR — a corrupção era multipartidária e transversal. Partidos recebiam caixas dois tanto para campanhas quanto para enriquecimento pessoal."},
+        {h:"Legislação",p:"Lei 12.850/2013 — Crime Organizado: art. 2° — integrante: 3 a 8 anos; líder: 4 a 10 anos. A mesma lei criou a colaboração premiada como instrumento de investigação."}
+      ]}}
+    ]
+  },
+
+  {
+    id:"atores", label:["ATORES","PRINCIPAIS"], color:"#4f9de0", angle:330,
+    detail:{ cat:"PERSONAGENS", title:"Atores Principais",
+      secs:[
+        {h:"Perfis",p:"A operação envolveu magistrados, procuradores federais, políticos de todos os partidos, executivos de grandes empresas, doleiros, lobistas e delatores. A colaboração premiada foi o principal instrumento para conectar os diferentes níveis do esquema."}
+      ]
+    },
+    children:[
+      {id:"a1",label:["Sérgio Moro","Juiz Federal"],detail:{cat:"ATORES — MAGISTRADO",title:"Sérgio Moro",secs:[
+        {h:"Papel",p:"Juiz federal da 13ª Vara de Curitiba, foi o principal magistrado da Lava Jato por 5 anos. Homologou mais de 200 acordos de colaboração premiada, assinou mais de 80 prisões preventivas e condenou Lula, Dirceu, Cunha e outros."},
+        {h:"Vaza Jato",p:"Em 2019, mensagens do Telegram revelaram comunicações impróprias com o promotor Deltan Dallagnol: Moro orientava estratégias acusatórias, sugeria provas e diligências — fundindo acusação e jurisdição de forma inconstitucional."},
+        {h:"Pós-Lava Jato",p:"Tornou-se Ministro da Justiça no governo Bolsonaro (2019-2020). Em 2021 o STF o declarou suspeito. Eleito Senador pelo Paraná em 2022. Candidatou-se à presidência mas obteve resultado modesto nas pesquisas."}
+      ]}},
+      {id:"a2",label:["Deltan Dallagnol","Promotor MPF"],detail:{cat:"ATORES — MINISTÉRIO PÚBLICO",title:"Deltan Dallagnol",secs:[
+        {h:"Papel",p:"Coordenador da força-tarefa do MPF em Curitiba. Principal articulador da estratégia acusatória. Responsável pela famosa denúncia do caso triplex contra Lula com uso de powerpoint, criticada por juristas como excessivamente dependente de provas indiretas."},
+        {h:"Vaza Jato",p:"Mensagens revelaram diálogos com Moro sobre estratégias processuais, comprometendo fatalmente a independência entre acusação e julgamento — violação grave do sistema acusatório."},
+        {h:"Pós-LJ",p:"Eleito Deputado Federal pelo Paraná em 2022 pelo Podemos. Em 2023 o TSE o tornou inelegível por abuso de poder econômico; a decisão foi revertida pelo STF em 2024. Criou o movimento 'Agir'."}
+      ]}},
+      {id:"a3",label:["Luiz Inácio","Lula da Silva"],detail:{cat:"ATORES — INVESTIGADO/PRESIDENTE",title:"Luiz Inácio Lula da Silva",secs:[
+        {h:"Investigação",p:"Ex-presidente (2003-2010), foi o maior alvo político da Lava Jato. Investigado nos casos: triplex do Guarujá (OAS), sítio de Atibaia (Odebrecht), apartamento de Lisboa (Odebrecht), e outros quatro processos."},
+        {h:"Prisão",p:"Condenado por Moro a 9 anos e 6 meses no caso triplex (julho 2017), aumentada para 12 anos pelo TRF-4 (janeiro 2018). Preso em 7 de abril de 2018 em Curitiba, permaneceu 580 dias detido."},
+        {h:"Anulação e retorno",p:"Em março 2021 Fachin declarou incompetência de Curitiba. Em junho 2021 o STF anulou por suspeição de Moro. Em outubro 2022, eleito presidente pela 3ª vez com 50,9% dos votos."}
+      ]}},
+      {id:"a4",label:["Alberto Youssef","Doleiro — Delator"],detail:{cat:"ATORES — DELATOR",title:"Alberto Youssef",secs:[
+        {h:"Papel",p:"Doleiro e operador financeiro de Curitiba, foi o pivô que desencadeou toda a Lava Jato. Preso em 17 de março de 2014, revelou em seu acordo de delação a participação de Paulo Roberto Costa (ex-diretor da Petrobras)."},
+        {h:"Relevância",p:"Sua delação foi o gatilho que transformou uma investigação de lavagem de dinheiro local num escândalo global. Sem Youssef, a conexão com a Petrobras possivelmente nunca seria descoberta naquele momento."},
+        {h:"Desfecho",p:"Condenado a mais de 10 anos, recebeu pena reduzida pela colaboração. Liberado em 2017. Retornou às manchetes em 2018 após novos envolvimentos com operações financeiras irregulares."}
+      ]}},
+      {id:"a5",label:["Marcelo","Odebrecht"],detail:{cat:"ATORES — EMPRESÁRIO",title:"Marcelo Odebrecht",secs:[
+        {h:"Papel",p:"CEO da Odebrecht, maior construtora da América Latina com operações em 28 países. Preso em junho de 2015, revelou em delação o 'Departamento de Operações Estruturadas', sistema interno de distribuição de propinas a políticos em 12 países."},
+        {h:"A delação",p:"O maior acordo de colaboração premiada da história do Brasil. Mencionou mais de 80 políticos brasileiros, incluindo Michel Temer, Aécio Neves, José Serra, Dilma Rousseff (como beneficiária de campanha) e presidentes estrangeiros."},
+        {h:"Pena e legado",p:"Condenado a 19 anos e 4 meses inicialmente, cumprindo pena domiciliar após redução pela delação. A empresa pagou US$ 2,6 bilhões em acordos com o DOJ/EUA, maior multa anticorrupção da história."}
+      ]}},
+      {id:"a6",label:["Eduardo","Cunha"],detail:{cat:"ATORES — POLÍTICO",title:"Eduardo Cunha",secs:[
+        {h:"Papel",p:"Presidente da Câmara dos Deputados (2015-2016), líder do PMDB. Investigado por corrupção e lavagem em contas na Suíça com valores superiores a US$ 5 milhões."},
+        {h:"Duplo papel",p:"Articulou o impeachment de Dilma Rousseff em 2016 enquanto era ele mesmo investigado — tornou-se símbolo da hipocrisia da classe política. Foi cassado pela própria Câmara em setembro de 2016."},
+        {h:"Condenação",p:"Condenado a 15 anos e 4 meses por corrupção passiva, lavagem de dinheiro e evasão de divisas. Preso em outubro de 2016, liberto em 2021 após habeas corpus."}
+      ]}},
+      {id:"a7",label:["Paulo Roberto","Costa — Delator"],detail:{cat:"ATORES — DELATOR",title:"Paulo Roberto Costa",secs:[
+        {h:"Papel",p:"Ex-diretor de Abastecimento da Petrobras (2004-2012), indicado pelo PP ao cargo. Foi o primeiro grande delator da operação, revelando o esquema sistemático de propinas dentro da estatal."},
+        {h:"Delação",p:"Expôs o cartel das empreiteiras, o 'clube', e o mecanismo de propinas dentro da Petrobras. Revelou que cada diretoria da Petrobras tinha sua 'cota' partidária e respondia a um partido específico."},
+        {h:"Pena",p:"Condenado a mais de 12 anos, com pena progressivamente reduzida pela colaboração. Liberado após cumprir parte da pena em regime domiciliar."}
+      ]}},
+      {id:"a8",label:["Aécio Neves","Senador PSDB"],detail:{cat:"ATORES — POLÍTICO",title:"Aécio Neves",secs:[
+        {h:"Papel",p:"Senador pelo PSDB e candidato à presidência em 2014 (derrotado por Dilma com 48,9%). Gravado em 2017 pedindo R$ 2 milhões ao empresário Joesley Batista (JBS) em conversa entregue à PGR."},
+        {h:"Investigação",p:"Afastado temporariamente do Senado em 2017. Alvo de múltiplos inquéritos por corrupção, lavagem de dinheiro e obstrução de justiça. O STF rejeitou várias denúncias por insuficiência probatória."},
+        {h:"Desfecho",p:"Absolvido das principais acusações pelo STF em 2023. Permanece Senador pelo PSDB/PSDB-Cidadania até o presente, sem ter cumprido nenhuma pena."}
+      ]}}
+    ]
+  },
+
+  {
+    id:"acertos", label:["ACERTOS"], color:"#4de880", angle:30,
+    detail:{ cat:"RESULTADOS POSITIVOS", title:"Acertos da Operação",
+      secs:[
+        {h:"Impacto histórico",p:"A Lava Jato produziu resultados sem precedente no combate à corrupção sistêmica no Brasil, com mais de 280 condenados, R$ 4+ bilhões recuperados e reflexos internacionais em 12 países. Apesar das irregularidades, muitos fatos apurados eram reais e provados."}
+      ]
+    },
+    children:[
+      {id:"ac1",label:["Exposição do","Esquema Global"],detail:{cat:"ACERTOS",title:"Exposição Transnacional",secs:[
+        {h:"Alcance",p:"O esquema da Odebrecht foi revelado em 12 países: Brasil, Peru, Venezuela, Colômbia, México, Panamá, República Dominicana, Angola, Moçambique, Argentina, Equador e Guatemala. Em vários desses países, presidentes foram presos ou investigados."},
+        {h:"Cooperação internacional",p:"A Lava Jato estabeleceu cooperação com DOJ/EUA, Ministério Público suíço, autoridades peruanas e colombianas. Pela primeira vez o Brasil conduziu investigação anticorrupção com alcance comparável ao FCPA americano."},
+        {h:"Precedente",p:"O case brasileiro tornou-se estudo em faculdades de direito do mundo inteiro. O acordo com o DOJ foi referenciado como modelo de enforcement anticorrupção internacional."}
+      ]}},
+      {id:"ac2",label:["Prisão de","Executivos"],detail:{cat:"ACERTOS",title:"Prisão de Executivos e Políticos",secs:[
+        {h:"Resultados",p:"Mais de 280 pessoas condenadas: presidentes e CEOs das maiores construtoras do Brasil, diretores da Petrobras, ex-presidentes de estatais, parlamentares, ex-ministros e governadores."},
+        {h:"Penas totais",p:"O somatório de penas supera 2.000 anos de prisão entre os condenados. Marcelo Odebrecht (19 anos), José Dirceu (23 anos), Eduardo Cunha (15 anos) e dezenas de outros cumpriram penas efetivas."},
+        {h:"Deterrência",p:"Pesquisas de percepção de corrupção mostraram melhora no índice da Transparência Internacional nos anos seguintes. O risco de punição efetiva mudou (temporariamente) o cálculo das elites."}
+      ]}},
+      {id:"ac3",label:["Colaborações","Premiadas"],detail:{cat:"ACERTOS",title:"Sistema de Colaboração Premiada",secs:[
+        {h:"Inovação jurídica",p:"A Lava Jato consolidou o uso da colaboração premiada no Brasil com base na Lei 12.850/2013. Mais de 200 acordos foram firmados, criando precedentes para toda a Justiça Criminal brasileira."},
+        {h:"Resultado prático",p:"Sem as delações, seria impossível provar o esquema por meios tradicionais: a maior parte das transações de propina era verbal, em dinheiro vivo, sem documentos. A colaboração foi a única forma de penetrar na estrutura."},
+        {h:"Legado",p:"O Brasil passou a ter um dos regimes de colaboração premiada mais elaborados do mundo. O modelo influenciou reformas processuais em vários países latino-americanos."}
+      ]}},
+      {id:"ac4",label:["Recuperação","de Ativos"],detail:{cat:"ACERTOS",title:"Recuperação de Ativos Públicos",secs:[
+        {h:"Valores recuperados",p:"Mais de R$ 4 bilhões foram recuperados por meio de acordos de leniência, multas administrativas e devoluções voluntárias — o maior volume da história do direito penal brasileiro."},
+        {h:"Acordo Odebrecht/DOJ",p:"O acordo com o Departamento de Justiça dos EUA previu o pagamento de US$ 2,6 bilhões (maior multa anticorrupção da história). Parte foi repassada ao Brasil via acordo bilateral."},
+        {h:"Petrobras",p:"A Petrobras também celebrou acordo com a SEC e DOJ pagando US$ 853 milhões. A empresa usou os recursos para reforçar programas internos de compliance e governança."}
+      ]}},
+      {id:"ac5",label:["Fortalecimento","Legal"],detail:{cat:"ACERTOS",title:"Marco Legal Anticorrupção",secs:[
+        {h:"Legislação",p:"A pressão da Lava Jato levou ao fortalecimento da Lei Anticorrupção (12.846/2013), que introduziu responsabilidade objetiva de empresas. A Lei do Crime Organizado (12.850/2013) também foi aprimorada na prática."},
+        {h:"Compliance corporativo",p:"O Brasil desenvolveu uma indústria robusta de compliance após a operação. Grandes empresas passaram a investir em programas de integridade, gestão de risco e canais de denúncia internos."},
+        {h:"Institucional",p:"CGU, TCU, CADE e Ministério Público Federal ganharam musculatura institucional e visibilidade pública. A cooperação entre órgãos de controle melhorou significativamente no período."}
+      ]}}
+    ]
+  },
+
+  {
+    id:"erros", label:["ERROS &","ILEGALIDADES"], color:"#e89444", angle:90,
+    detail:{ cat:"FALHAS PROCESSUAIS E ÉTICAS", title:"Erros e Ilegalidades",
+      secs:[
+        {h:"Visão geral",p:"A Lava Jato cometeu graves erros processuais, éticos e estratégicos que comprometeram sua legitimidade jurídica, levaram à anulação de condenações históricas e deixaram como legado uma crise de confiança nas instituições."}
+      ]
+    },
+    children:[
+      {id:"e1",label:["Parcialidade","de Moro"],detail:{cat:"ILEGALIDADES — GRAVE",title:"Parcialidade do Juiz Moro",secs:[
+        {h:"Vaza Jato (2019)",p:"Mensagens vazadas pelo The Intercept Brasil (fonte: Walter Delgatti) revelaram comunicações diretas entre Moro e Dallagnol via Telegram. Moro orientava estratégias da acusação, sugeria provas a produzir, indicava prioridades e reclamava de inércia nos pedidos."},
+        {h:"Ilegalidade",p:"Viola o princípio da imparcialidade judicial (CF art. 5° LIII), o sistema acusatório (CPP art. 3°-A), o contraditório e a separação entre acusação e jurisdição. O juiz tornou-se co-partícipe da acusação — nulidade absoluta."},
+        {h:"Consequência",p:"Em 23/06/2021 o STF declarou Moro suspeito por 3x2, anulando todas as condenações de Lula nos processos em que atuou. Os processos retornaram à estaca zero, desta vez em Brasília."}
+      ]}},
+      {id:"e2",label:["Vaza Jato","The Intercept"],detail:{cat:"ILEGALIDADES — REVELAÇÃO",title:"Vaza Jato — The Intercept Brasil",secs:[
+        {h:"O que foi",p:"Em 9 de junho de 2019, o The Intercept Brasil iniciou série de reportagens baseada em mensagens do Telegram cedidas por Walter Delgatti (hacker paulista). Mais de 1.000 arquivos foram divulgados ao longo de meses."},
+        {h:"Revelações principais",p:"Moro combinava datas de prisões com a acusação. Reclamava de lentidão em indiciamentos. Orientava sobre a ordem de investigações para maximizar impacto político. Trocava recados informais sobre réus específicos."},
+        {h:"Impacto",p:"Abalou globalmente a imagem da operação. Levou a questionamentos em organismos internacionais (ONU). Fundamentou o reconhecimento de suspeição pelo STF e reabriu dezenas de recursos de condenados."}
+      ]}},
+      {id:"e3",label:["Conduções","Coercitivas"],detail:{cat:"ERROS PROCESSUAIS",title:"Conduções Coercitivas Inconstitucionais",secs:[
+        {h:"O que eram",p:"Mandados de condução coercitiva de investigados (não réus e não intimados) para interrogatório, executados com aparato policial e ampla cobertura da mídia — usados como instrumento de pressão e espetáculo."},
+        {h:"Caso Lula (4/3/2016)",p:"A condução coercitiva de Lula em março de 2016 foi ao vivo em rede nacional. Gerou manifestações em todo o Brasil e crise diplomática. O STF posteriormente reconheceu que violou garantias constitucionais."},
+        {h:"STF — ADPF 395/444 (2018)",p:"O STF declarou por 7x4 a inconstitucionalidade da condução coercitiva de investigado para interrogatório, reconhecendo violação ao direito ao silêncio (art. 5° LXIII), à não autoincriminação e à presunção de inocência."}
+      ]}},
+      {id:"e4",label:["Vazamentos","Seletivos"],detail:{cat:"ERROS ÉTICOS",title:"Vazamentos Seletivos à Imprensa",secs:[
+        {h:"Prática sistemática",p:"Informações sigilosas de grampos e investigações eram repassadas seletivamente à imprensa horas ou dias antes de qualquer decisão judicial, gerando clima condenatório antecipado e pressão pública sobre réus."},
+        {h:"Caso emblemático",p:"Em março de 2016, Moro divulgou a interceptação telefônica entre Lula e Dilma antes de qualquer decisão judicial sobre sua validade. O STF anulou a escuta como prova ilícita. A íntegra da ligação foi ao ar na Globo News."},
+        {h:"Consequências",p:"Viola o sigilo das investigações (CPP art. 20), a presunção de inocência (CF art. 5° LVII) e os deveres funcionais do magistrado (LOMAN). Criou o chamado 'direito penal do espetáculo'."}
+      ]}},
+      {id:"e5",label:["Visão Limitada","do Esquema"],detail:{cat:"ERRO ESTRATÉGICO",title:"Falha Sistêmica: Corrupção vs. Lavagem Transnacional",secs:[
+        {h:"A crítica de Coutinho (2026)",p:"'Um dos erros da Lava Jato foi acreditar que investigava apenas casos colossais de corrupção. O que tinham em mãos era uma engenharia de fluxo financeiro em que as obras eram meios que justificavam as movimentações. A corrupção era método, parte do negócio.'"},
+        {h:"Dimensão oculta",p:"O dinheiro que irrigava propinas via doleiros tinha pontos de contato com o narcotráfico. Organizações como o PCC geravam bilhões em caixa físico que precisavam ser convertidos — os doleiros serviam tanto ao 'Clube' quanto ao crime organizado."},
+        {h:"Implicação atual",p:"Essa falha estratégica permite que esquemas análogos (caso Master/Vorcaro) reproduzam a mesma estrutura sem que a investigação identifique os atores reais no topo da cadeia de lavagem transnacional."}
+      ]}},
+      {id:"e6",label:["Powerpoint","Dallagnol"],detail:{cat:"ERRO PROCESSUAL",title:"Denúncia pelo Powerpoint",secs:[
+        {h:"O que foi",p:"Em setembro de 2016, Dallagnol ofereceu a denúncia contra Lula no caso triplex em coletiva de imprensa com um powerpoint exibindo círculos e setas conectando Lula ao esquema — sem prova direta de ato de ofício."},
+        {h:"Crítica jurídica",p:"Juristas de diversas correntes (incluindo críticos de Lula) apontaram que a peça acusatória era excessivamente baseada em inferências e provas indiretas. A denúncia não estabelecia com clareza qual ato funcional Lula praticou em troca da propina."},
+        {h:"Impacto",p:"Tornou-se símbolo do 'direito penal do espetáculo' da operação. Deu munição a críticos de que a acusação era movida por objetivos políticos tanto quanto jurídicos. O STF, ao anular, mencionou debilidades na imputação."}
+      ]}}
+    ]
+  },
+
+  {
+    id:"anulacao", label:["ANULAÇÃO","& STF"], color:"#e8d84a", angle:150,
+    detail:{ cat:"DESCONSTRUÇÃO JUDICIAL", title:"Anulação e o Papel do STF",
+      secs:[
+        {h:"Contexto",p:"A Lava Jato foi progressivamente desmontada pelo STF entre 2019 e 2021 por meio de decisões que reconheceram ilegalidades processuais graves, mudanças de jurisprudência sobre prisão e o encerramento institucional da força-tarefa."}
+      ]
+    },
+    children:[
+      {id:"an1",label:["STF — Suspeição","de Moro (2021)"],detail:{cat:"ANULAÇÃO — STF",title:"Declaração de Suspeição de Moro",secs:[
+        {h:"Decisão",p:"Em 23/06/2021, a 2ª Turma do STF declarou Sérgio Moro suspeito para julgar Lula por 3 votos a 2. Votaram pela suspeição: Gilmar Mendes, Ricardo Lewandowski e Cármen Lúcia. Votaram contra: Edson Fachin e Nunes Marques."},
+        {h:"Efeito",p:"Todas as condenações de Lula nos processos conduzidos por Moro foram declaradas nulas. Os processos foram remetidos à Justiça Federal do DF para recomeçar do zero, com novo juiz e nova instrução probatória."},
+        {h:"Fundamento",p:"As mensagens do Telegram demonstraram que Moro atuou como co-acusador ao mesmo tempo em que julgava — violação flagrante do princípio do juiz natural imparcial, do sistema acusatório e do contraditório."}
+      ]}},
+      {id:"an2",label:["Fachin —","Incompetência"],detail:{cat:"ANULAÇÃO — STF",title:"Edson Fachin — Incompetência de Curitiba",secs:[
+        {h:"Decisão monocrática",p:"Em 08/03/2021, o Min. Fachin (relator da Lava Jato no STF) declarou monocraticamente a incompetência da 13ª Vara de Curitiba para julgar Lula nos quatro processos, antes mesmo da decisão de suspeição."},
+        {h:"Fundamento",p:"Os fatos imputados a Lula (triplex, sítio, apartamento em Lisboa, terreno) não tinham relação direta com contratos da Petrobras. Portanto, não eram da competência da vara especializada em crimes contra a estatal."},
+        {h:"Consequência",p:"Processos remetidos à Justiça Federal do DF. Lula recuperou imediatamente seus direitos políticos e tornou-se elegível para 2022. Estratégia processual paradoxal: Fachin 'salvou' Lula para evitar a suspeição de Moro."}
+      ]}},
+      {id:"an3",label:["Gilmar Mendes","Habeas Corpus"],detail:{cat:"ANULAÇÃO — PAPEL DO STF",title:"Gilmar Mendes — Opositor da Lava Jato",secs:[
+        {h:"Papel central",p:"O Min. Gilmar Mendes foi o magistrado mais sistematicamente crítico da Lava Jato no STF, concedendo habeas corpus a vários investigados e questionando os métodos da operação em seus votos e declarações públicas."},
+        {h:"Decisões relevantes",p:"Votou pela inconstitucionalidade das conduções coercitivas (ADPF 444), pelo fim da prisão após condenação em 2ª instância (2019), contra a jurisdição de Curitiba em casos não-Petrobras, e pela suspeição de Moro."},
+        {h:"Conflito de interesses",p:"O próprio Gilmar era alvo de investigações na Lava Jato (caso JBS/Lula Marinho), o que gerou intenso debate sobre imparcialidade. Os procuradores de Curitiba chegaram a pedir seu impedimento, sem sucesso."}
+      ]}},
+      {id:"an4",label:["Fim da Prisão","2ª Instância"],detail:{cat:"ANULAÇÃO — JURISPRUDÊNCIA",title:"Fim da Prisão após 2ª Instância",secs:[
+        {h:"Decisão (11/2019)",p:"Em 7 de novembro de 2019, o STF reverteu sua jurisprudência de 2016 por 6 votos a 5: a prisão após condenação em 2ª instância (antes do trânsito em julgado) voltou a ser inconstitucional."},
+        {h:"Impacto direto",p:"Lula foi imediatamente solto em 8 de novembro de 2019, após 580 dias preso. Além dele, dezenas de condenados pela Lava Jato que aguardavam resultados de recursos em liberdade foram beneficiados."},
+        {h:"Contexto",p:"A prisão em 2ª instância havia sido autorizada pelo STF em 2016 (caso Lula Marinho) e era considerada fundamental para a eficácia da Lava Jato. A reversão foi criticada como politicamente motivada por parte da mídia e do movimento anticorrupção."}
+      ]}},
+      {id:"an5",label:["Encerramento","Força-Tarefa"],detail:{cat:"ANULAÇÃO — INSTITUCIONAL",title:"Encerramento da Força-Tarefa",secs:[
+        {h:"Quando e como",p:"Em fevereiro de 2021, o PGR Augusto Aras encerrou formalmente a força-tarefa do MPF em Curitiba, distribuindo os casos a outros procuradores. Aras havia criticado a operação desde sua posse em 2019."},
+        {h:"Contexto político",p:"Aras foi indicado por Bolsonaro (que paradoxalmente também havia se beneficiado politicamente da Lava Jato). O encerramento coincidiu com as decisões do STF que fragilizavam juridicamente a operação."},
+        {h:"Legado fragmentado",p:"As investigações foram diluídas entre diferentes procuradores, sem o foco e expertise acumulado pelo grupo original. Vários processos ainda tramitam, mas sem a coesão e protagonismo que caracterizaram 2014-2019."}
+      ]}},
+      {id:"an6",label:["Responsáveis","pela Anulação"],detail:{cat:"ANULAÇÃO — ATORES",title:"Principais Responsáveis pela Anulação",secs:[
+        {h:"STF (decisões)",p:"Gilmar Mendes (habeas corpus, suspeição), Edson Fachin (incompetência territorial), Ricardo Lewandowski (acesso aos diálogos do Telegram), Cármen Lúcia (voto pela suspeição), Rosa Weber (prisão 2ª instância)."},
+        {h:"O próprio Moro",p:"Ironicamente, Moro é o principal responsável pela anulação de seu trabalho. As mensagens do Telegram revelaram comportamento que tornou indefensável juridicamente a imparcialidade de suas decisões."},
+        {h:"PGR Aras",p:"Augusto Aras contribuiu institucionalmente ao encerrar a força-tarefa antes que investigações em andamento fossem concluídas, e ao não defender a operação com vigor diante do STF."}
+      ]}}
+    ]
+  },
+
+  {
+    id:"conexoes", label:["CONEXÕES","CRIMINOSAS"], color:"#c44de8", angle:210,
+    detail:{ cat:"CRIME ORGANIZADO TRANSNACIONAL", title:"Conexões com Crime Organizado",
+      secs:[
+        {h:"Dimensão oculta",p:"A Lava Jato não identificou (ou subestimou) a conexão entre o esquema de corrupção e o crime organizado transnacional. A análise de Coutinho (2026) sugere que os fluxos financeiros investigados estavam contaminados na origem por dinheiro do narcotráfico."}
+      ]
+    },
+    children:[
+      {id:"cn1",label:["Caso Master","Vorcaro"],detail:{cat:"CONEXÕES — PRESENTE",title:"Caso Banco Master — Daniel Vorcaro",secs:[
+        {h:"Contexto",p:"O Banco Master acumulou passivos bilionários em CDBs com taxas anormalmente elevadas. Após intervenção do BC, foi incorporado pelo BRB (Banco de Brasília) em 2025 em operação controversa que usou recursos do FGC."},
+        {h:"Conexão criminosa documentada",p:"A CNN Brasil revelou que o Master recebeu investimentos do Reag Investimentos, fundo alvo da Operação Carbono Oculto por suspeita de uso como canal de lavagem de dinheiro do crime organizado."},
+        {h:"Hipótese Coutinho (2026)",p:"Vorcaro pode não estar no topo da hierarquia, mas ser um 'provedor de serviços' — como Alberto Youssef na Lava Jato. O modelo: captação com taxas acima do mercado como meio de absorver recursos ilícitos e 'lavá-los' via sistema financeiro formal."}
+      ]}},
+      {id:"cn2",label:["PCC como","Ator Financeiro"],detail:{cat:"CONEXÕES — PCC",title:"PCC — Participação no Esquema Financeiro",secs:[
+        {h:"PCC e lavagem",p:"O Primeiro Comando da Capital (PCC) opera redes sofisticadas de lavagem de dinheiro. Fatura R$ 400+ milhões/ano apenas com tráfico no Brasil e precisa converter volumes imensos de dinheiro físico em ativos financeiros."},
+        {h:"Conexão Master",p:"Investigações identificaram pontos de contato entre o Banco Master e fundos com conexões ao PCC. A organização criminosa utilizava instrumentos financeiros formais (CDBs, fundos) como veículo de lavagem — 'investindo' recursos ilícitos como qualquer pessoa física."},
+        {h:"Modelo operacional",p:"O PCC usa doleiros, empresas de fachada e instrumentos de renda fixa para transformar reais físicos em ativos rastreáveis. O mesmo mecanismo usado pelos doleiros da 25 de Março na época da Odebrecht."}
+      ]}},
+      {id:"cn3",label:["Odebrecht &","Narcotráfico"],detail:{cat:"CONEXÕES — ODEBRECHT",title:"Contaminação pelo Narcotráfico",secs:[
+        {h:"A hipótese",p:"Os doleiros que convertiam reais em dólares para os operadores da Odebrecht também operavam com o crime organizado. Os reais usados nas transações — como os R$ 51 milhões encontrados no apartamento de Geddel — tinham origem parcialmente no narcotráfico."},
+        {h:"Sem intencionalidade",p:"Coutinho avalia que a Odebrecht não atuava deliberadamente com o narcotráfico, mas suas operações estruturadas foram 'contaminadas na fonte' ao usar doleiros que não distinguiam a origem dos reais que intermediavam."},
+        {h:"Narco Files",p:"Investigação internacional (El Universal/Narco Files, 2023) documentou conexões entre personagens da Lava Jato colombiana e redes de tráfico transnacional — confirmando que as fronteiras entre corrupção e narcotráfico eram porosas."}
+      ]}},
+      {id:"cn4",label:["Doleiros","25 de Março"],detail:{cat:"CONEXÕES — LAVAGEM",title:"Doleiros da Rua 25 de Março",secs:[
+        {h:"Infraestrutura",p:"Operadores de câmbio informal concentrados na região da Rua 25 de Março (SP) atuavam como infraestrutura invisível de lavagem. Convertiam grandes volumes de reais em dólares fora do sistema bancário formal."},
+        {h:"Função no esquema",p:"Recebiam reais (parte de origem ilícita) de clientes como o crime organizado e de empresas como a Odebrecht — depositando dólares em contas no exterior. Completavam o ciclo de lavagem transnacional sem que origem e destino se encontrassem no sistema formal."},
+        {h:"Escala",p:"O sistema funcionava como uma rede de câmbio paralela de bilhões de dólares/ano. A Lava Jato investigou alguns doleiros (Youssef, João Procópio) mas não mapeou a rede completa nem suas conexões com o narcotráfico."}
+      ]}},
+      {id:"cn5",label:["Redes DEA","Lavagem Global"],detail:{cat:"CONEXÕES — TRANSNACIONAL",title:"Redes Globais de Lavagem — DEA / CIMEX",secs:[
+        {h:"Contexto global",p:"A DEA documentou redes em que grupos chineses (CIMEX) arrecadam dólares em espécie de traficantes nos EUA e intermediam operações para clientes na China que precisam 'comprar dólares' sem remessas físicas. O modelo é chamado TBML (Trade-Based Money Laundering)."},
+        {h:"Paralelo brasileiro",p:"O modelo é idêntico ao que doleiros faziam no Brasil: converter caixa físico do crime em dólares no exterior usando transações espelho. A diferença é escala e sofisticação. As redes transnacionais se interligam."},
+        {h:"Sinaloa + China (2024)",p:"Indiciamento federal de junho de 2024 (DOJ/DEA) documentou aliança entre Cartel de Sinaloa e redes chinesas de lavagem. O modelo é replicado por organizações criminosas em todo o mundo — incluindo, possivelmente, o Brasil."}
+      ]}}
+    ]
+  }
+];
+
+// ─── RENDERER ────────────────────────────────────────────────────────────────
+const svg = document.getElementById('mindmap');
+const wrap = document.getElementById('canvas-wrap');
+const detail = document.getElementById('detail');
+const dpCat = document.getElementById('dp-cat');
+const dpTitle = document.getElementById('dp-title');
+const dpBody = document.getElementById('dp-body');
+const dpClose = document.getElementById('dp-close');
+
+let W, H, CX, CY;
+let transform = {x:0,y:0,s:0.72}; // zoom inicial para caber o mapa sem encavalamento
+let drag = null;
+
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for(const [k,v] of Object.entries(attrs||{})) e.setAttribute(k,v);
+  if(parent) parent.appendChild(e);
+  return e;
+}
+function deg2rad(d){ return d*Math.PI/180; }
+function polar(cx,cy,r,deg){
+  const a=deg2rad(deg);
+  return {x:cx+r*Math.cos(a), y:cy+r*Math.sin(a)};
+}
+
+function buildSVG(){
+  const vw = wrap.clientWidth, vh = wrap.clientHeight;
+  // Espaço lógico fixo para evitar sobreposição — viewBox escala o conteúdo
+  const LOGIC = 1800;
+  W = LOGIC; H = LOGIC;
+  CX = LOGIC/2; CY = LOGIC/2;
+  svg.setAttribute('viewBox', `0 0 ${LOGIC} ${LOGIC}`);
+  svg.setAttribute('width','100%'); svg.setAttribute('height','100%');
+  svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+  svg.innerHTML='';
+
+  // defs
+  const defs = el('defs',{},svg);
+  // glow filter
+  const flt = el('filter',{id:'glow',x:'-60%',y:'-60%',width:'220%',height:'220%'},defs);
+  const blur = el('feGaussianBlur',{stdDeviation:'4',result:'blur'},flt);
+  const merge = el('feMerge',{},flt);
+  el('feMergeNode',{in:'blur'},merge);
+  el('feMergeNode',{in:'SourceGraphic'},merge);
+  // grid pattern
+  const pat = el('pattern',{id:'grid',width:'40',height:'40',patternUnits:'userSpaceOnUse'},defs);
+  el('path',{d:'M 40 0 L 0 0 0 40',fill:'none',stroke:'rgba(255,255,255,0.03)','stroke-width':'0.5'},pat);
+
+  // background
+  el('rect',{x:0,y:0,width:W,height:H,fill:'url(#grid)'},svg);
+
+  // main group
+  const g = el('g',{id:'gMain'},svg);
+  const gLines = el('g',{},g);
+  const gNodes = el('g',{},g);
+
+  const R1=260, R2=520, R3=700; // R2/R3 = dois anéis para filhos (evita encavalamento)
+
+  // ROOT
+  const rg = el('g',{class:'node-g',transform:`translate(${CX},${CY})`},gNodes);
+  el('circle',{r:'70',fill:'rgba(232,200,74,0.04)',stroke:'rgba(232,200,74,0.1)','stroke-width':'1'},rg);
+  el('circle',{r:'56',fill:'#0b0d18',stroke:'#e8c84a','stroke-width':'1.5'},rg);
+  ['LAVA','JATO'].forEach((txt,i)=>{
+    const t=el('text',{x:0,y:i===0?-6:8,'text-anchor':'middle',fill:'#e8c84a','font-size':'12','font-family':"'IBM Plex Mono',monospace",'font-weight':'700','letter-spacing':'0.12em'},rg);
+    t.textContent=txt;
+  });
+  const sub=el('text',{x:0,y:'22','text-anchor':'middle',fill:'rgba(232,200,74,0.45)','font-size':'9','font-family':"'IBM Plex Mono',monospace"},rg);
+  sub.textContent='2014—2021';
+  rg.addEventListener('click',()=>showDetail({cat:'OPERAÇÃO FEDERAL',title:'Operação Lava Jato',secs:[
+    {h:'O que foi',p:'Maior operação anticorrupção da história do Brasil. Iniciada em março de 2014 pelo MPF e PF em Curitiba, revelou um esquema sistêmico de corrupção e lavagem de dinheiro envolvendo a Petrobras, empreiteiras e políticos de todos os partidos.'},
+    {h:'Resultados',p:'Mais de 280 condenados, R$ 4+ bilhões recuperados, US$ 2,6 bilhões em acordos internacionais. 13 países investigados. 200+ colaborações premiadas. Mais de 50 empresas assinaram acordos de leniência.'},
+    {h:'Encerramento',p:'A força-tarefa de Curitiba foi encerrada em fevereiro de 2021. Em junho de 2021, o STF anulou as condenações de Lula por suspeição de Moro. O legado é contraditório: resultados reais em corrupção exposta, mas destruído por ilegalidades processuais graves.'}
+  ]},'#e8c84a'));
+
+  BRANCHES.forEach(branch=>{
+    const bp = polar(CX,CY,R1,branch.angle);
+
+    // root → branch line
+    el('line',{x1:CX,y1:CY,x2:bp.x,y2:bp.y,
+      stroke:branch.color,'stroke-width':'1.2','stroke-opacity':'0.3'},gLines);
+
+    // branch node
+    const bg = el('g',{class:'node-g',transform:`translate(${bp.x},${bp.y})`},gNodes);
+    const br = el('rect',{x:'-50',y:'-24',width:'100',height:'48',rx:'4',
+      fill:'#0b0e1a',stroke:branch.color,'stroke-width':'1.5','stroke-opacity':'0.9'},bg);
+    branch.label.forEach((line,li)=>{
+      const t=el('text',{x:0,y:branch.label.length>1?(li===0?-8:7):4,
+        'text-anchor':'middle',fill:branch.color,
+        'font-size':'10','font-family':"'IBM Plex Mono',monospace",'font-weight':'700','letter-spacing':'0.08em'},bg);
+      t.textContent=line;
+    });
+    bg.addEventListener('mouseenter',()=>br.setAttribute('fill','#141824'));
+    bg.addEventListener('mouseleave',()=>br.setAttribute('fill','#0b0e1a'));
+    bg.addEventListener('click',e=>{e.stopPropagation();showDetail(branch.detail,branch.color);});
+
+    // children — distribuídos em 2 anéis (R2 e R3) para evitar sobreposição
+    const kids = branch.children||[];
+    const N=kids.length;
+    const half = Math.ceil(N/2);
+    const row1 = kids.slice(0,half), row2 = kids.slice(half);
+    const spread1 = row1.length>1 ? Math.min(42, (row1.length-1)*10) : 0;
+    const spread2 = row2.length>1 ? Math.min(42, (row2.length-1)*10) : 0;
+
+    [row1, row2].forEach((row,ri)=>{
+      const R = ri===0 ? R2 : R3;
+      row.forEach((kid,ci)=>{
+        const off = row.length>1 ? (ci/(row.length-1)-0.5)*(ri===0?spread1:spread2) : 0;
+        const ca = branch.angle+off;
+        const cp = polar(CX,CY,R,ca);
+
+        // branch → child line (dashed)
+        el('line',{x1:bp.x,y1:bp.y,x2:cp.x,y2:cp.y,
+          stroke:branch.color,'stroke-width':'0.8','stroke-opacity':'0.18',
+          'stroke-dasharray':'5,4'},gLines);
+
+        const kg = el('g',{class:'node-g',transform:`translate(${cp.x},${cp.y})`},gNodes);
+        const maxLen = Math.max(...kid.label.map(l=>l.length));
+        const kw = Math.max(maxLen*6.5+20,60);
+        const kr = el('rect',{x:`${-kw/2}`,y:'-19',width:kw,height:'38',rx:'3',
+          fill:'#0b0e1a',stroke:branch.color,'stroke-width':'0.8','stroke-opacity':'0.5'},kg);
+        kid.label.forEach((line,li)=>{
+          const t=el('text',{x:0,y:kid.label.length>1?(li===0?-6:8):4,
+            'text-anchor':'middle',fill:'rgba(255,255,255,0.82)',
+            'font-size':'9.5','font-family':"'IBM Plex Sans',sans-serif",'font-weight':'500'},kg);
+          t.textContent=line;
+        });
+        kg.addEventListener('mouseenter',()=>kr.setAttribute('fill','#141824'));
+        kg.addEventListener('mouseleave',()=>kr.setAttribute('fill','#0b0e1a'));
+        kg.addEventListener('click',e=>{e.stopPropagation();showDetail(kid.detail,branch.color);});
+      });
+    });
+  });
+}
+
+function showDetail(d,color){
+  if(!d)return;
+  dpCat.textContent=d.cat||'—';
+  dpCat.style.color=color;
+  dpTitle.textContent=d.title||'—';
+  dpTitle.style.borderLeft=`3px solid ${color}`;
+  dpTitle.style.paddingLeft='10px';
+  dpTitle.style.color='#fff';
+  dpBody.innerHTML='';
+  (d.secs||[]).forEach(s=>{
+    const div=document.createElement('div');
+    div.style.cssText='margin-bottom:16px;';
+    const h=document.createElement('div');
+    h.style.cssText=`font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:6px;`;
+    h.textContent=s.h;
+    const p=document.createElement('div');
+    p.style.cssText='font-size:12.5px;line-height:1.8;color:rgba(255,255,255,0.68);';
+    p.textContent=s.p;
+    div.appendChild(h); div.appendChild(p);
+    dpBody.appendChild(div);
+    const hr=document.createElement('div');
+    hr.style.cssText='height:1px;background:rgba(255,255,255,0.05);margin-bottom:16px;';
+    dpBody.appendChild(hr);
+  });
+  detail.classList.add('open');
+}
+
+dpClose.addEventListener('click',()=>detail.classList.remove('open'));
+
+// ─── PAN / ZOOM ──────────────────────────────────────────────────────────────
+function applyT(){
+  const g=document.getElementById('gMain');
+  if(g) g.setAttribute('transform',`translate(${transform.x},${transform.y}) scale(${transform.s})`);
+}
+
+wrap.addEventListener('mousedown',e=>{
+  if(e.target.closest('.node-g'))return;
+  drag={mx:e.clientX,my:e.clientY,tx:transform.x,ty:transform.y};
+});
+window.addEventListener('mousemove',e=>{
+  if(!drag)return;
+  transform.x=drag.tx+(e.clientX-drag.mx);
+  transform.y=drag.ty+(e.clientY-drag.my);
+  applyT();
+});
+window.addEventListener('mouseup',()=>{drag=null;});
+
+wrap.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const f=e.deltaY>0?0.9:1.1;
+  const ns=Math.min(Math.max(transform.s*f,0.35),3);
+  const rect=wrap.getBoundingClientRect();
+  const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  transform.x=mx-(mx-transform.x)*(ns/transform.s);
+  transform.y=my-(my-transform.y)*(ns/transform.s);
+  transform.s=ns;
+  applyT();
+},{passive:false});
+
+// touch
+let lastTouchDist=0;
+wrap.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){
+    const t=e.touches[0];
+    drag={mx:t.clientX,my:t.clientY,tx:transform.x,ty:transform.y};
+  } else if(e.touches.length===2){
+    const dx=e.touches[0].clientX-e.touches[1].clientX;
+    const dy=e.touches[0].clientY-e.touches[1].clientY;
+    lastTouchDist=Math.sqrt(dx*dx+dy*dy);
+  }
+},{passive:true});
+wrap.addEventListener('touchmove',e=>{
+  if(e.touches.length===1&&drag){
+    const t=e.touches[0];
+    transform.x=drag.tx+(t.clientX-drag.mx);
+    transform.y=drag.ty+(t.clientY-drag.my);
+    applyT();
+  } else if(e.touches.length===2){
+    const dx=e.touches[0].clientX-e.touches[1].clientX;
+    const dy=e.touches[0].clientY-e.touches[1].clientY;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    const ns=Math.min(Math.max(transform.s*(dist/lastTouchDist),0.35),3);
+    transform.s=ns;
+    lastTouchDist=dist;
+    applyT();
+  }
+},{passive:true});
+wrap.addEventListener('touchend',()=>{drag=null;});
+
+// zoom buttons
+document.getElementById('zoom-in').addEventListener('click',()=>{
+  transform.s=Math.min(transform.s*1.2,3);applyT();
+});
+document.getElementById('zoom-out').addEventListener('click',()=>{
+  transform.s=Math.max(transform.s*0.85,0.35);applyT();
+});
+document.getElementById('zoom-reset').addEventListener('click',()=>{
+  transform={x:0,y:0,s:0.72};applyT();
+});
+
+// init
+buildSVG();
+window.addEventListener('resize',()=>{buildSVG();applyT();});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

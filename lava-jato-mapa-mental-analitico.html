@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Lava Jato — Mapa Mental</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: #1e1e2e;
+    --text: #e8e8f0;
+    --muted: #6e6e8a;
+    --accent-red: #ff3860;
+    --accent-orange: #ff6b35;
+    --accent-yellow: #ffd166;
+    --accent-green: #06d6a0;
+    --accent-blue: #118ab2;
+    --accent-purple: #9b5de5;
+    --accent-cyan: #00b4d8;
+    --accent-white: #f8f9fa;
+    --glow-red: rgba(255,56,96,0.3);
+    --glow-green: rgba(6,214,160,0.3);
+    --glow-blue: rgba(17,138,178,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  .header {
+    position: relative;
+    padding: 48px 40px 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(255,56,96,0.05) 0%, transparent 100%);
+  }
+
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .header h1 span { color: var(--accent-red); }
+
+  .header-sub {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .meta-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+  }
+
+  .meta-pill.red { background: rgba(255,56,96,0.15); border: 1px solid rgba(255,56,96,0.4); color: var(--accent-red); }
+  .meta-pill.yellow { background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.3); color: var(--accent-yellow); }
+  .meta-pill.green { background: rgba(6,214,160,0.1); border: 1px solid rgba(6,214,160,0.3); color: var(--accent-green); }
+  .meta-pill.blue { background: rgba(17,138,178,0.1); border: 1px solid rgba(17,138,178,0.3); color: var(--accent-cyan); }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 16px;
+    padding: 16px 40px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* MAIN GRID */
+  .main {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+
+  .card.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .card-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-icon {
+    width: 32px; height: 32px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .card-body { padding: 20px; }
+
+  /* ITEMS */
+  .item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+
+  .item:last-child { border-bottom: none; }
+
+  .item-marker {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .item-content {}
+
+  .item-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .item-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .item-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ACTOR GRID */
+  .actor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .actor-card {
+    padding: 14px;
+    border-radius: 3px;
+    border: 1px solid;
+    transition: all 0.15s;
+  }
+
+  .actor-card:hover { filter: brightness(1.1); }
+
+  .actor-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .actor-role {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .actor-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple), var(--accent-red));
+  }
+
+  .tl-item {
+    position: relative;
+    padding-bottom: 20px;
+    padding-left: 16px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    border: 1px solid var(--bg);
+  }
+
+  .tl-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-cyan);
+    margin-bottom: 3px;
+    letter-spacing: 0.1em;
+  }
+
+  .tl-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .tl-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  /* VERDICT BLOCK */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .verdict-grid { grid-template-columns: 1fr; }
+    .main { padding: 20px; }
+    .header { padding: 32px 20px 20px; }
+    .legend { padding: 12px 20px; }
+  }
+
+  .verdict-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  /* COLORS BY THEME */
+  .theme-red .card-header { border-bottom-color: rgba(255,56,96,0.2); background: rgba(255,56,96,0.05); }
+  .theme-red .card-icon { background: rgba(255,56,96,0.2); color: var(--accent-red); }
+  .theme-red .card-title { color: var(--accent-red); }
+  .theme-red .item-marker { background: var(--accent-red); }
+
+  .theme-orange .card-header { border-bottom-color: rgba(255,107,53,0.2); background: rgba(255,107,53,0.05); }
+  .theme-orange .card-icon { background: rgba(255,107,53,0.2); color: var(--accent-orange); }
+  .theme-orange .card-title { color: var(--accent-orange); }
+  .theme-orange .item-marker { background: var(--accent-orange); }
+
+  .theme-yellow .card-header { border-bottom-color: rgba(255,209,102,0.2); background: rgba(255,209,102,0.05); }
+  .theme-yellow .card-icon { background: rgba(255,209,102,0.2); color: var(--accent-yellow); }
+  .theme-yellow .card-title { color: var(--accent-yellow); }
+  .theme-yellow .item-marker { background: var(--accent-yellow); }
+
+  .theme-green .card-header { border-bottom-color: rgba(6,214,160,0.2); background: rgba(6,214,160,0.05); }
+  .theme-green .card-icon { background: rgba(6,214,160,0.2); color: var(--accent-green); }
+  .theme-green .card-title { color: var(--accent-green); }
+  .theme-green .item-marker { background: var(--accent-green); }
+
+  .theme-blue .card-header { border-bottom-color: rgba(17,138,178,0.2); background: rgba(17,138,178,0.05); }
+  .theme-blue .card-icon { background: rgba(17,138,178,0.2); color: var(--accent-cyan); }
+  .theme-blue .card-title { color: var(--accent-cyan); }
+  .theme-blue .item-marker { background: var(--accent-cyan); }
+
+  .theme-purple .card-header { border-bottom-color: rgba(155,93,229,0.2); background: rgba(155,93,229,0.05); }
+  .theme-purple .card-icon { background: rgba(155,93,229,0.2); color: var(--accent-purple); }
+  .theme-purple .card-title { color: var(--accent-purple); }
+  .theme-purple .item-marker { background: var(--accent-purple); }
+
+  .theme-white .card-header { border-bottom-color: rgba(248,249,250,0.1); background: rgba(248,249,250,0.03); }
+  .theme-white .card-icon { background: rgba(248,249,250,0.1); color: var(--accent-white); }
+  .theme-white .card-title { color: var(--accent-white); }
+  .theme-white .item-marker { background: var(--muted); }
+
+  /* TAGS */
+  .tag-crime { background: rgba(255,56,96,0.15); border: 1px solid rgba(255,56,96,0.3); color: var(--accent-red); }
+  .tag-acerto { background: rgba(6,214,160,0.15); border: 1px solid rgba(6,214,160,0.3); color: var(--accent-green); }
+  .tag-erro { background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.3); color: var(--accent-orange); }
+  .tag-ilegal { background: rgba(155,93,229,0.15); border: 1px solid rgba(155,93,229,0.3); color: var(--accent-purple); }
+  .tag-stf { background: rgba(255,209,102,0.15); border: 1px solid rgba(255,209,102,0.3); color: var(--accent-yellow); }
+  .tag-ref { background: rgba(17,138,178,0.1); border: 1px solid rgba(17,138,178,0.3); color: var(--accent-cyan); }
+
+  /* ACTOR THEMES */
+  .actor-investigador { background: rgba(17,138,178,0.08); border-color: rgba(17,138,178,0.3); }
+  .actor-investigador .actor-name { color: var(--accent-cyan); }
+  .actor-investigador .actor-status { color: var(--accent-cyan); }
+
+  .actor-condenado { background: rgba(255,56,96,0.08); border-color: rgba(255,56,96,0.3); }
+  .actor-condenado .actor-name { color: var(--accent-red); }
+  .actor-condenado .actor-status { color: var(--accent-red); }
+
+  .actor-anulou { background: rgba(155,93,229,0.08); border-color: rgba(155,93,229,0.3); }
+  .actor-anulou .actor-name { color: var(--accent-purple); }
+  .actor-anulou .actor-status { color: var(--accent-purple); }
+
+  .actor-empresarial { background: rgba(255,107,53,0.08); border-color: rgba(255,107,53,0.3); }
+  .actor-empresarial .actor-name { color: var(--accent-orange); }
+  .actor-empresarial .actor-status { color: var(--accent-orange); }
+
+  .actor-politico { background: rgba(255,209,102,0.08); border-color: rgba(255,209,102,0.3); }
+  .actor-politico .actor-name { color: var(--accent-yellow); }
+  .actor-politico .actor-status { color: var(--accent-yellow); }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .flow-step {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 12px 16px;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .flow-box {
+    width: 90px;
+    height: 70px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    margin: 0 auto 6px;
+    font-size: 20px;
+  }
+
+  .flow-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 24px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* SCROLL */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+
+  .section-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ANIMATE IN */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.10s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.20s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+  .card:nth-child(6) { animation-delay: 0.30s; }
+  .card:nth-child(7) { animation-delay: 0.35s; }
+  .card:nth-child(8) { animation-delay: 0.40s; }
+  .card:nth-child(9) { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.50s; }
+  .card:nth-child(11) { animation-delay: 0.55s; }
+  .card:nth-child(12) { animation-delay: 0.60s; }
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">// Mapa Mental · Inteligência Investigativa</div>
+  <h1>Operação <span>Lava Jato</span></h1>
+  <div class="header-sub">Crimes, Atores, Erros, Acertos, Anulações e o Ecossistema do Crime Transnacional</div>
+  <div class="header-meta">
+    <span class="meta-pill red">2014–2021</span>
+    <span class="meta-pill yellow">Curitiba → Brasília</span>
+    <span class="meta-pill green">+350 investigados</span>
+    <span class="meta-pill blue">R$ 150bi+ identificados</span>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-red)"></div>CRIME</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-purple)"></div>ILEGALIDADE PROCESSUAL</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-orange)"></div>ERRO ESTRATÉGICO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-green)"></div>ACERTO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-cyan)"></div>INVESTIGADOR</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-yellow)"></div>POLÍTICO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--accent-purple)"></div>ANULOU</div>
+</div>
+
+<div class="main">
+
+  <!-- ORIGEM E CONTEXTO -->
+  <div class="card full-width theme-blue">
+    <div class="card-header">
+      <div class="card-icon">🔍</div>
+      <div class="card-title">Origem &amp; Estrutura do Esquema</div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-cyan)"></div>
+            <div class="item-content">
+              <div class="item-title">Início: Março de 2014</div>
+              <div class="item-desc">Deflagrada em Curitiba pelo juiz Sergio Moro. Ponto de partida: lavagem de dinheiro no Posto da Torre e através de Alberto Youssef, doleiro. Inicialmente investigava R$ 10 milhões; rapidamente revelou um esquema de R$ 150 bi+.</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-cyan)"></div>
+            <div class="item-content">
+              <div class="item-title">Tese Central Equivocada</div>
+              <div class="item-desc">A operação tratou o esquema como "corrupção de grandes proporções". Análise posterior (L. Coutinho et al.) sugere que as obras eram meios para justificar fluxos financeiros — a corrupção era <em>método</em>, não fim. O verdadeiro cerne era lavagem transnacional em escala estatal.</div>
+              <span class="item-tag tag-erro">ERRO CONCEITUAL</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-red)"></div>
+            <div class="item-content">
+              <div class="item-title">Engenharia de Fluxo Financeiro</div>
+              <div class="item-desc">As empreiteiras, especialmente Odebrecht, operavam um sistema complexo: obras supervalorizadas → propinas → "Departamento de Operações Estruturadas" (setor clandestino de caixa 2) → doleiros da Rua 25 de Março → contas no exterior.</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-red)"></div>
+            <div class="item-content">
+              <div class="item-title">Nexo com Crime Organizado Transnacional</div>
+              <div class="item-desc">Reais em espécie usados nas operações provinham parcialmente do narcotráfico (PCC, CV). Doleiros atuavam como intermediários entre traficantes que precisavam "limpar" cash e políticos que precisavam de dólares offshore. Contaminação na fonte, não intencional pela Odebrecht.</div>
+              <span class="item-tag tag-crime">CRIME TRANSNACIONAL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRIMES INVESTIGADOS -->
+  <div class="card theme-red">
+    <div class="card-header">
+      <div class="card-icon">⚖️</div>
+      <div class="card-title">Crimes Investigados</div>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Corrupção Ativa e Passiva</div>
+          <div class="item-desc">Pagamento de propinas a diretores da Petrobras (Renato Duque, Paulo Roberto Costa, Jorge Zelada) em troca de contratos superfaturados.</div>
+          <span class="item-tag tag-crime">ART. 317/333 CP</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Lavagem de Dinheiro</div>
+          <div class="item-desc">Ocultação via offshores nas Ilhas Cayman, Suíça, Panamá, BVI. Uso de doleiros, empresas de fachada e "dólar-cabo".</div>
+          <span class="item-tag tag-crime">LEI 9.613/98</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Cartel de Empreiteiras</div>
+          <div class="item-desc">Odebrecht, OAS, Camargo Corrêa, Andrade Gutierrez, Queiroz Galvão, UTC: divisão artificial de contratos, preços combinados, superfaturamento médio de 3% a 5% do valor total das obras.</div>
+          <span class="item-tag tag-crime">ART. 4º LEI 8.666/93</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Gestão Fraudulenta de Estatal</div>
+          <div class="item-desc">Diretores da Petrobras aprovavam contratos inflados em troca de comissões de 1% a 3%, transferidas para contas no exterior.</div>
+          <span class="item-tag tag-crime">ART. 4º LEI 8.429/92</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Organização Criminosa</div>
+          <div class="item-desc">Estrutura hierarquizada e permanente entre empreiteiros, doleiros, diretores e políticos. Duração superior a 10 anos.</div>
+          <span class="item-tag tag-crime">LEI 12.850/13</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACERTOS DA OPERAÇÃO -->
+  <div class="card theme-green">
+    <div class="card-header">
+      <div class="card-icon">✅</div>
+      <div class="card-title">Acertos da Operação</div>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Delações Premiadas em Escala Inédita</div>
+          <div class="item-desc">78 acordos de colaboração com executivos da Odebrecht (Dec. 2016). Revelaram pagamentos a mais de 300 políticos em 12 países. Modelo replicado no Peru, Argentina, México, Colômbia, Equador e Angola.</div>
+          <span class="item-tag tag-acerto">INOVAÇÃO JURÍDICA</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Cooperação Internacional</div>
+          <div class="item-desc">Acordos de assistência mútua com EUA (DOJ/FBI), Suíça, Liechtenstein, Panamá, Mônaco. Bloqueio de ativos no exterior. Primeiros em envolver Mutual Legal Assistance nessa escala na AL.</div>
+          <span class="item-tag tag-acerto">MLAT</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Recuperação de Ativos</div>
+          <div class="item-desc">R$ 4,3 bi+ repatriados à Petrobras e ao erário. Primeiro caso de repatriação em massa na história jurídica brasileira.</div>
+          <span class="item-tag tag-acerto">RESSARCIMENTO</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Exposição do Sistema Político-Empresarial</div>
+          <div class="item-desc">Revelou o mecanismo sistêmico de financiamento ilegal de campanhas eleitorais via empreiteiras, quebrando o tabu de que grandes empresas não praticavam corrupção organizada.</div>
+          <span class="item-tag tag-acerto">IMPACTO ESTRUTURAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERROS E ILEGALIDADES -->
+  <div class="card theme-orange">
+    <div class="card-header">
+      <div class="card-icon">⚠️</div>
+      <div class="card-title">Erros Estratégicos</div>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Visão Reducionista do Esquema</div>
+          <div class="item-desc">Tratou um sistema de lavagem transnacional como corrupção doméstica. Não investigou adequadamente a origem dos reais em espécie usados pelos doleiros — possível nexo com narcotráfico foi ignorado.</div>
+          <span class="item-tag tag-erro">FALHA METODOLÓGICA</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Uso Político da Investigação</div>
+          <div class="item-desc">Sergio Moro aceita cargo de Ministro da Justiça no governo Bolsonaro (2019) imediatamente após condenar e prender Lula. Configurou evidente conflito de interesse e comprometeu a imparcialidade retroativamente.</div>
+          <span class="item-tag tag-erro">CONFLITO DE INTERESSES</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Violação do Sigilo Constitucional</div>
+          <div class="item-desc">Interceptação e divulgação de conversas do ex-presidente Lula com a então presidenta Dilma (março 2016). Ato ilegal e inconstitucional, objeto de ação no STF.</div>
+          <span class="item-tag tag-erro">ART. 5º, XII CF/88</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Vazamentos Seletivos à Imprensa</div>
+          <div class="item-desc">Operação colocada em julgamento pela opinião pública antes de qualquer condenação. MPF e PF vazaram provas e gravações para mídia, influenciando o clamor popular e exercendo pressão sobre o Judiciário.</div>
+          <span class="item-tag tag-erro">PROCESSO MIDIÁTICO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ILEGALIDADES PROCESSUAIS -->
+  <div class="card theme-purple">
+    <div class="card-header">
+      <div class="card-icon">🚫</div>
+      <div class="card-title">Ilegalidades Processuais</div>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Juízo Sem Competência (Suspeição)</div>
+          <div class="item-desc">STF (2021) declarou Moro <strong>suspeito e parcial</strong> no julgamento de Lula. Diálogos obtidos pelo Intercept Brasil (2019) mostraram coordenação entre Moro e o MPF, violando o princípio da inércia da jurisdição.</div>
+          <span class="item-tag tag-ilegal">ART. 254 CPP</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Prisão Preventiva como Instrumento de Pressão</div>
+          <div class="item-desc">Uso de prisões cautelares para forçar delações. Réus mantidos presos sem condenação por meses. Juristas apontam violação do caráter excepcional da prisão preventiva no sistema acusatório.</div>
+          <span class="item-tag tag-ilegal">ART. 312 CPP</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Condução Coercitiva Inconstitucional</div>
+          <div class="item-desc">Uso de condução coercitiva de investigados para interrogatório sem prévia intimação. STF (ADPF 444, 2018) declarou a prática inconstitucional por violar o direito ao silêncio (art. 5º, LXIII, CF/88).</div>
+          <span class="item-tag tag-ilegal">ADPF 444/STF</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Incompetência da 13ª Vara de Curitiba</div>
+          <div class="item-desc">STF decidiu (2021) que Curitiba não tinha competência territorial para julgar crimes relacionados à sede da Petrobras, no Rio de Janeiro. Vício insanável que contaminou todos os processos julgados naquela vara.</div>
+          <span class="item-tag tag-ilegal">ART. 69, CPP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATORES: INVESTIGADORES -->
+  <div class="card theme-blue">
+    <div class="card-header">
+      <div class="card-icon">🕵️</div>
+      <div class="card-title">Atores — Investigadores &amp; Acusadores</div>
+    </div>
+    <div class="card-body">
+      <div class="actor-grid">
+        <div class="actor-card actor-investigador">
+          <div class="actor-name">Sergio Moro</div>
+          <div class="actor-role">Juiz Federal 13ª Vara / Min. Justiça Bolsonaro</div>
+          <div class="actor-status">⚡ DECLARADO SUSPEITO — STF 2021</div>
+        </div>
+        <div class="actor-card actor-investigador">
+          <div class="actor-name">Deltan Dallagnol</div>
+          <div class="actor-role">Coord. Força-Tarefa MPF/Curitiba</div>
+          <div class="actor-status">⚡ CASSADO — CNMP 2023</div>
+        </div>
+        <div class="actor-card actor-investigador">
+          <div class="actor-name">Carlos Fernando Lima</div>
+          <div class="actor-role">Procurador — 1ª fase</div>
+          <div class="actor-status">→ MPF Curitiba</div>
+        </div>
+        <div class="actor-card actor-investigador">
+          <div class="actor-name">Roberson Pozzobon</div>
+          <div class="actor-role">Procurador Federal</div>
+          <div class="actor-status">→ Acordos MLAT EUA</div>
+        </div>
+        <div class="actor-card actor-investigador">
+          <div class="actor-name">Márcio Anselmo</div>
+          <div class="actor-role">Delegado PF — Operações</div>
+          <div class="actor-status">→ Liderou fases táticas</div>
+        </div>
+        <div class="actor-card actor-investigador">
+          <div class="actor-name">Igor Romário</div>
+          <div class="actor-role">Delegado PF — Célula financeira</div>
+          <div class="actor-status">→ Rastreamento offshore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATORES: POLÍTICOS INVESTIGADOS -->
+  <div class="card theme-yellow">
+    <div class="card-header">
+      <div class="card-icon">🏛️</div>
+      <div class="card-title">Atores — Políticos Condenados / Investigados</div>
+    </div>
+    <div class="card-body">
+      <div class="actor-grid">
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Lula (PT)</div>
+          <div class="actor-role">Ex-Presidente / Sítio de Atibaia e Triplex</div>
+          <div class="actor-status">🔴 CONDENADO → ANULADO STF</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Michel Temer (MDB)</div>
+          <div class="actor-role">Ex-Presidente / Propinas ELETRONUCLEAR</div>
+          <div class="actor-status">🟡 PRESO → SOLTO</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Eduardo Cunha (MDB)</div>
+          <div class="actor-role">Ex-Pres. Câmara / Contas Suíças</div>
+          <div class="actor-status">🔴 CONDENADO 15 anos</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">José Dirceu (PT)</div>
+          <div class="actor-role">Ex-Casa Civil / Operador</div>
+          <div class="actor-status">🔴 CONDENADO → PROGRESSÃO</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Sérgio Cabral (PMDB)</div>
+          <div class="actor-role">Ex-Gov. RJ / 350+ anos de pena</div>
+          <div class="actor-status">🔴 CONDENADO</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Aécio Neves (PSDB)</div>
+          <div class="actor-role">Senador / R$ 2mi de Joesley</div>
+          <div class="actor-status">🟡 INVESTIGADO → ABSOLVIDO</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Renan Calheiros (MDB)</div>
+          <div class="actor-role">Senador / Propinas Odebrecht</div>
+          <div class="actor-status">🟡 INVESTIGADO</div>
+        </div>
+        <div class="actor-card actor-politico">
+          <div class="actor-name">Romero Jucá (MDB)</div>
+          <div class="actor-role">Senador / Propinas — gravado planejando freio</div>
+          <div class="actor-status">🟡 INVESTIGADO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATORES: EMPRESARIAIS -->
+  <div class="card theme-orange">
+    <div class="card-header">
+      <div class="card-icon">🏗️</div>
+      <div class="card-title">Atores — Empresariais &amp; Doleiros</div>
+    </div>
+    <div class="card-body">
+      <div class="actor-grid">
+        <div class="actor-card actor-empresarial">
+          <div class="actor-name">Marcelo Odebrecht</div>
+          <div class="actor-role">CEO Odebrecht / Preso 2015</div>
+          <div class="actor-status">🔴 CONDENADO → DELAÇÃO</div>
+        </div>
+        <div class="actor-card actor-empresarial">
+          <div class="actor-name">Alberto Youssef</div>
+          <div class="actor-role">Doleiro — 1ª delação, gateway</div>
+          <div class="actor-status">🔴 PRESO → COLABOROU</div>
+        </div>
+        <div class="actor-card actor-empresarial">
+          <div class="actor-name">Paulo Roberto Costa</div>
+          <div class="actor-role">Ex-Dir. Petrobras / 1ª grande delação</div>
+          <div class="actor-status">🔴 PRESO → COLABOROU</div>
+        </div>
+        <div class="actor-card actor-empresarial">
+          <div class="actor-name">Renato Duque</div>
+          <div class="actor-role">Ex-Dir. Serviços Petrobras</div>
+          <div class="actor-status">🔴 CONDENADO</div>
+        </div>
+        <div class="actor-card actor-empresarial">
+          <div class="actor-name">Joesley Batista</div>
+          <div class="actor-role">J&amp;F / Gravou Temer / JBS</div>
+          <div class="actor-status">🟡 DELAÇÃO → RESCISÃO</div>
+        </div>
+        <div class="actor-card actor-empresarial">
+          <div class="actor-name">Leo Pinheiro</div>
+          <div class="actor-role">OAS — Triplex atribuído a Lula</div>
+          <div class="actor-status">🔴 CONDENADO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUEM ANULOU E POR QUÊ -->
+  <div class="card full-width theme-purple">
+    <div class="card-header">
+      <div class="card-icon">🔨</div>
+      <div class="card-title">Anulação: Responsáveis, Fundamentos e Contexto</div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;">
+        <div>
+          <h4 style="color:var(--accent-purple); font-size:12px; letter-spacing:0.1em; margin-bottom:12px; text-transform:uppercase">Quem Anulou</h4>
+          <div class="actor-card actor-anulou" style="margin-bottom:10px">
+            <div class="actor-name">Min. Gilmar Mendes</div>
+            <div class="actor-role">STF — Relator de habeas corpus. Pioneiro nas críticas à incompetência de Curitiba e parcialidade de Moro. Votou pela anulação desde 2018.</div>
+            <div class="actor-status">⚖️ STF — PLENÁRIO</div>
+          </div>
+          <div class="actor-card actor-anulou" style="margin-bottom:10px">
+            <div class="actor-name">Min. Ricardo Lewandowski</div>
+            <div class="actor-role">STF — Relator dos processos de Lula. Reconheceu suspeição de Moro e incompetência territorial de Curitiba.</div>
+            <div class="actor-status">⚖️ STF — PLENÁRIO</div>
+          </div>
+          <div class="actor-card actor-anulou">
+            <div class="actor-name">Min. Edson Fachin</div>
+            <div class="actor-role">STF — Declarou incompetência da 13ª Vara (Curitiba) em março 2021. Surpreendeu ao votar monocraticamente. Remeteu ao STJ como competente para julgar o ex-presidente.</div>
+            <div class="actor-status">⚖️ DECISÃO MONOCRÁTICA → PLENÁRIO</div>
+          </div>
+        </div>
+        <div>
+          <h4 style="color:var(--accent-purple); font-size:12px; letter-spacing:0.1em; margin-bottom:12px; text-transform:uppercase">Fundamentos Jurídicos</h4>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-purple)"></div>
+            <div class="item-content">
+              <div class="item-title">Incompetência Territorial</div>
+              <div class="item-desc">A Petrobras tem sede no Rio de Janeiro. Os crimes teriam ocorrido em âmbito federal, mas com nexo causalmente ligado ao RJ — não a Curitiba. A 13ª Vara era formalmente incompetente para julgá-los (art. 69, CPP). STF: os processos deveriam ter tramitado na Justiça Federal do RJ ou no STJ (para Lula, então com foro privilegiado de senador).</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-purple)"></div>
+            <div class="item-content">
+              <div class="item-title">Suspeição e Parcialidade do Juiz</div>
+              <div class="item-desc">Vazamentos do Intercept Brasil (jun. 2019): mensagens trocadas via Telegram entre Moro e Dallagnol. Moro orientou o MPF sobre estratégia processual — violação grave do sistema acusatório. Em março 2021, 6 ministros do STF votaram pela parcialidade de Moro.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 style="color:var(--accent-purple); font-size:12px; letter-spacing:0.1em; margin-bottom:12px; text-transform:uppercase">Consequências</h4>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-red)"></div>
+            <div class="item-content">
+              <div class="item-title">Lula Elegível</div>
+              <div class="item-desc">Com a anulação, Lula recuperou direitos políticos. Disputou as eleições de 2022, vencendo Bolsonaro no 2º turno. A condenação por corrupção no caso Triplex foi anulada; processos seriam rejulgados pelo STJ ou Justiça do RJ.</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-orange)"></div>
+            <div class="item-content">
+              <div class="item-title">Impunidade Sistêmica</div>
+              <div class="item-desc">Parte dos réus que haviam firmado delações e sido condenados tiveram suas penas revisadas ou foram beneficiados pelo reconhecimento dos vícios processuais. O debate sobre a prescrição de vários crimes permanece aberto.</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="item-marker" style="background:var(--accent-yellow)"></div>
+            <div class="item-content">
+              <div class="item-title">Força-Tarefa Desativada</div>
+              <div class="item-desc">Em fev. 2021, a PGR (Augusto Aras) determinou o encerramento formal da Força-Tarefa de Curitiba. Investigadores foram redistribuídos. Alegou-se que a estrutura havia se convertido em instância extrajudicial de poder.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="card theme-white">
+    <div class="card-header">
+      <div class="card-icon">📅</div>
+      <div class="card-title">Cronologia</div>
+    </div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">MAR 2014</div>
+          <div class="tl-title">Fase 1 — Deflagração</div>
+          <div class="tl-desc">Preso Alberto Youssef e Paulo Roberto Costa. Primeiras delações revelam cartel de empreiteiras.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2014–2016</div>
+          <div class="tl-title">Expansão e Delações</div>
+          <div class="tl-desc">+50 fases. Odebrecht fecha maior delação da história jurídica latino-americana. 78 executivos colaboram. Bilhões bloqueados.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">JUL 2017</div>
+          <div class="tl-title">1ª Condenação de Lula</div>
+          <div class="tl-desc">Moro condena Lula a 9 anos no caso Triplex. Em jan. 2018, TRF-4 aumenta para 12 anos. Preso em abr. 2018.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">JUN 2019</div>
+          <div class="tl-title">The Intercept — Vaza Jato</div>
+          <div class="tl-desc">Mensagens entre Moro e Dallagnol. Suspeição de Moro vira tese jurídica central. Crise institucional.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">NOV 2019</div>
+          <div class="tl-title">Lula Solto</div>
+          <div class="tl-desc">STF declara inconstitucional a execução antecipada da pena (ADC 43/44/54). Lula libertado após 580 dias.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">MAR 2021</div>
+          <div class="tl-title">Fachin: Incompetência de Curitiba</div>
+          <div class="tl-desc">Anula todos os processos de Lula julgados em Curitiba. STF confirma suspeição de Moro meses depois.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">FEV 2021</div>
+          <div class="tl-title">Encerramento da Força-Tarefa</div>
+          <div class="tl-desc">PGR Augusto Aras extingue a Força-Tarefa de Curitiba. Lava Jato encerrada como operação centralizada.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">OUT 2022</div>
+          <div class="tl-title">Lula Eleito Presidente</div>
+          <div class="tl-desc">Com direitos políticos restaurados após anulação, Lula vence Bolsonaro no 2º turno (50,9% x 49,1%).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXO TRANSNACIONAL E CASO MASTER -->
+  <div class="card theme-red" style="grid-column: span 1;">
+    <div class="card-header">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">Nexo Transnacional</div>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">PCC e Doleiros</div>
+          <div class="item-desc">PCC faturava R$ 400mi+/ano com tráfico. Precisava converter cash em ativos. Doleiros da 25 de Março eram o ponto de contato com os operadores políticos. Mesmas redes, propósitos diferentes.</div>
+          <span class="item-tag tag-ref">FONTE: UOL / DEA / CNN</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Modelo TBML (Trade-Based Money Laundering)</div>
+          <div class="item-desc">DEA EUA identificou rede análoga: chineses arrecadam dólares de cartéis mexicanos (Sinaloa), usam importadores como canal de compensação. Espelho do modelo brasileiro com traficantes x doleiros x políticos.</div>
+          <span class="item-tag tag-ref">FONTE: DEA 2024</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Odebrecht x Narco na Colômbia</div>
+          <div class="item-desc">Narco Files (El Universal MX / 2023): personagens em comum entre a roubança política da Odebrecht e redes de tráfico de drogas para a Europa via Colômbia. Operações estruturadas "contaminadas na fonte".</div>
+          <span class="item-tag tag-ref">FONTE: NARCO FILES 2023</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIÇÕES E CASO MASTER -->
+  <div class="card theme-yellow">
+    <div class="card-header">
+      <div class="card-icon">💡</div>
+      <div class="card-title">Lições para o Caso Master</div>
+    </div>
+    <div class="card-body">
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Não é Apenas Fraude Financeira</div>
+          <div class="item-desc">Assim como na Lava Jato, o Banco Master pode ser mais do que uma fraude no sistema financeiro. Daniel Vorcaro pode ser um provedor de serviços (lavagem, canais de fluxo) e não o topo da hierarquia.</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Fundo Reag x Carbono Oculto</div>
+          <div class="item-desc">CNN Brasil (2024): Reag Investimentos — alvo da Operação Carbono Oculto — negociou CDBs no Master. Ponto de contato documentado entre crime organizado e o banco. Pode ser a ponta do iceberg.</div>
+          <span class="item-tag tag-ref">FONTE: CNN BRASIL 2024</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-marker"></div>
+        <div class="item-content">
+          <div class="item-title">Abordagem Sistêmica Necessária</div>
+          <div class="item-desc">PF e MPF devem investigar o Master como potencial nó de infraestrutura financeira do crime organizado — e não apenas como banco insolvente. O erro da Lava Jato foi ignorar a cadeia de origem do dinheiro.</div>
+          <span class="item-tag tag-erro">LIÇÃO APRENDIDA?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERÊNCIAS -->
+  <div class="card full-width theme-blue">
+    <div class="card-header">
+      <div class="card-icon">📚</div>
+      <div class="card-title">Referências &amp; Fontes</div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:16px;">
+        <div style="padding:12px; border:1px solid var(--border); border-radius:3px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-cyan); margin-bottom:6px;">JURÍDICO / PROCESSUAL</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">
+            • STF — AP 470 (Mensalão, ref. metodológica)<br>
+            • STF — HC 164.493 (Suspeição de Moro, 2021)<br>
+            • STF — ADPF 444 (Condução coercitiva, 2018)<br>
+            • STF — ADC 43/44/54 (Execução antecipada, 2019)<br>
+            • CPP — Arts. 69, 254, 312
+          </div>
+        </div>
+        <div style="padding:12px; border:1px solid var(--border); border-radius:3px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-cyan); margin-bottom:6px;">JORNALISMO INVESTIGATIVO</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">
+            • The Intercept Brasil — "Vaza Jato" (jun. 2019)<br>
+            • O Globo — Peritos forenses e celulares PF (mar. 2026)<br>
+            • G1 — Odebrecht, doleiros e operações estruturadas<br>
+            • CNN Brasil — Banco Master x Reag x PCC (2024)<br>
+            • El Universal MX — Narco Files 2023 (Odebrecht-narco)
+          </div>
+        </div>
+        <div style="padding:12px; border:1px solid var(--border); border-radius:3px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-cyan); margin-bottom:6px;">ÓRGÃOS INTERNACIONAIS</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">
+            • DEA HQ — Rede Sinaloa x Chineses (jun. 2024)<br>
+            • DOJ EUA — Acordos MLAT / repatriação<br>
+            • UNODC — Estimativas lavagem LAm.<br>
+            • UOL / Agência Estado — PCC e doleiros (2018)
+          </div>
+        </div>
+        <div style="padding:12px; border:1px solid var(--border); border-radius:3px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-cyan); margin-bottom:6px;">ANÁLISE ESTRATÉGICA</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">
+            • Leonardo Coutinho (@lcoutinho) — Thread "Lava Jato e Lavagem Transnacional"<br>
+            • Malu Gaspar (@malugaspar) — Cobertura PF e forense digital<br>
+            • Moro, S. — "Considerações sobre a Operação Mani Pulite" (2004)<br>
+            • Dallagnol, D. — "A Luta Contra a Corrupção" (2017)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>OPERAÇÃO LAVA JATO — MAPA MENTAL ANALÍTICO</span>
+  <span style="color:var(--accent-red)">⚠ Documento de análise investigativa. Não substitui documentos jurídicos oficiais.</span>
+  <span>2014 → 2021+</span>
+</div>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

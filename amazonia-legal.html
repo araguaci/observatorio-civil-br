@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Mental — Amazônia Legal Brasileira</title>
+<meta name="description" content="Fontes primárias e secundárias utilizadas na elaboração deste mapa mental da Amazônia Legal Brasileira.">
+<link rel="canonical" href="https://gosurf.site/amazonia-legal">
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gosurf.site/amazonia-legal">
+<meta property="og:title" content="Mapa Mental — Amazônia Legal Brasileira">
+<meta property="og:description" content="Fontes primárias e secundárias utilizadas na elaboração deste mapa mental da Amazônia Legal Brasileira.">
+<meta property="og:image" content="https://gosurf.site/og-image.png">
+<meta property="og:image:secure_url" content="https://gosurf.site/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mapa Mental — Amazônia Legal Brasileira">
+<meta property="og:site_name" content="gosurf.site">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mapa Mental — Amazônia Legal Brasileira">
+<meta name="twitter:description" content="Fontes primárias e secundárias utilizadas na elaboração deste mapa mental da Amazônia Legal.">
+<meta name="twitter:image" content="https://gosurf.site/og-image.png">
+<meta name="twitter:image:alt" content="Mapa Mental — Amazônia Legal Brasileira">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060d06;
+  --surface: #0d180d;
+  --surface2: #152015;
+  --border: rgba(34,197,94,.11);
+  --border-h: rgba(34,197,94,.28);
+  --text: #d4edda;
+  --text-m: #7a9b7e;
+  --text-f: #3a5640;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --orange: #f97316;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --fs: 1;
+  /* Variáveis para share-bar */
+  --fg3: var(--text-f);
+  --fg2: var(--text-m);
+  --accent: var(--green);
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:calc(14px * var(--fs))}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow:hidden;height:100vh;width:100vw}
+
+/* HEADER */
+#hdr{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(6,13,6,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100;gap:12px}
+#hdr-left{display:flex;align-items:center;gap:10px;min-width:0}
+#hdr h1{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:var(--green);letter-spacing:.04em;white-space:nowrap}
+.hdr-sub{font-size:10px;color:var(--text-f);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.a11y{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.ab{background:var(--surface);border:1px solid var(--border);color:var(--text-m);padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-family:'JetBrains Mono',monospace;transition:all 150ms ease;white-space:nowrap;line-height:1}
+.ab:hover{border-color:var(--border-h);color:var(--text)}
+.ab.on{background:rgba(34,197,94,.1);border-color:var(--green);color:var(--green)}
+
+/* CANVAS */
+#canvas{position:fixed;top:52px;left:0;right:0;bottom:110px;overflow:hidden;cursor:default}
+#svgl{position:absolute;inset:0;pointer-events:none}
+#nl{position:absolute;inset:0}
+
+/* NODES */
+.node{position:absolute;transform:translate(-50%,-50%);cursor:pointer;text-align:center;transition:transform 220ms cubic-bezier(.25,1,.5,1);z-index:10}
+.node:hover{transform:translate(-50%,-50%) scale(1.08)}
+.node.act{transform:translate(-50%,-50%) scale(1.12)}
+
+/* Center */
+.nc .ring{width:108px;height:108px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#4ade80,#15803d,#042c12);border:2px solid rgba(74,222,128,.4);box-shadow:0 0 48px rgba(34,197,94,.28),0 0 96px rgba(34,197,94,.08);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:10px;transition:box-shadow 250ms}
+.nc:hover .ring{box-shadow:0 0 72px rgba(34,197,94,.5),0 0 130px rgba(34,197,94,.18)}
+.nc .lbl{font-family:'Playfair Display',serif;font-size:9.5px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.1em;line-height:1.3}
+.nc .slbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,.55);margin-top:3px}
+
+/* Branch */
+.nb .ring{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;border:1.5px solid;transition:all 200ms;position:relative;overflow:visible}
+.nb .ico{font-size:22px;line-height:1}
+.nb .lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:5px;white-space:nowrap}
+.nb.act .ring::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--nc);animation:pulse 1.8s ease-out infinite;opacity:.7}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+
+/* Sub */
+.ns .ring{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid;transition:all 200ms}
+.ns .lbl{font-size:8px;font-weight:500;max-width:72px;line-height:1.3;margin-top:4px;color:var(--text-m)}
+.ns:hover .lbl{color:var(--text)}
+
+/* CONNECTION LINES */
+.conn{animation:draw 1s ease-out both}
+@keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}
+
+/* SIDEBAR */
+#sb{position:fixed;top:52px;right:-440px;width:420px;bottom:110px;background:var(--surface);border-left:1px solid var(--border);transition:right 300ms cubic-bezier(.25,1,.5,1);z-index:90;overflow-y:auto;padding:22px 22px 22px 22px}
+#sb.open{right:0}
+#sb-close{position:sticky;top:0;float:right;background:var(--surface2);border:1px solid var(--border);color:var(--text-m);width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 150ms;z-index:5;flex-shrink:0;margin-bottom:8px}
+#sb-close:hover{color:var(--text);border-color:var(--border-h)}
+.sb-cat{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.sb-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:14px}
+.sb-ico{font-size:30px;margin-bottom:10px;display:block}
+hr.div{border:none;border-top:1px solid var(--border);margin:14px 0}
+.sb-h{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-m);margin-bottom:7px}
+.sb p{font-size:12.5px;color:var(--text-m);line-height:1.75;margin-bottom:8px}
+.sb ul{list-style:none;padding:0}
+.sb li{font-size:12.5px;color:var(--text-m);line-height:1.65;padding:3px 0;padding-left:14px;position:relative}
+.sb li::before{content:'→';position:absolute;left:0;font-weight:700}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0}
+.scard{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:9px 10px}
+.sval{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600}
+.slb{font-size:10px;color:var(--text-f);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.ritem{display:flex;gap:8px;padding:8px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;margin-bottom:5px}
+.rico{font-size:13px;flex-shrink:0;margin-top:1px}
+.rsrc{font-size:11px;font-weight:600;color:var(--text)}
+.rdsc{font-size:11px;color:var(--text-f);margin-top:2px}
+.ryr{font-family:'JetBrains Mono',monospace;font-size:10px}
+.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:6px;padding:10px 12px;margin:10px 0}
+.warn p{font-size:11px;color:rgba(239,68,68,.75) !important}
+
+/* FOOTER (share bar + credit) */
+#footer-zone{position:fixed;bottom:44px;left:0;right:0;min-height:66px;background:rgba(6,13,6,.92);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:79;padding:12px 20px}
+#footer-zone .footer-dev{font-size:10px;color:var(--text-f);letter-spacing:.05em}
+#footer-zone .footer-dev a{color:rgba(34,197,94,.6);text-decoration:none;transition:color .2s}
+#footer-zone .footer-dev a:hover{color:var(--green)}
+
+/* LEGEND */
+#legend{position:fixed;bottom:0;left:0;right:0;height:44px;background:rgba(6,13,6,.92);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:20px;z-index:80;padding:0 20px}
+.li{display:flex;align-items:center;gap:5px;cursor:pointer;opacity:.65;transition:opacity 150ms}
+.li:hover{opacity:1}
+.ld{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ll{font-size:10.5px;color:var(--text-m);white-space:nowrap}
+.ll-title{font-size:10px;color:var(--text-f);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+
+/* MODAL */
+#modal{display:none;position:fixed;inset:0;background:rgba(6,13,6,.88);z-index:200;align-items:center;justify-content:center}
+#modal.open{display:flex}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:30px;max-width:620px;width:92%;max-height:80vh;overflow-y:auto}
+.mc h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--green);margin-bottom:18px}
+.mc .rcat{font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;margin-top:16px;font-family:'Playfair Display',serif}
+.mc .rref{font-size:11.5px;color:var(--text-m);padding:4px 0;border-bottom:1px solid var(--border)}
+
+/* HIGH CONTRAST */
+body.hc{--bg:#000;--surface:#111;--surface2:#1a1a1a;--text:#fff;--text-m:#ddd;--border:rgba(255,255,255,.25);--text-f:#aaa}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style>
+</head>
+<body>
+
+<div id="hdr" role="banner">
+  <div id="hdr-left">
+    <h1>AMAZÔNIA LEGAL BRASILEIRA</h1>
+    <span class="hdr-sub">Mapa Mental Geopolítico · Clique nos nós para expandir</span>
+  </div>
+  <div class="a11y" role="toolbar" aria-label="Controles de acessibilidade">
+    <span style="font-size:10px;color:var(--text-f);letter-spacing:.05em">ACESSIBILIDADE</span>
+    <button class="ab" id="bfm" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A−</button>
+    <button class="ab" id="bfp" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button class="ab" id="bhc" title="Alto contraste" aria-label="Alternar alto contraste">◑ Contraste</button>
+    <button class="ab" id="bmo" title="Pausar animações" aria-label="Pausar animações">⏸ Movimento</button>
+    <button class="ab" id="brf" title="Referências" aria-label="Ver todas as referências">📚 Referências</button>
+  </div>
+</div>
+
+<div id="canvas" role="main" aria-label="Mapa mental interativo da Amazônia Legal Brasileira">
+  <svg id="svgl" aria-hidden="true"></svg>
+  <div id="nl" aria-live="polite"></div>
+</div>
+
+<aside id="sb" role="complementary" aria-label="Detalhes do tópico selecionado">
+  <button id="sb-close" aria-label="Fechar painel de detalhes">×</button>
+  <div id="sb-content" class="sb"></div>
+</aside>
+
+<div id="footer-zone">
+  <footer class="footer-credit" style="margin:0;padding:0;border:none;background:transparent">
+    <p class="footer-dev">Desenvolvido por <a href="https://artesdosul.com/" target="_blank" rel="noopener noreferrer">Artes do Sul</a></p>
+  </footer>
+</div>
+
+<nav id="legend" role="navigation" aria-label="Legenda de categorias">
+  <span class="ll-title">Legenda:</span>
+  <div class="li" data-id="bio" role="button" tabindex="0" aria-label="Biodiversidade"><div class="ld" style="background:#22c55e"></div><span class="ll">Biodiversidade</span></div>
+  <div class="li" data-id="mineral" role="button" tabindex="0" aria-label="Recursos Minerais"><div class="ld" style="background:#f59e0b"></div><span class="ll">Recursos Minerais</span></div>
+  <div class="li" data-id="indigenous" role="button" tabindex="0" aria-label="Terras Indígenas"><div class="ld" style="background:#f97316"></div><span class="ll">Terras Indígenas</span></div>
+  <div class="li" data-id="crime" role="button" tabindex="0" aria-label="Crime Organizado"><div class="ld" style="background:#ef4444"></div><span class="ll">Crime Organizado</span></div>
+  <div class="li" data-id="geo" role="button" tabindex="0" aria-label="Geopolítica e ONGs"><div class="ld" style="background:#3b82f6"></div><span class="ll">Geopolítica & ONGs</span></div>
+  <div class="li" data-id="infra" role="button" tabindex="0" aria-label="Infraestrutura e Fronteiras"><div class="ld" style="background:#06b6d4"></div><span class="ll">Infraestrutura</span></div>
+</nav>
+
+<div id="modal" role="dialog" aria-modal="true" aria-label="Todas as referências bibliográficas">
+  <div class="mc">
+    <button onclick="document.getElementById('modal').classList.remove('open')" style="float:right;background:none;border:none;color:var(--text-m);font-size:20px;cursor:pointer" aria-label="Fechar modal">×</button>
+    <h2>📚 Referências Verificadas</h2>
+    <p style="font-size:12px;color:var(--text-f);margin-bottom:16px">Fontes primárias e secundárias utilizadas na elaboração deste mapa mental.</p>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DADOS
+// ================================================================
+const DATA = [
+  {
+    id:'bio', angle:0, radius:220, color:'#22c55e', icon:'🌿', label:'Biodiversidade',
+    details:{
+      cat:'ECOLOGIA & BIOMAS', title:'Biodiversidade & Ecossistemas Amazônicos',
+      desc:`A Amazônia Legal abriga a maior floresta tropical contínua do mundo, com cerca de 395 milhões de hectares de floresta úmida. Estima-se que contenha aproximadamente 10% de todas as espécies conhecidas globalmente — mais de 40.000 espécies de plantas, 3.000 de peixes de água doce, 1.300 de aves, 430 de mamíferos e 1.000 de anfíbios.\n\nOs serviços ecossistêmicos da floresta têm valor global incomparável. A Amazônia armazena entre 150–200 bilhões de toneladas de carbono, regula o ciclo hidrológico continental por meio dos "rios voadores" (vapor d'água transportado para o Centro-Sul) e influencia padrões de chuva em todo o hemisfério sul. A perda acelerada desta floresta tem implicações climáticas que vão muito além das fronteiras nacionais.`,
+      stats:[{v:'395M ha',l:'Floresta tropical'},{v:'~10%',l:'Espécies globais'},{v:'40.000',l:'Espécies de plantas'},{v:'150 Gt',l:'Carbono armazenado'}],
+      points:['Maior repositório de biodiversidade terrestre do planeta','Regulação climática para toda a América do Sul e além','Rios voadores: vapor d\'água transporta umidade ao Centro-Sul','Hotspot de espécies endêmicas e não catalogadas pela ciência','25% dos medicamentos modernos derivam de compostos de florestas tropicais','Ameaças: desmatamento, garimpo ilegal, mudanças climáticas e fragmentação'],
+      refs:[{i:'🌍',s:'WWF',d:'Living Amazon Report 2022 — Biodiversidade e conservação',y:'2022'},{i:'🔬',s:'INPA / MCTI',d:'Inventário de espécies da Amazônia Brasileira',y:'2023'},{i:'🌡️',s:'IPCC AR6',d:'Funções climáticas dos biomas tropicais — Grupo de Trabalho II',y:'2022'},{i:'📊',s:'MapBiomas',d:'Relatório Anual de Desmatamento Brasil 2022',y:'2023'},{i:'📗',s:'INPE / PRODES',d:'Monitoramento da Floresta Amazônica por Satélite 2022',y:'2023'}]
+    },
+    subs:[{id:'bio-a',angleOffset:-28,label:'Flora &\nFauna'},{id:'bio-b',angleOffset:28,label:'Serviços\nEcossistêmicos'}]
+  },
+  {
+    id:'mineral', angle:60, radius:220, color:'#f59e0b', icon:'⛏️', label:'Recursos Minerais',
+    details:{
+      cat:'MINERAÇÃO & RECURSOS ESTRATÉGICOS', title:'Riquezas Minerais da Amazônia',
+      desc:`A Amazônia Legal concentra reservas minerais de enorme valor estratégico global. O Brasil detém ~95% das reservas mundiais de nióbio, mineral crítico para a indústria aeroespacial, siderúrgica e de eletrônica avançada. Vastas jazidas de ouro, bauxita, manganês, cassiterita, diamantes e potencialmente terras raras colocam a região no centro da geopolítica mineral do século XXI.\n\nCom a aceleração da transição energética global, a demanda por minerais críticos (lítio, cobalto, nióbio, terras raras) cresce exponencialmente. A Agência Nacional de Mineração (ANM) identificou mais de 5.000 requerimentos minerários sobrepostos à Amazônia Legal, incluindo 390 diretamente em Terras Indígenas e mais de 1.200 em Unidades de Conservação.`,
+      stats:[{v:'95%',l:'Nióbio mundial'},{v:'5.000+',l:'Requerimentos ANM'},{v:'390',l:'Req. em TIs'},{v:'26M ha',l:'Área sobreposta'}],
+      points:['Nióbio (Araxá/MG e Catalão/GO): indispensável para aços especiais e smartphones','Ouro: 2ª maior reserva; pressão constante para mineração em Terras Indígenas','Bauxita: mina de Trombetas (PA) — maior mina a céu aberto do mundo','Urânio: reservas em Caetité (BA) + potencial inexplorado na região amazônica','Terras raras: potencial em fase de mapeamento em Roraima e Amapá','PL 490/21 (Marco Temporal) e o debate sobre mineração em TIs no Congresso'],
+      refs:[{i:'🏛️',s:'ANM',d:'Anuário Mineral Brasileiro 2022 — Reservas, produção e potencial',y:'2022'},{i:'📊',s:'IBRAM',d:'Panorama da Mineração Brasileira — Sustentabilidade e desempenho 2023',y:'2023'},{i:'🔎',s:'ISA / CIMI',d:'Mapeamento de requerimentos minerários em TIs — Conflito mineral',y:'2023'},{i:'🌍',s:'USGS',d:'Mineral Commodity Summaries 2023 — Nióbio e metais estratégicos',y:'2023'},{i:'🔬',s:'CETEM / MCTI',d:'Minerais estratégicos da Amazônia: mapeamento e potencial',y:'2022'}]
+    },
+    subs:[{id:'min-a',angleOffset:-26,label:'Ouro &\nCassiterita'},{id:'min-b',angleOffset:26,label:'Nióbio &\nTerras Raras'}]
+  },
+  {
+    id:'indigenous', angle:120, radius:220, color:'#f97316', icon:'🏘️', label:'Terras Indígenas',
+    details:{
+      cat:'POVOS ORIGINÁRIOS & PROTEÇÃO TERRITORIAL', title:'Terras Indígenas & Áreas Protegidas',
+      desc:`Terras Indígenas (TIs) e Unidades de Conservação (UCs) cobrem cerca de 52% das florestas da Amazônia Legal, funcionando como as mais eficazes barreiras ao desmatamento. Entre 2000 e 2021, essas áreas responderam por apenas 5% da perda líquida florestal e 12% da perda bruta — evidência robusta de sua eficácia.\n\nA Terra Indígena Yanomami, com 9,6 milhões de hectares (equivalente ao território de Portugal), é a maior TI do Brasil e concentra cerca de 29.000 indígenas de mais de 255 comunidades. A crise humanitária de 2022-2023, causada pela invasão de aproximadamente 20.000 garimpeiros ilegais, levou o governo federal a decretar emergência de saúde pública. Mercúrio nos rios, malária endêmica e desnutrição severa foram as principais consequências documentadas.`,
+      stats:[{v:'724',l:'TIs no Brasil (FUNAI)'},{v:'52%',l:'Floresta em TIs+UCs'},{v:'9,6M ha',l:'TI Yanomami'},{v:'5%',l:'Perda florestal em TIs'}],
+      points:['TIs são a barreira mais eficaz documentada contra o desmatamento (INPE 2000-2021)','TI Yanomami: 29.000 indígenas de 255+ comunidades em 9,6 mi ha','Crise 2022-2023: ~20.000 garimpeiros ilegais; emergência de saúde pública decretada','CF/88: mineração em TIs proibida sem aprovação congressional + CLPI (Consentimento Livre, Prévio e Informado)','STF decidiu contra o Marco Temporal (Tese do Indigenato) em setembro de 2023, 9×2','Mercúrio: contaminação grave de rios, cadeia alimentar e saúde indígena na TI Yanomami'],
+      refs:[{i:'🏛️',s:'FUNAI',d:'Terras Indígenas — Situação Fundiária e demarcações 2023',y:'2023'},{i:'🔬',s:'ISA',d:'Povos Indígenas no Brasil — Dados demográficos e territoriais',y:'2023'},{i:'📊',s:'INPE / PRODES',d:'Taxas de desmatamento em TIs e UCs — Análise 2000-2021',y:'2022'},{i:'⚕️',s:'Fiocruz / SESAI',d:'Relatório de saúde pública na TI Yanomami — Crise humanitária',y:'2023'},{i:'⚖️',s:'STF',d:'ADC 75 — Decisão sobre a Tese do Indigenato (Marco Temporal)',y:'2023'}]
+    },
+    subs:[{id:'ind-a',angleOffset:-26,label:'TI Yanomami\nCrise 2022-23'},{id:'ind-b',angleOffset:26,label:'UCs &\nConservação'}]
+  },
+  {
+    id:'crime', angle:180, radius:220, color:'#ef4444', icon:'🚨', label:'Crime Organizado',
+    details:{
+      cat:'SEGURANÇA PÚBLICA & CRIMINALIDADE TRANSNACIONAL', title:'Crime Organizado, Narcotráfico & Garimpo Ilegal',
+      desc:`O crime organizado avançou significativamente sobre a Amazônia Legal na última década, com facções como o PCC (Primeiro Comando da Capital) e o CV (Comando Vermelho) expandindo territórios para além do eixo urbano. O fenômeno do "narcogarimpo" — fusão de narcotráfico com mineração ilegal — tornou-se estrutural na economia criminosa amazônica.\n\nO ouro ilegal é a principal commodity desta economia paralela: serve como moeda de troca para drogas e armas e é método eficaz de lavagem de dinheiro, dada sua liquidez e rastreabilidade limitada. Segundo o INPE, o garimpo ilegal cresceu 500% entre 2010 e 2020. Rotas fluviais e pistas clandestinas, originalmente de garimpeiros, são hoje infraestrutura compartilhada para o tráfico de cocaína produzida na Bolívia, Colômbia e Peru.`,
+      stats:[{v:'500%',l:'Crescimento garimpo 2010-2020'},{v:'+1/3',l:'Municípios c/ presença criminal'},{v:'1.200+',l:'Pistas clandestinas est.'},{v:'3 países',l:'Origem da cocaína'}],
+      points:['PCC: forte influência logística e financeira; ouro como principal mecanismo de lavagem','CV: domínio operacional no corredor Tabatinga (BR) — Letícia (COL) no Rio Solimões','Narcogarimpo: 500% de crescimento do garimpo ilegal (INPE, 2010-2020)','Mercúrio: poluição comprovada dos rios Madeira, Tapajós, Amazonas e Uraricoera','Violência: garimpeiros armados responsáveis por ataques a comunidades Yanomami','Urânio: em 2004, PF apreendeu material no Amapá classificado como "não amador" (⚠️ dado de fonte única)'],
+      warn:'⚠️ ATENÇÃO: Algumas informações citadas na thread sobre conexões entre facções e Hezbollah/Hamas e exportação de urânio para o Oriente Médio são alegações não confirmadas por fontes primárias verificadas publicamente. Tratam-se de informações atribuídas a "dossiês" e "relatórios de inteligência" sem verificação independente. Recomenda-se análise crítica.',
+      refs:[{i:'📊',s:'UNODC',d:'World Drug Report 2023 — Rotas e fluxos sul-americanos',y:'2023'},{i:'🏛️',s:'TCU',d:'Auditoria Operacional sobre Garimpo Ilegal na Amazônia Legal',y:'2023'},{i:'🔎',s:'Insper — NuPEC',d:'Crime Index Brasil 2023 — Expansão territorial do crime organizado',y:'2023'},{i:'📰',s:'Agência Pública',d:'Narcogarimpo: como o tráfico de drogas dominou a Amazônia',y:'2023'},{i:'🛡️',s:'CENSIPAM / Exército',d:'Monitoramento de pistas clandestinas na Amazônia Legal',y:'2022'},{i:'🔬',s:'INPE',d:'Alertas de garimpo ilegal — DETER-GARIMPO 2022-2023',y:'2023'}]
+    },
+    subs:[{id:'cri-a',angleOffset:-26,label:'PCC & CV\nAmazônia'},{id:'cri-b',angleOffset:26,label:'Narcogarimpo\n& Lavagem'}]
+  },
+  {
+    id:'geo', angle:240, radius:220, color:'#3b82f6', icon:'🌐', label:'Geopolítica & ONGs',
+    details:{
+      cat:'GEOPOLÍTICA, SOBERANIA & COOPERAÇÃO INTERNACIONAL', title:'Geopolítica, ONGs & Soberania Nacional',
+      desc:`A Amazônia é um dos territórios mais estratégicos do planeta, com fronteiras de ~11.000 km com sete países. Sua riqueza mineral, biodiversidade única e importância climática global tornam-na objeto de intenso interesse geopolítico de potências como Estados Unidos, China, Noruega e União Europeia — cada uma com motivações distintas.\n\nONGs internacionais operam na região com financiamento externo para conservação, direitos indígenas e monitoramento ambiental. O Fundo Amazônia, gerido pelo BNDES, recebeu principalmente de Noruega (R$ 3,4 bilhões) e Alemanha doações para projetos de conservação. O debate sobre soberania x internacionalização da Amazônia é recorrente no debate político brasileiro, com posições que vão da cooperação multilateral ao isolacionismo defensivo.`,
+      stats:[{v:'11.000 km',l:'Extensão das fronteiras'},{v:'7',l:'Países vizinhos'},{v:'R$ 3,4bi',l:'Fundo Amazônia Noruega'},{v:'60%',l:'Amazônia em território BR'}],
+      points:['Soberania: Constituição brasileira afirma domínio nacional irrestrito sobre a Amazônia','Fundo Amazônia (BNDES): principal mecanismo multilateral de financiamento de conservação','China: maior parceiro comercial do Brasil; interesse crescente em recursos naturais amazônicos','SIVAM/SIPAM: sistema de vigilância aérea integrado (EUA-BR), operacional desde 2002','COP30 em Belém (2025): Brasil e Amazônia no centro das negociações climáticas globais','Debate: pressões externas de conservação vs. soberania no direito ao desenvolvimento'],
+      refs:[{i:'🏛️',s:'BNDES',d:'Fundo Amazônia — Relatório de Resultados e Portfólio 2023',y:'2023'},{i:'🌍',s:'MRE Brasil',d:'Política externa para a Amazônia — Soberania e cooperação internacional',y:'2023'},{i:'📊',s:'IIRSA / COSIPLAN',d:'Iniciativa de Integração da Infraestrutura Regional Sul-Americana',y:'2022'},{i:'🔬',s:'IPEA',d:'Interesses geopolíticos na Amazônia Legal: análise comparada',y:'2023'},{i:'🌱',s:'Rainforest Foundation Norway',d:'Status of Tropical Forests 2022 — Amazônia',y:'2022'}]
+    },
+    subs:[{id:'geo-a',angleOffset:-26,label:'Fundo Amazônia\n& ONGs'},{id:'geo-b',angleOffset:26,label:'Soberania\nNacional'}]
+  },
+  {
+    id:'infra', angle:300, radius:220, color:'#06b6d4', icon:'🏗️', label:'Infraestrutura & Fronteiras',
+    details:{
+      cat:'LOGÍSTICA, FRONTEIRAS & VIGILÂNCIA', title:'Infraestrutura & Vigilância de Fronteiras',
+      desc:`A Amazônia Legal enfrenta desafios logísticos estruturais: vasta extensão (5 milhões de km²), características geográficas adversas e histórica subinvestimento resultam em dependência quase total de transporte fluvial e aéreo. Apenas ~15% das rodovias na região são pavimentadas. Os rios Amazonas, Solimões, Madeira, Tapajós e Negro funcionam como principais artérias de transporte, mas também como rotas para atividades ilegais.\n\nAs fronteiras internacionais de ~11.000 km são porosas e deficientemente vigiadas. O Sistema de Vigilância da Amazônia (SIVAM/SIPAM), operacional desde 2002, representa avanço significativo com radares e sensores integrados, mas lacunas persistem nas fronteiras terrestres e fluviais. Os ~34 Pelotões Especiais de Fronteira (PEF) do Exército cobrem pontos estratégicos, mas a extensão do território torna a vigilância completa inviável sem investimentos adicionais.`,
+      stats:[{v:'15%',l:'Rodovias pavimentadas'},{v:'11.000 km',l:'Extensão das fronteiras'},{v:'~34',l:'Pelotões de Fronteira'},{v:'2002',l:'Operação SIVAM'}],
+      points:['SIVAM/SIPAM: R$ 1,4 bi investidos; radar, sensores atmosféricos e comunicações integradas','Rios como autopistas: Amazonas, Solimões, Madeira — transporte e rotas ilícitas','Hidrelétricas: Belo Monte (PA, 14.000 MW) e Tucuruí fragmentam florestas e alteram ecossistemas','Operação Ágata (Forças Armadas): operações periódicas integradas de vigilância de fronteiras','Pelotões Especiais de Fronteira (PEF): 34 unidades em pontos estratégicos nas fronteiras','Pistas clandestinas: ~1.200 identificadas pelo CENSIPAM; compartilhadas por garimpeiros e traficantes'],
+      refs:[{i:'🛡️',s:'CENSIPAM',d:'Sistema de Proteção da Amazônia — Relatório Anual 2022',y:'2022'},{i:'⚔️',s:'Exército Brasileiro',d:'Operação Ágata — Relatório de missões integradas de fronteira 2023',y:'2023'},{i:'📊',s:'DNIT',d:'Malha viária na Amazônia Legal — Situação e investimentos 2023',y:'2023'},{i:'⚡',s:'ANEEL / IBAMA',d:'Hidrelétricas amazônicas: geração, licenciamento e impactos',y:'2023'},{i:'🔬',s:'Imazon',d:'Monitoramento de alertas de desmatamento — SAD Amazônia',y:'2023'}]
+    },
+    subs:[{id:'inf-a',angleOffset:-26,label:'SIVAM &\nFronteiras'},{id:'inf-b',angleOffset:26,label:'Logística\nFluvial'}]
+  }
+];
+
+const ALL_REFS = [
+  {cat:'🌿 Biodiversidade & Ecossistemas', refs:['WWF — Living Amazon Report 2022','INPA / MCTI — Inventário de Espécies da Amazônia Brasileira (2023)','IPCC AR6 — Funções Climáticas dos Biomas Tropicais, Grupo II (2022)','MapBiomas — Relatório Anual de Desmatamento Brasil 2022 (2023)','INPE / PRODES — Monitoramento da Floresta Amazônica por Satélite 2022']},
+  {cat:'⛏️ Recursos Minerais Estratégicos', refs:['ANM — Anuário Mineral Brasileiro 2022','IBRAM — Panorama da Mineração Brasileira 2023','ISA / CIMI — Requerimentos Minerários em TIs 2023','USGS — Mineral Commodity Summaries 2023 (Nióbio e metais)','CETEM / MCTI — Minerais Estratégicos da Amazônia (2022)']},
+  {cat:'🏘️ Terras Indígenas & Áreas Protegidas', refs:['FUNAI — Terras Indígenas: Situação Fundiária 2023','ISA — Povos Indígenas no Brasil: dados e territórios (2023)','INPE / PRODES — Desmatamento em TIs e UCs 2000-2021 (2022)','Fiocruz / SESAI — Crise Humanitária na TI Yanomami (2023)','STF — ADC 75: Tese do Indigenato / Marco Temporal (2023)']},
+  {cat:'🚨 Crime Organizado & Narcotráfico', refs:['UNODC — World Drug Report 2023 (Rotas sul-americanas)','TCU — Auditoria Operacional: Garimpo Ilegal na Amazônia (2023)','Insper NuPEC — Crime Index Brasil 2023','Agência Pública — Narcogarimpo: como o tráfico dominou a Amazônia (2023)','CENSIPAM — Monitoramento de pistas clandestinas na Amazônia (2022)','INPE — Alertas de Garimpo Ilegal: DETER-GARIMPO 2022-2023']},
+  {cat:'🌐 Geopolítica, ONGs & Soberania', refs:['BNDES — Fundo Amazônia: Relatório de Resultados e Portfólio 2023','MRE Brasil — Política externa para a Amazônia (2023)','IIRSA / COSIPLAN — Integração da Infraestrutura Regional Sul-Americana (2022)','IPEA — Interesses Geopolíticos na Amazônia Legal (2023)','Rainforest Foundation Norway — Status of Tropical Forests (2022)']},
+  {cat:'🏗️ Infraestrutura, Fronteiras & Vigilância', refs:['CENSIPAM — Sistema de Proteção da Amazônia: Relatório 2022','Exército Brasileiro — Operação Ágata 2023 (Missões Integradas)','DNIT — Malha Viária na Amazônia Legal 2023','ANEEL / IBAMA — Hidrelétricas Amazônicas: Geração e Impactos (2023)','Imazon — Sistema de Alerta de Desmatamento (SAD) Amazônia (2023)']}
+];
+
+// ================================================================
+// RENDER
+// ================================================================
+const canvas = document.getElementById('canvas');
+const svgL = document.getElementById('svgl');
+const nl = document.getElementById('nl');
+let activeId = null;
+
+function toRad(deg){ return (deg - 90) * Math.PI / 180; }
+
+function render(){
+  nl.innerHTML = '';
+  svgL.innerHTML = '';
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  const cx = W * 0.5, cy = H * 0.5;
+  const sc = Math.min(W, H) / 860;
+  const BR = 210 * sc;   // raio dos branches (centro → ramo)
+  const SUB_DIST = 100 * sc;  // distância branch → sub (evita sobreposição entre temas)
+
+  // Center node
+  const cn = mkEl('div','node nc');
+  cn.style.cssText = `left:${cx}px;top:${cy}px`;
+  cn.setAttribute('role','button'); cn.setAttribute('tabindex','0');
+  cn.setAttribute('aria-label','Centro: Amazônia Legal Brasileira — 5 milhões de km², 59% do território nacional');
+  cn.innerHTML = `<div class="ring"><div class="lbl">AMAZÔNIA<br>LEGAL</div><div class="slbl">~5M km² · 59%</div></div>`;
+  nl.appendChild(cn);
+
+  DATA.forEach((br,i) => {
+    const rad = toRad(br.angle);
+    const bx = cx + BR * Math.cos(rad);
+    const by = cy + BR * Math.sin(rad);
+
+    // Connector center→branch
+    drawLine(cx, cy, bx, by, br.color, 2, .55, i*80);
+
+    // Branch node
+    const bn = mkEl('div','node nb');
+    bn.id = 'n-'+br.id;
+    bn.style.cssText = `left:${bx}px;top:${by}px;--nc:${br.color}`;
+    bn.setAttribute('role','button'); bn.setAttribute('tabindex','0');
+    bn.setAttribute('aria-label',br.label+' — clique para ver detalhes');
+    bn.innerHTML = `
+      <div class="ring" style="background:radial-gradient(circle at 38% 32%,${br.color}1a,${br.color}06);border-color:${br.color}55;box-shadow:0 0 18px ${br.color}1a">
+        <div class="ico">${br.icon}</div>
+      </div>
+      <div class="lbl" style="color:${br.color}">${br.label}</div>
+    `;
+    bn.addEventListener('click', () => openPanel(br));
+    bn.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openPanel(br); });
+    nl.appendChild(bn);
+
+    // Sub-nodes: posicionados a partir do branch (não do centro), no setor do tema
+    br.subs.forEach((s,j) => {
+      const subAngle = br.angle + (s.angleOffset || 0);
+      const srad = toRad(subAngle);
+      const sx = bx + SUB_DIST * Math.cos(srad);
+      const sy = by + SUB_DIST * Math.sin(srad);
+      drawLine(bx, by, sx, sy, br.color, 1, .35, i*80+j*30+40);
+      drawLine(cx, cy, sx, sy, br.color, 0.8, .15, 0, true);  // ligação tracejada ao eixo central
+      const sn = mkEl('div','node ns');
+      sn.style.cssText = `left:${sx}px;top:${sy}px`;
+      sn.setAttribute('aria-label', s.label.replace('\n',' ') + ' — subitem de ' + br.label);
+      sn.innerHTML = `
+        <div class="ring" style="background:${br.color}08;border-color:${br.color}2a">
+          <span style="font-size:10px;color:${br.color}66">◆</span>
+        </div>
+        <div class="lbl">${s.label.replace('\n','<br>')}</div>
+      `;
+      sn.addEventListener('click', () => openPanel(br));
+      nl.appendChild(sn);
+    });
+  });
+
+  // Restore active state
+  if(activeId){
+    const el = document.getElementById('n-'+activeId);
+    if(el) el.classList.add('act');
+  }
+}
+
+function mkEl(tag, cls){ const e = document.createElement(tag); e.className=cls; return e; }
+
+function drawLine(x1,y1,x2,y2,color,sw,op,delay,dashed){
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  const dx=x2-x1, dy=y2-y1;
+  const curl=0.12;
+  const cpx=mx-dy*curl, cpy=my+dx*curl;
+  const len=Math.hypot(dx,dy)*1.2;
+  const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d',`M${x1},${y1} Q${cpx},${cpy} ${x2},${y2}`);
+  p.setAttribute('stroke',color); p.setAttribute('stroke-width',sw);
+  p.setAttribute('stroke-opacity',op); p.setAttribute('fill','none');
+  p.setAttribute('stroke-linecap','round');
+  if(dashed){ p.setAttribute('stroke-dasharray','4 6'); }
+  else { p.setAttribute('stroke-dasharray',len); p.setAttribute('stroke-dashoffset',len); }
+  p.style.animation=dashed ? 'none' : `draw 0.9s ${delay}ms cubic-bezier(.4,0,.2,1) forwards`;
+  svgL.appendChild(p);
+  const style = document.getElementById('draw-anim');
+  if(!style){
+    const s=document.createElement('style'); s.id='draw-anim';
+    s.textContent='@keyframes draw{from{stroke-dashoffset:var(--len,1200)}to{stroke-dashoffset:0}}';
+    document.head.appendChild(s);
+  }
+}
+
+// ================================================================
+// PANEL
+// ================================================================
+function openPanel(br){
+  document.querySelectorAll('.nb').forEach(n => n.classList.remove('act'));
+  const el = document.getElementById('n-'+br.id);
+  if(el){ el.classList.add('act'); activeId = br.id; }
+  const d = br.details;
+  const stats = d.stats ? `<div class="sgrid">${d.stats.map(s=>`<div class="scard"><div class="sval" style="color:${br.color}">${s.v}</div><div class="slb">${s.l}</div></div>`).join('')}</div>` : '';
+  const warn = d.warn ? `<div class="warn"><p>⚠️ ${d.warn}</p></div>` : '';
+  const refs = d.refs ? `<hr class="div"><h3 class="sb-h">📚 Referências Verificadas</h3>${d.refs.map(r=>`<div class="ritem"><span class="rico">${r.i}</span><div><div class="rsrc">${r.s} <span class="ryr" style="color:${br.color}">${r.y}</span></div><div class="rdsc">${r.d}</div></div></div>`).join('')}` : '';
+  document.getElementById('sb-content').innerHTML = `
+    <span class="sb-ico">${br.icon}</span>
+    <div class="sb-cat" style="color:${br.color}">${d.cat}</div>
+    <div class="sb-title" style="color:${br.color}">${d.title}</div>
+    <hr class="div">
+    ${stats}
+    <h3 class="sb-h">Visão Geral</h3>
+    ${d.desc.split('\n\n').map(p=>`<p>${p}</p>`).join('')}
+    <hr class="div">
+    <h3 class="sb-h">Pontos-Chave</h3>
+    <ul>${d.points.map(p=>`<li style="--nc:${br.color}">${p}</li>`).join('')}</ul>
+    ${warn}${refs}
+  `;
+  document.getElementById('sb').classList.add('open');
+}
+
+// ================================================================
+// CONTROLS
+// ================================================================
+let fs = 1;
+document.getElementById('bfm').addEventListener('click',()=>{
+  fs=Math.max(.8,fs-.1);
+  document.documentElement.style.setProperty('--fs',fs);
+});
+document.getElementById('bfp').addEventListener('click',()=>{
+  fs=Math.min(1.5,fs+.1);
+  document.documentElement.style.setProperty('--fs',fs);
+});
+document.getElementById('bhc').addEventListener('click',function(){
+  document.body.classList.toggle('hc');
+  this.classList.toggle('on');
+});
+document.getElementById('bmo').addEventListener('click',function(){
+  this.classList.toggle('on');
+  const id='no-anim';
+  const existing=document.getElementById(id);
+  if(existing){ existing.remove(); }
+  else {
+    const s=document.createElement('style'); s.id=id;
+    s.textContent='*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}';
+    document.head.appendChild(s);
+  }
+});
+document.getElementById('sb-close').addEventListener('click',()=>{
+  document.getElementById('sb').classList.remove('open');
+  document.querySelectorAll('.nb').forEach(n=>n.classList.remove('act'));
+  activeId=null;
+});
+
+// Legend clicks
+document.querySelectorAll('.li').forEach(li=>{
+  const fn = () => { const br=DATA.find(d=>d.id===li.dataset.id); if(br) openPanel(br); };
+  li.addEventListener('click',fn);
+  li.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') fn(); });
+});
+
+// References modal
+document.getElementById('brf').addEventListener('click',()=>{
+  document.getElementById('modal-content').innerHTML = ALL_REFS.map(c=>`
+    <div style="margin-bottom:18px">
+      <div class="rcat">${c.cat}</div>
+      ${c.refs.map(r=>`<div class="rref">${r}</div>`).join('')}
+    </div>
+  `).join('');
+  document.getElementById('modal').classList.add('open');
+});
+document.getElementById('modal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal')) document.getElementById('modal').classList.remove('open');
+});
+
+</script>
+<script src="https://gosurf.site/share-bar.js"></script>
+<script>
+// ================================================================
+// INIT & RESIZE
+// ================================================================
+render();
+let rto;
+window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(render,120); });
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

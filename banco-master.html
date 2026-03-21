@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Mental — O Banqueiro, o Sistema e a Podridão</title>
+<meta name="description" content="O Banqueiro, o Sistema e a Podridão. Dashboard interativo do caso Banco Master — fraude, corrupção judicial, rede política e custo social.">
+<link rel="canonical" href="https://gosurf.site/banco-master">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gosurf.site/banco-master">
+<meta property="og:title" content="Banco Master — Mapa Mental Interativo">
+<meta property="og:description" content="O Banqueiro, o Sistema e a Podridão. Dashboard interativo do caso Banco Master.">
+<meta property="og:image" content="https://gosurf.site/banco-master-hero.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Banco Master — Mapa Mental Interativo">
+<meta name="twitter:description" content="O Banqueiro, o Sistema e a Podridão. Dashboard interativo do caso Banco Master.">
+<meta name="twitter:image" content="https://brsurf.site/banco-master-hero.png">
+<link rel="manifest" href="/manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --accent: #c8a96e;
+    --accent2: #e05c5c;
+    --accent3: #5c9ee0;
+    --accent4: #7ec87e;
+    --accent5: #c87ebe;
+    --accent6: #e09e5c;
+    --node-r: 12px;
+    --font-scale: 1;
+  }
+  .hc {
+    --bg: #000;
+    --surface: #111;
+    --border: #fff;
+    --text: #fff;
+    --muted: #ccc;
+    --accent: #ffdd00;
+    --accent2: #ff4444;
+    --accent3: #44aaff;
+    --accent4: #44ff88;
+    --accent5: #ff88ff;
+    --accent6: #ffaa44;
+  }
+  .light {
+    --bg: #f5f4ef;
+    --surface: #ffffff;
+    --border: #d0cec5;
+    --text: #1a1a2e;
+    --muted: #666680;
+    --accent: #9a6e2a;
+    --accent2: #b03030;
+    --accent3: #2860a8;
+    --accent4: #2a7a2a;
+    --accent5: #882888;
+    --accent6: #a06020;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: calc(14px * var(--font-scale));
+    transition: background .3s, color .3s;
+    overflow-x: hidden;
+  }
+
+  /* ── ACCESSIBILITY BAR ── */
+  #a11y-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 20px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  #a11y-bar label {
+    font-size: 11px; color: var(--muted); font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .a11y-btn {
+    background: var(--border); border: 1px solid var(--muted);
+    color: var(--text); padding: 4px 12px; border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+    cursor: pointer; transition: all .2s;
+  }
+  .a11y-btn:hover, .a11y-btn:focus { background: var(--accent); color: var(--bg); outline: 2px solid var(--accent); }
+  .a11y-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .sep { color: var(--border); user-select: none; }
+  #font-display { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); min-width: 3ch; text-align: center; }
+
+  /* ── HEADER ── */
+  #header {
+    padding: 80px 40px 30px;
+    text-align: center;
+  }
+  #header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: calc(2.4rem * var(--font-scale));
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--text);
+    letter-spacing: -.02em;
+  }
+  #header h1 span { color: var(--accent); }
+  #header p {
+    margin-top: 10px; color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: calc(11px * var(--font-scale));
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+
+  /* ── LEGEND ── */
+  #legend {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: center; padding: 0 40px 20px;
+  }
+  .leg {
+    display: flex; align-items: center; gap: 6px;
+    font-size: calc(11px * var(--font-scale));
+    color: var(--muted); font-family: 'IBM Plex Mono', monospace;
+  }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SVG CANVAS ── */
+  #map-wrap {
+    overflow-x: auto; overflow-y: hidden;
+    padding: 20px 40px 60px;
+  }
+  #map-svg { display: block; margin: 0 auto; }
+
+  /* ── NODES ── */
+  .node-center { cursor: default; }
+  .node-branch {
+    cursor: pointer;
+    transition: filter .2s;
+  }
+  .node-branch:hover { filter: brightness(1.25); }
+  .node-branch:focus { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+  .node-leaf {
+    cursor: pointer;
+    transition: filter .2s;
+  }
+  .node-leaf:hover { filter: brightness(1.3); }
+  .node-leaf:focus { outline: 2px solid var(--accent); }
+
+  /* ── DETAIL PANEL ── */
+  #detail-panel {
+    position: fixed; right: 0; top: 0; bottom: 0;
+    width: 360px; max-width: 90vw;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    padding: 80px 28px 28px;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto; z-index: 500;
+  }
+  #detail-panel.open { transform: translateX(0); }
+  #panel-close {
+    position: absolute; top: 54px; right: 16px;
+    background: var(--border); border: none; color: var(--text);
+    width: 32px; height: 32px; border-radius: 50%;
+    font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  #panel-close:focus { outline: 2px solid var(--accent); }
+  #panel-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: calc(10px * var(--font-scale));
+    letter-spacing: .14em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: calc(1.3rem * var(--font-scale));
+    font-weight: 700; line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  #panel-body { color: var(--muted); line-height: 1.7; font-size: calc(13px * var(--font-scale)); }
+  #panel-body strong { color: var(--text); }
+  #panel-body ul { padding-left: 18px; margin-top: 8px; }
+  #panel-body li { margin-bottom: 6px; }
+
+  /* ── SKIP LINK ── */
+  #skip { position: absolute; top: -100px; left: 8px; background: var(--accent); color: var(--bg);
+    padding: 8px 16px; border-radius: 4px; font-size: 14px; z-index: 9999; }
+  #skip:focus { top: 8px; }
+
+  /* ── LIST VIEW (accessibility alt) ── */
+  #list-view { display: none; padding: 20px 40px 60px; max-width: 900px; margin: 0 auto; }
+  #list-view.visible { display: block; }
+  #map-wrap.hidden { display: none; }
+
+  .branch-section { margin-bottom: 32px; }
+  .branch-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: calc(1.2rem * var(--font-scale));
+    padding: 10px 16px; border-radius: 8px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .branch-section ul { list-style: none; }
+  .branch-section li {
+    padding: 10px 16px; border-left: 3px solid;
+    margin-bottom: 6px; border-radius: 0 6px 6px 0;
+    background: var(--surface); font-size: calc(13px * var(--font-scale));
+    cursor: pointer; transition: filter .2s;
+  }
+  .branch-section li:hover, .branch-section li:focus { filter: brightness(1.2); outline: 2px solid var(--accent); }
+  .branch-section li strong { display: block; margin-bottom: 2px; }
+  .branch-section li span { color: var(--muted); font-size: calc(12px * var(--font-scale)); }
+
+  @media (max-width: 600px) {
+    #header { padding: 80px 16px 20px; }
+    #header h1 { font-size: calc(1.5rem * var(--font-scale)); }
+    #map-wrap { padding: 10px 10px 40px; }
+    #detail-panel { width: 100%; border-left: none; border-top: 1px solid var(--border);
+      top: auto; height: 60vh; bottom: 0; transform: translateY(100%); right: 0; left: 0; }
+    #detail-panel.open { transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" id="skip">Pular para o conteúdo principal</a>
+
+<!-- ACCESSIBILITY BAR -->
+<div id="a11y-bar" role="toolbar" aria-label="Opções de acessibilidade">
+  <label>Tema:</label>
+  <button class="a11y-btn active" id="btn-dark" onclick="setTheme('dark')" aria-pressed="true">Escuro</button>
+  <button class="a11y-btn" id="btn-light" onclick="setTheme('light')" aria-pressed="false">Claro</button>
+  <button class="a11y-btn" id="btn-hc" onclick="setTheme('hc')" aria-pressed="false">Alto Contraste</button>
+  <span class="sep" aria-hidden="true">|</span>
+  <label>Tamanho do texto:</label>
+  <button class="a11y-btn" onclick="adjustFont(-0.1)" aria-label="Diminuir texto">A−</button>
+  <span id="font-display" aria-live="polite" aria-atomic="true">100%</span>
+  <button class="a11y-btn" onclick="adjustFont(0.1)" aria-label="Aumentar texto">A+</button>
+  <span class="sep" aria-hidden="true">|</span>
+  <label>Visualização:</label>
+  <button class="a11y-btn active" id="btn-map" onclick="setView('map')" aria-pressed="true">Gráfico</button>
+  <button class="a11y-btn" id="btn-list" onclick="setView('list')" aria-pressed="false">Lista</button>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <h1>O Banqueiro, o Sistema<br>e a <span>Podridão</span></h1>
+  <p>Caso Banco Master · Mapa Mental Interativo · Leonardo Dias · 2026</p>
+</div>
+
+<!-- LEGEND -->
+<div id="legend" role="note" aria-label="Legenda de cores">
+  <div class="leg"><div class="leg-dot" style="background:#c8a96e"></div><span>Centro</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#e05c5c"></div><span>Fraude Financeira</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#5c9ee0"></div><span>Corrupção Judicial</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#7ec87e"></div><span>Rede Política</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#c87ebe"></div><span>Vítimas e Danos</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#e09e5c"></div><span>Conexões Criminosas</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#9ec8e0"></div><span>Ativos e Patrimônio</span></div>
+</div>
+
+<main id="main-content">
+
+<!-- MAP VIEW -->
+<div id="map-wrap" aria-label="Mapa mental interativo — use Tab para navegar pelos nós">
+<svg id="map-svg" width="1300" height="900" viewBox="0 0 1300 900" role="img" aria-label="Mapa mental do caso Banco Master">
+  <defs>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-sm" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ── BRANCH LINES ── -->
+  <!-- Fraude Financeira → top-left -->
+  <line x1="650" y1="450" x2="230" y2="200" stroke="#e05c5c" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+  <!-- Corrupção Judicial → top -->
+  <line x1="650" y1="450" x2="520" y2="130" stroke="#5c9ee0" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+  <!-- Rede Política → top-right -->
+  <line x1="650" y1="450" x2="870" y2="150" stroke="#7ec87e" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+  <!-- Vítimas → bottom-right -->
+  <line x1="650" y1="450" x2="960" y2="640" stroke="#c87ebe" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+  <!-- Conexões Criminosas → bottom -->
+  <line x1="650" y1="450" x2="560" y2="760" stroke="#e09e5c" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+  <!-- Patrimônio → bottom-left -->
+  <line x1="650" y1="450" x2="290" y2="680" stroke="#9ec8e0" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+  <!-- FGC / Custo → right -->
+  <line x1="650" y1="450" x2="1080" y2="430" stroke="#c8a96e" stroke-width="2.5" stroke-opacity=".5" stroke-dasharray="6,3"/>
+
+  <!-- ── LEAF LINES – Fraude Financeira ── -->
+  <line x1="230" y1="200" x2="80" y2="100" stroke="#e05c5c" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="230" y1="200" x2="70" y2="220" stroke="#e05c5c" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="230" y1="200" x2="160" y2="330" stroke="#e05c5c" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="230" y1="200" x2="310" y2="80" stroke="#e05c5c" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ── LEAF LINES – Corrupção Judicial ── -->
+  <line x1="520" y1="130" x2="390" y2="40" stroke="#5c9ee0" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="520" y1="130" x2="560" y2="30" stroke="#5c9ee0" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="520" y1="130" x2="660" y2="50" stroke="#5c9ee0" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ── LEAF LINES – Rede Política ── -->
+  <line x1="870" y1="150" x2="790" y2="50" stroke="#7ec87e" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="870" y1="150" x2="940" y2="60" stroke="#7ec87e" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="870" y1="150" x2="1020" y2="120" stroke="#7ec87e" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="870" y1="150" x2="1080" y2="200" stroke="#7ec87e" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ── LEAF LINES – Vítimas ── -->
+  <line x1="960" y1="640" x2="1120" y2="580" stroke="#c87ebe" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="960" y1="640" x2="1160" y2="680" stroke="#c87ebe" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="960" y1="640" x2="1070" y2="760" stroke="#c87ebe" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ── LEAF LINES – Conexões Criminosas ── -->
+  <line x1="560" y1="760" x2="420" y2="820" stroke="#e09e5c" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="560" y1="760" x2="560" y2="860" stroke="#e09e5c" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="560" y1="760" x2="700" y2="840" stroke="#e09e5c" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ── LEAF LINES – Patrimônio ── -->
+  <line x1="290" y1="680" x2="130" y2="620" stroke="#9ec8e0" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="290" y1="680" x2="150" y2="760" stroke="#9ec8e0" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="290" y1="680" x2="280" y2="800" stroke="#9ec8e0" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ── LEAF LINES – FGC ── -->
+  <line x1="1080" y1="430" x2="1220" y2="340" stroke="#c8a96e" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="1080" y1="430" x2="1240" y2="440" stroke="#c8a96e" stroke-width="1.5" stroke-opacity=".35"/>
+  <line x1="1080" y1="430" x2="1200" y2="530" stroke="#c8a96e" stroke-width="1.5" stroke-opacity=".35"/>
+
+  <!-- ════════════════ CENTER NODE ════════════════ -->
+  <g class="node-center" role="img" aria-label="Centro: Banco Master — Daniel Vorcaro">
+    <circle cx="650" cy="450" r="80" fill="#c8a96e" fill-opacity=".12" stroke="#c8a96e" stroke-width="2" filter="url(#glow)"/>
+    <circle cx="650" cy="450" r="60" fill="#0a0a0f" stroke="#c8a96e" stroke-width="1.5"/>
+    <text x="650" y="440" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" fill="#c8a96e" font-weight="700">BANCO</text>
+    <text x="650" y="457" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" fill="#c8a96e" font-weight="700">MASTER</text>
+    <text x="650" y="473" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#c8a96e" fill-opacity=".7">Daniel Vorcaro</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 1 – FRAUDE FINANCEIRA ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="Fraude Financeira — clique para detalhes"
+     onclick="showPanel('fraude')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('fraude')">
+    <ellipse cx="230" cy="200" rx="85" ry="34" fill="#e05c5c" fill-opacity=".18" stroke="#e05c5c" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="230" y="195" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#e05c5c" font-weight="600">Fraude</text>
+    <text x="230" y="211" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#e05c5c" font-weight="600">Financeira</text>
+  </g>
+
+  <!-- Leaves – Fraude -->
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Pirâmide de CDBs" onclick="showPanel('cdb')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('cdb')">
+    <rect x="18" y="75" width="120" height="50" rx="8" fill="#e05c5c" fill-opacity=".12" stroke="#e05c5c" stroke-width="1.2"/>
+    <text x="78" y="97" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">Pirâmide</text>
+    <text x="78" y="113" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">de CDBs</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Precatórios inflados" onclick="showPanel('precatorio')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('precatorio')">
+    <rect x="10" y="195" width="120" height="50" rx="8" fill="#e05c5c" fill-opacity=".12" stroke="#e05c5c" stroke-width="1.2"/>
+    <text x="70" y="217" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">Precatórios</text>
+    <text x="70" y="233" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">Inflados</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="CRIs Fraudulentos" onclick="showPanel('cri')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('cri')">
+    <rect x="100" y="305" width="120" height="50" rx="8" fill="#e05c5c" fill-opacity=".12" stroke="#e05c5c" stroke-width="1.2"/>
+    <text x="160" y="327" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">CRIs</text>
+    <text x="160" y="343" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">Fraudulentos</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Caso BRB" onclick="showPanel('brb')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('brb')">
+    <rect x="250" y="55" width="120" height="50" rx="8" fill="#e05c5c" fill-opacity=".12" stroke="#e05c5c" stroke-width="1.2"/>
+    <text x="310" y="77" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">Caso BRB</text>
+    <text x="310" y="93" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e05c5c">R$ 12,2 bi</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 2 – CORRUPÇÃO JUDICIAL ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="Corrupção Judicial" onclick="showPanel('judiciario')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('judiciario')">
+    <ellipse cx="520" cy="130" rx="90" ry="34" fill="#5c9ee0" fill-opacity=".18" stroke="#5c9ee0" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="520" y="125" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#5c9ee0" font-weight="600">Corrupção</text>
+    <text x="520" y="141" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#5c9ee0" font-weight="600">Judicial</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Toffoli e Resort Tayayá" onclick="showPanel('toffoli')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('toffoli')">
+    <rect x="330" y="18" width="120" height="50" rx="8" fill="#5c9ee0" fill-opacity=".12" stroke="#5c9ee0" stroke-width="1.2"/>
+    <text x="390" y="40" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#5c9ee0">Toffoli</text>
+    <text x="390" y="56" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#5c9ee0">Resort Tayayá</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Moraes e contrato R$129mi" onclick="showPanel('moraes')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('moraes')">
+    <rect x="498" y="10" width="126" height="50" rx="8" fill="#5c9ee0" fill-opacity=".12" stroke="#5c9ee0" stroke-width="1.2"/>
+    <text x="561" y="32" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#5c9ee0">A. de Moraes</text>
+    <text x="561" y="48" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#5c9ee0">R$ 129 mi</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Lewandowski R$5,25mi" onclick="showPanel('lewan')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('lewan')">
+    <rect x="598" y="28" width="126" height="50" rx="8" fill="#5c9ee0" fill-opacity=".12" stroke="#5c9ee0" stroke-width="1.2"/>
+    <text x="661" y="50" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#5c9ee0">Lewandowski</text>
+    <text x="661" y="66" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#5c9ee0">R$ 5,25 mi</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 3 – REDE POLÍTICA ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="Rede Política" onclick="showPanel('politica')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('politica')">
+    <ellipse cx="870" cy="150" rx="85" ry="34" fill="#7ec87e" fill-opacity=".18" stroke="#7ec87e" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="870" y="145" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#7ec87e" font-weight="600">Rede</text>
+    <text x="870" y="161" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#7ec87e" font-weight="600">Política</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Lado Direito: Bolsonaro, Lira, Ciro" onclick="showPanel('direita')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('direita')">
+    <rect x="730" y="28" width="120" height="50" rx="8" fill="#7ec87e" fill-opacity=".12" stroke="#7ec87e" stroke-width="1.2"/>
+    <text x="790" y="50" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Lado Direito</text>
+    <text x="790" y="66" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Bolsonaro/Lira</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Lado Esquerdo: Lula, Mantega" onclick="showPanel('esquerda')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('esquerda')">
+    <rect x="882" y="38" width="120" height="50" rx="8" fill="#7ec87e" fill-opacity=".12" stroke="#7ec87e" stroke-width="1.2"/>
+    <text x="942" y="60" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Lado Esquerdo</text>
+    <text x="942" y="76" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Lula/Mantega</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Emenda Master FGC" onclick="showPanel('emenda')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('emenda')">
+    <rect x="1022" y="98" width="120" height="50" rx="8" fill="#7ec87e" fill-opacity=".12" stroke="#7ec87e" stroke-width="1.2"/>
+    <text x="1082" y="120" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">"Emenda</text>
+    <text x="1082" y="136" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Master"</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Doações eleitorais" onclick="showPanel('doacoes')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('doacoes')">
+    <rect x="1080" y="175" width="120" height="50" rx="8" fill="#7ec87e" fill-opacity=".12" stroke="#7ec87e" stroke-width="1.2"/>
+    <text x="1140" y="197" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Doações</text>
+    <text x="1140" y="213" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#7ec87e">Eleitorais</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 4 – VÍTIMAS ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="Vítimas e Danos" onclick="showPanel('vitimas')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('vitimas')">
+    <ellipse cx="960" cy="640" rx="85" ry="34" fill="#c87ebe" fill-opacity=".18" stroke="#c87ebe" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="960" y="635" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#c87ebe" font-weight="600">Vítimas</text>
+    <text x="960" y="651" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#c87ebe" font-weight="600">e Danos</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Previdências Estaduais R$1,86bi" onclick="showPanel('previdencia')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('previdencia')">
+    <rect x="1118" y="555" width="128" height="50" rx="8" fill="#c87ebe" fill-opacity=".12" stroke="#c87ebe" stroke-width="1.2"/>
+    <text x="1182" y="577" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c87ebe">Previdências</text>
+    <text x="1182" y="593" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c87ebe">R$ 1,86 bi</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="800 mil investidores" onclick="showPanel('investidores')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('investidores')">
+    <rect x="1158" y="655" width="120" height="50" rx="8" fill="#c87ebe" fill-opacity=".12" stroke="#c87ebe" stroke-width="1.2"/>
+    <text x="1218" y="677" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c87ebe">~800 mil</text>
+    <text x="1218" y="693" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c87ebe">Credores</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="XP e BTG distribuidores" onclick="showPanel('distribuidores')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('distribuidores')">
+    <rect x="1015" y="738" width="120" height="50" rx="8" fill="#c87ebe" fill-opacity=".12" stroke="#c87ebe" stroke-width="1.2"/>
+    <text x="1075" y="760" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c87ebe">XP / BTG</text>
+    <text x="1075" y="776" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c87ebe">R$ 32,7 bi</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 5 – CONEXÕES CRIMINOSAS ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="Conexões Criminosas" onclick="showPanel('crime')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('crime')">
+    <ellipse cx="560" cy="760" rx="95" ry="34" fill="#e09e5c" fill-opacity=".18" stroke="#e09e5c" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="560" y="755" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#e09e5c" font-weight="600">Conexões</text>
+    <text x="560" y="771" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#e09e5c" font-weight="600">Criminosas</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Milícia A Turma" onclick="showPanel('milicia')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('milicia')">
+    <rect x="358" y="798" width="120" height="50" rx="8" fill="#e09e5c" fill-opacity=".12" stroke="#e09e5c" stroke-width="1.2"/>
+    <text x="418" y="820" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e09e5c">Milícia</text>
+    <text x="418" y="836" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e09e5c">"A Turma"</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="PCC e Lavagem" onclick="showPanel('pcc')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('pcc')">
+    <rect x="498" y="838" width="120" height="50" rx="8" fill="#e09e5c" fill-opacity=".12" stroke="#e09e5c" stroke-width="1.2"/>
+    <text x="558" y="860" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e09e5c">PCC</text>
+    <text x="558" y="876" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e09e5c">R$ 2,8 bi</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Trancoso Kompromat" onclick="showPanel('trancoso')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('trancoso')">
+    <rect x="640" y="818" width="120" height="50" rx="8" fill="#e09e5c" fill-opacity=".12" stroke="#e09e5c" stroke-width="1.2"/>
+    <text x="700" y="840" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e09e5c">Trancoso</text>
+    <text x="700" y="856" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#e09e5c">Kompromat</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 6 – PATRIMÔNIO ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="Patrimônio e Offshores" onclick="showPanel('patrimonio')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('patrimonio')">
+    <ellipse cx="290" cy="680" rx="95" ry="34" fill="#9ec8e0" fill-opacity=".18" stroke="#9ec8e0" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="290" y="675" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#9ec8e0" font-weight="600">Patrimônio</text>
+    <text x="290" y="691" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#9ec8e0" font-weight="600">e Offshores</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Imóveis e jatos" onclick="showPanel('imoveis')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('imoveis')">
+    <rect x="50" y="598" width="120" height="50" rx="8" fill="#9ec8e0" fill-opacity=".12" stroke="#9ec8e0" stroke-width="1.2"/>
+    <text x="110" y="620" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#9ec8e0">Imóveis</text>
+    <text x="110" y="636" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#9ec8e0">e Jatos</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Offshores internacionais" onclick="showPanel('offshores')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('offshores')">
+    <rect x="48" y="738" width="120" height="50" rx="8" fill="#9ec8e0" fill-opacity=".12" stroke="#9ec8e0" stroke-width="1.2"/>
+    <text x="108" y="760" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#9ec8e0">Offshores</text>
+    <text x="108" y="776" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#9ec8e0">Cayman/Miami</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Nelson Tanure controlador oculto" onclick="showPanel('tanure')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('tanure')">
+    <rect x="218" y="778" width="120" height="50" rx="8" fill="#9ec8e0" fill-opacity=".12" stroke="#9ec8e0" stroke-width="1.2"/>
+    <text x="278" y="800" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#9ec8e0">Nelson</text>
+    <text x="278" y="816" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#9ec8e0">Tanure</text>
+  </g>
+
+  <!-- ════════════════ BRANCH 7 – FGC ════════════════ -->
+  <g class="node-branch" role="button" tabindex="0" aria-label="FGC e Custo Social" onclick="showPanel('fgc')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('fgc')">
+    <ellipse cx="1080" cy="430" rx="95" ry="34" fill="#c8a96e" fill-opacity=".18" stroke="#c8a96e" stroke-width="1.8" filter="url(#glow-sm)"/>
+    <text x="1080" y="425" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#c8a96e" font-weight="600">FGC &amp;</text>
+    <text x="1080" y="441" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="12" fill="#c8a96e" font-weight="600">Custo Social</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="R$51,8 bilhões" onclick="showPanel('rombo')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('rombo')">
+    <rect x="1192" y="316" width="100" height="50" rx="8" fill="#c8a96e" fill-opacity=".12" stroke="#c8a96e" stroke-width="1.2"/>
+    <text x="1242" y="338" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c8a96e">R$ 51,8 bi</text>
+    <text x="1242" y="354" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c8a96e">Rombo</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Grandes bancos pagam" onclick="showPanel('bancos')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('bancos')">
+    <rect x="1198" y="415" width="100" height="50" rx="8" fill="#c8a96e" fill-opacity=".12" stroke="#c8a96e" stroke-width="1.2"/>
+    <text x="1248" y="437" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c8a96e">5 Maiores</text>
+    <text x="1248" y="453" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c8a96e">Bancos</text>
+  </g>
+  <g class="node-leaf" role="button" tabindex="0" aria-label="Socialização do prejuízo" onclick="showPanel('socializacao')" onkeydown="if(event.key==='Enter'||event.key===' ')showPanel('socializacao')">
+    <rect x="1162" y="508" width="120" height="50" rx="8" fill="#c8a96e" fill-opacity=".12" stroke="#c8a96e" stroke-width="1.2"/>
+    <text x="1222" y="530" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c8a96e">Socialização</text>
+    <text x="1222" y="546" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#c8a96e">do Prejuízo</text>
+  </g>
+</svg>
+</div>
+
+<!-- LIST VIEW -->
+<div id="list-view" role="region" aria-label="Visão em lista do mapa mental">
+  <div class="branch-section">
+    <h2 style="background:#e05c5c22;color:#e05c5c;border-left:4px solid #e05c5c">🔴 Fraude Financeira</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#e05c5c" onclick="showPanel('cdb')"><strong>Pirâmide de CDBs</strong><span>130–160% CDI; novos CDBs para pagar antigos</span></li>
+      <li tabindex="0" style="border-color:#e05c5c" onclick="showPanel('precatorio')"><strong>Precatórios Inflados</strong><span>Revendidos ao banco por até 235% do valor de face</span></li>
+      <li tabindex="0" style="border-color:#e05c5c" onclick="showPanel('cri')"><strong>CRIs Fraudulentos</strong><span>Lastro em terrenos de Ronaldinho sem autorização — ~R$ 1 bi</span></li>
+      <li tabindex="0" style="border-color:#e05c5c" onclick="showPanel('brb')"><strong>Caso BRB — R$ 12,2 bi</strong><span>CPFs inexistentes; 74% de inconsistências no INSS</span></li>
+    </ul>
+  </div>
+  <div class="branch-section">
+    <h2 style="background:#5c9ee022;color:#5c9ee0;border-left:4px solid #5c9ee0">🔵 Corrupção Judicial</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#5c9ee0" onclick="showPanel('toffoli')"><strong>Toffoli — Resort Tayayá</strong><span>R$ 35 mi investidos via fundo de Zettel; 168 dias hospedado</span></li>
+      <li tabindex="0" style="border-color:#5c9ee0" onclick="showPanel('moraes')"><strong>Alexandre de Moraes</strong><span>Escritório da esposa — contrato de R$ 129 mi</span></li>
+      <li tabindex="0" style="border-color:#5c9ee0" onclick="showPanel('lewan')"><strong>Lewandowski</strong><span>R$ 5,25 mi pagos enquanto era Ministro da Justiça</span></li>
+    </ul>
+  </div>
+  <div class="branch-section">
+    <h2 style="background:#7ec87e22;color:#7ec87e;border-left:4px solid #7ec87e">🟢 Rede Política</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#7ec87e" onclick="showPanel('direita')"><strong>Lado Direito</strong><span>Bolsonaro R$3mi, Tarcísio R$2mi, Lira, Ciro Nogueira, Nikolas</span></li>
+      <li tabindex="0" style="border-color:#7ec87e" onclick="showPanel('esquerda')"><strong>Lado Esquerdo</strong><span>Jantar secreto com Lula; Mantega R$1mi/mês; Jaques Wagner</span></li>
+      <li tabindex="0" style="border-color:#7ec87e" onclick="showPanel('emenda')"><strong>"Emenda Master"</strong><span>Ciro Nogueira: FGC de R$250k para R$1 milhão</span></li>
+    </ul>
+  </div>
+  <div class="branch-section">
+    <h2 style="background:#c87ebe22;color:#c87ebe;border-left:4px solid #c87ebe">🟣 Vítimas e Danos</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#c87ebe" onclick="showPanel('previdencia')"><strong>18 Previdências Estaduais</strong><span>R$ 1,86 bi; Rioprevidência R$960mi, Amapá R$400mi</span></li>
+      <li tabindex="0" style="border-color:#c87ebe" onclick="showPanel('investidores')"><strong>~800 mil credores</strong><span>Master + LetsBank; Will Bank 6 milhões clientes</span></li>
+      <li tabindex="0" style="border-color:#c87ebe" onclick="showPanel('distribuidores')"><strong>XP (R$26bi) e BTG (R$6,7bi)</strong><span>Comissões entre R$650mi e R$1,3bi</span></li>
+    </ul>
+  </div>
+  <div class="branch-section">
+    <h2 style="background:#e09e5c22;color:#e09e5c;border-left:4px solid #e09e5c">🟠 Conexões Criminosas</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#e09e5c" onclick="showPanel('milicia')"><strong>Milícia "A Turma"</strong><span>R$1mi/mês; intimidação de jornalistas; ordem de agredir Lauro Jardim</span></li>
+      <li tabindex="0" style="border-color:#e09e5c" onclick="showPanel('pcc')"><strong>PCC — R$ 2,8 bi</strong><span>Operação Carbono Oculto; Reag investigada</span></li>
+      <li tabindex="0" style="border-color:#e09e5c" onclick="showPanel('trancoso')"><strong>Trancoso Kompromat</strong><span>Festas com câmeras ocultas, modelos estrangeiras, convidados políticos</span></li>
+    </ul>
+  </div>
+  <div class="branch-section">
+    <h2 style="background:#9ec8e022;color:#9ec8e0;border-left:4px solid #9ec8e0">🩵 Patrimônio e Offshores</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#9ec8e0" onclick="showPanel('imoveis')"><strong>Imóveis e Jatos</strong><span>Miami R$460mi, Trancoso R$300mi, Gulfstream R$538mi</span></li>
+      <li tabindex="0" style="border-color:#9ec8e0" onclick="showPanel('offshores')"><strong>Offshores</strong><span>Titan Capital (Cayman), Goldbeach (Miami), Faex Fund (Bahamas)</span></li>
+      <li tabindex="0" style="border-color:#9ec8e0" onclick="showPanel('tanure')"><strong>Nelson Tanure</strong><span>Suspeito de "controlador oculto"; R$2,5bi aportados</span></li>
+    </ul>
+  </div>
+  <div class="branch-section">
+    <h2 style="background:#c8a96e22;color:#c8a96e;border-left:4px solid #c8a96e">🟡 FGC e Custo Social</h2>
+    <ul>
+      <li tabindex="0" style="border-color:#c8a96e" onclick="showPanel('rombo')"><strong>R$ 51,8 bilhões</strong><span>Quase 3× o Bamerindus corrigido; maior rombo bancário brasileiro</span></li>
+      <li tabindex="0" style="border-color:#c8a96e" onclick="showPanel('bancos')"><strong>5 Maiores Bancos</strong><span>R$30bi nos próximos meses: Bradesco R$7bi, Caixa R$5,8bi</span></li>
+      <li tabindex="0" style="border-color:#c8a96e" onclick="showPanel('socializacao')"><strong>Socialização do Prejuízo</strong><span>Spreads e tarifas pagos por 220 milhões de brasileiros</span></li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<!-- DETAIL PANEL -->
+<aside id="detail-panel" role="complementary" aria-label="Detalhes do tópico selecionado" aria-live="polite">
+  <button id="panel-close" onclick="closePanel()" aria-label="Fechar painel">×</button>
+  <div id="panel-tag"></div>
+  <div id="panel-title"></div>
+  <div id="panel-body"></div>
+</aside>
+
+<script>
+const panels = {
+  fraude: { tag: "Fraude Financeira", color: "#e05c5c", title: "O Esquema Financeiro", body: `O Banco Master ergueu um castelo de <strong>R$ 82 bilhões declarados</strong> sobre ativos fictícios. No dia da liquidação, havia <strong>R$ 4 milhões em caixa</strong> — mil vezes menos do que o esperado para um banco desse porte (R$ 3–4 bi).` },
+  cdb: { tag: "Pirâmide", color: "#e05c5c", title: "Pirâmide de CDBs — 130% a 160% do CDI", body: `O modelo era simples: captava dinheiro a taxas de <strong>130% a 160% do CDI</strong> (mercado: 100–110%) e emitia novos CDBs para pagar os antigos. A PF classificou como <strong>pirâmide financeira</strong>. O argumento de venda era a cobertura do FGC — "tecnicamente verdadeira e moralmente fraudulenta."` },
+  precatorio: { tag: "Precatórios", color: "#e05c5c", title: "Alquimia de Precatórios — até 235% do valor", body: `Fundos vinculados ao banco compravam precatórios por valores irrisórios e os revendiam ao Master por <strong>até 235% do valor de face</strong>. A Reag Investimentos administrava o circuito circular. 6 fundos com nomes como Astralo 95, Hans 95, Olaf 95 somavam <strong>R$ 102,4 bi de patrimônio líquido suspeito</strong>.` },
+  cri: { tag: "CRIs", color: "#e05c5c", title: "CRIs Fraudulentos — Ronaldinho sem saber", body: `Em agosto de 2023, foram emitidos <strong>R$ 330 mi em CRIs</strong> usando como lastro terrenos em Porto Alegre de Ronaldinho Gaúcho — <strong>sem seu conhecimento</strong>. O negócio imobiliário havia sido cancelado em 2021. Os recursos foram para fundos ligados ao Master. Volume total suspeito: <strong>~R$ 1 bilhão</strong>.` },
+  brb: { tag: "Caso BRB", color: "#e05c5c", title: "BRB — Carteiras Fantasma de R$ 12,2 bi", body: `O BRB (banco público do DF) injetou <strong>R$ 16,7 bi</strong> comprando carteiras de crédito consignado. O BC checou 30 CPFs aleatoriamente: <strong>nenhum existia</strong>. O INSS encontrou inconsistências em <strong>74% dos contratos</strong>. Prejuízo estimado: R$ 5–9 bi — podendo superar o patrimônio líquido do BRB. Detalhe: Vorcaro era sócio oculto do BRB enquanto vendia para ele.` },
+  judiciario: { tag: "Corrupção Judicial", color: "#5c9ee0", title: "A Captura do Judiciário", body: `Dois ministros do STF aparecem com conexões financeiras documentadas ao esquema Master. Contratos com famílias de autoridades somam <strong>R$ 164 mi documentados</strong>: Barci de Moraes (R$129mi), Lewandowski (R$5,25mi), família Toffoli via fundo (R$35mi).` },
+  toffoli: { tag: "Toffoli", color: "#5c9ee0", title: "Dias Toffoli — Resort Tayayá", body: `Toffoli e irmãos são sócios do resort de luxo Tayayá (PR). Um fundo de Zettel (cunhado de Vorcaro) investiu <strong>R$ 35 mi no resort</strong> entre 2021–2025. Toffoli passou <strong>168 dias</strong> no Tayayá, com seguranças pagos com dinheiro público (R$548,9 mil). Foi sorteado relator do caso Master, decretou sigilo e voou ao Peru em avião particular no mesmo dia. Saiu da relatoria em fev/2026 após reunião de emergência.` },
+  moraes: { tag: "Alexandre de Moraes", color: "#5c9ee0", title: "Moraes — Contrato de R$ 129 mi", body: `O escritório da esposa de Moraes, Viviane Barci, assinou contrato de <strong>R$ 129 mi</strong> com o Master em jan/2024 — 36 parcelas de R$ 3,6 mi até 2027. Previa atuação no Judiciário, Legislativo, Executivo, MP e PF. <strong>Nenhuma atuação processual documentada</strong>. Vorcaro: pagamentos "não podiam deixar de ser feitos em hipótese alguma." Moraes contatou o presidente do BC ao menos 4 vezes sobre o Master.` },
+  lewan: { tag: "Lewandowski", color: "#5c9ee0", title: "Lewandowski — R$ 5,25 mi como Ministro", body: `O escritório Lewandowski Advocacia (esposa e filho do ex-ministro do STF) manteve contrato de <strong>R$ 250 mil mensais</strong> com o Master. Os pagamentos continuaram por <strong>21 meses após Lewandowski assumir o Ministério da Justiça</strong> em jan/2024, totalizando R$ 5,25 mi. Nenhuma atuação processual documentada.` },
+  politica: { tag: "Rede Política", color: "#7ec87e", title: "A República à Venda", body: `A corrupção não tem partido, apenas preço. Bolsonaristas e lulistas, petistas e liberais estavam à mesa de Vorcaro. Fabiano Zettel foi o <strong>6º maior doador pessoa física de 2022</strong>: R$3mi para Bolsonaro, R$2mi para Tarcísio. O banco gastou <strong>~R$ 500 mi com escritórios de advocacia</strong> ligados a autoridades.` },
+  direita: { tag: "Lado Direito", color: "#7ec87e", title: "Bolsonaro, Lira, Ciro, Nikolas", body: `<ul><li><strong>Ciro Nogueira</strong>: apresentou "Emenda Master" para quadruplicar FGC. Vorcaro foi a casamento da filha dele de iate.</li><li><strong>Arthur Lira</strong>: descrito como "amigo de Vorcaro"; indicou Jhonatan de Jesus ao TCU, que tentou bloquear a liquidação.</li><li><strong>Nikolas Ferreira</strong>: voou em aeronave de empresa de Vorcaro em 2022.</li><li><strong>Ibaneis Rocha</strong>: sancionou venda do Master ao BRB em 1 semana.</li></ul>` },
+  esquerda: { tag: "Lado Esquerdo", color: "#7ec87e", title: "Lula, Mantega, Wagner", body: `Jantar secreto no Planalto em <strong>4 dez 2024</strong> (fora da agenda) com Lula, Mantega, Rui Costa, Silveira, Galípolo. Lula aconselhou Vorcaro a não vender ao BTG. Guido Mantega: consultor a <strong>R$ 1 mi/mês</strong>, contratado por indicação de Jaques Wagner. Vorcaro esteve <strong>ao menos 4 vezes</strong> no Planalto entre dez/2023 e dez/2024.` },
+  emenda: { tag: "Emenda Master", color: "#7ec87e", title: '"Emenda Master" — FGC × 4', body: `Ciro Nogueira apresentou proposta para elevar o teto de cobertura do FGC de <strong>R$ 250 mil para R$ 1 milhão</strong>. Filipe Barros tentou ressuscitar o projeto na Câmara. A aprovação beneficiaria diretamente os investidores do Master e o próprio banco.` },
+  doacoes: { tag: "Doações", color: "#7ec87e", title: "Doações Eleitorais Milionárias", body: `Fabiano Zettel (cunhado e operador de Vorcaro) foi o <strong>6º maior doador pessoa física de 2022</strong>: R$ 3 mi para Bolsonaro e R$ 2 mi para Tarcísio de Freitas. As doações compunham a estratégia de captura política em ambos os espectros ideológicos.` },
+  vitimas: { tag: "Vítimas", color: "#c87ebe", title: "As Vítimas Reais do Esquema", body: `Por trás dos bilhões há pessoas reais: professoras aposentadas, policiais pensionistas, enfermeiras do SUS cujos fundos de previdência foram dilapidados. 18 institutos estaduais/municipais perderam <strong>R$ 1,86 bi em letras financeiras</strong> (sem cobertura do FGC).` },
+  previdencia: { tag: "Previdências", color: "#c87ebe", title: "18 Fundos de Previdência — R$ 1,86 bi", body: `<ul><li><strong>Rioprevidência (RJ)</strong>: R$ 960 mi</li><li><strong>Amprev (AP)</strong>: R$ 400 mi — Amapá é base de Davi Alcolumbre, "amigo de Vorcaro"</li><li><strong>Maceió Previdência</strong>: R$ 100 mi — aliado de Arthur Lira</li></ul>Letras financeiras <strong>não são cobertas pelo FGC</strong>. Dinheiro virou pó.` },
+  investidores: { tag: "Credores", color: "#c87ebe", title: "~800 mil Credores Diretos", body: `<ul><li><strong>Banco Master + LetsBank</strong>: ~800 mil credores, R$ 40,6 bi</li><li><strong>Will Bank</strong>: ~6 milhões de clientes, R$ 6,3 bi</li><li><strong>Banco Pleno</strong> (Augusto Lima, ex-CEO do Master): ~160 mil credores, R$ 4,9 bi</li></ul>` },
+  distribuidores: { tag: "XP / BTG", color: "#c87ebe", title: "XP R$26bi e BTG R$6,7bi", body: `A XP Investimentos distribuiu <strong>R$ 26 bi</strong> em CDBs do Master. O BTG Pactual, <strong>R$ 6,7 bi</strong>. Comissões: <strong>R$ 650 mi a R$ 1,3 bi</strong>. Nenhuma das instituições questionou como o banco multiplicou o patrimônio por 20× em poucos anos. Em jul/2025, o BTG comprou ativos do Master por R$ 1,5 bi abaixo do mercado.` },
+  crime: { tag: "Conexões Criminosas", color: "#e09e5c", title: "Crime Organizado e Violência", body: `O repertório de Vorcaro incluía não apenas cheques e champanhe, mas também uma milícia privada, possível lavagem de dinheiro do PCC e uma rede de kompromat inspirada no modelo Epstein.` },
+  milicia: { tag: "Milícia", color: "#e09e5c", title: '"A Turma" — Milícia Privada', body: `Grupo armado coordenado por Luiz Phillipi Mourão ("Sicário") e pelo policial federal aposentado Marilson Roseno. Recebia até <strong>R$ 1 mi/mês</strong> para monitorar desafetos e intimidar jornalistas. Vorcaro ordenou agressão ao colunista Lauro Jardim (Globo): <em>"Esse Lauro quero mandar dar um pau nele. Quebrar todos os dentes. Num assalto."</em> Ambos os coordenadores foram presos em mar/2026.` },
+  pcc: { tag: "PCC", color: "#e09e5c", title: "Operação Carbono Oculto — R$ 2,8 bi", body: `A PF apura se o Banco Master movimentou <strong>R$ 2,8 bi em câmbio</strong> para empresas suspeitas de lavar dinheiro do PCC (facção criminosa mais poderosa do Brasil). A Reag Investimentos é investigada na Operação Carbono Oculto (deflagrada ago/2025). A hipótese transforma o caso em questão de segurança nacional.` },
+  trancoso: { tag: "Kompromat", color: "#e09e5c", title: "Festas de Trancoso — Kompromat à Brasileira", body: `Entre 2021–2022, Vorcaro organizou festas exclusivas em mansão de R$300mi na Bahia: segurança reforçada, proibição de celulares, câmeras ocultas, modelos estrangeiras (croatas, ucranianas, russas) transportadas de jatinho. Convidados incluíam ministros e membros do Judiciário. Vídeos encontrados no celular de Vorcaro estão sob custódia do STF. A técnica — criar situações comprometedoras para transformar participantes em reféns — é chamada de <strong>kompromat</strong>.` },
+  patrimonio: { tag: "Patrimônio", color: "#9ec8e0", title: "O Patrimônio Blindado", body: `Declarou R$ 218 mi ao IR em 2018 e <strong>R$ 1,4 bi em 2023</strong>. Empresas ligadas adquiriram R$ 2 bi em bens, 85% a partir de 2024, com apenas 1% em nome próprio. Estrutura: mais de 33 empresas em BH e <strong>2.500 CNPJs relacionados</strong>. Bloqueio de R$ 22 bi determinado em mar/2026.` },
+  imoveis: { tag: "Imóveis e Jatos", color: "#9ec8e0", title: "O Estilo de Vida", body: `<ul><li>Gulfstream G700: <strong>R$ 538 mi</strong></li><li>Mansão Miami: <strong>R$ 460 mi</strong></li><li>Mansão Trancoso: <strong>R$ 300 mi</strong></li><li>Mansão Orlando: <strong>R$ 180 mi</strong></li><li>Festa de 15 anos: <strong>R$ 15 mi</strong> (DJ Alok + The Chainsmokers)</li><li>Relógios e arte: <strong>R$ 47 mi</strong></li><li>Participação no Atlético Mineiro (SAF): <strong>20–26%</strong></li></ul>` },
+  offshores: { tag: "Offshores", color: "#9ec8e0", title: "Rede Internacional de Offshores", body: `<ul><li><strong>Titan Capital Holding</strong> — Ilhas Cayman</li><li><strong>Goldbeach Properties LLC</strong> — Miami (mansão R$460mi)</li><li><strong>Faex Fund LTD</strong> — Nassau, Bahamas</li><li><strong>Aventti Strategic Partners</strong> — Reino Unido (ligada a Tanure)</li></ul>Quando a Fictor anunciou compra do Master (nov/2025), citou "investidores dos Emirados" com US$100bi — identidade nunca revelada. PF suspeita de "simulacro para facilitar fuga."` },
+  tanure: { tag: "Nelson Tanure", color: "#9ec8e0", title: "Nelson Tanure — Controlador Oculto?", body: `PF e MPF investigam Tanure como <strong>controlador de fato</strong> do Banco Master. Indícios: aportou ~<strong>R$ 2,5 bi desde 2020</strong> via Banvox Holding, fundo Estocolmo, Aventti e MAM Asset. Em 2022, financiou 4 aportes >R$700mi via debêntures conversíveis. Coinvestiu em Light, Ambipar, Gafisa, EMAE. Tanure nega categoricamente qualquer sociedade.` },
+  fgc: { tag: "FGC", color: "#c8a96e", title: "FGC — A Bomba Socializada", body: `O FGC terá de desembolsar <strong>R$ 51,8 bilhões</strong> — quase 3× o Bamerindus corrigido. O FGC possuía R$160bi (R$122bi líquidos). Plano emergencial: antecipação de 5 anos de contribuições. O CMN alterou regras em ago/2025, dobrando o multiplicador da contribuição adicional.` },
+  rombo: { tag: "Rombo", color: "#c8a96e", title: "R$ 51,8 Bilhões — O Maior Rombo Bancário", body: `<ul><li>Banco Master + LetsBank: <strong>R$ 40,6 bi</strong> (~800 mil credores)</li><li>Will Bank: <strong>R$ 6,3 bi</strong> (~6 mi clientes)</li><li>Banco Pleno: <strong>R$ 4,9 bi</strong> (~160 mil credores)</li></ul>No dia da liquidação: <strong>R$ 4 mi em caixa</strong>. O esperado: R$ 3–4 bi. Diferença: <strong>mil vezes</strong>.` },
+  bancos: { tag: "5 Maiores Bancos", color: "#c8a96e", title: "Os 5 Maiores Bancos Pagam a Conta", body: `Os 5 maiores bancos desembolsarão R$ 30 bi nos próximos meses:<ul><li><strong>Bradesco</strong>: R$ 7 bi</li><li><strong>Caixa</strong>: R$ 5,8 bi</li><li><strong>Banco do Brasil</strong>: R$ 5 bi</li><li><strong>Santander</strong>: R$ 3,4 bi</li></ul>O BC liberou R$30bi do compulsório em 4/mar/2026 para financiar a recomposição.` },
+  socializacao: { tag: "Socialização", color: "#c8a96e", title: "Os Lucros Eram Privados, os Prejuízos São Públicos", body: `Os bilhões do rombo "não saem do nada. Saem dos spreads, das tarifas, dos juros que cada brasileiro paga ao abrir o aplicativo do banco." O prejuízo de um banqueiro fraudulento é socializado entre <strong>220 milhões de brasileiros</strong>. Os lucros financiaram mansões em Miami e milícias; os prejuízos financiam a sobrevivência do sistema financeiro nacional.` },
+};
+
+function showPanel(key) {
+  const d = panels[key];
+  if (!d) return;
+  document.getElementById('panel-tag').innerHTML = `<span style="color:${d.color}">${d.tag}</span>`;
+  document.getElementById('panel-title').textContent = d.title;
+  document.getElementById('panel-body').innerHTML = d.body;
+  document.getElementById('detail-panel').classList.add('open');
+  document.getElementById('panel-close').focus();
+}
+function closePanel() {
+  document.getElementById('detail-panel').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closePanel(); });
+
+let fontScale = 1;
+function adjustFont(delta) {
+  fontScale = Math.max(0.7, Math.min(1.6, fontScale + delta));
+  document.documentElement.style.setProperty('--font-scale', fontScale);
+  document.getElementById('font-display').textContent = Math.round(fontScale*100)+'%';
+}
+
+function setTheme(t) {
+  document.body.className = t === 'dark' ? '' : t === 'light' ? 'light' : 'hc';
+  ['btn-dark','btn-light','btn-hc'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.classList.toggle('active', id === 'btn-'+t);
+    btn.setAttribute('aria-pressed', id === 'btn-'+t ? 'true' : 'false');
+  });
+}
+
+function setView(v) {
+  const isMap = v === 'map';
+  document.getElementById('map-wrap').classList.toggle('hidden', !isMap);
+  document.getElementById('list-view').classList.toggle('visible', !isMap);
+  document.getElementById('btn-map').classList.toggle('active', isMap);
+  document.getElementById('btn-list').classList.toggle('active', !isMap);
+  document.getElementById('btn-map').setAttribute('aria-pressed', isMap ? 'true' : 'false');
+  document.getElementById('btn-list').setAttribute('aria-pressed', !isMap ? 'true' : 'false');
+}
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>
