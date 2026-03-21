@@ -1,16 +1,16 @@
-# 🔍 Painel Investigativo — Brasil em Estado Crítico
+# 🔍 Observatório Civil BR — Brasil em Estado Crítico
 
 <div align="center">
 
 ![Status](https://img.shields.io/badge/status-ativo-dc2626?style=flat-square)
 ![Licença](https://img.shields.io/badge/licença-MIT-22c55e?style=flat-square)
 ![Conteúdo](https://img.shields.io/badge/conteúdo-jornalístico%20%2F%20investigativo-f59e0b?style=flat-square)
-![GitHub Issues](https://img.shields.io/github/issues/araguaci/painel-do-crime?style=flat-square&color=a855f7)
+![GitHub Issues](https://img.shields.io/github/issues/araguaci/observatorio-civil-br?style=flat-square&color=a855f7)
 
 **Central de inteligência civil** para análise crítica de crime organizado,
 corrupção sistêmica, captura do judiciário e colapso institucional no Brasil.
 
-[🔴 Acessar o Painel](https://araguaci.github.io/painel-do-crime/) · [📋 Sugerir Pauta](https://github.com/araguaci/painel-do-crime/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/painel-do-crime/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/painel-do-crime/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
+[🔴 Acessar o Painel](https://araguaci.github.io/observatorio-civil-br/) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
 
 </div>
 
@@ -67,7 +67,7 @@ O Brasil enfrenta uma **crise institucional multidimensional** onde informaçõe
 ## 🗂️ Estrutura do Projeto
 
 ```
-painel-do-crime/
+observatorio-civil-br/
 │
 ├── index.html                          # Hub central — painel principal de navegação
 ├── viewer.html                         # Renderizador universal de arquivos .md
@@ -128,22 +128,22 @@ Há várias formas de contribuir com este projeto:
 ### 📋 Sugerir uma Pauta ou Tema
 Identificou um padrão de corrupção, uma operação investigativa ou um tema que merece análise?
 
-👉 [**Abrir issue: Sugestão de Pauta**](https://github.com/araguaci/painel-do-crime/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+)
+👉 [**Abrir issue: Sugestão de Pauta**](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+)
 
 ### 🚨 Reportar uma Ocorrência
 Tem informação sobre um fato investigável baseado em fontes públicas?
 
-👉 [**Abrir issue: Reportar Ocorrência**](https://github.com/araguaci/painel-do-crime/issues/new?template=ocorrencia.md&labels=ocorrência&title=%5BOCORR%C3%8ANCIA%5D+)
+👉 [**Abrir issue: Reportar Ocorrência**](https://github.com/araguaci/observatorio-civil-br/issues/new?template=ocorrencia.md&labels=ocorrência&title=%5BOCORR%C3%8ANCIA%5D+)
 
 ### 🐛 Reportar Erro ou Problema
 Encontrou informação incorreta, link quebrado ou problema técnico?
 
-👉 [**Abrir issue: Reportar Erro**](https://github.com/araguaci/painel-do-crime/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+)
+👉 [**Abrir issue: Reportar Erro**](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+)
 
 ### 💡 Propor Melhoria
 Tem ideia para melhorar o painel, design, dados ou análises?
 
-👉 [**Abrir issue: Sugestão de Melhoria**](https://github.com/araguaci/painel-do-crime/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
+👉 [**Abrir issue: Sugestão de Melhoria**](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
 
 ### 🔧 Contribuir com Código ou Conteúdo
 
@@ -209,9 +209,13 @@ Veja o arquivo [LICENSE](./LICENSE) para detalhes completos.
 
 ---
 
-## 📌 Nota sobre o Nome do Projeto
+## 📌 Sobre o Nome do Projeto
 
-O nome **"painel-do-crime"** refere-se à análise crítica da criminalidade em sentido amplo — incluindo crime organizado, crime de colarinho branco, crime institucional e impunidade sistêmica. O projeto **não apoia, glorifica ou instrui** atividades criminosas. É um instrumento de análise cidadã e accountability democrático.
+**Observatório Civil BR** — O nome posiciona o projeto como o que ele é: um observatório independente de cidadania ativa, no modelo de organizações como FBSP, IPEA e OSCs reconhecidas.
+
+O sufixo **BR** delimita o escopo geográfico (Brasil) e reforça a identidade nacional. O termo **"Civil"** distingue a iniciativa do aparato estatal — é a sociedade civil observando e documentando, não o Estado agindo.
+
+O projeto **não apoia, glorifica ou instrui** atividades criminosas. É um instrumento de análise cidadã, jornalismo investigativo aberto e accountability democrático.
 
 ---
 
@@ -219,6 +223,6 @@ O nome **"painel-do-crime"** refere-se à análise crítica da criminalidade em 
 
 **Projeto de análise civil independente. Domínio público. Sem fins comerciais.**
 
-*Se este projeto foi útil, considere [⭐ dar uma estrela](https://github.com/araguaci/painel-do-crime) ou [abrir uma issue](https://github.com/araguaci/painel-do-crime/issues) com sugestões.*
+*Se este projeto foi útil, considere [⭐ dar uma estrela](https://github.com/araguaci/observatorio-civil-br) ou [abrir uma issue](https://github.com/araguaci/observatorio-civil-br/issues) com sugestões.*
 
 </div>

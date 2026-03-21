@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visualizador — Painel do Crime</title>
+<title>Visualizador — Observatório Civil BR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
@@ -483,8 +483,8 @@
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
-    <a class="back-btn" href="index.html">PAINEL DO CRIME</a>
-    <div class="topbar-brand">PAINEL DO <span>CRIME</span></div>
+    <a class="back-btn" href="index.html">OBSERVATÓRIO CIVIL BR</a>
+    <div class="topbar-brand">OBSERVATÓRIO <span>CIVIL BR</span></div>
   </div>
   <div class="topbar-file" id="topbar-file">—</div>
 </div>
@@ -616,10 +616,10 @@ function renderArticle(fm, bodyMd) {
     <div class="article-footer">
       <a class="back-btn" href="index.html" style="font-size:12px;">← Voltar ao Painel</a>
       <div>
-        <div class="footer-brand">PAINEL DO <span>CRIME</span></div>
+        <div class="footer-brand">OBSERVATÓRIO <span>CIVIL BR</span></div>
         <div class="footer-note">
           Documento de análise baseado em fontes públicas<br>
-          Painel do Crime // BR-001 // ${new Date().getFullYear()}
+          Observatório Civil BR // BR-001 // ${new Date().getFullYear()}
         </div>
       </div>
     </div>
@@ -628,7 +628,7 @@ function renderArticle(fm, bodyMd) {
   page.innerHTML = `${header}<div class="article-body">${rendered}</div>${footer}`;
 
   // Update page title
-  if (fm.title) document.title = `${fm.title} — Painel do Crime`;
+  if (fm.title) document.title = `${fm.title} — Observatório Civil BR`;
 }
 
 // ─── MAIN LOADER ─────────────────────────────────────────────────────────────
