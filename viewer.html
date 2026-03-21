@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Visualizador — Observatório Civil BR</title>
+
+<!-- PRIMARY META -->
+<meta name="description" content="Visualizador de documentos investigativos — Observatório Civil BR">
+<meta name="robots"      content="noindex, follow">
+<meta name="theme-color" content="#dc2626">
+<link rel="canonical"    href="https://painel-do-crime.vercel.app/viewer.html">
+
+<!-- OPEN GRAPH (dinâmico via JS no loadFile) -->
+<meta property="og:site_name"  content="Observatório Civil BR">
+<meta property="og:type"       content="article">
+<meta property="og:image"      content="https://painel-do-crime.vercel.app/og-image.png">
+<meta property="og:locale"     content="pt_BR">
+<meta name="twitter:card"      content="summary_large_image">
+<meta name="twitter:image"     content="https://painel-do-crime.vercel.app/og-image.png">
+
+<!-- PWA -->
+<link rel="manifest"           href="manifest.json">
+<link rel="icon"               href="favicon.ico" sizes="any">
+<link rel="icon"               href="icons/icon-32.png" type="image/png">
+<link rel="apple-touch-icon"   href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title"   content="ObsCivil BR">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
@@ -679,6 +702,12 @@ window.addEventListener('scroll', () => {
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
 loadFile();
+
+// SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .catch(err => console.warn('[SW] erro:', err));
+}
 </script>
 
 </body>

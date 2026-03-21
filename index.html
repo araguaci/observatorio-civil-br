@@ -4,11 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Observatório Civil BR — Brasil em Estado Crítico</title>
-<meta name="description" content="Central de inteligência civil sobre crime organizado, corrupção sistêmica e colapso institucional no Brasil. Dados públicos, análises investigativas e artefatos baseados em evidências.">
-<meta name="keywords" content="corrupção, crime organizado, judiciário, transparência, accountability, investigação jornalística, brasil">
-<meta property="og:title" content="Observatório Civil BR — Brasil em Estado Crítico">
-<meta property="og:description" content="Observatório civil independente: análise crítica de crime organizado, corrupção e colapso institucional no Brasil, baseada em dados públicos verificados.">
-<meta property="og:type" content="website">
+
+<!-- PRIMARY META -->
+<meta name="description"  content="Central de inteligência civil sobre crime organizado, corrupção sistêmica e colapso institucional no Brasil. 28 artefatos investigativos baseados em dados públicos verificados.">
+<meta name="keywords"     content="corrupção, crime organizado, judiciário, transparência, accountability, investigação jornalística, brasil, observatório, impunidade, lava jato, STF">
+<meta name="author"       content="Observatório Civil BR">
+<meta name="robots"       content="index, follow">
+<meta name="theme-color"  content="#dc2626">
+<link rel="canonical"     href="https://painel-do-crime.vercel.app/">
+
+<!-- OPEN GRAPH -->
+<meta property="og:type"         content="website">
+<meta property="og:site_name"    content="Observatório Civil BR">
+<meta property="og:url"          content="https://painel-do-crime.vercel.app/">
+<meta property="og:title"        content="Observatório Civil BR — Brasil em Estado Crítico">
+<meta property="og:description"  content="26% do território sob facções. +17 anos de impunidade política. 33% do PIB em impostos. Central de análise civil com 28 artefatos investigativos.">
+<meta property="og:image"        content="https://painel-do-crime.vercel.app/og-image.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"    content="Observatório Civil BR — Brasil em Estado Crítico">
+<meta property="og:locale"       content="pt_BR">
+
+<!-- TWITTER / X CARD -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@observatorio_br">
+<meta name="twitter:title"       content="Observatório Civil BR — Brasil em Estado Crítico">
+<meta name="twitter:description" content="26% do território sob facções. +17 anos de impunidade política. 33% do PIB em impostos. Central de análise civil com 28 artefatos investigativos.">
+<meta name="twitter:image"       content="https://painel-do-crime.vercel.app/og-image.png">
+<meta name="twitter:image:alt"   content="Observatório Civil BR — Painel investigativo do Brasil">
+
+<!-- PWA -->
+<link rel="manifest"             href="manifest.json">
+<link rel="icon"                 href="favicon.ico" sizes="any">
+<link rel="icon"                 href="icons/icon-32.png" type="image/png">
+<link rel="apple-touch-icon"     href="icons/icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+<meta name="mobile-web-app-capable"                content="yes">
+<meta name="apple-mobile-web-app-capable"          content="yes">
+<meta name="apple-mobile-web-app-title"            content="ObsCivil BR">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-TileColor"               content="#dc2626">
+<meta name="msapplication-TileImage"               content="icons/icon-144.png">
+<meta name="application-name"                      content="Observatório Civil BR">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -1917,6 +1956,15 @@
   const pad = n => String(n).padStart(2, '0');
   document.querySelector('.date-stamp').textContent =
     `ATUALIZADO: ${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} // BR-001`;
+
+  // SERVICE WORKER
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('[SW] registrado:', reg.scope))
+        .catch(err => console.warn('[SW] erro:', err));
+    });
+  }
 
   // DISCLAIMER MODAL — show once per session
   (function() {
