@@ -3,6 +3,8 @@
 <div align="center">
 
 ![Status](https://img.shields.io/badge/status-ativo-dc2626?style=flat-square)
+![Versão](https://img.shields.io/badge/versão-1.0.0-3b82f6?style=flat-square)
+![Lançamento](https://img.shields.io/badge/lançamento-2025--03--21-22c55e?style=flat-square)
 ![Licença](https://img.shields.io/badge/licença-MIT-22c55e?style=flat-square)
 ![Conteúdo](https://img.shields.io/badge/conteúdo-jornalístico%20%2F%20investigativo-f59e0b?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/araguaci/observatorio-civil-br?style=flat-square&color=a855f7)
@@ -10,7 +12,7 @@
 **Central de inteligência civil** para análise crítica de crime organizado,
 corrupção sistêmica, captura do judiciário e colapso institucional no Brasil.
 
-[🔴 Acessar o Painel](https://araguaci.github.io/observatorio-civil-br/) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
+[🔴 Acessar o Painel](https://araguaci.github.io/observatorio-civil-br/) · [📋 Changelog](CHANGELOG.md) · [📊 Relatório de Estimativa](docs/RELATORIO-ESTIMATIVA-DESENVOLVIMENTO.md) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
 
 </div>
 
@@ -69,10 +71,15 @@ O Brasil enfrenta uma **crise institucional multidimensional** onde informaçõe
 ```
 observatorio-civil-br/
 │
-├── index.html                          # Hub central — painel principal de navegação
+├── CHANGELOG.md                         # Histórico de versões e lançamentos
+├── VERSION                              # Versão atual (1.0.0)
+├── index.html                           # Hub central — painel principal de navegação
 ├── viewer.html                         # Renderizador universal de arquivos .md
 ├── README.md                           # Este arquivo
 ├── LICENSE                             # Licença MIT
+│
+├── docs/                               # Documentação técnica
+│   └── RELATORIO-ESTIMATIVA-DESENVOLVIMENTO.md  # Estimativa tempo/tokens
 │
 ├── showcase/                           # Artigos investigativos em Markdown
 │   ├── 2025-08-15-analise-de-supersalarios.md
