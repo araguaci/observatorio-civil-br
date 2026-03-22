@@ -47,7 +47,7 @@ Este documento consolida a estimativa de **tempo de desenvolvimento** e **tokens
 | # | Projeto | URL |
 |---|---------|-----|
 | 1 | Observatório de Gastos Públicos | [gemini.google.com/share/1094a01945cb](https://gemini.google.com/share/1094a01945cb) |
-| 2 | Soberania do Brasil (ESG) | [gemini.google.com/share/751e504a5707](https://gemini.google.com/share/f8640347e3cb) |
+| 2 | Soberania do Brasil (ESG) | [gemini.google.com/share/751e504a5707](https://gemini.google.com/share/751e504a5707) |
 | 3 | Corrupção Raio-X | [gemini.google.com/share/74f96fa1676c](https://gemini.google.com/share/74f96fa1676c) |
 | 4 | Vaza Toga | [gemini.google.com/share/7c753729312b](https://gemini.google.com/share/7c753729312b) |
 | 5 | Guerra da Informação | [gemini.google.com/share/4301898ce057](https://gemini.google.com/share/4301898ce057) |
