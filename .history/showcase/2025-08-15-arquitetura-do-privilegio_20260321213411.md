@@ -3,7 +3,9 @@ layout: showcase
 title: A Arquitetura do Privilégio ✨
 image:
   path: "/assets/img/arquitetura-do-privilegio.webp"
-description: 'Um painel interativo sobre os supersalários no setor público brasileiro. '
+description: 'Um painel interativo sobre os supersalários no setor público brasileiro.
+
+  '
 hide_description: true
 categories: showcase
 category: showcase
