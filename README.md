@@ -12,7 +12,7 @@
 **Central de inteligência civil** para análise crítica de crime organizado,
 corrupção sistêmica, captura do judiciário e colapso institucional no Brasil.
 
-[🔴 Acessar o Painel](https://araguaci.github.io/observatorio-civil-br/) · [📋 Changelog](CHANGELOG.md) · [📊 Relatório de Estimativa](docs/RELATORIO-ESTIMATIVA-DESENVOLVIMENTO.md) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
+[🔴 Acessar o Painel](https://observatorio-civil-br.vercel.app/) · [📋 Changelog](CHANGELOG.md) · [📊 Relatório de Estimativa](docs/RELATORIO-ESTIMATIVA-DESENVOLVIMENTO.md) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
 
 </div>
 
