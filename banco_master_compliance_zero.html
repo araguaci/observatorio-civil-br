@@ -42,8 +42,22 @@
   .sec{display:none;padding-top:4px}
   .sec.act{display:block}
 
-  .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;padding:16px 0 10px}
-  .kcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 15px;position:relative;overflow:hidden}
+  /* KPI: grade fixa 4×2 (8 cards) */
+  .kgrid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    grid-template-rows:repeat(2, auto);
+    gap:12px 14px;
+    padding:18px 0 12px;
+    max-width:100%;
+  }
+  @media (max-width: 1100px){
+    .kgrid{grid-template-columns:repeat(2, minmax(0, 1fr));grid-template-rows:auto;}
+  }
+  @media (max-width: 520px){
+    .kgrid{grid-template-columns:1fr;}
+  }
+  .kcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;overflow:hidden;min-height:100px;display:flex;flex-direction:column;justify-content:flex-start}
   .kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
   .kg::before{background:linear-gradient(90deg,var(--gr),var(--gr2))}
   .kr::before{background:linear-gradient(90deg,var(--red),var(--red2))}
@@ -52,9 +66,9 @@
   .ko::before{background:linear-gradient(90deg,var(--orange),var(--orange2))}
   .kp::before{background:linear-gradient(90deg,var(--purple),var(--purple2))}
   .kt::before{background:linear-gradient(90deg,var(--teal),var(--teal2))}
-  .klabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:5px}
-  .kval{font-size:22px;font-weight:800;line-height:1}
-  .ksub{font-size:11px;color:var(--text2);margin-top:3px;font-family:var(--mono)}
+  .klabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
+  .kval{font-size:22px;font-weight:800;line-height:1.1;flex:1;display:flex;align-items:center}
+  .ksub{font-size:11px;color:var(--text2);margin-top:auto;padding-top:6px;font-family:var(--mono)}
   .kg .kval{color:var(--gr2)}.kr .kval{color:var(--red2)}.kgo .kval{color:var(--gold)}.kb .kval{color:var(--blue2)}.ko .kval{color:var(--orange)}.kp .kval{color:var(--purple2)}.kt .kval{color:var(--teal)}
 
   .gbar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px}

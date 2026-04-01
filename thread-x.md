@@ -28,7 +28,7 @@ Com dados. Com fontes. Documentado.
 ```
 Criei o Observatório Civil BR:
 
-Um hub de inteligência civil com 28 artefatos
+Um hub de inteligência civil com 30 artefatos
 investigativos organizados em 8 categorias.
 
 Tudo baseado em fontes públicas:
@@ -142,7 +142,7 @@ Não é coincidência. É arquitetura.
 ```
 O Observatório Civil BR reúne tudo:
 
-→ 28 artefatos investigativos
+→ 30 artefatos investigativos
 → 8 categorias temáticas
 → Dados com fonte citada
 → Filtros interativos

@@ -3,8 +3,8 @@
 <div align="center">
 
 ![Status](https://img.shields.io/badge/status-ativo-dc2626?style=flat-square)
-![Versão](https://img.shields.io/badge/versão-1.0.0-3b82f6?style=flat-square)
-![Lançamento](https://img.shields.io/badge/lançamento-2025--03--21-22c55e?style=flat-square)
+![Versão](https://img.shields.io/badge/versão-1.1.0-3b82f6?style=flat-square)
+![Lançamento](https://img.shields.io/badge/lançamento-2026--04--01-22c55e?style=flat-square)
 ![Licença](https://img.shields.io/badge/licença-MIT-22c55e?style=flat-square)
 ![Conteúdo](https://img.shields.io/badge/conteúdo-jornalístico%20%2F%20investigativo-f59e0b?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/araguaci/observatorio-civil-br?style=flat-square&color=a855f7)
@@ -72,7 +72,7 @@ O Brasil enfrenta uma **crise institucional multidimensional** onde informaçõe
 observatorio-civil-br/
 │
 ├── CHANGELOG.md                         # Histórico de versões e lançamentos
-├── VERSION                              # Versão atual (1.0.0)
+├── VERSION                              # Versão atual (1.1.0)
 ├── index.html                           # Hub central — painel principal de navegação
 ├── viewer.html                         # Renderizador universal de arquivos .md
 ├── README.md                           # Este arquivo
@@ -99,15 +99,17 @@ observatorio-civil-br/
 │   ├── estrategia-integrada-gestao-corporativa-na-seguranca-publica.html
 │   └── estrategia-integrada-gestao-corporativa-na-seguranca-publica2.html
 │
-└── *.html                              # Artefatos investigativos individuais (28 total)
+└── *.html                              # Artefatos investigativos individuais (30 no painel)
     ├── PCC-CV-Intel-Dashboard-2026.html
     ├── alem-da-toga.html
     ├── amazonia-legal.html
     ├── banco-master*.html
+    ├── carbono_oculto.html
     ├── cocaina-vermelha.html
     ├── lava-jato-mapa-mental*.html
     ├── marajo-exploracao-sexual-infantil.html  # Denúncia investigativa
     ├── operacao_*.html
+    ├── republica-capturada.html
     └── ...
 ```
 
@@ -117,14 +119,14 @@ observatorio-civil-br/
 
 | # | Categoria | Artefatos | Foco |
 |---|-----------|-----------|------|
-| 🔴 | **Crime Organizado** | 3 | PCC, CV, rotas internacionais, cocaína vermelha |
-| 🟡 | **Corrupção Política** | 7 | Lava Jato, escândalos históricos, ciclos de impunidade |
+| 🔴 | **Crime Organizado** | 4 | PCC, CV, rotas, cocaína vermelha, Carbono Oculto (fluxos ilícitos) |
+| 🟡 | **Corrupção Política** | 8 | Lava Jato, escândalos históricos, ciclos de impunidade, República Capturada |
 | 🟣 | **Judiciário** | 7 | STF, lawfare, supersalários, vaza toga, censura judicial |
 | 🟢 | **Território & Soberania** | 4 | Amazônia, influência estrangeira, Venezuela, Irã |
-| 🔵 | **Economia** | 5 | Banco Master, carga tributária, liberdade econômica |
+| 🔵 | **Economia** | 7 | Banco Master, carbono/fintechs, República Capturada, carga tributária |
 | 🟠 | **Proteção Infantil** | 2 | Marajó — denúncia investigativa, sistema de proteção |
 | 🩷 | **Censura & Informação** | 3 | INQ 4781, guerra da informação, Epstein conexões BR |
-| 🩵 | **Operações Investigativas** | 4 | Satiagraha, Castelo de Areia, operações policiais |
+| 🩵 | **Operações Investigativas** | 5 | Satiagraha, Castelo de Areia, operações policiais, República Capturada |
 
 ---
 

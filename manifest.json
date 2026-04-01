@@ -1,7 +1,7 @@
 {
   "name": "Observatório Civil BR",
   "short_name": "ObsCivil BR",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Central de inteligência civil sobre crime organizado, corrupção sistêmica e colapso institucional no Brasil. Dados públicos, análises investigativas e artefatos baseados em evidências.",
   "start_url": "/",
   "scope": "/",

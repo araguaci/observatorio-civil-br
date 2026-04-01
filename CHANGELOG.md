@@ -7,6 +7,21 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [1.1.0] - 2026-04-01
+
+### Adicionado
+
+- **Carbono Oculto — O Mapa Que Falta** (`carbono_oculto.html`): dashboard sobre operações Carbono Oculto, Greenwashing, fintechs e créditos de carbono; filtros **Economia** e **Crime Organizado**.
+- **República Capturada** (`republica-capturada.html`): dashboard forense das operações Greenwashing, Carbono Oculto, Compliance Zero, Sem Desconto e conexões com Lava Jato e Panama Papers; filtros **Economia**, **Operações** e **Corrupção**.
+
+### Alterado
+
+- Painel central: total de **30 artefatos** (meta tags, estatística e contador de filtros).
+- `carbono_oculto.html`: documento HTML completo (`:root` para tema escuro, correção das abas).
+- README: contagens por categoria e estrutura do projeto.
+
+---
+
 ## [1.0.0] - 2025-03-21
 
 ### Lançado em 21 de março de 2025
@@ -47,4 +62,5 @@ Primeira versão estável do **Observatório Civil BR — Brasil em Estado Crít
 
 ---
 
+[1.1.0]: https://github.com/araguaci/observatorio-civil-br/releases/tag/v1.1.0
 [1.0.0]: https://github.com/araguaci/observatorio-civil-br/releases/tag/v1.0.0

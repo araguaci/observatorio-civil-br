@@ -510,9 +510,6 @@
     white-space: nowrap;
   }
   .filter-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
     background: var(--bg-raised);
     border: 1px solid var(--border-dim);
     border-radius: 5px;
@@ -534,18 +531,6 @@
     background: var(--red-glow);
     border-color: rgba(220,38,38,0.4);
     color: var(--red-bright);
-  }
-  .cat-icon {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-    object-fit: contain;
-    vertical-align: middle;
-    display: inline-block;
-  }
-  .filter-btn .cat-icon {
-    width: 13px;
-    height: 13px;
   }
 
   /* ARTIFACTS GRID */
@@ -1283,8 +1268,8 @@
     <button class="filter-btn" onclick="filterArtifacts('territorio', this)">🟢 Território</button>
     <button class="filter-btn" onclick="filterArtifacts('economia', this)">🔵 Economia</button>
     <button class="filter-btn" onclick="filterArtifacts('infancia', this)">🟠 Proteção Infantil</button>
-    <button class="filter-btn" onclick="filterArtifacts('censura', this)"><img src="icons/cat-censura.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Censura</button>
-    <button class="filter-btn" onclick="filterArtifacts('operacoes', this)"><img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações</button>
+    <button class="filter-btn" onclick="filterArtifacts('censura', this)">🩷 Censura</button>
+    <button class="filter-btn" onclick="filterArtifacts('operacoes', this)">🩵 Operações</button>
   </div>
 
   <div class="artifacts-grid reveal" id="artifacts-grid">
@@ -1448,10 +1433,10 @@
       </div>
     </a>
 
-    <a class="artifact-card" href="satiagraha.html" data-cat="judiciario operacoes crime">
+    <a class="artifact-card" href="satiagraha.html" data-cat="judiciario operacoes">
       <div class="artifact-accent accent-judiciario"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-judiciario">🟣 Judiciário · <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-judiciario">🟣 Judiciário</div>
         <div class="artifact-title">Operação Satiagraha & Gilmar Mendes</div>
         <div class="artifact-desc">A operação que prendeu Daniel Dantas e foi destruída — mapa mental das conexões entre o caso, o STF e as interferências do ministro.</div>
       </div>
@@ -1490,7 +1475,7 @@
     <a class="artifact-card" href="viewer.html?file=showcase/2025-09-08-vazatoga.md" data-cat="judiciario">
       <div class="artifact-accent accent-judiciario"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-judiciario">🟣 Judiciário · <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-judiciario">🟣 Judiciário</div>
         <div class="artifact-title">Vaza Toga</div>
         <div class="artifact-desc">Os vazamentos que expuseram conversas entre juízes e procuradores — fases do escândalo, impactos políticos e reversão das condenações da Lava Jato.</div>
       </div>
@@ -1593,10 +1578,10 @@
     </a>
 
     <!-- ECONOMIA -->
-    <a class="artifact-card" href="banco-master.html" data-cat="economia crime operacoes">
+    <a class="artifact-card" href="banco-master.html" data-cat="economia">
       <div class="artifact-accent accent-economia"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-economia">🔵 Economia· <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-economia">🔵 Economia</div>
         <div class="artifact-title">Banco Master — O Banqueiro e o Sistema</div>
         <div class="artifact-desc">Mapa mental completo sobre o caso Banco Master: estrutura societária, operações suspeitas, relações políticas e o colapso iminente.</div>
       </div>
@@ -1606,7 +1591,7 @@
       </div>
     </a>
 
-    <a class="artifact-card" href="banco-master-os-donos.html" data-cat="economia crime">
+    <a class="artifact-card" href="banco-master-os-donos.html" data-cat="economia">
       <div class="artifact-accent accent-economia"></div>
       <div class="artifact-body">
         <div class="artifact-cat cat-economia">🔵 Economia</div>
@@ -1619,10 +1604,10 @@
       </div>
     </a>
 
-    <a class="artifact-card" href="banco_master_compliance_zero.html" data-cat="economia operacoes crime">
+    <a class="artifact-card" href="banco_master_compliance_zero.html" data-cat="economia">
       <div class="artifact-accent accent-economia"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-economia">🔵 Economia · <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-economia">🔵 Economia</div>
         <div class="artifact-title">Banco Master — Compliance Zero</div>
         <div class="artifact-desc">Análise das falhas de compliance, omissão regulatória do BCB e os mecanismos que permitiram anos de irregularidades sem punição.</div>
       </div>
@@ -1671,10 +1656,10 @@
       </div>
     </a>
 
-    <a class="artifact-card" href="carbono_oculto.html" data-cat="economia crime operacoes">
+    <a class="artifact-card" href="carbono_oculto.html" data-cat="economia crime">
       <div class="artifact-accent accent-economia"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-economia">🔵 Economia · <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-economia">🔵 Economia · 🔴 Crime</div>
         <div class="artifact-title">Carbono Oculto — O Mapa Que Falta</div>
         <div class="artifact-desc">Cruzamento entre operações Carbono Oculto, Greenwashing, PCC, fintechs e créditos de carbono na Amazônia — sete camadas do esquema, atores-chave e conexões com Lava Jato.</div>
       </div>
@@ -1687,7 +1672,7 @@
     <a class="artifact-card" href="republica-capturada.html" data-cat="economia operacoes corrupcao">
       <div class="artifact-accent accent-economia"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-economia">🔵 Economia · <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-economia">🔵 Economia · 🩵 Operações</div>
         <div class="artifact-title">República Capturada</div>
         <div class="artifact-desc">Dashboard forense das operações Greenwashing, Carbono Oculto, Compliance Zero, Sem Desconto e conexões transversais com Lava Jato e Panama Papers — fontes verificáveis.</div>
       </div>
@@ -1728,7 +1713,7 @@
     <a class="artifact-card" href="viewer.html?file=showcase/2025-09-08-abusosupremo.md" data-cat="censura">
       <div class="artifact-accent accent-censura"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-censura"><img src="icons/cat-censura.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Censura</div>
+        <div class="artifact-cat cat-censura">🩷 Censura</div>
         <div class="artifact-title">Censura no Brasil — Abuso Supremo</div>
         <div class="artifact-desc">Investigação dos casos de censura judicial entre 2019 e 2025: prisões políticas, censura midiática, influências estrangeiras e impacto democrático.</div>
       </div>
@@ -1741,7 +1726,7 @@
     <a class="artifact-card" href="viewer.html?file=showcase/2025-09-08-guerra-da-informacao.md" data-cat="censura">
       <div class="artifact-accent accent-censura"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-censura"><img src="icons/cat-censura.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Censura</div>
+        <div class="artifact-cat cat-censura">🩷 Censura</div>
         <div class="artifact-title">Guerra da Informação</div>
         <div class="artifact-desc">O conflito multidimensional no campo da percepção — como a desinformação, propaganda e censura redefinem segurança, economia e sociedade na era digital.</div>
       </div>
@@ -1754,7 +1739,7 @@
     <a class="artifact-card" href="epstein-mindmap.html" data-cat="censura">
       <div class="artifact-accent accent-censura"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-censura"><img src="icons/cat-censura.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Censura</div>
+        <div class="artifact-cat cat-censura">🩷 Censura</div>
         <div class="artifact-title">Caso Epstein — Mapa de Conexões</div>
         <div class="artifact-desc">Mapeamento das conexões do caso Epstein com o Brasil: figuras políticas, financeiros, redes de poder e os silêncios que protegem os envolvidos.</div>
       </div>
@@ -1765,10 +1750,10 @@
     </a>
 
     <!-- OPERAÇÕES -->
-    <a class="artifact-card" href="operacao_castelo_de_areia.html" data-cat="operacoes crime economica">
+    <a class="artifact-card" href="operacao_castelo_de_areia.html" data-cat="operacoes">
       <div class="artifact-accent accent-operacoes"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-operacoes">Economia · <img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações · 🔴 Crime</div>
+        <div class="artifact-cat cat-operacoes">🩵 Operações</div>
         <div class="artifact-title">Operação Castelo de Areia</div>
         <div class="artifact-desc">Análise da operação que investigou o Grupo Camargo Corrêa e foi arquivada — conexões políticas, irregularidades processuais e impunidade garantida.</div>
       </div>
@@ -1781,7 +1766,7 @@
     <a class="artifact-card" href="viewer.html?file=showcase/2025-11-11-operacoes-policiais.md" data-cat="operacoes">
       <div class="artifact-accent accent-operacoes"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-operacoes"><img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações</div>
+        <div class="artifact-cat cat-operacoes">🩵 Operações</div>
         <div class="artifact-title">Operações Policiais — Duas Realidades</div>
         <div class="artifact-desc">Mapeamento de operações policiais de 1990 ao presente: casos emblemáticos de corrupção policial, violência e direitos humanos, lado a lado com sucessos.</div>
       </div>
@@ -1794,7 +1779,7 @@
     <a class="artifact-card" href="oliver-ortiz-timeline.html" data-cat="operacoes">
       <div class="artifact-accent accent-operacoes"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-operacoes"><img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações</div>
+        <div class="artifact-cat cat-operacoes">🩵 Operações</div>
         <div class="artifact-title">Oliver Ortiz — Linha do Tempo</div>
         <div class="artifact-desc">Cronologia completa do caso Oliver Ortiz: tráfico internacional, conexões políticas, a operação e os desdobramentos judiciais.</div>
       </div>
@@ -1807,7 +1792,7 @@
     <a class="artifact-card" href="ferramentas/estrategia-integrada-gestao-corporativa-na-seguranca-publica.html" data-cat="operacoes">
       <div class="artifact-accent accent-operacoes"></div>
       <div class="artifact-body">
-        <div class="artifact-cat cat-operacoes"><img src="icons/cat-operacoes.svg" alt="" class="cat-icon" width="14" height="14" decoding="async" /> Operações</div>
+        <div class="artifact-cat cat-operacoes">🩵 Operações</div>
         <div class="artifact-title">Estratégia Integrada de Segurança Pública</div>
         <div class="artifact-desc">Modelo estratégico para gestão corporativa aplicada à segurança pública: governança, inteligência, cooperação interagencial e métricas de resultado.</div>
       </div>

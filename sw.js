@@ -1,9 +1,9 @@
 // Observatório Civil BR — Service Worker
 // Estratégia: Cache-First para assets estáticos, Network-First para HTML
 
-const CACHE_NAME    = 'obscivil-v1';
-const STATIC_CACHE  = 'obscivil-static-v1';
-const DYNAMIC_CACHE = 'obscivil-dynamic-v1';
+const CACHE_NAME    = 'obscivil-v2';
+const STATIC_CACHE  = 'obscivil-static-v2';
+const DYNAMIC_CACHE = 'obscivil-dynamic-v2';
 
 // Assets para pré-cache (shell da aplicação)
 const PRECACHE_URLS = [
