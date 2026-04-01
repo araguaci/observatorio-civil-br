@@ -7,6 +7,19 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [1.2.0] - 2026-04-01
+
+### Adicionado
+
+- **`zero-x-zero.html`** — longform editorial *0 × 0 — A Janela Fechada*; filtros **Judiciário** e **Censura**.
+- Ícones SVG por categoria em `icons/` (`cat-crime.svg`, `cat-corrupcao.svg`, `cat-judiciario.svg`, `cat-territorio.svg`, `cat-economia.svg`, `cat-infancia.svg`; existentes `cat-censura.svg`, `cat-operacoes.svg`).
+
+### Alterado
+
+- **`index.html`**: badges da grade e botões de filtro usam `<img>` com caminhos relativos alinhados a `data-cat`; total **31 artefatos**; correções nos rótulos (República Capturada → Corrupção; Vaza Toga; Castelo de Areia → `corrupcao operacoes`); INQ 4781 e Lawfare exibem Judiciário + Censura.
+
+---
+
 ## [1.1.0] - 2026-04-01
 
 ### Adicionado
@@ -62,5 +75,6 @@ Primeira versão estável do **Observatório Civil BR — Brasil em Estado Crít
 
 ---
 
+[1.2.0]: https://github.com/araguaci/observatorio-civil-br/releases/tag/v1.2.0
 [1.1.0]: https://github.com/araguaci/observatorio-civil-br/releases/tag/v1.1.0
 [1.0.0]: https://github.com/araguaci/observatorio-civil-br/releases/tag/v1.0.0

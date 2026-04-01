@@ -1,7 +1,7 @@
 # Relatório de Estimativa — Observatório Civil BR
 
 **Data do relatório:** 21/03/2025  
-**Versão do projeto:** 1.1.0  
+**Versão do projeto:** 1.2.0  
 **Status:** Estimativa indireta (sem métricas instrumentadas no desenvolvimento)
 
 ---
@@ -15,7 +15,7 @@ Este documento consolida a estimativa de **tempo de desenvolvimento** e **tokens
 | **Tempo de desenvolvimento** | 120 horas | 200 horas |
 | **Tokens (Gemini)** | ~1,2M | ~4M |
 | **Tokens (Cursor/Claude)** | ~500K | ~2M |
-| **Artefatos no painel** | 30 | 30 |
+| **Artefatos no painel** | 31 | 31 |
 | **Projetos Gemini vinculados** | 10 | 10 |
 
 ---
@@ -26,18 +26,18 @@ Este documento consolida a estimativa de **tempo de desenvolvimento** e **tokens
 |------|------------|-----------|
 | Artefatos HTML | ~37 | Dashboards, mapas mentais, linhas do tempo |
 | Showcase (Markdown) | 12 | Artigos investigativos com frontmatter |
-| Base catalogada (index) | 30 | Documentos listados no painel central |
+| Base catalogada (index) | 31 | Documentos listados no painel central |
 | Ferramentas estratégicas | 2 | Estratégia integrada (2 versões) |
 
 ### Categorias de análise
 
 - Crime Organizado (4 artefatos)
 - Corrupção Política (8 artefatos)
-- Judiciário (7 artefatos)
+- Judiciário (8 artefatos)
 - Território & Soberania (4 artefatos)
 - Economia (7 artefatos)
 - Proteção Infantil (2 artefatos)
-- Censura & Informação (3 artefatos)
+- Censura & Informação (4 artefatos)
 - Operações Investigativas (5 artefatos)
 
 ---
