@@ -262,7 +262,7 @@ Fonte: Consolidação de promotores, juristas e especialistas em segurança púb
 FBSP · Ipea · Atlas da Violência 2024 · PF · GAECO-SP · Dipol-SP · GI-TOC · Europol · Instituto Igarapé · MP-SP · CNJ · Agência Brasil
 
 Dashboard completo:
-🔗 observatorio-civil-br.vercel.app/PCC-CV-Intel-Dashboard-2026.html
+🔗 observatorio-civil-br.vercel.app/pcc-cv-intel-dashboard-2026.html
 
 #SegurançaPública #CrimeOrganizado #PCC #CV #Brasil #IntelBrasil
 

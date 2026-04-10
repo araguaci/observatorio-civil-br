@@ -105,7 +105,7 @@ observatorio-civil-br/
 │   └── estrategia-integrada-gestao-corporativa-na-seguranca-publica2.html
 │
 └── *.html                              # Artefatos investigativos individuais (31 no painel)
-    ├── PCC-CV-Intel-Dashboard-2026.html
+    ├── pcc-cv-intel-dashboard-2026.html
     ├── alem-da-toga.html
     ├── amazonia-legal.html
     ├── banco-master*.html

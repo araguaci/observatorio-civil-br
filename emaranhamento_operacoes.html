@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emaranhamento das Operações | Mapa Mental Analítico</title>
+    
+    <!-- PRIMARY META -->
+    <meta name="description" content="Dashboard analítico sobre a rede de conexões, padrões e impunidade nas maiores operações anticorrupção do Brasil nos últimos 17 anos.">
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #050505;
+            --bg-card: rgba(20, 20, 20, 0.7);
+            --accent-orange: #ff6b35; /* Growth/Action */
+            --accent-cyan: #00d9ff;   /* Logic/Tech */
+            --accent-green: #10b981;  /* Success/Validation */
+            --accent-red: #ef4444;    /* Critical/Risk */
+            --glass-blur: blur(12px);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+            --text-primary: #f0f2f5;
+            --text-secondary: #8b9099;
+            --text-muted: #4f5560;
+            --font-display: 'Bricolage Grotesque', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* SCANLINE TEXTURE */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.15) 2px,
+                rgba(0,0,0,0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 50vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 24px;
+            overflow: hidden;
+            border-radius: 0 0 32px 32px;
+            background: #111;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-primary) 0%, transparent 80%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 48px;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--accent-orange);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+        }
+
+        .hero-title span {
+            color: var(--accent-cyan);
+            display: block;
+        }
+
+        /* GROWTH TRACKER */
+        .tracker-bar {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 24px;
+            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .tracker-stats {
+            display: flex;
+            gap: 32px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        .progress-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            width: 0%;
+            transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* NAVIGATION TABS */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        /* CONTENT PAGES */
+        .page { display: none; animation: fadeIn 0.4s ease-out; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* MATRIX STYLE */
+        .matrix-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .matrix-scroll {
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        .matrix-table th {
+            text-align: left;
+            padding: 20px 16px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .matrix-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .op-label {
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .heat-cell {
+            width: 48px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .heat-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 0 20px rgba(0,217,255,0.2);
+        }
+
+        .heat-0 { background: rgba(255, 255, 255, 0.03); opacity: 0.5; }
+        .heat-1, .heat-2 { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
+        .heat-3, .heat-4 { background: rgba(255, 107, 53, 0.2); color: var(--accent-orange); }
+        .heat-5, .heat-6 { background: rgba(239, 68, 68, 0.3); color: var(--accent-red); }
+        .heat-7 { background: rgba(239, 68, 68, 0.6); color: #fff; font-weight: 800; }
+
+        /* DETAIL PANEL */
+        .detail-panel {
+            margin-top: 24px;
+            background: rgba(255, 107, 53, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            display: none;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .detail-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .detail-content {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .detail-meta {
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 16px;
+        }
+
+        /* GRID SYSTEM */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background: rgba(30, 30, 30, 0.7);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .card-tag {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            background: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 100px;
+            padding-top: 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            text-align: center;
+        }
+
+        .footer-logo { font-size: 24px; font-weight: 800; letter-spacing: -0.05em; }
+        .footer-logo span { color: var(--accent-orange); }
+
+        .footer-signature {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .hero { height: 40vh; border-radius: 0; }
+            .hero-content { padding: 24px; }
+            .tracker-bar { flex-direction: column; align-items: stretch; gap: 16px; }
+            .tracker-stats { justify-content: space-between; gap: 0; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">Deep Investigation Layer</div>
+        <h1 class="hero-title">Emaranhamento <span>das Operações</span></h1>
+    </div>
+</div>
+
+<div class="container">
+    
+    <div class="tracker-bar">
+        <div class="tracker-stats">
+            <div class="stat-item">
+                <span class="stat-label">Riscos Mapeados</span>
+                <span class="stat-value" id="count-risks">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Impacto Civil</span>
+                <span class="stat-value" id="impact-val">Crítico</span>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-fill" id="risk-progress"></div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-cyan);">
+            DATA SYNC: LOCAL_STG
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchPage('matriz', this)">Matriz de Emaranhamento</button>
+        <button class="tab-btn" onclick="switchPage('atores', this)">Nós de Conectividade</button>
+        <button class="tab-btn" onclick="switchPage('padroes', this)">Padrões Sistêmicos</button>
+        <button class="tab-btn" onclick="switchPage('perguntas', this)">Linhas Mortas</button>
+    </div>
+
+    <div id="pg-matriz" class="page active">
+        <div class="matrix-wrap">
+            <div class="matrix-scroll">
+                <table class="matrix-table">
+                    <thead>
+                        <tr id="matrix-head">
+                            <th style="min-width: 180px;">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matrix-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="detail-panel" class="detail-panel">
+            <div class="detail-header">
+                <div class="detail-title" id="det-title">Detalhe</div>
+                <button onclick="closeDetail()" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-family:var(--font-mono); font-size:10px;">[ FECHAR ]</button>
+            </div>
+            <div class="detail-content" id="det-body">Selecione uma célula na matriz para análise.</div>
+            <div class="detail-meta">
+                <span id="det-intensity">Intensidade: 0/7</span>
+                <span style="color:var(--accent-cyan)">● INVESTIGAÇÃO PERSISTENTE</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="pg-atores" class="page"><div class="grid" id="atores-grid"></div></div>
+    <div id="pg-padroes" class="page"><div class="grid" id="padroes-grid"></div></div>
+    <div id="pg-perguntas" class="page"><div class="grid" id="perguntas-grid"></div></div>
+
+    <footer class="footer">
+        <div class="footer-logo">Observatório <span>Civil BR</span></div>
+        <div class="footer-signature">Uma criação @artesdosul — 2026</div>
+    </footer>
+</div>
+
+<script>
+    const OPS = [
+        {id:'ca', label:'Castelo de Areia', color:'#185FA5'},
+        {id:'sa', label:'Satiagraha', color:'#534AB7'},
+        {id:'lj', label:'Lava Jato', color:'#BA7517'},
+        {id:'ma', label:'Banco Master', color:'#A32D2D'},
+        {id:'co', label:'Carbono Oculto', color:'#0F6E56'},
+        {id:'pcc', label:'PCC-CV Intel', color:'#3C3489'},
+    ];
+
+    const DIMS = ['Ficha','Padrões','Atores','Estratégias','Mortes','Riscos','Aprendizados','Impunidade','Perguntas'];
+
+    const DATA = {
+        ca:{
+            Ficha:{h:6,s:'Camargo Corrêa, R$16bi, vício de denúncia anônima'},
+            Padrões:{h:7,s:'P01 anulação por vício + P03 liminar presidência STJ'},
+            Atores:{h:5,s:'Asfor Rocha, De Sanctis, MPF'},
+            Estratégias:{h:6,s:'Ataque ao processo, não ao mérito. Liminar em recesso'},
+            Mortes:{h:4,s:'Marcio Thomaz Bastos — testemunha-chave morreu antes de confirmar Palocci'},
+            Riscos:{h:5,s:'Too big to jail. Cadeia de custódia frágil'},
+            Aprendizados:{h:6,s:'Legalidade de investigação preliminar inegociável'},
+            Impunidade:{h:7,s:'Nenhum condenado. Custo: 6 anos perdidos antes da LJ'},
+            Perguntas:{h:6,s:'R$5M para Asfor Rocha — nunca investigado formalmente'},
+        },
+        sa:{
+            Ficha:{h:5,s:'Daniel Dantas, Naji Nahas, uso irregular de ABIN'},
+            Padrões:{h:7,s:'P02 investigador vira réu + P03 2 HC em 48h por Gilmar'},
+            Atores:{h:6,s:'Gilmar Mendes, Protógenes Queiroz, Paulo Lacerda'},
+            Estratégias:{h:7,s:'HC imediato. Contaminar toda a prova via ABIN. Condenar delegado'},
+            Mortes:{h:2,s:'Celso Pitta morreu antes da anulação — processos extintos'},
+            Riscos:{h:5,s:'ABIN como vetor de contaminação processual'},
+            Aprendizados:{h:5,s:'Blindagem institucional de investigações de alto impacto'},
+            Impunidade:{h:7,s:'Delegado condenado, banqueiro solto. Inversão total de polo'},
+            Perguntas:{h:6,s:'Quem ordenou os 80 agentes da ABIN? Paulo Lacerda agiu só?'},
+        },
+        lj:{
+            Ficha:{h:7,s:'Petrobras, Odebrecht, R$6bi desvio + R$50bi perdas estimadas'},
+            Padrões:{h:7,s:'Todos os 6 padrões presentes simultaneamente'},
+            Atores:{h:7,s:'Moro, Dallagnol, Lula, Marcelo Odebrecht, Temer, Fachin, Moraes'},
+            Estratégias:{h:7,s:'Incompetência territorial + prescrição + Vaza Jato + suspeição'},
+            Mortes:{h:6,s:'Teori Zavascki — relator morreu 1 dia antes de homologar delações Odebrecht'},
+            Riscos:{h:6,s:'Vaza Jato expôs conluio. Força-tarefa desativada em 2021'},
+            Aprendizados:{h:7,s:'Independência acusação-julgamento é estrutural, não opcional'},
+            Impunidade:{h:7,s:'Condenações anuladas. Casos prescritos. 0 reais recuperados via LJ mantida'},
+            Perguntas:{h:7,s:'Se Teori vivesse, as 900 delações Odebrecht teriam derrubado quem?'},
+        },
+        ma:{
+            Ficha:{h:6,s:'Vorcaro, Banco Master, R$56bi FGC, 2 prisões em 4 meses'},
+            Padrões:{h:5,s:'P03 Toffoli + relatoria redistribuída + P02 delegado Andrei'},
+            Atores:{h:6,s:'Vorcaro, Toffoli, Moraes, Ciro Nogueira, Nelson Tanure'},
+            Estratégias:{h:5,s:'Sigilo máximo. Toffoli como firewall. PEC do FGC como cobertura'},
+            Mortes:{h:1,s:'Sem mortes documentadas — operação em andamento'},
+            Riscos:{h:6,s:'FGC como socialização de perdas. Relatoria comprometida'},
+            Aprendizados:{h:5,s:'Aprovação regulatória de controlador precisa ser mais rigorosa'},
+            Impunidade:{h:4,s:'Em curso — 3ª prisão em 4 meses é sinal atípico. Resultado indefinido'},
+            Perguntas:{h:7,s:'Nelson Tanure é o dono oculto? Quem financiou a PEC do FGC?'},
+        },
+        co:{
+            Ficha:{h:6,s:'PCC + REAG + fintechs Faria Lima, R$98bi + carbono fictício R$45bi'},
+            Padrões:{h:6,s:'Captura regulatória CVM. Lavagem via fundos formais'},
+            Atores:{h:5,s:'REAG, Golden Green, Global Carbon, gestores CVM-regulados'},
+            Estratégias:{h:6,s:'Ativos fictícios (UECs ilegais). 40+ fundos como escudo'},
+            Mortes:{h:0,s:'Sem mortes documentadas'},
+            Riscos:{h:7,s:'Infiltração sistêmica no mercado financeiro formal confirmada'},
+            Aprendizados:{h:6,s:'Rendimento anormal é sinal de alarme estrutural'},
+            Impunidade:{h:5,s:'CVM regulava sem perceber. BC demorou 2 anos após denúncia formal'},
+            Perguntas:{h:7,s:'Quem mais na Faria Lima? Quantos outros fundos não identificados?'},
+        },
+        pcc:{
+            Ficha:{h:5,s:'PCC vs CV, 30+ estados, presença em 19 países, expansão financeira'},
+            Padrões:{h:5,s:'Estado dentro do estado. Lavagem sistêmica. Captura de agentes'},
+            Atores:{h:4,s:'Lideranças carcerária e externa. Políticos municipais. Agentes capturados'},
+            Estratégias:{h:5,s:'Controle territorial + lavagem via empresas + cooptação institucional'},
+            Mortes:{h:7,s:'6.243 mortes por ação policial em 2024. Rebeliões e execuções documentadas'},
+            Riscos:{h:7,s:'Salves de escalada. Fusis e calibres pesados. Disputas de fronteira'},
+            Aprendizados:{h:4,s:'Inteligência prisional e financeira precisam ser integradas'},
+            Impunidade:{h:6,s:'Lideranças operam de dentro de presídios. Estado não detecta salves'},
+            Perguntas:{h:6,s:'Quantos agentes públicos estão ativamente cooptados? Qual extensão real?'},
+        },
+    };
+
+    const ATORES = [
+        {nome:'Gilmar Mendes', papel:'Presidente STF — concedeu 2 HC a Dantas em 48h', ncross:2},
+        {nome:'Dias Toffoli', papel:'Relator Master (removido). Anulou acordo Odebrecht em 2024', ncross:2},
+        {nome:'Asfor Rocha', papel:'Presidente STJ — concedeu liminar durante recesso.', ncross:1},
+        {nome:'Ciro Nogueira', papel:'Investigado na LJ. "Grande amigo" de Vorcaro. PEC do FGC', ncross:2},
+        {nome:'Protógenes Queiroz', papel:'Delegado Satiagraha. Condenado, expulso, asilado.', ncross:1},
+        {nome:'Sérgio Moro', papel:'Juiz LJ — declarado parcial pelo STF.', ncross:1},
+        {nome:'Deltan Dallagnol', papel:'Procurador-chefe LJ — mandato cassado.', ncross:1},
+        {nome:'Daniel Vorcaro', papel:'Banco Master — 2 prisões em 4 meses.', ncross:1},
+        {nome:'Nelson Tanure', papel:'Possível controlador oculto do Master — PF alertou BC.', ncross:1},
+        {nome:'Teori Zavascki', papel:'Relator LJ — morreu em queda de avião em 2017.', ncross:1},
+        {nome:'Alexandre de Moraes', papel:'Atua em múltiplos processos sensíveis.', ncross:3},
+        {nome:'REAG / PCC', papel:'Hub de lavagem: 40+ fundos, R$30bi.', ncross:2},
+    ];
+
+    const PADROES = [
+        {id:'P01', cor:'#A32D2D', titulo:'Anulação Processual', desc:'Atacar o processo, nunca os fatos.'},
+        {id:'P02', cor:'#BA7517', titulo:'Retaliação a Agentes', desc:'Investigador vira investigado.'},
+        {id:'P03', cor:'#534AB7', titulo:'Captura Judicial', desc:'Liminares em tempo recorde.'},
+        {id:'P04', cor:'#185FA5', titulo:'Weaponização Midiática', desc:'Filtragem seletiva de informações.'},
+        {id:'P05', cor:'#0F6E56', titulo:'Socialização de Perdas', desc:'Cofres públicos como vetor.'},
+        {id:'P06', cor:'#639922', titulo:'Aposta no Tempo', desc:'Prescrição como âncora final.'},
+    ];
+
+    const PERGUNTAS = [
+        {op:'Castelo de Areia', q:'R$5M ao Presidente do STJ?'},
+        {op:'Satiagraha', q:'Quem autorizou os 80 agentes da ABIN?'},
+        {op:'Lava Jato', q:'Se Teori vivesse, quem cairia?'},
+        {op:'Banco Master', q:'Tanure é o verdadeiro controlador?'},
+        {op:'Banco Master', q:'Quem redigiu a PEC do FGC?'},
+        {op:'Carbono Oculto', q:'Qual o tamanho real dos fundos REAG?'},
+    ];
+
+    let completedRisks = JSON.parse(localStorage.getItem('entanglement_risks')) || [];
+    
+    function updateTracker() {
+        const totalPossible = OPS.length * DIMS.length;
+        const count = completedRisks.length;
+        document.getElementById('count-risks').textContent = count;
+        const percent = (count / totalPossible) * 100;
+        document.getElementById('risk-progress').style.width = percent + '%';
+        if(count > 10) document.getElementById('impact-val').textContent = 'Sistêmico';
+        if(count > 25) document.getElementById('impact-val').textContent = 'Irreversível';
+    }
+
+    function buildMatrix() {
+        const head = document.getElementById('matrix-head');
+        const body = document.getElementById('matrix-body');
+        DIMS.forEach(dim => { const th = document.createElement('th'); th.textContent = dim; head.appendChild(th); });
+        OPS.forEach(op => {
+            const tr = document.createElement('tr');
+            const tdOp = document.createElement('td');
+            tdOp.className = 'op-label';
+            tdOp.innerHTML = `<span style="color:${op.color}; margin-right:8px;">●</span>${op.label}`;
+            tr.appendChild(tdOp);
+            DIMS.forEach(dim => {
+                const cellId = `${op.id}-${dim}`;
+                const d = DATA[op.id]?.[dim] || {h:0, s:''};
+                const td = document.createElement('td');
+                td.innerHTML = `<div class="heat-cell heat-${d.h}" onclick="showDetail('${op.id}', '${dim}', '${op.label}', '${cellId}')">${d.h > 0 ? d.h : '-'}</div>`;
+                tr.appendChild(td);
+            });
+            body.appendChild(tr);
+        });
+    }
+
+    function showDetail(opId, dim, opLabel, cellId) {
+        const d = DATA[opId]?.[dim];
+        document.getElementById('det-title').textContent = `${opLabel} // ${dim}`;
+        document.getElementById('det-body').textContent = d.s;
+        document.getElementById('det-intensity').textContent = `Intensidade: ${d.h}/7`;
+        document.getElementById('detail-panel').style.display = 'block';
+        if(!completedRisks.includes(cellId)) { completedRisks.push(cellId); localStorage.setItem('entanglement_risks', JSON.stringify(completedRisks)); updateTracker(); }
+    }
+
+    function closeDetail() { document.getElementById('detail-panel').style.display = 'none'; }
+
+    function switchPage(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('pg-' + pageId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function buildGrids() {
+        const actorsEl = document.getElementById('atores-grid');
+        ATORES.forEach(a => {
+            actorsEl.innerHTML += `<div class="card"><div class="card-header"><div class="card-title">${a.nome}</div><span class="card-tag">Ator</span></div><div class="card-body">${a.papel}</div><div class="card-footer"><span class="badge" style="background:rgba(0,217,255,0.1); color:var(--accent-cyan)">CROSS: ${a.ncross}</span></div></div>`;
+        });
+        const patternsEl = document.getElementById('padroes-grid');
+        PADROES.forEach(p => {
+            patternsEl.innerHTML += `<div class="card" style="border-left:4px solid ${p.cor}"><div class="card-header"><div class="card-title">${p.id}: ${p.titulo}</div></div><div class="card-body">${p.desc}</div></div>`;
+        });
+        const questionsEl = document.getElementById('perguntas-grid');
+        PERGUNTAS.forEach(q => {
+            questionsEl.innerHTML += `<div class="card"><div class="card-header"><div class="card-title">${q.op}</div><span class="card-tag">Sem Resposta</span></div><div class="card-body">${q.q}</div></div>`;
+        });
+    }
+
+    buildMatrix();
+    buildGrids();
+    updateTracker();
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>
