@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브라질 민주주의 후퇴 보고서 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600;700;900&display=swap');
+
+:root {
+  --paper:   #f5f0e8;
+  --paper2:  #ede8dc;
+  --paper3:  #e2dcd0;
+  --ink:     #1a1714;
+  --ink2:    #3d3830;
+  --ink3:    #6b6358;
+  --ink4:    #9a9188;
+  --red:     #8b1a1a;
+  --red2:    #c02020;
+  --amber:   #7a4f0a;
+  --amber2:  #b07818;
+  --green:   #1a5c2a;
+  --blue:    #1a3060;
+  --blue2:   #2a4a8a;
+  --rule:    rgba(26,23,20,.15);
+  --font-display: 'Playfair Display', 'Noto Serif KR', serif;
+  --font-body:    'Source Serif 4', 'Noto Serif KR', serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* PAPER TEXTURE */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .6;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+  position: relative; z-index: 1;
+}
+
+/* ── COVER ── */
+.cover {
+  border-top: 4px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding: 48px 0 40px;
+  margin-bottom: 56px;
+}
+
+.cover-series {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--ink3);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.cover-series::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--rule);
+}
+
+.cover-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -.01em;
+  color: var(--ink); margin-bottom: 6px;
+}
+.cover-title em {
+  font-style: italic; color: var(--red);
+}
+
+.cover-subtitle {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 400;
+  font-style: italic; color: var(--ink2);
+  margin-bottom: 32px; max-width: 600px;
+}
+
+.cover-meta {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+.cover-meta-item {
+  padding: 0 24px 0 0; margin-right: 24px;
+  border-right: 1px solid var(--rule);
+  font-size: 11px; color: var(--ink3);
+  font-family: var(--font-mono);
+}
+.cover-meta-item:last-child { border-right: none; }
+.cover-meta-item strong { display: block; color: var(--ink); font-size: 12px; }
+
+/* ── EXECUTIVE SUMMARY ── */
+.exec-box {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 32px 36px;
+  margin-bottom: 56px;
+}
+.exec-label {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.4);
+  margin-bottom: 16px;
+}
+.exec-text {
+  font-family: var(--font-body);
+  font-size: 15px; line-height: 1.8;
+  color: var(--paper);
+}
+.exec-text strong { color: #ffdd88; }
+.exec-findings {
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.exec-finding {
+  font-size: 12px; color: rgba(245,240,232,.7);
+  padding-left: 14px;
+  border-left: 2px solid rgba(255,221,136,.4);
+  line-height: 1.5;
+}
+.exec-finding strong { color: #ffdd88; display: block; }
+
+/* ── SECTION HEADS ── */
+.section {
+  margin-bottom: 52px;
+  padding-bottom: 52px;
+  border-bottom: 1px solid var(--rule);
+}
+.section:last-child { border-bottom: none; }
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink4);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 700;
+  line-height: 1.2; color: var(--ink);
+  margin-bottom: 20px;
+}
+.section-title em { color: var(--red); font-style: italic; }
+
+/* ── BODY TEXT ── */
+p { margin-bottom: 16px; }
+p:last-child { margin-bottom: 0; }
+
+.lead {
+  font-size: 17px; line-height: 1.7;
+  color: var(--ink2); font-weight: 300;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+/* ── PULL QUOTE ── */
+.pull {
+  border-left: 3px solid var(--red);
+  padding: 4px 0 4px 24px;
+  margin: 28px 0;
+}
+.pull-text {
+  font-family: var(--font-display);
+  font-size: 19px; font-style: italic;
+  line-height: 1.5; color: var(--ink2);
+}
+.pull-source {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink4);
+  margin-top: 8px;
+}
+
+/* ── FINDING BOXES ── */
+.finding {
+  background: var(--paper3);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.finding-label {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--red);
+  margin-bottom: 6px;
+}
+.finding-text { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.finding-text strong { color: var(--ink); }
+
+.finding-amber { border-left-color: var(--amber2); }
+.finding-amber .finding-label { color: var(--amber); }
+
+.finding-green { border-left-color: var(--green); }
+.finding-green .finding-label { color: var(--green); }
+
+.finding-blue { border-left-color: var(--blue2); }
+.finding-blue .finding-label { color: var(--blue); }
+
+/* ── COMPARISON TABLE ── */
+.comp-wrap { overflow-x: auto; margin: 24px 0; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 14px; text-align: left;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 400;
+}
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top; line-height: 1.5;
+  color: var(--ink2);
+}
+tr:nth-child(even) td { background: rgba(0,0,0,.025); }
+td:first-child { font-weight: 600; color: var(--ink); font-size: 12px; }
+.td-ve { color: var(--red2); }
+.td-ni { color: var(--amber); }
+.td-br { color: var(--blue2); font-weight: 500; }
+
+/* ── TIMELINE ── */
+.tl { padding-left: 24px; position: relative; margin: 24px 0; }
+.tl::before {
+  content: ''; position: absolute;
+  left: 6px; top: 4px; bottom: 4px;
+  width: 1px; background: var(--rule);
+}
+.tl-item {
+  position: relative; margin-bottom: 18px;
+}
+.tl-item::before {
+  content: ''; position: absolute;
+  left: -20px; top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--paper2);
+  border: 2px solid var(--ink4);
+}
+.tl-item.now::before {
+  background: var(--red); border-color: var(--red);
+}
+.tl-item.danger::before { background: var(--red2); border-color: var(--red); }
+.tl-date {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink4); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 2px;
+}
+.tl-text { font-size: 13px; color: var(--ink2); line-height: 1.5; }
+.tl-text strong { color: var(--ink); }
+
+/* ── ACTIONS ── */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 12px; margin: 20px 0;
+}
+.action-card {
+  background: var(--paper3);
+  border: 1px solid var(--rule);
+  padding: 16px;
+}
+.action-who {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink4); margin-bottom: 6px;
+}
+.action-what {
+  font-size: 13px; font-weight: 600;
+  color: var(--ink); margin-bottom: 4px;
+}
+.action-why { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+
+/* ── SOURCES ── */
+.sources {
+  background: var(--paper3);
+  border: 1px solid var(--rule);
+  padding: 24px 28px;
+  margin-top: 32px;
+}
+.sources-title {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink3);
+  margin-bottom: 16px;
+}
+.source-item {
+  font-size: 12px; color: var(--ink3);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.5;
+}
+.source-item:last-child { border-bottom: none; }
+.source-item strong { color: var(--ink2); }
+.source-item a { color: var(--blue2); }
+
+/* ── STATUS BADGE ── */
+.badge {
+  display: inline-block;
+  padding: 1px 7px;
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+.badge-red   { color: var(--red2); }
+.badge-amber { color: var(--amber2); }
+.badge-green { color: var(--green); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 24px; margin-top: 60px;
+  display: flex; justify-content: space-between;
+  align-items: flex-start; flex-wrap: wrap; gap: 16px;
+}
+.footer p {
+  font-size: 11px; color: var(--ink4);
+  font-family: var(--font-mono);
+  letter-spacing: .05em; line-height: 1.6;
+}
+
+@media(max-width:600px){
+  .page { padding: 32px 20px 60px; }
+  .exec-findings { grid-template-columns: 1fr; }
+  .cover-title { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-series">Investigative Intelligence Report · lawfare-timeline.vercel.app · CC0 1.0</div>
+  <div class="cover-title">브라질의 민주주의<br><em>후퇴</em></div>
+  <div class="cover-subtitle">사법 장악, 정치적 투옥, 그리고 2026년 10월 이전의 닫히는 기회의 창에 대한 기록</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>발행일</strong> 2026년 4월</div>
+    <div class="cover-meta-item"><strong>분류</strong> 퍼블릭 도메인 · CC0</div>
+    <div class="cover-meta-item"><strong>출처</strong> 1차 문서 · 검증됨</div>
+    <div class="cover-meta-item"><strong>언어</strong> 한국어</div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="exec-box">
+  <div class="exec-label">요약 (Executive Summary)</div>
+  <div class="exec-text">
+    브라질은 더 이상 완전한 민주주의 국가가 아닙니다. <strong>"바자 토가(Vaza Toga)"</strong>로 알려진 유출된 법원 통신문과 <strong>"1월 8일 기록물"</strong>을 포함한 1차 문서에 근거할 때, 현재 브라질은 민주주의의 형태만 유지한 채 실질적인 내용을 체계적으로 해체하는 <strong>가속화된 독재화 과정의 혼합 체제</strong>로 운영되고 있습니다. 회복을 위한 마지막 기회는 <strong>2026년 10월</strong> 총선입니다. 베네수엘라와 니카라과의 궤적을 볼 때, 이 시점을 지나면 시스템 붕괴 없이는 구조적으로 회복이 불가능해집니다.
+  </div>
+  <div class="exec-findings">
+    <div class="exec-finding">
+      <strong>조사 결과 1</strong>
+      단 한 명의 대법관이 선거 중재, 정치적 반대파에 대한 형사 수사, 중앙 집중식 구금 결정을 동시에 통제해 왔음이 문서로 입증되었습니다.
+    </div>
+    <div class="exec-finding">
+      <strong>조사 결과 2</strong>
+      2022년 대선 캠페인 기간 동안 친야권 기업가들에 대한 압수수색을 정당화하기 위해 증거가 사후에 조작되었습니다. 상원 청문회에서 내부 고발자의 증언으로 확인되었습니다.
+    </div>
+    <div class="exec-finding">
+      <strong>조사 결과 3</strong>
+      2023년 1월 8일 사태 이후, 피고인 쪽 변호사들에게는 공유되지 않은 초법적 분류 증명서를 사용하여 1,500명 이상이 구금되었습니다.
+    </div>
+    <div class="exec-finding">
+      <strong>조사 결과 4</strong>
+      주요 야권 인사는 예방적 구금 상태로 수감되어 있으며, 외부와의 연락이 차단되고 소셜 미디어 사용이 금지되었습니다. 이는 베네수엘라(2014년 레오폴도 로페스)와 니카라과(2021년 크리스티나 차모로)의 야권 무력화 수법과 동일합니다.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-num">Section 01</div>
+  <div class="section-title">문서가 실제로 보여주는 것</div>
+
+  <p class="lead">이 보고서는 정치적 주장이나 야권의 서사에 근거하지 않습니다. 유출된 1차 문서, 상원 증언, 독립적인 브라질 헌법학자들의 법적 분석을 바탕으로 합니다.</p>
+
+  <p>2024년 8월, 현재 "바자 토가"로 알려진 일련의 유출된 통신문은 알렉상드르 드 모라에스(Alexandre de Moraes) 대법관이 직접 지휘하는 브라질 최고선거법원(TSE)과 연방법원(STF) 내부에 운영되는 비공식 정보 기구를 드러냈습니다.</p>
+
+  <div class="finding">
+    <div class="finding-label">문서화된 조사 결과 · 바자 토가 4</div>
+    <div class="finding-text">
+      2022년 8월 27일 밤, 대통령 선거 운동 기간 중 브라질의 최고 기업가 8명을 압수수색하라고 명령한 지 4일 만에, 모라에스 대법관은 직원들에게 작전의 정당성을 사후에 부여하기 위해 <strong>날짜를 소급한 문서</strong>를 만들도록 압박했습니다. 원래의 압수수색은 기술적 보고서나 공식 수사가 아닌 단 한 건의 신문 칼럼에 근거한 것이었습니다. 공식 보고서에 서명한 연방 경찰 대표는 <strong>압수수색이 이미 일어난 후에</strong> 보고서를 작성했습니다.
+    </div>
+  </div>
+
+  <p>탄압을 정당화하는 데 사용된 "증거"의 출처는 기업가들의 비공개 왓츠앱(WhatsApp) 그룹 내부에 잠입한 정보원과 법원 사이의 다리 역할을 한 비공식 협력자(기자 레티시아 살로렌조로 확인됨)였습니다. 공식적인 증거 보관 체계나 법의학적 인증은 존재하지 않았습니다.</p>
+
+  <div class="pull">
+    <div class="pull-text">"우리가 여기서 보는 것은 적법 절차의 정반대입니다. 압수 기록도, 법의학적 검사도, 무결성 해시도 없이 장관실에 비공식적으로 전달된 왓츠앱 스크린샷일 뿐입니다."</div>
+    <div class="pull-source">리처드 캄파나리, 헌법 전문가, ABRADEP — 2025년 9월 'A Investigação' 인용</div>
+  </div>
+
+  <p>6개월 후인 2023년 1월 8일, 보우소나루 지지자들의 의회 난입 사태 이후, 모라에스는 1,500명 이상의 구금자를 분류하기 위해 왓츠앱을 통해 운영되는 비밀 태스크포스인 "구금 청문회(Custody Hearings)" 그룹을 조직했습니다. 이 부서는 TSE의 생체 인식 유권자 데이터베이스(GestBio)를 사용하여 안면 인식을 수행한 다음, 구금자들의 소셜 미디어 게시물을 바탕으로 "긍정" 또는 "부정"으로 분류했습니다.</p>
+
+  <div class="finding">
+    <div class="finding-label">문서화된 조사 결과 · 1월 8일 기록물</div>
+    <div class="finding-text">
+      개인들은 <strong>보우소나루 지지 게시물 공유</strong>, 브라질 국기 색상 옷 착용, 우파 페이지 팔로우, 또는 대법원 비판 등의 행위로 인해 "긍정"(실질적으로 구금 지속 대상으로 표시됨) 분류를 받았습니다. 한 개인은 166만 명이 서명한 "자유 수호"에 관한 청원 링크를 리트윗했다는 이유로 "긍정" 분류를 받았습니다. 개별적인 폭력 행위를 저지르지 않은 사람들에게도 최대 17년의 징역형이 선고되었습니다.
+    </div>
+  </div>
+
+  <p>이러한 분류 증명서는 공식 사건 파일에 포함되지 않았으며 변호인단과 공유되지도 않았습니다. 이는 실질적으로 결정적인 역할을 하면서도 어떠한 법적 도전으로부터도 보이지 않게 처리되었습니다.</p>
+
+  <div class="finding">
+    <div class="finding-label">문서화된 조사 결과 · 내부 통신</div>
+    <div class="finding-text">
+      검찰총장(PGR)이 구금자 그룹에 대한 임시 석방을 공식적으로 권고했을 때, 모라에스는 그의 팀이 해당자들의 소셜 미디어 검토를 마칠 때까지 석방을 거부했습니다. 내부 메시지 내용: <strong>"검찰총장은 임시 석방을 요청했지만, 장관은 소셜 미디어에서 무언가를 확인하기 전에는 그들을 풀어주고 싶어 하지 않습니다."</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-num">Section 02</div>
+  <div class="section-title"><em>구조적</em> 문제</div>
+
+  <p class="lead">문제는 한 명의 나쁜 행위자가 아닙니다. 문제는 구조적으로 장악 가능하도록 설계되었고, 실제로 장악된 시스템입니다.</p>
+
+  <p>브라질의 선거 시스템은 최고선거법원(TSE)이라는 단일 기관에 막대한 권한을 집중시킵니다. TSE는 선거를 관리하고, 선거 분쟁을 심판하며, 선거법을 집행하는 역할을 동시에 수행합니다. 선거를 운영하는 단체와 이를 심판하는 단체 사이에 분리가 없습니다.</p>
+
+  <p>2019년부터 2023년까지 알렉상드르 드 모라에스 대법관은 연방법원(STF) 대법관과 최고선거법원(TSE) 법원장이라는 두 직책을 겸임했습니다. 이는 한 개인이 동시에 다음과 같은 권한을 가졌음을 의미합니다.</p>
+
+  <div class="finding finding-amber">
+    <div class="finding-label">구조적 집중</div>
+    <div class="finding-text">
+      <strong>수사:</strong> "가짜 뉴스 수사"(Inq. 4781)를 통해 정치적 반대파 수사 · <strong>증거 생산:</strong> 초법적 부서인 AEED를 통해 증거 생산 · <strong>선거 중재:</strong> 2022년 선거 기간 동안 TSE 법원장으로서 선거 중재 통제 · <strong>구금 결정:</strong> 1월 8일 구금자들에 대한 구금 결정 중앙 집권화 · <strong>검열 명령:</strong> 소셜 미디어 계정, 채널 및 2024년 X(Trwitter)의 40일 차단을 포함한 플랫폼 폐쇄 명령.
+    </div>
+  </div>
+
+  <p>기능하는 민주주의 국가 중 어느 곳도 종신직인 단 한 명의 선출되지 않은 관리에게 이러한 권한 집중을 허용하지 않습니다. 브라질 헌법 자체도 이를 금지하고 있지만, 그 금지를 집행해야 할 기관이 바로 침해를 주도하고 있는 기관입니다.</p>
+
+  <p>2003년 이후 모든 주요 부패 방지 작전에서 반복되는 6가지 시스템적 패턴이 확인되었습니다.</p>
+
+  <div class="comp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>패턴</th>
+          <th>메커니즘</th>
+          <th>현재 상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P1 · 절차적 무효화</td>
+          <td class="td-ve">동맹국에 대한 사건은 기술적 근거로 무효화; 반대파에게는 동일한 기법 거부</td>
+          <td><span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>P2 · 수사관이 피수사자가 됨</td>
+          <td class="td-ve">부패 방지 검사와 판사가 기득권 시스템을 위협하면 표적이 됨</td>
+          <td><span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>P3 · 비상 사법 장악 ★</td>
+          <td class="td-ve">모든 작전에서 나타나는 유일한 패턴. "민주주의 위협" 서사를 사용하여 비상 권한 정당화</td>
+          <td><span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>P4 · 미디어 무기화</td>
+          <td class="td-ve">정부 광고 기금을 사용하여 언론의 충성을 구매; 독립 언론은 위협이나 벌금 부과</td>
+          <td><span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>P5 · 공적 자금을 음모의 매개체로 사용</td>
+          <td class="td-ve">의회 수정안과 연금 기금을 입법부 포섭 도구로 사용</td>
+          <td><span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>P6 · 전략적 공소시효 만료</td>
+          <td class="td-ve">동맹국에 대한 사건은 시효 만료까지 지연; 반대파 사건은 가속화하거나 봉인 유지</td>
+          <td><span class="badge badge-amber">진행 중</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-num">Section 03</div>
+  <div class="section-title">베네수엘라와 니카라과의 <em>선례</em></div>
+
+  <p class="lead">이것은 추측이 아닙니다. 브라질에서 전개되는 메커니즘은 이전에 베네수엘라와 니카라과에서 관찰되었던 문서화된 순서를 따르며, 추적 가능한 연대기를 가지고 있습니다.</p>
+
+  <div class="comp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>메커니즘</th>
+          <th>🇻🇪 베네수엘라</th>
+          <th>🇳🇮 니카라과</th>
+          <th>🇧🇷 브라질 · 상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>사법 장악</td>
+          <td class="td-ve">대법원 장악, 2004년</td>
+          <td class="td-ni">대법원 정렬, 2010–14년</td>
+          <td class="td-br">STF/TSE 단일 운영자 아래 장악, 2019–현재 <span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>미디어 구매 / 강요</td>
+          <td class="td-ve">RCTV 라이선스 취소, 2007년. Globovisión 매각, 2013년</td>
+          <td class="td-ni">La Prensa 압수, 2021년. 언론인 투옥</td>
+          <td class="td-br">전통 미디어가 국가 광고 계약에 의존. 비판적 보도는 해외에서만 생존 <span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>주요 야권 지도자 무력화</td>
+          <td class="td-ve">레오폴도 로페스 투옥, 2014년. 카프릴레스 자격 박탈, 2017년</td>
+          <td class="td-ni">크리스티나 차모로 후보 등록 전 투옥, 2021년 6월</td>
+          <td class="td-br">보우소나루 자격 박탈, 투옥 및 통신 차단 <span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>디지털 검열</td>
+          <td class="td-ve">2010년부터 X, VPN, 야권 사이트 차단</td>
+          <td class="td-ni">"사이버 범죄" 법으로 온라인 반대 의견 범죄화, 2020년</td>
+          <td class="td-br">2024년 X 40일 차단. 사법 명령에 의한 체계적 플랫폼 퇴출 <span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>대규모 정치적 구금</td>
+          <td class="td-ve">300명 이상의 정치범 문서화됨</td>
+          <td class="td-ni">2021년 주교, 총장, 후보 등 200명 이상 구금</td>
+          <td class="td-br">1월 8일 이후 1,500명 이상 구금. 개별 폭력 행위 없이 최대 17년 선고 <span class="badge badge-red">활성</span></td>
+        </tr>
+        <tr>
+          <td>선거 절차 훼손</td>
+          <td class="td-ve">2003년부터 CNE 통제. 2017년부터 결과 감사 불가</td>
+          <td class="td-ni">선거 위원회 장악. 참관인 추방, 2021년</td>
+          <td class="td-br">TSE 독립 감사 부재. 선거 중재자가 문서화된 이해 당사자. 선거 기간 AI 비활성화 계획 <span class="badge badge-amber">진행 중</span></td>
+        </tr>
+        <tr>
+          <td>현재까지의 차이점</td>
+          <td class="td-ve">—</td>
+          <td class="td-ni">—</td>
+          <td class="td-br">미국 관세 등 실질적인 외부 압박 유지. 검찰(MPF) 내부의 일부 저항. 활발한 시민 사회. 선거 기회의 창이 아직 열려 있음.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pull">
+    <div class="pull-text">오늘날의 브라질은 대략 2013-2014년의 베네수엘라에 해당합니다. 주요 야권 지도자가 무력화되었고 미디어는 대헤 장악되었지만, 아직 선거의 창은 완전히 닫히지 않았습니다.</div>
+    <div class="pull-source">비교 분석 — lawfare-timeline 연구, 2026년 4월</div>
+  </div>
+
+  <p>결정적인 차이점: 베네수엘라의 돌이킬 수 없는 지점은 2017년 엔리케 카프릴레스의 자격이 박탈되고 야권이 실행 가능한 후보 없이 선거에 임했을 때였습니다. 브라질의 그 동등한 시점은 2026년 10월입니다.</p>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-num">Section 04</div>
+  <div class="section-title">2026년 10월의 <em>창</em></div>
+
+  <p class="lead">2026년 10월 총선은 독재 체제 고착 전 민주적 회복을 위한 마지막 구조적 기회입니다. 창문이 완전히 닫히지는 않았지만, 계속해서 닫히고 있습니다.</p>
+
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-date">2019–2021년</div>
+      <div class="tl-text"><strong>사법적 재구조화.</strong> 정상적인 절차 밖에서 "가짜 뉴스 수사" 수립. STF는 자기 해석을 통해 권력을 확장. 부패 방지 작전인 '라바 자투(Lava Jato)' 해체.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2022년</div>
+      <div class="tl-text"><strong>선거 개입 문서화됨.</strong> 존재하지 않았던 날짜를 소급한 조작된 증거를 바탕으로 야권 기업가 압수수색. TSE 법원장이 중재와 수사를 동시에 통제.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2023년 1월</div>
+      <div class="tl-text"><strong>적법 절차 없는 대규모 구금.</strong> 초법적 분류 증명서를 사용하여 1,500명 이상이 구금됨. 검찰총장의 권고가 무시됨. 개별 행위에 비해 형량이 지나치게 높음.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2023–2024년</div>
+      <div class="tl-text"><strong>디지털 공간 폐쇄.</strong> X 40일간 차단. 체계적인 플랫폼 퇴출. 정치적 비판까지 포함하도록 "허위 정보" 체계 확장.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2025년</div>
+      <div class="tl-text"><strong>야권 지도자 투옥.</strong> 보우소나루는 8월부터 가택 연금, 11월에 예방적 구금으로 전환. 외부와 단절. 소셜 미디어 및 정치 활동 금지.</div>
+    </div>
+    <div class="tl-item now">
+      <div class="tl-date">→ 현재 · 2026년 4월</div>
+      <div class="tl-text"><strong>중요한 기회의 창.</strong> 선거까지 6개월 남음. 야권은 주요 지도자가 없는 상태. 독립적인 선거 감사 부재. 선거 기간 중 AI 비활성화 논의 중. 미국의 관세 등 외부 압박이 활발하지만 결과는 불투명.</div>
+    </div>
+    <div class="tl-item danger">
+      <div class="tl-date">2026년 10월</div>
+      <div class="tl-text"><strong>결정적 시점.</strong> 장악된 선거 관리자, 투옥된 야권 지도자, 장악된 미디어와 함께 치러지는 선거. 구조적 개혁 없이 진행된다면 결과와 상관없이 결과에 대한 독립적 검증이 불가능해질 것.</div>
+    </div>
+    <div class="tl-item danger">
+      <div class="tl-date">2027년 이후 (예상)</div>
+      <div class="tl-text"><strong>고착 또는 붕괴.</strong> 2026년 10월이 검증 가능한 선거 없이 지나가면, 체제 회복을 위해서는 경제 붕괴, 군사적 분열, 또는 기득권층의 계산을 바꿀 수 있는 강력한 외부 압력과 같은 시스템적 충격이 필요함.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-num">Section 05</div>
+  <div class="section-title"><em>무엇을</em> 할 수 있는가 — 그리고 누가 하는가</div>
+
+  <p class="lead">도덕적 비난보다 영향력을 행사할 수 있는 지점을 식별하는 것이 더 유용합니다. 다음은 2026년 10월 이전에 특정 행위자들이 취할 수 있는 구체적인 조치들입니다.</p>
+
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-who">미국 정부</div>
+      <div class="action-what">관세 압박 유지 및 조건부 완화</div>
+      <div class="action-why">50% 관세는 브라질의 경제 엘리트들이 체제의 선택에 따른 비용을 체감하고 있음을 이미 증명했습니다. 관세 완화의 조건을 검증 가능한 선거 개혁에 연계함으로써 기득권층이 시스템과 결별하도록 구체적인 인센티브를 제공합니다.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">유럽 연합 (EU)</div>
+      <div class="action-what">메르코수르 무역 협정 조건화</div>
+      <div class="action-why">EU-메르코수르 협정은 민주주의 조건부 조항에 민감합니다. 공식적인 검토 메커니즘을 가동하면 EU에 적은 비용으로 브라질의 농업 및 산업 엘리트들에게 실질적인 비용을 부과하는 외교적 압박을 가할 수 있습니다.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">OAS / UN 인권 이사회</div>
+      <div class="action-what">1월 8일 구금에 대한 공식 조사</div>
+      <div class="action-why">초법적 분류 시스템, 불균형한 판결, 변호인의 증거 접근 거부는 국제적 조사 기준에 부합합니다. 공식적인 OAS 조사는 서사를 국제화하고 지속적인 구금에 따른 비용을 증가시킵니다.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">국제 언론</div>
+      <div class="action-what">서사가 아닌 1차 문서를 보도하라</div>
+      <div class="action-why">바자 토가와 1월 8일 기록물의 영문판이 존재합니다. 이 문서들은 어떠한 야권의 주장보다 강력합니다. 1차 출처에 기반한 보도는 문서가 실제로 보여주는 내용을 가리는 "쿠데타 대 민주주의" 프레임을 우회할 수 있습니다.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">선거 참관단</div>
+      <div class="action-what">형식적인 접근이 아닌 실질적인 접근 요구</div>
+      <div class="action-why">베네수엘라는 참관단이 실질적인 검증을 요구하자 그들을 추방했습니다. 브라질은 아직 그렇게 하지 않았습니다. 2026년 10월 이전에 선거 시스템에 대한 진정한 기술적 접근을 요구하고 이를 수행하는 참관단은 조작에 따른 비용을 높이는 책임을 만듭니다.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">브라질 시민 사회</div>
+      <div class="action-what">기록 보관, 배포, 국제적 공조</div>
+      <div class="action-why">문서는 존재합니다. 분석도 이미 완료되었습니다. 누락된 것은 모든 외교관, 해외 특파원, 국제 법학자들이 선거 후가 아닌 선거 전에 1차 자료에 접근할 수 있도록 보장하는 조직적인 전략입니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section">
+  <div class="section-num">Section 06</div>
+  <div class="section-title">문서화된 <em>출처</em></div>
+
+  <p>이 보고서는 오직 검증 가능한 1차 출처에 근거합니다. 참조된 모든 문서는 공개적으로 이용 가능하거나 출처가 확인된 실명 기자들에 의해 보도되었습니다.</p>
+
+  <div class="sources">
+    <div class="sources-title">1차 자료 (Primary Sources)</div>
+    <div class="source-item">
+      <strong>Vaza Toga 1–4</strong> — David Ágape, A Investigação (Substack), 2024–2025. TSE/STF 관리들 간의 유출된 왓츠앱 통신. 뒷받침하는 문서와 함께 발행됨. <a href="https://www.ainvestigacao.com">ainvestigacao.com</a>
+    </div>
+    <div class="source-item">
+      <strong>1월 8일 기록물_January 8 Archives</strong> — David Ágape &amp; Eli Vieira, 2025. "구금 청문회" 태스크포스의 내부 왓츠앱 통신. 분류 증명서 및 생체 인식 데이터베이스 접근 기록 포함. 처음에는 Counterweight를 통해 배포됨.
+    </div>
+    <div class="source-item">
+      <strong>상원 증언 — Eduardo Tagliaferro</strong> — 전 TSE 허위정보방지부(AEED) 부장. 2024년 상원 청문회에서 사후에 날짜를 소급한 보고서 조작을 증언함.
+    </div>
+    <div class="source-item">
+      <strong>검찰청 기밀 의견서 — Lindôra Araújo, PGR</strong> — 2024년 8월 22일 Folha de S.Paulo 보도. AEED 활동을 위헌으로 규정함. 수사 조치의 무효화 요청.
+    </div>
+    <div class="source-item">
+      <strong>Vaza Jato</strong> — Glenn Greenwald, The Intercept Brasil, 2019. 당시 판사였던 세르지오 모로와 라바 자투 검사들 사이의 유출된 텔레그램 통신. 복수의 독립 언론에 의해 인증됨.
+    </div>
+    <div class="source-item">
+      <strong>STF — Gilmar Mendes 판결</strong> — 모로의 편파성을 근거로 라바 자투 유죄 판결을 무효화하는 공식 STF 기록. 2024년 10월.
+    </div>
+    <div class="source-item">
+      <strong>ASFAV 보고서</strong> — 1월 8일 가족 및 희생자 협회. 구금 청문회에서 발생한 적법 절차 위반에 대한 100페이지 분량의 문서. 2023년.
+    </div>
+    <div class="source-item">
+      <strong>보우소나루 수감 기록</strong> — 공식 STF 결정: 2025년 8월 4일 가택 연금; 2025년 11월 22일 예방적 구금으로 전환. STF Pet. 14129 및 관련 소송 절차.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>
+    BRAZIL DEMOCRATIC EROSION REPORT 2026<br>
+    lawfare-timeline.vercel.app · CC0 1.0 Universal<br>
+    권리가 유보되지 않음. 복제 및 재배포 제한 없음.
+  </p>
+  <p>
+    1차 자료 문서를 바탕으로 제작되었습니다.<br>
+    2026년 4월 · 버전 1.0<br>
+    영어 및 포르투갈어 버전: lawfare-timeline.vercel.app 에서 이용 가능
+  </p>
+</div>
+
+</div><!-- /page -->
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

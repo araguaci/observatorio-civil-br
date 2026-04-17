@@ -124,6 +124,12 @@ h1 span { color: var(--red); }
   border-bottom: 1px solid var(--border);
   overflow-x: auto;
   padding-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,11,0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .tab-btn {
   padding: 10px 18px;
@@ -505,6 +511,49 @@ h1 span { color: var(--red); }
 .hl-green { color: var(--green); font-weight: 500; }
 .hl-blue { color: var(--blue2); font-weight: 500; }
 
+/* STANDARDIZED GRID FOR RELATED ARTIFACTS */
+.agrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.acard {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.acard:hover {
+  border-color: var(--red);
+  transform: translateY(-2px);
+  background: var(--bg3);
+}
+.abadge {
+  display: inline-flex;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+.ab-red { background: rgba(232,64,64,0.15); color: var(--red2); border: 1px solid rgba(232,64,64,0.3); }
+.ab-purple { background: rgba(144,96,232,0.15); color: #c090ff; border: 1px solid rgba(144,96,232,0.3); }
+.ab-amber { background: rgba(232,160,32,0.15); color: var(--amber2); border: 1px solid rgba(232,160,32,0.3); }
+.ab-blue { background: rgba(64,128,255,0.15); color: var(--blue2); border: 1px solid rgba(64,128,255,0.3); }
+.ab-green { background: rgba(40,200,122,0.15); color: var(--green); border: 1px solid rgba(40,200,122,0.3); }
+
+.atitle { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.adesc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -555,7 +604,7 @@ h1 span { color: var(--red); }
   <div class="header-meta">
     <div>Atualizado: Abr/2026</div>
     <div>IDs 124–145 no lawfare-timeline</div>
-    <div>Curadoria: Araguaci / AI Nativo Brasil</div>
+    <div>Curadoria: Comunidade Open Source</div>
     <div class="cc0">CC0 1.0 — Domínio Público</div>
   </div>
 </div>
@@ -1420,8 +1469,53 @@ h1 span { color: var(--red); }
       → Cálculo do custo per capita da corrupção sistêmica<br>
       → Mapeamento de inquéritos abertos e silenciosamente encerrados<br>
       → Pesquisa sobre beneficiários finais das LLCs de Delaware<br><br>
-      <strong class="hl-blue">lawfare-timeline.vercel.app</strong>
+      <strong class="hl-blue"><a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a></strong>
     </div>
+  </div>
+
+  <!-- RELATED ARTEFACTS -->
+  <div class="section-label" style="margin-top:64px">Artefatos Relacionados</div>
+  <div class="agrid">
+    <a href="operacao-narco-fluxo.html" class="acard">
+      <div class="abadge ab-purple">Narco Fluxo</div>
+      <div class="atitle">Captura Cultural P9/P10</div>
+      <div class="adesc">O financiamento de gravadoras e influenciadores via duto fintech.</div>
+    </a>
+    <a href="operacao-hydra-fintech-laundry.html" class="acard">
+      <div class="abadge ab-red">Operação Hydra</div>
+      <div class="atitle">Lavanderia Fintech P8</div>
+      <div class="adesc">Fluxos de R$ 6 bi e o papel das IPs reguladas na lavagem sistêmica.</div>
+    </a>
+    <a href="mapa-mental-nexo-fintech.html" class="acard">
+      <div class="abadge ab-amber">Mapa Mental</div>
+      <div class="atitle">Nexo Fintech Master/PCC</div>
+      <div class="adesc">Visualização da infraestrutura compartilhada (P10) entre duto e hub.</div>
+    </a>
+    <a href="padroes-sistemicos-dashboard.html" class="acard">
+      <div class="abadge ab-red">Sistêmico</div>
+      <div class="atitle">Padrões P1–P10</div>
+      <div class="adesc">A base doutrinária que conecta todas as operações de combate à corrupção.</div>
+    </a>
+    <a href="operacao-mineracao.html" class="acard">
+      <div class="abadge ab-red">Mineração</div>
+      <div class="atitle">Captura de Recursos</div>
+      <div class="adesc">Uso do hub Master para controle de minerais estratégicos e geopolítica.</div>
+    </a>
+    <a href="carbono_oculto.html" class="acard">
+      <div class="abadge ab-green">Captura Ambiental</div>
+      <div class="atitle">Operação Carbono Oculto</div>
+      <div class="adesc">Grilagem na Amazônia e o duto de R$ 98 bi em créditos fictícios.</div>
+    </a>
+    <a href="banco-master-compliance-zero.html" class="acard">
+      <div class="abadge ab-blue">Financeiro</div>
+      <div class="atitle">Banco Master / Compliance Zero</div>
+      <div class="adesc">A ascensão atípica do banco que se tornou o hub central do sistema.</div>
+    </a>
+    <a href="emaranhamento_operacoes.html" class="acard">
+      <div class="abadge ab-purple">Emaranhamento</div>
+      <div class="atitle">Matriz de Intersecção</div>
+      <div class="adesc">Cruzamento visual de atores e empresas em múltiplas operações.</div>
+    </a>
   </div>
 
 </div>
@@ -1449,5 +1543,6 @@ function toggleAcc(header) {
   body.classList.toggle('open', !isOpen);
 }
 </script>
+<script src="https://gosurf.site/counter.js"></script>
 </body>
 </html>

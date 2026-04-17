@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espiral Periódica — Moran</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0c12;
+  --surface: #12131d;
+  --border: rgba(255,255,255,0.07);
+  --text: #e8eaf2;
+  --muted: #5a6070;
+  --accent: #8b7cf8;
+
+  --alkali:          #d94f4f;
+  --alkaline:        #d49030;
+  --lanthanide:      #c46faa;
+  --actinide:        #c45080;
+  --transition:      #c97870;
+  --post-transition: #7da87d;
+  --metalloid:       #9db040;
+  --polyatomic:      #48a86a;
+  --diatomic:        #7db840;
+  --noble:           #5090c0;
+  --unknown:         #555;
+
+  --hex-w: 64px;
+  --hex-h: 74px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Lexend', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(11,12,18,0.96);
+  backdrop-filter: blur(10px);
+  position: sticky; top: 0; z-index: 200;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+header h1 { font-size:17px; font-weight:600; letter-spacing:.04em; }
+header .sub { font-size:11px; color:var(--muted); font-family:'Fira Code',monospace; margin-top:2px; }
+#search-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 14px;
+  color: var(--text);
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  width: 200px;
+  outline: none;
+  transition: border-color .2s;
+}
+#search-bar:focus { border-color: var(--accent); }
+#search-bar::placeholder { color: var(--muted); }
+
+/* ── LEGEND ── */
+#legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 10px 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.leg-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10.5px; color: var(--muted);
+  cursor: pointer; transition: color .15s;
+  user-select: none;
+}
+.leg-item:hover { color: var(--text); }
+.leg-dot { width:11px; height:11px; border-radius:3px; flex-shrink:0; }
+
+/* ── LAYOUT ── */
+#main { display: flex; }
+
+#canvas-wrap {
+  flex: 1;
+  overflow: auto;
+  padding: 32px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* SVG canvas for the spiral */
+#spiral-svg {
+  display: block;
+  overflow: visible;
+}
+
+/* ── HEX CELLS (SVG foreignObject approach → use SVG polygon + text) ── */
+
+/* ── DETAIL PANEL ── */
+#detail {
+  width: 300px;
+  min-height: calc(100vh - 100px);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  padding: 24px 20px;
+  position: sticky;
+  top: 57px;
+  height: calc(100vh - 57px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+#detail.empty {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px; color: var(--muted);
+}
+.empty-icon { font-size: 40px; opacity: .25; }
+
+.d-hex {
+  width: 96px; height: 110px;
+  clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.d-hex .d-n { font-size:11px; font-family:'Fira Code',monospace; color:rgba(255,255,255,.65); }
+.d-hex .d-s { font-size:34px; font-weight:700; color:#fff; line-height:1; }
+.d-hex .d-nm { font-size:9px; color:rgba(255,255,255,.7); text-align:center; padding:0 6px; }
+
+.d-title { font-size:20px; font-weight:700; margin-bottom:4px; }
+.d-cat { font-size:10px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px; }
+.d-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.d-box {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 11px;
+}
+.d-box.full { grid-column:1/-1; }
+.d-label { font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px; }
+.d-val { font-size:13px; font-weight:600; font-family:'Fira Code',monospace; }
+.d-cfg { font-size:11.5px; font-family:'Fira Code',monospace; color:var(--accent); }
+.ox-row { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+.ox { background:rgba(139,124,248,.12); border:1px solid rgba(139,124,248,.28);
+      border-radius:4px; padding:2px 6px; font-size:10.5px; font-family:'Fira Code',monospace; color:var(--accent); }
+.ox.c { background:rgba(139,124,248,.3); border-color:var(--accent); color:#fff; }
+.d-desc { margin-top:14px; font-size:11.5px; color:var(--muted); line-height:1.65; }
+
+/* ── TOOLTIP ── */
+#tip {
+  position:fixed; display:none;
+  background:rgba(18,19,29,.96); border:1px solid var(--border);
+  border-radius:7px; padding:7px 12px;
+  font-size:11.5px; color:var(--text);
+  pointer-events:none; z-index:9999;
+  backdrop-filter:blur(8px); white-space:nowrap;
+}
+
+/* period/group labels */
+.period-label, .group-label {
+  font-size: 10px;
+  font-family: 'Fira Code', monospace;
+  fill: #4a5060;
+}
+
+@media(max-width:1000px){ #detail{ display:none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>⬡ Espiral Periódica · Moran</h1>
+    <div class="sub">118 elementos · arranjo em espiral · configuração eletrônica</div>
+  </div>
+  <input id="search-bar" placeholder="Buscar nome, símbolo ou nº…" autocomplete="off">
+</header>
+
+<div id="legend"></div>
+
+<div id="main">
+  <div id="canvas-wrap">
+    <svg id="spiral-svg"></svg>
+  </div>
+  <div id="detail" class="empty">
+    <div class="empty-icon">⬡</div>
+    <div style="font-size:13px">Clique em um elemento</div>
+    <div style="font-size:11px;margin-top:4px">para ver detalhes</div>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   DATA — 118 elementos completos
+═══════════════════════════════════════════════════════════ */
+const ELEMENTS = [
+  {n:1,  sym:"H",  name:"Hidrogênio",    cat:"diatomic",        p:1,  g:1,  bl:"s", mass:1.008,   cfg:"1s¹",                  ox:[-1,1],        cox:[1],      melt:-259.2, boil:-252.9, desc:"Elemento mais leve e abundante do universo. Base da fusão nuclear estelar."},
+  {n:2,  sym:"He", name:"Hélio",          cat:"noble",           p:1,  g:18, bl:"s", mass:4.003,   cfg:"1s²",                  ox:[0],           cox:[0],      melt:-272.2, boil:-268.9, desc:"Segundo elemento mais abundante. Gás inerte usado em criogenia e balões."},
+  {n:3,  sym:"Li", name:"Lítio",          cat:"alkali",          p:2,  g:1,  bl:"s", mass:6.94,    cfg:"[He] 2s¹",             ox:[1],           cox:[1],      melt:180.5,  boil:1342,   desc:"Metal mais leve sólido. Essencial em baterias de íon-lítio."},
+  {n:4,  sym:"Be", name:"Berílio",        cat:"alkaline",        p:2,  g:2,  bl:"s", mass:9.012,   cfg:"[He] 2s²",             ox:[2],           cox:[2],      melt:1287,   boil:2470,   desc:"Metal muito leve e rígido. Componentes aeroespaciais e janelas de raios-X."},
+  {n:5,  sym:"B",  name:"Boro",           cat:"metalloid",       p:2,  g:13, bl:"p", mass:10.81,   cfg:"[He] 2s² 2p¹",         ox:[3],           cox:[3],      melt:2075,   boil:4000,   desc:"Semimetal com alta dureza. Fibra de vidro, ácido bórico e bórax."},
+  {n:6,  sym:"C",  name:"Carbono",        cat:"polyatomic",      p:2,  g:14, bl:"p", mass:12.011,  cfg:"[He] 2s² 2p²",         ox:[-4,2,4],      cox:[4,-4],   melt:3550,   boil:4027,   desc:"Base de toda vida orgânica. Diamante, grafite, fulerenos e grafeno."},
+  {n:7,  sym:"N",  name:"Nitrogênio",     cat:"diatomic",        p:2,  g:15, bl:"p", mass:14.007,  cfg:"[He] 2s² 2p³",         ox:[-3,3,5],      cox:[-3,3,5], melt:-210.0, boil:-195.8, desc:"78% da atmosfera. Essencial para proteínas, DNA e fertilizantes."},
+  {n:8,  sym:"O",  name:"Oxigênio",       cat:"diatomic",        p:2,  g:16, bl:"p", mass:15.999,  cfg:"[He] 2s² 2p⁴",         ox:[-2,-1],       cox:[-2],     melt:-218.8, boil:-183.0, desc:"21% do ar. Essencial para respiração, combustão e formação de óxidos."},
+  {n:9,  sym:"F",  name:"Flúor",          cat:"diatomic",        p:2,  g:17, bl:"p", mass:18.998,  cfg:"[He] 2s² 2p⁵",         ox:[-1],          cox:[-1],     melt:-219.7, boil:-188.1, desc:"Mais eletronegativo de todos. Forma as ligações químicas mais fortes."},
+  {n:10, sym:"Ne", name:"Neônio",          cat:"noble",           p:2,  g:18, bl:"p", mass:20.18,   cfg:"[He] 2s² 2p⁶",         ox:[0],           cox:[0],      melt:-248.6, boil:-246.1, desc:"Gás nobre com brilho laranja-vermelho característico. Letreiros luminosos."},
+  {n:11, sym:"Na", name:"Sódio",           cat:"alkali",          p:3,  g:1,  bl:"s", mass:22.99,   cfg:"[Ne] 3s¹",             ox:[1],           cox:[1],      melt:97.8,   boil:883,    desc:"Metal mole muito reativo. NaCl é o sal de cozinha. Essencial para nervos."},
+  {n:12, sym:"Mg", name:"Magnésio",        cat:"alkaline",        p:3,  g:2,  bl:"s", mass:24.305,  cfg:"[Ne] 3s²",             ox:[2],           cox:[2],      melt:650,    boil:1090,   desc:"Metal leve e estrutural. Presente na clorofila. Ligas para aviação."},
+  {n:13, sym:"Al", name:"Alumínio",        cat:"post-transition", p:3,  g:13, bl:"p", mass:26.982,  cfg:"[Ne] 3s² 3p¹",         ox:[3],           cox:[3],      melt:660,    boil:2519,   desc:"Metal mais abundante da crosta terrestre. Leveza, resistência e reciclagem."},
+  {n:14, sym:"Si", name:"Silício",         cat:"metalloid",       p:3,  g:14, bl:"p", mass:28.085,  cfg:"[Ne] 3s² 3p²",         ox:[-4,4],        cox:[4],      melt:1414,   boil:3265,   desc:"Base da eletrônica moderna. Chips, semicondutores e células solares."},
+  {n:15, sym:"P",  name:"Fósforo",         cat:"polyatomic",      p:3,  g:15, bl:"p", mass:30.974,  cfg:"[Ne] 3s² 3p³",         ox:[-3,3,5],      cox:[5],      melt:44.2,   boil:280.5,  desc:"Essencial para DNA, ATP e ossos. Fertilizantes agrícolas."},
+  {n:16, sym:"S",  name:"Enxofre",         cat:"polyatomic",      p:3,  g:16, bl:"p", mass:32.06,   cfg:"[Ne] 3s² 3p⁴",         ox:[-2,4,6],      cox:[-2,6],   melt:115.2,  boil:444.7,  desc:"Não-metal amarelo. Ácido sulfúrico é o produto industrial mais fabricado."},
+  {n:17, sym:"Cl", name:"Cloro",           cat:"diatomic",        p:3,  g:17, bl:"p", mass:35.45,   cfg:"[Ne] 3s² 3p⁵",         ox:[-1,1,3,5,7],  cox:[-1],     melt:-101.5, boil:-34.0,  desc:"Halogênio verde-amarelado. Desinfetante, PVC e branqueamento."},
+  {n:18, sym:"Ar", name:"Argônio",         cat:"noble",           p:3,  g:18, bl:"p", mass:39.948,  cfg:"[Ne] 3s² 3p⁶",         ox:[0],           cox:[0],      melt:-189.4, boil:-185.9, desc:"Gás nobre mais abundante no ar. Proteção em soldagem e lâmpadas."},
+  {n:19, sym:"K",  name:"Potássio",        cat:"alkali",          p:4,  g:1,  bl:"s", mass:39.098,  cfg:"[Ar] 4s¹",             ox:[1],           cox:[1],      melt:63.4,   boil:759,    desc:"Metal alcalino muito reativo. Essencial para células e fertilizantes."},
+  {n:20, sym:"Ca", name:"Cálcio",          cat:"alkaline",        p:4,  g:2,  bl:"s", mass:40.078,  cfg:"[Ar] 4s²",             ox:[2],           cox:[2],      melt:842,    boil:1484,   desc:"Estrutura de ossos e dentes. Cimento, cal e carbonato de cálcio."},
+  {n:21, sym:"Sc", name:"Escândio",        cat:"transition",      p:4,  g:3,  bl:"d", mass:44.956,  cfg:"[Ar] 3d¹ 4s²",         ox:[3],           cox:[3],      melt:1541,   boil:2836,   desc:"Metal de transição leve. Ligas de alumínio-escândio para aeronáutica."},
+  {n:22, sym:"Ti", name:"Titânio",         cat:"transition",      p:4,  g:4,  bl:"d", mass:47.867,  cfg:"[Ar] 3d² 4s²",         ox:[2,3,4],       cox:[4],      melt:1668,   boil:3287,   desc:"Metal biocompatível e leve. Implantes, aeronaves e pigmento branco TiO₂."},
+  {n:23, sym:"V",  name:"Vanádio",         cat:"transition",      p:4,  g:5,  bl:"d", mass:50.942,  cfg:"[Ar] 3d³ 4s²",         ox:[2,3,4,5],     cox:[5],      melt:1910,   boil:3407,   desc:"Aço-vanádio de alta resistência. Catalisador industrial e baterias redox."},
+  {n:24, sym:"Cr", name:"Cromo",           cat:"transition",      p:4,  g:6,  bl:"d", mass:51.996,  cfg:"[Ar] 3d⁵ 4s¹",         ox:[2,3,6],       cox:[3,6],    melt:1907,   boil:2671,   desc:"Aço inoxidável e cromagem. Rubis e esmeraldas devem sua cor ao cromo."},
+  {n:25, sym:"Mn", name:"Manganês",        cat:"transition",      p:4,  g:7,  bl:"d", mass:54.938,  cfg:"[Ar] 3d⁵ 4s²",         ox:[2,3,4,7],     cox:[2,4],    melt:1246,   boil:2061,   desc:"Aço-manganês resistente a impacto. Baterias secas e nódulos oceânicos."},
+  {n:26, sym:"Fe", name:"Ferro",           cat:"transition",      p:4,  g:8,  bl:"d", mass:55.845,  cfg:"[Ar] 3d⁶ 4s²",         ox:[2,3],         cox:[2,3],    melt:1538,   boil:2861,   desc:"Metal mais usado pela civilização. Aço, fundição e hemoglobina."},
+  {n:27, sym:"Co", name:"Cobalto",         cat:"transition",      p:4,  g:9,  bl:"d", mass:58.933,  cfg:"[Ar] 3d⁷ 4s²",         ox:[2,3],         cox:[2,3],    melt:1495,   boil:2927,   desc:"Pigmento azul histórico. Baterias de cobalto-lítio e superligas."},
+  {n:28, sym:"Ni", name:"Níquel",          cat:"transition",      p:4,  g:10, bl:"d", mass:58.693,  cfg:"[Ar] 3d⁸ 4s²",         ox:[2],           cox:[2],      melt:1455,   boil:2913,   desc:"Resistente à corrosão. Moedas, aço inox e baterias de níquel."},
+  {n:29, sym:"Cu", name:"Cobre",           cat:"transition",      p:4,  g:11, bl:"d", mass:63.546,  cfg:"[Ar] 3d¹⁰ 4s¹",        ox:[1,2],         cox:[2],      melt:1084.6, boil:2562,   desc:"Melhor condutor após a prata. Fios elétricos, tubulações e bronze."},
+  {n:30, sym:"Zn", name:"Zinco",           cat:"transition",      p:4,  g:12, bl:"d", mass:65.38,   cfg:"[Ar] 3d¹⁰ 4s²",        ox:[2],           cox:[2],      melt:419.5,  boil:907,    desc:"Galvanização anticorrosão. Latão, pilhas e essencial para o sistema imune."},
+  {n:31, sym:"Ga", name:"Gálio",           cat:"post-transition", p:4,  g:13, bl:"p", mass:69.723,  cfg:"[Ar] 3d¹⁰ 4s² 4p¹",   ox:[3],           cox:[3],      melt:29.8,   boil:2204,   desc:"Derrete na palma da mão (29,8°C). LEDs azuis e semicondutores GaAs."},
+  {n:32, sym:"Ge", name:"Germânio",        cat:"metalloid",       p:4,  g:14, bl:"p", mass:72.63,   cfg:"[Ar] 3d¹⁰ 4s² 4p²",   ox:[2,4],         cox:[4],      melt:938.3,  boil:2833,   desc:"Semimetal previsto por Mendeleev. Fibra óptica e transistores históricos."},
+  {n:33, sym:"As", name:"Arsênio",         cat:"metalloid",       p:4,  g:15, bl:"p", mass:74.922,  cfg:"[Ar] 3d¹⁰ 4s² 4p³",   ox:[-3,3,5],      cox:[3,5],    melt:817,    boil:614,    desc:"Semimetal venenoso. Semicondutores GaAs e preservativos de madeira."},
+  {n:34, sym:"Se", name:"Selênio",         cat:"polyatomic",      p:4,  g:16, bl:"p", mass:78.971,  cfg:"[Ar] 3d¹⁰ 4s² 4p⁴",   ox:[-2,4,6],      cox:[-2],     melt:220.8,  boil:685,    desc:"Propriedades fotoelétricas. Células solares e fotocópias a laser."},
+  {n:35, sym:"Br", name:"Bromo",           cat:"diatomic",        p:4,  g:17, bl:"p", mass:79.904,  cfg:"[Ar] 3d¹⁰ 4s² 4p⁵",   ox:[-1,1,3,5],    cox:[-1],     melt:-7.2,   boil:58.8,   desc:"Único halogênio líquido à TA. Retardantes de chama e agroquímicos."},
+  {n:36, sym:"Kr", name:"Criptônio",       cat:"noble",           p:4,  g:18, bl:"p", mass:83.798,  cfg:"[Ar] 3d¹⁰ 4s² 4p⁶",   ox:[0],           cox:[0],      melt:-157.4, boil:-153.4, desc:"Gás nobre raro. Lâmpadas de alta intensidade e lasers excimer."},
+  {n:37, sym:"Rb", name:"Rubídio",         cat:"alkali",          p:5,  g:1,  bl:"s", mass:85.468,  cfg:"[Kr] 5s¹",             ox:[1],           cox:[1],      melt:39.3,   boil:688,    desc:"Metal alcalino muito reativo. Relógios atômicos e pesquisa em física."},
+  {n:38, sym:"Sr", name:"Estrôncio",       cat:"alkaline",        p:5,  g:2,  bl:"s", mass:87.62,   cfg:"[Kr] 5s²",             ox:[2],           cox:[2],      melt:777,    boil:1382,   desc:"Cor vermelha em fogos de artifício. Ímãs de ferrita e medicina nuclear."},
+  {n:39, sym:"Y",  name:"Ítrio",           cat:"transition",      p:5,  g:3,  bl:"d", mass:88.906,  cfg:"[Kr] 4d¹ 5s²",         ox:[3],           cox:[3],      melt:1522,   boil:3345,   desc:"Metal de terra rara. Supercondutores YBaCuO e lasers Nd:YAG."},
+  {n:40, sym:"Zr", name:"Zircônio",        cat:"transition",      p:5,  g:4,  bl:"d", mass:91.224,  cfg:"[Kr] 4d² 5s²",         ox:[4],           cox:[4],      melt:1855,   boil:4409,   desc:"Alta resistência à corrosão e calor. Barras de reatores nucleares."},
+  {n:41, sym:"Nb", name:"Nióbio",          cat:"transition",      p:5,  g:5,  bl:"d", mass:92.906,  cfg:"[Kr] 4d⁴ 5s¹",         ox:[3,5],         cox:[5],      melt:2477,   boil:4744,   desc:"Brasil tem 98% das reservas mundiais. Aços especiais de alta resistência."},
+  {n:42, sym:"Mo", name:"Molibdênio",      cat:"transition",      p:5,  g:6,  bl:"d", mass:95.95,   cfg:"[Kr] 4d⁵ 5s¹",         ox:[4,6],         cox:[6],      melt:2623,   boil:4639,   desc:"Alto ponto de fusão. Eletrodos para fornos e bissulfeto MoS₂ lubrificante."},
+  {n:43, sym:"Tc", name:"Tecnécio",        cat:"transition",      p:5,  g:7,  bl:"d", mass:97,      cfg:"[Kr] 4d⁵ 5s²",         ox:[4,7],         cox:[7],      melt:2157,   boil:4265,   desc:"Primeiro elemento totalmente sintético. Medicina nuclear (diagnóstico)."},
+  {n:44, sym:"Ru", name:"Rutênio",         cat:"transition",      p:5,  g:8,  bl:"d", mass:101.07,  cfg:"[Kr] 4d⁷ 5s¹",         ox:[2,3,4,8],     cox:[3],      melt:2334,   boil:4150,   desc:"Metal do grupo da platina. Catalisadores e contatos elétricos duros."},
+  {n:45, sym:"Rh", name:"Ródio",           cat:"transition",      p:5,  g:9,  bl:"d", mass:102.91,  cfg:"[Kr] 4d⁸ 5s¹",         ox:[3],           cox:[3],      melt:1964,   boil:3695,   desc:"Metal precioso raro. Catalisadores em conversores catalíticos de automóveis."},
+  {n:46, sym:"Pd", name:"Paládio",         cat:"transition",      p:5,  g:10, bl:"d", mass:106.42,  cfg:"[Kr] 4d¹⁰",            ox:[2,4],         cox:[2],      melt:1555,   boil:2963,   desc:"Absorve até 900× seu volume em H₂. Catalisadores e joias."},
+  {n:47, sym:"Ag", name:"Prata",           cat:"transition",      p:5,  g:11, bl:"d", mass:107.87,  cfg:"[Kr] 4d¹⁰ 5s¹",        ox:[1],           cox:[1],      melt:961.8,  boil:2162,   desc:"Melhor condutor elétrico e térmico de todos os metais. Joias e antibacterial."},
+  {n:48, sym:"Cd", name:"Cádmio",          cat:"transition",      p:5,  g:12, bl:"d", mass:112.41,  cfg:"[Kr] 4d¹⁰ 5s²",        ox:[2],           cox:[2],      melt:321.1,  boil:767,    desc:"Metal tóxico. Baterias Ni-Cd recarregáveis e pigmentos amarelo-laranja."},
+  {n:49, sym:"In", name:"Índio",           cat:"post-transition", p:5,  g:13, bl:"p", mass:114.82,  cfg:"[Kr] 4d¹⁰ 5s² 5p¹",   ox:[3],           cox:[3],      melt:156.6,  boil:2072,   desc:"ITO (óxido de índio-estanho) em telas touch e LCD."},
+  {n:50, sym:"Sn", name:"Estanho",         cat:"post-transition", p:5,  g:14, bl:"p", mass:118.71,  cfg:"[Kr] 4d¹⁰ 5s² 5p²",   ox:[2,4],         cox:[4],      melt:231.9,  boil:2602,   desc:"Solda, bronze e estanho de folha. Revestimento anticorrosão de latas."},
+  {n:51, sym:"Sb", name:"Antimônio",       cat:"metalloid",       p:5,  g:15, bl:"p", mass:121.76,  cfg:"[Kr] 4d¹⁰ 5s² 5p³",   ox:[-3,3,5],      cox:[3,5],    melt:630.6,  boil:1587,   desc:"Semimetal histórico. Retardantes de chama e semicondutores."},
+  {n:52, sym:"Te", name:"Telúrio",         cat:"metalloid",       p:5,  g:16, bl:"p", mass:127.6,   cfg:"[Kr] 4d¹⁰ 5s² 5p⁴",   ox:[-2,4,6],      cox:[4],      melt:449.5,  boil:988,    desc:"Semimetal raro. Células fotovoltaicas CdTe e memórias de mudança de fase."},
+  {n:53, sym:"I",  name:"Iodo",            cat:"diatomic",        p:5,  g:17, bl:"p", mass:126.9,   cfg:"[Kr] 4d¹⁰ 5s² 5p⁵",   ox:[-1,1,3,5,7],  cox:[-1],     melt:113.7,  boil:184.3,  desc:"Desinfetante e contraste em radiologia. Essencial para a glândula tireoide."},
+  {n:54, sym:"Xe", name:"Xenônio",         cat:"noble",           p:5,  g:18, bl:"p", mass:131.29,  cfg:"[Kr] 4d¹⁰ 5s² 5p⁶",   ox:[0,2,4],       cox:[0],      melt:-111.8, boil:-108.1, desc:"Gás nobre denso. Propulsores iônicos espaciais e anestesia experimental."},
+  {n:55, sym:"Cs", name:"Césio",           cat:"alkali",          p:6,  g:1,  bl:"s", mass:132.91,  cfg:"[Xe] 6s¹",             ox:[1],           cox:[1],      melt:28.4,   boil:671,    desc:"Define o segundo SI desde 1967. Relógios atômicos de máxima precisão."},
+  {n:56, sym:"Ba", name:"Bário",           cat:"alkaline",        p:6,  g:2,  bl:"s", mass:137.33,  cfg:"[Xe] 6s²",             ox:[2],           cox:[2],      melt:727,    boil:1897,   desc:"Sulfato de bário como contraste em radiografias. Fogos de artifício verdes."},
+  {n:57, sym:"La", name:"Lantânio",        cat:"lanthanide",      p:6,  g:3,  bl:"f", mass:138.91,  cfg:"[Xe] 5d¹ 6s²",         ox:[3],           cox:[3],      melt:920,    boil:3464,   desc:"Primeiro lantanídeo. Catalisadores de FCC no refino do petróleo."},
+  {n:58, sym:"Ce", name:"Cério",           cat:"lanthanide",      p:6,  g:4,  bl:"f", mass:140.12,  cfg:"[Xe] 4f¹ 5d¹ 6s²",    ox:[3,4],         cox:[3,4],    melt:799,    boil:3443,   desc:"Lantanídeo mais abundante. Pedra de isqueiro e catalisadores automotivos."},
+  {n:59, sym:"Pr", name:"Praseodímio",     cat:"lanthanide",      p:6,  g:5,  bl:"f", mass:140.91,  cfg:"[Xe] 4f³ 6s²",         ox:[3],           cox:[3],      melt:931,    boil:3520,   desc:"Ímãs permanentes NdFeB. Pigmentos amarelos e vidros de proteção UV."},
+  {n:60, sym:"Nd", name:"Neodímio",        cat:"lanthanide",      p:6,  g:6,  bl:"f", mass:144.24,  cfg:"[Xe] 4f⁴ 6s²",         ox:[3],           cox:[3],      melt:1021,   boil:3074,   desc:"Ímãs mais potentes do mundo (NdFeB). Motores elétricos e turbinas eólicas."},
+  {n:61, sym:"Pm", name:"Promécio",        cat:"lanthanide",      p:6,  g:7,  bl:"f", mass:145,     cfg:"[Xe] 4f⁵ 6s²",         ox:[3],           cox:[3],      melt:1100,   boil:3000,   desc:"Único lantanídeo sem isótopos estáveis. Fonte de radiação beta em satélites."},
+  {n:62, sym:"Sm", name:"Samário",         cat:"lanthanide",      p:6,  g:8,  bl:"f", mass:150.36,  cfg:"[Xe] 4f⁶ 6s²",         ox:[2,3],         cox:[3],      melt:1072,   boil:1794,   desc:"Ímãs SmCo para altas temperaturas. Tratamento do câncer (¹⁵³Sm)."},
+  {n:63, sym:"Eu", name:"Európio",         cat:"lanthanide",      p:6,  g:9,  bl:"f", mass:151.96,  cfg:"[Xe] 4f⁷ 6s²",         ox:[2,3],         cox:[3],      melt:822,    boil:1529,   desc:"Fósforo vermelho em telas LCD e lâmpadas fluorescentes de alta eficiência."},
+  {n:64, sym:"Gd", name:"Gadolínio",       cat:"lanthanide",      p:6,  g:10, bl:"f", mass:157.25,  cfg:"[Xe] 4f⁷ 5d¹ 6s²",    ox:[3],           cox:[3],      melt:1313,   boil:3273,   desc:"Agente de contraste em ressonância magnética (MRI). Absorvedor de nêutrons."},
+  {n:65, sym:"Tb", name:"Térbio",          cat:"lanthanide",      p:6,  g:11, bl:"f", mass:158.93,  cfg:"[Xe] 4f⁹ 6s²",         ox:[3,4],         cox:[3],      melt:1356,   boil:3230,   desc:"Aditivo magneto-óptico. Fósforo verde em telas e Terfenol-D magnetostrictivo."},
+  {n:66, sym:"Dy", name:"Disprósio",       cat:"lanthanide",      p:6,  g:12, bl:"f", mass:162.5,   cfg:"[Xe] 4f¹⁰ 6s²",        ox:[3],           cox:[3],      melt:1412,   boil:2567,   desc:"Aditivo crítico em ímãs NdFeB para carros elétricos e turbinas eólicas."},
+  {n:67, sym:"Ho", name:"Hólmio",          cat:"lanthanide",      p:6,  g:13, bl:"f", mass:164.93,  cfg:"[Xe] 4f¹¹ 6s²",        ox:[3],           cox:[3],      melt:1474,   boil:2700,   desc:"Maior campo magnético por átomo. Lasers médicos Ho:YAG para urologia."},
+  {n:68, sym:"Er", name:"Érbio",           cat:"lanthanide",      p:6,  g:14, bl:"f", mass:167.26,  cfg:"[Xe] 4f¹² 6s²",        ox:[3],           cox:[3],      melt:1529,   boil:2868,   desc:"Amplificadores EDFA em fibra óptica. Lasers médicos de 2940 nm."},
+  {n:69, sym:"Tm", name:"Túlio",           cat:"lanthanide",      p:6,  g:15, bl:"f", mass:168.93,  cfg:"[Xe] 4f¹³ 6s²",        ox:[2,3],         cox:[3],      melt:1545,   boil:1950,   desc:"Lantanídeo mais raro e caro. Lasers portáteis de raios-X cirúrgicos."},
+  {n:70, sym:"Yb", name:"Itérbio",         cat:"lanthanide",      p:6,  g:16, bl:"f", mass:173.05,  cfg:"[Xe] 4f¹⁴ 6s²",        ox:[2,3],         cox:[3],      melt:824,    boil:1196,   desc:"Relógios atômicos de rede óptica. Lasers Yb:YAG de alta potência."},
+  {n:71, sym:"Lu", name:"Lutécio",         cat:"lanthanide",      p:6,  g:17, bl:"f", mass:174.97,  cfg:"[Xe] 4f¹⁴ 5d¹ 6s²",   ox:[3],           cox:[3],      melt:1663,   boil:3402,   desc:"Último e mais denso lantanídeo. Catalisadores e tomografia PET."},
+  {n:72, sym:"Hf", name:"Háfnio",          cat:"transition",      p:6,  g:4,  bl:"d", mass:178.49,  cfg:"[Xe] 4f¹⁴ 5d² 6s²",   ox:[4],           cox:[4],      melt:2233,   boil:4603,   desc:"Alta seção transversal de nêutrons. Barras de controle em reatores nucleares."},
+  {n:73, sym:"Ta", name:"Tântalo",         cat:"transition",      p:6,  g:5,  bl:"d", mass:180.95,  cfg:"[Xe] 4f¹⁴ 5d³ 6s²",   ox:[5],           cox:[5],      melt:3017,   boil:5458,   desc:"Condensadores em eletrônicos. Biocompatível para implantes cirúrgicos."},
+  {n:74, sym:"W",  name:"Tungstênio",      cat:"transition",      p:6,  g:6,  bl:"d", mass:183.84,  cfg:"[Xe] 4f¹⁴ 5d⁴ 6s²",   ox:[4,6],         cox:[6],      melt:3422,   boil:5555,   desc:"Maior ponto de fusão dos metais (3422°C). Filamentos e carbonetos duros."},
+  {n:75, sym:"Re", name:"Rênio",           cat:"transition",      p:6,  g:7,  bl:"d", mass:186.21,  cfg:"[Xe] 4f¹⁴ 5d⁵ 6s²",   ox:[4,7],         cox:[4,7],    melt:3186,   boil:5596,   desc:"Segundo maior ponto de fusão. Superligas para turbinas de aviação."},
+  {n:76, sym:"Os", name:"Ósmio",           cat:"transition",      p:6,  g:8,  bl:"d", mass:190.23,  cfg:"[Xe] 4f¹⁴ 5d⁶ 6s²",   ox:[4],           cox:[4],      melt:3033,   boil:5012,   desc:"Metal mais denso conhecido (22,59 g/cm³). Pontas de canetas e instrumentos."},
+  {n:77, sym:"Ir", name:"Irídio",          cat:"transition",      p:6,  g:9,  bl:"d", mass:192.22,  cfg:"[Xe] 4f¹⁴ 5d⁷ 6s²",   ox:[3,4],         cox:[3,4],    melt:2446,   boil:4428,   desc:"Segundo mais denso. Padrão internacional do quilograma até 2019."},
+  {n:78, sym:"Pt", name:"Platina",         cat:"transition",      p:6,  g:10, bl:"d", mass:195.08,  cfg:"[Xe] 4f¹⁴ 5d⁹ 6s¹",   ox:[2,4],         cox:[2,4],    melt:1768,   boil:3825,   desc:"Metal nobre precioso. Catalisadores, joias e eletrodos eletroquímicos."},
+  {n:79, sym:"Au", name:"Ouro",            cat:"transition",      p:6,  g:11, bl:"d", mass:196.97,  cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s¹",  ox:[1,3],         cox:[3],      melt:1064,   boil:2856,   desc:"Metal precioso por excelência. Moeda, joias e conectores eletrônicos."},
+  {n:80, sym:"Hg", name:"Mercúrio",        cat:"transition",      p:6,  g:12, bl:"d", mass:200.59,  cfg:"[Xe] 4f¹⁴ 5d¹⁰ 6s²",  ox:[1,2],         cox:[2],      melt:-38.8,  boil:356.7,  desc:"Único metal líquido à temperatura ambiente. Termômetros e amalgamas."},
+  {n:81, sym:"Tl", name:"Tálio",           cat:"post-transition", p:6,  g:13, bl:"p", mass:204.38,  cfg:"[Xe]...6s² 6p¹",       ox:[1,3],         cox:[1],      melt:304,    boil:1473,   desc:"Metal extremamente venenoso. Semicondutores de infravermelho."},
+  {n:82, sym:"Pb", name:"Chumbo",          cat:"post-transition", p:6,  g:14, bl:"p", mass:207.2,   cfg:"[Xe]...6s² 6p²",       ox:[2,4],         cox:[2],      melt:327.5,  boil:1749,   desc:"Metal denso e histórico. Baterias chumbo-ácido e blindagem contra radiação."},
+  {n:83, sym:"Bi", name:"Bismuto",         cat:"post-transition", p:6,  g:15, bl:"p", mass:208.98,  cfg:"[Xe]...6s² 6p³",       ox:[3,5],         cox:[3],      melt:271.5,  boil:1564,   desc:"Metal mais diamagnético. Cristais iridescentes e cosmética (pérola)."},
+  {n:84, sym:"Po", name:"Polônio",         cat:"post-transition", p:6,  g:16, bl:"p", mass:209,     cfg:"[Xe]...6s² 6p⁴",       ox:[2,4],         cox:[4],      melt:254,    boil:962,    desc:"Extremamente radioativo. Descoberto por Marie Curie em 1898 na Polônia."},
+  {n:85, sym:"At", name:"Astato",          cat:"metalloid",       p:6,  g:17, bl:"p", mass:210,     cfg:"[Xe]...6s² 6p⁵",       ox:[-1,1],        cox:[-1],     melt:302,    boil:337,    desc:"Halogênio mais raro. Tratamento de câncer de tireoide com ²¹¹At."},
+  {n:86, sym:"Rn", name:"Radônio",         cat:"noble",           p:6,  g:18, bl:"p", mass:222,     cfg:"[Xe]...6s² 6p⁶",       ox:[0],           cox:[0],      melt:-71,    boil:-61.7,  desc:"Gás nobre radioativo. Segundo maior causador de câncer pulmonar (depois do tabaco)."},
+  {n:87, sym:"Fr", name:"Frâncio",         cat:"alkali",          p:7,  g:1,  bl:"s", mass:223,     cfg:"[Rn] 7s¹",             ox:[1],           cox:[1],      melt:27,     boil:677,    desc:"Elemento natural mais instável. Detectado em quantidades de alguns átomos."},
+  {n:88, sym:"Ra", name:"Rádio",           cat:"alkaline",        p:7,  g:2,  bl:"s", mass:226,     cfg:"[Rn] 7s²",             ox:[2],           cox:[2],      melt:700,    boil:1737,   desc:"Descoberto por Marie e Pierre Curie. Luminescência histórica e medicina."},
+  {n:89, sym:"Ac", name:"Actínio",         cat:"actinide",        p:7,  g:3,  bl:"f", mass:227,     cfg:"[Rn] 6d¹ 7s²",         ox:[3],           cox:[3],      melt:1050,   boil:3200,   desc:"Primeiro actinídeo. Fonte de nêutrons para medicina nuclear (²²⁵Ac)."},
+  {n:90, sym:"Th", name:"Tório",           cat:"actinide",        p:7,  g:4,  bl:"f", mass:232.04,  cfg:"[Rn] 6d² 7s²",         ox:[4],           cox:[4],      melt:1750,   boil:4788,   desc:"Combustível nuclear alternativo ao urânio. Abundante e pouco radioativo."},
+  {n:91, sym:"Pa", name:"Protactínio",     cat:"actinide",        p:7,  g:5,  bl:"f", mass:231.04,  cfg:"[Rn] 5f² 6d¹ 7s²",    ox:[4,5],         cox:[5],      melt:1568,   boil:4027,   desc:"Precursor do urânio-233 em reatores de tório. Raro e radioativo."},
+  {n:92, sym:"U",  name:"Urânio",          cat:"actinide",        p:7,  g:6,  bl:"f", mass:238.03,  cfg:"[Rn] 5f³ 6d¹ 7s²",    ox:[3,4,5,6],     cox:[6],      melt:1135,   boil:4131,   desc:"Combustível nuclear primário. Fissão em reatores e armas nucleares."},
+  {n:93, sym:"Np", name:"Netúnio",         cat:"actinide",        p:7,  g:7,  bl:"f", mass:237,     cfg:"[Rn] 5f⁴ 6d¹ 7s²",    ox:[3,4,5,6],     cox:[5],      melt:644,    boil:4000,   desc:"Primeiro transurânio sintético. Produzido em reatores nucleares."},
+  {n:94, sym:"Pu", name:"Plutônio",        cat:"actinide",        p:7,  g:8,  bl:"f", mass:244,     cfg:"[Rn] 5f⁶ 7s²",         ox:[3,4,5,6],     cox:[4],      melt:640,    boil:3228,   desc:"Combustível para armas e reatores. Gerador RTG para sondas espaciais."},
+  {n:95, sym:"Am", name:"Amerício",        cat:"actinide",        p:7,  g:9,  bl:"f", mass:243,     cfg:"[Rn] 5f⁷ 7s²",         ox:[3,4,5,6],     cox:[3],      melt:1176,   boil:2011,   desc:"Detectores de fumaça domésticos. Único elemento de uso cotidiano artificial."},
+  {n:96, sym:"Cm", name:"Cúrio",           cat:"actinide",        p:7,  g:10, bl:"f", mass:247,     cfg:"[Rn] 5f⁷ 6d¹ 7s²",    ox:[3,4],         cox:[3],      melt:1345,   boil:3110,   desc:"Homenagem a Marie e Pierre Curie. Gerador RTG em missões espaciais."},
+  {n:97, sym:"Bk", name:"Berquélio",       cat:"actinide",        p:7,  g:11, bl:"f", mass:247,     cfg:"[Rn] 5f⁹ 7s²",         ox:[3,4],         cox:[3],      melt:986,    boil:2627,   desc:"Homenagem à Berkeley. Produzido em aceleradores de partículas."},
+  {n:98, sym:"Cf", name:"Califórnio",      cat:"actinide",        p:7,  g:12, bl:"f", mass:251,     cfg:"[Rn] 5f¹⁰ 7s²",        ox:[3],           cox:[3],      melt:900,    boil:1472,   desc:"Forte emissor de nêutrons. Detecção de ouro, petróleo e explosivos."},
+  {n:99, sym:"Es", name:"Einstênio",       cat:"actinide",        p:7,  g:13, bl:"f", mass:252,     cfg:"[Rn] 5f¹¹ 7s²",        ox:[3],           cox:[3],      melt:860,    boil:996,    desc:"Homenagem a Einstein. Detectado em resíduos de testes nucleares de 1952."},
+  {n:100,sym:"Fm", name:"Férmio",          cat:"actinide",        p:7,  g:14, bl:"f", mass:257,     cfg:"[Rn] 5f¹² 7s²",        ox:[3],           cox:[3],      melt:1527,   boil:null,   desc:"Homenagem a Enrico Fermi. Detectado na bomba H Ivy Mike (1952)."},
+  {n:101,sym:"Md", name:"Mendelévio",      cat:"actinide",        p:7,  g:15, bl:"f", mass:258,     cfg:"[Rn] 5f¹³ 7s²",        ox:[2,3],         cox:[3],      melt:827,    boil:null,   desc:"Homenagem a Dmitri Mendeleev, criador da tabela periódica."},
+  {n:102,sym:"No", name:"Nobélio",         cat:"actinide",        p:7,  g:16, bl:"f", mass:259,     cfg:"[Rn] 5f¹⁴ 7s²",        ox:[2,3],         cox:[2],      melt:827,    boil:null,   desc:"Homenagem a Alfred Nobel. Produzido em fusão nuclear de urânio e carbono."},
+  {n:103,sym:"Lr", name:"Laurêncio",       cat:"actinide",        p:7,  g:17, bl:"f", mass:266,     cfg:"[Rn] 5f¹⁴ 7p¹",        ox:[3],           cox:[3],      melt:1627,   boil:null,   desc:"Último actinídeo. Homenagem a Ernest O. Lawrence, inventor do cíclotron."},
+  {n:104,sym:"Rf", name:"Rutherfórdio",    cat:"transition",      p:7,  g:4,  bl:"d", mass:267,     cfg:"[Rn]...6d² 7s²",       ox:[4],           cox:[4],      melt:2100,   boil:5500,   desc:"Primeiro transactinídeo. Homenagem a Rutherford. Vida média ~65 s."},
+  {n:105,sym:"Db", name:"Dúbnio",          cat:"transition",      p:7,  g:5,  bl:"d", mass:268,     cfg:"[Rn]...6d³ 7s²",       ox:[5],           cox:[5],      melt:null,   boil:null,   desc:"Superpesado sintético. Produzido em aceleradores, meia-vida ~28 h."},
+  {n:106,sym:"Sg", name:"Seabórgio",       cat:"transition",      p:7,  g:6,  bl:"d", mass:269,     cfg:"[Rn]...6d⁴ 7s²",       ox:[6],           cox:[6],      melt:null,   boil:null,   desc:"Homenagem a Glenn T. Seaborg. Comportamento semelhante ao tungstênio."},
+  {n:107,sym:"Bh", name:"Bóhrio",          cat:"transition",      p:7,  g:7,  bl:"d", mass:270,     cfg:"[Rn]...6d⁵ 7s²",       ox:[7],           cox:[7],      melt:null,   boil:null,   desc:"Homenagem a Niels Bohr. Vida média em segundos. Apenas poucos átomos."},
+  {n:108,sym:"Hs", name:"Hássio",          cat:"transition",      p:7,  g:8,  bl:"d", mass:277,     cfg:"[Rn]...6d⁶ 7s²",       ox:[8],           cox:[8],      melt:null,   boil:null,   desc:"Homenagem ao estado de Hesse (Alemanha). Altamente instável."},
+  {n:109,sym:"Mt", name:"Meitnério",       cat:"unknown",         p:7,  g:9,  bl:"d", mass:278,     cfg:"[Rn]...6d⁷ 7s²",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Homenagem a Lise Meitner, pioneira da fissão nuclear. Propriedades desconhecidas."},
+  {n:110,sym:"Ds", name:"Darmstádtio",     cat:"unknown",         p:7,  g:10, bl:"d", mass:281,     cfg:"[Rn]...6d⁸ 7s²",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Sintetizado em Darmstadt (GSI). Extremamente instável, meia-vida ~10 µs."},
+  {n:111,sym:"Rg", name:"Roentgênio",      cat:"unknown",         p:7,  g:11, bl:"d", mass:282,     cfg:"[Rn]...6d¹⁰ 7s¹",      ox:[],            cox:[],       melt:null,   boil:null,   desc:"Homenagem a Wilhelm Röntgen, descobridor dos raios-X. Meia-vida ~26 s."},
+  {n:112,sym:"Cn", name:"Copernício",      cat:"transition",      p:7,  g:12, bl:"d", mass:285,     cfg:"[Rn]...6d¹⁰ 7s²",      ox:[2],           cox:[2],      melt:null,   boil:null,   desc:"Homenagem a Copérnico. Possivelmente gasoso à temperatura ambiente."},
+  {n:113,sym:"Nh", name:"Nihônio",         cat:"post-transition", p:7,  g:13, bl:"p", mass:286,     cfg:"[Rn]...7s² 7p¹",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Primeiro elemento sintético da Ásia (RIKEN, Japão). Confirmado em 2016."},
+  {n:114,sym:"Fl", name:"Fleróvio",        cat:"post-transition", p:7,  g:14, bl:"p", mass:289,     cfg:"[Rn]...7s² 7p²",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Possivelmente gás nobre superpesado por efeitos relativísticos."},
+  {n:115,sym:"Mc", name:"Moscóvio",        cat:"post-transition", p:7,  g:15, bl:"p", mass:290,     cfg:"[Rn]...7s² 7p³",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Sintetizado em Dubna (Rússia). Decai para nihônio via emissão alfa."},
+  {n:116,sym:"Lv", name:"Livermório",      cat:"post-transition", p:7,  g:16, bl:"p", mass:293,     cfg:"[Rn]...7s² 7p⁴",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Homenagem ao Lawrence Livermore National Laboratory, EUA."},
+  {n:117,sym:"Ts", name:"Tennessino",      cat:"metalloid",       p:7,  g:17, bl:"p", mass:294,     cfg:"[Rn]...7s² 7p⁵",       ox:[],            cox:[],       melt:null,   boil:null,   desc:"Segundo halogênio sintético. Homenagem ao Tennessee (ORNL, Vanderbilt, UTK)."},
+  {n:118,sym:"Og", name:"Oganessônio",     cat:"noble",           p:7,  g:18, bl:"p", mass:294,     cfg:"[Rn]...7s² 7p⁶",       ox:[0],           cox:[0],      melt:null,   boil:null,   desc:"Elemento mais pesado confirmado. Homenagem a Yuri Oganessian. Gás nobre superpesado."},
+];
+
+const CAT_COLOR = {
+  alkali:"#d94f4f", alkaline:"#d49030", lanthanide:"#c46faa", actinide:"#c45080",
+  transition:"#c97870", "post-transition":"#7da87d", metalloid:"#9db040",
+  polyatomic:"#48a86a", diatomic:"#7db840", noble:"#5090c0", unknown:"#555"
+};
+const CAT_PT = {
+  alkali:"Metal Alcalino", alkaline:"Metal Alcalino Terroso",
+  lanthanide:"Lantanídeo", actinide:"Actinídeo",
+  transition:"Metal de Transição", "post-transition":"Metal Pós-Transição",
+  metalloid:"Semimetal", polyatomic:"Não-metal Poliatômico",
+  diatomic:"Não-metal Diatômico", noble:"Gás Nobre", unknown:"Propriedades Desconhecidas"
+};
+
+/* ═══════════════════════════════════════════════════════════
+   MORAN SPIRAL LAYOUT
+   
+   The Moran Periodic Spiral arranges elements in a continuous
+   outward spiral. Each "arm" of the spiral corresponds to a
+   chemical group (column in standard table). Elements grow
+   outward from the center as atomic number increases, with
+   each period forming a ring/loop around the center.
+   
+   Layout strategy:
+   - Center: H(1), He(2) — period 1
+   - Ring 2: Li→Ne (period 2, 8 elements)
+   - Ring 3: Na→Ar (period 3, 8 elements)
+   - Ring 4: K→Kr (period 4, 18 elements, includes d-block)
+   - Ring 5: Rb→Xe (period 5, 18 elements)
+   - Ring 6: Cs→Rn (period 6, 32 elements, includes f-block)
+   - Ring 7: Fr→Og (period 7, 32 elements)
+   
+   We place each element at:
+     angle = group_angle(group) + period_offset
+     radius = base_radius(period) + f_block_push
+   
+═══════════════════════════════════════════════════════════ */
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+const HW = 32; // hex half-width
+const HH = 37; // hex half-height
+const R_STEP = 88; // radial step per period
+const BASE_R = 100; // center ring radius
+
+// In Moran's spiral, groups 1-18 are distributed angularly.
+// Group 1 (alkali) at ~270° (top), Noble gases at ~250°.
+// The f-block inserts between groups 2 and 3 in periods 6-7.
+// We'll map each element to (angle_deg, ring_r).
+
+function spiralPos(el) {
+  const {n, p, g, bl} = el;
+  
+  // Determine angular position based on group
+  // 18 groups span 360°, starting at top
+  // Group 1 → 270° (top-right), going clockwise
+  
+  // For f-block elements, they fit between group 2 and group 3
+  // Lanthanides: p=6, groups 57-71 mapped to f-block positions
+  // Actinides: p=7, groups 89-103
+  
+  let groupAngle;
+  let ring;
+  
+  if (bl === "f") {
+    // f-block: 14 elements, angle spread between g=2 and g=4
+    // La(57)→Lu(71) and Ac(89)→Lr(103)
+    let fIndex;
+    if (n >= 57 && n <= 71) fIndex = n - 57; // 0-13
+    else fIndex = n - 89; // 0-13
+    
+    // Spread f-block between 20° and 80° (between alkaline earth and transition metals)
+    const fStart = groupToAngle(2) + 6;
+    const fEnd = groupToAngle(4) - 6;
+    groupAngle = fStart + (fIndex / 13) * (fEnd - fStart);
+    ring = BASE_R + (p - 1) * R_STEP + 20; // slightly outward for f-block
+  } else {
+    groupAngle = groupToAngle(g);
+    ring = BASE_R + (p - 1) * R_STEP;
+    // Period 1: H and He at inner ring
+    if (p === 1) ring = BASE_R - 30;
+  }
+  
+  const rad = (groupAngle * Math.PI) / 180;
+  return {
+    x: ring * Math.cos(rad),
+    y: ring * Math.sin(rad),
+    ring,
+    angle: groupAngle
+  };
+}
+
+function groupToAngle(g) {
+  // Map group 1→18 to angles 0°→360° clockwise from top
+  // 0° = top (12 o'clock), clockwise
+  // We want group 1 (alkali) at top, noble gases just before
+  // Distribute 18 groups over 360°
+  const totalGroups = 18;
+  const anglePerGroup = 360 / totalGroups;
+  // Start group 1 at -90° (top), going clockwise
+  return -90 + (g - 1) * anglePerGroup;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════════ */
+let selectedEl = null;
+let activeFilter = "all";
+
+function hexPoints(cx, cy, hw, hh) {
+  // Flat-top hexagon
+  const w = hw, h = hh;
+  return [
+    [cx, cy - h],
+    [cx + w, cy - h/2],
+    [cx + w, cy + h/2],
+    [cx, cy + h],
+    [cx - w, cy + h/2],
+    [cx - w, cy - h/2],
+  ].map(p => p.join(",")).join(" ");
+}
+
+function buildLegend() {
+  const leg = document.getElementById("legend");
+  Object.entries(CAT_PT).forEach(([cat, label]) => {
+    const d = document.createElement("div");
+    d.className = "leg-item";
+    d.dataset.cat = cat;
+    d.innerHTML = `<div class="leg-dot" style="background:${CAT_COLOR[cat]}"></div>${label}`;
+    d.addEventListener("mouseenter", () => highlightCat(cat));
+    d.addEventListener("mouseleave", () => restoreFilter());
+    leg.appendChild(d);
+  });
+}
+
+function buildSpiral() {
+  const svg = document.getElementById("spiral-svg");
+  svg.innerHTML = "";
+  
+  // Calculate bounds
+  let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+  ELEMENTS.forEach(el => {
+    const pos = spiralPos(el);
+    minX = Math.min(minX, pos.x - HW - 4);
+    minY = Math.min(minY, pos.y - HH - 4);
+    maxX = Math.max(maxX, pos.x + HW + 4);
+    maxY = Math.max(maxY, pos.y + HH + 4);
+  });
+  
+  const pad = 60;
+  const W = maxX - minX + pad*2;
+  const H = maxY - minY + pad*2;
+  const offX = -minX + pad;
+  const offY = -minY + pad;
+  
+  svg.setAttribute("width", W);
+  svg.setAttribute("height", H);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  
+  // Draw faint spiral guide lines (concentric rings per period)
+  const guideG = document.createElementNS(SVG_NS, "g");
+  guideG.setAttribute("opacity", "0.08");
+  for (let period=1; period<=7; period++) {
+    const r = BASE_R + (period-1)*R_STEP - (period===1 ? 30 : 0);
+    const circle = document.createElementNS(SVG_NS, "circle");
+    circle.setAttribute("cx", offX);
+    circle.setAttribute("cy", offY);
+    circle.setAttribute("r", r);
+    circle.setAttribute("fill", "none");
+    circle.setAttribute("stroke", "#ffffff");
+    circle.setAttribute("stroke-width", "0.5");
+    guideG.appendChild(circle);
+  }
+  svg.appendChild(guideG);
+  
+  // Period labels
+  for (let period=1; period<=7; period++) {
+    const r = BASE_R + (period-1)*R_STEP - (period===1 ? 30 : 0);
+    const t = document.createElementNS(SVG_NS, "text");
+    t.setAttribute("x", offX + 5);
+    t.setAttribute("y", offY - r + 14);
+    t.setAttribute("class", "period-label");
+    t.setAttribute("text-anchor", "middle");
+    t.textContent = `${period}º`;
+    svg.appendChild(t);
+  }
+  
+  // Draw group radial lines (faint)
+  const radG = document.createElementNS(SVG_NS, "g");
+  radG.setAttribute("opacity", "0.04");
+  for (let g=1; g<=18; g++) {
+    const angle = (groupToAngle(g) * Math.PI) / 180;
+    const r1 = BASE_R - 60;
+    const r2 = BASE_R + 6*R_STEP + 60;
+    const line = document.createElementNS(SVG_NS, "line");
+    line.setAttribute("x1", offX + r1*Math.cos(angle));
+    line.setAttribute("y1", offY + r1*Math.sin(angle));
+    line.setAttribute("x2", offX + r2*Math.cos(angle));
+    line.setAttribute("y2", offY + r2*Math.sin(angle));
+    line.setAttribute("stroke", "#ffffff");
+    line.setAttribute("stroke-width", "1");
+    radG.appendChild(line);
+  }
+  svg.appendChild(radG);
+  
+  // Group number labels at outer edge
+  for (let g=1; g<=18; g++) {
+    const angle = (groupToAngle(g) * Math.PI) / 180;
+    const r = BASE_R + 6*R_STEP + 55;
+    const t = document.createElementNS(SVG_NS, "text");
+    t.setAttribute("x", offX + r*Math.cos(angle));
+    t.setAttribute("y", offY + r*Math.sin(angle) + 4);
+    t.setAttribute("class", "group-label");
+    t.setAttribute("text-anchor", "middle");
+    t.textContent = g;
+    svg.appendChild(t);
+  }
+  
+  // Draw hexagons
+  const hexG = document.createElementNS(SVG_NS, "g");
+  
+  ELEMENTS.forEach(el => {
+    const pos = spiralPos(el);
+    const cx = pos.x + offX;
+    const cy = pos.y + offY;
+    const color = CAT_COLOR[el.cat] || "#555";
+    
+    const g = document.createElementNS(SVG_NS, "g");
+    g.setAttribute("class", `hex-group`);
+    g.dataset.n = el.n;
+    g.dataset.cat = el.cat;
+    g.style.cursor = "pointer";
+    
+    // Hex polygon
+    const poly = document.createElementNS(SVG_NS, "polygon");
+    poly.setAttribute("points", hexPoints(cx, cy, HW, HH));
+    poly.setAttribute("fill", color);
+    poly.setAttribute("stroke", "rgba(0,0,0,0.3)");
+    poly.setAttribute("stroke-width", "1");
+    poly.style.transition = "opacity 0.15s";
+    
+    // Number
+    const tNum = document.createElementNS(SVG_NS, "text");
+    tNum.setAttribute("x", cx);
+    tNum.setAttribute("y", cy - 13);
+    tNum.setAttribute("text-anchor", "middle");
+    tNum.setAttribute("fill", "rgba(255,255,255,0.65)");
+    tNum.setAttribute("font-family", "Fira Code, monospace");
+    tNum.setAttribute("font-size", "8");
+    tNum.textContent = el.n;
+    
+    // Symbol
+    const tSym = document.createElementNS(SVG_NS, "text");
+    tSym.setAttribute("x", cx);
+    tSym.setAttribute("y", cy + 6);
+    tSym.setAttribute("text-anchor", "middle");
+    tSym.setAttribute("fill", "#ffffff");
+    tSym.setAttribute("font-family", "Lexend, sans-serif");
+    tSym.setAttribute("font-weight", "700");
+    tSym.setAttribute("font-size", "16");
+    tSym.textContent = el.sym;
+    
+    // Short config
+    const shortCfg = el.cfg.replace(/\[.*?\]\s?/, "").slice(0, 7);
+    const tCfg = document.createElementNS(SVG_NS, "text");
+    tCfg.setAttribute("x", cx);
+    tCfg.setAttribute("y", cy + 20);
+    tCfg.setAttribute("text-anchor", "middle");
+    tCfg.setAttribute("fill", "rgba(255,255,255,0.5)");
+    tCfg.setAttribute("font-family", "Fira Code, monospace");
+    tCfg.setAttribute("font-size", "6");
+    tCfg.textContent = shortCfg;
+    
+    g.appendChild(poly);
+    g.appendChild(tNum);
+    g.appendChild(tSym);
+    g.appendChild(tCfg);
+    
+    // Events
+    g.addEventListener("click", () => selectEl(el, poly));
+    g.addEventListener("mouseenter", (e) => {
+      if (!g.classList.contains("dimmed")) {
+        poly.setAttribute("stroke", "#fff");
+        poly.setAttribute("stroke-width", "2");
+        showTip(e, el);
+      }
+    });
+    g.addEventListener("mouseleave", () => {
+      poly.setAttribute("stroke", "rgba(0,0,0,0.3)");
+      poly.setAttribute("stroke-width", "1");
+      hideTip();
+    });
+    
+    hexG.appendChild(g);
+  });
+  
+  svg.appendChild(hexG);
+}
+
+function selectEl(el, polyEl) {
+  selectedEl = el;
+  // Reset all outlines
+  document.querySelectorAll(".hex-group polygon").forEach(p => {
+    p.setAttribute("stroke", "rgba(0,0,0,0.3)");
+    p.setAttribute("stroke-width", "1");
+  });
+  if (polyEl) {
+    polyEl.setAttribute("stroke", "#8b7cf8");
+    polyEl.setAttribute("stroke-width", "2.5");
+  }
+  renderDetail(el);
+}
+
+function renderDetail(el) {
+  const panel = document.getElementById("detail");
+  panel.classList.remove("empty");
+  const color = CAT_COLOR[el.cat] || "#555";
+  
+  const oxHtml = el.ox.map(o => {
+    const c = el.cox.includes(o) ? "c" : "";
+    return `<span class="ox ${c}">${o>0?"+":""}${o}</span>`;
+  }).join("");
+  
+  panel.innerHTML = `
+    <div class="d-hex cat-${el.cat}" style="background:${color}">
+      <div class="d-n">${el.n}</div>
+      <div class="d-s">${el.sym}</div>
+      <div class="d-nm">${el.name}</div>
+    </div>
+    <div class="d-title">${el.name}</div>
+    <div class="d-cat" style="color:${color}">${CAT_PT[el.cat]||el.cat}</div>
+    <div class="d-grid">
+      <div class="d-box"><div class="d-label">Nº Atômico</div><div class="d-val">${el.n}</div></div>
+      <div class="d-box"><div class="d-label">Massa</div><div class="d-val">${el.mass} u</div></div>
+      <div class="d-box"><div class="d-label">Período</div><div class="d-val">${el.p}</div></div>
+      <div class="d-box"><div class="d-label">Grupo</div><div class="d-val">${el.g} · Bloco ${el.bl.toUpperCase()}</div></div>
+      <div class="d-box"><div class="d-label">Fusão</div><div class="d-val">${el.melt !== null ? el.melt+"°C" : "—"}</div></div>
+      <div class="d-box"><div class="d-label">Ebulição</div><div class="d-val">${el.boil !== null ? el.boil+"°C" : "—"}</div></div>
+      <div class="d-box full"><div class="d-label">Configuração Eletrônica</div><div class="d-cfg">${el.cfg}</div></div>
+      ${el.ox.length ? `<div class="d-box full"><div class="d-label">Estados de Oxidação</div><div class="ox-row">${oxHtml}</div><div style="font-size:9px;color:var(--muted);margin-top:5px"><span style="background:rgba(139,124,248,.3);border-radius:2px;padding:1px 4px;color:#fff">destaque</span> = mais comuns</div></div>` : ""}
+    </div>
+    <div class="d-desc">${el.desc}</div>
+  `;
+}
+
+function highlightCat(cat) {
+  document.querySelectorAll(".hex-group").forEach(g => {
+    g.classList.toggle("dimmed", g.dataset.cat !== cat);
+    g.style.opacity = g.dataset.cat === cat ? "1" : "0.15";
+  });
+}
+
+function restoreFilter() {
+  document.querySelectorAll(".hex-group").forEach(g => {
+    if (activeFilter === "all") {
+      g.style.opacity = "1";
+      g.classList.remove("dimmed");
+    } else {
+      const match = g.dataset.cat === activeFilter;
+      g.style.opacity = match ? "1" : "0.15";
+      g.classList.toggle("dimmed", !match);
+    }
+  });
+}
+
+// Tooltip
+const tip = document.getElementById("tip");
+function showTip(e, el) {
+  tip.textContent = `${el.n} · ${el.sym} · ${el.name} · ${el.mass} u`;
+  tip.style.display = "block";
+  moveTip(e);
+}
+function hideTip() { tip.style.display = "none"; }
+function moveTip(e) {
+  tip.style.left = (e.clientX + 14) + "px";
+  tip.style.top = (e.clientY - 28) + "px";
+}
+document.addEventListener("mousemove", moveTip);
+
+// Search
+document.getElementById("search-bar").addEventListener("input", function() {
+  const q = this.value.toLowerCase().trim();
+  document.querySelectorAll(".hex-group").forEach(g => {
+    const el = ELEMENTS.find(e => e.n === parseInt(g.dataset.n));
+    if (!q) {
+      g.style.opacity = "1"; g.classList.remove("dimmed");
+      return;
+    }
+    const match = el.sym.toLowerCase().includes(q) || el.name.toLowerCase().includes(q) || String(el.n).includes(q);
+    g.style.opacity = match ? "1" : "0.12";
+    g.classList.toggle("dimmed", !match);
+  });
+});
+
+// Init
+buildLegend();
+buildSpiral();
+
+// Default select
+setTimeout(() => {
+  const ir = ELEMENTS.find(e => e.n === 77);
+  const poly = document.querySelector('[data-n="77"] polygon');
+  selectEl(ir, poly);
+}, 300);
+</script>
+</body>
+</html>

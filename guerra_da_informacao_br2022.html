@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firehose of Falsehood — Arquitetura de Influência · Brasil 2022</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0a0a0b;
+    --bg2:       #111114;
+    --bg3:       #18181d;
+    --border:    rgba(255,255,255,0.07);
+    --border2:   rgba(255,255,255,0.13);
+    --text:      #e8e6e0;
+    --muted:     #6b6966;
+    --accent:    #c94a2a;
+    --accent2:   #7c5cdb;
+    --accent3:   #1d9e75;
+    --amber:     #ba7517;
+    --red:       #c94a2a;
+    --coral:     #d85a30;
+    --purple:    #7f77dd;
+    --teal:      #1d9e75;
+    --gray:      #888780;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+  }
+
+  body {
+    padding: 48px 24px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+  }
+
+  .header-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .header h1 span {
+    color: var(--accent);
+  }
+
+  .header-sub {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.6;
+  }
+
+  /* Layer labels */
+  .layer-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    margin-top: 36px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .layer-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Card grids */
+  .grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+  @media (max-width: 640px) {
+    .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* Node cards */
+  .node {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .node::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .node:hover {
+    background: #1e1e24;
+    border-color: var(--border2);
+  }
+
+  .node:hover::before { opacity: 1; }
+
+  .node-title {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 5px;
+  }
+
+  .node-sub {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Color variants */
+  .coral .node-title { color: #f08060; }
+  .coral::before { background: var(--coral); }
+  .coral:hover { border-color: rgba(216, 90, 48, 0.3); }
+
+  .purple .node-title { color: #a89ff0; }
+  .purple::before { background: var(--purple); }
+  .purple:hover { border-color: rgba(127, 119, 221, 0.3); }
+
+  .teal .node-title { color: #3ecfa0; }
+  .teal::before { background: var(--teal); }
+  .teal:hover { border-color: rgba(29, 158, 117, 0.3); }
+
+  .amber .node-title { color: #e8a83a; }
+  .amber::before { background: var(--amber); }
+  .amber:hover { border-color: rgba(186, 117, 23, 0.3); }
+
+  .red .node-title { color: #e87060; }
+  .red::before { background: var(--red); }
+  .red:hover { border-color: rgba(201, 74, 42, 0.3); }
+
+  /* Arrow connector */
+  .connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+    color: var(--muted);
+    font-size: 18px;
+    opacity: 0.4;
+  }
+
+  /* Final result box */
+  .result-box {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .result-box .result-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .result-box .result-sub {
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* Legend */
+  .legend {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+  }
+
+  .footer-brand a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .source-tag {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    color: var(--muted);
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+    z-index: 100;
+  }
+
+  .tooltip.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Modelo RAND Corporation · Análise aplicada</div>
+  <h1>Firehose of <span>Falsehood</span><br>Arquitetura de influência</h1>
+  <div class="header-sub">Brasil 2022 · 5 camadas · Guerra de informação documentada</div>
+</div>
+
+<!-- CAMADA 1 -->
+<div class="layer-label">Camada 1 — Vetores de emissão</div>
+<div class="grid grid-4">
+  <div class="node coral" onclick="tip('STF e TSE funcionam como pistas periféricas de autoridade — o cidadão aceita sem verificar.')">
+    <div class="node-title">STF / TSE</div>
+    <div class="node-sub">Autoridade institucional</div>
+  </div>
+  <div class="node coral" onclick="tip('ONGs financiadas externamente criam aparência de sociedade civil orgânica e independente.')">
+    <div class="node-title">ONGs</div>
+    <div class="node-sub">Legitimidade civil</div>
+  </div>
+  <div class="node coral" onclick="tip('A mídia corporativa garante repetição contínua — produzindo o efeito da verdade ilusória.')">
+    <div class="node-title">Mídia corporativa</div>
+    <div class="node-sub">Amplificação e repetição</div>
+  </div>
+  <div class="node coral" onclick="tip('USAID e atores externos fortalecem seletivamente atores da sociedade civil alinhados à agenda.')">
+    <div class="node-title">USAID / atores externos</div>
+    <div class="node-sub">Financiamento externo</div>
+  </div>
+</div>
+
+<div class="connector">↓</div>
+
+<!-- CAMADA 2 -->
+<div class="layer-label">Camada 2 — Táticas do modelo Firehose</div>
+<div class="grid grid-4">
+  <div class="node purple" onclick="tip('Múltiplas fontes aparentemente independentes chegam à mesma conclusão — ilusão de consenso.')">
+    <div class="node-title">Alto volume multicanal</div>
+    <div class="node-sub">Ilusão de consenso</div>
+  </div>
+  <div class="node purple" onclick="tip('Rapidez impede verificação. Repetição cria familiaridade. Familiaridade vira veracidade.')">
+    <div class="node-title">Rapidez e repetição</div>
+    <div class="node-sub">Impede verificação</div>
+  </div>
+  <div class="node purple" onclick="tip('Meias-verdades e omissões estratégicas exploram o efeito sleeper: a emoção permanece, a fonte é esquecida.')">
+    <div class="node-title">Sem realidade objetiva</div>
+    <div class="node-sub">Meias-verdades / omissões</div>
+  </div>
+  <div class="node purple" onclick="tip('Contradições deliberadas confundem a oposição e tornam impossível construir contra-narrativa coesa.')">
+    <div class="node-title">Sem consistência</div>
+    <div class="node-sub">Contradições deliberadas</div>
+  </div>
+</div>
+
+<div class="connector">↓</div>
+
+<!-- CAMADA 3 -->
+<div class="layer-label">Camada 3 — Exploração psicológica</div>
+<div class="grid grid-4">
+  <div class="node teal" onclick="tip('Repetição cria familiaridade. O cérebro confunde familiaridade com veracidade — sem análise crítica.')">
+    <div class="node-title">Verdade ilusória</div>
+    <div class="node-sub">Familiaridade = veracidade</div>
+  </div>
+  <div class="node teal" onclick="tip('Pressão institucional induz dissonância. Para aliviar a tensão, o cidadão altera sua atitude — não por convicção, por desconforto.')">
+    <div class="node-title">Dissonância cognitiva</div>
+    <div class="node-sub">Pressão institucional</div>
+  </div>
+  <div class="node teal" onclick="tip('Com o tempo, a memória dissocia a informação de sua fonte. A emoção da acusação permanece mesmo após a origem ser desacreditada.')">
+    <div class="node-title">Efeito sleeper</div>
+    <div class="node-sub">Fonte esquecida, emoção fica</div>
+  </div>
+  <div class="node teal" onclick="tip('O tribunal ou a ONG funcionam como pista periférica heurística: a audiência aceita a narrativa sem analisar o conteúdo.')">
+    <div class="node-title">Heurística de autoridade</div>
+    <div class="node-sub">Pista periférica</div>
+  </div>
+</div>
+
+<div class="connector">↓</div>
+
+<!-- CAMADA 4 -->
+<div class="layer-label">Camada 4 — Operações estratégicas</div>
+<div class="grid grid-3">
+  <div class="node amber" onclick="tip('Shaping operations estabelecem os termos do debate antes do evento decisivo — quem define o enquadramento vence.')">
+    <div class="node-title">Shaping operations</div>
+    <div class="node-sub">Define os termos do debate</div>
+  </div>
+  <div class="node amber" onclick="tip('Prebunking rotula preventivamente qualquer questionamento como desinformação. Quem refuta chega ao debate pré-desacreditado.')">
+    <div class="node-title">Prebunking</div>
+    <div class="node-sub">Inoculação contra o contraditório</div>
+  </div>
+  <div class="node amber" onclick="tip('Plataformas concisas por design favorecem declarações assertivas de autoridade sobre refutações fundamentadas.')">
+    <div class="node-title">Antirracionalismo digital</div>
+    <div class="node-sub">Concisão impede refutação</div>
+  </div>
+</div>
+
+<div class="connector">↓</div>
+
+<!-- CAMADA 5 -->
+<div class="layer-label">Camada 5 — Efeitos sobre o cidadão</div>
+<div class="grid grid-4">
+  <div class="node red" onclick="tip('Sobrecarga cognitiva: volume superior à capacidade humana de processar paralisa a análise crítica.')">
+    <div class="node-title">Saturação</div>
+    <div class="node-sub">Sobrecarga cognitiva</div>
+  </div>
+  <div class="node red" onclick="tip('Cada novo escândalo apaga o anterior. A gravidade dos eventos se normaliza. A indignação se esgota.')">
+    <div class="node-title">Dessensibilização</div>
+    <div class="node-sub">Escândalos = normalidade</div>
+  </div>
+  <div class="node red" onclick="tip('Sem fio condutor entre os eventos, nenhuma contra-narrativa ganha tração suficiente para virar movimento.')">
+    <div class="node-title">Fragmentação</div>
+    <div class="node-sub">Sem fio condutor</div>
+  </div>
+  <div class="node red" onclick="tip('Por autopreservação psicológica, o cidadão exausto abandona voluntariamente o campo. Objetivo cumprido.')">
+    <div class="node-title">Desengajamento</div>
+    <div class="node-sub">Fadiga cognitiva deliberada</div>
+  </div>
+</div>
+
+<div class="connector">↓</div>
+
+<!-- RESULTADO FINAL -->
+<div class="result-box">
+  <div class="result-title">Campo livre — soberania individual e política suprimida</div>
+  <div class="result-sub">Cidadão exausto abandona a batalha. Narrativa dominante vence sem combate.<br>O objetivo nunca foi convencer. Foi exaurir.</div>
+</div>
+
+<!-- LEGENDA -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#d85a30"></div>Vetores de emissão</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7f77dd"></div>Táticas do modelo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1d9e75"></div>Mecanismos psicológicos</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ba7517"></div>Operações estratégicas</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c94a2a"></div>Efeitos sobre o cidadão</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">
+    <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a>
+    &nbsp;·&nbsp; @araguaci
+  </div>
+  <div class="source-tag">Fonte: RAND Corporation · "Firehose of Falsehood"</div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tip"></div>
+
+<script>
+  let tipTimer;
+  function tip(msg) {
+    const el = document.getElementById('tip');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => el.classList.remove('show'), 4000);
+  }
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

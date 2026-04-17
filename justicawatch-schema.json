@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lawfare-timeline.vercel.app/schemas/justicawatch-v1.json",
+  "title": "JustiçaWatch Brasil — Schema de Registro",
+  "description": "Schema oficial para registro de decisões judiciais brasileiras com impacto na segurança pública. Domínio Público — CC0 1.0 Universal.",
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "maintainer": "lawfare-timeline.vercel.app",
+
+  "type": "object",
+  "required": ["id", "data_registro", "ano_decisao", "tribunal", "tipo_decisao", "crime_categoria", "resumo", "impacto_publico", "fontes"],
+
+  "properties": {
+
+    "id": {
+      "type": "string",
+      "description": "Identificador único sequencial. Formato: JW-AAAA-NNN (ex: JW-2006-001)",
+      "pattern": "^JW-[0-9]{4}-[0-9]{3}$",
+      "examples": ["JW-2006-001", "JW-2020-042"]
+    },
+
+    "data_registro": {
+      "type": "string",
+      "description": "Data de inclusão nesta base. ISO 8601.",
+      "format": "date",
+      "examples": ["2026-04-12"]
+    },
+
+    "versao": {
+      "type": "integer",
+      "description": "Número de versão do registro. Começa em 1, incrementa a cada atualização.",
+      "minimum": 1,
+      "default": 1
+    },
+
+    "status": {
+      "type": "string",
+      "description": "Estado atual do registro.",
+      "enum": ["ativo", "atualizado", "corrigido", "removido", "pendente_verificacao"],
+      "default": "ativo"
+    },
+
+    "ano_decisao": {
+      "type": "integer",
+      "description": "Ano em que a decisão foi proferida.",
+      "minimum": 1988,
+      "maximum": 2099,
+      "examples": [2020, 2024]
+    },
+
+    "data_decisao": {
+      "type": ["string", "null"],
+      "description": "Data exata da decisão, se conhecida. ISO 8601.",
+      "format": "date",
+      "examples": ["2020-10-14", null]
+    },
+
+    "tribunal": {
+      "type": "string",
+      "description": "Tribunal que proferiu a decisão.",
+      "enum": [
+        "STF",
+        "STJ",
+        "TST",
+        "TSE",
+        "STM",
+        "TRF1", "TRF2", "TRF3", "TRF4", "TRF5", "TRF6",
+        "TJSP", "TJRJ", "TJMG", "TJRS", "TJPR", "TJSC",
+        "TJBA", "TJPE", "TJCE", "TJGO", "TJDF", "TJAM",
+        "TJPA", "TJMA", "TJES", "TJMT", "TJMS", "TJRN",
+        "TJPI", "TJAL", "TJSE", "TJRO", "TJTO", "TJAC",
+        "TJAP", "TJRR", "TJPB",
+        "OUTRO"
+      ],
+      "examples": ["STF", "STJ", "TJSP"]
+    },
+
+    "tribunal_descricao": {
+      "type": ["string", "null"],
+      "description": "Nome completo quando tribunal = OUTRO.",
+      "examples": ["Tribunal de Justiça do Tocantins — Vara Criminal de Palmas"]
+    },
+
+    "turma_orgao": {
+      "type": ["string", "null"],
+      "description": "Turma, câmara ou órgão julgador dentro do tribunal.",
+      "examples": ["1ª Turma", "6ª Turma", "Plenário", "2ª Câmara Criminal"]
+    },
+
+    "numero_processo": {
+      "type": ["string", "null"],
+      "description": "Número CNJ do processo (formato: NNNNNNN-DD.AAAA.J.TT.OOOO) ou número legado.",
+      "examples": ["HC 191.836/SP", "ADC 43", "0003421-55.2020.8.21.0018"]
+    },
+
+    "relator": {
+      "type": ["string", "null"],
+      "description": "Nome do ministro ou juiz relator.",
+      "examples": ["Min. Marco Aurélio Mello", "Min. Sebastião Reis Júnior"]
+    },
+
+    "tipo_decisao": {
+      "type": "string",
+      "description": "Natureza jurídica da decisão.",
+      "enum": [
+        "habeas_corpus_monocratico",
+        "habeas_corpus_colegiado",
+        "habeas_corpus_coletivo",
+        "progressao_regime",
+        "liberdade_provisoria",
+        "revogacao_preventiva",
+        "nulidade_processual",
+        "nulidade_prova",
+        "absolvicao",
+        "reducao_pena",
+        "extincao_punibilidade",
+        "mudanca_jurisprudencial",
+        "acao_direta",
+        "medida_cautelar",
+        "audiencia_custodia",
+        "trafico_privilegiado",
+        "outro"
+      ],
+      "examples": ["habeas_corpus_monocratico", "progressao_regime"]
+    },
+
+    "tipo_decisao_descricao": {
+      "type": ["string", "null"],
+      "description": "Descrição adicional quando tipo_decisao = outro."
+    },
+
+    "crime_categoria": {
+      "type": "array",
+      "description": "Categorias de crime envolvidas. Array para casos com múltiplos crimes.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "trafico_drogas",
+          "trafico_internacional",
+          "trafico_privilegiado",
+          "homicidio_simples",
+          "homicidio_qualificado",
+          "homicidio_multiplo",
+          "tentativa_homicidio",
+          "latrocinio",
+          "estupro",
+          "estupro_vulneravel",
+          "abuso_sexual_menor",
+          "corrupcao_ativa",
+          "corrupcao_passiva",
+          "peculato",
+          "lavagem_dinheiro",
+          "organizacao_criminosa",
+          "milicia",
+          "terrorismo",
+          "sequestro",
+          "extorsao",
+          "roubo_qualificado",
+          "genocidio",
+          "tortura",
+          "trafico_pessoas",
+          "crime_ambiental",
+          "fraude_financeira",
+          "improbidade_administrativa",
+          "outro_crime_hediondo",
+          "outro"
+        ]
+      },
+      "minItems": 1,
+      "examples": [
+        ["trafico_internacional", "organizacao_criminosa"],
+        ["homicidio_multiplo", "estupro"]
+      ]
+    },
+
+    "facção_envolvida": {
+      "type": ["string", "null"],
+      "description": "Organização criminosa envolvida, se aplicável.",
+      "enum": ["PCC", "CV", "ADA", "TCP", "Milicia_RJ", "Bonde_do_Maluco", "Familia_do_Norte", "outra", null],
+      "examples": ["PCC", "CV", null]
+    },
+
+    "resumo": {
+      "type": "string",
+      "description": "Resumo factual da decisão e seus efeitos. Máximo 500 caracteres. Linguagem neutra, sem adjetivos valorativos.",
+      "maxLength": 500,
+      "examples": [
+        "HC monocrático concedido pelo Min. Marco Aurélio determinou soltura de André Oliveira Macedo (André do Rap), líder do PCC condenado a 25 anos por tráfico internacional. Decisão fundamentada em prazo de prisão preventiva excedido. Revertida em colegiado, mas réu já havia evadido."
+      ]
+    },
+
+    "descricao_completa": {
+      "type": ["string", "null"],
+      "description": "Análise detalhada da decisão, contexto jurídico e impacto documentado. Sem limite de caracteres."
+    },
+
+    "impacto_publico": {
+      "type": "object",
+      "description": "Documentação do impacto verificável da decisão.",
+      "required": ["tipo", "descricao"],
+      "properties": {
+
+        "tipo": {
+          "type": "string",
+          "enum": [
+            "soltura_direta",
+            "soltura_coletiva",
+            "progressao_antecipada",
+            "fuga_pos_liminar",
+            "anulacao_prova",
+            "anulacao_processo",
+            "reducao_pena_efetiva",
+            "mudanca_jurisprudencial_sistemica",
+            "restricao_policial",
+            "arquivamento_investigacao",
+            "outro"
+          ]
+        },
+
+        "descricao": {
+          "type": "string",
+          "description": "Descrição do impacto documentado. O que concretamente aconteceu após a decisão."
+        },
+
+        "reincidencia_documentada": {
+          "type": "boolean",
+          "description": "Se há documentação de novo crime praticado pelo beneficiário após a decisão.",
+          "default": false
+        },
+
+        "reincidencia_descricao": {
+          "type": ["string", "null"],
+          "description": "Descrição da reincidência documentada, com fontes."
+        },
+
+        "foragido": {
+          "type": "boolean",
+          "description": "Se o beneficiário está atualmente foragido.",
+          "default": false
+        },
+
+        "pessoas_afetadas": {
+          "type": ["integer", "null"],
+          "description": "Número estimado de pessoas diretamente afetadas pela decisão (réus beneficiados, vítimas, etc.).",
+          "minimum": 0
+        },
+
+        "valor_envolvido_reais": {
+          "type": ["number", "null"],
+          "description": "Valor em reais envolvido no caso (droga apreendida, patrimônio bloqueado, dano estimado).",
+          "minimum": 0
+        },
+
+        "droga_kg": {
+          "type": ["number", "null"],
+          "description": "Quantidade de droga envolvida em kg, se aplicável.",
+          "minimum": 0
+        }
+      }
+    },
+
+    "nivel_risco": {
+      "type": "string",
+      "description": "Classificação do risco sistêmico da decisão.",
+      "enum": ["alto", "medio", "baixo", "informativo"],
+      "default": "medio"
+    },
+
+    "padrao_sistemico": {
+      "type": ["array", "null"],
+      "description": "Padrões sistêmicos do lawfare-timeline identificados neste caso.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "P1_anulacao_vicio_processual",
+          "P2_investigado_vira_investigador",
+          "P3_captura_judicial_emergencial",
+          "P4_weaponizacao_midia",
+          "P5_fundos_publicos_como_vetor",
+          "P6_prescricao_estrategica",
+          "P7_captura_previdenciaria_transgeracional",
+          "P8_intervalo_fuga_liminar",
+          "P9_trafico_privilegiado_distorcido",
+          "P10_ausencia_banco_nacional_solturas"
+        ]
+      }
+    },
+
+    "fontes": {
+      "type": "array",
+      "description": "Fontes primárias e secundárias que documentam o caso.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["tipo", "descricao"],
+        "properties": {
+
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "portal_oficial_tribunal",
+              "bnmp_cnj",
+              "diario_oficial",
+              "relatorio_cnj",
+              "relatorio_depen",
+              "relatorio_ipea",
+              "relatorio_parlamentar",
+              "jornalismo_investigativo",
+              "agencia_publica",
+              "fact_check",
+              "jusbrasil",
+              "laudo_pericial",
+              "outro"
+            ]
+          },
+
+          "descricao": {
+            "type": "string",
+            "description": "Descrição da fonte."
+          },
+
+          "url": {
+            "type": ["string", "null"],
+            "format": "uri",
+            "description": "URL da fonte primária."
+          },
+
+          "url_arquivo": {
+            "type": ["string", "null"],
+            "format": "uri",
+            "description": "URL de versão arquivada (archive.org, perma.cc)."
+          },
+
+          "data_acesso": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "Data em que a URL foi acessada e verificada."
+          },
+
+          "verificado": {
+            "type": "boolean",
+            "description": "Se a fonte foi verificada manualmente pelo contribuidor.",
+            "default": false
+          }
+        }
+      }
+    },
+
+    "tags": {
+      "type": ["array", "null"],
+      "description": "Tags livres para busca e filtragem.",
+      "items": { "type": "string" },
+      "examples": [["PCC", "Marco_Aurelio", "foragido", "trafico_internacional"]]
+    },
+
+    "relacionados": {
+      "type": ["array", "null"],
+      "description": "IDs de registros relacionados nesta base.",
+      "items": {
+        "type": "string",
+        "pattern": "^JW-[0-9]{4}-[0-9]{3}$"
+      },
+      "examples": [["JW-2020-001", "JW-2020-015"]]
+    },
+
+    "operacao_lawfare": {
+      "type": ["string", "null"],
+      "description": "Se relacionado a uma operação do lawfare-timeline, o nome da operação.",
+      "examples": ["Lava_Jato", "Satiagraha", "Castelo_de_Areia", "Sem_Desconto", "Carbono_Oculto"]
+    },
+
+    "contribuidor": {
+      "type": ["string", "null"],
+      "description": "Identificador anônimo ou pseudônimo do contribuidor. Nunca dados pessoais.",
+      "examples": ["contrib_sc_01", "anonimo", "redacao_lawfare"]
+    },
+
+    "notas_internas": {
+      "type": ["string", "null"],
+      "description": "Notas de revisão, dúvidas pendentes ou informações para verificação futura. Não publicadas.",
+      "examples": ["Verificar número exato do HC na base do STF — número citado na imprensa pode estar errado"]
+    },
+
+    "historico_versoes": {
+      "type": ["array", "null"],
+      "description": "Histórico de alterações do registro.",
+      "items": {
+        "type": "object",
+        "required": ["data", "versao", "descricao"],
+        "properties": {
+          "data": { "type": "string", "format": "date" },
+          "versao": { "type": "integer" },
+          "descricao": { "type": "string" },
+          "contribuidor": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

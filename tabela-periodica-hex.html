@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabela Periódica Hexagonal</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0e14;
+    --surface: #13141c;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --accent: #7c6af7;
+
+    --alkali: #e05252;
+    --alkaline: #e8a83a;
+    --rare-earth: #8fa8e0;
+    --lanthanide: #d97cb5;
+    --actinide: #e06b9a;
+    --transition: #d4847a;
+    --post-transition: #8faa8f;
+    --metalloid: #a8b856;
+    --polyatomic: #5bb87a;
+    --diatomic: #9ac45e;
+    --noble: #6baed6;
+    --unknown: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lexend', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 24px 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,14,20,0.95);
+    backdrop-filter: blur(12px);
+  }
+
+  header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  header span {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Fira Code', monospace;
+  }
+
+  #search-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-family: 'Lexend', sans-serif;
+    font-size: 13px;
+    width: 220px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #search-bar:focus { border-color: var(--accent); }
+  #search-bar::placeholder { color: var(--muted); }
+
+  /* LEGEND */
+  #legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    padding: 14px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .leg-item:hover { color: var(--text); }
+  .leg-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* MAIN LAYOUT */
+  #main-container {
+    display: flex;
+    gap: 0;
+  }
+
+  /* TABLE */
+  #table-wrapper {
+    flex: 1;
+    padding: 24px 20px 40px;
+    overflow-x: auto;
+  }
+
+  #hex-table {
+    display: grid;
+    gap: 0;
+    width: max-content;
+    margin: 0 auto;
+  }
+
+  /* HEX CELL */
+  .hex-wrap {
+    width: 70px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hex {
+    width: 62px;
+    height: 71px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: filter 0.15s, transform 0.15s;
+    position: relative;
+    padding: 4px 2px;
+  }
+
+  .hex:hover {
+    filter: brightness(1.25) saturate(1.3);
+    transform: scale(1.12);
+    z-index: 10;
+  }
+
+  .hex.dimmed {
+    filter: brightness(0.3) saturate(0.2);
+  }
+
+  .hex .num {
+    font-size: 8px;
+    font-family: 'Fira Code', monospace;
+    color: rgba(255,255,255,0.7);
+    line-height: 1;
+    margin-bottom: 1px;
+  }
+
+  .hex .sym {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .hex .name-el {
+    font-size: 6.5px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1;
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .hex .config {
+    font-size: 5.5px;
+    font-family: 'Fira Code', monospace;
+    color: rgba(255,255,255,0.55);
+    line-height: 1;
+    margin-top: 1px;
+    text-align: center;
+  }
+
+  /* CATEGORY COLORS */
+  .cat-alkali { background: var(--alkali); }
+  .cat-alkaline { background: var(--alkaline); }
+  .cat-rare-earth { background: var(--rare-earth); }
+  .cat-lanthanide { background: var(--lanthanide); }
+  .cat-actinide { background: var(--actinide); }
+  .cat-transition { background: var(--transition); }
+  .cat-post-transition { background: var(--post-transition); }
+  .cat-metalloid { background: var(--metalloid); }
+  .cat-polyatomic { background: var(--polyatomic); }
+  .cat-diatomic { background: var(--diatomic); }
+  .cat-noble { background: var(--noble); }
+  .cat-unknown { background: var(--unknown); }
+
+  /* DETAIL PANEL */
+  #detail-panel {
+    width: 320px;
+    min-height: calc(100vh - 120px);
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    padding: 28px 24px;
+    position: sticky;
+    top: 57px;
+    height: calc(100vh - 57px);
+    overflow-y: auto;
+    transition: all 0.3s;
+  }
+
+  #detail-panel.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--muted);
+  }
+
+  .empty-icon { font-size: 48px; opacity: 0.3; }
+
+  .detail-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .detail-hex-big {
+    width: 90px;
+    height: 104px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .detail-hex-big .d-num {
+    font-size: 12px;
+    font-family: 'Fira Code', monospace;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .detail-hex-big .d-sym {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .detail-hex-big .d-name {
+    font-size: 9px;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    padding: 0 4px;
+  }
+
+  .detail-info { flex: 1; }
+
+  .detail-name {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .detail-category {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  .detail-props {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .prop-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .prop-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .prop-value {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Fira Code', monospace;
+    color: var(--text);
+  }
+
+  .prop-box.full { grid-column: 1 / -1; }
+
+  .config-full {
+    font-size: 12px;
+    font-family: 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  .detail-desc {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .oxidation-states {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .ox-badge {
+    background: rgba(124,106,247,0.15);
+    border: 1px solid rgba(124,106,247,0.3);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 11px;
+    font-family: 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  .ox-badge.common {
+    background: rgba(124,106,247,0.3);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* Period labels */
+  .period-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-family: 'Fira Code', monospace;
+    color: var(--muted);
+    width: 70px;
+    height: 80px;
+  }
+
+  /* f-block separator label */
+  .f-block-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 8px 0 0;
+  }
+
+  /* Filter buttons */
+  #filter-bar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 32px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px;
+    padding: 5px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .block-label-row {
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    background: rgba(20,21,30,0.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--text);
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    display: none;
+  }
+
+  @media (max-width: 1100px) {
+    #detail-panel { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>⬡ Tabela Periódica</h1>
+    <div style="font-size:11px;color:var(--muted);margin-top:2px;font-family:'Fira Code',monospace">118 elementos · configuração eletrônica</div>
+  </div>
+  <input id="search-bar" type="text" placeholder="Buscar elemento, símbolo ou nº..." autocomplete="off">
+</header>
+
+<div id="filter-bar">
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="alkali">Metal Alcalino</button>
+  <button class="filter-btn" data-filter="alkaline">Metal Alcalino Terroso</button>
+  <button class="filter-btn" data-filter="transition">Metal de Transição</button>
+  <button class="filter-btn" data-filter="lanthanide">Lantanídeo</button>
+  <button class="filter-btn" data-filter="actinide">Actinídeo</button>
+  <button class="filter-btn" data-filter="post-transition">Metal Pós-Transição</button>
+  <button class="filter-btn" data-filter="metalloid">Semimetal</button>
+  <button class="filter-btn" data-filter="polyatomic">Não-metal Poliatômico</button>
+  <button class="filter-btn" data-filter="diatomic">Não-metal Diatômico</button>
+  <button class="filter-btn" data-filter="noble">Gás Nobre</button>
+</div>
+
+<div id="legend">
+  <div class="leg-item" data-cat="alkali"><div class="leg-dot" style="background:var(--alkali)"></div>Metal alcalino</div>
+  <div class="leg-item" data-cat="alkaline"><div class="leg-dot" style="background:var(--alkaline)"></div>Metal alcalino terroso</div>
+  <div class="leg-item" data-cat="rare-earth"><div class="leg-dot" style="background:var(--rare-earth)"></div>Metal de terra rara</div>
+  <div class="leg-item" data-cat="lanthanide"><div class="leg-dot" style="background:var(--lanthanide)"></div>Lantanídeo</div>
+  <div class="leg-item" data-cat="actinide"><div class="leg-dot" style="background:var(--actinide)"></div>Actinídeo</div>
+  <div class="leg-item" data-cat="transition"><div class="leg-dot" style="background:var(--transition)"></div>Metal de transição</div>
+  <div class="leg-item" data-cat="post-transition"><div class="leg-dot" style="background:var(--post-transition)"></div>Metal pós-transição</div>
+  <div class="leg-item" data-cat="metalloid"><div class="leg-dot" style="background:var(--metalloid)"></div>Semimetal</div>
+  <div class="leg-item" data-cat="polyatomic"><div class="leg-dot" style="background:var(--polyatomic)"></div>Não-metal poliatômico</div>
+  <div class="leg-item" data-cat="diatomic"><div class="leg-dot" style="background:var(--diatomic)"></div>Não-metal diatômico</div>
+  <div class="leg-item" data-cat="noble"><div class="leg-dot" style="background:var(--noble)"></div>Gás nobre</div>
+  <div class="leg-item" data-cat="unknown"><div class="leg-dot" style="background:var(--unknown)"></div>Desconhecido</div>
+</div>
+
+<div id="main-container">
+  <div id="table-wrapper">
+    <div id="hex-table"></div>
+  </div>
+  <div id="detail-panel" class="empty">
+    <div class="empty-icon">⬡</div>
+    <div style="font-size:13px">Clique em um elemento</div>
+    <div style="font-size:11px;margin-top:4px">para ver detalhes</div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ===================== ELEMENT DATA =====================
+const ELEMENTS = [
+  {n:1,sym:"H",name:"Hidrogênio",cat:"diatomic",period:1,group:1,block:"s",mass:1.008,config:"1s¹",ox:[-1,1],common_ox:[1],melt:-259.16,boil:-252.88,desc:"Elemento mais abundante do universo. Combustível limpo do futuro."},
+  {n:2,sym:"He",name:"Hélio",cat:"noble",period:1,group:18,block:"s",mass:4.003,config:"1s²",ox:[0],common_ox:[0],melt:-272.2,boil:-268.93,desc:"Segundo elemento mais abundante. Usado em balões e criogenia."},
+  {n:3,sym:"Li",name:"Lítio",cat:"alkali",period:2,group:1,block:"s",mass:6.94,config:"[He] 2s¹",ox:[1],common_ox:[1],melt:180.5,boil:1342,desc:"Metal mais leve. Essencial em baterias de íon-lítio."},
+  {n:4,sym:"Be",name:"Berílio",cat:"alkaline",period:2,group:2,block:"s",mass:9.012,config:"[He] 2s²",ox:[2],common_ox:[2],melt:1287,boil:2470,desc:"Metal leve e rígido. Usado em componentes aeroespaciais."},
+  {n:5,sym:"B",name:"Boro",cat:"metalloid",period:2,group:13,block:"p",mass:10.81,config:"[He] 2s² 2p¹",ox:[3],common_ox:[3],melt:2075,boil:4000,desc:"Semimetal com propriedades únicas. Usado em fibra de vidro."},
+  {n:6,sym:"C",name:"Carbono",cat:"polyatomic",period:2,group:14,block:"p",mass:12.011,config:"[He] 2s² 2p²",ox:[-4,-3,-2,-1,0,1,2,3,4],common_ox:[4,-4],melt:3550,boil:4027,desc:"Base de toda vida orgânica. Diamante, grafite e grafeno."},
+  {n:7,sym:"N",name:"Nitrogênio",cat:"diatomic",period:2,group:15,block:"p",mass:14.007,config:"[He] 2s² 2p³",ox:[-3,-2,-1,0,1,2,3,4,5],common_ox:[-3,3,5],melt:-210.01,boil:-195.79,desc:"78% da atmosfera terrestre. Essencial para proteínas."},
+  {n:8,sym:"O",name:"Oxigênio",cat:"diatomic",period:2,group:16,block:"p",mass:15.999,config:"[He] 2s² 2p⁴",ox:[-2,-1,0,1,2],common_ox:[-2],melt:-218.79,boil:-182.96,desc:"Essencial para respiração e combustão. 21% do ar."},
+  {n:9,sym:"F",name:"Flúor",cat:"diatomic",period:2,group:17,block:"p",mass:18.998,config:"[He] 2s² 2p⁵",ox:[-1],common_ox:[-1],melt:-219.67,boil:-188.11,desc:"Elemento mais eletronegativo. Forma os compostos mais fortes."},
+  {n:10,sym:"Ne",name:"Neônio",cat:"noble",period:2,group:18,block:"p",mass:20.18,config:"[He] 2s² 2p⁶",ox:[0],common_ox:[0],melt:-248.59,boil:-246.05,desc:"Gás nobre brilhante. Famoso em letreiros luminosos."},
+  {n:11,sym:"Na",name:"Sódio",cat:"alkali",period:3,group:1,block:"s",mass:22.99,config:"[Ne] 3s¹",ox:[1],common_ox:[1],melt:97.79,boil:882.9,desc:"Metal mole e reativo. Sal de cozinha é NaCl."},
+  {n:12,sym:"Mg",name:"Magnésio",cat:"alkaline",period:3,group:2,block:"s",mass:24.305,config:"[Ne] 3s²",ox:[2],common_ox:[2],melt:650,boil:1090,desc:"Metal leve e estrutural. Presente na clorofila."},
+  {n:13,sym:"Al",name:"Alumínio",cat:"post-transition",period:3,group:13,block:"p",mass:26.982,config:"[Ne] 3s² 3p¹",ox:[3],common_ox:[3],melt:660.32,boil:2519,desc:"Metal mais abundante na crosta terrestre. Leveza e resistência."},
+  {n:14,sym:"Si",name:"Silício",cat:"metalloid",period:3,group:14,block:"p",mass:28.085,config:"[Ne] 3s² 3p²",ox:[-4,4],common_ox:[4],melt:1414,boil:3265,desc:"Base da eletrônica moderna. Chips e semicondutores."},
+  {n:15,sym:"P",name:"Fósforo",cat:"polyatomic",period:3,group:15,block:"p",mass:30.974,config:"[Ne] 3s² 3p³",ox:[-3,3,5],common_ox:[5],melt:44.15,boil:280.5,desc:"Essencial para DNA e ATP. Fertilizantes agrícolas."},
+  {n:16,sym:"S",name:"Enxofre",cat:"polyatomic",period:3,group:16,block:"p",mass:32.06,config:"[Ne] 3s² 3p⁴",ox:[-2,2,4,6],common_ox:[-2,6],melt:115.21,boil:444.72,desc:"Não-metal amarelo. Ácido sulfúrico é o mais produzido."},
+  {n:17,sym:"Cl",name:"Cloro",cat:"diatomic",period:3,group:17,block:"p",mass:35.45,config:"[Ne] 3s² 3p⁵",ox:[-1,1,3,5,7],common_ox:[-1],melt:-101.5,boil:-34.04,desc:"Halogênio verde-amarelado. Desinfetante e PVC."},
+  {n:18,sym:"Ar",name:"Argônio",cat:"noble",period:3,group:18,block:"p",mass:39.948,config:"[Ne] 3s² 3p⁶",ox:[0],common_ox:[0],melt:-189.35,boil:-185.85,desc:"Gás nobre mais abundante. Atmosfera protetora em soldagem."},
+  {n:19,sym:"K",name:"Potássio",cat:"alkali",period:4,group:1,block:"s",mass:39.098,config:"[Ar] 4s¹",ox:[1],common_ox:[1],melt:63.38,boil:759,desc:"Essencial para funções celulares. Fertilizantes de potassa."},
+  {n:20,sym:"Ca",name:"Cálcio",cat:"alkaline",period:4,group:2,block:"s",mass:40.078,config:"[Ar] 4s²",ox:[2],common_ox:[2],melt:842,boil:1484,desc:"Metal que forma ossos e dentes. Cimento e concreto."},
+  {n:21,sym:"Sc",name:"Escândio",cat:"rare-earth",period:4,group:3,block:"d",mass:44.956,config:"[Ar] 3d¹ 4s²",ox:[3],common_ox:[3],melt:1541,boil:2836,desc:"Metal de terra rara. Ligas leves de alta resistência."},
+  {n:22,sym:"Ti",name:"Titânio",cat:"transition",period:4,group:4,block:"d",mass:47.867,config:"[Ar] 3d² 4s²",ox:[2,3,4],common_ox:[4],melt:1668,boil:3287,desc:"Metal leve e biocompatível. Implantes médicos e aeronaves."},
+  {n:23,sym:"V",name:"Vanádio",cat:"transition",period:4,group:5,block:"d",mass:50.942,config:"[Ar] 3d³ 4s²",ox:[2,3,4,5],common_ox:[5],melt:1910,boil:3407,desc:"Usado em aços especiais. Catalisador industrial."},
+  {n:24,sym:"Cr",name:"Cromo",cat:"transition",period:4,group:6,block:"d",mass:51.996,config:"[Ar] 3d⁵ 4s¹",ox:[2,3,6],common_ox:[3,6],melt:1907,boil:2671,desc:"Aço inoxidável. Cromagem decorativa e protetora."},
+  {n:25,sym:"Mn",name:"Manganês",cat:"transition",period:4,group:7,block:"d",mass:54.938,config:"[Ar] 3d⁵ 4s²",ox:[2,3,4,7],common_ox:[2,4],melt:1246,boil:2061,desc:"Elemento essencial em baterias. Aço-manganês muito resistente."},
+  {n:26,sym:"Fe",name:"Ferro",cat:"transition",period:4,group:8,block:"d",mass:55.845,config:"[Ar] 3d⁶ 4s²",ox:[2,3],common_ox:[2,3],melt:1538,boil:2861,desc:"Metal mais usado na civilização. Base do aço e da metalurgia."},
+  {n:27,sym:"Co",name:"Cobalto",cat:"transition",period:4,group:9,block:"d",mass:58.933,config:"[Ar] 3d⁷ 4s²",ox:[2,3],common_ox:[2,3],melt:1495,boil:2927,desc:"Pigmento azul histórico. Baterias de cobalto-lítio."},
+  {n:28,sym:"Ni",name:"Níquel",cat:"transition",period:4,group:10,block:"d",mass:58.693,config:"[Ar] 3d⁸ 4s²",ox:[2],common_ox:[2],melt:1455,boil:2913,desc:"Resistente à corrosão. Moedas e aços inoxidáveis."},
+  {n:29,sym:"Cu",name:"Cobre",cat:"transition",period:4,group:11,block:"d",mass:63.546,config:"[Ar] 3d¹⁰ 4s¹",ox:[1,2],common_ox:[2],melt:1084.62,boil:2562,desc:"Condutor elétrico excelente. Fios, tubulações e moedas."},
+  {n:30,sym:"Zn",name:"Zinco",cat:"transition",period:4,group:12,block:"d",mass:65.38,config:"[Ar] 3d¹⁰ 4s²",ox:[2],common_ox:[2],melt:419.53,boil:907,desc:"Galvanização do aço. Essencial para o sistema imune."},
+  {n:31,sym:"Ga",name:"Gálio",cat:"post-transition",period:4,group:13,block:"p",mass:69.723,config:"[Ar] 3d¹⁰ 4s² 4p¹",ox:[3],common_ox:[3],melt:29.76,boil:2204,desc:"Derrete na palma da mão. LEDs e semicondutores GaAs."},
+  {n:32,sym:"Ge",name:"Germânio",cat:"metalloid",period:4,group:14,block:"p",mass:72.63,config:"[Ar] 3d¹⁰ 4s² 4p²",ox:[2,4],common_ox:[4],melt:938.25,boil:2833,desc:"Semimetal previsto por Mendeleev. Fibra óptica e eletrônica."},
+  {n:33,sym:"As",name:"Arsênio",cat:"metalloid",period:4,group:15,block:"p",mass:74.922,config:"[Ar] 3d¹⁰ 4s² 4p³",ox:[-3,3,5],common_ox:[3,5],melt:817,boil:614,desc:"Semimetal venenoso. Semicondutores e preservativos de madeira."},
+  {n:34,sym:"Se",name:"Selênio",cat:"polyatomic",period:4,group:16,block:"p",mass:78.971,config:"[Ar] 3d¹⁰ 4s² 4p⁴",ox:[-2,4,6],common_ox:[-2,4],melt:220.8,boil:685,desc:"Propriedades fotoelétricas. Células solares e fotocópias."},
+  {n:35,sym:"Br",name:"Bromo",cat:"diatomic",period:4,group:17,block:"p",mass:79.904,config:"[Ar] 3d¹⁰ 4s² 4p⁵",ox:[-1,1,3,5],common_ox:[-1],melt:-7.2,boil:58.8,desc:"Único halogênio líquido à temperatura ambiente. Retardantes de chama."},
+  {n:36,sym:"Kr",name:"Criptônio",cat:"noble",period:4,group:18,block:"p",mass:83.798,config:"[Ar] 3d¹⁰ 4s² 4p⁶",ox:[0,2],common_ox:[0],melt:-157.37,boil:-153.42,desc:"Gás nobre raro. Lâmpadas de alta intensidade e lasers."},
+  {n:37,sym:"Rb",name:"Rubídio",cat:"alkali",period:5,group:1,block:"s",mass:85.468,config:"[Kr] 5s¹",ox:[1],common_ox:[1],melt:39.31,boil:688,desc:"Metal alcalino muito reativo. Relógios atômicos e pesquisa."},
+  {n:38,sym:"Sr",name:"Estrôncio",cat:"alkaline",period:5,group:2,block:"s",mass:87.62,config:"[Kr] 5s²",ox:[2],common_ox:[2],melt:777,boil:1382,desc:"Fornece cor vermelha em fogos de artifício. Ferrita de estrôncio."},
+  {n:39,sym:"Y",name:"Ítrio",cat:"rare-earth",period:5,group:3,block:"d",mass:88.906,config:"[Kr] 4d¹ 5s²",ox:[3],common_ox:[3],melt:1522,boil:3345,desc:"Metal de terra rara. Supercondutores e lasers de YAG."},
+  {n:40,sym:"Zr",name:"Zircônio",cat:"transition",period:5,group:4,block:"d",mass:91.224,config:"[Kr] 4d² 5s²",ox:[4],common_ox:[4],melt:1855,boil:4409,desc:"Resistente à corrosão e calor extremo. Reatores nucleares."},
+  {n:41,sym:"Nb",name:"Nióbio",cat:"transition",period:5,group:5,block:"d",mass:92.906,config:"[Kr] 4d⁴ 5s¹",ox:[3,5],common_ox:[5],melt:2477,boil:4744,desc:"Brasil detém 98% das reservas mundiais. Aços especiais."},
+  {n:42,sym:"Mo",name:"Molibdênio",cat:"transition",period:5,group:6,block:"d",mass:95.95,config:"[Kr] 4d⁵ 5s¹",ox:[4,6],common_ox:[6],melt:2623,boil:4639,desc:"Alto ponto de fusão. Eletrodos de fornos e lubrificantes."},
+  {n:43,sym:"Tc",name:"Tecnécio",cat:"transition",period:5,group:7,block:"d",mass:97,config:"[Kr] 4d⁵ 5s²",ox:[4,7],common_ox:[7],melt:2157,boil:4265,desc:"Primeiro elemento sintético. Medicina nuclear diagnóstica."},
+  {n:44,sym:"Ru",name:"Rutênio",cat:"transition",period:5,group:8,block:"d",mass:101.07,config:"[Kr] 4d⁷ 5s¹",ox:[2,3,4,6,8],common_ox:[3],melt:2334,boil:4150,desc:"Metal do grupo da platina. Catalisadores e eletrônica."},
+  {n:45,sym:"Rh",name:"Ródio",cat:"transition",period:5,group:9,block:"d",mass:102.91,config:"[Kr] 4d⁸ 5s¹",ox:[3],common_ox:[3],melt:1964,boil:3695,desc:"Metal precioso raro. Catalisadores em conversores catalíticos."},
+  {n:46,sym:"Pd",name:"Paládio",cat:"transition",period:5,group:10,block:"d",mass:106.42,config:"[Kr] 4d¹⁰",ox:[2,4],common_ox:[2],melt:1554.9,boil:2963,desc:"Absorve hidrogênio. Catalisadores e eletrônica."},
+  {n:47,sym:"Ag",name:"Prata",cat:"transition",period:5,group:11,block:"d",mass:107.87,config:"[Kr] 4d¹⁰ 5s¹",ox:[1],common_ox:[1],melt:961.78,boil:2162,desc:"Melhor condutor elétrico e térmico. Joias e antibacterial."},
+  {n:48,sym:"Cd",name:"Cádmio",cat:"transition",period:5,group:12,block:"d",mass:112.41,config:"[Kr] 4d¹⁰ 5s²",ox:[2],common_ox:[2],melt:321.07,boil:767,desc:"Metal tóxico. Baterias recarregáveis e pigmentos amarelos."},
+  {n:49,sym:"In",name:"Índio",cat:"post-transition",period:5,group:13,block:"p",mass:114.82,config:"[Kr] 4d¹⁰ 5s² 5p¹",ox:[3],common_ox:[3],melt:156.6,boil:2072,desc:"Óxido de índio-estanho em telas touch. Metal macio."},
+  {n:50,sym:"Sn",name:"Estanho",cat:"post-transition",period:5,group:14,block:"p",mass:118.71,config:"[Kr] 4d¹⁰ 5s² 5p²",ox:[2,4],common_ox:[4],melt:231.93,boil:2602,desc:"Bronze e solda. Revestimento de latas de alimento."},
+  {n:51,sym:"Sb",name:"Antimônio",cat:"metalloid",period:5,group:15,block:"p",mass:121.76,config:"[Kr] 4d¹⁰ 5s² 5p³",ox:[-3,3,5],common_ox:[3,5],melt:630.63,boil:1587,desc:"Usado desde a Antiguidade. Retardantes de chama."},
+  {n:52,sym:"Te",name:"Telúrio",cat:"metalloid",period:5,group:16,block:"p",mass:127.6,config:"[Kr] 4d¹⁰ 5s² 5p⁴",ox:[-2,4,6],common_ox:[4],melt:449.51,boil:988,desc:"Semimetal raro. Células fotovoltaicas CdTe."},
+  {n:53,sym:"I",name:"Iodo",cat:"diatomic",period:5,group:17,block:"p",mass:126.9,config:"[Kr] 4d¹⁰ 5s² 5p⁵",ox:[-1,1,3,5,7],common_ox:[-1],melt:113.7,boil:184.3,desc:"Desinfetante e contraste médico. Essencial para a tireoide."},
+  {n:54,sym:"Xe",name:"Xenônio",cat:"noble",period:5,group:18,block:"p",mass:131.29,config:"[Kr] 4d¹⁰ 5s² 5p⁶",ox:[0,2,4,6,8],common_ox:[0],melt:-111.75,boil:-108.12,desc:"Gás nobre denso. Lâmpadas de xenônio e propulsores iônicos."},
+  {n:55,sym:"Cs",name:"Césio",cat:"alkali",period:6,group:1,block:"s",mass:132.91,config:"[Xe] 6s¹",ox:[1],common_ox:[1],melt:28.44,boil:671,desc:"Define o segundo SI. Relógios atômicos mais precisos do mundo."},
+  {n:56,sym:"Ba",name:"Bário",cat:"alkaline",period:6,group:2,block:"s",mass:137.33,config:"[Xe] 6s²",ox:[2],common_ox:[2],melt:727,boil:1897,desc:"Sulfato de bário em exames de raios-X. Fogos verdes."},
+  {n:57,sym:"La",name:"Lantânio",cat:"lanthanide",period:6,group:3,block:"f",mass:138.91,config:"[Xe] 5d¹ 6s²",ox:[3],common_ox:[3],melt:920,boil:3464,desc:"Primeiro lantanídeo. Catalisadores de craqueamento do petróleo."},
+  {n:58,sym:"Ce",name:"Cério",cat:"lanthanide",period:6,group:4,block:"f",mass:140.12,config:"[Xe] 4f¹ 5d¹ 6s²",ox:[3,4],common_ox:[3,4],melt:799,boil:3443,desc:"Lantanídeo mais abundante. Pedra do isqueiro e catalisadores."},
+  {n:59,sym:"Pr",name:"Praseodímio",cat:"lanthanide",period:6,group:5,block:"f",mass:140.91,config:"[Xe] 4f³ 6s²",ox:[3,4],common_ox:[3],melt:931,boil:3520,desc:"Ímãs permanentes de alta performance com neodímio."},
+  {n:60,sym:"Nd",name:"Neodímio",cat:"lanthanide",period:6,group:6,block:"f",mass:144.24,config:"[Xe] 4f⁴ 6s²",ox:[3],common_ox:[3],melt:1021,boil:3074,desc:"Ímãs mais potentes do mundo. Motores elétricos e turbinas."},
+  {n:61,sym:"Pm",name:"Promécio",cat:"lanthanide",period:6,group:7,block:"f",mass:145,config:"[Xe] 4f⁵ 6s²",ox:[3],common_ox:[3],melt:1100,boil:3000,desc:"Único lantanídeo radioativo sem isótopos estáveis."},
+  {n:62,sym:"Sm",name:"Samário",cat:"lanthanide",period:6,group:8,block:"f",mass:150.36,config:"[Xe] 4f⁶ 6s²",ox:[2,3],common_ox:[3],melt:1072,boil:1794,desc:"Ímãs samário-cobalto para altas temperaturas."},
+  {n:63,sym:"Eu",name:"Európio",cat:"lanthanide",period:6,group:9,block:"f",mass:151.96,config:"[Xe] 4f⁷ 6s²",ox:[2,3],common_ox:[3],melt:822,boil:1529,desc:"Fósforo vermelho em telas LCD e lâmpadas fluorescentes."},
+  {n:64,sym:"Gd",name:"Gadolínio",cat:"lanthanide",period:6,group:10,block:"f",mass:157.25,config:"[Xe] 4f⁷ 5d¹ 6s²",ox:[3],common_ox:[3],melt:1313,boil:3273,desc:"Contraste em ressonância magnética (MRI). Propriedades únicas."},
+  {n:65,sym:"Tb",name:"Térbio",cat:"lanthanide",period:6,group:11,block:"f",mass:158.93,config:"[Xe] 4f⁹ 6s²",ox:[3,4],common_ox:[3],melt:1356,boil:3230,desc:"Magneto-optical storage. Aditivo em ligas magnéticas Terfenol-D."},
+  {n:66,sym:"Dy",name:"Disprósio",cat:"lanthanide",period:6,group:12,block:"f",mass:162.5,config:"[Xe] 4f¹⁰ 6s²",ox:[3],common_ox:[3],melt:1412,boil:2567,desc:"Aditivo crítico em ímãs de neodímio para carros elétricos."},
+  {n:67,sym:"Ho",name:"Hólmio",cat:"lanthanide",period:6,group:13,block:"f",mass:164.93,config:"[Xe] 4f¹¹ 6s²",ox:[3],common_ox:[3],melt:1474,boil:2700,desc:"Maior campo magnético de qualquer elemento. Lasers médicos."},
+  {n:68,sym:"Er",name:"Érbio",cat:"lanthanide",period:6,group:14,block:"f",mass:167.26,config:"[Xe] 4f¹² 6s²",ox:[3],common_ox:[3],melt:1529,boil:2868,desc:"Amplificadores de fibra óptica (EDFA). Lasers médicos rosas."},
+  {n:69,sym:"Tm",name:"Túlio",cat:"lanthanide",period:6,group:15,block:"f",mass:168.93,config:"[Xe] 4f¹³ 6s²",ox:[2,3],common_ox:[3],melt:1545,boil:1950,desc:"Lantanídeo mais raro e caro. Lasers portáteis de raios-X."},
+  {n:70,sym:"Yb",name:"Itérbio",cat:"lanthanide",period:6,group:16,block:"f",mass:173.05,config:"[Xe] 4f¹⁴ 6s²",ox:[2,3],common_ox:[3],melt:824,boil:1196,desc:"Relógios atômicos de precisão extrema. Lasers de estado sólido."},
+  {n:71,sym:"Lu",name:"Lutécio",cat:"lanthanide",period:6,group:17,block:"f",mass:174.97,config:"[Xe] 4f¹⁴ 5d¹ 6s²",ox:[3],common_ox:[3],melt:1663,boil:3402,desc:"Último e mais denso lantanídeo. Catalisadores de craqueamento."},
+  {n:72,sym:"Hf",name:"Háfnio",cat:"transition",period:6,group:4,block:"d",mass:178.49,config:"[Xe] 4f¹⁴ 5d² 6s²",ox:[4],common_ox:[4],melt:2233,boil:4603,desc:"Alta seção transversal de nêutrons. Barras de controle nuclear."},
+  {n:73,sym:"Ta",name:"Tântalo",cat:"transition",period:6,group:5,block:"d",mass:180.95,config:"[Xe] 4f¹⁴ 5d³ 6s²",ox:[5],common_ox:[5],melt:3017,boil:5458,desc:"Condensadores em smartphones. Biocompatível para implantes."},
+  {n:74,sym:"W",name:"Tungstênio",cat:"transition",period:6,group:6,block:"d",mass:183.84,config:"[Xe] 4f¹⁴ 5d⁴ 6s²",ox:[4,6],common_ox:[6],melt:3422,boil:5555,desc:"Maior ponto de fusão dos metais. Filamentos e carbonetos."},
+  {n:75,sym:"Re",name:"Rênio",cat:"transition",period:6,group:7,block:"d",mass:186.21,config:"[Xe] 4f¹⁴ 5d⁵ 6s²",ox:[4,7],common_ox:[4,7],melt:3186,boil:5596,desc:"Segundo maior ponto de fusão. Superligas para turbinas."},
+  {n:76,sym:"Os",name:"Ósmio",cat:"transition",period:6,group:8,block:"d",mass:190.23,config:"[Xe] 4f¹⁴ 5d⁶ 6s²",ox:[4],common_ox:[4],melt:3033,boil:5012,desc:"Metal mais denso conhecido. Pontas de canetas tinteiro."},
+  {n:77,sym:"Ir",name:"Irídio",cat:"transition",period:6,group:9,block:"d",mass:192.22,config:"[Xe] 4f¹⁴ 5d⁷ 6s²",ox:[3,4],common_ox:[3,4],melt:2446,boil:4428,desc:"Segundo metal mais denso. Padrão internacional do quilograma até 2019."},
+  {n:78,sym:"Pt",name:"Platina",cat:"transition",period:6,group:10,block:"d",mass:195.08,config:"[Xe] 4f¹⁴ 5d⁹ 6s¹",ox:[2,4],common_ox:[2,4],melt:1768.3,boil:3825,desc:"Metal precioso nobre. Catalisadores e joias de luxo."},
+  {n:79,sym:"Au",name:"Ouro",cat:"transition",period:6,group:11,block:"d",mass:196.97,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s¹",ox:[1,3],common_ox:[3],melt:1064.18,boil:2856,desc:"Metal precioso por excelência. Moeda, joias e eletrônica."},
+  {n:80,sym:"Hg",name:"Mercúrio",cat:"transition",period:6,group:12,block:"d",mass:200.59,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s²",ox:[1,2],common_ox:[2],melt:-38.83,boil:356.73,desc:"Único metal líquido à temperatura ambiente. Termômetros."},
+  {n:81,sym:"Tl",name:"Tálio",cat:"post-transition",period:6,group:13,block:"p",mass:204.38,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹",ox:[1,3],common_ox:[1],melt:304,boil:1473,desc:"Extremamente venenoso. Eletrônica de infravermelho."},
+  {n:82,sym:"Pb",name:"Chumbo",cat:"post-transition",period:6,group:14,block:"p",mass:207.2,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²",ox:[2,4],common_ox:[2],melt:327.46,boil:1749,desc:"Metal denso histórico. Baterias chumbo-ácido e blindagem."},
+  {n:83,sym:"Bi",name:"Bismuto",cat:"post-transition",period:6,group:15,block:"p",mass:208.98,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³",ox:[3,5],common_ox:[3],melt:271.5,boil:1564,desc:"Metal mais diamagnético. Cristais iridescentes espetaculares."},
+  {n:84,sym:"Po",name:"Polônio",cat:"post-transition",period:6,group:16,block:"p",mass:209,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴",ox:[2,4],common_ox:[4],melt:254,boil:962,desc:"Extremamente radioativo. Descoberto por Marie Curie em 1898."},
+  {n:85,sym:"At",name:"Astato",cat:"metalloid",period:6,group:17,block:"p",mass:210,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵",ox:[-1,1],common_ox:[-1],melt:302,boil:337,desc:"Halogênio mais raro na natureza. Terapia contra câncer."},
+  {n:86,sym:"Rn",name:"Radônio",cat:"noble",period:6,group:18,block:"p",mass:222,config:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶",ox:[0],common_ox:[0],melt:-71,boil:-61.7,desc:"Gás nobre radioativo. Segundo maior causador de câncer pulmonar."},
+  {n:87,sym:"Fr",name:"Frâncio",cat:"alkali",period:7,group:1,block:"s",mass:223,config:"[Rn] 7s¹",ox:[1],common_ox:[1],melt:27,boil:677,desc:"Elemento natural mais instável. Detectado em minúsculas quantidades."},
+  {n:88,sym:"Ra",name:"Rádio",cat:"alkaline",period:7,group:2,block:"s",mass:226,config:"[Rn] 7s²",ox:[2],common_ox:[2],melt:700,boil:1737,desc:"Descoberto por Marie Curie. Luminescência radifluorescente histórica."},
+  {n:89,sym:"Ac",name:"Actínio",cat:"actinide",period:7,group:3,block:"f",mass:227,config:"[Rn] 6d¹ 7s²",ox:[3],common_ox:[3],melt:1050,boil:3200,desc:"Primeiro actinídeo. Emissor de nêutrons para medicina nuclear."},
+  {n:90,sym:"Th",name:"Tório",cat:"actinide",period:7,group:4,block:"f",mass:232.04,config:"[Rn] 6d² 7s²",ox:[4],common_ox:[4],melt:1750,boil:4788,desc:"Combustível nuclear alternativo ao urânio. Muito abundante."},
+  {n:91,sym:"Pa",name:"Protactínio",cat:"actinide",period:7,group:5,block:"f",mass:231.04,config:"[Rn] 5f² 6d¹ 7s²",ox:[4,5],common_ox:[5],melt:1568,boil:4027,desc:"Precursor do urânio-233. Raro e altamente radioativo."},
+  {n:92,sym:"U",name:"Urânio",cat:"actinide",period:7,group:6,block:"f",mass:238.03,config:"[Rn] 5f³ 6d¹ 7s²",ox:[3,4,5,6],common_ox:[6],melt:1135,boil:4131,desc:"Combustível nuclear mais usado. Armas e energia atômica."},
+  {n:93,sym:"Np",name:"Netúnio",cat:"actinide",period:7,group:7,block:"f",mass:237,config:"[Rn] 5f⁴ 6d¹ 7s²",ox:[3,4,5,6],common_ox:[5],melt:644,boil:4000,desc:"Primeiro elemento transuraniano. Produzido em reatores nucleares."},
+  {n:94,sym:"Pu",name:"Plutônio",cat:"actinide",period:7,group:8,block:"f",mass:244,config:"[Rn] 5f⁶ 7s²",ox:[3,4,5,6],common_ox:[4],melt:640,boil:3228,desc:"Combustível para armas nucleares. Gerador RTG para sondas espaciais."},
+  {n:95,sym:"Am",name:"Amerício",cat:"actinide",period:7,group:9,block:"f",mass:243,config:"[Rn] 5f⁷ 7s²",ox:[3,4,5,6],common_ox:[3],melt:1176,boil:2011,desc:"Detectores de fumaça domésticos. Sintético e radioativo."},
+  {n:96,sym:"Cm",name:"Cúrio",cat:"actinide",period:7,group:10,block:"f",mass:247,config:"[Rn] 5f⁷ 6d¹ 7s²",ox:[3,4],common_ox:[3],melt:1345,boil:3110,desc:"Homenagem a Marie e Pierre Curie. Gerador termoelétrico RTG."},
+  {n:97,sym:"Bk",name:"Berquélio",cat:"actinide",period:7,group:11,block:"f",mass:247,config:"[Rn] 5f⁹ 7s²",ox:[3,4],common_ox:[3],melt:986,boil:2627,desc:"Homenagem à cidade de Berkeley. Produzido em aceleradores."},
+  {n:98,sym:"Cf",name:"Califórnio",cat:"actinide",period:7,group:12,block:"f",mass:251,config:"[Rn] 5f¹⁰ 7s²",ox:[3],common_ox:[3],melt:900,boil:1472,desc:"Emissor de nêutrons. Detectores de ouro e prata."},
+  {n:99,sym:"Es",name:"Einstênio",cat:"actinide",period:7,group:13,block:"f",mass:252,config:"[Rn] 5f¹¹ 7s²",ox:[3],common_ox:[3],melt:860,boil:996,desc:"Homenagem a Albert Einstein. Detectado em detonação nuclear."},
+  {n:100,sym:"Fm",name:"Férmio",cat:"actinide",period:7,group:14,block:"f",mass:257,config:"[Rn] 5f¹² 7s²",ox:[3],common_ox:[3],melt:1527,boil:null,desc:"Homenagem a Enrico Fermi. Detectado em 1952 em bomba H."},
+  {n:101,sym:"Md",name:"Mendelévio",cat:"actinide",period:7,group:15,block:"f",mass:258,config:"[Rn] 5f¹³ 7s²",ox:[2,3],common_ox:[3],melt:827,boil:null,desc:"Homenagem a Dmitri Mendeleev, criador da tabela periódica."},
+  {n:102,sym:"No",name:"Nobélio",cat:"actinide",period:7,group:16,block:"f",mass:259,config:"[Rn] 5f¹⁴ 7s²",ox:[2,3],common_ox:[2],melt:827,boil:null,desc:"Homenagem a Alfred Nobel. Produzido em reações de fusão nuclear."},
+  {n:103,sym:"Lr",name:"Laurêncio",cat:"actinide",period:7,group:17,block:"f",mass:266,config:"[Rn] 5f¹⁴ 7s² 7p¹",ox:[3],common_ox:[3],melt:1627,boil:null,desc:"Último actinídeo. Homenagem a Ernest O. Lawrence."},
+  {n:104,sym:"Rf",name:"Rutherfórdio",cat:"transition",period:7,group:4,block:"d",mass:267,config:"[Rn] 5f¹⁴ 6d² 7s²",ox:[4],common_ox:[4],melt:2100,boil:5500,desc:"Primeiro transactinídeo. Homenagem a Ernest Rutherford."},
+  {n:105,sym:"Db",name:"Dúbnio",cat:"transition",period:7,group:5,block:"d",mass:268,config:"[Rn] 5f¹⁴ 6d³ 7s²",ox:[5],common_ox:[5],melt:null,boil:null,desc:"Sintético e extremamente instável. Apenas alguns átomos produzidos."},
+  {n:106,sym:"Sg",name:"Seabórgio",cat:"transition",period:7,group:6,block:"d",mass:269,config:"[Rn] 5f¹⁴ 6d⁴ 7s²",ox:[6],common_ox:[6],melt:null,boil:null,desc:"Homenagem a Glenn T. Seaborg. Superpesado sintético."},
+  {n:107,sym:"Bh",name:"Bóhrio",cat:"transition",period:7,group:7,block:"d",mass:270,config:"[Rn] 5f¹⁴ 6d⁵ 7s²",ox:[7],common_ox:[7],melt:null,boil:null,desc:"Homenagem a Niels Bohr. Vida média em segundos."},
+  {n:108,sym:"Hs",name:"Hássio",cat:"transition",period:7,group:8,block:"d",mass:277,config:"[Rn] 5f¹⁴ 6d⁶ 7s²",ox:[8],common_ox:[8],melt:null,boil:null,desc:"Apenas alguns átomos sintetizados. Altamente instável."},
+  {n:109,sym:"Mt",name:"Meitnério",cat:"unknown",period:7,group:9,block:"d",mass:278,config:"[Rn] 5f¹⁴ 6d⁷ 7s²",ox:[],common_ox:[],melt:null,boil:null,desc:"Homenagem a Lise Meitner. Propriedades químicas praticamente desconhecidas."},
+  {n:110,sym:"Ds",name:"Darmstádtio",cat:"unknown",period:7,group:10,block:"d",mass:281,config:"[Rn] 5f¹⁴ 6d⁸ 7s²",ox:[],common_ox:[],melt:null,boil:null,desc:"Sintetizado em Darmstadt, Alemanha. Extremamente instável."},
+  {n:111,sym:"Rg",name:"Roentgênio",cat:"unknown",period:7,group:11,block:"d",mass:282,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s¹",ox:[],common_ox:[],melt:null,boil:null,desc:"Homenagem a Wilhelm Röntgen. Meia-vida em milissegundos."},
+  {n:112,sym:"Cn",name:"Copernício",cat:"transition",period:7,group:12,block:"d",mass:285,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s²",ox:[2],common_ox:[2],melt:null,boil:null,desc:"Homenagem a Copérnico. Pode ser gasoso à temperatura ambiente."},
+  {n:113,sym:"Nh",name:"Nihônio",cat:"post-transition",period:7,group:13,block:"p",mass:286,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹",ox:[],common_ox:[],melt:null,boil:null,desc:"Primeiro elemento sintético descoberto na Ásia (Japão)."},
+  {n:114,sym:"Fl",name:"Fleróvio",cat:"post-transition",period:7,group:14,block:"p",mass:289,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²",ox:[],common_ox:[],melt:null,boil:null,desc:"Possivelmente gás nobre superpesado. Comportamento especial."},
+  {n:115,sym:"Mc",name:"Moscóvio",cat:"post-transition",period:7,group:15,block:"p",mass:290,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³",ox:[],common_ox:[],melt:null,boil:null,desc:"Sintetizado em Dubna, Rússia. Extremamente instável."},
+  {n:116,sym:"Lv",name:"Livermório",cat:"post-transition",period:7,group:16,block:"p",mass:293,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴",ox:[],common_ox:[],melt:null,boil:null,desc:"Homenagem ao Lawrence Livermore National Laboratory."},
+  {n:117,sym:"Ts",name:"Tennessino",cat:"metalloid",period:7,group:17,block:"p",mass:294,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵",ox:[],common_ox:[],melt:null,boil:null,desc:"Segundo halogênio sintético. Homenagem ao estado do Tennessee."},
+  {n:118,sym:"Og",name:"Oganessônio",cat:"noble",period:7,group:18,block:"p",mass:294,config:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶",ox:[0],common_ox:[0],melt:null,boil:null,desc:"Elemento mais pesado confirmado. Homenagem a Yuri Oganessian."},
+];
+
+// ===================== LAYOUT: STANDARD TABLE =====================
+// Standard periodic table layout: row=period, col=group
+// f-block lanthanides/actinides separated below
+
+const CAT_NAMES = {
+  alkali: "Metal Alcalino",
+  alkaline: "Metal Alcalino Terroso",
+  "rare-earth": "Metal de Terra Rara",
+  lanthanide: "Lantanídeo",
+  actinide: "Actinídeo",
+  transition: "Metal de Transição",
+  "post-transition": "Metal Pós-Transição",
+  metalloid: "Semimetal",
+  polyatomic: "Não-metal Poliatômico",
+  diatomic: "Não-metal Diatômico",
+  noble: "Gás Nobre",
+  unknown: "Propriedades Desconhecidas"
+};
+
+const CAT_COLORS = {
+  alkali: "#e05252",
+  alkaline: "#e8a83a",
+  "rare-earth": "#8fa8e0",
+  lanthanide: "#d97cb5",
+  actinide: "#e06b9a",
+  transition: "#d4847a",
+  "post-transition": "#8faa8f",
+  metalloid: "#a8b856",
+  polyatomic: "#5bb87a",
+  diatomic: "#9ac45e",
+  noble: "#6baed6",
+  unknown: "#666"
+};
+
+// Build lookup
+const byNum = {};
+ELEMENTS.forEach(e => { byNum[e.n] = e; });
+
+// Standard table grid: 10 rows × 18 cols (periods 1-7 + gaps + 2 f-block rows)
+// Row index: 0=p1, 1=p2, 2=p3, 3=p4, 4=p5, 5=p6, 6=p7, 7=gap, 8=lanthanides, 9=actinides
+// Col: group 1-18 → index 0-17
+
+function getStandardLayout() {
+  // [row, col] for each atomic number
+  // Main block
+  const layout = {}; // n → {row, col}
+  
+  // Period 1
+  layout[1] = {row:0, col:0};
+  layout[2] = {row:0, col:17};
+  // Period 2
+  layout[3] = {row:1, col:0}; layout[4] = {row:1, col:1};
+  [5,6,7,8,9,10].forEach((n,i) => layout[n] = {row:1, col:12+i});
+  // Period 3
+  layout[11] = {row:2, col:0}; layout[12] = {row:2, col:1};
+  [13,14,15,16,17,18].forEach((n,i) => layout[n] = {row:2, col:12+i});
+  // Period 4
+  layout[19] = {row:3, col:0}; layout[20] = {row:3, col:1};
+  [21,22,23,24,25,26,27,28,29,30].forEach((n,i) => layout[n] = {row:3, col:2+i});
+  [31,32,33,34,35,36].forEach((n,i) => layout[n] = {row:3, col:12+i});
+  // Period 5
+  layout[37] = {row:4, col:0}; layout[38] = {row:4, col:1};
+  [39,40,41,42,43,44,45,46,47,48].forEach((n,i) => layout[n] = {row:4, col:2+i});
+  [49,50,51,52,53,54].forEach((n,i) => layout[n] = {row:4, col:12+i});
+  // Period 6 - La goes to f-block position (placeholder)
+  layout[55] = {row:5, col:0}; layout[56] = {row:5, col:1};
+  layout[57] = {row:5, col:2}; // La - shown as placeholder
+  [72,73,74,75,76,77,78,79,80].forEach((n,i) => layout[n] = {row:5, col:3+i});
+  [81,82,83,84,85,86].forEach((n,i) => layout[n] = {row:5, col:12+i});
+  // Period 7 - Ac placeholder
+  layout[87] = {row:6, col:0}; layout[88] = {row:6, col:1};
+  layout[89] = {row:6, col:2}; // Ac
+  [104,105,106,107,108,109,110,111,112].forEach((n,i) => layout[n] = {row:6, col:3+i});
+  [113,114,115,116,117,118].forEach((n,i) => layout[n] = {row:6, col:12+i});
+  
+  // f-block (row 8 = lanthanides 58-71, row 9 = actinides 90-103)
+  for(let i=0;i<14;i++) {
+    layout[58+i] = {row:8, col:3+i};
+    layout[90+i] = {row:9, col:3+i};
+  }
+  
+  return layout;
+}
+
+const LAYOUT = getStandardLayout();
+
+// ===================== RENDER =====================
+let selectedEl = null;
+let activeFilter = "all";
+
+function colorDark(hex, amount=40) {
+  let r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  r = Math.max(0,r-amount); g = Math.max(0,g-amount); b = Math.max(0,b-amount);
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+function buildTable() {
+  const container = document.getElementById('hex-table');
+  container.innerHTML = '';
+  
+  // Grid: 10 rows × 18 cols
+  // Row 7 = gap row, rows 8,9 = f-block
+  const ROWS = 10, COLS = 18;
+  
+  // Build a 2D grid
+  const grid = Array.from({length: ROWS}, () => Array(COLS).fill(null));
+  ELEMENTS.forEach(el => {
+    const pos = LAYOUT[el.n];
+    if(pos) grid[pos.row][pos.col] = el;
+  });
+  
+  container.style.gridTemplateColumns = `repeat(${COLS}, 70px)`;
+  container.style.gridTemplateRows = 'auto';
+  
+  for(let r=0;r<ROWS;r++) {
+    for(let c=0;c<COLS;c++) {
+      const el = grid[r][c];
+      
+      // Gap row (row 7)
+      if(r === 7) {
+        if(c === 0) {
+          // span all cols with a separator
+          const sep = document.createElement('div');
+          sep.style.cssText = `grid-column:1/${COLS+1};height:16px;display:flex;align-items:center;justify-content:center;`;
+          sep.innerHTML = `<div style="height:1px;width:100%;background:rgba(255,255,255,0.06);position:relative;">
+            <span style="position:absolute;left:50%;transform:translateX(-50%);background:#0d0e14;padding:0 12px;font-size:10px;color:#4b5563;letter-spacing:0.1em;top:-9px;">LANTANÍDEOS · ACTINÍDEOS</span>
+          </div>`;
+          container.appendChild(sep);
+          break; // only one element needed
+        } else continue;
+      }
+      
+      // f-block label offset - col 0,1,2 of rows 8,9 are empty spacers
+      if((r === 8 || r === 9) && c < 3) {
+        const spacer = document.createElement('div');
+        spacer.style.width = '70px'; spacer.style.height = '80px';
+        container.appendChild(spacer);
+        continue;
+      }
+      
+      if(!el) {
+        const empty = document.createElement('div');
+        empty.style.width='70px'; empty.style.height='80px';
+        container.appendChild(empty);
+        continue;
+      }
+      
+      const wrap = document.createElement('div');
+      wrap.className = 'hex-wrap';
+      wrap.dataset.n = el.n;
+      wrap.dataset.cat = el.cat;
+      
+      const hex = document.createElement('div');
+      hex.className = `hex cat-${el.cat}`;
+      hex.id = `el-${el.n}`;
+      hex.dataset.n = el.n;
+      
+      // Short config display
+      const shortCfg = el.config.length > 12 ? el.config.slice(-8) : el.config;
+      
+      hex.innerHTML = `
+        <div class="num">${el.n}</div>
+        <div class="sym">${el.sym}</div>
+        <div class="name-el">${el.name.length>10 ? el.name.slice(0,9)+'…' : el.name}</div>
+        <div class="config">${shortCfg}</div>
+      `;
+      
+      hex.addEventListener('click', () => selectElement(el));
+      hex.addEventListener('mouseenter', (e) => showTooltip(e, el));
+      hex.addEventListener('mouseleave', hideTooltip);
+      
+      wrap.appendChild(hex);
+      container.appendChild(wrap);
+    }
+  }
+}
+
+function selectElement(el) {
+  selectedEl = el;
+  updateDetailPanel(el);
+  // Remove previous selection highlight
+  document.querySelectorAll('.hex').forEach(h => h.style.outline = '');
+  const hexEl = document.getElementById(`el-${el.n}`);
+  if(hexEl) hexEl.style.outline = '2px solid #7c6af7';
+}
+
+function updateDetailPanel(el) {
+  const panel = document.getElementById('detail-panel');
+  panel.classList.remove('empty');
+  
+  const cat = el.cat;
+  const color = CAT_COLORS[cat] || '#666';
+  
+  const oxBadges = el.ox.map(o => {
+    const isCommon = el.common_ox.includes(o);
+    return `<span class="ox-badge ${isCommon?'common':''}">${o>0?'+':''}${o}</span>`;
+  }).join('');
+  
+  const meltStr = el.melt !== null ? `${el.melt}°C` : '—';
+  const boilStr = el.boil !== null ? `${el.boil}°C` : '—';
+  
+  panel.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-hex-big cat-${cat}">
+        <div class="d-num">${el.n}</div>
+        <div class="d-sym">${el.sym}</div>
+        <div class="d-name">${el.name}</div>
+      </div>
+      <div class="detail-info">
+        <div class="detail-name">${el.name}</div>
+        <div class="detail-category" style="color:${color}">${CAT_NAMES[cat] || cat}</div>
+        <div style="font-size:11px;color:var(--muted)">Período ${el.period} · Grupo ${el.group} · Bloco ${el.block.toUpperCase()}</div>
+      </div>
+    </div>
+    
+    <div class="detail-props">
+      <div class="prop-box">
+        <div class="prop-label">Massa Atômica</div>
+        <div class="prop-value">${el.mass}</div>
+      </div>
+      <div class="prop-box">
+        <div class="prop-label">Nº Atômico</div>
+        <div class="prop-value">${el.n}</div>
+      </div>
+      <div class="prop-box">
+        <div class="prop-label">Fusão</div>
+        <div class="prop-value">${meltStr}</div>
+      </div>
+      <div class="prop-box">
+        <div class="prop-label">Ebulição</div>
+        <div class="prop-value">${boilStr}</div>
+      </div>
+      <div class="prop-box full">
+        <div class="prop-label">Configuração Eletrônica</div>
+        <div class="config-full">${el.config}</div>
+      </div>
+      ${el.ox.length > 0 ? `
+      <div class="prop-box full">
+        <div class="prop-label">Estados de Oxidação</div>
+        <div class="oxidation-states">${oxBadges}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">
+          <span style="background:rgba(124,106,247,0.3);border-radius:2px;padding:1px 4px;margin-right:4px;color:#fff">bold</span>mais comuns
+        </div>
+      </div>` : ''}
+    </div>
+    <div class="detail-desc">${el.desc}</div>
+  `;
+}
+
+function showTooltip(e, el) {
+  const tt = document.getElementById('tooltip');
+  tt.textContent = `${el.n} · ${el.sym} · ${el.name} · ${el.mass} u`;
+  tt.style.display = 'block';
+  tt.style.left = (e.clientX + 14) + 'px';
+  tt.style.top = (e.clientY - 30) + 'px';
+}
+
+function hideTooltip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+document.addEventListener('mousemove', (e) => {
+  const tt = document.getElementById('tooltip');
+  if(tt.style.display === 'block') {
+    tt.style.left = (e.clientX + 14) + 'px';
+    tt.style.top = (e.clientY - 30) + 'px';
+  }
+});
+
+// ===================== SEARCH =====================
+document.getElementById('search-bar').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  if(!q) {
+    document.querySelectorAll('.hex').forEach(h => h.classList.remove('dimmed'));
+    return;
+  }
+  document.querySelectorAll('.hex').forEach(h => {
+    const n = parseInt(h.dataset.n);
+    const el = byNum[n];
+    const match = el.sym.toLowerCase().includes(q) 
+      || el.name.toLowerCase().includes(q) 
+      || String(el.n).includes(q)
+      || el.cat.includes(q);
+    h.classList.toggle('dimmed', !match);
+  });
+});
+
+// ===================== FILTER =====================
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    activeFilter = this.dataset.filter;
+    
+    document.querySelectorAll('.hex').forEach(h => {
+      if(activeFilter === 'all') {
+        h.classList.remove('dimmed');
+      } else {
+        const el = byNum[parseInt(h.dataset.n)];
+        h.classList.toggle('dimmed', el.cat !== activeFilter);
+      }
+    });
+  });
+});
+
+// Legend hover
+document.querySelectorAll('.leg-item').forEach(item => {
+  item.addEventListener('mouseenter', function() {
+    const cat = this.dataset.cat;
+    document.querySelectorAll('.hex').forEach(h => {
+      const el = byNum[parseInt(h.dataset.n)];
+      h.classList.toggle('dimmed', el.cat !== cat);
+    });
+  });
+  item.addEventListener('mouseleave', function() {
+    // Restore filter state
+    document.querySelectorAll('.hex').forEach(h => {
+      if(activeFilter === 'all') {
+        h.classList.remove('dimmed');
+      } else {
+        const el = byNum[parseInt(h.dataset.n)];
+        h.classList.toggle('dimmed', el.cat !== activeFilter);
+      }
+    });
+  });
+});
+
+// ===================== INIT =====================
+buildTable();
+
+// Auto-select Iridium (77) as in the reference image
+setTimeout(() => selectElement(byNum[77]), 400);
+</script>
+</body>
+</html>

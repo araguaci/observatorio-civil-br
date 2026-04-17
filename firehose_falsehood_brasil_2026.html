@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firehose of Falsehood 2026 — Tsunami de Escândalos</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#08080a;
+  --bg2:#0f0f13;
+  --bg3:#16161c;
+  --bg4:#1e1e26;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
+  --text:#e4e2dc;
+  --muted:#5a5856;
+  --muted2:#7a7874;
+  --wave1:#c94a2a;
+  --wave2:#9b3ecb;
+  --wave3:#1d9e75;
+  --wave4:#ba7517;
+  --wave5:#c94a2a;
+  --timeline:#2a2a35;
+}
+
+html,body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh}
+body{padding:0;overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{
+  padding:56px 40px 48px;
+  max-width:960px;
+  margin:0 auto;
+  border-bottom:1px solid var(--border);
+}
+.hero-eye{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,52px);
+  font-weight:800;line-height:1.08;
+  letter-spacing:-.03em;color:var(--text);
+  margin-bottom:16px;
+}
+.hero h1 em{font-style:normal;color:var(--wave1)}
+.hero-desc{
+  font-size:15px;color:var(--muted2);
+  font-family:'IBM Plex Mono',monospace;
+  line-height:1.7;max-width:640px;
+}
+.hero-stats{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:28px;
+}
+.stat-pill{
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  border-radius:6px;
+  padding:8px 16px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--muted2);
+}
+.stat-pill strong{
+  font-size:15px;font-weight:700;
+  color:var(--text);display:block;
+  margin-bottom:2px;
+}
+
+/* ── LAYOUT ── */
+.main{max-width:960px;margin:0 auto;padding:0 40px 80px}
+
+/* ── SECTION HEADERS ── */
+.section-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+  margin:48px 0 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── TSUNAMI WAVE ── */
+.tsunami-wrapper{
+  position:relative;
+  margin:0 -40px;
+  overflow:hidden;
+}
+.wave-svg{display:block;width:100%}
+
+/* ── SCANDAL TIMELINE ── */
+.timeline{
+  position:relative;
+  padding-left:28px;
+  margin-top:8px;
+}
+.timeline::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:1px;background:var(--border2);
+}
+.twave{margin-bottom:40px}
+.twave-header{
+  display:flex;align-items:center;
+  gap:12px;margin-bottom:14px;
+}
+.twave-dot{
+  width:10px;height:10px;border-radius:50%;
+  position:absolute;left:-5px;
+  margin-top:5px;flex-shrink:0;
+}
+.twave-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.1em;
+  color:var(--muted);text-transform:uppercase;
+}
+.twave-title{
+  font-size:15px;font-weight:700;
+  letter-spacing:-.01em;
+}
+.twave-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:8px;
+}
+.scandal-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px 14px;
+  cursor:pointer;
+  transition:border-color .2s,background .2s;
+  position:relative;
+  overflow:hidden;
+}
+.scandal-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+}
+.scandal-card:hover{background:var(--bg4);border-color:var(--border2)}
+.scandal-card:hover::before{opacity:1}
+.scandal-name{
+  font-size:12px;font-weight:700;
+  margin-bottom:4px;line-height:1.3;
+}
+.scandal-value{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--muted2);
+}
+.scandal-tag{
+  display:inline-block;
+  margin-top:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;
+  background:var(--bg4);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:2px 7px;
+  color:var(--muted);
+}
+
+/* color variants */
+.c-red  .scandal-name{color:#f07060}
+.c-red  .scandal-card::before{background:#c94a2a}
+.c-red  .scandal-card:hover{border-color:rgba(201,74,42,.3)}
+.c-purple .scandal-name{color:#b090f0}
+.c-purple .scandal-card::before{background:#9b3ecb}
+.c-purple .scandal-card:hover{border-color:rgba(155,62,203,.3)}
+.c-teal .scandal-name{color:#40d0a0}
+.c-teal .scandal-card::before{background:#1d9e75}
+.c-teal .scandal-card:hover{border-color:rgba(29,158,117,.3)}
+.c-amber .scandal-name{color:#e8a83a}
+.c-amber .scandal-card::before{background:#ba7517}
+.c-amber .scandal-card:hover{border-color:rgba(186,117,23,.3)}
+.c-coral .scandal-name{color:#f08060}
+.c-coral .scandal-card::before{background:#d85a30}
+.c-coral .scandal-card:hover{border-color:rgba(216,90,48,.3)}
+
+/* ── MECHANISM GRID ── */
+.mech-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:10px;
+}
+.mech-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-left:2px solid transparent;
+  border-radius:8px;
+  padding:16px 18px;
+  cursor:pointer;
+  transition:all .2s;
+}
+.mech-card:hover{background:var(--bg4)}
+.mech-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.1em;
+  color:var(--muted);margin-bottom:8px;
+}
+.mech-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.mech-body{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--muted2);line-height:1.6}
+.mech-card.m1{border-left-color:#c94a2a}.mech-card.m1 .mech-title{color:#f07060}
+.mech-card.m2{border-left-color:#9b3ecb}.mech-card.m2 .mech-title{color:#b090f0}
+.mech-card.m3{border-left-color:#1d9e75}.mech-card.m3 .mech-title{color:#40d0a0}
+.mech-card.m4{border-left-color:#ba7517}.mech-card.m4 .mech-title{color:#e8a83a}
+.mech-card.m5{border-left-color:#d85a30}.mech-card.m5 .mech-title{color:#f08060}
+.mech-card.m6{border-left-color:#7f77dd}.mech-card.m6 .mech-title{color:#a89ff0}
+
+/* ── EFFECT CHAIN ── */
+.chain{
+  display:flex;align-items:stretch;
+  flex-wrap:wrap;gap:0;
+  margin-top:8px;
+}
+.chain-step{
+  flex:1;min-width:140px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:16px;
+  position:relative;
+  margin-bottom:8px;
+}
+.chain-arrow{
+  display:flex;align-items:center;
+  color:var(--muted);font-size:18px;
+  padding:0 4px;flex-shrink:0;
+}
+.chain-n{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--muted);
+  margin-bottom:6px;
+}
+.chain-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.chain-sub{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--muted2);line-height:1.5}
+.chain-step:nth-child(1) .chain-title{color:#f07060}
+.chain-step:nth-child(3) .chain-title{color:#b090f0}
+.chain-step:nth-child(5) .chain-title{color:#40d0a0}
+.chain-step:nth-child(7) .chain-title{color:#e8a83a}
+.chain-step:nth-child(9) .chain-title{color:#f08060}
+
+/* ── VERDICT BOX ── */
+.verdict{
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-top:2px solid var(--wave1);
+  border-radius:10px;
+  padding:28px 32px;
+  margin-top:8px;
+  text-align:center;
+}
+.verdict-title{
+  font-size:18px;font-weight:800;
+  letter-spacing:-.02em;
+  color:var(--text);margin-bottom:10px;
+}
+.verdict-body{
+  font-size:13px;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--muted2);line-height:1.8;
+  max-width:620px;margin:0 auto;
+}
+
+/* ── TOOLTIP ── */
+.tooltip{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:10px 18px;max-width:420px;
+  font-size:12px;font-family:'IBM Plex Mono',monospace;
+  color:var(--text);pointer-events:none;
+  opacity:0;transition:opacity .2s,transform .2s;
+  text-align:center;z-index:999;
+}
+.tooltip.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── FOOTER ── */
+.footer{
+  max-width:960px;margin:0 auto;
+  padding:24px 40px 48px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--muted);
+}
+.footer a{color:var(--wave1);text-decoration:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .hero,.main{padding-left:20px;padding-right:20px}
+  .tsunami-wrapper{margin:0 -20px}
+  .chain{flex-direction:column}
+  .chain-arrow{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="hero-eye">Firehose of Falsehood · Brasil 2026 · Modelo RAND Corporation</div>
+  <h1>Tsunami de<br><em>escândalos sucessivos</em><br>como estratégia</h1>
+  <p class="hero-desc">
+    O objetivo nunca foi informar. Nem desinformar.<br>
+    Foi <strong>exaurir</strong> — até o cidadão abandonar voluntariamente o campo.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-pill"><strong>107ª</strong>posição no IPC 2025</div>
+    <div class="stat-pill"><strong>35/100</strong>nota Transparência Internacional</div>
+    <div class="stat-pill"><strong>R$ 347,8 bi</strong>faturamento crime organizado/ano</div>
+    <div class="stat-pill"><strong>+130%</strong>violência política 2022→2024</div>
+    <div class="stat-pill"><strong>R$ 6,3 bi</strong>fraude INSS documentada</div>
+    <div class="stat-pill"><strong>R$ 140 bi</strong>fluxos ilícitos Op. Carbono Oculto</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════ WAVE SVG -->
+<div class="section-label">Linha do tsunami — ondas de saturação 2020–2026</div>
+
+<div class="tsunami-wrapper">
+<svg class="wave-svg" viewBox="0 0 960 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- baseline -->
+  <line x1="0" y1="140" x2="960" y2="140" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <!-- wave path — cresce até 2026 -->
+  <path d="M0,140 C40,138 80,135 120,130 C160,125 180,120 220,115 C260,110 280,108 320,100 C360,92 380,88 420,80 C460,72 480,65 520,55 C560,45 580,38 620,28 C660,18 700,12 740,8 C780,4 820,6 860,8 C900,10 930,14 960,20"
+        fill="none" stroke="url(#wgrad)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- fill under curve -->
+  <path d="M0,140 C40,138 80,135 120,130 C160,125 180,120 220,115 C260,110 280,108 320,100 C360,92 380,88 420,80 C460,72 480,65 520,55 C560,45 580,38 620,28 C660,18 700,12 740,8 C780,4 820,6 860,8 C900,10 930,14 960,20 L960,140 Z"
+        fill="url(#wfill)" opacity="0.18"/>
+  <!-- year markers -->
+  <line x1="120" y1="130" x2="120" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="120" y="165" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">2020</text>
+  <line x1="260" y1="110" x2="260" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="260" y="165" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">2022</text>
+  <line x1="420" y1="80" x2="420" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="420" y="165" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">2023</text>
+  <line x1="580" y1="38" x2="580" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="580" y="165" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">2024</text>
+  <line x1="740" y1="8" x2="740" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="740" y="165" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">2025</text>
+  <line x1="920" y1="16" x2="920" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="920" y="165" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#c94a2a">2026</text>
+  <!-- label -->
+  <text x="30" y="130" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">volume</text>
+  <text x="30" y="142" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a5856">→</text>
+  <defs>
+    <linearGradient id="wgrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1d9e75"/>
+      <stop offset="40%" stop-color="#ba7517"/>
+      <stop offset="75%" stop-color="#9b3ecb"/>
+      <stop offset="100%" stop-color="#c94a2a"/>
+    </linearGradient>
+    <linearGradient id="wfill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1d9e75"/>
+      <stop offset="40%" stop-color="#ba7517"/>
+      <stop offset="75%" stop-color="#9b3ecb"/>
+      <stop offset="100%" stop-color="#c94a2a"/>
+    </linearGradient>
+  </defs>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════ TIMELINE -->
+<div class="section-label">Ondas documentadas por período</div>
+
+<div class="timeline">
+
+  <!-- ONDA 1 – 2019-2021 -->
+  <div class="twave c-teal">
+    <div style="position:relative">
+      <div class="twave-dot" style="background:#1d9e75;top:4px"></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="twave-year">2019–2021 · Onda 1</span>
+      <div class="twave-title" style="color:#40d0a0;margin-top:4px">Pré-saturação — casos isolados</div>
+    </div>
+    <div class="twave-grid">
+      <div class="scandal-card" onclick="tip('Operação Lava Jato: anulação progressiva via STF. Maior operação anticorrupção da história. Padrão de captura terminal: investigação aberta, arquivada antes de atingir beneficiários finais.')">
+        <div class="scandal-name c-teal">Lava Jato — fase final</div>
+        <div class="scandal-value">R$ 37,6 bi identificados</div>
+        <span class="scandal-tag">captura terminal</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Caso Covaxin: suspeita de sobrepreço em vacinas. Apuração pela CPI da Covid. Ministro da Saúde investigado. Resultado: arquivamento parcial.')">
+        <div class="scandal-name c-teal">Covaxin / CPI Covid</div>
+        <div class="scandal-value">Desvios em vacinas</div>
+        <span class="scandal-tag">saúde pública</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Caso das joias sauditas: relógio Rolex e joias retidas na alfândega brasileira. Investigação PF 2023. Ligação direta ao governo federal anterior.')">
+        <div class="scandal-name c-teal">Joias sauditas</div>
+        <div class="scandal-value">Patrimônio não declarado</div>
+        <span class="scandal-tag">peculato</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONDA 2 – 2022 -->
+  <div class="twave c-amber">
+    <div style="position:relative">
+      <div class="twave-dot" style="background:#ba7517;top:4px"></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="twave-year">2022 · Onda 2</span>
+      <div class="twave-title" style="color:#e8a83a;margin-top:4px">Ciclo eleitoral — saturação deliberada</div>
+    </div>
+    <div class="twave-grid">
+      <div class="scandal-card" onclick="tip('Prebunking massivo: narrativa de fraude eleitoral disseminada antes das eleições. Modelo firehose clássico: alto volume, múltiplos canais, sem compromisso com realidade objetiva.')">
+        <div class="scandal-name c-amber">Narrativa fraude eleitoral</div>
+        <div class="scandal-value">Prebunking + desorientação</div>
+        <span class="scandal-tag">guerra informacional</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Tentativa de golpe documentada 8 de janeiro 2023: planejamento anterior às eleições. Atores identificados pela PF. Processos em andamento no STF.')">
+        <div class="scandal-name c-amber">Planejamento 8/jan</div>
+        <div class="scandal-value">Ruptura institucional</div>
+        <span class="scandal-tag">tentativa de golpe</span>
+      </div>
+      <div class="scandal-card" onclick="tip('INQ 4781 — inquérito das fake news STF. Investigação de financiamento e coordenação de desinformação sistemática contra instituições democráticas.')">
+        <div class="scandal-name c-amber">INQ 4781 / Fake News</div>
+        <div class="scandal-value">Rede coordenada</div>
+        <span class="scandal-tag">desinformação</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONDA 3 – 2023-2024 -->
+  <div class="twave c-purple">
+    <div style="position:relative">
+      <div class="twave-dot" style="background:#9b3ecb;top:4px"></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="twave-year">2023–2024 · Onda 3</span>
+      <div class="twave-title" style="color:#b090f0;margin-top:4px">Aceleração — múltiplos vetores simultâneos</div>
+    </div>
+    <div class="twave-grid">
+      <div class="scandal-card" onclick="tip('Operação Sisamnes: comércio de sentenças no STJ. Suspeitos internos, advogados e lobistas. Deflagrada fim de 2024, fases em 2025.')">
+        <div class="scandal-name c-purple">Op. Sisamnes</div>
+        <div class="scandal-value">Venda de sentenças STJ</div>
+        <span class="scandal-tag">captura judicial</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Operação Overclean: desvios de emendas parlamentares, fraudes em licitações, lavagem de dinheiro. Operando em 5 estados. Lideranças partidárias envolvidas.')">
+        <div class="scandal-name c-purple">Op. Overclean</div>
+        <div class="scandal-value">R$ 1,4 bi — emendas</div>
+        <span class="scandal-tag">emendas parlamentares</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Ministro das Comunicações Juscelino Filho: acusado pela PF de corrupção passiva, lavagem e organização criminosa. Ligado à Codevasf.')">
+        <div class="scandal-name c-purple">Caso Juscelino Filho</div>
+        <div class="scandal-value">Codevasf / lavagem</div>
+        <span class="scandal-tag">ministério</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Operação Castelo de Areia: esquema financeiro histórico. Rede Arpar com R$39 bilhões em fundos FIDC. Padrão P3 de captura emergencial via Judiciário.')">
+        <div class="scandal-name c-purple">Castelo de Areia</div>
+        <div class="scandal-value">R$ 39 bi Rede Arpar</div>
+        <span class="scandal-tag">lavagem estrutural</span>
+      </div>
+      <div class="scandal-card" onclick="tip('PEC da Blindagem: proposta legislativa para dificultar ações penais contra congressistas. Retirada após pressão popular. Tentativa de captura legislativa documentada.')">
+        <div class="scandal-name c-purple">PEC da Blindagem</div>
+        <div class="scandal-value">Impunidade legalizada</div>
+        <span class="scandal-tag">captura legislativa</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Caso Sóstenes Cavalcante: R$430 mil em dinheiro vivo encontrado pela PF. Desvio de verbas parlamentares. Pastor e líder partidário investigado.')">
+        <div class="scandal-name c-purple">Caso Sóstenes / PL</div>
+        <div class="scandal-value">R$ 430 mil cash</div>
+        <span class="scandal-tag">verbas parlamentares</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONDA 4 – 2025 -->
+  <div class="twave c-red">
+    <div style="position:relative">
+      <div class="twave-dot" style="background:#c94a2a;top:4px"></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="twave-year">2025 · Onda 4</span>
+      <div class="twave-title" style="color:#f07060;margin-top:4px">Tsunami — escala sem precedentes históricos</div>
+    </div>
+    <div class="twave-grid">
+      <div class="scandal-card" onclick="tip('Operação Sem Desconto (INSS): maior esquema de corrupção previdenciária da história brasileira. R$ 6,3 bi em descontos não autorizados. Centenas de milhares de aposentados afetados. Frei Chico — irmão de Lula — vice-presidente do Sindnapi envolvido.')">
+        <div class="scandal-name c-red">Op. Sem Desconto (INSS)</div>
+        <div class="scandal-value">R$ 6,3 bi — aposentados</div>
+        <span class="scandal-tag">previdência · P7</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Operação Carbono Oculto: maior operação da história recente por escala. R$ 140 bi em fluxos ilícitos documentados. PCC infiltrado em fundos de Faria Lima. Fintechs e gestoras de ativos comprometidas.')">
+        <div class="scandal-name c-red">Op. Carbono Oculto</div>
+        <div class="scandal-value">R$ 140 bi fluxos ilícitos</div>
+        <span class="scandal-tag">PCC · fintechs · P8</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Banco Master / Op. Compliance Zero: Daniel Vorcaro preso duas vezes. R$ 45,5 bi em UECs de carbono fictícios. Liquidação extrajudicial pelo Banco Central. Toffoli como rapporteur sob sigilo.')">
+        <div class="scandal-name c-red">Banco Master / Compliance Zero</div>
+        <div class="scandal-value">R$ 45,5 bi UECs fictícios</div>
+        <span class="scandal-tag">banco central · sigilo</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Operação Hydra: R$ 6 bi+ lavagem via fintechs não reguladas. Ligações com PCC. Estrutura offshore: Delaware, Hong Kong. Fluxos em criptoativos. Whistleblower executado. Flag de inteligência israelense.')">
+        <div class="scandal-name c-red">Op. Hydra</div>
+        <div class="scandal-value">R$ 6 bi+ fintechs</div>
+        <span class="scandal-tag">crypto · offshore · PCC</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Operação Greenwashing: fraude em créditos de carbono. MPF com decisão pendente sobre denúncia. Padrão de captura ambiental documentado.')">
+        <div class="scandal-name c-red">Op. Greenwashing</div>
+        <div class="scandal-value">Fraude carbono / MPF</div>
+        <span class="scandal-tag">carbono · ESG</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Operação Poço de Lobato (Grupo Refit): fraude em derivados de petróleo. Padrão financeiro semelhante aos FIDCs encontrados em Castelo de Areia e Compliance Zero — possível infraestrutura jurídico-financeira compartilhada.')">
+        <div class="scandal-name c-red">Op. Poço de Lobato</div>
+        <div class="scandal-value">Derivativos / Grupo Refit</div>
+        <span class="scandal-tag">petróleo · FIDC</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Correios: rombo estimado R$ 10 bi em 2025, podendo chegar a R$ 23 bi em 2026. Aparelhamento institucional documentado. Contratações irregulares e superfaturamento.')">
+        <div class="scandal-name c-red">Correios</div>
+        <div class="scandal-value">R$ 10–23 bi projetados</div>
+        <span class="scandal-tag">estatal</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Op. Contenção RJ: 121 mortos. CPI do Crime Organizado apura financiamento de facções, narcomilícias, infiltração no Estado. Ex-governador Castro convocado para depor em 14/04/2026.')">
+        <div class="scandal-name c-red">Op. Contenção / CPI Crime</div>
+        <div class="scandal-value">121 mortos · milícias</div>
+        <span class="scandal-tag">crime organizado</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONDA 5 – 2026 -->
+  <div class="twave c-coral">
+    <div style="position:relative">
+      <div class="twave-dot" style="background:#d85a30;top:4px"></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="twave-year">2026 · Onda 5 — em curso</span>
+      <div class="twave-title" style="color:#f08060;margin-top:4px">Ano eleitoral — saturação máxima pré-outubro</div>
+    </div>
+    <div class="twave-grid">
+      <div class="scandal-card" onclick="tip('CPI do Crime Organizado: Claudio Castro ouvido hoje, 14/04/2026. Avanço de facções, milícias, financiamento do crime, infiltração no Estado do Rio. Reta final dos trabalhos.')">
+        <div class="scandal-name c-coral">CPI Crime Organizado</div>
+        <div class="scandal-value">Em sessão — 14/04/2026</div>
+        <span class="scandal-tag">ao vivo</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Cassação Eduardo Bolsonaro e Alexandre Ramagem (dez/2025): desobediência judicial ligada à tentativa de golpe de 2023. Mandatos cassados pela Câmara.')">
+        <div class="scandal-name c-coral">Cassação Bolsonaro / Ramagem</div>
+        <div class="scandal-value">Mandatos cassados</div>
+        <span class="scandal-tag">janeiro 8</span>
+      </div>
+      <div class="scandal-card" onclick="tip('Janela eleitoral: aumento de 130% em violência política 2022→2024. Recorde de 558 registros em 2024. Crime organizado expandindo via candidaturas. Outubro 2026 como horizonte crítico.')">
+        <div class="scandal-name c-coral">Eleições outubro 2026</div>
+        <div class="scandal-value">Janela crítica aberta</div>
+        <span class="scandal-tag">+130% violência política</span>
+      </div>
+      <div class="scandal-card" onclick="tip('STF caso Master: sob sigilo com Toffoli como rapporteur. Status pendente. Padrão recorrente de captura terminal via foro privilegiado — investigação abre, silencia, arquiva.')">
+        <div class="scandal-name c-coral">STF caso Master (sigilo)</div>
+        <div class="scandal-value">Toffoli — rapporteur</div>
+        <span class="scandal-tag">captura terminal</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /timeline -->
+
+<!-- ═══════════════════════════════════════ MECANISMOS -->
+<div class="section-label">Por que o tsunami funciona — 6 mecanismos ativos</div>
+
+<div class="mech-grid">
+  <div class="mech-card m1" onclick="tip('Cada escândalo novo apaga o anterior da memória coletiva antes de ter consequência. O ciclo reinicia. Nenhum caso chega à conclusão antes do próximo dominá-lo.')">
+    <div class="mech-num">01 · Efeito de substituição</div>
+    <div class="mech-title">Escândalo apaga escândalo</div>
+    <div class="mech-body">Volume superior ao ciclo de atenção. O anterior some antes de ter consequência.</div>
+  </div>
+  <div class="mech-card m2" onclick="tip('Múltiplas fontes aparentemente independentes (STF, ONGs, mídia) chegam à mesma conclusão. O cérebro interpreta como consenso orgânico. É coordenação mascarada de pluralidade.')">
+    <div class="mech-num">02 · Ilusão de consenso</div>
+    <div class="mech-title">Fontes distintas, mensagem única</div>
+    <div class="mech-body">Judicial + civil + midiático: coordenação mascarada de pluralidade.</div>
+  </div>
+  <div class="mech-card m3" onclick="tip('Prebunking: rotula preventivamente qualquer questionamento como desinformação. Quem refuta chega ao debate pré-desacreditado. A refutação torna-se prova da culpa.')">
+    <div class="mech-num">03 · Prebunking institucional</div>
+    <div class="mech-title">Contraditório pré-desacreditado</div>
+    <div class="mech-body">Questionamentos são rotulados antes de serem feitos. Campo vedado.</div>
+  </div>
+  <div class="mech-card m4" onclick="tip('A repetição cria familiaridade. A familiaridade cria a sensação de veracidade. O efeito da verdade ilusória opera independente da base factual — a emoção da acusação permanece mesmo após a fonte ser esquecida.')">
+    <div class="mech-num">04 · Verdade ilusória</div>
+    <div class="mech-title">Familiaridade = veracidade</div>
+    <div class="mech-body">Repetição substitui verificação. Emoção da acusação sobrevive à fonte.</div>
+  </div>
+  <div class="mech-card m5" onclick="tip('A plataforma digital concisa por design favorece declarações curtas e assertivas de autoridade sobre refutações fundamentadas. Vantagem estrutural do simplismo sobre a complexidade.')">
+    <div class="mech-num">05 · Antirracionalismo digital</div>
+    <div class="mech-title">Concisão impede refutação</div>
+    <div class="mech-body">280 caracteres vs. análise completa. Estrutura da plataforma é a arma.</div>
+  </div>
+  <div class="mech-card m6" onclick="tip('A hipótese do ponto terminal: investigações sistematicamente param antes de atingir os beneficiários finais. O STF funciona como teto estrutural. Padrão documentado em todas as operações estudadas.')">
+    <div class="mech-num">06 · Ponto terminal estrutural</div>
+    <div class="mech-title">STF como teto das investigações</div>
+    <div class="mech-body">Nenhuma operação chega ao beneficiário final. Por design, não por falha.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ CHAIN -->
+<div class="section-label">Cadeia de efeitos — do tsunami ao abandono</div>
+
+<div class="chain">
+  <div class="chain-step">
+    <div class="chain-n">01</div>
+    <div class="chain-title">Emissão massiva</div>
+    <div class="chain-sub">Escândalos em volume e velocidade superiores à capacidade de processamento</div>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step">
+    <div class="chain-n">02</div>
+    <div class="chain-title">Sobrecarga cognitiva</div>
+    <div class="chain-sub">Sistema analítico paralisa. Heurísticas assumem o controle</div>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step">
+    <div class="chain-n">03</div>
+    <div class="chain-title">Dessensibilização</div>
+    <div class="chain-sub">Gravidade se normaliza. Indignação se esgota por repetição</div>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step">
+    <div class="chain-n">04</div>
+    <div class="chain-title">Fragmentação</div>
+    <div class="chain-sub">Sem fio condutor. Nenhuma contra-narrativa ganha tração suficiente</div>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step">
+    <div class="chain-n">05</div>
+    <div class="chain-title">Desengajamento</div>
+    <div class="chain-sub">Autopreservação psicológica. Abandono voluntário do campo político</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ VERDICT -->
+<div class="section-label">Tese central</div>
+
+<div class="verdict">
+  <div class="verdict-title">O campo livre é o objetivo — não o efeito colateral</div>
+  <div class="verdict-body">
+    O tsunami de escândalos sucessivos não é evidência de transparência institucional.<br>
+    É arquitetura de supressão política.<br><br>
+    Quando o cidadão não consegue mais acompanhar,<br>
+    não consegue mais cobrar,<br>
+    não consegue mais votar com informação — o campo fica livre.<br><br>
+    <strong style="color:var(--text)">O antídoto: memória institucional persistente que não depende do ciclo de atenção midiática.</strong>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tip"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>
+    <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a>
+    &nbsp;·&nbsp; @araguaci &nbsp;·&nbsp; CC0 1.0
+  </div>
+  <div>Fonte: RAND Corporation · Transparência Internacional IPC 2025 · PF · FBSP · GAECO-SP</div>
+</div>
+
+<script>
+let tipTimer;
+function tip(msg){
+  const el=document.getElementById('tip');
+  el.textContent=msg;
+  el.classList.add('show');
+  clearTimeout(tipTimer);
+  tipTimer=setTimeout(()=>el.classList.remove('show'),5000);
+}
+</script>
+</body>
+</html>

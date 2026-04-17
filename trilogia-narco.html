@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilogia Narco: Do Porto à Rede Social | lawfare-timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg0: #050507;
+  --bg1: #0a0a0f;
+  --bg2: #0f0f16;
+  --bg3: #141420;
+  --bg4: #1a1a28;
+  --border: #1e1e30;
+  --border-hi: #2a2a42;
+
+  --text0: #f0f0f8;
+  --text1: #c8c8e0;
+  --text2: #888890;
+  --text3: #555560;
+
+  --red:     #ff3a3a;
+  --red-dim: #8b1a1a;
+  --orange:  #ff6b2b;
+  --amber:   #ffaa00;
+  --yellow:  #ffe066;
+  --green:   #00e676;
+  --cyan:    #00d4ff;
+  --blue:    #4a9eff;
+  --purple:  #a855f7;
+  --pink:    #ff4da6;
+
+  --phase1:  #00d4ff;
+  --phase2:  #a855f7;
+  --phase3:  #ff4da6;
+
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'IBM Plex Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg0);
+  color: var(--text1);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCANLINE EFFECT */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* NOISE OVERLAY */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 998;
+  opacity: 0.4;
+}
+
+/* HEADER */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg0);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-brand {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.site-brand span { color: var(--cyan); }
+.site-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+}
+.live-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  margin-right: 6px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* HERO */
+.hero {
+  padding: 56px 24px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--orange);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  color: var(--text0);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.hero-title .accent-cyan  { color: var(--cyan); }
+.hero-title .accent-pink  { color: var(--pink); }
+.hero-subtitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+.hero-abstract {
+  max-width: 680px;
+  font-size: 15px;
+  color: var(--text1);
+  line-height: 1.7;
+  border-left: 2px solid var(--orange);
+  padding-left: 20px;
+  margin-bottom: 36px;
+}
+
+/* STATS BAR */
+.stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 48px;
+}
+.stat-block {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 14px 20px;
+  flex: 1 1 160px;
+}
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text0);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-val.c1 { color: var(--phase1); }
+.stat-val.c2 { color: var(--phase2); }
+.stat-val.c3 { color: var(--phase3); }
+.stat-val.ct { color: var(--amber); }
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* SECTION HEADERS */
+.section {
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text0);
+  letter-spacing: -0.01em;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* TIMELINE PHASES */
+.timeline-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 32px;
+}
+.phase-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.phase-card.p1::before { background: var(--phase1); }
+.phase-card.p2::before { background: var(--phase2); }
+.phase-card.p3::before { background: var(--phase3); }
+.phase-card:hover { background: var(--bg3); border-color: var(--border-hi); }
+
+.phase-num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.p1 .phase-num { color: var(--phase1); }
+.p2 .phase-num { color: var(--phase2); }
+.p3 .phase-num { color: var(--phase3); }
+
+.phase-op {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.phase-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 14px;
+  letter-spacing: 0.06em;
+}
+.phase-nucleus {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  padding: 4px 8px;
+  display: inline-block;
+  border-radius: 2px;
+}
+.p1 .phase-nucleus { color: var(--phase1); background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); }
+.p2 .phase-nucleus { color: var(--phase2); background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); }
+.p3 .phase-nucleus { color: var(--phase3); background: rgba(255,77,166,0.08); border: 1px solid rgba(255,77,166,0.2); }
+
+.phase-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.phase-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.p1 .phase-value { color: var(--phase1); background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); }
+.p2 .phase-value { color: var(--phase2); background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.15); }
+.p3 .phase-value { color: var(--phase3); background: rgba(255,77,166,0.06); border: 1px solid rgba(255,77,166,0.15); }
+
+/* ARROW CONNECTOR */
+.phase-arrows {
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr 32px 1fr;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.arrow-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.arrow-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--phase1), var(--phase2), var(--phase3));
+  position: relative;
+}
+.arrow-sym {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--text3);
+}
+
+/* LAVAGEM CYCLE */
+.lavagem-cycle {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin-bottom: 32px;
+  position: relative;
+}
+.cycle-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.cycle-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  position: relative;
+}
+.cycle-steps::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(168,85,247,0.3), rgba(255,77,166,0.3));
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.cycle-step {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+.s1 .step-num { background: rgba(0,212,255,0.15); border: 1px solid rgba(0,212,255,0.4); color: var(--phase1); }
+.s2 .step-num { background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: var(--phase2); }
+.s3 .step-num { background: rgba(255,77,166,0.15); border: 1px solid rgba(255,77,166,0.4); color: var(--phase3); }
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 6px;
+}
+.step-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* TESE NARCOCULTURA */
+.narco-block {
+  background: linear-gradient(135deg, rgba(255,58,58,0.06) 0%, rgba(255,107,43,0.04) 100%);
+  border: 1px solid rgba(255,58,58,0.2);
+  border-left: 3px solid var(--red);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.narco-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.narco-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.narco-text {
+  font-size: 14px;
+  color: var(--text1);
+  line-height: 1.7;
+}
+
+.narco-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 32px;
+}
+.pillar {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red-dim);
+  padding: 20px;
+}
+.pillar-icon {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.pillar-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 8px;
+}
+.pillar-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* TESE JURÍDICA */
+.legal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-bottom: 32px;
+}
+.legal-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+.legal-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: var(--amber);
+}
+.legal-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 8px;
+}
+.legal-body {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.legal-highlight {
+  background: rgba(255,170,0,0.08);
+  border: 1px solid rgba(255,170,0,0.2);
+  padding: 10px 14px;
+  border-radius: 2px;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+}
+
+/* QUOTE BLOCK */
+.quote-terminal {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin: 40px 0;
+  position: relative;
+}
+.quote-terminal::before {
+  content: '// ANÁLISE EDITORIAL';
+  position: absolute;
+  top: -1px; left: 24px;
+  background: var(--bg0);
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+}
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 2.5vw, 20px);
+  font-weight: 600;
+  color: var(--text0);
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.quote-text em { color: var(--orange); font-style: normal; }
+.quote-attr {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+
+/* ATORES */
+.atores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2px;
+  margin-bottom: 32px;
+}
+.ator-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+.ator-role {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.ator-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 4px;
+}
+.ator-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.ator-phase {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+.ap1 { color: var(--phase1); background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); }
+.ap2 { color: var(--phase2); background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); }
+.ap3 { color: var(--phase3); background: rgba(255,77,166,0.08); border: 1px solid rgba(255,77,166,0.2); }
+.apall { color: var(--amber); background: rgba(255,170,0,0.08); border: 1px solid rgba(255,170,0,0.2); }
+
+/* SYSTEMIC PATTERNS */
+.patterns-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.pattern-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 6px 12px;
+  border-radius: 2px;
+  color: var(--cyan);
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.2);
+  letter-spacing: 0.04em;
+}
+
+/* LACUNAS */
+.lacuna-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 32px;
+}
+.lacuna-item {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  padding: 14px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.lacuna-ico {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.lacuna-body {}
+.lacuna-q {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 4px;
+}
+.lacuna-a {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* FOOTER */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-license {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+}
+.footer-license span { color: var(--green); }
+.footer-sources {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+}
+.footer-sources a { color: var(--cyan); text-decoration: none; }
+.footer-sources a:hover { text-decoration: underline; }
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: var(--border);
+  max-width: 1100px;
+  margin: 0 auto 48px;
+}
+
+/* URGENCY BOX */
+.urgency-box {
+  background: rgba(255,58,58,0.05);
+  border: 1px solid rgba(255,58,58,0.25);
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  position: relative;
+}
+.urgency-box::before {
+  content: '⚠ URGÊNCIA INVESTIGATIVA';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+.urgency-text {
+  font-size: 14px;
+  color: var(--text1);
+  line-height: 1.7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .timeline-phases,
+  .cycle-steps,
+  .narco-pillars,
+  .legal-grid {
+    grid-template-columns: 1fr;
+  }
+  .phase-arrows {
+    display: none;
+  }
+  .hero { padding: 32px 16px 28px; }
+  .section { padding: 0 16px; }
+}
+
+/* TABS NAV */
+.tabs-nav {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  transition: color 0.2s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--text1); }
+.tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* TIMELINE VERTICAL */
+.vtl {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 40px;
+}
+.vtl::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--phase1), var(--phase2), var(--phase3));
+}
+.vtl-item {
+  position: relative;
+  padding: 16px 0 16px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.vtl-item:last-child { border-bottom: none; }
+.vtl-dot {
+  position: absolute;
+  left: -34px;
+  top: 22px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.vtl-item.e1 .vtl-dot { border-color: var(--phase1); background: rgba(0,212,255,0.3); }
+.vtl-item.e2 .vtl-dot { border-color: var(--phase2); background: rgba(168,85,247,0.3); }
+.vtl-item.e3 .vtl-dot { border-color: var(--phase3); background: rgba(255,77,166,0.3); }
+.vtl-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 4px;
+  letter-spacing: 0.06em;
+}
+.vtl-ev {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text0);
+  margin-bottom: 4px;
+}
+.vtl-detail {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* JSON snippet */
+.json-block {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--text2);
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.json-k  { color: var(--cyan); }
+.json-v  { color: var(--green); }
+.json-n  { color: var(--amber); }
+.json-s  { color: var(--pink); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-brand"><span>lawfare-timeline</span> · dossier</div>
+  <div class="site-meta">
+    <span class="live-dot"></span>
+    DEFLAGRAÇÃO: 15.ABR.2026 · CC0 1.0 UNIVERSAL
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">OPERAÇÃO POLICIAL FEDERAL · TRILOGIA NARCO · 2025–2026</div>
+  <h1 class="hero-title">
+    Do Porto<br>
+    <span class="accent-cyan">à Rede Social</span>
+  </h1>
+  <div class="hero-subtitle">NARCOVELA · NARCOBET · NARCO FLUXO // CICLO COMPLETO DE LAVAGEM DOCUMENTADO</div>
+  <p class="hero-abstract">
+    O que pareceu uma série de apreensões isoladas revelou-se um ecossistema criminoso integrado: 
+    tráfico marítimo de cocaína, lavagem via apostas digitais e criptoativos, e integração social 
+    através de influenciadores e produtoras de entretenimento. Três fases. Um único fluxo.
+    R$ 3,5 bilhões bloqueados.
+  </p>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-block">
+      <div class="stat-val c1">R$ 1,3 bi</div>
+      <div class="stat-label">Narcovela · Abr/2025</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val c2">R$ 630 mi</div>
+      <div class="stat-label">Narcobet · Out/2025</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val c3">R$ 1,6 bi</div>
+      <div class="stat-label">Narco Fluxo · Abr/2026</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val ct">R$ 3,5 bi</div>
+      <div class="stat-label">Total bloqueado · estimado</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--red)">3</div>
+      <div class="stat-label">Fases · 12 meses</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--green)">P1–P3</div>
+      <div class="stat-label">Padrões sistêmicos ativos</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="section">
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('fases')">FASES</button>
+    <button class="tab-btn" onclick="switchTab('ciclo')">CICLO DE LAVAGEM</button>
+    <button class="tab-btn" onclick="switchTab('narcocultura')">NARCOCULTURA</button>
+    <button class="tab-btn" onclick="switchTab('juridico')">JURÍDICO</button>
+    <button class="tab-btn" onclick="switchTab('cronologia')">CRONOLOGIA</button>
+    <button class="tab-btn" onclick="switchTab('lacunas')">LACUNAS</button>
+  </div>
+
+  <!-- TAB: FASES -->
+  <div id="tab-fases" class="tab-panel active">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">A Trilogia: Três Fases, Um Fluxo</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="timeline-phases">
+      <div class="phase-card p1">
+        <div class="phase-num">FASE 01 · OPERACIONAL</div>
+        <div class="phase-op">Operação Narcovela</div>
+        <div class="phase-date">ABRIL 2025 · PORTO DE SANTOS</div>
+        <span class="phase-nucleus">Núcleo Logístico</span>
+        <p class="phase-desc">
+          Base da pirâmide. Veleiros e embarcações de pequeno porte exportavam toneladas de cocaína 
+          para Europa e África. Foco na infraestrutura física do escoamento: rotas, embarcações, 
+          tripulantes, pontos de origem na costa brasileira.
+        </p>
+        <div class="phase-value">R$ 1,3 bilhão bloqueado</div>
+      </div>
+
+      <div class="phase-card p2">
+        <div class="phase-num">FASE 02 · FINANCEIRO</div>
+        <div class="phase-op">Operação Narcobet</div>
+        <div class="phase-date">OUTUBRO 2025 · PLATAFORMAS DIGITAIS</div>
+        <span class="phase-nucleus">Núcleo Tecnológico</span>
+        <p class="phase-desc">
+          O capital bruto do tráfico precisava de assepsia. Plataformas de apostas online (bets) 
+          e criptoativos convertiam dinheiro sujo em "ganhos legítimos". Contadores e operadores 
+          financeiros pulverizaram os ativos em múltiplas contas e carteiras digitais.
+        </p>
+        <div class="phase-value">R$ 630 milhões bloqueados</div>
+      </div>
+
+      <div class="phase-card p3">
+        <div class="phase-num">FASE 03 · INTEGRAÇÃO</div>
+        <div class="phase-op">Operação Narco Fluxo</div>
+        <div class="phase-date">ABRIL 2026 · REDES SOCIAIS / ENTRETENIMENTO</div>
+        <span class="phase-nucleus">Núcleo de Fachada</span>
+        <p class="phase-desc">
+          A etapa final da integração social. O dinheiro, já com aparência lícita, irrigou 
+          produtoras de música e contas de influenciadores como MC Ryan SP, MC Poze do Rodo 
+          e Cris Dias. Contratos de publicidade e gestão de imagem converteram o "lucro do porto" 
+          em "sucesso artístico".
+        </p>
+        <div class="phase-value">R$ 1,6 bilhão bloqueado</div>
+      </div>
+    </div>
+
+    <div class="quote-terminal">
+      <p class="quote-text">
+        "O que inicialmente parecia uma série de apreensões isoladas de entorpecentes revelou-se 
+        um <em>ecossistema criminoso integrado</em> — com logística física, infraestrutura financeira 
+        digital e braço de legitimação cultural operando em camadas sucessivas."
+      </p>
+      <div class="quote-attr">// SÍNTESE OPERACIONAL · PF 2026</div>
+    </div>
+  </div>
+
+  <!-- TAB: CICLO -->
+  <div id="tab-ciclo" class="tab-panel">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">O Ciclo Clássico de Lavagem de Dinheiro</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="lavagem-cycle">
+      <div class="cycle-title">// COMO SE CONECTAM · O CICLO DA LAVAGEM</div>
+      <div class="cycle-steps">
+        <div class="cycle-step s1">
+          <div class="step-num">1</div>
+          <div class="step-title">Geração de Valor</div>
+          <div class="step-sub">PLACEMENT · COLOCAÇÃO</div>
+          <div class="step-desc">
+            Tráfico marítimo via Porto de Santos. Cocaína transportada em veleiros para Europa e 
+            África. Geração de caixa físico de altíssimo volume — euros, dólares e reais 
+            fora do sistema financeiro formal.
+          </div>
+        </div>
+        <div class="cycle-step s2">
+          <div class="step-num">2</div>
+          <div class="step-title">Ocultação e Pulverização</div>
+          <div class="step-sub">LAYERING · ESTRATIFICAÇÃO</div>
+          <div class="step-desc">
+            Bets online e criptoativos funcionam como lavanderia digital. Múltiplas contas, 
+            múltiplas carteiras. Contadores e operadores financeiros — o "contador" do esquema — 
+            transformam cash ilícito em "ganhos" digitalmente rastreáveis mas juridicamente lícitos.
+          </div>
+        </div>
+        <div class="cycle-step s3">
+          <div class="step-num">3</div>
+          <div class="step-title">Integração e Uso</div>
+          <div class="step-sub">INTEGRATION · INTEGRAÇÃO</div>
+          <div class="step-desc">
+            Dinheiro limpo retorna à economia real via entretenimento. Produtoras, shows, contratos 
+            com influenciadores. A "cegueira deliberada" (dolo eventual) como escudo jurídico dos 
+            receptores. O tráfico financia o estrelato.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="atores-grid">
+      <div class="ator-card">
+        <div class="ator-role">Núcleo Operacional</div>
+        <div class="ator-name">Porto de Santos</div>
+        <div class="ator-desc">Hub logístico. Veleiros de pequeno porte, contentores, pontos de embarque no litoral sul. Rotas documentadas para Europa e costa africana.</div>
+        <span class="ator-phase ap1">FASE 1</span>
+      </div>
+      <div class="ator-card">
+        <div class="ator-role">Operadores Financeiros</div>
+        <div class="ator-name">Contadores · DTVMs</div>
+        <div class="ator-desc">Figura central da fase 2. Responsáveis por pulverizar ativos em plataformas de apostas e carteiras crypto, simulando ganhos de jogos digitais.</div>
+        <span class="ator-phase ap2">FASE 2</span>
+      </div>
+      <div class="ator-card">
+        <div class="ator-role">Plataformas de Lavagem</div>
+        <div class="ator-name">Bets + Criptoativos</div>
+        <div class="ator-desc">Apostas online como câmara de compensação digital. Criptoativos para segmentação de rastreabilidade e trânsito entre jurisdições.</div>
+        <span class="ator-phase ap2">FASE 2</span>
+      </div>
+      <div class="ator-card">
+        <div class="ator-role">Fachada Cultural</div>
+        <div class="ator-name">Produtoras de Música</div>
+        <div class="ator-desc">Veículos de integração final. Contratos de publicidade e gestão de imagem como instrumentos formais de entrada do capital já lavado na economia real.</div>
+        <span class="ator-phase ap3">FASE 3</span>
+      </div>
+      <div class="ator-card">
+        <div class="ator-role">Receptores (Investigados)</div>
+        <div class="ator-name">MC Ryan SP · MC Poze · Cris Dias</div>
+        <div class="ator-desc">Influenciadores e artistas cujos contratos e receitas de publicidade foram identificados como veículo de integração de capital ilícito. Tese da cegueira deliberada aplicada.</div>
+        <span class="ator-phase ap3">FASE 3</span>
+      </div>
+      <div class="ator-card">
+        <div class="ator-role">Alvo Estrutural</div>
+        <div class="ator-name">Organização Criminosa</div>
+        <div class="ator-desc">Grupo com braço logístico (marítimo), financeiro (digital) e cultural (entretenimento) operando de forma integrada e hierárquica ao longo de 12 meses documentados.</div>
+        <span class="ator-phase apall">TODAS AS FASES</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: NARCOCULTURA -->
+  <div id="tab-narcocultura" class="tab-panel">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Narcocultura: O Departamento de Marketing do Crime</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="narco-block">
+      <div class="narco-label">TESE CENTRAL</div>
+      <div class="narco-title">A narcocultura não é estética — é estratégia</div>
+      <p class="narco-text">
+        A narcocultura é o lubrificante que permite à engrenagem do crime girar sem ranger. 
+        Ela não é apenas um estilo musical ou uma estética de moda — é um <strong>projeto de poder</strong> 
+        que visa a anestesia moral da sociedade. Ao financiar clipes, influenciadores e rifas, 
+        o crime organizado sequestra a aspiração de sucesso da juventude e transforma o traficante 
+        em "patrocinador" do entretenimento. O Estado e o Judiciário devem tratá-la pelo que 
+        é: o <em>departamento de marketing de uma holding criminosa</em>.
+      </p>
+    </div>
+
+    <div class="narco-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🏆</div>
+        <div class="pillar-title">A Glamourização do Abjeto</div>
+        <p class="pillar-text">
+          Clipes de luxo e correntes de ouro com a efígie de Pablo Escobar. O crime organizado 
+          financia a aspiração de sucesso da juventude periférica — o traficante deixa de ser 
+          vilão e passa a ser o "patrocinador" do entretenimento. O crime como atalho sedutor e colorido.
+        </p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🎲</div>
+        <div class="pillar-title">O Crime como Lifestyle</div>
+        <p class="pillar-text">
+          Rifas e "bets" promovidas por ídolos. O cidadão comum, sem saber, participa da lavagem 
+          ao consumir conteúdo patrocinado por capital ilícito. A narcocultura opera para eliminar 
+          o nojo do dinheiro sujo — normalizando o ciclo criminoso pela via do entretenimento.
+        </p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-title">A Blindagem Social</div>
+        <p class="pillar-text">
+          Ao infiltrar a cultura, o crime cria um "escudo de conformidade": qualquer repressão 
+          passa a ser rotulada como ataque à cultura popular. A arte é usada como refém para 
+          proteger o caixa do tráfico — estratégia covarde e calculada.
+        </p>
+      </div>
+    </div>
+
+    <div class="urgency-box">
+      <p class="urgency-text">
+        Combater a narcocultura é tão vital quanto apreender toneladas de cocaína no porto. 
+        Enquanto a atividade criminosa corrói a economia e a segurança, a narcocultura corrói 
+        os valores éticos e morais — corrompe o senso de certo e errado. Não basta prender 
+        o operador do veleiro: é preciso responsabilizar o "ídolo" que empresta seu sorriso e 
+        seu engajamento para validar o sangue derramado pelo tráfico. 
+        <strong>A omissão diante dessa estética não é neutralidade — é cumplicidade.</strong>
+      </p>
+    </div>
+
+    <div class="quote-terminal">
+      <p class="quote-text">
+        "Até que ponto a sociedade continuará aplaudindo o brilho das correntes de ouro, 
+        ignorando que <em>cada elo foi forjado com o sangue de quem não tem voz</em>?"
+      </p>
+      <div class="quote-attr">// ANÁLISE EDITORIAL · LAWFARE-TIMELINE · CC0</div>
+    </div>
+  </div>
+
+  <!-- TAB: JURÍDICO -->
+  <div id="tab-juridico" class="tab-panel">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Análise Jurídica: Teses e Enquadramentos</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="legal-grid">
+      <div class="legal-card">
+        <div class="legal-tag">TESE PRINCIPAL · DIVISOR DE ÁGUAS</div>
+        <div class="legal-title">Cegueira Deliberada (Dolo Eventual)</div>
+        <p class="legal-body">
+          A adoção contundente da tese da <em>cegueira deliberada</em> é o principal impacto 
+          jurídico da Operação Narco Fluxo. Influenciadores e artistas não podem alegar ignorância 
+          sobre a procedência ilícita dos fundos que financiam sua ostentação quando há sinais 
+          objetivos de irregularidade — como volumes desproporcionais de patrocínio sem empresa 
+          identificável, pagamentos em cash ou via intermediários sem estrutura contratual clara.
+        </p>
+        <div class="legal-highlight">Art. 18, I, CP — Dolo direto / Dolo eventual (teoria da assunção consciente do risco)</div>
+      </div>
+
+      <div class="legal-card">
+        <div class="legal-tag">LAVAGEM DE DINHEIRO</div>
+        <div class="legal-title">Lei 9.613/98 (alterada pela 12.683/12)</div>
+        <p class="legal-body">
+          Os três núcleos da operação correspondem às três fases clássicas do tipo penal: 
+          colocação (tráfico → cash), estratificação (bets/cripto → dissimulação) e integração 
+          (entretenimento → economia real). A lei não exige que o receptor seja o mesmo ator 
+          do crime antecedente — basta o proveito do produto ilícito.
+        </p>
+        <div class="legal-highlight">Pena: 3 a 10 anos + multa · Confisco integral dos ativos</div>
+      </div>
+
+      <div class="legal-card">
+        <div class="legal-tag">CRIME ORGANIZADO</div>
+        <div class="legal-title">Lei 12.850/13 — ORCRIM</div>
+        <p class="legal-body">
+          A estrutura hierárquica documentada (logístico → financeiro → cultural) e a existência 
+          de mais de quatro membros com divisão de tarefas enquadra a organização nos termos da 
+          Lei de Organizações Criminosas. Permite interceptações, infiltração de agentes e 
+          aumento de penas para líderes em até dois terços.
+        </p>
+        <div class="legal-highlight">Causa de aumento: +2/3 para lideranças · Permite ANPP nas extremidades</div>
+      </div>
+
+      <div class="legal-card">
+        <div class="legal-tag">TRÁFICO INTERNACIONAL</div>
+        <div class="legal-title">Lei 11.343/06 · Art. 33 §4º · Art. 40 I</div>
+        <p class="legal-body">
+          O caráter transnacional (destino Europa e África) é causa de aumento obrigatório da 
+          pena. Porto de Santos como hub logístico configura o tipo do art. 33 na modalidade 
+          "exportar" com agravante do art. 40, I. Pena mínima: 15 a 25 anos em regime fechado.
+        </p>
+        <div class="legal-highlight">Tráfico transnacional: pena base 5 a 15 anos · com agravante: até 25 anos</div>
+      </div>
+    </div>
+
+    <div class="patterns-row">
+      <span class="pattern-chip">P1 · SEGMENTAÇÃO DE FLUXOS FINANCEIROS</span>
+      <span class="pattern-chip">P2 · USO DE FACHADAS CULTURAIS</span>
+      <span class="pattern-chip">P3 · CAPTURA JUDICIAL (PREVENTIVA)</span>
+      <span class="pattern-chip">P5 · CRIME ORGANIZADO TRANSNACIONAL</span>
+      <span class="pattern-chip">P6 · CRIPTOATIVOS COMO VEÍCULO</span>
+    </div>
+  </div>
+
+  <!-- TAB: CRONOLOGIA -->
+  <div id="tab-cronologia" class="tab-panel">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Cronologia: 12 Meses de Colapso da Organização</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="vtl">
+      <div class="vtl-item e1">
+        <div class="vtl-dot"></div>
+        <div class="vtl-date">ABRIL 2025</div>
+        <div class="vtl-ev">Operação Narcovela — Deflagração</div>
+        <div class="vtl-detail">PF deflagra primeira fase. Foco no Porto de Santos. Bloqueio de R$ 1,3 bilhão em ativos ligados ao tráfico marítimo de cocaína. Veleiros e embarcações de pequeno porte como veículo de exportação para Europa e África.</div>
+      </div>
+      <div class="vtl-item e1">
+        <div class="vtl-dot"></div>
+        <div class="vtl-date">ABR–OUT 2025</div>
+        <div class="vtl-ev">Rastreamento do Fluxo Financeiro</div>
+        <div class="vtl-detail">Após desmonte da logística física, investigadores seguem o dinheiro. Identificação de plataformas de apostas online e transações em criptoativos como veículos de dissimulação do capital gerado pelo tráfico.</div>
+      </div>
+      <div class="vtl-item e2">
+        <div class="vtl-dot"></div>
+        <div class="vtl-date">OUTUBRO 2025</div>
+        <div class="vtl-ev">Operação Narcobet — Deflagração</div>
+        <div class="vtl-detail">Segunda fase foca no braço tecnológico da lavagem. Bets online e criptoativos como infraestrutura de dissimulação. Contadores e operadores financeiros indiciados. Bloqueio de R$ 630 milhões. Identificação do papel central dos "contadores" do esquema.</div>
+      </div>
+      <div class="vtl-item e2">
+        <div class="vtl-dot"></div>
+        <div class="vtl-date">OUT 2025–ABR 2026</div>
+        <div class="vtl-ev">Mapeamento da Integração Cultural</div>
+        <div class="vtl-detail">Investigadores identificam contratos entre produtoras musicais, influenciadores digitais e a organização criminosa. Capital já lavado sendo integrado à economia real via entretenimento. Tese da cegueira deliberada consolidada como estratégia processual.</div>
+      </div>
+      <div class="vtl-item e3">
+        <div class="vtl-dot"></div>
+        <div class="vtl-date">15 ABRIL 2026</div>
+        <div class="vtl-ev">Operação Narco Fluxo — Deflagração</div>
+        <div class="vtl-detail">Fase final. Cumprimento de mandados contra influenciadores e produtoras. MC Ryan SP, MC Poze do Rodo e Cris Dias entre os investigados. Bloqueio de R$ 1,6 bilhão. Total acumulado nas três fases: aproximadamente R$ 3,5 bilhões. Marco jurídico: aplicação contundente da tese da cegueira deliberada ao setor de entretenimento digital.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: LACUNAS -->
+  <div id="tab-lacunas" class="tab-panel">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Lacunas Investigativas & Questões Abertas</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="lacuna-list">
+      <div class="lacuna-item">
+        <div class="lacuna-ico">🔍</div>
+        <div class="lacuna-body">
+          <div class="lacuna-q">Quem são os beneficiários finais da organização?</div>
+          <p class="lacuna-a">A trilogia documentou o fluxo de ponta a ponta, mas os destinatários finais do capital — tanto na Europa/África quanto no Brasil — permanecem não identificados publicamente. O padrão recorrente: investigações param antes de atingir o topo da hierarquia (ver hipótese do chokepoint terminal).</p>
+        </div>
+      </div>
+      <div class="lacuna-item">
+        <div class="lacuna-ico">🔗</div>
+        <div class="lacuna-body">
+          <div class="lacuna-q">Há conexão com as estruturas financeiras da Operação Hydra?</div>
+          <p class="lacuna-a">Hydra documentou fintechs não reguladas e fluxos via Delaware e Hong Kong. Narcobet utilizou criptoativos e bets. A hipótese de infraestrutura financeira compartilhada entre diferentes organizações criminosas permanece não investigada formalmente.</p>
+        </div>
+      </div>
+      <div class="lacuna-item">
+        <div class="lacuna-ico">💰</div>
+        <div class="lacuna-body">
+          <div class="lacuna-q">As plataformas de apostas investigadas têm licença da SEAE/MF?</div>
+          <p class="lacuna-a">A regulamentação das bets no Brasil (Portaria MF 1.330/2023 e MP 1.182/2023) entrou em vigor em 2024. Quais das plataformas usadas no esquema operavam no período pré-regulação? Há responsabilidade regulatória do Estado pela omissão anterior?</p>
+        </div>
+      </div>
+      <div class="lacuna-item">
+        <div class="lacuna-ico">🌐</div>
+        <div class="lacuna-body">
+          <div class="lacuna-q">O MLAT com Estados Unidos foi acionado?</div>
+          <p class="lacuna-a">Dado o uso documentado de criptoativos (exchanges possivelmente sediadas nos EUA) e a possível passagem por Delaware LLCs (padrão Hydra), a cooperação via MLAT seria mandatória para rastreamento completo. Não há informação pública de acionamento formal.</p>
+        </div>
+      </div>
+      <div class="lacuna-item">
+        <div class="lacuna-ico">📊</div>
+        <div class="lacuna-body">
+          <div class="lacuna-q">Quantos outros influenciadores/artistas estão no perímetro mas não foram indiciados?</div>
+          <p class="lacuna-a">A tese da cegueira deliberada, aplicada a MC Ryan SP, MC Poze e Cris Dias, presumivelmente resulta de evidências de contratos específicos. Quantos outros contratos semelhantes existem não alcançados pela operação atual? Qual o critério de seleção dos alvos?</p>
+        </div>
+      </div>
+      <div class="lacuna-item">
+        <div class="lacuna-ico">🏛️</div>
+        <div class="lacuna-body">
+          <div class="lacuna-q">Há conexão com o ecossistema investigado na Operação Carbono Oculto?</div>
+          <p class="lacuna-a">Carbono Oculto documentou R$ 140 bilhões em fluxos ilícitos com infiltração do PCC em gestores da Faria Lima. O PCC é reconhecidamente ativo no tráfico marítimo. A interseção operacional e financeira entre as organizações merece investigação cruzada.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="json-block">
+      <span class="json-k">"lacunas_investigativas"</span>: [<br>
+      &nbsp;&nbsp;{ <span class="json-k">"id"</span>: <span class="json-v">"LI-001"</span>, <span class="json-k">"tema"</span>: <span class="json-s">"Beneficiários finais não identificados"</span>, <span class="json-k">"padrão"</span>: <span class="json-v">"P-CHOKEPOINT"</span> },<br>
+      &nbsp;&nbsp;{ <span class="json-k">"id"</span>: <span class="json-v">"LI-002"</span>, <span class="json-k">"tema"</span>: <span class="json-s">"Conexão Hydra / infraestrutura compartilhada"</span>, <span class="json-k">"padrão"</span>: <span class="json-v">"P1"</span> },<br>
+      &nbsp;&nbsp;{ <span class="json-k">"id"</span>: <span class="json-v">"LI-003"</span>, <span class="json-k">"tema"</span>: <span class="json-s">"MLAT EUA não acionado"</span>, <span class="json-k">"padrão"</span>: <span class="json-v">"P3"</span> },<br>
+      &nbsp;&nbsp;{ <span class="json-k">"id"</span>: <span class="json-v">"LI-004"</span>, <span class="json-k">"tema"</span>: <span class="json-s">"Perímetro real de influenciadores alcançados"</span>, <span class="json-k">"padrão"</span>: <span class="json-v">"P2"</span> }<br>
+      ]
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-license">
+    <span>CC0 1.0 Universal</span> · Domínio Público · Nenhum direito reservado<br>
+    Este documento pode ser reproduzido, adaptado e distribuído livremente.
+  </div>
+  <div class="footer-sources">
+    Fontes: <a href="https://www.gov.br/pf/pt-br" target="_blank">PF Oficial</a> · 
+    <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a> · 
+    Documentos oficiais das operações · Lei 9.613/98 · Lei 12.850/13<br>
+    Gerado em: 16.04.2026 · ID base: 153+ · Padrões: P1, P2, P3, P5, P6
+  </div>
+</footer>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>

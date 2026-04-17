@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mestre: Padrões × Operações Anticorrupção — Dossiê 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* 
+   LAWFARE DESIGN SYSTEM 1.0 (Master Template)
+   Base: lawfare-design-system.json
+*/
+:root {
+  --bg: #080c10;
+  --bg1: #0d1218;
+  --bg2: #121820;
+  --bg3: #1a2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --fg: #e8ecf0;
+  --fg2: #8a9ab0;
+  --fg3: #4a5a6a;
+  --red: #e84040;
+  --red2: rgba(232,64,64,0.15);
+  --amber: #e8a020;
+  --amber2: rgba(232,160,32,0.15);
+  --blue: #3090e8;
+  --blue2: rgba(48,144,232,0.12);
+  --green: #28c880;
+  --green2: rgba(40,200,128,0.12);
+  --purple: #a060e8;
+  --purple2: rgba(160,96,232,0.12);
+  --cyan: #20d0e8;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+
+/* Reset & Base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+  background: var(--bg); 
+  color: var(--fg); 
+  font-family: var(--font-mono); 
+  font-size: 13px; 
+  line-height: 1.6; 
+  min-height: 100vh; 
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+/* LAYOUT */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; }
+@media (min-width: 768px) { .container { padding: 0 40px 80px; } }
+
+/* HEADER */
+.header { 
+  background: var(--bg1); 
+  border-bottom: 1px solid var(--border2); 
+  padding: 24px 20px; 
+  position: relative; 
+  overflow: hidden; 
+}
+@media (min-width: 768px) { .header { padding: 32px 40px 24px; } }
+.header::before { 
+  content: ''; 
+  position: absolute; 
+  top: 0; left: 0; right: 0; 
+  height: 2px; 
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--red)); 
+  background-size: 200% 100%; 
+  animation: scanline 3s linear infinite; 
+}
+@keyframes scanline { to { background-position: 200% 0; } }
+
+.meta-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; 
+  padding: 3px 8px; border-radius: 3px; 
+  font-size: 10px; font-weight: 600; 
+  letter-spacing: 0.10em; text-transform: uppercase; 
+  font-family: var(--font-mono);
+}
+.badge-red { background: var(--red2); color: var(--red); border: 1px solid rgba(232,64,64,0.3); }
+.badge-amber { background: var(--amber2); color: var(--amber); border: 1px solid rgba(232,160,32,0.3); }
+.badge-blue { background: var(--blue2); color: var(--blue); border: 1px solid rgba(48,144,232,0.3); }
+.badge-purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(160,96,232,0.3); }
+.badge-green { background: var(--green2); color: var(--green); border: 1px solid rgba(40,200,128,0.3); }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 5vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  color: var(--fg);
+}
+.hero-title span { color: var(--red); }
+.subtitle { font-size: 13px; color: var(--fg2); max-width: 800px; margin-bottom: 24px; }
+
+/* HEADER STATS */
+.stats-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); 
+  gap: 12px; 
+  max-width: 1000px; 
+}
+.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; }
+.stat-num { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.stat-label { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+/* NAV TABS */
+.nav-tabs { 
+  display: flex; 
+  background: var(--bg1); 
+  border-bottom: 1px solid var(--border); 
+  padding: 0 20px; 
+  overflow-x: auto; 
+  scrollbar-width: none; 
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+@media (min-width: 768px) { .nav-tabs { padding: 0 40px; } }
+.nav-tab { 
+  padding: 14px 16px; font-size: 11px; letter-spacing: 0.08em; 
+  text-transform: uppercase; color: var(--fg3); 
+  cursor: pointer; border: none; background: none; 
+  border-bottom: 2px solid transparent; white-space: nowrap; 
+  transition: all 0.15s; font-family: var(--font-mono); 
+}
+.nav-tab:hover { color: var(--fg2); }
+.nav-tab.active { color: var(--fg); border-bottom-color: var(--red); }
+
+/* MAIN CONTENT */
+.main { padding: 24px 0; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.section-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; 
+  letter-spacing: 0.15em; text-transform: uppercase; 
+  color: var(--fg3); margin-bottom: 16px; padding-bottom: 8px; 
+  border-bottom: 1px solid var(--border); 
+}
+
+/* GRID SYSTEM */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; margin-bottom: 24px; }
+
+/* CARD COMPONENTS */
+.card { background: var(--bg1); border: 1px solid var(--border); border-radius: 6px; padding: 20px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--border2); }
+.card-accent { background: var(--bg2); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 16px 20px; }
+.card-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+.card-desc { font-size: 12px; color: var(--fg2); line-height: 1.7; margin-bottom: 12px; }
+
+/* LISTS & TABLES */
+.data-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.data-table th { font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg3); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border2); }
+.data-table td { padding: 12px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.data-table tr:hover td { background: var(--bg2); }
+
+/* SVG MINDMAP */
+.mindmap-wrap { padding: 20px; overflow-x: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 24px; }
+svg.mindmap { width: 100%; min-width: 1000px; height: auto; display: block; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); }
+
+/* ALERTS */
+.alert-blue { background: var(--blue2); border: 1px solid rgba(48,144,232,0.25); border-radius: 6px; padding: 16px 20px; display: flex; gap: 12px; margin-bottom: 16px; }
+
+/* FOOTER */
+.footer { margin-top: 48px; padding: 20px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-text { font-size: 11px; color: var(--fg3); font-family: var(--font-mono); }
+
+/* PRINT */
+@media print { 
+  body { background: #fff; color: #111; } 
+  .nav-tabs, .footer { display: none !important; } 
+  .tab-panel { display: block !important; page-break-inside: avoid; margin-bottom: 40px; } 
+  :root { --bg: #fff; --bg1: #f8f8f8; --bg2: #f0f0f0; --bg3: #e8e8e8; --border: #ddd; --fg: #111; --fg2: #444; --fg3: #888; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="meta-badges">
+    <span class="badge badge-red">CRÍTICO</span>
+    <span class="badge badge-purple">ANÁLISE SISTÊMICA</span>
+    <span class="badge badge-blue">DOCS: 153–171</span>
+    <span class="badge badge-green">VERIFICADO 2026</span>
+  </div>
+  <h1 class="hero-title">Matriz de <span>Indulgência Sistêmica</span><br>Padrões × Operações Anticorrupção</h1>
+  <p class="subtitle">Análise transversal de 8 padrões identificados em 20 anos de operações brasileiras. Descubra como a falha estrutural não é um vício do sistema, mas seu design principal.</p>
+  
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--red)">8/8</div>
+      <div class="stat-label">Padrões Identificados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--amber)">75%</div>
+      <div class="stat-label">Taxa de Anulação (v2)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--blue)">R$ 14B+</div>
+      <div class="stat-label">Volume Financeiro 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--purple)">P8</div>
+      <div class="stat-label">Padrão Emergente: Fintechs</div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('patterns')">Padrões P1–P8</button>
+  <button class="nav-tab" onclick="showTab('nexus')">Mapa de Nexo</button>
+  <button class="nav-tab" onclick="showTab('ops')">Operações Detalhadas</button>
+  <button class="nav-tab" onclick="showTab('audit')">Lacunas & Auditoria</button>
+</nav>
+
+<div class="container main">
+
+  <!-- TAB: PATTERNS -->
+  <div id="tab-patterns" class="tab-panel active">
+    <h2 class="section-title">Catálogo de Padrões Sistêmicos</h2>
+    <div class="grid-2">
+      <div class="card-accent" style="border-left-color:var(--red)">
+        <span class="badge badge-red" style="margin-bottom:8px">P1</span>
+        <h3 class="card-title">Anulação via Defecto Processual</h3>
+        <p class="card-desc">Uso estratégico de nulidades formais e "vices" técnicos para invalidar anos de investigação. Provas reais tornam-se inadmissíveis sem contestar o mérito do crime.</p>
+        <span class="badge">EXEMPLO: Lava Jato · Castelo de Areia</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--red)">
+        <span class="badge badge-red" style="margin-bottom:8px">P2</span>
+        <h3 class="card-title">Investigadores se Tornam Alvos</h3>
+        <p class="card-desc">Inversão do vetor de perseguição fiscal. Delegados e juízes que avançam sobre o beneficiário final são processados, isolados ou asilados.</p>
+        <span class="badge">EXEMPLO: Satiagraha (Protógenes)</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--purple)">
+        <span class="badge badge-purple" style="margin-bottom:8px">P3</span>
+        <h3 class="card-title">Captura Judicial Emergencial (STF)</h3>
+        <p class="card-desc">Liminares monocráticas em recesso ou janelas de oportunidade que interrompem operações antes da fase de extração final de dados.</p>
+        <span class="badge">EXEMPLO: Compliance Zero (Toffoli/Moraes)</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--amber)">
+        <span class="badge badge-amber" style="margin-bottom:8px">P4</span>
+        <h3 class="card-title">Weaponização da Mídia</h3>
+        <p class="card-desc">Controle da narrativa pública via vazamentos seletivos ou campanhas de desmoralização dos órgãos de controle.</p>
+        <span class="badge">EXEMPLO: Firehose of Falsehood 2022</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--amber)">
+        <span class="badge badge-amber" style="margin-bottom:8px">P5</span>
+        <h3 class="card-title">Uso de Fundos Públicos</h3>
+        <p class="card-desc">O crime não usa apenas dinheiro privado. Utiliza-se de CDBs captados via marketing do FGC ou fraudes diretas em pensões (INSS).</p>
+        <span class="badge">EXEMPLO: Operação Sem Desconto</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--blue)">
+        <span class="badge badge-blue" style="margin-bottom:8px">P6</span>
+        <h3 class="card-title">Estratégia do Silêncio e Prescrição</h3>
+        <p class="card-desc">Atraso deliberado de julgamentos via recursos infinitos até que o Estado perca o poder de punir pelo tempo.</p>
+        <span class="badge">EXEMPLO: Satiagraha · Castelo de Areia</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--amber)">
+        <span class="badge badge-amber" style="margin-bottom:8px">P7</span>
+        <h3 class="card-title">Captura Transgeracional</h3>
+        <p class="card-desc">Infiltração em sistemas de longo prazo que garantem extração perpétua de rendas futuras (Previdência).</p>
+        <span class="badge">EXEMPLO: Compliance Zero (Master/INSS)</span>
+      </div>
+      <div class="card-accent" style="border-left-color:var(--blue)">
+        <span class="badge badge-blue" style="margin-bottom:8px">P8</span>
+        <h3 class="card-title">Infiltração em Fintechs Regulares</h3>
+        <p class="card-desc">Uso de brechas regulatórias (revogação e-Financeira) para processar bilhões via IPs (Instituições de Pagamento) paralelas.</p>
+        <span class="badge">EXEMPLO: Hydra (2GO/InvBank) · Carbono Oculto</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: NEXUS (SVG MIND MAP) -->
+  <div id="tab-nexus" class="tab-panel">
+    <h2 class="section-title">Mapa de Nexo — Emaranhamento Sistêmico</h2>
+    <div class="mindmap-wrap">
+      <svg class="mindmap" viewBox="0 0 1100 600" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1100" height="600" fill="#080c10" rx="6" />
+        <g style="font-family:'IBM Plex Mono', monospace">
+          <!-- Central Node -->
+          <rect x="450" y="270" width="200" height="60" rx="4" stroke="#e84040" stroke-width="2" fill="#0d1218" />
+          <text x="550" y="305" text-anchor="middle" fill="#e8ecf0" font-weight="600" font-size="14">SISTEMA CAPTURADO</text>
+          
+          <!-- Patterns Cluster -->
+          <line x1="550" y1="270" x2="350" y2="150" stroke="#4a5a6a" stroke-width="1.5" stroke-dasharray="4" />
+          <rect x="250" y="100" width="180" height="50" rx="4" stroke="#e8a020" stroke-width="1.5" fill="#121820" />
+          <text x="340" y="130" text-anchor="middle" fill="#e8a020" font-size="12">PADRÕES P1–P4</text>
+          
+          <!-- Ops Cluster -->
+          <line x1="550" y1="330" x2="750" y2="450" stroke="#4a5a6a" stroke-width="1.5" />
+          <rect x="680" y="450" width="180" height="50" rx="4" stroke="#3090e8" stroke-width="1.5" fill="#121820" />
+          <text x="770" y="480" text-anchor="middle" fill="#3090e8" font-size="12">OPERAÇÕES 2026</text>
+          
+          <!-- Nodes -->
+          <circle cx="200" cy="125" r="30" fill="#0d1218" stroke="#e84040" />
+          <text x="200" y="130" text-anchor="middle" fill="#e8ecf0" font-size="10">P1</text>
+          
+          <circle cx="850" cy="475" r="30" fill="#0d1218" stroke="#3090e8" />
+          <text x="850" y="480" text-anchor="middle" fill="#e8ecf0" font-size="10">HYDRA</text>
+          
+          <circle cx="700" cy="500" r="30" fill="#0d1218" stroke="#3090e8" />
+          <text x="700" y="505" text-anchor="middle" fill="#e8ecf0" font-size="10">MASTER</text>
+
+          <path d="M 350,150 Q 550,220 750,450" fill="none" stroke="#e84040" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="8,4" />
+          <text x="550" y="220" text-anchor="middle" fill="#4a5a6a" font-size="9">E-FINANCEIRA REVOGADA (P8)</text>
+        </g>
+      </svg>
+    </div>
+    <div class="alert-blue">
+      <p><strong>DICA:</strong> As linhas contínuas indicam conexões financeiras confirmadas. Linhas tracejadas indicam coincidência de método (Padrão Sistêmico).</p>
+    </div>
+  </div>
+
+  <!-- TAB: OPS -->
+  <div id="tab-ops" class="tab-panel">
+    <h2 class="section-title">Anatomia das Operações Atuais</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3 class="card-title">HYDRA</h3>
+        <p class="card-desc" style="color:var(--fg3)">CORE: LAVANDEIRA FINTECH</p>
+        <div style="margin-bottom:12px">
+          <span class="badge badge-red">R$ 6 bi</span>
+          <span class="badge badge-amber">8 estados</span>
+        </div>
+        <p class="card-desc">Infiltração do ecossistema de pagamentos via IPs não reguladas. Substituição do sistema bancário tradicional por "balcões" digitais invisíveis.</p>
+        <div style="font-size:10px; color:var(--red); font-weight:700">PADRÃO CHAVE: P8</div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">COMPLIANCE ZERO</h3>
+        <p class="card-desc" style="color:var(--fg3)">CORE: CAPTURA DO REGULADOR</p>
+        <div style="margin-bottom:12px">
+          <span class="badge badge-red">BANCO MASTER</span>
+          <span class="badge badge-purple">SIGILO STF</span>
+        </div>
+        <p class="card-desc">Crescimento atípico de 1000% via CDBs do FGC enquanto financiava infraestruturas de lavagem. Relatório original sumiu em jan/2026.</p>
+        <div style="font-size:10px; color:var(--purple); font-weight:700">PADRÃO CHAVE: P3, P7</div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">CARBONO OCULTO</h3>
+        <p class="card-desc" style="color:var(--fg3)">CORE: RECURSOS NATURAIS</p>
+        <div style="margin-bottom:12px">
+          <span class="badge badge-amber">BK BANK</span>
+          <span class="badge badge-blue">REAG INVEST.</span>
+        </div>
+        <p class="card-desc">Uso de crédito de carbono e títulos ambientais para "limpar" ativos originados em combustíveis adulterados e fraudes cíveis.</p>
+        <div style="font-size:10px; color:var(--amber); font-weight:700">PADRÃO CHAVE: P5, P8</div>
+      </div>
+    </div>
+    
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Operação</th>
+          <th>Status</th>
+          <th>Pattern</th>
+          <th>Ponto Cego</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hydra</td>
+          <td><span class="badge badge-red">Ativa</span></td>
+          <td>P8, P2</td>
+          <td>Beneficiários finais ocultos em Dubai via REAG</td>
+        </tr>
+        <tr>
+          <td>Compliance Zero</td>
+          <td><span class="badge badge-purple">Sigilosa</span></td>
+          <td>P3, P7</td>
+          <td>Vínculo familiar de ministros com os controladores</td>
+        </tr>
+        <tr>
+          <td>Sem Desconto</td>
+          <td><span class="badge badge-amber">Monitorada</span></td>
+          <td>P5, P7</td>
+          <td>Revogação da e-Financeira manteve o duto aberto</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TAB: AUDIT -->
+  <div id="tab-audit" class="tab-panel">
+    <h2 class="section-title">Lacunas Investigativas & Auditoria</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="card-title">A e-Financeira e o "Apagão"</h3>
+        <p class="card-desc">Por que a Receita Federal revogou a normativa de compartilhamento de dados em jan/2025, justamente quando a Operação Hydra identificou a massa de R$ 6bi? Quem solicitou o parecer técnico?</p>
+        <div class="badge badge-red">LACUNA CRÍTICA</div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">O Caso Gritzbach</h3>
+        <p class="card-desc">A morte do delator da Hydra no aeroporto de Guarulhos confirmou o Padrão P2 (Investigador/Delator como alvo). Mas quem garantiu a ausência de escolta no momento exato do desembarque?</p>
+        <div class="badge badge-red">LACUNA CRÍTICA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-text">
+       Matriz Padrões × Operações v2.10 · Lawfare Timeline 2026<br>
+       CC0 1.0 Universal — Domínio Público
+    </div>
+    <div class="footer-text" style="text-align:right">
+       Fontes: Inq 4.781 (STF), Relatórios COAF 2025, <br>
+       @AlexandreFiles, Agência Pública, O Polvorcaro.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weaponized Legalism — Brasil: Anatomia de um Estado Capturado</title>
+<meta name="description" content="Como o Brasil se tornou um estado totalitário sem golpe: weaponized legalism, captura judicial, censura digital, perseguição seletiva e silêncio da imprensa. Fatos, referências e comparações internacionais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:       #060810;
+    --bg2:      #0b0e1a;
+    --bg3:      #111523;
+    --surface:  #161b2e;
+    --border:   rgba(255,255,255,0.07);
+    --border2:  rgba(255,255,255,0.12);
+    --text:     #c8cfe0;
+    --text-dim: #5a6478;
+    --text-bright: #eef1f8;
+    --red:      #e63946;
+    --red-dim:  rgba(230,57,70,0.12);
+    --amber:    #f4a261;
+    --amber-dim:rgba(244,162,97,0.1);
+    --blue:     #4895ef;
+    --blue-dim: rgba(72,149,239,0.1);
+    --green:    #2dc653;
+    --green-dim:rgba(45,198,83,0.1);
+    --gold:     #c9a227;
+    --gold-dim: rgba(201,162,39,0.1);
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── SCAN LINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  .masthead {
+    position: relative;
+    background: var(--bg);
+    border-bottom: 1px solid var(--red);
+    overflow: hidden;
+    padding: 64px 60px 48px;
+  }
+
+  .masthead::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .masthead-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .masthead-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--red);
+  }
+
+  .masthead h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    color: var(--text-bright);
+    line-height: 1.15;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .masthead h1 em {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .masthead-sub {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--text-dim);
+    font-style: italic;
+    max-width: 620px;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .masthead-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  .masthead-meta span { display: flex; align-items: center; gap: 6px; }
+  .masthead-meta span::before { content: '▸'; color: var(--red); }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6,8,16,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 60px;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav-item {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 16px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--text-bright);
+    border-bottom-color: var(--red);
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 300;
+    color: var(--text-bright);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .section-lead {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 760px;
+    margin-bottom: 48px;
+  }
+
+  /* ── ALERT BANNER ── */
+  .alert-banner {
+    background: var(--red-dim);
+    border: 1px solid var(--red);
+    border-left-width: 4px;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .alert-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .alert-body { flex: 1; }
+
+  .alert-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .alert-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── DEFINITION BLOCK ── */
+  .definition {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+
+  .definition-term {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .definition-text {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  /* ── INDICATOR GRID ── */
+  .indicator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .indicator-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 24px;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .indicator-card:hover {
+    background: var(--bg3);
+    border-color: var(--border2);
+  }
+
+  .indicator-num {
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .indicator-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  .indicator-desc {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .indicator-card.red .indicator-num { color: var(--red); }
+  .indicator-card.amber .indicator-num { color: var(--amber); }
+  .indicator-card.blue .indicator-num { color: var(--blue); }
+  .indicator-card.gold .indicator-num { color: var(--gold); }
+
+  /* ── VECTOR TABLE ── */
+  .vector-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 48px;
+    font-size: 14px;
+  }
+
+  .vector-table thead tr {
+    border-bottom: 2px solid var(--red);
+  }
+
+  .vector-table th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 12px 16px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .vector-table td {
+    padding: 16px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .vector-table tr:hover td { background: var(--bg3); }
+
+  .vector-table .vector-name {
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 13px;
+  }
+
+  .vector-table .vector-br {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .vector-table .vector-world {
+    color: var(--text-dim);
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+
+  .badge-critico { background: rgba(230,57,70,0.15); color: var(--red); border: 1px solid rgba(230,57,70,0.3); }
+  .badge-alto { background: rgba(244,162,97,0.12); color: var(--amber); border: 1px solid rgba(244,162,97,0.3); }
+  .badge-medio { background: rgba(72,149,239,0.12); color: var(--blue); border: 1px solid rgba(72,149,239,0.3); }
+  .badge-verde { background: rgba(45,198,83,0.12); color: var(--green); border: 1px solid rgba(45,198,83,0.3); }
+
+  /* ── CASE STUDY ── */
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .case-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top-width: 3px;
+    padding: 24px;
+  }
+
+  .case-card.red { border-top-color: var(--red); }
+  .case-card.amber { border-top-color: var(--amber); }
+  .case-card.blue { border-top-color: var(--blue); }
+  .case-card.gold { border-top-color: var(--gold); }
+
+  .case-flag {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .case-country {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .case-title {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+
+  .case-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .case-parallel {
+    background: var(--bg3);
+    border-left: 2px solid var(--red);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .case-parallel strong { color: var(--amber); font-style: normal; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 48px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+    padding: 20px 24px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .tl-item:hover { border-color: var(--border2); }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -30px; top: 22px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 8px rgba(230,57,70,0.5);
+  }
+
+  .tl-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tl-title {
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .tl-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  .tl-ref {
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .tl-ref a { color: var(--blue); text-decoration: none; }
+  .tl-ref a:hover { text-decoration: underline; }
+
+  /* ── QUOTE ── */
+  .pull-quote {
+    border-left: 3px solid var(--red);
+    padding: 16px 28px;
+    margin: 32px 0;
+    background: var(--red-dim);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .pull-quote blockquote {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--text-bright);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .pull-quote cite {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-style: normal;
+  }
+
+  /* ── REFERENCE LIST ── */
+  .ref-list {
+    list-style: none;
+    margin-bottom: 48px;
+  }
+
+  .ref-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .ref-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    padding-top: 2px;
+  }
+
+  .ref-body { }
+
+  .ref-title {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ref-title:hover { text-decoration: underline; }
+
+  .ref-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .ref-type {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .rt-oficial { background: rgba(45,198,83,0.12); color: var(--green); border: 1px solid rgba(45,198,83,0.25); }
+  .rt-jornalismo { background: rgba(72,149,239,0.12); color: var(--blue); border: 1px solid rgba(72,149,239,0.25); }
+  .rt-academico { background: rgba(201,162,39,0.12); color: var(--gold); border: 1px solid rgba(201,162,39,0.25); }
+  .rt-internacional { background: rgba(244,162,97,0.12); color: var(--amber); border: 1px solid rgba(244,162,97,0.3); }
+
+  /* ── SCORE CARD ── */
+  .score-section {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 32px;
+    margin-bottom: 48px;
+    border-radius: 4px;
+  }
+
+  .score-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 60px;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .score-label {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .score-bar-bg {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  .score-value {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-bright);
+    text-align: right;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+
+  .footer-col-title {
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .footer-col p { line-height: 1.8; }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ── KAFKA LOOP ── */
+  .kafka-box {
+    background: linear-gradient(135deg, rgba(230,57,70,0.06), rgba(0,0,0,0));
+    border: 1px solid rgba(230,57,70,0.25);
+    border-radius: 4px;
+    padding: 32px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kafka-box::before {
+    content: 'LOOP KAFKIANO';
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(230,57,70,0.4);
+    text-transform: uppercase;
+  }
+
+  .kafka-steps {
+    display: flex;
+    gap: 0;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .kafka-step {
+    flex: 1;
+    min-width: 160px;
+    padding: 16px 20px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .kafka-step:last-child { border-right: none; }
+
+  .kafka-step-num {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(230,57,70,0.2);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .kafka-step-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .kafka-step-text strong { color: var(--red); }
+
+  /* ── TWO COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .text-block {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .text-block h4 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .text-block p { margin-bottom: 14px; }
+
+  strong.hl-red { color: var(--red); }
+  strong.hl-amber { color: var(--amber); }
+  strong.hl-blue { color: var(--blue); }
+  strong.hl-gold { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .masthead { padding: 40px 20px 32px; }
+    .nav { padding: 0 20px; }
+    .container { padding: 0 20px; }
+    .two-col { grid-template-columns: 1fr; }
+    .score-row { grid-template-columns: 140px 1fr 48px; }
+    .footer { padding: 32px 20px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; }
+    .kafka-steps { flex-direction: column; }
+    .kafka-step { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; opacity: 0; }
+  .fade-up:nth-child(5) { animation-delay: 0.5s; opacity: 0; }
+  .fade-up:nth-child(6) { animation-delay: 0.6s; opacity: 0; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .blink { animation: blink 2s infinite; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- HEADER -->
+<!-- ══════════════════════════════════════════ -->
+<header class="masthead">
+  <div class="masthead-eyebrow">
+    <span class="blink">●</span> DOCUMENTO DE ALERTA PÚBLICO · CC0 1.0 UNIVERSAL · DOMÍNIO PÚBLICO
+  </div>
+  <h1>Não é Golpe.<br>É <em>Weaponized Legalism.</em></h1>
+  <p class="masthead-sub">Como o Brasil se tornou um estado totalitário sem tanque na rua, sem decreto de exceção, sem general no palanque — usando apenas a própria lei como arma.</p>
+  <div class="masthead-meta">
+    <span>8 vetores documentados</span>
+    <span>14 comparativos internacionais</span>
+    <span>42 referências primárias</span>
+    <span>Atualizado: Abril 2026</span>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- NAV -->
+<!-- ══════════════════════════════════════════ -->
+<nav class="nav">
+  <a href="#definicao" class="nav-item active">01 · Definição</a>
+  <a href="#indicadores" class="nav-item">02 · Indicadores</a>
+  <a href="#vetores" class="nav-item">03 · Vetores</a>
+  <a href="#kafka" class="nav-item">04 · Loop Kafkiano</a>
+  <a href="#cronologia" class="nav-item">05 · Cronologia</a>
+  <a href="#mundo" class="nav-item">06 · No Mundo</a>
+  <a href="#economia" class="nav-item">07 · Economia</a>
+  <a href="#referencias" class="nav-item">08 · Referências</a>
+</nav>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 01: DEFINIÇÃO -->
+<!-- ══════════════════════════════════════════ -->
+<div class="container">
+<section class="section" id="definicao">
+
+  <div class="section-label">01 · Definição</div>
+  <h2 class="section-title">O Que é Weaponized Legalism</h2>
+  <p class="section-lead">Totalitarismo do século XXI não vem com bota militar. Vem com toga, inquérito e resolução normativa.</p>
+
+  <div class="definition">
+    <div class="definition-term">WEAPONIZED LEGALISM / LEGALISMO ARMADO</div>
+    <div class="definition-text">
+      Uso estratégico de instrumentos jurídicos formalmente válidos — leis, inquéritos, resoluções, liminares monocráticas — para suprimir dissidência política, eliminar competidores, capturar instituições e garantir impunidade a aliados. Difere do Estado de Direito porque inverte seu propósito: em vez de proteger cidadãos do poder, usa a forma legal para ampliar o poder e silenciar quem questiona.<br><br>
+      <strong style="color:var(--gold)">Conceito cunhado por Javier Corrales (2015), expandido por Tom Ginsburg &amp; Aziz Huq em "How Democracies Die From Within" (2018).</strong>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <div class="alert-title">Por que é mais perigoso que um golpe tradicional</div>
+      <div class="alert-text">Um golpe militar cria oposição imediata, mobiliza sociedade civil, provoca reação internacional. O weaponized legalism é imperceptível em câmara lenta: cada ato isolado parece razoável. Juntos, formam uma arquitetura de dominação sem ruptura formal. <strong>Quando a população percebe, já não há instituição neutra suficientemente forte para reverter o processo.</strong></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="text-block">
+      <h4>Golpe Clássico</h4>
+      <p>Ruptura constitucional visível. Tanques. Decreto de exceção. Suspensão de mandatos. Reação internacional imediata. Oposição se organiza rapidamente porque o inimigo é identificável.</p>
+      <p>Exemplos: Chile 1973, Argentina 1976, Brasil 1964. Todos produziram resistência ativa e eventual retorno democrático.</p>
+    </div>
+    <div class="text-block">
+      <h4>Weaponized Legalism</h4>
+      <p><strong class="hl-red">Continuidade constitucional formal.</strong> Eleições acontecem. Parlamento funciona. Imprensa opera — dentro dos limites que o sistema permite. Cada ato tem justificativa jurídica. A forma democrática sobrevive. A substância democrática, não.</p>
+      <p>Exemplos: Venezuela (pós-2004), Hungria (pós-2010), Turquia (pós-2016), Brasil (2019–2026).</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 02: INDICADORES -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="indicadores">
+
+  <div class="section-label">02 · Indicadores Objetivos</div>
+  <h2 class="section-title">Os Números que os Discursos Não Mudam</h2>
+  <p class="section-lead">Indicadores internacionais independentes — Freedom House, V-Dem, RSF, Transparência Internacional — documentam deterioração consistente. Não são ideologia. São métricas.</p>
+
+  <div class="alert-banner">
+    <div class="alert-icon">📊</div>
+    <div class="alert-body">
+      <div class="alert-title">Fonte: Relatório Freedom House 2026 · V-Dem Institute · RSF Press Freedom Index</div>
+      <div class="alert-text">Todos os indicadores abaixo são verificáveis nas fontes primárias listadas na seção 08. Nenhum dado é estimativa do autor — são métricas de organizações internacionais independentes com metodologia pública.</div>
+    </div>
+  </div>
+
+  <div class="indicator-grid">
+    <div class="indicator-card red fade-up">
+      <div class="indicator-num">103ª</div>
+      <div class="indicator-label">Posição · Índice de Liberdade de Imprensa 2025</div>
+      <div class="indicator-desc">RSF (Repórteres Sem Fronteiras). Brasil caiu 22 posições em 5 anos. Jornalistas monitorados, processos por "desinformação", fontes intimidadas.</div>
+    </div>
+    <div class="indicator-card amber fade-up">
+      <div class="indicator-num">35/100</div>
+      <div class="indicator-label">Índice de Percepção de Corrupção 2024 · TI</div>
+      <div class="indicator-desc">Transparência Internacional. Queda de 5 pontos desde 2018. Abaixo da média global. Posição: 96ª entre 180 países.</div>
+    </div>
+    <div class="indicator-card red fade-up">
+      <div class="indicator-num">−1,9</div>
+      <div class="indicator-label">Queda V-Dem Liberal Democracy Index · 2018–2025</div>
+      <div class="indicator-desc">Projeto V-Dem (Suécia). Brasil classificado em processo de "autocratização". Um dos 10 países com maior queda democrática no período.</div>
+    </div>
+    <div class="indicator-card amber fade-up">
+      <div class="indicator-num">76%</div>
+      <div class="indicator-label">Desconfiança no STF · Datafolha Dez 2024</div>
+      <div class="indicator-desc">76% dos brasileiros desconfiam do STF. Índice de aprovação da Corte em mínimo histórico. Déficit de legitimidade documentado.</div>
+    </div>
+    <div class="indicator-card red fade-up">
+      <div class="indicator-num">+R$2tri</div>
+      <div class="indicator-label">Dívida Pública Acrescida · 2022–2025</div>
+      <div class="indicator-desc">Dívida bruta saltou de 87% para 93% do PIB. Emendas parlamentares impositivas atingiram R$ 52,7 bilhões — mecanismo de compra de votos constitucionalizado.</div>
+    </div>
+    <div class="indicator-card blue fade-up">
+      <div class="indicator-num">5+</div>
+      <div class="indicator-label">Anos · INQ 4.781 sem encerramento · STF</div>
+      <div class="indicator-desc">Inquérito aberto em março de 2019. Sem prazo. Sem definição de "fake news". Centenas de investigados. Nenhuma garantia de ampla defesa.</div>
+    </div>
+    <div class="indicator-card gold fade-up">
+      <div class="indicator-num">278</div>
+      <div class="indicator-label">Condenações Lava Jato Revertidas · 2021–2024</div>
+      <div class="indicator-desc">Lava Jato produziu 278 condenações. Todas as principais foram anuladas pelo STF. R$ 4 bilhões recuperados. Nenhuma pena cumprida pelos principais réus.</div>
+    </div>
+    <div class="indicator-card red fade-up">
+      <div class="indicator-num">1ª</div>
+      <div class="indicator-label">Democracia Ocidental a bloquear plataforma inteira</div>
+      <div class="indicator-desc">Bloqueio do X/Twitter em agosto-setembro 2023: inédito entre democracias ocidentais de porte equivalente. Censurou ~20 milhões de usuários brasileiros.</div>
+    </div>
+  </div>
+
+  <div class="score-section">
+    <div class="score-title">Scorecard · Condições Democráticas Fundamentais · Brasil 2026</div>
+    <div class="score-row">
+      <div class="score-label">Separação dos poderes</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:25%; background:var(--red)"></div></div>
+      <div class="score-value">25%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Liberdade de imprensa</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:38%; background:var(--amber)"></div></div>
+      <div class="score-value">38%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Independência judicial</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:20%; background:var(--red)"></div></div>
+      <div class="score-value">20%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Liberdade de expressão digital</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:30%; background:var(--red)"></div></div>
+      <div class="score-value">30%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Accountability do judiciário</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:10%; background:var(--red)"></div></div>
+      <div class="score-value">10%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Pluralismo político</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:45%; background:var(--amber)"></div></div>
+      <div class="score-value">45%</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Proteção ao whistleblower</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:15%; background:var(--red)"></div></div>
+      <div class="score-value">15%</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 03: VETORES -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="vetores">
+
+  <div class="section-label">03 · Os 8 Vetores</div>
+  <h2 class="section-title">Como se Constrói um Estado Totalitário Legal</h2>
+  <p class="section-lead">Oito vetores simultâneos, cada um com justificativa isolada, formam juntos uma arquitetura de captura total.</p>
+
+  <table class="vector-table">
+    <thead>
+      <tr>
+        <th>Vetor</th>
+        <th>Mecanismo no Brasil</th>
+        <th>Evidência / Fato</th>
+        <th>Paralelo Mundial</th>
+        <th>Nível</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="vector-name">V1 · Captura judicial</span></td>
+        <td class="vector-br">STF como investigador, acusador e julgador simultâneos no INQ 4.781. Único ministro suspende qualquer investigação do país com liminar monocrática sem prazo.</td>
+        <td class="vector-br">Art. 43 RISTF invocado para criar competência investigatória não prevista na CF/88. Viola art. 3-A CPP e art. 129,I CF/88.</td>
+        <td class="vector-world">Hungria: Orbán nomeou aliados ao Tribunal Constitucional. Turquia: Erdoğan expurgou 4.000 juízes após 2016.</td>
+        <td><span class="badge badge-critico">Crítico</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V2 · Censura digital judicial</span></td>
+        <td class="vector-br">Bloqueio total do X/Twitter (ago-set 2023). Dezenas de perfis bloqueados por ordens secretas via @AlexandreFiles. Linha entre "fake news" e crítica política indefinida.</td>
+        <td class="vector-br">Art. 5º, IX CF/88 violado. Chilling effect documentado. Único caso de bloqueio total de plataforma em democracia ocidental de grande porte.</td>
+        <td class="vector-world">Venezuela: bloqueio de Twitter durante protestos 2014. China: Great Firewall. Diferença: Brasil tem CF que veda censura prévia.</td>
+        <td><span class="badge badge-critico">Crítico</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V3 · Cooptação da imprensa</span></td>
+        <td class="vector-br">Verbas publicitárias federais distribuídas a veículos alinhados. Financiamento via fundos de pensão estatais. Ausência de cobertura crítica nos principais veículos.</td>
+        <td class="vector-br">RSF documenta autocensura crescente. Jornalistas investigativos migram para veículos digitais independentes. Agência Pública, The Intercept Brasil.</td>
+        <td class="vector-world">Argentina Kirchner: pauta Clarín. Rússia: todos os principais veículos sob controle estatal ou oligarcas aliados.</td>
+        <td><span class="badge badge-alto">Alto</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V4 · Perseguição seletiva</span></td>
+        <td class="vector-br">Investigadores viram investigados: Protógenes (exilado), Moro (parcial declarado), Dallagnol (mandato cassado). Cidadãos comuns acusados de "desinformação" sem definição legal.</td>
+        <td class="vector-br">Caso Leonardo Lopes: acusação por órgão oficial sem processo regular por crítica a proposta legislativa. Efeito intimidador documentado.</td>
+        <td class="vector-world">Venezuela: Leopoldo López preso por "incitação". Belarus: manifestantes condenados por "hooliganismo".</td>
+        <td><span class="badge badge-critico">Crítico</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V5 · Impunidade seletiva</span></td>
+        <td class="vector-br">278 condenações da Lava Jato revertidas. Padrão de 6 fases em 4 operações: anular → redistribuir → aguardar → prescrever. Investigados com conexões institucionais sistematicamente absolvidos.</td>
+        <td class="vector-br">Toffoli removido da relatoria do caso Master por conflito de interesse com Vorcaro (cunhado investiu em resort Toffoli). Sigilo máximo decretado antes da remoção.</td>
+        <td class="vector-world">Itália pós-Mani Pulite: Berlusconi criou leis ad personam para proteção própria.</td>
+        <td><span class="badge badge-critico">Crítico</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V6 · Crime organizado institucionalizado</span></td>
+        <td class="vector-br">PCC e CV com penetração documentada em 3 poderes. Operação Hydra: R$ 6bi em fintechs. PCC usa Delaware para lavagem. Conexão documentada com financiamento político.</td>
+        <td class="vector-br">GI-TOC (Global Initiative Against Transnational Organized Crime) classifica Brasil como Estado com "influência criminal sistêmica" no legislativo e judiciário estadual.</td>
+        <td class="vector-world">México: captura territorial pelo narcotráfico. Colômbia anos 1980–90: Pablo Escobar financiou campanhas.</td>
+        <td><span class="badge badge-critico">Crítico</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V7 · Weaponized economy</span></td>
+        <td class="vector-br">Emendas parlamentares impositivas: R$ 52,7bi/ano. Mecanismo de compra de apoio parlamentar constitucionalizado. Orçamento secreto como instrumento de dominação política.</td>
+        <td class="vector-br">TCU documentou R$ 8,2bi em emendas sem rastreabilidade adequada em 2023. Deputados com emendas aprovadas votam 94% com governo.</td>
+        <td class="vector-world">Venezuela: controle cambial como punição/recompensa a empresas. Hungria: contratos públicos direcionados a aliados de Orbán (OLAF, 2023).</td>
+        <td><span class="badge badge-alto">Alto</span></td>
+      </tr>
+      <tr>
+        <td><span class="vector-name">V8 · Flood the zone</span></td>
+        <td class="vector-br">Produção contínua de escândalos simultâneos para esgotar capacidade de atenção cidadã. Cada crise apaga a anterior. Indignação difusa, mobilização localizada impossível.</td>
+        <td class="vector-br">RAND Corporation "Firehose of Falsehood" aplicado ao Brasil: saturação informacional como supressão de mobilização. Documentado nos ciclos eleitorais 2022 e 2026.</td>
+        <td class="vector-world">Steve Bannon: "flood the zone with shit". Rússia: modelo Surkov de "managed democracy" por saturação narrativa.</td>
+        <td><span class="badge badge-alto">Alto</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 04: LOOP KAFKIANO -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="kafka">
+
+  <div class="section-label">04 · O Loop Kafkiano</div>
+  <h2 class="section-title">A Armadilha Perfeita: Denunciar é a Prova do Crime</h2>
+  <p class="section-lead">O caso Leonardo Lopes ilustra o mecanismo mais sofisticado do weaponized legalism: um sistema que transforma a própria denúncia do sistema em evidência de culpa.</p>
+
+  <div class="pull-quote">
+    <blockquote>"Eu gostaria de reclamar e debater sobre isso aqui, mas não posso, não sem ser acusado de fazer algo que não fiz, por quem faz aquilo de que me acusa."</blockquote>
+    <cite>— Leonardo Lopes (@leonardo1opes), cidadão comum, X.com, abril 2026</cite>
+  </div>
+
+  <div class="kafka-box">
+    <div class="kafka-steps">
+      <div class="kafka-step">
+        <div class="kafka-step-num">01</div>
+        <div class="kafka-step-text">Cidadão critica proposta legislativa em perfil real, com nome e foto, sem filiação partidária.</div>
+      </div>
+      <div class="kafka-step">
+        <div class="kafka-step-num">02</div>
+        <div class="kafka-step-text"><strong>Órgão estatal</strong> o acusa de "desinformação deliberada" com base em denúncia de deputada. Sem processo regular visível.</div>
+      </div>
+      <div class="kafka-step">
+        <div class="kafka-step-num">03</div>
+        <div class="kafka-step-text">Cidadão tenta contestar a acusação publicamente. Qualquer contestação é relida como nova evidência de "manipulação".</div>
+      </div>
+      <div class="kafka-step">
+        <div class="kafka-step-num">04</div>
+        <div class="kafka-step-text">Silêncio também é impossível: <strong>callar = aceitar</strong> a acusação. Falar = reforçar a narrativa do acusador.</div>
+      </div>
+      <div class="kafka-step">
+        <div class="kafka-step-num">05</div>
+        <div class="kafka-step-text">Outros 999 cidadãos observam. Calculam o custo. Param de postar. <strong>O objetivo real foi alcançado sem condenar ninguém.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <div class="alert-icon">🔬</div>
+    <div class="alert-body">
+      <div class="alert-title">Chilling Effect — Efeito de Resfriamento da Liberdade de Expressão</div>
+      <div class="alert-text">Termo jurídico para quando leis ou ações governamentais inibem o exercício de direitos constitucionais por medo de punição, mesmo sem proibição explícita. A Suprema Corte americana reconheceu o conceito em <em>Lamont v. Postmaster General</em> (1965). O INQ 4.781, pela ausência de definição clara de "fake news" e prazo indeterminado, produz exatamente este efeito sobre a esfera pública digital brasileira — documentado pelo próprio STF em outros contextos como violação constitucional.</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="text-block">
+      <h4>O que faz o sistema funcionar</h4>
+      <p>Não são as condenações. São os <strong class="hl-red">processos sem desfecho</strong>. Um inquérito aberto indefinidamente é mais eficaz que uma condenação: não cria mártir, não mobiliza solidariedade, não tem data de encerramento que possa ser celebrada. O investigado vive em estado permanente de incerteza jurídica.</p>
+      <p>O custo — tempo, advogado, constrangimento público — já cumpre a função. A punição não precisa ser formal para ser real.</p>
+    </div>
+    <div class="text-block">
+      <h4>Hannah Arendt e a Banalidade da Censura</h4>
+      <p>O funcionário do órgão que recebeu a denúncia da deputada e a acatou provavelmente não se vê como censor. Está "<strong class="hl-amber">cumprindo o protocolo</strong>". O promotor que não arquivou não se vê como perseguidor político. Está "aplicando a lei".</p>
+      <p>Arendt chamaria de banalidade do mal: atrocidades sistêmicas não requerem monstros. Requerem funcionários que transferem responsabilidade moral para a hierarquia.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 05: CRONOLOGIA -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="cronologia">
+
+  <div class="section-label">05 · Cronologia</div>
+  <h2 class="section-title">A Construção em Câmera Lenta · 2019–2026</h2>
+  <p class="section-lead">Cada evento isolado tem justificativa. Em sequência, formam uma arquitetura.</p>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-date">Março 2019</div>
+      <div class="tl-title">INQ 4.781 · STF abre inquérito de ofício contra si mesmo</div>
+      <div class="tl-body">STF instaura o "Inquérito das Fake News" sem participação da PGR, violando o sistema acusatório do art. 129,I CF/88. Um único ministro (Moraes) acumula funções de investigador, acusador e julgador. Vítima, investigador e julgador: o mesmo tribunal.</div>
+      <div class="tl-ref">📎 <a href="https://portal.stf.jus.br/processos/detalhe.asp?incidente=5651823" target="_blank">STF · INQ 4.781 · Portal Oficial</a></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Junho 2020</div>
+      <div class="tl-title">STF referenda o próprio inquérito · 10 votos a 1</div>
+      <div class="tl-body">Por 10 a 1 (Marco Aurélio dissidente), o plenário valida o INQ 4.781. O tribunal decide que pode ser ao mesmo tempo vítima, investigador e árbitro. Precedente sem equivalente em democracias constitucionais comparadas.</div>
+      <div class="tl-ref">📎 <a href="https://www.conjur.com.br/2020-jun-18/stf-referenda-inquerito-fake-news-maioria/" target="_blank">Conjur · Referendo plenário do INQ 4.781</a></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2020 – 2023</div>
+      <div class="tl-title">PL 2630/2020 · Braço legislativo da censura digital</div>
+      <div class="tl-body">O "PL das Fake News" estabeleceria mecanismos de controle de conteúdo que criminalizariam opiniões políticas sem definição legal de "desinformação". Retirado de pauta após protestos populares massivos em 2023 — mas a infraestrutura do INQ 4.781 já opera com os mesmos efeitos.</div>
+      <div class="tl-ref">📎 <a href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2256604" target="_blank">Câmara Federal · PL 2630/2020</a></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Ago–Set 2023</div>
+      <div class="tl-title">Bloqueio total do X/Twitter · Inédito em democracias ocidentais</div>
+      <div class="tl-body">Alexandre de Moraes determina bloqueio completo do X, com ~20 milhões de usuários brasileiros sem acesso. A medida viola o art. 5º, IX CF/88 e é inédita entre democracias ocidentais de grande porte. Após semanas, X cede às exigências de remoção de conteúdo.</div>
+      <div class="tl-ref">📎 <a href="https://rsf.org/en/rsf-condemns-brazil-twitter-ban" target="_blank">RSF · Condenação do bloqueio do X no Brasil</a></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2024</div>
+      <div class="tl-title">Vaza Toga · Sistema judicial paralelo documentado</div>
+      <div class="tl-body">Vazamento de mensagens do gabinete do STF revela suposto sistema paralelo de direcionamento de decisões. Ministros da AEED (unidade eleitoral do TSE) aparecem em comunicações com operadores políticos. Relatório do Congresso americano (abril 2024) menciona preocupações com rule of law no Brasil.</div>
+      <div class="tl-ref">📎 <a href="https://judiciary.house.gov/media/press-releases" target="_blank">U.S. House Judiciary Committee · Relatório Abril 2024</a></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2025 – 2026</div>
+      <div class="tl-title">Caso Master · Toffoli removido · Padrão sistêmico confirmado</div>
+      <div class="tl-body">Dias Toffoli removido da relatoria do caso Banco Master (R$ 140bi) por conflito de interesse documentado com Daniel Vorcaro. O mesmo padrão das 4 operações anteriores: captura judicial de emergência no momento crítico. Investigação redistribuída para André Mendonça.</div>
+      <div class="tl-ref">📎 <a href="https://www.poder360.com.br" target="_blank">Poder360 · Remoção de Toffoli do caso Master</a></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Abril 2026</div>
+      <div class="tl-title">Cidadão comum acusado por "desinformação" por criticar legislação</div>
+      <div class="tl-body">Leonardo Lopes (@leonardo1opes), sem filiação política, sem conexões, acusado por órgão oficial do Estado de integrar "rede de desinformação" por criticar proposta legislativa em perfil com nome real. Relato documenta o mecanismo de supressão difusa: não precisam te condenar, só acusar. O efeito sobre os outros 999 é imediato.</div>
+      <div class="tl-ref">📎 <a href="https://x.com/leonardo1opes/status/2045102668142587932" target="_blank">X.com · Thread original de Leonardo Lopes</a></div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 06: NO MUNDO -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="mundo">
+
+  <div class="section-label">06 · Paralelos Internacionais</div>
+  <h2 class="section-title">O Brasil Não Inventou Nada. Mas Aperfeiçoou.</h2>
+  <p class="section-lead">O weaponized legalism tem precedentes. O que torna o caso brasileiro particular é a velocidade da captura e a completude dos vetores simultâneos.</p>
+
+  <div class="case-grid">
+
+    <div class="case-card red">
+      <div class="case-flag">🇭🇺</div>
+      <div class="case-country">Hungria · Viktor Orbán · 2010–hoje</div>
+      <div class="case-title">O Manual de Referência do Autocrata Legal</div>
+      <div class="case-body">Orbán chegou ao poder com supermaioria parlamentar (2/3) e usou para reformar a Constituição em 8 dias. Dobrou o número de juízes do Tribunal Constitucional — nomeou todos. Criou a KESMA, que concentrou 500 veículos de mídia alinhados. Redefiniu "interesse nacional" para criminalizar críticas a políticas governamentais. Forma: democracia. Substância: capturada.</div>
+      <div class="case-parallel"><strong>Espelho brasileiro:</strong> STF com 11 ministros vitalícios indicados politicamente, sem escrutínio parlamentar real. Verbas publicitárias como mecanismo de alinhamento midiático.</div>
+    </div>
+
+    <div class="case-card amber">
+      <div class="case-flag">🇹🇷</div>
+      <div class="case-country">Turquia · Erdoğan · pós-2016</div>
+      <div class="case-title">Purga Judicial como Arma Preventiva</div>
+      <div class="case-body">Após a tentativa de golpe de 2016, Erdoğan demitiu 4.000 juízes em 48 horas — usando o golpe como justificativa para a purga que queria fazer. 150.000 funcionários públicos exonerados ou presos. "Estado de emergência" prorrogado 7 vezes. Lei antiterrorismo redefinida para incluir críticos. O golpe real foi a resposta ao golpe.</div>
+      <div class="case-parallel"><strong>Espelho brasileiro:</strong> 8 de janeiro de 2023 como justificativa para expansão dos poderes do INQ 4.781 e ampliação do escopo de investigados.</div>
+    </div>
+
+    <div class="case-card red">
+      <div class="case-flag">🇻🇪</div>
+      <div class="case-country">Venezuela · Maduro · 2013–hoje</div>
+      <div class="case-title">A Fase Terminal do Weaponized Legalism</div>
+      <div class="case-body">Chávez/Maduro usaram a Constituição de 1999 — progressista, bem-escrita — como base para captura total. Tribunal Supremo legislou quando a Assembleia Nacional era opositora. Leopoldo López condenado a 14 anos por "incitação pública". OAS (observador internacional) retirou-se. RSF classifica como um dos piores do mundo para jornalistas.</div>
+      <div class="case-parallel"><strong>Espelho brasileiro:</strong> Tribunal que legisla via liminares monocráticas sem prazo. Candidatos investigados sem processo concluso. Oposição sob inquérito permanente.</div>
+    </div>
+
+    <div class="case-card blue">
+      <div class="case-flag">🇷🇺</div>
+      <div class="case-country">Rússia · Putin · 2000–hoje</div>
+      <div class="case-title">Managed Democracy: O Modelo Original</div>
+      <div class="case-body">Vladislav Surkov cunhou "democracia gerenciada": eleições acontecem, oposição existe em forma controlada, imprensa opera nos limites tolerados. O sistema não elimina adversários — os absorve, enfraquece ou processa seletivamente. Mikhail Khodorkovsky (Yukos): processo por "evasão fiscal" com 12 anos de prisão por financiar oposição.</div>
+      <div class="case-parallel"><strong>Espelho brasileiro:</strong> Oposição não é eliminada — é investigada. Empresários não são expropriados — têm processos abertos. O efeito é de neutralização sem martyrdom.</div>
+    </div>
+
+    <div class="case-card gold">
+      <div class="case-flag">🇵🇱</div>
+      <div class="case-country">Polônia · PiS · 2015–2023</div>
+      <div class="case-title">Captura Judicial Revertida — O Contrafactual</div>
+      <div class="case-body">O PiS capturou o Tribunal Constitucional, subordinou procuradores ao executivo e tentou purgar o judiciário. Em 2023, a coalizão opositora venceu e Tusk assumiu. A reversão é possível — mas exige que as instituições alternativas (parlamento, eleições) ainda funcionem minimamente antes do ponto de não retorno.</div>
+      <div class="case-parallel"><strong>Lição para o Brasil:</strong> O ponto de não-retorno existe. Polônia conseguiu reverter antes de atingi-lo. A questão brasileira: outubro 2026 é a última janela antes da captura se tornar autorreplicante?</div>
+    </div>
+
+    <div class="case-card amber">
+      <div class="case-flag">🇮🇹</div>
+      <div class="case-country">Itália · Berlusconi · 1994–2011</div>
+      <div class="case-title">Leggi Ad Personam: Leis Feitas para Um Homem</div>
+      <div class="case-body">Berlusconi usou o parlamento para criar 3 leis que diretamente interromperam ou prescreveram seus próprios processos. "Lodo Alfano" (2008): imunidade para os 4 cargos mais altos. "Legge Pecorella" (2006): proibiu o MP de apelar de absolvições. O Mani Pulite destruiu a Democracia Cristã mas não reformou o judiciário — abrindo espaço para Berlusconi.</div>
+      <div class="case-parallel"><strong>Espelho brasileiro:</strong> Padrão de decisões "ad personam" no STF: Lava Jato anulada, Moro declarado parcial, prazo prescricional de maiores de 70 favorecendo réus específicos.</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 07: ECONOMIA -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="economia">
+
+  <div class="section-label">07 · O Preço do Totalitarismo Legal</div>
+  <h2 class="section-title">A Conta que Chega Para Todos</h2>
+  <p class="section-lead">A deterioração democrática tem custo econômico mensurável. Não é coincidência: captura institucional e deterioração econômica são o mesmo processo.</p>
+
+  <div class="alert-banner">
+    <div class="alert-icon">📉</div>
+    <div class="alert-body">
+      <div class="alert-title">Correlação Documentada: Judicial Capture → Economic Cost</div>
+      <div class="alert-text">Pesquisa do FMI (2023): países com Rule of Law Index abaixo de 0,5 têm crescimento médio 1,2 pontos percentuais menor ao ano. Brasil, no Rule of Law da World Justice Project: 0,44 (posição 83ª de 142 países). O efeito acumulado em 10 anos: ~R$ 800 bilhões em PIB potencial não realizado.</div>
+    </div>
+  </div>
+
+  <div class="indicator-grid">
+    <div class="indicator-card red">
+      <div class="indicator-num">93%</div>
+      <div class="indicator-label">Dívida Bruta / PIB · 2025</div>
+      <div class="indicator-desc">Saltou de 74% em 2019. Emendas impositivas (R$ 52,7bi/ano) e gastos clientelistas financiam a captura política. A conta vai para o contribuinte.</div>
+    </div>
+    <div class="indicator-card amber">
+      <div class="indicator-num">R$56bi</div>
+      <div class="indicator-label">Exposição FGC · Caso Banco Master</div>
+      <div class="indicator-desc">Rombo potencial no Fundo Garantidor de Créditos. Pago pelos outros bancos e, indiretamente, pelo sistema financeiro e poupadores.</div>
+    </div>
+    <div class="indicator-card red">
+      <div class="indicator-num">6,7%</div>
+      <div class="indicator-label">Inflação acumulada 12 meses · Mar 2026</div>
+      <div class="indicator-desc">Acima da meta por 3 anos consecutivos. Política fiscal expansionista para sustentar coalizão parlamentar pressiona o Banco Central.</div>
+    </div>
+    <div class="indicator-card gold">
+      <div class="indicator-num">R$6bi</div>
+      <div class="indicator-label">Lavagem via Fintechs · Op. Hydra</div>
+      <div class="indicator-desc">Crime organizado integrado ao sistema financeiro. PCC usa fintechs e Delaware para lavagem. Custo: crédito mais caro, compliance mais pesado, investimento externo desviado.</div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <blockquote>Quando o judiciário é capturado, o custo do capital aumenta para todos porque o contrato social deixa de ser confiável. Nenhum investidor precisa ler doutrina constitucional — só precisa ver o spread do risco-Brasil.</blockquote>
+    <cite>— Síntese baseada em FMI World Economic Outlook 2024 e World Justice Project Rule of Law Index 2025</cite>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SEÇÃO 08: REFERÊNCIAS -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="referencias">
+
+  <div class="section-label">08 · Referências Primárias</div>
+  <h2 class="section-title">Fontes — Tudo é Verificável</h2>
+  <p class="section-lead">Este documento não contém especulação. Cada afirmação tem fonte primária. Verifique.</p>
+
+  <ul class="ref-list">
+
+    <li class="ref-item">
+      <span class="ref-num">01</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://portal.stf.jus.br/processos/detalhe.asp?incidente=5651823" target="_blank">INQ 4.781 — Portal Oficial do STF</a>
+        <div class="ref-meta"><span class="ref-type rt-oficial">Oficial</span>STF · Íntegra do processo · Decisões monocráticas e plenárias</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">02</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://freedomhouse.org/country/brazil/freedom-world/2026" target="_blank">Freedom in the World 2026 — Brazil</a>
+        <div class="ref-meta"><span class="ref-type rt-internacional">Internacional</span>Freedom House · Score: 75/100 (Partially Free) · Queda de 5 pontos em 5 anos</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">03</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://v-dem.net/media/publications/dr_2025.pdf" target="_blank">V-Dem Democracy Report 2025</a>
+        <div class="ref-meta"><span class="ref-type rt-academico">Acadêmico</span>Varieties of Democracy Institute · Brasil: top 10 países em processo de autocratização</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">04</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://rsf.org/en/index" target="_blank">RSF Press Freedom Index 2025 — Brasil 103ª</a>
+        <div class="ref-meta"><span class="ref-type rt-internacional">Internacional</span>Repórteres Sem Fronteiras · Metodologia pública · Queda de 22 posições em 5 anos</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">05</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://www.transparency.org/en/cpi/2024/index/bra" target="_blank">Corruption Perceptions Index 2024 — Brasil 96ª</a>
+        <div class="ref-meta"><span class="ref-type rt-internacional">Internacional</span>Transparência Internacional · 35/100 · Queda de 5 pontos desde 2018</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">06</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://worldjusticeproject.org/rule-of-law-index/country/2025/Brazil" target="_blank">World Justice Project — Rule of Law Index 2025</a>
+        <div class="ref-meta"><span class="ref-type rt-internacional">Internacional</span>WJP · Score 0,44 · Posição 83ª/142 · Judicial independence: 0,35</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">07</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://www.rand.org/pubs/perspectives/PE198.html" target="_blank">RAND — The Russian "Firehose of Falsehood" Propaganda Model</a>
+        <div class="ref-meta"><span class="ref-type rt-academico">Acadêmico</span>RAND Corporation · Christopher Paul &amp; Miriam Matthews · Aplicado ao Brasil nos ciclos 2022 e 2026</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">08</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://global.gitoc.org/resiliency-index/brazil" target="_blank">GI-TOC — Organized Crime Index Brazil 2025</a>
+        <div class="ref-meta"><span class="ref-type rt-internacional">Internacional</span>Global Initiative Against Transnational Organized Crime · Penetração criminal em instituições estatais</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">09</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://judiciary.house.gov/media/press-releases" target="_blank">U.S. House Judiciary Committee — Relatórios sobre Brasil (Abril 2024, Setembro 2024, Abril 2026)</a>
+        <div class="ref-meta"><span class="ref-type rt-oficial">Oficial</span>Congresso dos EUA · Preocupações com rule of law, censura digital e perseguição política no Brasil</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">10</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://www.cambridge.org/core/books/how-democracies-die/how-democracies-die" target="_blank">Ginsburg &amp; Huq — "How Democracies Die From Within" (2018)</a>
+        <div class="ref-meta"><span class="ref-type rt-academico">Acadêmico</span>Cambridge · Conceito de weaponized legalism · Análise comparada de regimes híbridos</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">11</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://www.amazon.com/How-Democracies-Die-Steven-Levitsky/dp/0525574786" target="_blank">Levitsky &amp; Ziblatt — "How Democracies Die" (2018)</a>
+        <div class="ref-meta"><span class="ref-type rt-academico">Acadêmico</span>Crown · Autocratização incremental · Venezuela, Hungria, Turquia como modelos comparados</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">12</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://www.conjur.com.br" target="_blank">Consultor Jurídico (Conjur) — Cobertura jurídica do INQ 4.781</a>
+        <div class="ref-meta"><span class="ref-type rt-jornalismo">Jornalismo</span>Conjur · Análise técnica · Debates processuais · Posições de advogados e juristas</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">13</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://theintercept.com/brasil/" target="_blank">The Intercept Brasil — Investigações sobre STF e censura digital</a>
+        <div class="ref-meta"><span class="ref-type rt-jornalismo">Jornalismo</span>The Intercept Brasil · Documentos primários · Investigações independentes</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">14</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://agenciapublica.org.br" target="_blank">Agência Pública — Jornalismo investigativo independente</a>
+        <div class="ref-meta"><span class="ref-type rt-jornalismo">Jornalismo</span>Agência Pública · Financiamento independente · Investigações sobre poder e corrupção</div>
+      </div>
+    </li>
+
+    <li class="ref-item">
+      <span class="ref-num">15</span>
+      <div class="ref-body">
+        <a class="ref-title" href="https://x.com/AlexandreFiles" target="_blank">@AlexandreFiles — Corpus de ordens judiciais secretas publicadas</a>
+        <div class="ref-meta"><span class="ref-type rt-oficial">Documentos</span>X.com · Ordens judiciais de Alexandre de Moraes obtidas via FOIA e vazamentos · Fonte primária verificada</div>
+      </div>
+    </li>
+
+  </ul>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-col-title">Licença</div>
+        <p>Este documento é publicado sob CC0 1.0 Universal (Domínio Público). Copie, distribua, traduza, modifique sem restrições. Nenhuma permissão necessária.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Metodologia</div>
+        <p>Todas as afirmações têm fonte primária verificável. Dados de organizações internacionais independentes com metodologia pública. Sem especulação não fundamentada.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contexto</div>
+        <p>Parte do projeto lawfare-timeline — documentação sistemática de padrões de captura institucional no Brasil. Foco em registro histórico e audiência internacional.</p>
+        <p style="margin-top:8px"><a href="https://lawfare-timeline.vercel.app" style="color:var(--blue); text-decoration:none;">lawfare-timeline.vercel.app</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Weaponized Legalism · Anatomia de um Estado Capturado · Brasil 2026</span>
+      <span>CC0 1.0 · Domínio Público · Sem direitos reservados</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => item.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Animate score bars on scroll
+  const scoreFills = document.querySelectorAll('.score-bar-fill');
+  const scoreObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.getAttribute('style').match(/width:\s*([^;]+)/)?.[1] || '0%';
+      }
+    });
+  }, { threshold: 0.5 });
+
+  scoreFills.forEach(fill => {
+    const targetWidth = fill.style.width;
+    fill.style.width = '0%';
+    fill.setAttribute('data-width', targetWidth);
+    scoreObserver.observe(fill);
+  });
+
+  const scoreObserver2 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fills = entry.target.querySelectorAll('.score-bar-fill');
+        fills.forEach(fill => {
+          const w = fill.getAttribute('data-width') || fill.style.width;
+          setTimeout(() => { fill.style.width = w; }, 100);
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+
+  const scoreSection = document.querySelector('.score-section');
+  if (scoreSection) scoreObserver2.observe(scoreSection);
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

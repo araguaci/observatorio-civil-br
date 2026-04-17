@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Crime — Observatório Civil BR</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080c10;
+            --bg1: #0d1218;
+            --bg2: #121820;
+            --bg3: #1a2230;
+            --border: rgba(255,255,255,0.06);
+            --border2: rgba(255,255,255,0.12);
+            --fg: #e8ecf0;
+            --fg2: #8a9ab0;
+            --fg3: #4a5a6a;
+            --red: #e84040;
+            --red2: rgba(232,64,64,0.15);
+            --amber: #e8a020;
+            --amber2: rgba(232,160,32,0.15);
+            --blue: #3090e8;
+            --blue2: rgba(48,144,232,0.12);
+            --green: #28c880;
+            --green2: rgba(40,200,128,0.12);
+            --purple: #a060e8;
+            --purple2: rgba(160,96,232,0.12);
+            --cyan: #20d0e8;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-display: 'Syne', sans-serif;
+        }
+
+        /* Reset */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: var(--bg); 
+            color: var(--fg); 
+            font-family: var(--font-mono); 
+            font-size: 13px; 
+            line-height: 1.6; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar customizado */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg1); }
+        ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        @media (min-width: 768px) {
+            .container { padding: 0 40px 80px; }
+        }
+
+        /* Accent Line Animada */
+        .header-accent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red), var(--amber), var(--red));
+            background-size: 200% 100%;
+            animation: scanline 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes scanline { to { background-position: 200% 0; } }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--red2);
+            color: var(--red);
+            border: 1px solid rgba(232, 64, 64, 0.3);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        .dot-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--fg);
+        }
+
+        .hero p {
+            font-family: var(--font-mono);
+            font-size: 16px;
+            color: var(--fg2);
+            max-width: 600px;
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            aspect-ratio: 16 / 9;
+        }
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border2);
+            background: var(--bg2);
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--fg3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: var(--font-mono);
+        }
+
+        /* Main Details Section */
+        .section-title {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--fg3);
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 24px;
+        }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--fg);
+        }
+
+        .card p {
+            color: var(--fg2);
+            margin-bottom: 16px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            background: var(--bg3);
+            color: var(--fg2);
+            padding: 4px 10px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+        }
+
+        /* Systemic Patterns Table */
+        .patterns-section {
+            background: var(--bg1);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+        .data-table-wrap {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            font-size: 10px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--fg3);
+            text-align: left;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border2);
+            background: var(--bg2);
+        }
+
+        .data-table td {
+            padding: 16px 20px;
+            font-size: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .data-table tr:hover td {
+            background: var(--bg2);
+        }
+
+        /* Artifact Cards */
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .artifact-card {
+            background: var(--bg1);
+            border-left: 3px solid var(--fg3);
+            border-right: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 6px 6px 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+            height: 100%;
+        }
+
+        .artifact-card:hover {
+            background: var(--bg2);
+            border-top-color: var(--border2);
+            border-right-color: var(--border2);
+            border-bottom-color: var(--border2);
+            transform: translateY(-2px);
+        }
+
+        .artifact-card.red { border-left-color: var(--red); }
+        .artifact-card.amber { border-left-color: var(--amber); }
+        .artifact-card.purple { border-left-color: var(--purple); }
+        .artifact-card.blue { border-left-color: var(--blue); }
+
+        .artifact-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--fg3);
+        }
+
+        .artifact-card h4 {
+            font-family: var(--font-display);
+            font-size: 15px;
+            color: var(--fg);
+            margin: 0;
+        }
+
+        .artifact-card p {
+            font-size: 12px;
+            color: var(--fg2);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .artifact-link {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--fg3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .artifact-card:hover .artifact-link {
+            color: var(--fg);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            background: var(--bg1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-info h4 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: var(--fg3);
+            max-width: 400px;
+        }
+
+        .cc0-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border2);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--fg2);
+        }
+
+        /* Print Support */
+        @media print {
+            body { background: #fff; color: #111; }
+            .header-accent { display: none; }
+            .hero-image-wrap { border: 1px solid #ddd; }
+            .stat-card, .card, .patterns-section { border: 1px solid #ddd; background: #fff !important; }
+            :root {
+                --bg: #fff; --bg1: #f8f8f8; --bg2: #f0f0f0; --fg: #111; --fg2: #444; --fg3: #888;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-accent"></div>
+
+    <div class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge-live">
+                    <div class="dot-pulse"></div>
+                    Análise em Tempo Real
+                </div>
+                <h1>Painel do Crime</h1>
+                <p>
+                    Observatório Civil de Inteligência dedicado ao mapeamento forense, análise de redes criminais transnacionais e documentação de padrões de <i>lawfare</i> no Brasil.
+                </p>
+                <div class="tag-list">
+                    <span class="tag-badge">Intel 2.0</span>
+                    <span class="tag-badge">Mapeamento de Redes</span>
+                    <span class="tag-badge">Forense Digital</span>
+                </div>
+            </div>
+            <div class="hero-image-wrap">
+                <img src="painel_do_crime.png" alt="Intelligence Operations Hub">
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-num" style="color: var(--red);">39.492</span>
+                <span class="stat-label">Mortes Violentas / Ano</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" style="color: var(--amber);">R$ 1.4T</span>
+                <span class="stat-label">Custo do Crime / PIB</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" style="color: var(--cyan);">28</span>
+                <span class="stat-label">Países com presença PCC</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" style="color: var(--purple);">61M</span>
+                <span class="stat-label">Sob Domínio Territorial</span>
+            </div>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="section-title">O Projeto e Missão</div>
+        <div class="features-grid">
+            <div class="card">
+                <h3>Monitoramento Sistêmico</h3>
+                <p>Diferente de abordagens tradicionais, o Painel do Crime foca nos <b>mecanismos</b> de perpetuação. Mapeamos como o crime organizado captura instituições, utiliza fintechs para lavagem e weaponiza o sistema jurídico.</p>
+                <div class="tag-list">
+                    <span class="tag-badge">Padrões P1-P8</span>
+                    <span class="tag-badge">Captura do Estado</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Artefatos Standalone</h3>
+                <p>Nossos relatórios são gerados como artefatos de alta fidelidade, portáteis e auto-contidos. Cada operação (Hydra, Narco Fluxo, Republica Capturada) possui seu próprio <i>deep-dive</i> técnico.</p>
+                <div class="tag-list">
+                    <span class="tag-badge">Open Data</span>
+                    <span class="tag-badge">HTML Forense</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Dossiês de Operações</div>
+        <div class="artifacts-grid">
+            <a href="operacao-narco-fluxo.html" class="artifact-card red">
+                <div class="artifact-meta">
+                    <span class="category-label">Investigação</span>
+                    <span class="tag-badge">Ativo</span>
+                </div>
+                <h4>Operação Narco Fluxo</h4>
+                <p>Análise da logística transnacional de exportação e redes aeroportuárias controladas pelo crime organizado.</p>
+                <div class="artifact-link">Acessar Relatório →</div>
+            </a>
+            <a href="operacao-silencio-digital.html" class="artifact-card red">
+                <div class="artifact-meta">
+                    <span class="category-label">Censura</span>
+                    <span class="tag-badge">P4</span>
+                </div>
+                <h4>Silêncio Digital</h4>
+                <p>Dossiê sobre mecanismos de repressão digital, monitoramento de opositores e automação de censura.</p>
+                <div class="artifact-link">Acessar Relatório →</div>
+            </a>
+            <a href="operacao_lava_jato.html" class="artifact-card red">
+                <div class="artifact-meta">
+                    <span class="category-label">Corrupção</span>
+                    <span class="tag-badge">Legado</span>
+                </div>
+                <h4>Lava Jato: Mapeamento</h4>
+                <p>O maior inventário de corrupção corporativa e estatal, conectando operadores e beneficiários finais.</p>
+                <div class="artifact-link">Acessar Relatório →</div>
+            </a>
+        </div>
+
+        <div class="section-title">Inteligência Estratégica</div>
+        <div class="artifacts-grid">
+            <a href="pcc-cv-intel-dashboard-2026.html" class="artifact-card amber">
+                <div class="artifact-meta">
+                    <span class="category-label">Facções</span>
+                    <span class="tag-badge">2026</span>
+                </div>
+                <h4>PCC & CV: Dashboard</h4>
+                <p>Monitoramento em tempo real da expansão territorial e faturamento das maiores organizações do país.</p>
+                <div class="artifact-link">Acessar Inteligência →</div>
+            </a>
+            <a href="republica-capturada.html" class="artifact-card amber">
+                <div class="artifact-meta">
+                    <span class="category-label">Política</span>
+                    <span class="tag-badge">Captura</span>
+                </div>
+                <h4>República Capturada</h4>
+                <p>Documentação da infiltração de agentes criminais em prefeituras, câmaras e governos estaduais.</p>
+                <div class="artifact-link">Acessar Inteligência →</div>
+            </a>
+            <a href="brasil-venezuela-ira.html" class="artifact-card amber">
+                <div class="artifact-meta">
+                    <span class="category-label">Geopolítica</span>
+                    <span class="tag-badge">Terror</span>
+                </div>
+                <h4>Eixo Transnacional</h4>
+                <p>Investigação sobre conexões entre o crime brasileiro, regimes ditatoriais e grupos extremistas.</p>
+                <div class="artifact-link">Acessar Inteligência →</div>
+            </a>
+        </div>
+
+        <div class="section-title">Análise de Redes & Mapas</div>
+        <div class="artifacts-grid">
+            <a href="emaranhamento_quantico_operacoes.html" class="artifact-card purple">
+                <div class="artifact-meta">
+                    <span class="category-label">Grafos</span>
+                    <span class="tag-badge">Nexo</span>
+                </div>
+                <h4>Emaranhamento de Operações</h4>
+                <p>Visualização relacional conectando Hydra, Narco Fluxo e Compliance Zero em uma única rede funcional.</p>
+                <div class="artifact-link">Ver Mapa →</div>
+            </a>
+            <a href="mapa-mental-nexo-fintech.html" class="artifact-card purple">
+                <div class="artifact-meta">
+                    <span class="category-label">Financeiro</span>
+                    <span class="tag-badge">P8</span>
+                </div>
+                <h4>Nexo Fintech</h4>
+                <p>Rastreio de lavagem de dinheiro através de sistemas de pagamento e bancos digitais de fachada.</p>
+                <div class="artifact-link">Ver Mapa →</div>
+            </a>
+        </div>
+
+        <div class="section-title">Lawfare & Judiciário</div>
+        <div class="artifacts-grid">
+            <a href="vaza-toga.html" class="artifact-card blue">
+                <div class="artifact-meta">
+                    <span class="category-label">Judicial</span>
+                    <span class="tag-badge">P3</span>
+                </div>
+                <h4>Dossiê Vaza Toga</h4>
+                <p>Compilação de evidências sobre o uso do aparato judiciário para fins de perseguição política.</p>
+                <div class="artifact-link">Ver Dossiê →</div>
+            </a>
+            <a href="inq4781.html" class="artifact-card blue">
+                <div class="artifact-meta">
+                    <span class="category-label">STF</span>
+                    <span class="tag-badge">Alerta</span>
+                </div>
+                <h4>Diagnóstico INQ 4781</h4>
+                <p>Análise técnica das nulidades e violações constitucionais no Inquérito das Fake News.</p>
+                <div class="artifact-link">Ver Dossiê →</div>
+            </a>
+        </div>
+
+        <div class="section-title">Padrões Sistêmicos Monitorados</div>
+        <div class="patterns-section">
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Denominação do Padrão</th>
+                            <th>Status de Gravidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-code" style="color: var(--red);">P1</td>
+                            <td><b>Anulação via Defecto Processual</b>: Uso de nulidades como blindagem jurídica.</td>
+                            <td><span class="tag-badge" style="background: var(--red2); color: var(--red);">CRÍTICO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-code" style="color: var(--red);">P2</td>
+                            <td><b>Inversão do Vetor</b>: Investigadores e delatores tornam-se alvos preferenciais do sistema.</td>
+                            <td><span class="tag-badge" style="background: var(--red2); color: var(--red);">CRÍTICO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-code" style="color: var(--purple);">P3</td>
+                            <td><b>Captura Judicial Emergencial</b>: STF como terminal de interrupção de investigações críticas.</td>
+                            <td><span class="tag-badge" style="background: var(--purple2); color: var(--purple);">ESPECIAL</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-code" style="color: var(--amber);">P5</td>
+                            <td><b>Uso de Fundos Públicos</b>: Desvios em fundos de pensão, INSS e FGC como vetores de espoliação.</td>
+                            <td><span class="tag-badge" style="background: var(--amber2); color: var(--amber);">ALTO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-code" style="color: var(--blue);">P8</td>
+                            <td><b>Captura do Sistema de Pagamentos</b>: Infiltração em Fintechs para lavagem de ativos.</td>
+                            <td><span class="tag-badge" style="background: var(--blue2); color: var(--blue);">MÉDIO</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h4>Painel do Crime — Observatório Civil BR</h4>
+                <p class="footer-text">Um projeto independente de análise de inteligência e transparência institucional. Focado na preservação de dados e exposição de padrões sistêmicos.</p>
+            </div>
+            <div class="cc0-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 8a4 4 0 1 0 0 8"></path>
+                    <path d="M14 12h-2"></path>
+                </svg>
+                <span>CC0 1.0 Universal — Domínio Público</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

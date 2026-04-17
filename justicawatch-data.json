@@ -1,0 +1,657 @@
+{
+  "_meta": {
+    "projeto": "JustiçaWatch Brasil",
+    "descricao": "Base de dados pública de decisões judiciais brasileiras com impacto documentado na segurança pública.",
+    "url": "https://lawfare-timeline.vercel.app/justicawatch",
+    "schema": "https://lawfare-timeline.vercel.app/schemas/justicawatch-v1.json",
+    "licenca": "CC0-1.0",
+    "licenca_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "versao_base": "1.0.0",
+    "data_criacao": "2026-04-12",
+    "ultima_atualizacao": "2026-04-12",
+    "total_registros": 10,
+    "proximo_id": "JW-2026-001",
+    "contato_correcoes": "https://github.com/lawfare-timeline/issues",
+    "aviso": "Esta base apresenta registros factuais de fontes públicas. Não implica culpa de magistrados. Dados públicos pertencem ao público.",
+    "cobertura_temporal": "1988–presente",
+    "mantenedor": "lawfare-timeline.vercel.app"
+  },
+
+  "registros": [
+
+    {
+      "id": "JW-2006-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2006,
+      "data_decisao": null,
+      "tribunal": "STF",
+      "turma_orgao": "Plenário",
+      "numero_processo": "HC 82.959-7/SP",
+      "relator": "Min. Marco Aurélio Mello",
+      "tipo_decisao": "mudanca_jurisprudencial",
+      "tipo_decisao_descricao": null,
+      "crime_categoria": ["estupro", "latrocinio", "outro_crime_hediondo"],
+      "faccao_envolvida": null,
+      "resumo": "STF declara inconstitucional obrigatoriedade de regime fechado integral para crimes hediondos (Lei 8.072/90). Julgado a pedido de condenado por atentado violento ao pudor contra três crianças. Decisão por 6 a 5. Abre progressão de regime para estupro, latrocínio e tortura.",
+      "descricao_completa": "O HC 82.959-7/SP foi julgado pelo Plenário do STF em 23/02/2006. O tribunal, por maioria de 6 votos a 5, decidiu que a vedação à progressão de regime para crimes hediondos (§1º do Art. 2º da Lei 8.072/90) era inconstitucional por conflitar com o princípio da individualização da pena (Art. 5º, XLVI, CF/88). O caso foi impetrado em favor de condenado por atentado violento ao pudor contra três crianças — crime hoje tipificado como estupro de vulnerável. A partir dessa decisão, todos os condenados por crimes hediondos — incluindo estupro, latrocínio, tortura e terrorismo — passaram a ter direito à progressão de regime. O impacto sistêmico foi imediato e permanente: dezenas de milhares de condenados foram beneficiados nos anos seguintes. Em 2007, a Lei 11.464 formalizou a progressão com prazos diferenciados (2/5 para réus primários e 3/5 para reincidentes em crimes hediondos).",
+      "impacto_publico": {
+        "tipo": "mudanca_jurisprudencial_sistemica",
+        "descricao": "Todos os condenados por crimes hediondos no Brasil passaram a ter acesso à progressão de regime. Impacto em todas as penas em curso na data da decisão e em todas as condenações futuras. Inclui estupradores, autores de latrocínio, torturadores e terroristas.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": null,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P1_anulacao_vicio_processual"],
+      "fontes": [
+        {
+          "tipo": "portal_oficial_tribunal",
+          "descricao": "Portal STF — HC 82.959-7",
+          "url": "https://portal.stf.jus.br/processos/detalhe.asp?incidente=2057741",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        },
+        {
+          "tipo": "jusbrasil",
+          "descricao": "Análise: Jurisprudência do STF e STJ sobre progressão de regime em crimes hediondos",
+          "url": "https://www.jusbrasil.com.br/artigos/a-jurisprudencia-do-stf-e-do-stj-sobre-progressao-de-regime-em-crimes-hediondos/121942017",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["crimes_hediondos", "progressao_regime", "estupro", "latrocinio", "marco_aurelio", "lei_8072"],
+      "relacionados": null,
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": null,
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial criado na versão 1.0.0 da base.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2009-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2009,
+      "data_decisao": null,
+      "tribunal": "STF",
+      "turma_orgao": "Plenário",
+      "numero_processo": "HC 84.078/MG",
+      "relator": "Min. Eros Grau",
+      "tipo_decisao": "mudanca_jurisprudencial",
+      "tipo_decisao_descricao": "Mudança de entendimento sobre momento da prisão após condenação",
+      "crime_categoria": ["corrupcao_passiva"],
+      "faccao_envolvida": null,
+      "resumo": "STF reverte entendimento de 1988 e decide que réu só pode ser preso após exaurimento de todos os recursos — incluindo STJ e STF. Decisão a pedido de fazendeiro condenado. Virou principal instrumento protelatório para corruptos e réus de colarinho branco.",
+      "descricao_completa": "Em 2009, ao julgar o HC 84.078/MG, o STF por maioria decidiu que a execução da pena só poderia ter início após o trânsito em julgado da sentença condenatória — ou seja, após o esgotamento de todos os recursos disponíveis, inclusive nos tribunais superiores. A decisão reverteu entendimento vigente desde 1988. Na prática, transformou o sistema recursal em instrumento de proteção de réus com condições de contratar advogados para recorrer indefinidamente. O impacto mais notório foi na proteção de réus de crimes de colarinho branco e corrupção, que passaram a ter anos ou décadas de liberdade mesmo após condenações em segunda instância. O entendimento foi revertido em 2016 e novamente em 2019.",
+      "impacto_publico": {
+        "tipo": "mudanca_jurisprudencial_sistemica",
+        "descricao": "Réus com recursos financeiros para contratar advogados e recorrer indefinidamente ficaram protegidos de prisão por anos após condenação. Beneficiou especialmente réus de corrupção, lavagem de dinheiro e crimes de colarinho branco.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": null,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P3_captura_judicial_emergencial", "P6_prescricao_estrategica"],
+      "fontes": [
+        {
+          "tipo": "portal_oficial_tribunal",
+          "descricao": "Portal STF — HC 84.078",
+          "url": "https://portal.stf.jus.br/processos/detalhe.asp?incidente=2208796",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": false
+        }
+      ],
+      "tags": ["transito_em_julgado", "segunda_instancia", "corrupcao", "eros_grau", "lava_jato"],
+      "relacionados": ["JW-2019-001"],
+      "operacao_lawfare": "Lava_Jato",
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Verificar número exato do incidente no portal STF.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2019-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2019,
+      "data_decisao": "2019-11-07",
+      "tribunal": "STF",
+      "turma_orgao": "Plenário",
+      "numero_processo": "ADC 43 / ADC 44 / ADC 54",
+      "relator": "Min. Marco Aurélio Mello",
+      "tipo_decisao": "mudanca_jurisprudencial",
+      "tipo_decisao_descricao": "Julgamento de Ações Declaratórias de Constitucionalidade — proibição de prisão após segunda instância",
+      "crime_categoria": ["corrupcao_ativa", "corrupcao_passiva", "lavagem_dinheiro"],
+      "faccao_envolvida": null,
+      "resumo": "STF julga ADCs 43, 44 e 54 e decide por proibir prisão após condenação em segunda instância, exigindo trânsito em julgado. Impacto imediato na Operação Lava Jato: soltura de condenados incluindo Lula da Silva. CNJ estimou até 4.895 réus beneficiados.",
+      "descricao_completa": "Em 07/11/2019, o Plenário do STF julgou as ADCs 43, 44 e 54 e, por maioria de 6 votos a 5, reverteu o entendimento de 2016 que permitia a prisão após condenação em segunda instância. A decisão exigiu o trânsito em julgado para início da execução da pena. O CNJ estimou que até 4.895 presos poderiam ser beneficiados — não os 169 mil que circularam nas redes sociais, como verificado pelo Aos Fatos. O impacto mais notório foi a soltura de Luiz Inácio Lula da Silva, então preso em Curitiba desde abril de 2018 por condenação na Operação Lava Jato. O STF voltou a debater o tema em 2023, com alterações pontuais. O ciclo de quatro reversões em 15 anos (2009→2016→2019→2023) tornou-se símbolo da instabilidade jurisprudencial em matéria de execução penal.",
+      "impacto_publico": {
+        "tipo": "soltura_coletiva",
+        "descricao": "Até 4.895 presos beneficiados (estimativa CNJ). Inclui condenados pela Operação Lava Jato. Soltura imediata de Luiz Inácio Lula da Silva após 580 dias preso. Debates sobre motivação política da decisão permanecem sem conclusão institucional.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": 4895,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P3_captura_judicial_emergencial", "P1_anulacao_vicio_processual"],
+      "fontes": [
+        {
+          "tipo": "portal_oficial_tribunal",
+          "descricao": "STF — ADC 43",
+          "url": "https://portal.stf.jus.br/processos/detalhe.asp?incidente=5765901",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        },
+        {
+          "tipo": "fact_check",
+          "descricao": "Aos Fatos — Verificação: não é verdade que 169,7 mil presos seriam beneficiados",
+          "url": "https://www.aosfatos.org/noticias/nao-e-verdade-que-decisao-do-stf-sobre-segunda-instancia-pode-beneficiar-1697-mil-presos/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["segunda_instancia", "transito_em_julgado", "lula", "lava_jato", "ADC43", "marco_aurelio", "corrupcao"],
+      "relacionados": ["JW-2009-001"],
+      "operacao_lawfare": "Lava_Jato",
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": null,
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2020-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2020,
+      "data_decisao": "2020-10-14",
+      "tribunal": "STF",
+      "turma_orgao": "Decisão monocrática",
+      "numero_processo": "HC 191.836/SP",
+      "relator": "Min. Marco Aurélio Mello",
+      "tipo_decisao": "habeas_corpus_monocratico",
+      "tipo_decisao_descricao": null,
+      "crime_categoria": ["trafico_internacional", "organizacao_criminosa"],
+      "faccao_envolvida": "PCC",
+      "resumo": "HC monocrático solta André Oliveira Macedo (André do Rap), líder do PCC condenado a 25 anos por tráfico internacional. Fundamento: prazo de prisão preventiva excedido sem reavaliação. Decisão revertida pelo colegiado em seguida. Réu havia evadido. Foragido até hoje — procurado pela Interpol.",
+      "descricao_completa": "Em 14/10/2020, o Min. Marco Aurélio concedeu liminar em HC a André Oliveira Macedo, conhecido como André do Rap, principal líder do PCC preso no Brasil, condenado a 25 anos de prisão por tráfico internacional de drogas. A decisão foi fundamentada no fato de que a prisão preventiva do réu não havia sido reavaliada a cada 90 dias, conforme entendimento do próprio ministro sobre o Art. 316, parágrafo único, do CPP. O Min. Luiz Fux, então presidente do STF, cassou a liminar no mesmo dia. A decisão foi referendada pelo Plenário. Porém, André do Rap já havia sido solto e fugiu. Em 2026, continua foragido e é procurado pela Interpol. O caso expôs o 'intervalo de fuga': o espaço temporal entre a concessão de uma liminar monocrática e a análise colegiada, que pode ser explorado por réus com recursos para agir rapidamente.",
+      "impacto_publico": {
+        "tipo": "fuga_pos_liminar",
+        "descricao": "Líder do PCC solto e em fuga. Não recapturado após mais de 5 anos. Procurado pela Interpol. Caso tornou-se símbolo do 'intervalo de fuga' entre liminares monocráticas e decisão colegiada.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": "Desconhecida — réu em fuga.",
+        "foragido": true,
+        "pessoas_afetadas": 1,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P8_intervalo_fuga_liminar", "P3_captura_judicial_emergencial"],
+      "fontes": [
+        {
+          "tipo": "jornalismo_investigativo",
+          "descricao": "Gazeta do Povo — Decisões judiciais recentes devolvem criminosos às ruas",
+          "url": "https://www.gazetadopovo.com.br/vida-e-cidadania/decisoes-judiciais-recentes-devolvem-criminosos-as-ruas-e-comprometem-seguranca-publica/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        },
+        {
+          "tipo": "relatorio_parlamentar",
+          "descricao": "Senado Federal — Notícia: Polícia procura 21 criminosos soltos por decisões do Min. Marco Aurélio",
+          "url": "https://www2.senado.leg.br/bdsf/bitstream/handle/id/589212/noticia.html",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["PCC", "andre_do_rap", "foragido", "interpol", "marco_aurelio", "trafico_internacional", "intervalo_fuga"],
+      "relacionados": ["JW-2020-002"],
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Verificar status de captura na Interpol — última notícia disponível: foragido em 2025.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2020-002",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2020,
+      "data_decisao": null,
+      "tribunal": "STF",
+      "turma_orgao": "Decisões monocráticas diversas",
+      "numero_processo": "Múltiplos — análise de 225 HCs distribuídos ao relator",
+      "relator": "Min. Marco Aurélio Mello",
+      "tipo_decisao": "habeas_corpus_monocratico",
+      "tipo_decisao_descricao": "Conjunto de liminares monocráticas em HCs com posterior reversão colegiada e fuga dos beneficiários",
+      "crime_categoria": ["trafico_internacional", "homicidio_qualificado", "extorsao", "organizacao_criminosa"],
+      "faccao_envolvida": null,
+      "resumo": "Levantamento do Estadão sobre 225 liminares de HCs concedidas pelo Min. Marco Aurélio em 2020: 21 réus conseguiram liminares, fugiram antes de o colegiado reverter a decisão. Crimes incluem tráfico internacional, homicídio qualificado, extorsão e formação de milícia.",
+      "descricao_completa": "O Estadão analisou 225 decisões liminares em HCs distribuídos ao Min. Marco Aurélio em 2020 com base no critério de ilegalidade de prisão preventiva não reavaliada a cada 90 dias. Em ao menos 21 casos, o réu obteve a liminar, evadiu, e o mandado de prisão foi expedido somente após o colegiado reverter a decisão. Em 15 desses 21 casos, a situação era idêntica à de André do Rap. Entre os foragidos: condenados em segundo grau e investigados com ordens de prisão preventiva, por crimes como tráfico internacional de drogas, estelionato, homicídio qualificado, extorsão e formação de milícia. A Polícia Federal e as polícias estaduais buscavam os foragidos à época da publicação.",
+      "impacto_publico": {
+        "tipo": "fuga_pos_liminar",
+        "descricao": "21 réus foragidos após liminares monocráticas. Mandados de prisão em aberto. PF e polícias estaduais em busca. Padrão sistemático identificado: 15 de 21 casos com estrutura idêntica ao caso André do Rap.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": true,
+        "pessoas_afetadas": 21,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P8_intervalo_fuga_liminar"],
+      "fontes": [
+        {
+          "tipo": "relatorio_parlamentar",
+          "descricao": "Senado Federal (reprodução de reportagem Estadão) — Polícia procura 21 criminosos soltos por decisões do Min. Marco Aurélio",
+          "url": "https://www2.senado.leg.br/bdsf/bitstream/handle/id/589212/noticia.html",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["marco_aurelio", "foragidos", "liminares_monocraticas", "trafico", "homicidio", "milicia", "intervalo_fuga", "estadao"],
+      "relacionados": ["JW-2020-001"],
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Buscar acesso ao levantamento completo do Estadão para identificar os 21 casos individualmente.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2020-003",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2020,
+      "data_decisao": "2020-10-14",
+      "tribunal": "STJ",
+      "turma_orgao": "3ª Seção",
+      "numero_processo": "HC coletivo — origem Defensoria Pública ES",
+      "relator": "Min. Sebastião Reis Júnior",
+      "tipo_decisao": "habeas_corpus_coletivo",
+      "tipo_decisao_descricao": "HC coletivo nacional — soltura de presos com liberdade provisória condicionada a fiança por razões de pandemia",
+      "crime_categoria": ["trafico_drogas", "homicidio_simples", "roubo_qualificado"],
+      "faccao_envolvida": null,
+      "resumo": "STJ concede HC coletivo com efeito nacional para soltar todos os presos com liberdade provisória condicionada a fiança não paga, com base na Recomendação CNJ 62/2020 (pandemia COVID-19). Inclui réus por crimes violentos aguardando julgamento.",
+      "descricao_completa": "A 3ª Seção do STJ confirmou decisão que estendeu para todo o país a soltura de presos com liberdade provisória condicionada ao pagamento de fiança, nos casos em que o réu não tinha condições financeiras de pagar. A medida foi baseada na Recomendação 62/2020 do CNJ, editada como resposta à pandemia de COVID-19. O relator, Min. Sebastião Reis Júnior, reconheceu o risco de contágio em ambientes superlotados como os presídios brasileiros. A decisão foi estendida para todo o território nacional a pedido da Defensoria Pública da União. O impacto real em termos de perfil de crimes dos beneficiados não foi sistematicamente monitorado. Crítica central: ausência de mecanismo de acompanhamento pós-soltura.",
+      "impacto_publico": {
+        "tipo": "soltura_coletiva",
+        "descricao": "Soltura com efeito nacional de número indeterminado de réus. Inclui crimes violentos com prisão preventiva substituída por fiança. Sem monitoramento sistematizado do impacto pós-soltura.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": null,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "medio",
+      "padrao_sistemico": ["P10_ausencia_banco_nacional_solturas"],
+      "fontes": [
+        {
+          "tipo": "portal_oficial_tribunal",
+          "descricao": "STJ — Notícia oficial sobre HC coletivo",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/14102020-STJ-confirma-decisao-que-mandou-soltar-todos-os-presos-do-pais-que-tiveram-liberdade-condicionada-a-fianca.aspx",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["COVID", "HC_coletivo", "fiança", "CNJ_62_2020", "sebastiao_reis", "pandemia", "soltura_nacional"],
+      "relacionados": null,
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": null,
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2021-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2021,
+      "data_decisao": null,
+      "tribunal": "TJGO",
+      "turma_orgao": "Vara de Execuções Penais",
+      "numero_processo": null,
+      "relator": null,
+      "tipo_decisao": "progressao_regime",
+      "tipo_decisao_descricao": "Progressão de regime concedida com base em bom comportamento, desconsiderando laudo psiquiátrico de periculosidade",
+      "crime_categoria": ["homicidio_multiplo", "estupro", "latrocinio"],
+      "faccao_envolvida": null,
+      "resumo": "Lázaro Barbosa, com histórico de homicídios, crimes sexuais, fuga e recaptura e laudo psiquiátrico indicando periculosidade, recebe progressão ao regime semiaberto por bom comportamento. Evade e comete nova série de crimes: dizima família, estupra mulher, sequestra outra, mata moradores rurais. Morto por forças policiais após 20 dias.",
+      "descricao_completa": "Lázaro Barbosa de Sousa colecionava antecedentes por homicídio e crimes sexuais antes da progressão. Uma junta médica psiquiátrica emitiu parecer contrário à sua soltura, apontando periculosidade e histórico de fuga e recaptura. Ainda assim, a progressão para o regime semiaberto foi concedida com base em atestado de bom comportamento no presídio. Após a evasão, entre abril e junho de 2021, Lázaro: assassinou uma família inteira no DF/GO (incluindo crianças), estuprou uma mulher, sequestrou outra, e matou outros moradores de propriedades rurais em Goiás. A busca envolveu mais de 200 agentes de segurança pública durante 20 dias, encerrando com a morte de Lázaro. O caso evidenciou a ausência de protocolo obrigatório de revisão multidisciplinar antes de progressões de regime em casos com histórico de reincidência e laudos de periculosidade.",
+      "impacto_publico": {
+        "tipo": "progressao_antecipada",
+        "descricao": "Após progressão: família dizimada, estupro, sequestro, múltiplos homicídios. Operação policial com 200+ agentes por 20 dias. Laudo psiquiátrico de periculosidade havia sido emitido e desconsiderado.",
+        "reincidencia_documentada": true,
+        "reincidencia_descricao": "Homicídios múltiplos, estupro, sequestro e tentativas de homicídio documentados em boletins policiais e cobertura jornalística de ampla repercussão nacional, abr-jun/2021.",
+        "foragido": false,
+        "pessoas_afetadas": 12,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": [],
+      "fontes": [
+        {
+          "tipo": "jornalismo_investigativo",
+          "descricao": "Gazeta do Povo — Benefícios a criminosos estimulam crimes cada vez mais bárbaros",
+          "url": "https://www.gazetadopovo.com.br/vida-e-cidadania/beneficios-excessivos-da-justica-a-criminosos-estimulam-crimes-cada-vez-mais-barbaros/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["lazaro_barbosa", "progressao_regime", "laudo_periculosidade", "homicidio", "estupro", "reincidencia", "tjgo"],
+      "relacionados": null,
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Buscar número do processo de execução penal no TJGO para referência primária oficial.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2022-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2022,
+      "data_decisao": "2022-05-01",
+      "tribunal": "STJ",
+      "turma_orgao": "6ª Turma",
+      "numero_processo": "Tema Repetitivo 1.119",
+      "relator": null,
+      "tipo_decisao": "nulidade_prova",
+      "tipo_decisao_descricao": "Anulação de condenação por busca pessoal irregular — proibição de abordagem baseada em 'atitude suspeita' ou denúncia anônima sem diligências prévias",
+      "crime_categoria": ["trafico_drogas"],
+      "faccao_envolvida": null,
+      "resumo": "STJ decide que busca pessoal baseada apenas em 'atitude suspeita' ou denúncia anônima é ilegal. Caso específico: anulação de condenação de réu preso com 72 porções de cocaína, 50 de maconha e balança digital. Réu liberado. Precedente com efeito nacional.",
+      "descricao_completa": "Em maio de 2022, a 6ª Turma do STJ, ao julgar recurso repetitivo no Tema 1.119, decidiu que a busca pessoal realizada pela polícia baseada apenas em 'atitude suspeita' ou em denúncia anônima sem diligências prévias é ilegal. O argumento central foi de combate ao 'racismo estrutural' nas abordagens policiais. No caso concreto que gerou o precedente, o réu foi detido com 72 porções de cocaína, 50 porções de maconha e uma balança de precisão — material consistente com tráfico de drogas. A condenação foi anulada porque os policiais não conseguiram descrever precisamente o que havia motivado a suspeita. O réu foi colocado em liberdade. O precedente tem efeito vinculante e foi aplicado em centenas de outros casos, resultando em anulações de condenações com base em prova material consistente.",
+      "impacto_publico": {
+        "tipo": "anulacao_prova",
+        "descricao": "Réu solto com 122 porções de drogas + balança apreendidos. Precedente com efeito nacional anulou centenas de condenações. Operadores de segurança pública relatam impacto na capacidade de abordagem preventiva.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": null,
+        "valor_envolvido_reais": null,
+        "droga_kg": 1.22
+      },
+      "nivel_risco": "medio",
+      "padrao_sistemico": ["P1_anulacao_vicio_processual", "P9_trafico_privilegiado_distorcido"],
+      "fontes": [
+        {
+          "tipo": "jornalismo_investigativo",
+          "descricao": "Gazeta do Povo — Decisões judiciais recentes devolvem criminosos às ruas",
+          "url": "https://www.gazetadopovo.com.br/vida-e-cidadania/decisoes-judiciais-recentes-devolvem-criminosos-as-ruas-e-comprometem-seguranca-publica/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        },
+        {
+          "tipo": "portal_oficial_tribunal",
+          "descricao": "STJ — Comunicação: Tema Repetitivo 1.119",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias.aspx",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": false
+        }
+      ],
+      "tags": ["busca_pessoal", "nulidade_prova", "trafico", "racismo_estrutural", "abordagem_policial", "tema_1119"],
+      "relacionados": null,
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Localizar número exato do HC/REsp que gerou o Tema Repetitivo 1.119.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2023-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2023,
+      "data_decisao": null,
+      "tribunal": "STF",
+      "turma_orgao": null,
+      "numero_processo": null,
+      "relator": null,
+      "tipo_decisao": "nulidade_prova",
+      "tipo_decisao_descricao": "Anulação de apreensão de quase 700 kg de cocaína por vício processual",
+      "crime_categoria": ["trafico_internacional"],
+      "faccao_envolvida": null,
+      "resumo": "STF anula apreensão de 695 kg de cocaína por vício processual no procedimento de busca e apreensão. Droga inutilizada, réus beneficiados. Caso citado no dossiê parlamentar 'A Ascensão do Narcoestado' como símbolo da aplicação sistemática de nulidades técnicas para anular grandes apreensões.",
+      "descricao_completa": "O caso é citado no dossiê elaborado pelo senador Jorge Seif (PL-SC) como um dos exemplos mais emblemáticos de como nulidades técnicas são aplicadas para anular apreensões com materialidade incontestável. Quase 700 kg de cocaína foram apreendidos em flagrante, mas a condenação foi anulada por vício no procedimento de busca e apreensão — e não pelo mérito da prova material. Número de processo e relator não identificados nas fontes disponíveis na data de registro.",
+      "impacto_publico": {
+        "tipo": "anulacao_prova",
+        "descricao": "695 kg de cocaína inutilizados após anulação da apreensão. Réus beneficiados sem cumprimento de pena. Valor de mercado estimado da droga: R$ 35–70 milhões (estimativa).",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": null,
+        "valor_envolvido_reais": 52500000,
+        "droga_kg": 695
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P1_anulacao_vicio_processual"],
+      "fontes": [
+        {
+          "tipo": "relatorio_parlamentar",
+          "descricao": "Dossiê 'A Ascensão do Narcoestado do Brasil' — Sen. Jorge Seif (PL-SC), 2025",
+          "url": "https://www.gazetadopovo.com.br/republica/dossie-de-senador-diz-que-stj-concedeu-9-mil-habeas-corpus-a-traficantes-em-2024/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["nulidade_prova", "apreensao_drogas", "695kg", "cocaina", "trafico_internacional", "STF"],
+      "relacionados": ["JW-2024-001"],
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "PENDENTE: identificar número do processo no portal STF. Dossiê Seif cita o caso sem número de processo.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial. Número de processo pendente de verificação.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2024-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2024,
+      "data_decisao": null,
+      "tribunal": "STJ",
+      "turma_orgao": "Múltiplas turmas",
+      "numero_processo": "Agregado — levantamento anual",
+      "relator": null,
+      "tipo_decisao": "habeas_corpus_colegiado",
+      "tipo_decisao_descricao": "Levantamento agregado: 9.166 HCs concedidos a traficantes em 2024 — inclui aplicação de 'tráfico privilegiado' em casos com 200–700 kg de droga",
+      "crime_categoria": ["trafico_drogas", "trafico_internacional", "trafico_privilegiado"],
+      "faccao_envolvida": null,
+      "resumo": "Em 2024, o STJ concedeu 9.166 habeas corpus a condenados ou investigados por tráfico de drogas — 50% de todos os HCs favoráveis do tribunal no ano. Inclui aplicação do 'tráfico privilegiado' em apreensões de 200, 300 e até 700 kg. No mesmo período, STF concedeu 577 HCs por tráfico.",
+      "descricao_completa": "Levantamento compilado pelo senador Jorge Seif (PL-SC) com base em dados do STJ e STF. Foram 9.166 habeas corpus concedidos pelo STJ apenas em 2024 a condenados ou investigados por tráfico de drogas — representando aproximadamente metade de todas as decisões favoráveis em HCs no tribunal no ano. No STF, 577 HCs foram concedidos no mesmo período, sendo o tráfico o crime mais recorrente entre os beneficiados. Entre os casos mais críticos: a aplicação do benefício do 'tráfico privilegiado' (Art. 33, §4º, Lei 11.343/2006 — originalmente destinado a réus primários sem ligação com organizações criminosas) em casos com apreensões de 200, 300 e até 700 kg de drogas. O 'tráfico privilegiado' prevê redução de pena de 1/6 a 2/3, podendo resultar em penas iniciais compatíveis com regime aberto ou semiaberto mesmo em grandes quantidades.",
+      "impacto_publico": {
+        "tipo": "soltura_coletiva",
+        "descricao": "9.166 traficantes beneficiados via HC no STJ em um único ano. 577 no STF. Sem banco de dados nacional cruzando solturas com reincidência. Impacto real na segurança pública não mensurado sistemicamente.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": 9743,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "alto",
+      "padrao_sistemico": ["P9_trafico_privilegiado_distorcido", "P10_ausencia_banco_nacional_solturas"],
+      "fontes": [
+        {
+          "tipo": "relatorio_parlamentar",
+          "descricao": "Dossiê 'A Ascensão do Narcoestado do Brasil' — Sen. Jorge Seif, 2025",
+          "url": "https://www.gazetadopovo.com.br/republica/dossie-de-senador-diz-que-stj-concedeu-9-mil-habeas-corpus-a-traficantes-em-2024/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        },
+        {
+          "tipo": "jornalismo_investigativo",
+          "descricao": "Portal 93 FM — Dossiê aponta que STJ concedeu 9 mil habeas corpus a traficantes em 2024",
+          "url": "https://radio93fm.com.br/amp/dossie-aponta-que-stj-concedeu-9-mil-habeas-corpus-a-traficantes-em-2024/",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["STJ", "HC_traficantes", "9166", "trafico_privilegiado", "jorge_seif", "narcoestado", "2024"],
+      "relacionados": ["JW-2023-001"],
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Solicitar dados brutos ao STJ via LAI para verificação independente do número 9.166.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    },
+
+    {
+      "id": "JW-2025-001",
+      "data_registro": "2026-04-12",
+      "versao": 1,
+      "status": "ativo",
+      "ano_decisao": 2025,
+      "data_decisao": null,
+      "tribunal": "STJ",
+      "turma_orgao": "5ª Turma",
+      "numero_processo": null,
+      "relator": null,
+      "tipo_decisao": "reducao_pena",
+      "tipo_decisao_descricao": "Afastamento de crime de estupro de vulnerável com base em 'distinguishing' da Súmula 593 — argumento de 'erro de proibição'",
+      "crime_categoria": ["estupro_vulneravel", "abuso_sexual_menor"],
+      "faccao_envolvida": null,
+      "resumo": "5ª Turma do STJ afasta tipificação de estupro de vulnerável (Art. 217-A CP) em caso de homem de 19 anos que manteve relação sexual com menina de 13. Súmula 593 (vulnerabilidade absoluta de menores de 14) afastada via 'distinguishing' com argumento de 'erro de proibição'. Relacionamento resultou em filho.",
+      "descricao_completa": "Em outubro de 2025, a 5ª Turma do STJ reformou condenação de homem que manteve relacionamento amoroso e sexual com menina de 13 anos, que resultou no nascimento de um filho. Embora a Súmula 593 do STJ estabeleça que a vulnerabilidade de menores de 14 anos é absoluta — independentemente de consentimento, relacionamento afetivo ou qualquer outra circunstância —, o colegiado aplicou o mecanismo do 'distinguishing' (afastamento de súmula em situação excepcional) com base no argumento de 'erro de proibição'. O erro de proibição ocorre quando o agente desconhece que a conduta é ilícita. Críticos alertam que a decisão cria precedente para erosão da proteção absoluta de menores de 14 anos em instâncias inferiores, que poderão replicar o argumento em outros casos.",
+      "impacto_publico": {
+        "tipo": "anulacao_processo",
+        "descricao": "Condenação por estupro de vulnerável afastada. Precedente potencialmente replicável. Risco de erosão da Súmula 593 que protege menores de 14 anos de forma absoluta.",
+        "reincidencia_documentada": false,
+        "reincidencia_descricao": null,
+        "foragido": false,
+        "pessoas_afetadas": 1,
+        "valor_envolvido_reais": null,
+        "droga_kg": null
+      },
+      "nivel_risco": "medio",
+      "padrao_sistemico": ["P1_anulacao_vicio_processual"],
+      "fontes": [
+        {
+          "tipo": "portal_oficial_tribunal",
+          "descricao": "STJ — Notícias 2025: casos de maior repercussão no direito penal",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2025/14122025-Crime-da-113-Sul--racismo-reverso-e-atenuante-da-confissao-tiveram-grande-repercussao-no-direito-penal.aspx",
+          "url_arquivo": null,
+          "data_acesso": "2026-04-12",
+          "verificado": true
+        }
+      ],
+      "tags": ["estupro_vulneravel", "sumula_593", "distinguishing", "erro_proibicao", "menor_14", "STJ_2025"],
+      "relacionados": null,
+      "operacao_lawfare": null,
+      "contribuidor": "redacao_lawfare",
+      "notas_internas": "Localizar número do processo na 5ª Turma STJ, outubro/2025.",
+      "historico_versoes": [
+        {
+          "data": "2026-04-12",
+          "versao": 1,
+          "descricao": "Registro inicial.",
+          "contribuidor": "redacao_lawfare"
+        }
+      ]
+    }
+
+  ]
+}
