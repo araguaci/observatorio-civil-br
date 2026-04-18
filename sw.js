@@ -9,11 +9,12 @@ const DYNAMIC_CACHE = 'obscivil-dynamic-v3';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
+  '/landpage.html',
   '/viewer.html',
   '/manifest.json',
   '/favicon.ico',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  '/pwa_icon_512_1776544805489.png',
+  '/pwa_icon_maskable_1776544827789.png',
   '/og-image.png',
 ];
 
