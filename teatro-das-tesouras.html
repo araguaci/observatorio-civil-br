@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teatro das Tesouras — Anatomia de um Sistema Imortal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-dim: #8B6E2A;
+    --gold-bright: #F0C96B;
+    --gold-faint: rgba(201,168,76,0.08);
+    --blood: #8B1A1A;
+    --blood-dim: #5C0E0E;
+    --blood-faint: rgba(139,26,26,0.06);
+    --steel: #111111;
+    --steel-card: #161616;
+    --steel-mid: #1E1E1E;
+    --parchment: #E8E0CC;
+    --parchment-dim: #C4B990;
+    --ash: #9A9A8A;
+    --ash-dim: #6A6A5A;
+    --line: rgba(154,154,138,0.12);
+    --line-gold: rgba(201,168,76,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--steel);
+    color: var(--parchment);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px !important;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* GRAIN TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  /* HERO */
+  .hero {
+    padding: 80px 0 64px;
+    border-bottom: 0.5px solid var(--line-gold);
+    position: relative;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.35em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    width: 60px;
+    height: 0.5px;
+    background: linear-gradient(to right, transparent, var(--gold-dim));
+  }
+  .hero-eyebrow::after {
+    background: linear-gradient(to left, transparent, var(--gold-dim));
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+
+  .hero-title .accent { color: var(--gold); }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 26px);
+    color: var(--ash);
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-quote {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    border-left: 2px solid var(--gold-dim);
+    background: var(--gold-faint);
+    text-align: left;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ash);
+    line-height: 1.8;
+  }
+
+  /* DIAGRAM SECTION */
+  .diagram-section {
+    padding: 72px 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .diagram-section .container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .diagram-svg-wrap svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .legend-item { display: flex; align-items: flex-start; gap: 14px; }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .dot-gold { background: var(--gold); }
+  .dot-blood { background: var(--blood); }
+  .dot-ash { background: transparent; border: 1px solid var(--ash-dim); }
+
+  .legend-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gold-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .legend-text { font-size: 14px; color: var(--ash); line-height: 1.6; }
+
+  /* DOCTRINE GRID */
+  .doctrine-section {
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .doctrine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .doctrine-card {
+    background: var(--steel);
+    padding: 40px;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .doctrine-card:hover { background: rgba(201,168,76,0.02); }
+
+  .doctrine-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.06);
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .doctrine-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gold-dim);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .doctrine-tag::before {
+    content: '';
+    width: 20px;
+    height: 0.5px;
+    background: var(--gold-dim);
+  }
+
+  .doctrine-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--parchment);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .doctrine-body {
+    font-size: 15px;
+    color: var(--ash);
+    line-height: 1.85;
+  }
+
+  .doctrine-body strong { color: var(--parchment-dim); font-weight: 600; }
+  .doctrine-body em { color: var(--gold); font-style: italic; }
+
+  /* MECHANISM */
+  .mechanism-section {
+    padding: 72px 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--parchment);
+    white-space: nowrap;
+  }
+
+  .header-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--line);
+  }
+
+  .mech-flow {
+    display: flex;
+    gap: 0;
+  }
+
+  .mech-step {
+    flex: 1;
+    padding: 28px 20px;
+    background: var(--steel-card);
+    border: 0.5px solid var(--line);
+    border-right: none;
+    position: relative;
+  }
+
+  .mech-step:last-child { border-right: 0.5px solid var(--line); }
+
+  .mech-step::after {
+    content: '→';
+    position: absolute;
+    right: -13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-dim);
+    font-size: 14px;
+    z-index: 2;
+    background: var(--steel);
+    padding: 3px 1px;
+  }
+
+  .mech-step:last-child::after { display: none; }
+
+  .mech-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gold-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+
+  .mech-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--parchment);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .mech-text { font-size: 16px; color: var(--ash-dim); line-height: 1.65; }
+
+  /* CAPTURE */
+  .capture-section {
+    padding: 72px 0;
+    border-bottom: 0.5px solid var(--line);
+    background: var(--blood-faint);
+  }
+
+  .capture-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .capture-card {
+    padding: 28px;
+    border: 0.5px solid rgba(139,26,26,0.25);
+    border-top: 1.5px solid rgba(139,26,26,0.5);
+    position: relative;
+    background: rgba(139,26,26,0.04);
+    transition: border-color 0.2s;
+  }
+
+  .capture-card:hover { border-color: rgba(139,26,26,0.5); }
+
+  .capture-marker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(139,26,26,0.7);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .capture-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--parchment);
+    margin-bottom: 12px;
+  }
+
+  .capture-text { font-size: 16px; color: var(--ash); line-height: 1.8; }
+
+  /* MANIFESTO */
+  .manifesto-section {
+    padding: 96px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .manifesto-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 8%;
+    right: 8%;
+    height: 0.5px;
+    background: linear-gradient(to right, transparent, var(--line-gold), transparent);
+  }
+
+  .manifesto-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .manifesto-text {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ash);
+    line-height: 2.1;
+  }
+
+  .manifesto-text strong {
+    color: var(--parchment);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .manifesto-text .gold { color: var(--gold); }
+
+  .manifesto-divider {
+    width: 40px;
+    height: 0.5px;
+    background: var(--gold-dim);
+    margin: 48px auto;
+  }
+
+  /* SOBREVIVER */
+  .sobreviver-section {
+    padding: 72px 0;
+    border-bottom: 0.5px solid var(--line);
+    background: rgba(201,168,76,0.02);
+  }
+
+  .sobreviver-intro {
+    max-width: 720px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .sobreviver-intro p {
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ash);
+    line-height: 1.9;
+  }
+
+  .sobreviver-intro strong { color: var(--parchment); font-style: normal; }
+
+  .regras-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .regra-card {
+    padding: 28px 24px;
+    border: 0.5px solid var(--line-gold);
+    border-top: 1.5px solid var(--gold-dim);
+    background: rgba(201,168,76,0.03);
+    transition: background 0.2s, border-color 0.2s;
+    position: relative;
+  }
+
+  .regra-card:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.4);
+  }
+
+  .regra-index {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gold-dim);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .regra-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--parchment);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .regra-text {
+    font-size: 16px;
+    color: var(--ash);
+    line-height: 1.8;
+  }
+
+  .regra-text strong { color: var(--parchment-dim); font-weight: 600; }
+  .regra-text em { color: var(--gold); font-style: italic; }
+
+  /* ARMADILHAS */
+  .armadilhas-block {
+    margin-top: 8px;
+    padding: 36px 40px;
+    border: 0.5px solid rgba(139,26,26,0.2);
+    border-left: 2px solid var(--blood);
+    background: rgba(139,26,26,0.04);
+  }
+
+  .armadilhas-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .armadilhas-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--parchment);
+  }
+
+  .armadilhas-header span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(139,26,26,0.6);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .armadilhas-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 48px;
+    list-style: none;
+  }
+
+  .armadilhas-list li {
+    font-size: 14px;
+    color: var(--ash);
+    line-height: 1.7;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .armadilhas-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--blood);
+    font-size: 12px;
+  }
+
+  .armadilhas-list li strong { color: var(--parchment-dim); font-weight: 600; }
+
+  /* PRINCÍPIOS FINAIS */
+  .principios-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    margin-top: 56px;
+  }
+
+  .principio-item {
+    background: var(--steel);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .principio-glyph {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--gold-dim);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .principio-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--gold-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .principio-text {
+    font-size: 16px;
+    color: var(--ash-dim);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 28px 0;
+    border-top: 0.5px solid var(--line);
+  }
+
+  .footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--ash-dim);
+    letter-spacing: 0.12em;
+  }
+
+  .footer-right {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: rgba(201,168,76,0.25);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { animation: fadeUp 0.8s ease forwards; }
+  .diagram-section { animation: fadeUp 0.8s ease 0.1s both; }
+  .doctrine-section { animation: fadeUp 0.8s ease 0.2s both; }
+  .mechanism-section { animation: fadeUp 0.8s ease 0.3s both; }
+  .capture-section { animation: fadeUp 0.8s ease 0.4s both; }
+  .sobreviver-section { animation: fadeUp 0.8s ease 0.45s both; }
+  .manifesto-section { animation: fadeUp 0.8s ease 0.5s both; }
+
+  @media (max-width: 900px) {
+    .container { padding: 0 24px; }
+    .diagram-section .container { grid-template-columns: 1fr; }
+    .doctrine-grid { grid-template-columns: 1fr; }
+    .capture-grid { grid-template-columns: 1fr; }
+    .regras-grid { grid-template-columns: 1fr; }
+    .principios-row { grid-template-columns: 1fr 1fr; }
+    .armadilhas-list { grid-template-columns: 1fr; }
+    .mech-flow { flex-direction: column; }
+    .mech-step { border-right: 0.5px solid var(--line); border-bottom: none; }
+    .mech-step:last-child { border-bottom: 0.5px solid var(--line); }
+    .mech-step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -13px; transform: translateX(-50%); }
+    .hero-title { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Dossier Estratégico &middot; Sistema Político Brasileiro</div>
+    <h1 class="hero-title">Teatro das<br><span class="accent">Tesouras</span></h1>
+    <p class="hero-sub">Anatomia de um Sistema Imortal</p>
+    <blockquote class="hero-quote">
+      "As duas lâminas parecem se opor — mas o corte só acontece porque trabalham juntas.
+      A tensão entre elas não é uma falha do sistema. <em>É o próprio sistema.</em>
+      O conflito é o produto, não o problema."
+    </blockquote>
+  </div>
+</section>
+
+<!-- DIAGRAM -->
+<section class="diagram-section">
+  <div class="container">
+    <div class="diagram-svg-wrap">
+      <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <marker id="arr-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#8B1A1A" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#6A6A5A" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+
+        <!-- LÂMINA A -->
+        <rect x="20" y="50" width="190" height="68" rx="2" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.3)" stroke-width="0.5"/>
+        <text x="115" y="80" text-anchor="middle" font-family="'Playfair Display',serif" font-size="16" font-weight="700" fill="#C9A84C">SITUAÇÃO</text>
+        <text x="115" y="100" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(201,168,76,0.45)" letter-spacing="2">lâmina A</text>
+
+        <!-- LÂMINA B -->
+        <rect x="430" y="50" width="190" height="68" rx="2" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.3)" stroke-width="0.5"/>
+        <text x="525" y="80" text-anchor="middle" font-family="'Playfair Display',serif" font-size="16" font-weight="700" fill="#C9A84C">OPOSIÇÃO</text>
+        <text x="525" y="100" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(201,168,76,0.45)" letter-spacing="2">lâmina B</text>
+
+        <!-- CONFLITO PERFORMÁTICO -->
+        <path d="M 220 84 Q 320 42 420 84" fill="none" stroke="rgba(154,154,138,0.2)" stroke-width="0.5" stroke-dasharray="4,3"/>
+        <text x="320" y="36" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(154,154,138,0.35)" letter-spacing="1">conflito performático</text>
+
+        <!-- PINO CENTRAL -->
+        <rect x="240" y="154" width="160" height="64" rx="2" fill="rgba(139,26,26,0.15)" stroke="rgba(139,26,26,0.5)" stroke-width="1"/>
+        <text x="320" y="181" text-anchor="middle" font-family="'Playfair Display',serif" font-size="14" font-weight="700" fill="#C09090">O SISTEMA</text>
+        <text x="320" y="203" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(139,26,26,0.6)" letter-spacing="1">pino central</text>
+
+        <!-- Conexões lâminas → pino -->
+        <line x1="150" y1="118" x2="255" y2="154" stroke="rgba(201,168,76,0.2)" stroke-width="0.5" stroke-dasharray="5,3"/>
+        <line x1="490" y1="118" x2="385" y2="154" stroke="rgba(201,168,76,0.2)" stroke-width="0.5" stroke-dasharray="5,3"/>
+
+        <!-- CORPO ESTRANHO -->
+        <ellipse cx="320" cy="290" rx="90" ry="32" fill="rgba(139,26,26,0.05)" stroke="rgba(139,26,26,0.3)" stroke-width="0.5" stroke-dasharray="5,3"/>
+        <text x="320" y="285" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#A07070">CORPO ESTRANHO</text>
+        <text x="320" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(139,26,26,0.45)" letter-spacing="1">anti-herói / ruptura</text>
+
+        <!-- Lawfare arrow -->
+        <line x1="320" y1="218" x2="320" y2="256" stroke="rgba(139,26,26,0.45)" stroke-width="0.5" marker-end="url(#arr-b)"/>
+        <text x="329" y="242" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(139,26,26,0.5)" letter-spacing="1">lawfare</text>
+
+        <!-- RESULTADOS - alternância e sistema -->
+        <rect x="20" y="316" width="140" height="34" rx="2" fill="rgba(154,154,138,0.05)" stroke="rgba(154,154,138,0.15)" stroke-width="0.5"/>
+        <text x="90" y="330" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(154,154,138,0.5)" letter-spacing="1">alternância</text>
+        <text x="90" y="343" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(154,154,138,0.35)">ilusão de democracia</text>
+
+        <rect x="480" y="316" width="140" height="34" rx="2" fill="rgba(154,154,138,0.05)" stroke="rgba(154,154,138,0.15)" stroke-width="0.5"/>
+        <text x="550" y="330" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(154,154,138,0.5)" letter-spacing="1">sistema intacto</text>
+        <text x="550" y="343" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(154,154,138,0.35)">imune às lâminas</text>
+
+        <line x1="240" y1="218" x2="120" y2="316" stroke="rgba(154,154,138,0.1)" stroke-width="0.5" stroke-dasharray="3,3"/>
+        <line x1="400" y1="218" x2="520" y2="316" stroke="rgba(154,154,138,0.1)" stroke-width="0.5" stroke-dasharray="3,3"/>
+      </svg>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot dot-gold"></div>
+        <div>
+          <div class="legend-label">Lâminas</div>
+          <div class="legend-text">Situação e oposição operam como antagonistas públicos — mas compartilham o mesmo pino central.</div>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot dot-blood"></div>
+        <div>
+          <div class="legend-label">Pino Central</div>
+          <div class="legend-text">O sistema real: judiciário capturado, mídia corporativa, capital financeiro, cúpulas permanentes.</div>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot dot-ash"></div>
+        <div>
+          <div class="legend-label">Corpo Estranho</div>
+          <div class="legend-text">Qualquer elemento externo às lâminas é eliminado via lawfare, desumanização e descrédito.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOUTRINA -->
+<section class="doctrine-section">
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <span class="doctrine-num">I</span>
+      <div class="doctrine-tag">Mecânica</div>
+      <h3 class="doctrine-title">A Ilusão do Conflito</h3>
+      <p class="doctrine-body">O sistema não se sustenta pela força bruta — sustenta-se pela <strong>encenação do antagonismo</strong>. Quanto mais real parecer o conflito entre as lâminas, menos o povo examina o pino. A tensão é o produto, não o problema. <em>O espetáculo do embate é a mais eficiente forma de anestesia política.</em></p>
+    </div>
+    <div class="doctrine-card">
+      <span class="doctrine-num">II</span>
+      <div class="doctrine-tag">Eliminação</div>
+      <h3 class="doctrine-title">O Corte do Terceiro</h3>
+      <p class="doctrine-body">O sistema não usa lawfare contra o inimigo declarado — usa contra <strong>quem expõe a tesoura inteira</strong>. A desumanização, o descrédito e a perseguição judicial não são instrumentos de disputa entre lâminas. São o <em>mecanismo imune do pino central</em> contra qualquer ameaça real.</p>
+    </div>
+    <div class="doctrine-card">
+      <span class="doctrine-num">III</span>
+      <div class="doctrine-tag">Alternância</div>
+      <h3 class="doctrine-title">A Democracia Cíclica</h3>
+      <p class="doctrine-body">As lâminas se revezam no poder criando <strong>sensação de democracia funcional</strong>. Cada alternância renova a esperança, esgota a resistência e impede o acúmulo de memória política organizada. O pino permanece intacto. <em>A mudança de governo é a garantia de continuidade do sistema.</em></p>
+    </div>
+    <div class="doctrine-card">
+      <span class="doctrine-num">IV</span>
+      <div class="doctrine-tag">Infiltração</div>
+      <h3 class="doctrine-title">Captura de Legado</h3>
+      <p class="doctrine-body">Quando um movimento genuíno surge fora das lâminas, o sistema não o destrói pela fronteira — <strong>infiltra e herda</strong>. O objetivo não é silenciar o líder: é separar o líder da base e capturar a base orfã. <em>Querem o movimento sem o DNA original.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- MECANISMO -->
+<section class="mechanism-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>O Mecanismo de Captura de Legado</h2>
+      <div class="header-line"></div>
+    </div>
+    <div class="mech-flow">
+      <div class="mech-step">
+        <div class="mech-num">01 — IDENTIFICAR</div>
+        <div class="mech-title">Movimento orgânico fora das lâminas</div>
+        <div class="mech-text">Cresce com sacrifício real — sangue, suor e lágrimas. Ameaça genuína ao pino central.</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">02 — INFILTRAR</div>
+        <div class="mech-title">Agentes do sistema entram como aliados</div>
+        <div class="mech-text">Não pela força — pela confiança. Ocupam posições estratégicas. Dividem, atrasam, corrompem.</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">03 — ISOLAR</div>
+        <div class="mech-title">Lawfare como bisturi</div>
+        <div class="mech-text">O líder é juridicamente neutralizado. Objetivo: não silenciá-lo — separar ele da base.</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">04 — HERDAR</div>
+        <div class="mech-title">A base orfã é capturada</div>
+        <div class="mech-text">Os infiltrados assumem narrativa, vocabulário e símbolos — sem o DNA original.</div>
+      </div>
+      <div class="mech-step">
+        <div class="mech-num">05 — REINTEGRAR</div>
+        <div class="mech-title">Nova lâmina é gerada</div>
+        <div class="mech-text">O movimento vira mais uma tesoura. O pino cresce. O ciclo reinicia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CENÁRIO ATUAL -->
+<section class="capture-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>O Cenário Atual: Retorno Sem Oposição</h2>
+      <div class="header-line"></div>
+    </div>
+    <div class="capture-grid">
+      <div class="capture-card">
+        <div class="capture-marker">o problema</div>
+        <h3 class="capture-title">A Ruptura que Não Fechou</h3>
+        <p class="capture-text">Bolsonaro foi o primeiro elemento externo que efetivamente entrou entre as lâminas e impediu o corte limpo. Mesmo inelegível e cercado, permanece como corpo estranho no mecanismo. O sistema não consegue digerir nem expelir — e isso é precisamente o que o torna perigoso para eles.</p>
+      </div>
+      <div class="capture-card">
+        <div class="capture-marker">a operação</div>
+        <h3 class="capture-title">A Sabotagem Estruturada</h3>
+        <p class="capture-text">Os que queriam o líder preso não buscavam silêncio — buscavam herança. Infiltrados no movimento destroem sistematicamente: infraestrutura política, quadros, coesão, narrativa. Quando o teatro voltar com força, não haverá memória organizada de resistência real.</p>
+      </div>
+      <div class="capture-card">
+        <div class="capture-marker">o objetivo</div>
+        <h3 class="capture-title">Teatro Sem Contracena</h3>
+        <p class="capture-text">O cenário se desenrola para que a tesoura opere novamente — mas desta vez sem nenhum elemento externo capaz de interromper o corte. Uma lâmina que parece oposição, mas que já pertence ao pino. O espetáculo perfeito: conflito total, resistência zero.</p>
+      </div>
+      <div class="capture-card">
+        <div class="capture-marker">como identificar</div>
+        <h3 class="capture-title">Reconhecendo uma Lâmina Disfarçada</h3>
+        <p class="capture-text">Ela nunca critica o pino central. Usa vocabulário de resistência mas poupa instituições capturadas. Divide quem critica ambos os lados. Vive do conflito com a outra lâmina — nunca da exposição do mecanismo inteiro. Sua sobrevivência depende de que o pino permaneça invisível.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBREVIVER FORA DA TESOURA -->
+<section class="sobreviver-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Como Sobreviver Fora da Tesoura</h2>
+      <div class="header-line"></div>
+    </div>
+
+    <div class="sobreviver-intro">
+      <p>
+        Existir fora das lâminas <strong>não é uma posição confortável</strong> — é uma posição de risco permanente.
+        O sistema foi construído exatamente para que qualquer elemento externo seja identificado, isolado e eliminado.
+        Sobreviver fora da tesoura exige disciplina estratégica, não coragem bruta.
+      </p>
+    </div>
+
+    <!-- 9 REGRAS -->
+    <div class="regras-grid">
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 01 — Diagnóstico</div>
+        <h3 class="regra-title">Nunca escolha uma lâmina</h3>
+        <p class="regra-text">A pressão para "escolher um lado" é o primeiro mecanismo de captura. <strong>Quem escolhe uma lâmina passa a defender o pino sem perceber.</strong> A recusa em escolher não é neutralidade — é a única posição genuinamente externa ao sistema. <em>Você não é o árbitro do conflito. Você é quem expõe que o conflito é falso.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 02 — Vigilância</div>
+        <h3 class="regra-title">Monitore o pino, não as lâminas</h3>
+        <p class="regra-text">O erro mais comum é gastar energia acompanhando o embate entre as lâminas. <strong>O que muda nesse embate é superficial.</strong> O que importa é o pino: as instituições capturadas, os interesses permanentes, as redes que transcendem governos. <em>A lâmina que ganha a eleição não é a ameaça — o pino que permanece é.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 03 — Comunicação</div>
+        <h3 class="regra-title">Nomeie o mecanismo, não o inimigo</h3>
+        <p class="regra-text">Nomear pessoas como inimigos coloca você no jogo das lâminas. <strong>Nomear o mecanismo expõe o pino.</strong> "Fulano é corrupto" é uma acusação pessoal — absorvível pelo sistema. "Este é o padrão que se repete independente de quem governa" é uma ameaça ao sistema inteiro. <em>Mecanismos são mais difíceis de difamar do que pessoas.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 04 — Posicionamento</div>
+        <h3 class="regra-title">Construa audiência que não dependa de lâmina</h3>
+        <p class="regra-text">Qualquer audiência construída dentro da estrutura de uma lâmina pode ser capturada junto com ela. <strong>A audiência fora das lâminas é a única que o sistema não herda automaticamente.</strong> Isso exige conteúdo que critique o pino de forma consistente — e que seja reconhecível como tal por quem está de ambos os lados. <em>Você é confiável porque não muda de análise quando muda o governo.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 05 — Segurança</div>
+        <h3 class="regra-title">Antecipe o lawfare antes de ser alvo</h3>
+        <p class="regra-text">O sistema não inicia o lawfare quando você se torna ameaça — inicia quando <strong>você se torna visível demais para ser ignorado</strong>. A preparação defensiva deve ocorrer antes do ataque: documentação rigorosa, independência financeira, redundância de plataformas, rede de testemunhas. <em>O alvo que já se preparou é menos rentável para o sistema do que o alvo que não se preparou.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 06 — Organização</div>
+        <h3 class="regra-title">Construa sem criar hierarquia capturável</h3>
+        <p class="regra-text">Toda estrutura com um único líder indispensável é um alvo prioritário. <strong>O sistema elimina a cabeça e herda o corpo.</strong> Movimentos fora das lâminas sobrevivem quando a liderança é distribuída, quando o conhecimento está documentado e quando a continuidade não depende de nenhuma pessoa específica. <em>O DNA deve estar no método, não no nome.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 07 — Memória</div>
+        <h3 class="regra-title">Documente tudo. Publicamente.</h3>
+        <p class="regra-text">O sistema opera melhor no apagamento — de fatos, de padrões, de histórico. <strong>A documentação pública e persistente é um contra-ataque direto ao pino.</strong> Cronologias, registros, análises de padrão: cada entrada documentada é um fragmento de memória que o sistema não consegue reescrever facilmente. <em>O lawfare-timeline existe exatamente por isso.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 08 — Psicologia</div>
+        <h3 class="regra-title">Resista à captura emocional</h3>
+        <p class="regra-text">O sistema usa o ódio à lâmina oposta como combustível para manter você dentro da dinâmica da tesoura. <strong>Quanto mais você odeia uma lâmina específica, mais útil você é para a outra — e para o pino.</strong> A análise fria do mecanismo é mais ameaçadora do que qualquer grito de indignação. <em>A raiva é energia. O sistema sabe disso e a direciona.</em></p>
+      </div>
+
+      <div class="regra-card">
+        <div class="regra-index">Regra 09 — Paciência</div>
+        <h3 class="regra-title">O sistema é imortal. Você planta para colheitas futuras.</h3>
+        <p class="regra-text">Nenhum movimento fora das lâminas derrota o sistema em um ciclo eleitoral. <strong>O objetivo realista não é destruir o pino — é torná-lo visível o suficiente para que as gerações seguintes saibam onde está.</strong> Cada análise clara, cada documento publicado, cada pessoa que aprendeu a ver a tesoura inteira é uma vitória de longo prazo. <em>A imortalidade do sistema só é ameaçada pela memória organizada.</em></p>
+      </div>
+
+    </div>
+
+    <!-- ARMADILHAS -->
+    <div class="armadilhas-block">
+      <div class="armadilhas-header">
+        <h3>Armadilhas que Devolvem ao Sistema</h3>
+        <span>erros fatais</span>
+      </div>
+      <ul class="armadilhas-list">
+        <li><strong>Defender uma lâmina "por ser menor mal"</strong> — você passa a ser seu porta-voz involuntário. O pino agradece.</li>
+        <li><strong>Atacar apenas o inimigo declarado da sua lâmina preferida</strong> — você está operando dentro da tesoura sem perceber.</li>
+        <li><strong>Aceitar financiamento ou estrutura de uma lâmina</strong> — a independência financeira é condição de sobrevivência, não detalhe.</li>
+        <li><strong>Construir identidade em torno de um líder específico</strong> — quando o líder cair, você cai junto, ou é capturado junto com o legado.</li>
+        <li><strong>Acreditar que "desta vez é diferente"</strong> — o sistema produz essa sensação em cada alternância. É parte do produto.</li>
+        <li><strong>Isolar-se em câmara de eco da resistência</strong> — sem alcançar quem está dentro das lâminas, você se torna inofensivo ao pino.</li>
+        <li><strong>Confundir exposição com proteção</strong> — visibilidade atrai lawfare. Visibilidade bem blindada é uma posição. Visibilidade sem blindagem é um convite.</li>
+        <li><strong>Reagir ao espetáculo das lâminas</strong> — cada reação ao conflito performático consome energia que deveria ir para a exposição do pino.</li>
+      </ul>
+    </div>
+
+    <!-- PRINCÍPIOS -->
+    <div class="principios-row">
+      <div class="principio-item">
+        <div class="principio-glyph">◈</div>
+        <div class="principio-title">Não escolha</div>
+        <p class="principio-text">Recuse a dicotomia. Toda escolha entre lâminas é uma vitória do pino.</p>
+      </div>
+      <div class="principio-item">
+        <div class="principio-glyph">◎</div>
+        <div class="principio-title">Documente</div>
+        <p class="principio-text">Memória organizada é a única ameaça real à imortalidade do sistema.</p>
+      </div>
+      <div class="principio-item">
+        <div class="principio-glyph">◇</div>
+        <div class="principio-title">Distribua</div>
+        <p class="principio-text">Liderança concentrada é alvo fácil. O DNA deve estar no método.</p>
+      </div>
+      <div class="principio-item">
+        <div class="principio-glyph">◉</div>
+        <div class="principio-title">Persista</div>
+        <p class="principio-text">O pino não é derrotado em um ciclo. Você planta para colheitas que talvez não veja.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto-section">
+  <div class="container">
+    <p class="manifesto-eyebrow">Conclusão Estratégica</p>
+    <p class="manifesto-text">
+      O sistema imortal não teme lâminas — <strong>fabrica-as</strong>.<br>
+      Não teme oposição — <strong>a encena</strong>.<br>
+      Não teme movimentos — <strong>os herda</strong>.<br><br>
+      O único elemento que genuinamente ameaça o pino<br>
+      é aquele que <span class="gold">expõe a tesoura inteira</span> —<br>
+      e que, por isso, será o primeiro a ser cortado.
+    </p>
+    <div class="manifesto-divider"></div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--ash-dim);letter-spacing:0.15em;text-align:center;">
+      "A resistência real não escolhe uma lâmina — denuncia o pino."
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <span class="footer-left">Teatro das Tesouras · Anatomia de um Sistema Imortal</span>
+    <span class="footer-right">Arsenal Estratégico · Artes do Sul © 2025</span>
+  </div>
+</footer>
+
+</body>
+</html>

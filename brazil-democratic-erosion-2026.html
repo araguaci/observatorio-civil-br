@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brazil Democratic Erosion Report 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --paper:   #f5f0e8;
+  --paper2:  #ede8dc;
+  --paper3:  #e2dcd0;
+  --ink:     #1a1714;
+  --ink2:    #3d3830;
+  --ink3:    #6b6358;
+  --ink4:    #9a9188;
+  --red:     #8b1a1a;
+  --red2:    #c02020;
+  --amber:   #7a4f0a;
+  --amber2:  #b07818;
+  --green:   #1a5c2a;
+  --blue:    #1a3060;
+  --blue2:   #2a4a8a;
+  --rule:    rgba(26,23,20,.15);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Source Serif 4', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* PAPER TEXTURE */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .6;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+  position: relative; z-index: 1;
+}
+
+/* ── COVER ── */
+.cover {
+  border-top: 4px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding: 48px 0 40px;
+  margin-bottom: 56px;
+}
+
+.cover-series {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--ink3);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.cover-series::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--rule);
+}
+
+.cover-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -.01em;
+  color: var(--ink); margin-bottom: 6px;
+}
+.cover-title em {
+  font-style: italic; color: var(--red);
+}
+
+.cover-subtitle {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 400;
+  font-style: italic; color: var(--ink2);
+  margin-bottom: 32px; max-width: 600px;
+}
+
+.cover-meta {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+.cover-meta-item {
+  padding: 0 24px 0 0; margin-right: 24px;
+  border-right: 1px solid var(--rule);
+  font-size: 11px; color: var(--ink3);
+  font-family: var(--font-mono);
+}
+.cover-meta-item:last-child { border-right: none; }
+.cover-meta-item strong { display: block; color: var(--ink); font-size: 12px; }
+
+/* ── EXECUTIVE SUMMARY ── */
+.exec-box {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 32px 36px;
+  margin-bottom: 56px;
+}
+.exec-label {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.4);
+  margin-bottom: 16px;
+}
+.exec-text {
+  font-family: var(--font-body);
+  font-size: 15px; line-height: 1.8;
+  color: var(--paper);
+}
+.exec-text strong { color: #ffdd88; }
+.exec-findings {
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.exec-finding {
+  font-size: 12px; color: rgba(245,240,232,.7);
+  padding-left: 14px;
+  border-left: 2px solid rgba(255,221,136,.4);
+  line-height: 1.5;
+}
+.exec-finding strong { color: #ffdd88; display: block; }
+
+/* ── SECTION HEADS ── */
+.section {
+  margin-bottom: 52px;
+  padding-bottom: 52px;
+  border-bottom: 1px solid var(--rule);
+}
+.section:last-child { border-bottom: none; }
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink4);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 700;
+  line-height: 1.2; color: var(--ink);
+  margin-bottom: 20px;
+}
+.section-title em { color: var(--red); font-style: italic; }
+
+/* ── BODY TEXT ── */
+p { margin-bottom: 16px; }
+p:last-child { margin-bottom: 0; }
+
+.lead {
+  font-size: 17px; line-height: 1.7;
+  color: var(--ink2); font-weight: 300;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+/* ── PULL QUOTE ── */
+.pull {
+  border-left: 3px solid var(--red);
+  padding: 4px 0 4px 24px;
+  margin: 28px 0;
+}
+.pull-text {
+  font-family: var(--font-display);
+  font-size: 19px; font-style: italic;
+  line-height: 1.5; color: var(--ink2);
+}
+.pull-source {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink4);
+  margin-top: 8px;
+}
+
+/* ── FINDING BOXES ── */
+.finding {
+  background: var(--paper3);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.finding-label {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--red);
+  margin-bottom: 6px;
+}
+.finding-text { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.finding-text strong { color: var(--ink); }
+
+.finding-amber { border-left-color: var(--amber2); }
+.finding-amber .finding-label { color: var(--amber); }
+
+.finding-green { border-left-color: var(--green); }
+.finding-green .finding-label { color: var(--green); }
+
+.finding-blue { border-left-color: var(--blue2); }
+.finding-blue .finding-label { color: var(--blue); }
+
+/* ── COMPARISON TABLE ── */
+.comp-wrap { overflow-x: auto; margin: 24px 0; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 14px; text-align: left;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 400;
+}
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top; line-height: 1.5;
+  color: var(--ink2);
+}
+tr:nth-child(even) td { background: rgba(0,0,0,.025); }
+td:first-child { font-weight: 600; color: var(--ink); font-size: 12px; }
+.td-ve { color: var(--red2); }
+.td-ni { color: var(--amber); }
+.td-br { color: var(--blue2); font-weight: 500; }
+
+/* ── TIMELINE ── */
+.tl { padding-left: 24px; position: relative; margin: 24px 0; }
+.tl::before {
+  content: ''; position: absolute;
+  left: 6px; top: 4px; bottom: 4px;
+  width: 1px; background: var(--rule);
+}
+.tl-item {
+  position: relative; margin-bottom: 18px;
+}
+.tl-item::before {
+  content: ''; position: absolute;
+  left: -20px; top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--paper2);
+  border: 2px solid var(--ink4);
+}
+.tl-item.now::before {
+  background: var(--red); border-color: var(--red);
+}
+.tl-item.danger::before { background: var(--red2); border-color: var(--red); }
+.tl-date {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink4); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 2px;
+}
+.tl-text { font-size: 13px; color: var(--ink2); line-height: 1.5; }
+.tl-text strong { color: var(--ink); }
+
+/* ── ACTIONS ── */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 12px; margin: 20px 0;
+}
+.action-card {
+  background: var(--paper3);
+  border: 1px solid var(--rule);
+  padding: 16px;
+}
+.action-who {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink4); margin-bottom: 6px;
+}
+.action-what {
+  font-size: 13px; font-weight: 600;
+  color: var(--ink); margin-bottom: 4px;
+}
+.action-why { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+
+/* ── SOURCES ── */
+.sources {
+  background: var(--paper3);
+  border: 1px solid var(--rule);
+  padding: 24px 28px;
+  margin-top: 32px;
+}
+.sources-title {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink3);
+  margin-bottom: 16px;
+}
+.source-item {
+  font-size: 12px; color: var(--ink3);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.5;
+}
+.source-item:last-child { border-bottom: none; }
+.source-item strong { color: var(--ink2); }
+.source-item a { color: var(--blue2); }
+
+/* ── STATUS BADGE ── */
+.badge {
+  display: inline-block;
+  padding: 1px 7px;
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+.badge-red   { color: var(--red2); }
+.badge-amber { color: var(--amber2); }
+.badge-green { color: var(--green); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 24px; margin-top: 60px;
+  display: flex; justify-content: space-between;
+  align-items: flex-start; flex-wrap: wrap; gap: 16px;
+}
+.footer p {
+  font-size: 11px; color: var(--ink4);
+  font-family: var(--font-mono);
+  letter-spacing: .05em; line-height: 1.6;
+}
+
+@media(max-width:600px){
+  .page { padding: 32px 20px 60px; }
+  .exec-findings { grid-template-columns: 1fr; }
+  .cover-title { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-series">Investigative Intelligence Report · lawfare-timeline.vercel.app · CC0 1.0</div>
+  <div class="cover-title">Brazil's Democratic<br><em>Erosion</em></div>
+  <div class="cover-subtitle">A documented account of judicial capture, political imprisonment, and the closing window before October 2026</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>Published</strong> April 2026</div>
+    <div class="cover-meta-item"><strong>Classification</strong> Public Domain · CC0</div>
+    <div class="cover-meta-item"><strong>Sources</strong> Primary documents · Verified</div>
+    <div class="cover-meta-item"><strong>Language</strong> English</div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="exec-box">
+  <div class="exec-label">Executive Summary</div>
+  <div class="exec-text">
+    Brazil is no longer a full democracy. Based on primary documents — including leaked court communications known as <strong>"Vaza Toga"</strong> and the <strong>"January 8 Archives"</strong> — the country now operates as a <strong>hybrid regime in accelerated autocratization</strong>: maintaining democratic forms while systematically dismantling their substance. The window for reversal is the general election of <strong>October 2026</strong>. After that point, based on the Venezuelan and Nicaraguan trajectories, reversal becomes structurally improbable without systemic collapse.
+  </div>
+  <div class="exec-findings">
+    <div class="exec-finding">
+      <strong>Finding 1</strong>
+      A single Supreme Court justice has simultaneously controlled electoral arbitration, criminal investigations against political opponents, and centralized detention decisions — documented, not alleged.
+    </div>
+    <div class="exec-finding">
+      <strong>Finding 2</strong>
+      Evidence was fabricated retroactively to justify raids against pro-opposition businessmen during the 2022 campaign. Whistleblower testimony confirmed in Senate hearings.
+    </div>
+    <div class="exec-finding">
+      <strong>Finding 3</strong>
+      1,500+ individuals were detained after January 8, 2023, using extrajudicial classification certificates that were never shared with defense attorneys.
+    </div>
+    <div class="exec-finding">
+      <strong>Finding 4</strong>
+      The leading opposition figure is imprisoned under preventive detention, incommunicado, prohibited from social media — mirroring the neutralization of Leopoldo López in Venezuela (2014) and Cristiana Chamorro in Nicaragua (2021).
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-num">Section 01</div>
+  <div class="section-title">What the Documents Actually Show</div>
+
+  <p class="lead">This report is not based on political claims or opposition narratives. It is based on leaked primary documents, Senate testimony, and legal analysis by independent Brazilian constitutional scholars.</p>
+
+  <p>In August 2024, a series of leaked communications — now known as "Vaza Toga" — revealed an informal intelligence apparatus operating from within Brazil's Supreme Electoral Court (TSE) and Supreme Federal Tribunal (STF), directed by a single justice: Alexandre de Moraes.</p>
+
+  <div class="finding">
+    <div class="finding-label">Documented Finding · Vaza Toga 4</div>
+    <div class="finding-text">
+      On the night of August 27, 2022 — four days after ordering raids against eight of Brazil's top businessmen during a presidential campaign — Justice Moraes pressured his staff to produce <strong>backdated documents</strong> to retroactively justify the operation. The original raids were based on a single newspaper column, not on technical reports or formal investigations. The Federal Police delegate who signed the official report wrote it <strong>after the raids had already occurred</strong>.
+    </div>
+  </div>
+
+  <p>The source of the "evidence" used to justify the crackdown was an informal collaborator — identified as journalist Letícia Sallorenzo — who served as a bridge between the court and an infiltrator inside a private WhatsApp group of businessmen. No formal chain of custody existed. No forensic authentication was performed.</p>
+
+  <div class="pull">
+    <div class="pull-text">"What we see here is the exact opposite of due process: WhatsApp screenshots handed over informally to a minister's office, without a seizure record, without forensic examination, without an integrity hash."</div>
+    <div class="pull-source">Richard Campanari, Constitutional Law Specialist, ABRADEP — quoted in A Investigação, September 2025</div>
+  </div>
+
+  <p>Six months later, following the January 8, 2023 Capitol riots by Bolsonaro supporters, Moraes assembled a secret task force operating via WhatsApp — a group called "Custody Hearings" — to classify 1,500+ detainees. The unit used the TSE's biometric voter database (GestBio) to identify individuals based on facial recognition, then classified them as "positive" or "negative" based on their social media posts.</p>
+
+  <div class="finding">
+    <div class="finding-label">Documented Finding · January 8 Archives</div>
+    <div class="finding-text">
+      People were classified as "positive" — effectively marked for continued detention — for acts including: <strong>sharing pro-Bolsonaro posts</strong>, wearing Brazilian flag colors, following right-wing pages, or criticizing the Supreme Court. One individual received a "positive" classification for retweeting a link to a petition about "defense of freedoms" — a petition with 1.66 million signatories. Sentences reached 17 years for people who committed no individual act of violence.
+    </div>
+  </div>
+
+  <p>These classification certificates were never included in official case files and were never shared with defense attorneys — rendering them invisible to any legal challenge while remaining decisive in practice.</p>
+
+  <div class="finding">
+    <div class="finding-label">Documented Finding · Internal communications</div>
+    <div class="finding-text">
+      When the Attorney General's office (PGR) formally recommended the release of a group of detainees, Moraes refused until his team finished reviewing their social media. Internal message: <strong>"The PGR asked for provisional release, but the minister doesn't want to release them before we check social media for anything."</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-num">Section 02</div>
+  <div class="section-title">The <em>Structural</em> Problem</div>
+
+  <p class="lead">The issue is not one bad actor. It is a system structurally designed to be capturable — and that has been captured.</p>
+
+  <p>Brazil's electoral system concentrates extraordinary power in a single institution: the Superior Electoral Court (TSE), which simultaneously administers elections, adjudicates electoral disputes, and enforces electoral law. There is no separation between the entity that runs the election and the entity that judges it.</p>
+
+  <p>From 2019 to 2023, Justice Alexandre de Moraes held two concurrent positions: STF Justice (Brazil's highest court) and TSE President (electoral arbiter). This meant a single individual simultaneously:</p>
+
+  <div class="finding finding-amber">
+    <div class="finding-label">Structural Concentration</div>
+    <div class="finding-text">
+      <strong>Investigated</strong> political opponents via the "Fake News Inquiry" (Inq. 4781) · <strong>Produced evidence</strong> through the extrajudicial AEED unit · <strong>Controlled electoral arbitration</strong> as TSE President during the 2022 election · <strong>Centralized detention decisions</strong> for January 8 detainees as STF rapporteur · <strong>Ordered censorship</strong> of social media accounts, channels, and platforms including a 40-day block of X (Twitter) in 2024.
+    </div>
+  </div>
+
+  <p>No functioning democracy permits this concentration of power in a single unelected official with lifetime tenure. Brazil's own constitution prohibits it — but the institution that would enforce that prohibition is the same institution being violated.</p>
+
+  <p>Six systemic patterns have been identified recurring across all major anti-corruption operations since 2003:</p>
+
+  <div class="comp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>Mechanism</th>
+          <th>Current Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P1 · Procedural nullification</td>
+          <td class="td-ve">Cases against allies annulled on technical grounds; same techniques denied to opponents</td>
+          <td><span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>P2 · Investigators become investigated</td>
+          <td class="td-ve">Anti-corruption prosecutors and judges become targets after operations threaten the system</td>
+          <td><span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>P3 · Emergency judicial capture ★</td>
+          <td class="td-ve">Only pattern present in ALL operations. "Democratic threat" narrative used to justify extraordinary powers</td>
+          <td><span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>P4 · Media weaponization</td>
+          <td class="td-ve">State advertising funds used to purchase media loyalty; independent outlets threatened or fined</td>
+          <td><span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>P5 · Public funds as scheme vectors</td>
+          <td class="td-ve">Parliamentary amendments and pension funds as legislative cooptation instruments</td>
+          <td><span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>P6 · Strategic statute of limitations</td>
+          <td class="td-ve">Cases against allies dragged until prescription; opposition cases accelerated or kept sealed</td>
+          <td><span class="badge badge-amber">Ongoing</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-num">Section 03</div>
+  <div class="section-title">The Venezuelan and Nicaraguan <em>Precedent</em></div>
+
+  <p class="lead">This is not speculation. The mechanisms being deployed in Brazil follow a documented sequence previously observed in Venezuela and Nicaragua — with traceable chronology.</p>
+
+  <div class="comp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Mechanism</th>
+          <th>🇻🇪 Venezuela</th>
+          <th>🇳🇮 Nicaragua</th>
+          <th>🇧🇷 Brazil · Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Judicial capture</td>
+          <td class="td-ve">Supreme Court packed, 2004</td>
+          <td class="td-ni">Supreme Court aligned, 2010–14</td>
+          <td class="td-br">STF/TSE under single operator, 2019–present <span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>Media purchase / coercion</td>
+          <td class="td-ve">RCTV license revoked, 2007. Globovisión sold to allies, 2013</td>
+          <td class="td-ni">La Prensa seized, 2021. Journalists imprisoned</td>
+          <td class="td-br">Traditional media dependent on state ad contracts. Critical reporting survives only abroad <span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>Main opposition leader neutralized</td>
+          <td class="td-ve">Leopoldo López imprisoned, 2014. Capriles disqualified, 2017</td>
+          <td class="td-ni">Cristiana Chamorro imprisoned June 2021, before candidacy</td>
+          <td class="td-br">Bolsonaro disqualified 2023, imprisoned Nov. 2025, incommunicado <span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>Digital censorship</td>
+          <td class="td-ve">CONATEL blocked Twitter, VPNs, opposition sites from 2010</td>
+          <td class="td-ni">"Cybercrimes" law criminalized online dissent, 2020</td>
+          <td class="td-br">X blocked for 40 days, 2024. Systematic deplatforming by judicial order <span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>Mass political detention</td>
+          <td class="td-ve">300+ political prisoners documented. Colectivos as enforcement</td>
+          <td class="td-ni">200+ detained in 2021 including bishops, rectors, candidates</td>
+          <td class="td-br">1,500+ detained after Jan. 8. Sentences up to 17 years without individual violent act <span class="badge badge-red">Active</span></td>
+        </tr>
+        <tr>
+          <td>Electoral process compromised</td>
+          <td class="td-ve">CNE controlled since 2003. Results unauditable from 2017</td>
+          <td class="td-ni">Electoral council packed. Observers expelled, 2021</td>
+          <td class="td-br">TSE without independent audit. Electoral arbiter is documented interested party. AI deactivation planned for election period <span class="badge badge-amber">In progress</span></td>
+        </tr>
+        <tr>
+          <td>What still differs</td>
+          <td class="td-ve">—</td>
+          <td class="td-ni">—</td>
+          <td class="td-br">Effective external pressure (US tariffs). Partial MPF resistance. Active civil society. TCU retaining independence. Electoral window still open.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pull">
+    <div class="pull-text">Brazil today corresponds approximately to Venezuela in 2013–2014: the main opposition leader has been neutralized, media is largely captured, but the electoral window has not yet fully closed.</div>
+    <div class="pull-source">Comparative analysis — lawfare-timeline research, April 2026</div>
+  </div>
+
+  <p>The critical difference: Venezuela's point of no return came in 2017 when Henrique Capriles was disqualified and the opposition entered the election without a viable candidate. Brazil's equivalent moment is October 2026.</p>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-num">Section 04</div>
+  <div class="section-title">The October 2026 <em>Window</em></div>
+
+  <p class="lead">The general election of October 2026 is the last structural opportunity for democratic reversal before consolidation. The window is not closed — but it is closing.</p>
+
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-date">2019–2021</div>
+      <div class="tl-text"><strong>Judicial restructuring.</strong> "Fake News Inquiry" established outside normal procedures. STF expanded power through self-interpretation. Lava Jato dismantled.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2022</div>
+      <div class="tl-text"><strong>Electoral interference documented.</strong> Raids against opposition businessmen based on fabricated retroactive evidence. TSE president simultaneously controls arbitration and investigation.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">January 2023</div>
+      <div class="tl-text"><strong>Mass detention without due process.</strong> 1,500+ detained using extrajudicial classification certificates. PGR recommendations ignored. Sentences disproportionate to individual conduct.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2023–2024</div>
+      <div class="tl-text"><strong>Digital space closed.</strong> X blocked for 40 days. Systematic deplatforming. "Disinformation" framework expanded to cover political criticism.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2025</div>
+      <div class="tl-text"><strong>Opposition leader imprisoned.</strong> Bolsonaro under house arrest from August, converted to preventive detention in November. Incommunicado. Prohibited from social media and political activity.</div>
+    </div>
+    <div class="tl-item now">
+      <div class="tl-date">→ NOW · April 2026</div>
+      <div class="tl-text"><strong>Critical window.</strong> Six months to the election. Opposition without its main leader. No independent electoral audit. AI deactivation for election period under discussion. International pressure (US tariffs) active but outcome uncertain.</div>
+    </div>
+    <div class="tl-item danger">
+      <div class="tl-date">October 2026</div>
+      <div class="tl-text"><strong>Decision point.</strong> Election with compromised arbiter, imprisoned opposition leader, captured media. If conducted without structural reform, result will not be independently verifiable — regardless of outcome.</div>
+    </div>
+    <div class="tl-item danger">
+      <div class="tl-date">2027+ (projected)</div>
+      <div class="tl-text"><strong>Consolidation or rupture.</strong> If October 2026 passes without verifiable election, reversal requires systemic shock: economic collapse, military fracture, or sustained external pressure sufficient to alter elite calculations.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-num">Section 05</div>
+  <div class="section-title">What <em>Can Be Done</em> — and by Whom</div>
+
+  <p class="lead">Identifying leverage points is more useful than moral condemnation. The following are concrete actions available to specific actors before October 2026.</p>
+
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-who">United States Government</div>
+      <div class="action-what">Maintain and condition tariff pressure</div>
+      <div class="action-why">The 50% tariff has already demonstrated that Brazil's economic elite feels the cost of the regime's choices. Conditioning relief on verifiable electoral reforms creates concrete incentive for institutional actors to break with the system.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">European Union</div>
+      <div class="action-what">Condition Mercosur trade agreement</div>
+      <div class="action-why">The EU-Mercosur agreement is sensitive to democratic conditionality clauses. Formal activation of review mechanisms creates diplomatic pressure at low cost to the EU while imposing real costs on Brazilian agribusiness and industrial elites.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">OAS / UN Human Rights</div>
+      <div class="action-what">Formal investigation of January 8 detentions</div>
+      <div class="action-why">The extrajudicial classification system, disproportionate sentences, and denial of defense access to evidence meet international thresholds for investigation. A formal OAS process would internationalize the narrative and increase costs for continued detention.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">International Press</div>
+      <div class="action-what">Report the primary documents, not the narratives</div>
+      <div class="action-why">Vaza Toga and the January 8 Archives exist in English. The documents are more damning than any opposition claim. Reporting based on primary sources bypasses the "coup vs. democracy" framing that obscures what the documents actually show.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">Electoral Observation Missions</div>
+      <div class="action-what">Demand real access, not protocol access</div>
+      <div class="action-why">Venezuela expelled observers when they asked for real verification. Brazil has not yet done so. Missions that demand — and receive — genuine technical access to the electoral system before October 2026 create accountability that makes manipulation more costly.</div>
+    </div>
+    <div class="action-card">
+      <div class="action-who">Brazilian Civil Society</div>
+      <div class="action-what">Archive, distribute, coordinate internationally</div>
+      <div class="action-why">The documents exist. The analysis exists. What is missing is a coordinated strategy to ensure that every diplomat, every foreign correspondent, every international legal scholar has access to the primary sources before the election — not after.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section">
+  <div class="section-num">Section 06</div>
+  <div class="section-title">Documented <em>Sources</em></div>
+
+  <p>This report is based exclusively on verifiable primary sources. All documents referenced are publicly available or have been published by named journalists with identified sources.</p>
+
+  <div class="sources">
+    <div class="sources-title">Primary Sources</div>
+    <div class="source-item">
+      <strong>Vaza Toga 1–4</strong> — David Ágape, A Investigação (Substack), 2024–2025. Leaked WhatsApp communications between TSE/STF officials. Published with supporting documentation. <a href="https://www.ainvestigacao.com">ainvestigacao.com</a>
+    </div>
+    <div class="source-item">
+      <strong>January 8 Archives</strong> — David Ágape &amp; Eli Vieira, 2025. Internal WhatsApp group communications of the "Custody Hearings" task force. Includes classification certificates and biometric database access records. Originally distributed via Counterweight.
+    </div>
+    <div class="source-item">
+      <strong>Senate Testimony — Eduardo Tagliaferro</strong> — Former head of TSE's Anti-Disinformation Unit (AEED). Confirmed fabrication of backdated reports in Senate hearing, 2024.
+    </div>
+    <div class="source-item">
+      <strong>MPF Confidential Opinion — Lindôra Araújo, PGR</strong> — Published by Folha de S.Paulo, August 22, 2024. Classified AEED activities as unconstitutional. Requested annulment of investigative measures.
+    </div>
+    <div class="source-item">
+      <strong>Vaza Jato</strong> — Glenn Greenwald, The Intercept Brasil, 2019. Leaked Telegram communications between then-judge Sergio Moro and Lava Jato prosecutors. Authenticated by multiple independent outlets.
+    </div>
+    <div class="source-item">
+      <strong>STF — Gilmar Mendes decisions</strong> — Official STF records annulling Lava Jato convictions citing Moro's partiality. October 2024.
+    </div>
+    <div class="source-item">
+      <strong>ASFAV Report</strong> — Association of Families and Victims of January 8. 100-page documentation of due process violations in custody hearings. 2023.
+    </div>
+    <div class="source-item">
+      <strong>Bolsonaro imprisonment records</strong> — Official STF decisions: house arrest August 4, 2025; converted to preventive detention November 22, 2025. STF Pet. 14129 and related proceedings.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>
+    BRAZIL DEMOCRATIC EROSION REPORT 2026<br>
+    lawfare-timeline.vercel.app · CC0 1.0 Universal<br>
+    No rights reserved. Reproduction unrestricted.
+  </p>
+  <p>
+    Produced from primary source documentation.<br>
+    April 2026 · Version 1.0<br>
+    PT-BR version available at lawfare-timeline.vercel.app
+  </p>
+</div>
+
+</div><!-- /page -->
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

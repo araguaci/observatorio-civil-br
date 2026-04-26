@@ -1,0 +1,349 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { padding: 0 0 2rem; font-family: var(--font-sans); }
+.tabs { display: flex; gap: 4px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.tab { padding: 6px 14px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); font-size: 12px; cursor: pointer; font-family: var(--font-sans); transition: all 0.15s; }
+.tab.active { background: #0d1f0d; color: #7ae87a; border-color: #7ae87a; }
+.tab:hover:not(.active) { background: var(--color-background-secondary); }
+.counter { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 1rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; cursor: pointer; transition: border-color 0.15s; }
+.card:hover { border-color: var(--color-border-primary); }
+.card.open { grid-column: 1 / -1; }
+.card-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.icon { width: 32px; height: 32px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.icon-fin { background: #1a1a00; color: #e8d87a; }
+.icon-ong { background: #001a0d; color: #7ae8a8; }
+.icon-intel { background: #1a0000; color: #e87a7a; }
+.icon-media { background: #0d001a; color: #c87ae8; }
+.icon-jud { background: #001a1a; color: #7adce8; }
+.icon-tech { background: #0d0d1a; color: #7a9ae8; }
+.card-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+.card-type { font-size: 10px; color: var(--color-text-tertiary); margin-top: 2px; }
+.reach { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+.reach-tag { font-size: 10px; padding: 2px 6px; border-radius: 8px; background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.card-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.expand { display: none; margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--color-border-tertiary); }
+.card.open .expand { display: block; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 10px; }
+.dbox { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px; }
+.dlabel { font-size: 10px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.dval { font-size: 12px; color: var(--color-text-primary); line-height: 1.5; }
+.close-btn { font-size: 11px; color: var(--color-text-tertiary); cursor: pointer; margin-top: 10px; display: inline-block; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.25rem; }
+.leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-text-secondary); }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; }
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Atores e redes transnacionais recorrentes na ruptura democrática global — financeiros, ONGs, inteligência, mídia, judicial e tecnologia</h2>
+
+<div class="tabs" id="tabs"></div>
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#e8d87a;"></div>Financeiro</div>
+  <div class="leg"><div class="leg-dot" style="background:#7ae8a8;"></div>ONG / fundação</div>
+  <div class="leg"><div class="leg-dot" style="background:#e87a7a;"></div>Inteligência</div>
+  <div class="leg"><div class="leg-dot" style="background:#c87ae8;"></div>Mídia</div>
+  <div class="leg"><div class="leg-dot" style="background:#7adce8;"></div>Judicial / lawfare</div>
+  <div class="leg"><div class="leg-dot" style="background:#7a9ae8;"></div>Tecnologia / vigilância</div>
+</div>
+<div class="counter" id="counter"></div>
+<div class="grid" id="grid"></div>
+</div>
+
+<script>
+const atores = [
+  {
+    cat: "fin",
+    name: "Open Society Foundations",
+    org: "George Soros",
+    tipo: "Fundação / financiamento político",
+    icon: "icon-ong",
+    paises: ["Brasil","EUA","Hungria","Polônia","Ucrânia","Geórgia","Sérvia","Romênia","Espanha","México"],
+    desc: "Maior financiador individual de ONGs e movimentos de 'sociedade civil' no mundo. Presente em 120+ países. Histórico de atuação em mudanças de regime.",
+    mecanismo: "Financiamento de ONGs locais, universidades, mídia independente, movimentos de protesto e redes judiciais progressistas",
+    conexoes: "Human Rights Watch, ACLU, Avaaz, Instituto Lula (indireto), redes de magistratura progressista europeia",
+    eventos: "Expulso da Hungria (2018). Base movida de Budapeste para Berlim. Financiou protestos pré-Maidan na Ucrânia. Ativo no Brasil via CONECTAS e Instituto Democracia e Sustentabilidade",
+    nivel: "Global — nível 1"
+  },
+  {
+    cat: "fin",
+    name: "National Endowment for Democracy",
+    org: "NED",
+    tipo: "Quase-ONG / para-estatal americano",
+    icon: "icon-ong",
+    paises: ["Brasil","Venezuela","Nicarágua","Cuba","Ucrânia","Hong Kong","Bielorrússia","Rússia","China","Myanmar"],
+    desc: "Fundada em 1983 como braço 'civil' da política externa americana. Faz o que a CIA fazia abertamente nos anos 1960–70. Financiado pelo Congresso americano.",
+    mecanismo: "Financiamento de partidos de oposição, sindicatos, mídia e grupos de 'observação eleitoral' em países-alvo",
+    conexoes: "USAID, State Department, Freedom House, IRI, NDI",
+    eventos: "Ativo na Venezuela desde os anos 2000. Financiou grupos pró-Maidan. Presente no Brasil via parceiros. O cofundador Allen Weinstein disse em 1991: 'muito do que fazemos hoje foi feito clandestinamente pela CIA há 25 anos'",
+    nivel: "Global — nível 1"
+  },
+  {
+    cat: "fin",
+    name: "USAID",
+    org: "Agência americana de desenvolvimento",
+    tipo: "Agência governamental / instrumento de política externa",
+    icon: "icon-ong",
+    paises: ["Brasil","México","Colômbia","Peru","Ucrânia","Geórgia","Moldávia","Etiópia","Honduras","El Salvador"],
+    desc: "Agência de 'ajuda ao desenvolvimento' que historicamente funcionou como canal de financiamento de mudanças de regime e captura de sociedade civil.",
+    mecanismo: "Contratos com ONGs locais, programas de 'fortalecimento institucional', financiamento de imprensa e judiciário",
+    conexoes: "NED, Open Society, State Department, Council on Foreign Relations",
+    eventos: "Cuba: programa de criação de 'Twitter cubano' para desestabilizar. Brasil: financiamento de ONGs ambientais e indígenas com agenda política. Ucrânia: US$5 bilhões documentados por Victoria Nuland pré-Maidan",
+    nivel: "Global — nível 1"
+  },
+  {
+    cat: "fin",
+    name: "BlackRock / Vanguard / State Street",
+    org: "Big Three — gestoras de ativos",
+    tipo: "Financeiro sistêmico",
+    icon: "icon-fin",
+    paises: ["EUA","Reino Unido","Alemanha","Brasil","Japão","Austrália","Canadá","França","Itália","Espanha"],
+    desc: "Os três maiores gestores de ativos do mundo controlam participações acionárias em praticamente todas as grandes corporações globais — incluindo mídia, tecnologia e energia.",
+    mecanismo: "Pressão ESG sobre empresas, direcionamento de capital, agenda climática como instrumento de controle regulatório",
+    conexoes: "World Economic Forum, FMI, Banco Mundial, governos via dívida soberana",
+    eventos: "BlackRock Larry Fink: cartas anuais definindo agenda política para CEOs. Participação em Petrobras, Vale, bancos brasileiros. ESG como ferramenta de exclusão financeira de setores 'indesejados'",
+    nivel: "Global — nível 0"
+  },
+  {
+    cat: "fin",
+    name: "World Economic Forum",
+    org: "WEF / Davos",
+    tipo: "Fórum de elite global",
+    icon: "icon-fin",
+    paises: ["Global","Alemanha","França","Canadá","Nova Zelândia","Austrália","Argentina","Brasil","Índia","Japão"],
+    desc: "Plataforma de coordenação entre elite financeira, política e tecnológica global. 'Young Global Leaders' como programa de inserção de quadros em governos.",
+    mecanismo: "Young Global Leaders (Macron, Trudeau, Ardern, Zuckerberg), Great Reset como agenda, parceria público-privada como modelo de captura estatal",
+    conexoes: "BlackRock, Open Society, OMS, ONU, Bill & Melinda Gates Foundation",
+    eventos: "Klaus Schwab: 'penetramos nos gabinetes de governo'. YGL inclui líderes de 193 países. Agenda 2030 como framework normativo supranacional",
+    nivel: "Global — nível 0"
+  },
+  {
+    cat: "ong",
+    name: "Human Rights Watch",
+    org: "HRW",
+    tipo: "ONG de direitos humanos",
+    icon: "icon-ong",
+    paises: ["Brasil","Venezuela","Nicarágua","Rússia","China","Israel","Turquia","México","Colômbia","Hungria"],
+    desc: "Principal ONG de DH com alcance global. Financiada por Open Society. Histórico de seletividade política: severa com alvos ocidentais indesejados, branda com aliados.",
+    mecanismo: "Relatórios que alimentam narrativas midiáticas, pressão sobre governos, legitimação de lawfare internacional",
+    conexoes: "Open Society (principal financiador), Amnesty International, ACLU, mídia mainstream global",
+    eventos: "Brasil: relatórios sobre Bolsonaro ignoraram violações do PT. Venezuela: cobertura seletiva. Israel: duplo padrão documentado por ex-diretores",
+    nivel: "Global — nível 2"
+  },
+  {
+    cat: "ong",
+    name: "Avaaz",
+    org: "Avaaz.org",
+    tipo: "Plataforma de ativismo digital",
+    icon: "icon-ong",
+    paises: ["Brasil","EUA","Reino Unido","França","Alemanha","Índia","Turquia","México","Argentina","Austrália"],
+    desc: "50M+ membros. Fundada com apoio de MoveOn (ligada a Soros). Mobilização de petições e pressão política em escala global com direcionamento ideológico consistente.",
+    mecanismo: "Petições virais, pressão sobre plataformas para censura de 'desinformação', financiamento de campanhas políticas disfarçado de ativismo",
+    conexoes: "Open Society, MoveOn, Change.org, redes de mídia progressista",
+    eventos: "Brasil: campanhas pró-impeachment 2016 e anti-Bolsonaro. Pressão sobre Facebook/Twitter para remoção de conteúdo conservador. Financiamento de 'fact-checkers'",
+    nivel: "Global — nível 2"
+  },
+  {
+    cat: "ong",
+    name: "Instituto Lula / Foro de São Paulo",
+    org: "Rede petista transnacional",
+    tipo: "Rede político-ideológica",
+    icon: "icon-ong",
+    paises: ["Brasil","Venezuela","Nicarágua","Bolívia","Argentina","Cuba","México","Chile","Colômbia","Peru"],
+    desc: "Foro de São Paulo: fundado por Lula e Fidel em 1990. Coordena partidos de esquerda latino-americanos. Instituto Lula: soft power e lavagem de reputação.",
+    mecanismo: "Coordenação política transnacional, financiamento cruzado entre partidos, narrativa comum anti-imperialismo como cobertura",
+    conexoes: "FARC, MST, Hezbollah (documentado), PT, PSOE, Podemos, Frente Ampla",
+    eventos: "Documento de Santa Fé IV antecipou a estratégia. Presença em 35+ países. Conexão com narcotráfico documentada em investigações do MP colombiano",
+    nivel: "Regional — América Latina"
+  },
+  {
+    cat: "intel",
+    name: "CIA / Five Eyes",
+    org: "Comunidade de inteligência anglófona",
+    tipo: "Inteligência estatal",
+    icon: "icon-intel",
+    paises: ["EUA","Reino Unido","Canadá","Austrália","Nova Zelândia","Alemanha","França","Japão","Coreia do Sul","Israel"],
+    desc: "Aliança de inteligência mais extensa do mundo. Five Eyes (EUA, UK, Canadá, AUS, NZ) + parceiros. Capacidade de vigilância, manipulação de eleições e operações de influência.",
+    mecanismo: "SIGINT, operações de influência, apoio a oposições em países-alvo, kompromat sobre líderes aliados e adversários",
+    conexoes: "GCHQ, BND, DGSE, Mossad (parceiro seletivo), NED (braço civil)",
+    eventos: "NSA espionava Dilma e Merkel (Snowden, 2013). GCHQ operações contra Brexit dissidentes. AUKUS como cristalização do núcleo duro",
+    nivel: "Global — nível 0"
+  },
+  {
+    cat: "intel",
+    name: "FSB / GRU russo",
+    org: "Inteligência russa",
+    tipo: "Inteligência estatal",
+    icon: "icon-intel",
+    paises: ["Rússia","Ucrânia","Bielorrússia","Moldávia","Geórgia","Sérvia","Hungria","Itália","França","Alemanha"],
+    desc: "Inventores do modelo kompromat moderno. FSB opera internamente; GRU externamente. Exportam desinformação, financiam partidos eurocéticos e operam honeytrap.",
+    mecanismo: "Kompromat sobre políticos, financiamento de partidos europeus populistas, desinformação sistemática, assassinatos seletivos",
+    conexoes: "Wagner (até 2023), oligarquia russa, RT/Sputnik como braços midiáticos",
+    eventos: "Novichok em Salisbury. Financiamento do Front National francês documentado. Interferência eleitoral documentada em 20+ países",
+    nivel: "Global — nível 0"
+  },
+  {
+    cat: "intel",
+    name: "MSS chinês / United Front",
+    org: "Inteligência e influência chinesa",
+    tipo: "Inteligência estatal + soft power",
+    icon: "icon-intel",
+    paises: ["China","Austrália","Nova Zelândia","Canadá","África do Sul","Nigéria","Paquistão","Camboja","Laos","Peru"],
+    desc: "MSS: espionagem e kompromat. United Front Work Department: captura de diáspora, universidades e políticos. Belt and Road: captura via dívida.",
+    mecanismo: "Institutos Confúcio, captura de elites via negócios, dívida soberana como alavanca, honeytrap documentado",
+    conexoes: "PCC, Huawei (vigilância), empresas de infraestrutura, comunidades da diáspora",
+    eventos: "Austrália: senator Sam Dastyari exposto. Canadá: interferência eleitoral confirmada pelo CSIS. 140+ países na Belt and Road",
+    nivel: "Global — nível 0"
+  },
+  {
+    cat: "media",
+    name: "Reuters / AP / AFP",
+    org: "Agências de notícias globais",
+    tipo: "Infraestrutura de narrativa",
+    icon: "icon-media",
+    paises: ["Global — todas as nações mapeadas"],
+    desc: "As três grandes agências definem o que é notícia para 80%+ dos veículos do mundo. Quem controla o fio controla a narrativa global.",
+    mecanismo: "Definição de pauta, seleção de fontes, framing de eventos políticos, distribuição de narrativa homogênea para milhares de veículos",
+    conexoes: "Thomson Reuters: acionistas incluem Blackrock/Vanguard. AFP: financiada pelo governo francês. AP: historicamente ligada a interesses do establishment americano",
+    eventos: "Cobertura uniforme pró-Zelensky, anti-Bolsonaro, anti-Orbán, anti-Meloni. Silêncio sobre Epstein antes de 2019. Narrativa coordenada COVID/vacinas",
+    nivel: "Global — infraestrutura"
+  },
+  {
+    cat: "media",
+    name: "BBC / CNN / NYT / The Guardian",
+    org: "Mídia de referência ocidental",
+    tipo: "Formação de opinião global",
+    icon: "icon-media",
+    paises: ["EUA","Reino Unido","Brasil","Índia","Austrália","Canadá","Alemanha","França","Japão","África do Sul"],
+    desc: "Quadrúpla que define 'realidade aceitável' para classes médias urbanas globais. Alcance combinado de bilhões. Posicionamento político consistente e coordenado.",
+    mecanismo: "Agenda setting, cancelamento de narrativas dissidentes, amplificação seletiva de scandals, construção e destruição de reputações políticas",
+    conexoes: "Open Society (The Guardian recebeu £20M), BlackRock (acionista NYT), governo britânico (BBC), AT&T (CNN)",
+    eventos: "Russiagate fabricado (NYT/WaPo). Guardian: campanha anti-Corbyn. BBC: silêncio sobre pedofilia em Westminster por décadas. CNN: cobertura seletiva BLM vs. Jan6",
+    nivel: "Global — nível 1"
+  },
+  {
+    cat: "jud",
+    name: "Lawfare Project / redes de promotores progressistas",
+    org: "Coordenação judicial transnacional",
+    tipo: "Lawfare institucionalizado",
+    icon: "icon-jud",
+    paises: ["Brasil","EUA","Israel","Argentina","Peru","Espanha","Itália","Coreia do Sul","Paquistão","Hungria"],
+    desc: "Redes informais e formais de magistrados, promotores e advogados que coordenam estratégias jurídicas com objetivos políticos consistentes entre países.",
+    mecanismo: "Compartilhamento de estratégias processuais, timing coordenado de acusações, uso de cooperação judicial internacional para perseguição política",
+    conexoes: "Open Society (financia grupos de 'reforma judicial'), IBCCRIM, ANADEP, Fundação Ford",
+    eventos: "Lava Jato: DOJ americano coordenou com Moro. Operações análogas no Peru, Argentina e Coreia usaram playbooks similares. Timing de indiciamentos frequentemente coincide com calendários eleitorais",
+    nivel: "Transnacional — nível 2"
+  },
+  {
+    cat: "jud",
+    name: "Corte Penal Internacional / CIDH",
+    org: "Tribunais supranacionais",
+    tipo: "Lawfare supranacional",
+    icon: "icon-jud",
+    paises: ["Venezuela","Nicarágua","Rússia","Israel","Mianmar","Sudão","Líbia","Quênia","Costa do Marfim","Hungria"],
+    desc: "Instrumentos de pressão jurídica internacional com aplicação seletiva. Países do eixo ocidental raramente são investigados; alvos políticos são priorizados.",
+    mecanismo: "Mandados de prisão que imobilizam líderes, investigações que legitimam pressão midiática, precedentes usados em lawfare doméstico",
+    conexoes: "UE, Open Society, NED, State Department",
+    eventos: "Putin: mandado de prisão emitido. Netanyahu: mandado emitido. EUA nunca ratificou o Estatuto de Roma. Nenhum líder ocidental foi indiciado por guerras documentadas",
+    nivel: "Global — nível 1"
+  },
+  {
+    cat: "tech",
+    name: "Google / Meta / Twitter(X)",
+    org: "Plataformas de controle de narrativa",
+    tipo: "Infraestrutura digital de controle",
+    icon: "icon-tech",
+    paises: ["Global — todas as nações mapeadas"],
+    desc: "Controlam o fluxo de informação para 5B+ pessoas. Capacidade de amplificar, suprimir, banir e shadowban conteúdo político em escala industrial.",
+    mecanismo: "Moderação algorítmica seletiva, remoção de conteúdo, desmonetização, banning de líderes políticos, cooperação com governos para censura",
+    conexoes: "DHS americano (Censorship Industrial Complex — Twitter Files), CIA (In-Q-Tel investiu em predecessores), WEF (parceiros formais)",
+    eventos: "Twitter Files: FBI e DHS instruíam supressão de conteúdo. Remoção de Trump. Brasil: cumprimento de ordens do STF/Moraes. Supressão do Hunter Biden laptop",
+    nivel: "Global — infraestrutura"
+  },
+  {
+    cat: "tech",
+    name: "NSO Group / Pegasus",
+    org: "Indústria de spyware comercial",
+    tipo: "Vigilância e kompromat tecnológico",
+    icon: "icon-tech",
+    paises: ["México","Índia","Arábia Saudita","Emirados","Marrocos","Azerbaijão","Ruanda","Hungria","Israel","Espanha"],
+    desc: "Pegasus infectou telefones de presidentes, ministros, jornalistas e ativistas em 50+ países. Spyware como infraestrutura de kompromat modernizado.",
+    mecanismo: "Acesso total a dispositivos, extração de conversas privadas, localização em tempo real, material íntimo como kompromat",
+    conexoes: "NSO Group (israelense), clientes governamentais de 50+ países, Paragon (sucessor), FinFisher",
+    eventos: "Macron: telefone infectado. Bezos: WhatsApp hackeado via MBS. Jornalistas do NYT infectados. Espanha: PM Sánchez e ministros infectados pelo próprio governo",
+    nivel: "Global — nível 1"
+  },
+  {
+    cat: "fin",
+    name: "Fundação Ford / Rockefeller / Carnegie",
+    org: "Fundações americanas históricas",
+    tipo: "Financiamento de longo prazo",
+    icon: "icon-ong",
+    paises: ["Brasil","África do Sul","Índia","México","Indonésia","Filipinas","Quênia","Egito","Paquistão","Chile"],
+    desc: "Fundações centenárias que financiaram academia, mídia e ONGs por décadas. Conexões históricas com a CIA documentadas por investigações do Congresso americano (Church Committee).",
+    mecanismo: "Financiamento de universidades, think tanks, grupos de mídia e ONGs que constroem consenso intelectual favorável à agenda globalista",
+    conexoes: "CIA (histórico), CFR, Trilateral Commission, Open Society (parceiros)",
+    eventos: "Church Committee (1975): Ford Foundation usada como canal CIA. Brasil: financiamento de MST, ISA, CEBRAP. Índia: expulsa por Modi em 2015 por interferência política",
+    nivel: "Global — nível 1"
+  },
+];
+
+const cats = [
+  { id: "todos", label: "Todos" },
+  { id: "fin", label: "Financeiro" },
+  { id: "ong", label: "ONGs" },
+  { id: "intel", label: "Inteligência" },
+  { id: "media", label: "Mídia" },
+  { id: "jud", label: "Judicial" },
+  { id: "tech", label: "Tecnologia" },
+];
+
+let activeTab = "todos";
+let openCard = null;
+
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = cats.map(c =>
+    `<button class="tab ${activeTab===c.id?'active':''}" onclick="setTab('${c.id}')">${c.label}</button>`
+  ).join('');
+}
+
+function setTab(t) { activeTab = t; openCard = null; renderTabs(); renderGrid(); }
+
+function toggle(name) { openCard = openCard === name ? null : name; renderGrid(); }
+
+function renderGrid() {
+  const filtered = atores.filter(a => activeTab === "todos" || a.cat === activeTab);
+  document.getElementById('counter').textContent = `${filtered.length} atores exibidos`;
+  document.getElementById('grid').innerHTML = filtered.map(a => {
+    const isOpen = openCard === a.name;
+    const paisList = a.paises.slice(0,6).join(', ') + (a.paises.length > 6 ? ` +${a.paises.length-6}` : '');
+    const detail = isOpen ? `
+      <div class="expand">
+        <div class="detail-grid">
+          <div class="dbox"><div class="dlabel">Mecanismo</div><div class="dval">${a.mecanismo}</div></div>
+          <div class="dbox"><div class="dlabel">Conexões</div><div class="dval">${a.conexoes}</div></div>
+          <div class="dbox"><div class="dlabel">Eventos documentados</div><div class="dval">${a.eventos}</div></div>
+          <div class="dbox"><div class="dlabel">Nível de operação</div><div class="dval">${a.nivel}</div></div>
+        </div>
+        <span class="close-btn" onclick="event.stopPropagation();toggle('${a.name.replace(/'/g,"\\'")}')">▲ recolher</span>
+      </div>` : '';
+    return `<div class="card ${isOpen?'open':''}" onclick="toggle('${a.name.replace(/'/g,"\\'")}')">
+      <div class="card-top">
+        <div class="icon ${a.icon}">★</div>
+        <div>
+          <div class="card-name">${a.name}</div>
+          <div class="card-type">${a.tipo}</div>
+        </div>
+      </div>
+      <div class="reach">${a.paises.slice(0,5).map(p => `<span class="reach-tag">${p}</span>`).join('')}${a.paises.length>5?`<span class="reach-tag">+${a.paises.length-5}</span>`:''}</div>
+      <div class="card-desc">${a.desc}</div>
+      ${detail}
+    </div>`;
+  }).join('');
+}
+
+renderTabs();
+renderGrid();
+</script>

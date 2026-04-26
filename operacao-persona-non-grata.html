@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERSONA NON GRATA — Delegado da PF Expulso dos EUA | 20.04.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060809;
+    --surface: #0b0e12;
+    --surface2: #0f1419;
+    --surface3: #141b24;
+    --border: #1a2530;
+    --border-hot: #2a3545;
+    --accent-red: #c0392b;
+    --accent-red-hot: #e74c3c;
+    --accent-red-glow: rgba(192,57,43,0.15);
+    --accent-amber: #e67e22;
+    --accent-gold: #f39c12;
+    --accent-blue: #2980b9;
+    --accent-teal: #16a085;
+    --accent-flag-green: #1a6b3c;
+    --accent-flag-yellow: #d4a017;
+    --text: #cdd0d4;
+    --text-dim: #6a7a88;
+    --text-bright: #edf0f2;
+    --text-mono: #a8b8c4;
+    --severity-critical: #c0392b;
+    --severity-high: #e67e22;
+    --severity-medium: #f1c40f;
+    --severity-low: #27ae60;
+    --severity-info: #2980b9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.65;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(160deg, #080b10 0%, #0d1520 60%, #080b10 100%);
+    border-bottom: 2px solid var(--accent-red);
+    padding: 48px 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-red-hot), var(--accent-amber), var(--accent-red-hot), transparent);
+  }
+
+  .header::after {
+    content: '⚠';
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 200px;
+    color: rgba(192,57,43,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .stamp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .stamp {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+  }
+
+  .stamp-red { color: var(--accent-red-hot); border-color: var(--accent-red); background: rgba(192,57,43,0.1); }
+  .stamp-amber { color: var(--accent-amber); border-color: var(--accent-amber); background: rgba(230,126,34,0.08); }
+  .stamp-blue { color: var(--accent-blue); border-color: var(--accent-blue); background: rgba(41,128,185,0.08); }
+
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    color: var(--text-bright);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+
+  .header-title span { color: var(--accent-red-hot); }
+
+  .header-subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .header-deck {
+    font-size: 15px;
+    color: var(--text);
+    max-width: 700px;
+    line-height: 1.7;
+    border-left: 3px solid var(--accent-red);
+    padding-left: 20px;
+  }
+
+  .meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 200px;
+  }
+
+  .meta-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .meta-item strong {
+    color: var(--text-mono);
+    display: block;
+    font-size: 11px;
+  }
+
+  /* ── ALERT BANNER ── */
+  .alert-banner {
+    background: linear-gradient(135deg, rgba(192,57,43,0.2), rgba(192,57,43,0.08));
+    border: 1px solid var(--accent-red);
+    border-left: 4px solid var(--accent-red-hot);
+    padding: 16px 24px;
+    max-width: 1400px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .alert-icon { font-size: 24px; flex-shrink: 0; }
+
+  .alert-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-bright);
+    line-height: 1.6;
+  }
+
+  .alert-text strong { color: var(--accent-red-hot); }
+
+  /* ── NAV ── */
+  .nav-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .nav-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    user-select: none;
+  }
+
+  .nav-tab:hover { color: var(--text); background: var(--surface2); }
+  .nav-tab.active { color: var(--accent-red-hot); border-bottom-color: var(--accent-red-hot); background: var(--surface2); }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 60px;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: 0.5px;
+  }
+
+  .section-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    margin-left: auto;
+  }
+
+  /* ── QUOTE CARD ── */
+  .quote-official {
+    background: linear-gradient(135deg, rgba(41,128,185,0.12), rgba(41,128,185,0.04));
+    border: 1px solid rgba(41,128,185,0.4);
+    border-left: 4px solid var(--accent-blue);
+    padding: 24px 28px;
+    margin: 24px 0;
+    position: relative;
+  }
+
+  .quote-official::before {
+    content: '🇺🇸  DECLARAÇÃO OFICIAL — DEPARTAMENTO DE ESTADO DOS EUA';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent-blue);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .quote-official blockquote {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text-bright);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .quote-official .quote-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-red), var(--accent-amber), var(--accent-blue));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: none;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 22px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-red);
+    background: var(--bg);
+  }
+
+  .timeline-item.critical { border-top-color: var(--accent-red); }
+  .timeline-item.high { border-top-color: var(--accent-amber); }
+  .timeline-item.info { border-top-color: var(--accent-blue); }
+
+  .tl-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .tl-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+
+  .tl-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .tl-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border: 1px solid;
+    margin-bottom: 8px;
+  }
+
+  .badge-critical { color: var(--accent-red-hot); border-color: var(--accent-red); background: rgba(192,57,43,0.1); }
+  .badge-high { color: var(--accent-amber); border-color: var(--accent-amber); background: rgba(230,126,34,0.08); }
+  .badge-info { color: var(--accent-blue); border-color: var(--accent-blue); background: rgba(41,128,185,0.08); }
+  .badge-teal { color: var(--accent-teal); border-color: var(--accent-teal); background: rgba(22,160,133,0.08); }
+
+  /* ── GRID CARDS ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 22px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border-hot); }
+
+  .card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .card-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── ACTOR CARD ── */
+  .actor-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .actor-avatar {
+    width: 48px;
+    height: 48px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .actor-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+  }
+
+  .actor-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-amber);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .actor-desc {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── PATTERN TABLE ── */
+  .pattern-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 20px 0;
+  }
+
+  .pattern-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .pattern-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .pattern-table tr:hover td { background: var(--surface2); }
+
+  .p-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-amber);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .p-name {
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+  }
+
+  .p-confirm {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 2px 7px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .confirmed { color: var(--accent-red-hot); border-color: var(--accent-red); background: rgba(192,57,43,0.12); }
+  .partial { color: var(--accent-amber); border-color: var(--accent-amber); background: rgba(230,126,34,0.08); }
+  .investigating { color: var(--accent-blue); border-color: var(--accent-blue); background: rgba(41,128,185,0.08); }
+
+  /* ── LEGAL ANALYSIS ── */
+  .legal-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-amber);
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .legal-box h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    margin-bottom: 10px;
+  }
+
+  .legal-box p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── STAT NUMBERS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent-red-hot);
+    line-height: 1;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── THREAD SECTION ── */
+  .thread-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .tweet {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-bottom: 2px;
+    position: relative;
+  }
+
+  .tweet::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 30px;
+    width: 2px;
+    height: 16px;
+    background: var(--border-hot);
+  }
+
+  .tweet:last-child::after { display: none; }
+
+  .tweet-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .tweet-body {
+    font-size: 14px;
+    color: var(--text-bright);
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  .tweet-body .highlight { color: var(--accent-amber); font-weight: 600; }
+  .tweet-body .alert-text-inline { color: var(--accent-red-hot); }
+
+  /* ── LINKS ── */
+  .related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .rel-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    border: 1px solid rgba(41,128,185,0.3);
+    padding: 6px 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .rel-link:hover { background: rgba(41,128,185,0.1); border-color: var(--accent-blue); }
+
+  /* ── PROSE ── */
+  .prose {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.8;
+    max-width: 900px;
+  }
+
+  .prose p { margin-bottom: 14px; }
+
+  .prose strong { color: var(--text-bright); }
+
+  .prose .callout {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent-red);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--text-bright);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 30px 60px;
+    margin-top: 60px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer a { color: var(--accent-blue); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .header { padding: 28px 20px; }
+    .header-inner { grid-template-columns: 1fr; }
+    .header::after { display: none; }
+    .main { padding: 24px 20px; }
+    .footer { padding: 20px; }
+    .meta-block { flex-direction: row; flex-wrap: wrap; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 rgba(192,57,43,0); }
+    50% { box-shadow: 0 0 20px rgba(192,57,43,0.3); }
+  }
+
+  .pulse { animation: pulse-red 3s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div>
+      <div class="stamp-row">
+        <span class="stamp stamp-red">⚠ INCIDENTE DIPLOMÁTICO</span>
+        <span class="stamp stamp-amber">20.04.2026</span>
+        <span class="stamp stamp-blue">VERIFICADO</span>
+      </div>
+      <h1 class="header-title">
+        <span>PERSONA NON GRATA</span><br>
+        Delegado da PF Expulso<br>dos Estados Unidos
+      </h1>
+      <p class="header-subtitle">CASO: DELEGADO MARCELO IVO DE CARVALHO — EXPULSÃO COMPULSÓRIA — CASO RAMAGEM</p>
+      <p class="header-deck">
+        O Escritório para Assuntos do Hemisfério Ocidental do Departamento de Estado dos EUA confirmou, em 20 de abril de 2026, a expulsão de um delegado da Polícia Federal brasileira por tentativa de manipular o sistema de imigração norte-americano para burlar pedidos formais de extradição e estender perseguições políticas a território estrangeiro. Precedente sem paralelo na história diplomática bilateral.
+      </p>
+    </div>
+    <div class="meta-block">
+      <div class="meta-item">Data do incidente<strong>20 ABR 2026</strong></div>
+      <div class="meta-item">Delegado expulso<strong>Marcelo Ivo de Carvalho</strong></div>
+      <div class="meta-item">Órgão<strong>Dept. de Estado / WHAAsstSecty</strong></div>
+      <div class="meta-item">Caso-base<strong>Detenção Ramagem — 13 ABR 2026</strong></div>
+      <div class="meta-item">Status<strong style="color:var(--accent-red-hot)">CONFIRMADO</strong></div>
+    </div>
+  </div>
+</header>
+
+<!-- ALERT -->
+<div style="max-width:1400px;margin:20px auto;padding:0 60px;">
+  <div class="alert-banner pulse">
+    <span class="alert-icon">🚨</span>
+    <div class="alert-text">
+      <strong>DECLARAÇÃO OFICIAL — @WHAAsstSecty (20/04/2026):</strong><br>
+      "No foreigner gets to game our immigration system to both circumvent formal extradition requests and extend political witch hunts into U.S. territory. Today, we have asked that the relevant Brazilian official depart our nation for attempting to do that."
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-tab active" onclick="showTab('cronologia')">⏱ Cronologia</button>
+    <button class="nav-tab" onclick="showTab('atores')">👤 Atores</button>
+    <button class="nav-tab" onclick="showTab('historico')">🗂️ Histórico Operacional</button>
+    <button class="nav-tab" onclick="showTab('juridico')">⚖️ Análise Jurídica</button>
+    <button class="nav-tab" onclick="showTab('padroes')">📊 Padrões P1–P8</button>
+    <button class="nav-tab" onclick="showTab('implicacoes')">🌐 Implicações</button>
+    <button class="nav-tab" onclick="showTab('thread')">🧵 Thread X</button>
+    <button class="nav-tab" onclick="showTab('fontes')">📎 Fontes</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ── TAB: CRONOLOGIA ── -->
+  <div class="tab-panel active" id="tab-cronologia">
+
+    <div class="stat-row">
+      <div class="stat-cell"><span class="stat-num">48h</span><span class="stat-label">Tempo detido / liberado</span></div>
+      <div class="stat-cell"><span class="stat-num">1</span><span class="stat-label">Delegado expulso</span></div>
+      <div class="stat-cell"><span class="stat-num">7</span><span class="stat-label">Dias do caso Ramagem</span></div>
+      <div class="stat-cell"><span class="stat-num">0</span><span class="stat-label">Manifestações PF/Itamaraty</span></div>
+      <div class="stat-cell"><span class="stat-num">∞</span><span class="stat-label">Consequências em aberto</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">⏱</div>
+        <div class="section-title">Cronologia Reconstituída</div>
+        <span class="section-code">SET.2025 → ABR.2026</span>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item info">
+          <div class="tl-date">SETEMBRO 2025</div>
+          <span class="tl-badge badge-info">ANTECEDENTE</span>
+          <div class="tl-title">Ramagem foge do Brasil via fronteira norte</div>
+          <div class="tl-body">Após condenação a 16 anos pelo STF (Ação Penal do Golpe), ex-deputado e ex-diretor da ABIN Alexandre Ramagem deixa o Brasil pela fronteira de Roraima com a Guiana antes do trânsito em julgado. Entra nos EUA com visto de turista válido. Politicamente é classificado como foragido pela Justiça brasileira. Interpol notificada.</div>
+        </div>
+
+        <div class="timeline-item info">
+          <div class="tl-date">AGOSTO 2023 (posição já ocupada)</div>
+          <span class="tl-badge badge-info">CONTEXTO</span>
+          <div class="tl-title">Del. Marcelo Ivo lotado no ICE em Miami</div>
+          <div class="tl-body">Desde agosto de 2023, o delegado Marcelo Ivo de Carvalho ocupa posição de oficial de ligação da PF junto ao ICE (Immigration and Customs Enforcement) em Miami — único delegado brasileiro com acesso direto às dependências da agência americana. Cargo estratégico para cooperação em investigações transfronteiriças.</div>
+        </div>
+
+        <div class="timeline-item high">
+          <div class="tl-date">MESES ANTERIORES A 13 ABR 2026</div>
+          <span class="tl-badge badge-high">ARTICULAÇÃO</span>
+          <div class="tl-title">PF planeja operação "há meses" — admissão pública</div>
+          <div class="tl-body">O próprio diretor-geral da PF, Andrei Rodrigues, admite publicamente à imprensa que a operação havia sido planejada "há meses" e que envolveu "cooperação com autoridades americanas". Declaração que, segundo análise jurídica posterior, pode constituir confissão de atuação clandestina em território estrangeiro.</div>
+        </div>
+
+        <div class="timeline-item critical">
+          <div class="tl-date">13 ABR 2026 — SEGUNDA-FEIRA</div>
+          <span class="tl-badge badge-critical">INCIDENTE</span>
+          <div class="tl-title">Ramagem detido em Orlando pelo ICE</div>
+          <div class="tl-body">Alexandre Ramagem é detido em Orlando, Flórida, pelo ICE. A PF divulga nota afirmando que a prisão decorreu de "cooperação policial internacional entre a Polícia Federal e as autoridades dos EUA". Aliados do ex-deputado denunciam que as informações apresentadas ao ICE sobre sua situação migratória eram falsas ou distorcidas — imputando a ele condição de imigrante irregular quando seu processo de asilo estava em análise.</div>
+        </div>
+
+        <div class="timeline-item critical">
+          <div class="tl-date">15 ABR 2026 — QUARTA-FEIRA</div>
+          <span class="tl-badge badge-critical">INVERSÃO</span>
+          <div class="tl-title">Ramagem liberado após 48h — sem deportação</div>
+          <div class="tl-body">Após dois dias detido, Ramagem é liberado sem fiança e sem deportação — resultado oposto ao esperado pela PF. O ex-parlamentar agradece a aliados e à "alta cúpula da administração Trump". A liberação desmente a versão oficial brasileira e indica que autoridades americanas, ao verificar os documentos, concluíram que a situação não justificava a detenção. Ramagem classifica Andrei Rodrigues de "vergonha".</div>
+        </div>
+
+        <div class="timeline-item high">
+          <div class="tl-date">17 ABR 2026 — QUINTA-FEIRA</div>
+          <span class="tl-badge badge-high">INVESTIGAÇÃO</span>
+          <div class="tl-title">EUA inicia apuração interna sobre papel da PF</div>
+          <div class="tl-body">Autoridades norte-americanas iniciam processo interno de apuração para identificar se a cooperação da PF com o ICE buscou burlar o processo formal de extradição — que é prerrogativa do Departamento de Estado, não do ICE/DHS. A distinção é juridicamente fundamental: deportação migratória vs. extradição judicial são mecanismos completamente distintos.</div>
+        </div>
+
+        <div class="timeline-item critical">
+          <div class="tl-date">20 ABR 2026 — HOJE</div>
+          <span class="tl-badge badge-critical">EXPULSÃO</span>
+          <div class="tl-title">Delegado Marcelo Ivo expulso dos EUA</div>
+          <div class="tl-body">O Escritório para Assuntos do Hemisfério Ocidental do Departamento de Estado publica declaração oficial exigindo a saída do "funcionário brasileiro relevante". Metrópoles, TV Globo e Estado de Minas confirmam a identidade: Delegado Marcelo Ivo de Carvalho. PF e Itamaraty não se manifestam. A expulsão se dá de forma compulsória, sem comunicação prévia às autoridades brasileiras.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: ATORES ── -->
+  <div class="tab-panel" id="tab-atores">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">👤</div>
+        <div class="section-title">Mapa de Atores</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="actor-card">
+          <div class="actor-avatar">🚔</div>
+          <div>
+            <div class="actor-name">Delegado Marcelo Ivo de Carvalho</div>
+            <div class="actor-role">PERSONA NON GRATA — EXPULSO 20/04/2026</div>
+            <div class="actor-desc">Oficial de ligação da PF junto ao ICE em Miami desde agosto de 2023. Único delegado brasileiro com acesso direto às dependências da agência de imigração americana. Identificado pelo próprio diretor-geral da PF como responsável por "contribuir para a prisão de Ramagem em Orlando". Expulso compulsoriamente pelos EUA por suposta manipulação do sistema imigratório para fins de perseguição política.</div>
+          </div>
+        </div>
+
+        <div class="actor-card">
+          <div class="actor-avatar">👮</div>
+          <div>
+            <div class="actor-name">Andrei Rodrigues</div>
+            <div class="actor-role">DIRETOR-GERAL DA POLÍCIA FEDERAL</div>
+            <div class="actor-desc">Declarou publicamente que a operação foi planejada "há meses" e envolveu cooperação com autoridades americanas — declaração posteriormente tratada por analistas como possível auto-incriminação. Nomeou Marcelo Ivo como responsável pela articulação da detenção de Ramagem. Não se pronunciou após a expulsão do delegado.</div>
+          </div>
+        </div>
+
+        <div class="actor-card">
+          <div class="actor-avatar">⚖️</div>
+          <div>
+            <div class="actor-name">Alexandre de Moraes</div>
+            <div class="actor-role">MINISTRO STF — CONDUTOR DAS CONDENAÇÕES</div>
+            <div class="actor-desc">Condutor da Ação Penal do Golpe que resultou na condenação de Ramagem a 16 anos. O presente caso insere-se no padrão documentado de extensão de perseguições judiciais além das fronteiras nacionais — padrão P3 (Captura Judicial de Emergência) e P7 (Perseguição Transfronteiriça). Sem pronunciamento sobre o incidente diplomático.</div>
+          </div>
+        </div>
+
+        <div class="actor-card">
+          <div class="actor-avatar">🏛️</div>
+          <div>
+            <div class="actor-name">Alexandre Ramagem</div>
+            <div class="actor-role">EX-DEP. / EX-DIRETOR ABIN — EM PROCESSO DE ASILO</div>
+            <div class="actor-desc">Condenado a 16 anos pelo STF no âmbito do suposto plano de golpe de Estado. Entrou nos EUA em setembro de 2025 com visto de turista válido. Formalizou pedido de asilo político. Foi detido pelo ICE em 13/04, liberado em 15/04 sem deportação, confirmando que sua situação documental era regular. Chamou Andrei Rodrigues de "vergonha".</div>
+          </div>
+        </div>
+
+        <div class="actor-card">
+          <div class="actor-avatar">🇺🇸</div>
+          <div>
+            <div class="actor-name">Bureau of Western Hemisphere Affairs</div>
+            <div class="actor-role">DEPARTAMENTO DE ESTADO / @WHAAsstSecty</div>
+            <div class="actor-desc">Emitiu a declaração oficial de expulsão. Afirmou que "nenhum estrangeiro pode manipular o sistema de imigração para contornar pedidos de extradição e estender perseguições políticas ao território dos EUA". Declaração foi repostada pela Embaixada dos EUA no Brasil. Não citou o nome do delegado, mas confirmou a identidade ao Metrópoles e TV Globo.</div>
+          </div>
+        </div>
+
+        <div class="actor-card">
+          <div class="actor-avatar">🏢</div>
+          <div>
+            <div class="actor-name">Itamaraty / MRE</div>
+            <div class="actor-role">MINISTÉRIO DAS RELAÇÕES EXTERIORES</div>
+            <div class="actor-desc">Informou apenas que "não comentaria o caso". Silêncio institucional notável diante de um incidente diplomático de primeira ordem. A ausência de nota formal sugere ou conhecimento prévio da operação ou tentativa de contenção de danos. A omissão é, em si, um dado analítico.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: HISTÓRICO OPERACIONAL ── -->
+  <div class="tab-panel" id="tab-historico">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🗂️</div>
+        <div class="section-title">Histórico Operacional — Modus Operandi Documentado</div>
+        <span class="section-code">2016 → 2026 — PADRÃO SISTÊMICO</span>
+      </div>
+
+      <div class="prose" style="margin-bottom:28px;">
+        <p>O caso Ramagem não foi um episódio isolado. A investigação jornalística publicada por <em>A Investigação</em> (17/04/2026) documenta que Marcelo Ivo de Carvalho construiu um histórico de operações em solo americano — e de impunidade no Brasil — que remonta a 2016. O padrão que emerge é de um operador que nunca respondeu por nenhuma de suas ações: nem pelo homicídio culposo no Brasil, nem pelas vigilâncias ilegais nos EUA. E que por isso foi promovido ao posto mais estratégico da Polícia Federal nas Américas.</p>
+        <div class="callout">O mesmo delegado que usou habilitação vencida para matar um trabalhador e foi absolvido pelo sistema que deveria punir foi colocado nos EUA para vigiar brasileiros usando documento com habilitação vencida como pretexto para prendê-los. A ironia é documentada.</div>
+      </div>
+
+      <!-- CASO 1: ATROPELAMENTO 2016 -->
+      <div class="section-header" style="margin-top:32px;">
+        <div class="section-icon" style="background:rgba(192,57,43,0.15);border-color:var(--accent-red);">💀</div>
+        <div class="section-title" style="color:var(--accent-red-hot);">Caso 1 — Homicídio Culposo no Trânsito (2016)</div>
+        <span class="section-code">SOROCABA/SP — OUT.2016</span>
+      </div>
+
+      <div class="stat-row" style="margin-bottom:24px;">
+        <div class="stat-cell"><span class="stat-num" style="font-size:28px;">0,49</span><span class="stat-label">mg/L álcool expirado<br>(limite criminal: 0,34)</span></div>
+        <div class="stat-cell"><span class="stat-num" style="font-size:28px;">+15m</span><span class="stat-label">CNH vencida<br>(1 ano e 3 meses)</span></div>
+        <div class="stat-cell"><span class="stat-num" style="font-size:28px;">R$2k</span><span class="stat-label">Valor da fiança<br>(preso em flagrante)</span></div>
+        <div class="stat-cell"><span class="stat-num" style="font-size:28px;">4 anos</span><span class="stat-label">Para absolvição<br>por "falta de provas"</span></div>
+        <div class="stat-cell"><span class="stat-num" style="font-size:28px;">R$800</span><span class="stat-label">Pensão mensal à<br>viúva (2 filhas)</span></div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item critical">
+          <div class="tl-date">23 OUT 2016 — DOMINGO, ~6H</div>
+          <span class="tl-badge badge-critical">FATO</span>
+          <div class="tl-title">Delegado atropela e mata motociclista Francisco Lopes da Silva Neto, 36 anos</div>
+          <div class="tl-body">Marcelo Ivo saiu de São Paulo de madrugada em uma <strong>Mercedes-Benz branca apreendida pela PF</strong>, autorizada para seu uso como chefe da delegacia aeroportuária de Guarulhos — veículo de serviço usado em viagem pessoal para visitar familiares no interior. Na Rodovia Raposo Tavares, em Sorocaba, colidiu por trás com a moto de Francisco Lopes da Silva Neto, 36 anos, vigia, pai de duas filhas de 4 e 12 anos. A vítima morreu no local.</div>
+        </div>
+
+        <div class="timeline-item critical">
+          <div class="tl-date">23 OUT 2016 — LOCAL DO ACIDENTE</div>
+          <span class="tl-badge badge-critical">BAFÔMETRO</span>
+          <div class="tl-title">Álcool acima do limite criminal — CNH vencida há 15 meses</div>
+          <div class="tl-body">A Polícia Rodoviária aplicou o bafômetro no local. Resultado: <strong>0,49 mg de álcool por litro de ar expirado</strong> — acima do limite criminal de 0,34 mg/L (Resolução Contran nº 432/2013). A Carteira Nacional de Habilitação estava vencida havia <strong>um ano e três meses</strong>. Marcelo Ivo foi preso em flagrante por homicídio culposo sob influência de álcool.</div>
+        </div>
+
+        <div class="timeline-item high">
+          <div class="tl-date">23 OUT 2016 — DELEGACIA</div>
+          <span class="tl-badge badge-high">TRATAMENTO DIFERENCIADO</span>
+          <div class="tl-title">Colega delegado: "não apresentava sinais de embriaguez" — fiança de R$ 2.000</div>
+          <div class="tl-body">O delegado plantonista que atendeu o caso, <strong>Régis Campos Vieira</strong>, afirmou no boletim que Marcelo Ivo "não apresentava sinais aparentes de embriaguez" — contrariando o resultado do bafômetro oficial. Ivo foi liberado mediante fiança de R$ 2.000. A PF abriu sindicância interna. <strong>Marcelo Ivo não foi afastado do cargo.</strong></div>
+        </div>
+
+        <div class="timeline-item high">
+          <div class="tl-date">22 SET 2020 — QUATRO ANOS DEPOIS</div>
+          <span class="tl-badge badge-high">ABSOLVIÇÃO</span>
+          <div class="tl-title">Processo julgado improcedente por "insuficiência de provas"</div>
+          <div class="tl-body">O processo penal tramitou <strong>em segredo de Justiça</strong> pelo TJSP. Em setembro de 2020, a Justiça paulista julgou a ação improcedente. O argumento da defesa: laudo toxicológico produzido no processo <em>cível</em> (não no penal) descartou alteração psicomotora; perícia de local indicou velocidade dentro do limite; e câmeras da empresa da vítima teriam registrado a lanterna da moto apagada antes de ela sair. O processo transitou em julgado em 5 de outubro de 2020. Fontes descrevem o desfecho como <strong>resultado de articulação intensa dentro e fora da corporação.</strong></div>
+        </div>
+
+        <div class="timeline-item info">
+          <div class="tl-date">RESULTADO PARA A FAMÍLIA</div>
+          <span class="tl-badge badge-info">CONSEQUÊNCIAS</span>
+          <div class="tl-title">Viúva, duas filhas, pensão de R$ 800/mês</div>
+          <div class="tl-body">A viúva de Francisco, <strong>Verlange Xavier da Silva</strong>, declarou em entrevista que "ninguém esquece" e que a dor pela morte do marido permanece presente. Como único resultado concreto para a família: uma pensão mensal de R$ 800, determinada judicialmente. Marcelo Ivo manteve o cargo, continuou a carreira e foi promovido.</div>
+        </div>
+
+      </div>
+
+      <!-- CASO 2: FILIPE MARTINS -->
+      <div class="section-header" style="margin-top:40px;">
+        <div class="section-icon" style="background:rgba(230,126,34,0.12);border-color:var(--accent-amber);">📡</div>
+        <div class="section-title">Caso 2 — Filipe Martins: Relatório Contestado (2023)</div>
+        <span class="section-code">ORLANDO/FL — OUT.2023</span>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;border-left:3px solid var(--accent-amber);">
+        <div class="card-label">PADRÃO IDENTIFICADO — A INVESTIGAÇÃO (17/04/2026)</div>
+        <div class="card-body" style="font-size:13px;line-height:1.8;">
+          Em outubro de 2023, uma reportagem afirmando que Filipe Martins havia viajado a Orlando e <strong>"evaporado"</strong> foi posteriormente usada pela PF para justificar sua prisão preventiva. O registro de entrada de Martins nos EUA foi contestado, e o juiz do caso federal em Jacksonville reconheceu irregularidades no sistema do CBP (Customs and Border Protection). A reportagem antecedeu a ação institucional — padrão documentado em múltiplos casos envolvendo o oficialato de Miami. Em nenhum dos casos identificados a origem das informações foi explicada publicamente.
+        </div>
+      </div>
+
+      <!-- CASO 3: FLÁVIA MAGALHÃES -->
+      <div class="section-header" style="margin-top:40px;">
+        <div class="section-icon" style="background:rgba(41,128,185,0.12);border-color:var(--accent-blue);">🇺🇸</div>
+        <div class="section-title">Caso 3 — Flávia Magalhães: Cidadã Americana Monitorada (2024)</div>
+        <span class="section-code">POMPANO BEACH / FORT LAUDERDALE / ORLANDO — 2024</span>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item critical">
+          <div class="tl-date">03 JAN 2024</div>
+          <span class="tl-badge badge-critical">ORDEM DE MORAES</span>
+          <div class="tl-title">STF ordena prisão e aciona oficialato de Miami — alvo é cidadã americana</div>
+          <div class="tl-body">Alexandre de Moraes ordenou prisão e acionou o oficialato da PF em Miami contra Flávia Magalhães — <strong>brasileira naturalizada americana desde 2012</strong>, residente em Pompano Beach, Flórida. Motivo: publicação nas redes sociais acusando Moraes, sem provas, de ter visitado Marcola (PCC) numa unidade prisional. <strong>Flávia não era ré em nenhum processo criminal.</strong> Moraes bloqueou seu passaporte brasileiro e a classificou como "evadida" — desconsiderando que ela era cidadã americana com residência legal nos EUA desde 2012.</div>
+        </div>
+
+        <div class="timeline-item critical">
+          <div class="tl-date">MAR 2024</div>
+          <span class="tl-badge badge-critical">DOCUMENTO FORMAL</span>
+          <div class="tl-title">Ofício da CGCPI aciona expressamente "DPF Marcelo Ivo" para monitoramento</div>
+          <div class="tl-body">Ofício assinado pelo delegado Fábio Mertens, da Coordenação-Geral de Cooperação Policial Internacional da PF (CGCPI), acionou formalmente o oficialato de Miami. O documento <strong>registra expressamente</strong> que o "Oficialato de Ligação da PF em Miami/EUA (DPF Marcelo Ivo)" foi notificado para o caso. É o vínculo documental direto entre Moraes e Marcelo Ivo em operação de monitoramento sem amparo legal americano.</div>
+        </div>
+
+        <div class="timeline-item high">
+          <div class="tl-date">25 FEV 2024</div>
+          <span class="tl-badge badge-high">VIGILÂNCIA EM CAMPO</span>
+          <div class="tl-title">Flávia monitorada em manifestação em Fort Lauderdale</div>
+          <div class="tl-body">Flávia relatou ter sido monitorada durante manifestação em Fort Lauderdale por um homem que "ficava rondando a barraca" onde estava. Mais tarde, durante visita aos parques da Universal Orlando Resort, foi abordada por homens que se identificaram como agentes da PF. Um deles afirmou que o ministro Moraes teria <strong>mobilizado cerca de mil agentes para monitorar brasileiros nos Estados Unidos.</strong></div>
+        </div>
+
+        <div class="timeline-item info">
+          <div class="tl-date">OUT 2025</div>
+          <span class="tl-badge badge-info">CONSEQUÊNCIA GEOPOLÍTICA</span>
+          <div class="tl-title">Caso Flávia fundamenta sanções Magnitsky contra Moraes</div>
+          <div class="tl-body">O advogado de Flávia, Paulo Faria, entregou documentos à Casa Branca relatando as perseguições e monitoramentos transnacionais do STF em solo americano. O caso tornou-se <strong>um dos fundamentos documentados para as sanções impostas pelos EUA a Alexandre de Moraes sob a Lei Magnitsky.</strong> O X recusou inicialmente cumprir a ordem de Moraes para bloquear o perfil de Flávia, sustentando que a ordem ul</div>
+        </div>
+
+      </div>
+
+      <!-- SÍNTESE DO PADRÃO -->
+      <div class="section-header" style="margin-top:40px;">
+        <div class="section-icon" style="background:rgba(192,57,43,0.15);border-color:var(--accent-red);">🔴</div>
+        <div class="section-title">Síntese do Padrão — O Operador Sistêmico</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--accent-red-hot);">
+          <div class="card-label">A IRONIA DOCUMENTADA</div>
+          <div class="card-title">Mesmo crime, resultado oposto</div>
+          <div class="card-body">Marcelo Ivo matou um trabalhador dirigindo com <strong>CNH vencida há 15 meses</strong> e foi absolvido. Ramagem foi preso porque sua habilitação brasileira <strong>havia perdido validade para uso nos EUA</strong>. O mesmo delegado que beneficiou-se da impunidade por irregularidade documental utilizou irregularidade documental análoga como pretexto para prender um adversário político. A ironia não é acidental — é estrutural.</div>
+        </div>
+
+        <div class="card" style="border-top:2px solid var(--accent-amber);">
+          <div class="card-label">TRAJETÓRIA DE ASCENSÃO</div>
+          <div class="card-title">Impunidade como credencial</div>
+          <div class="card-body">2003 — entra na PF. 2016 — mata trabalhador, é absolvido, não é afastado. 2018–2021 — delegado regional de combate ao crime organizado em SP. 2023 — nomeado ao posto mais estratégico da PF nas Américas (ICE Miami). 2024 — monitora cidadã americana. 2026 — expulso dos EUA. A trajetória sugere que a impunidade de 2016 não foi um obstáculo à promoção — foi, possivelmente, uma credencial de confiabilidade para quem o nomeou.</div>
+        </div>
+      </div>
+
+      <div class="legal-box" style="margin-top:20px;border-left-color:var(--accent-red-hot);">
+        <h4 style="color:var(--accent-red-hot);">⚠️ QUESTÃO ESTRUTURAL: QUEM NOMEOU E POR QUÊ</h4>
+        <p>A Portaria de nomeação de Marcelo Ivo ao ICE Miami (Diário Oficial, 29/03/2023) é pública. O que não está documentado: os critérios que levaram um delegado com homicídio culposo no currículo — absolvido em processo que tramitou em segredo de Justiça — a ocupar o único posto de oficial de ligação da PF dentro de uma agência americana. A investigação desta cadeia de decisão — quem indicou, quem aprovou, quem sabia do histórico — é a peça central do puzzle institucional.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TAB: JURIDICO ── -->
+  <div class="tab-panel" id="tab-juridico">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">⚖️</div>
+        <div class="section-title">Análise Jurídica</div>
+        <span class="section-code">DIREITO INTERNACIONAL / FEDERAL DOS EUA / DIPLOMÁTICO</span>
+      </div>
+
+      <div class="prose">
+        <p>O caso apresenta uma sobreposição incomum de três ordens jurídicas distintas: o direito internacional público (soberania e imunidade diplomática), o direito federal norte-americano (imigração, espionagem estrangeira, Foreign Agents Registration Act) e o direito brasileiro (competências da PF, relações exteriores, perseguição de foragidos).</p>
+      </div>
+
+      <div class="legal-box">
+        <h4>🔑 DISTINÇÃO CENTRAL: EXTRADIÇÃO vs. DEPORTAÇÃO</h4>
+        <p>A extradição de Ramagem é competência exclusiva do Departamento de Estado dos EUA — processo formal que envolve avaliação política, Treaty obligations e decisão executiva soberana. A deportação por irregularidade migratória é competência do ICE/DHS (Departamento de Segurança Interna). A tese central dos EUA é que a PF tentou usar o segundo mecanismo (ICE/deportação) para contornar o primeiro (extradição formal), deslocando a competência decisória de um departamento para outro — ato que, nos EUA, configura fraude processual e possível violação federal.</p>
+      </div>
+
+      <div class="grid-2">
+
+        <div class="legal-box">
+          <h4>⚖️ POSSÍVEIS VIOLAÇÕES — LEI FEDERAL DOS EUA</h4>
+          <p>Se confirmado que agentes brasileiros forneceram informações falsas ao ICE sobre a situação migratória de Ramagem: (1) 18 U.S.C. § 1001 — Declarações falsas a agência federal; (2) 18 U.S.C. § 1543 — Fraude documental; (3) Foreign Agents Registration Act (FARA) — agentes de governo estrangeiro operando clandestinamente; (4) Espionagem doméstica — vigilância não autorizada em solo americano. A expulsão administrativa pode ser apenas o primeiro passo de uma investigação criminal federal.</p>
+        </div>
+
+        <div class="legal-box">
+          <h4>⚖️ MONITORAMENTO EM SOLO AMERICANO — GRAVIDADE ADICIONAL</h4>
+          <p>Relatos de que a PF realizou campana, vigilância e monitoramento da família de Ramagem em território americano — mapeando localização, veículos e rotina — constituem violação da Foreign Intelligence Surveillance Act (FISA) e podem configurar espionagem estrangeira não autorizada (18 U.S.C. § 951). Operações de inteligência estrangeira em solo americano, sem autorização, são tratadas pelo FBI como ameaça à segurança nacional.</p>
+        </div>
+
+        <div class="legal-box">
+          <h4>🇧🇷 RESPONSABILIDADE INTERNA BRASILEIRA</h4>
+          <p>No plano do direito brasileiro: (1) A PF é subordinada ao Ministério da Justiça — responsabilidade ministerial; (2) Se ordens vieram do judiciário (Moraes/STF), há questão de competência extraterritorial; (3) Servidores públicos envolvidos respondem por improbidade administrativa e, se houve ação deliberadamente ilegal em território estrangeiro, por crime funcional. O Congresso Nacional pode abrir CPI para investigar a cadeia de comando da operação.</p>
+        </div>
+
+        <div class="legal-box">
+          <h4>🌐 DIREITO INTERNACIONAL PÚBLICO</h4>
+          <p>A Convenção de Viena sobre Relações Diplomáticas (1961) regula o status de funcionários acreditados. A expulsão (declaração de persona non grata) é o instrumento mais grave disponível a um Estado receptor a curto do rompimento diplomático. No caso, a designação de "funcionário relevante" sem imunidade diplomática formal sugere que Marcelo Ivo operava em status de oficial de ligação — estatuto vulnerável exatamente porque não goza das proteções plenas de um diplomata acreditado.</p>
+        </div>
+
+      </div>
+
+      <div class="quote-official">
+        <blockquote>
+          "No foreigner gets to game our immigration system to both circumvent formal extradition requests and extend political witch hunts into U.S. territory. Today, we have asked that the relevant Brazilian official depart our nation for attempting to do that."
+        </blockquote>
+        <div class="quote-source">— @WHAAsstSecty (Bureau of Western Hemisphere Affairs), 20 ABR 2026 | Republicado pela @EmbaixadaEUA</div>
+      </div>
+
+      <div class="legal-box" style="border-left-color: var(--accent-red-hot);">
+        <h4 style="color: var(--accent-red-hot);">⚠️ CONSEQUÊNCIAS POTENCIAIS EM CADEIA</h4>
+        <p>O precedente estabelecido é grave e pode desencadear: (1) Investigação do DOJ/FBI sobre a rede de atuação da PF nos EUA; (2) Revisão do acordo de cooperação policial bilateral; (3) Impacto nos pedidos de extradição pendentes — incluindo casos de outros foragidos brasileiros nos EUA (Paulo Figueiredo, Allan dos Santos); (4) Pressão do Congresso americano por investigação formal do uso do ICE por governo estrangeiro; (5) Redefinição do escopo do MLAT Brasil-EUA.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: PADRÕES P1–P8 ── -->
+  <div class="tab-panel" id="tab-padroes">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">📊</div>
+        <div class="section-title">Framework P1–P8 — Aplicação ao Caso</div>
+        <span class="section-code">LAWFARE-TIMELINE ANALYTICAL FRAMEWORK</span>
+      </div>
+
+      <div class="prose" style="margin-bottom:24px;">
+        <p>O caso Persona Non Grata — Expulsão do Delegado PF dos EUA — representa uma nova instância dos padrões estruturais documentados no projeto lawfare-timeline. A presente tabela mapeia cada padrão contra as evidências disponíveis.</p>
+      </div>
+
+      <table class="pattern-table">
+        <thead>
+          <tr>
+            <th>Padrão</th>
+            <th>Denominação</th>
+            <th>Manifestação no Caso</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-code">P1</td>
+            <td><div class="p-name">Criminalização Seletiva da Oposição</div></td>
+            <td class="tl-body">Uso do aparato estatal (PF + ICE) para perseguir oponentes políticos condenados, mesmo após estes obterem proteção internacional via pedido de asilo. Ramagem como alvo político explícito.</td>
+            <td><span class="p-confirm confirmed">CONFIRMADO</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P2</td>
+            <td><div class="p-name">Instrumentalização do Judiciário</div></td>
+            <td class="tl-body">A condenação pelo STF funcionou como pré-condição formal para ativar a operação nos EUA. A utilização da estrutura judicial como alavanca para operações extrajurídicas fora das fronteiras é o traço central do caso.</td>
+            <td><span class="p-confirm confirmed">CONFIRMADO</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P3</td>
+            <td><div class="p-name">Captura Judicial de Emergência</div></td>
+            <td class="tl-body">Padrão mais relevante: ao invés de usar o canal formal de extradição (que envolveria decisão soberana do Dept. de Estado), a PF tentou acionar o ICE — mecanismo de emergência imigratória — para efetuar uma remoção forçada ad hoc. Exatamente o que os EUA denunciaram.</td>
+            <td><span class="p-confirm confirmed">CONFIRMADO</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P4</td>
+            <td><div class="p-name">Supressão de Evidência e Narrativa</div></td>
+            <td class="tl-body">PF e Itamaraty recusaram-se a comentar após a expulsão. Silêncio institucional como padrão de supressão narrativa. Nenhuma nota pública, nenhuma prestação de contas.</td>
+            <td><span class="p-confirm partial">PARCIAL</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P5</td>
+            <td><div class="p-name">Financiamento e Redes Paralelas</div></td>
+            <td class="tl-body">Ainda sem evidências documentadas de financiamento paralelo para a operação. A estrutura de "meses de planejamento" sugere alocação de recursos, mas não documentada publicamente.</td>
+            <td><span class="p-confirm investigating">INVESTIGANDO</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P6</td>
+            <td><div class="p-name">Proteção Impune de Operadores</div></td>
+            <td class="tl-body">O diretor-geral Andrei Rodrigues admitiu publicamente coordenar a operação, mas sem consequências até o momento. O Itamaraty absorveu o incidente sem responsabilização. A cadeia de proteção institucional aos responsáveis está em operação.</td>
+            <td><span class="p-confirm confirmed">CONFIRMADO</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P7</td>
+            <td><div class="p-name">Extensão Transfronteiriça da Perseguição</div></td>
+            <td class="tl-body">O padrão central do caso. Vigilância, monitoramento e detenção em solo estrangeiro sem autorização do Estado receptor. Primeiro caso documentado de perseguição política brasileira concretamente repelida por um governo estrangeiro soberano.</td>
+            <td><span class="p-confirm confirmed">CONFIRMADO</span></td>
+          </tr>
+          <tr>
+            <td class="p-code">P8</td>
+            <td><div class="p-name">Exaustão Cognitiva como Estratégia</div></td>
+            <td class="tl-body">O caso explode no mesmo dia em que múltiplos outros escândalos ocupam o espaço público. O volume de eventos simultâneos — característica recorrente no projeto — reduz a capacidade de análise sustentada de qualquer episódio individual.</td>
+            <td><span class="p-confirm partial">PARCIAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card" style="margin-top:24px; border-color: var(--accent-red);">
+        <div class="card-label">ACHADO ANALÍTICO CENTRAL</div>
+        <div class="card-title">P3 + P7 em Combinação: Ruptura Sistêmica</div>
+        <div class="card-body">Este é o primeiro caso documentado no projeto em que a extensão transfronteiriça da perseguição (P7) foi ativamente bloqueada por uma potência soberana estrangeira com declaração pública formal. A presença simultânea de P3 (captura judicial de emergência via mecanismo imigratório) e P7 (extensão além-fronteiras) representa uma escalada sem precedente. A resposta dos EUA estabelece um precedente documentado que pode ser utilizado por outros governos e pelo próprio Congresso americano em investigações futuras.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: IMPLICAÇÕES ── -->
+  <div class="tab-panel" id="tab-implicacoes">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🌐</div>
+        <div class="section-title">Implicações Diplomáticas e Estratégicas</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="border-top: 2px solid var(--accent-red-hot);">
+          <div class="card-label">IMPACTO IMEDIATO</div>
+          <div class="card-title">Relações Brasil–EUA sob Tensão Máxima</div>
+          <div class="card-body">A expulsão de um servidor público em missão oficial representa o nível mais alto de desconforto diplomático a curto do rompimento. O governo Lula precisará explicar ao Congresso brasileiro e à opinião pública como e por que um delegado da PF foi expulso de um país aliado. O timing — governo Trump, com aliados de Bolsonaro em Washington — amplifica o impacto geopolítico.</div>
+        </div>
+
+        <div class="card" style="border-top: 2px solid var(--accent-amber);">
+          <div class="card-label">EFEITO COLATERAL</div>
+          <div class="card-title">Pedidos de Extradição em Risco</div>
+          <div class="card-body">O incidente contamina a credibilidade do Brasil como parceiro de cooperação judicial. Os pedidos de extradição de outros foragidos nos EUA (Allan dos Santos, Paulo Figueiredo) ficam politicamente fragilizados. O Departamento de Estado tem agora fundamento público para tratar qualquer cooperação com a PF com desconfiança aumentada. O ativo estratégico mais valioso — a via judicial bilateral — foi comprometido.</div>
+        </div>
+
+        <div class="card" style="border-top: 2px solid var(--accent-blue);">
+          <div class="card-label">INVESTIGAÇÃO PARALELA</div>
+          <div class="card-title">DOJ / FBI: Investigação Federal em Aberto</div>
+          <div class="card-body">A apuração interna iniciada pelos EUA pode evoluir para investigação formal do Departamento de Justiça. Se confirmadas as alegações de monitoramento não autorizado em solo americano, o FBI tem jurisdição para abrir inquérito de espionagem estrangeira. Agentes estrangeiros operando clandestinamente nos EUA são prioridade do contrainteligência americano desde 2017.</div>
+        </div>
+
+        <div class="card" style="border-top: 2px solid var(--accent-teal);">
+          <div class="card-label">JANELA ELEITORAL 2026</div>
+          <div class="card-title">Impacto no Calendário Eleitoral Brasileiro</div>
+          <div class="card-body">O episódio ocorre a seis meses das eleições de outubro de 2026. A narrativa de "PF como capangas de Moraes" — com expulsão confirmatória pelos EUA — tem potencial de mobilização eleitoral significativo. O incidente oferece evidência concreta, de fonte estrangeira soberana, para a tese de perseguição política que a oposição sustenta desde 2022.</div>
+        </div>
+
+        <div class="card" style="border-top: 2px solid var(--accent-gold);">
+          <div class="card-label">MLAT — LACUNA ESTRUTURAL</div>
+          <div class="card-title">Acordo de Assistência Jurídica em Revisão</div>
+          <div class="card-body">O MLAT Brasil-EUA (Mutual Legal Assistance Treaty) é o canal formal de cooperação judicial bilateral. O caso evidencia que a PF operou fora desse canal — o que é, em si, uma violação dos procedimentos estabelecidos no tratado. Uma revisão formal do MLAT ou suspensão de cooperação operacional seria consequência natural e esperada.</div>
+        </div>
+
+        <div class="card" style="border-top: 2px solid var(--accent-red);">
+          <div class="card-label">PRECEDENTE HISTÓRICO</div>
+          <div class="card-title">Primeira Resposta Soberana Documentada</div>
+          <div class="card-body">Em todos os casos anteriores documentados no lawfare-timeline (Lava Jato, Satiagraha, Castelo de Areia, Hydra), o padrão de impunidade foi consistente: nenhuma instância internacional reverteu efetivamente os resultados das operações brasileiras. Este é o primeiro caso em que uma potência soberana não apenas recusou cooperação, mas expulsou ativamente um agente brasileiro e documentou publicamente os motivos.</div>
+        </div>
+      </div>
+
+      <div class="legal-box" style="margin-top: 24px; border-left-color: var(--accent-red-hot);">
+        <h4 style="color: var(--accent-red-hot);">📌 A QUESTÃO ESTRUTURAL NÃO RESPONDIDA</h4>
+        <p>Quem, na cadeia hierárquica brasileira, autorizou a operação? O delegado Marcelo Ivo não pode ter agido sozinho. A admissão pública do diretor-geral da PF, Andrei Rodrigues, aponta para ciência institucional. A questão é: a ordem de acionar o ICE para deter Ramagem — contornando o processo formal de extradição — partiu da cúpula da PF, do Ministério da Justiça ou do STF? Essa cadeia de comando é a peça que falta para completar o dossiê.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: THREAD X ── -->
+  <div class="tab-panel" id="tab-thread">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🧵</div>
+        <div class="section-title">Thread para X — Distribuição de Alta Impacto</div>
+        <span class="section-code">OTIMIZADO PARA ALGORITMO 2026 — LINK NO REPLY FINAL</span>
+      </div>
+
+      <div class="thread-container">
+
+        <div class="tweet">
+          <div class="tweet-num">1/10 — GANCHO</div>
+          <div class="tweet-body"><span class="alert-text-inline">🚨 CONFIRMADO.</span>
+
+O Departamento de Estado dos EUA acaba de expulsar um delegado da Polícia Federal brasileira.
+
+O motivo oficial: manipular o sistema de imigração americano para promover uma "caça às bruxas política" em solo estrangeiro.
+
+Fio completo 🧵</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">2/10 — CONTEXTO</div>
+          <div class="tweet-body">A declaração do @WHAAsstSecty foi direta:
+
+<span class="highlight">"Nenhum estrangeiro pode manipular nosso sistema de imigração para contornar pedidos de extradição e estender perseguições políticas ao território dos EUA."</span>
+
+Repostado pela Embaixada dos EUA no Brasil.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">3/10</div>
+          <div class="tweet-body">O delegado expulso: <span class="highlight">Marcelo Ivo de Carvalho.</span>
+
+Oficial de ligação da PF junto ao ICE em Miami desde agosto de 2023.
+
+O único delegado brasileiro lotado fisicamente dentro da agência americana de imigração.
+
+Foi o próprio diretor-geral da PF quem assumiu sua participação na operação.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">4/10</div>
+          <div class="tweet-body">A cronologia importa:
+
+13/ABR — Ramagem detido pelo ICE em Orlando
+15/ABR — Ramagem <span class="highlight">liberado sem deportação</span> após 48h
+17/ABR — EUA inicia apuração interna
+20/ABR — Delegado expulso compulsoriamente
+
+A liberação de Ramagem já era o sinal. A expulsão é a confirmação.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">5/10</div>
+          <div class="tweet-body">Por que é grave juridicamente?
+
+Extradição = competência do Departamento de Estado (decisão política soberana)
+Deportação = competência do ICE/DHS (irregularidade migratória)
+
+A tese dos EUA: a PF tentou usar o segundo canal para BURLAR o primeiro.
+
+Isso é fraude processual em território americano.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">6/10</div>
+          <div class="tweet-body">Além disso: relatos de que a PF fez <span class="highlight">campana, vigilância e monitoramento</span> da família de Ramagem em solo americano.
+
+Mapeou localização, veículos, rotina.
+
+Em solo americano, isso não é "investigação".
+
+É espionagem estrangeira não autorizada. Jurisdição do FBI.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">7/10</div>
+          <div class="tweet-body">O diretor-geral da PF, Andrei Rodrigues, foi à imprensa e admitiu:
+
+→ A operação foi planejada <span class="highlight">"há meses"</span>
+→ Houve "cooperação com autoridades americanas"
+→ Elogiou o delegado expulso
+
+Ao celebrar o que acreditava ser uma vitória, pode ter entregado uma confissão pública.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">8/10</div>
+          <div class="tweet-body">Consequências em cadeia:
+
+🔴 Pedidos de extradição de Allan dos Santos e Paulo Figueiredo fragilizados
+🔴 MLAT Brasil-EUA pode ser suspenso ou revisado  
+🔴 Possível investigação federal do DOJ
+🔴 Congresso dos EUA atento ao uso do ICE por governo estrangeiro
+🔴 Relações diplomáticas no nível mais tenso em décadas</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">9/10 — PERGUNTA ESTRUTURAL</div>
+          <div class="tweet-body">A questão que o Brasil se recusa a responder:
+
+<span class="highlight">Quem autorizou a operação?</span>
+
+O delegado não agiu sozinho. A PF não planejou isso "por meses" sem ciência da cúpula.
+
+A cadeia de comando sobe até onde?
+
+Ministério da Justiça? STF? Alexandre de Moraes?
+
+Isso precisa de uma CPI.</div>
+        </div>
+
+        <div class="tweet">
+          <div class="tweet-num">10/10 — CTA + LINK NO REPLY</div>
+          <div class="tweet-body">Este é o primeiro caso documentado em que uma potência soberana não só recusou cooperação com o aparato repressivo brasileiro — mas <span class="highlight">expulsou publicamente</span> seus agentes e registrou os motivos.
+
+O dossiê completo está documentado.
+
+RT se isso precisa chegar em mais pessoas. 👇</div>
+        </div>
+
+      </div>
+
+      <div style="max-width:600px;margin:24px auto 0;">
+        <div class="legal-box" style="border-left-color: var(--accent-teal);">
+          <h4 style="color: var(--accent-teal);">💡 INSTRUÇÃO DE PUBLICAÇÃO</h4>
+          <p>Publicar no horário de pico: 18h–21h (Brasília). Colocar o link do dossiê no <strong>primeiro reply</strong>, não no tweet principal. Responder replies nas primeiras 2 horas para ativar o algoritmo. Tweet 1 é o gancho — <strong>não editar após publicar</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: FONTES ── -->
+  <div class="tab-panel" id="tab-fontes">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">📎</div>
+        <div class="section-title">Fontes e Documentação</div>
+        <span class="section-code">CC0 — DOMÍNIO PÚBLICO</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-label">FONTE PRIMÁRIA — OFICIAL</div>
+          <div class="card-title">@WHAAsstSecty — Bureau of Western Hemisphere Affairs</div>
+          <div class="card-body">Declaração oficial publicada no X em 20/04/2026. Republicada pela @EmbaixadaEUA. Primeira fonte da informação sobre a expulsão. Disponível em: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-blue);">x.com/WHAAsstSecty/status/2046337690178854957</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">IDENTIFICAÇÃO DO DELEGADO</div>
+          <div class="card-title">Metrópoles / TV Globo / Estado de Minas</div>
+          <div class="card-body">Três veículos independentes identificaram Del. Marcelo Ivo de Carvalho como o agente expulso, com confirmação da Embaixada dos EUA ao Metrópoles e TV Globo. SBT News obteve fonte interna da PF contestando a narrativa (sob reserva).</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">CONTEXTUALIZAÇÃO</div>
+          <div class="card-title">O Antagonista / Gazeta do Povo / Cidade News</div>
+          <div class="card-body">Cobertura do episódio Ramagem (13–15/ABR) e das investigações internas americanas. Reconstituição da cadeia de eventos desde a detenção até a expulsão. Todos os veículos consultados publicaram em 20/04/2026.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">ADMISSÃO INSTITUCIONAL</div>
+          <div class="card-title">Declarações de Andrei Rodrigues (Dir.-Geral PF)</div>
+          <div class="card-body">Publicadas em múltiplos veículos pós-detenção de Ramagem. Admissão de planejamento "por meses" e de "cooperação com autoridades americanas". Citadas por BBC News Brasil como fonte confirmada por "fonte com conhecimento das tratativas".</div>
+        </div>
+      </div>
+
+      <div class="related-links">
+        <a class="rel-link" href="inq4781.html">→ INQ 4.781</a>
+        <a class="rel-link" href="vaza-toga.html">→ Vaza Toga</a>
+        <a class="rel-link" href="operacao-silencio-digital.html">→ Op. Silêncio Digital</a>
+        <a class="rel-link" href="republica-capturada.html">→ República Capturada</a>
+        <a class="rel-link" href="operacao-hydra-fintech-laundry.html">→ Op. Hydra</a>
+        <a class="rel-link" href="https://dossiemoraes.com.br" target="_blank">→ dossiemoraes.com.br</a>
+        <a class="rel-link" href="https://lawfare-timeline.vercel.app" target="_blank">→ lawfare-timeline.vercel.app</a>
+      </div>
+
+      <div class="card" style="margin-top:20px; border-color: var(--accent-teal);">
+        <div class="card-label">LACUNA INVESTIGATIVA IDENTIFICADA</div>
+        <div class="card-title">Cadeia de Autorização da Operação</div>
+        <div class="card-body">O presente dossiê documenta os fatos confirmados, mas a questão central permanece sem resposta pública: quem, na cadeia hierárquica brasileira, autorizou o uso do ICE como mecanismo substituto à extradição formal? A investigação deve perseguir: (1) registros de comunicação entre a PF e o ICE nos meses anteriores; (2) autorização ministerial ou judicial para a operação; (3) papel do STF na orientação da estratégia extrajurisdicional. Esta é a lacuna investigativa estruturante do caso.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div>LAWFARE-TIMELINE.VERCEL.APP — OBSERVATÓRIO CIVIL BRASIL</div>
+      <div style="margin-top:4px;">DOSSIÊ: PERSONA NON GRATA — DELEGADO PF EXPULSO DOS EUA — 20.04.2026</div>
+    </div>
+    <div style="text-align:right;">
+      <div>CC0 1.0 UNIVERSAL — DOMÍNIO PÚBLICO</div>
+      <div style="margin-top:4px;"><a href="https://lawfare-timeline.vercel.app">lawfare-timeline.vercel.app</a> | <a href="https://observatorio-civil-br.vercel.app">observatorio-civil-br.vercel.app</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEIA MASTER — Rede de Conexões Investigativas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060708;
+  --surface: #0c0e11;
+  --surface2: #111318;
+  --border: #1a1e28;
+  --border2: #252b3a;
+  --red: #e03a3a;
+  --red2: #ff5555;
+  --amber: #e8a020;
+  --amber2: #ffbe48;
+  --cyan: #22b8cc;
+  --cyan2: #44d4e8;
+  --green: #22c47a;
+  --purple: #9b6dff;
+  --text: #dde2ed;
+  --muted: #6b7280;
+  --dim: #3a4055;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.wrapper { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── HEADER ── */
+header {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 48px;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  background: var(--red);
+  color: #fff;
+}
+
+.badge.ops { background: transparent; border: 1px solid var(--amber); color: var(--amber); }
+.badge.date { background: transparent; border: 1px solid var(--dim); color: var(--muted); }
+
+h1 {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+h1 .highlight { color: var(--red2); }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+
+.stat {
+  background: var(--surface);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--amber2);
+}
+
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+
+/* ── CENTRAL NODE CARD ── */
+.center-card {
+  background: linear-gradient(135deg, #130a0a 0%, #0e0b17 50%, #080d14 100%);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 32px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.center-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(224,58,58,0.12) 0%, transparent 70%);
+}
+
+.center-card-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: start;
+}
+
+.node-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.center-card h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.center-card .desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.threat-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+  background: rgba(224,58,58,0.1);
+  border: 1px solid rgba(224,58,58,0.3);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.threat-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--red2);
+  letter-spacing: -0.04em;
+}
+
+.threat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* ── OPERATIONS GRID ── */
+.ops-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 768px) { .ops-grid { grid-template-columns: 1fr; } }
+
+.op-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.op-card:hover { border-color: var(--amber); }
+
+.op-card-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.op-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber2);
+  letter-spacing: 0.05em;
+}
+
+.op-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-ativa { background: rgba(34,196,122,0.15); color: var(--green); border: 1px solid rgba(34,196,122,0.3); }
+.status-concluida { background: rgba(107,114,128,0.15); color: var(--muted); border: 1px solid rgba(107,114,128,0.3); }
+.status-cpi { background: rgba(155,109,255,0.15); color: var(--purple); border: 1px solid rgba(155,109,255,0.3); }
+
+.op-card-body { padding: 16px 20px; }
+
+.op-card-body ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.op-card-body li {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+
+.op-card-body li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+}
+
+/* ── CONNECTION MATRIX ── */
+.matrix-section { margin-bottom: 48px; }
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) { .matrix-grid { grid-template-columns: 1fr; } }
+
+.conn-card {
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+  border-left: 3px solid transparent;
+  border-top: 1px solid var(--border2);
+  border-right: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  transition: all 0.2s;
+}
+
+.conn-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+
+.conn-card.nivel-critico { border-left-color: var(--red2); }
+.conn-card.nivel-grave { border-left-color: var(--amber); }
+.conn-card.nivel-suspeito { border-left-color: var(--cyan); }
+
+.conn-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.conn-actors {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.actor-a {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--amber2);
+  letter-spacing: -0.01em;
+}
+
+.actor-b {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.conn-arrow {
+  font-size: 18px;
+  color: var(--dim);
+  padding: 0 8px;
+  margin-top: 4px;
+}
+
+.nivel-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.n-critico { background: rgba(224,58,58,0.15); color: var(--red2); border: 1px solid rgba(224,58,58,0.3); }
+.n-grave { background: rgba(232,160,32,0.15); color: var(--amber2); border: 1px solid rgba(232,160,32,0.3); }
+.n-suspeito { background: rgba(34,184,204,0.15); color: var(--cyan2); border: 1px solid rgba(34,184,204,0.3); }
+
+.conn-body { padding: 16px 20px; }
+
+.conn-evidence {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.evidence-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.ev-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.nivel-critico .ev-dot { background: var(--red2); }
+.nivel-grave .ev-dot { background: var(--amber); }
+.nivel-suspeito .ev-dot { background: var(--cyan); }
+
+.ev-text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.ev-source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── FLOW DIAGRAM ── */
+.flow-section { margin-bottom: 48px; }
+
+.flow-diagram {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 32px;
+  overflow-x: auto;
+}
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 12px;
+  flex-wrap: nowrap;
+}
+
+.flow-node {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fn-pcc { background: rgba(224,58,58,0.15); border: 1px solid rgba(224,58,58,0.4); color: var(--red2); }
+.fn-master { background: rgba(232,160,32,0.15); border: 1px solid rgba(232,160,32,0.4); color: var(--amber2); }
+.fn-reag { background: rgba(155,109,255,0.15); border: 1px solid rgba(155,109,255,0.4); color: var(--purple); }
+.fn-fictor { background: rgba(34,184,204,0.15); border: 1px solid rgba(34,184,204,0.4); color: var(--cyan2); }
+.fn-stf { background: rgba(34,196,122,0.15); border: 1px solid rgba(34,196,122,0.4); color: var(--green); }
+.fn-inss { background: rgba(107,114,128,0.2); border: 1px solid rgba(107,114,128,0.4); color: var(--text); }
+.fn-brb { background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.3); color: var(--amber); }
+
+.flow-arrow {
+  flex-shrink: 0;
+  padding: 0 8px;
+  color: var(--dim);
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.flow-label {
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 24px; margin-bottom: 48px; }
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--red), var(--amber), var(--border));
+}
+
+.tl-item {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+
+.tl-item.ev-critico::before { background: var(--red2); }
+.tl-item.ev-grave::before { background: var(--amber); }
+.tl-item.ev-info::before { background: var(--cyan); }
+
+.tl-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.tl-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.tl-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+/* ── ACTORS TABLE ── */
+.actors-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 48px;
+  font-size: 13px;
+}
+
+.actors-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+  background: var(--surface2);
+}
+
+.actors-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.actors-table tr:last-child td { border-bottom: none; }
+.actors-table tr:hover td { background: var(--surface); }
+
+.actor-name { font-weight: 700; color: var(--text); }
+.actor-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.risk-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.rd-critico { background: var(--red2); }
+.rd-grave { background: var(--amber); }
+.rd-medio { background: var(--cyan); }
+
+.conn-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--purple);
+}
+
+/* ── STF INTERFERENCE ── */
+.stf-block {
+  background: linear-gradient(135deg, #0a0f0a 0%, #0a0c10 100%);
+  border: 1px solid rgba(34,196,122,0.3);
+  border-radius: 8px;
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+
+.stf-block h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stf-block h3::before {
+  content: '⚠';
+  font-size: 14px;
+}
+
+.stf-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stf-item {
+  background: rgba(34,196,122,0.05);
+  border: 1px solid rgba(34,196,122,0.15);
+  border-radius: 4px;
+  padding: 14px 18px;
+}
+
+.stf-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.stf-item-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border2);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.footer-note strong { color: var(--text); }
+
+.footer-sources {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ── ANIMATIONS ── */
+@media (max-width: 900px) { 
+  .ops-grid, .stf-items, .stats-bar { grid-template-columns: repeat(2, 1fr); } 
+}
+@media (max-width: 600px) { 
+  .ops-grid, .stf-items, .stats-bar, .matrix-grid { grid-template-columns: 1fr; } 
+}
+
+/* ── RELATED ARTIFACTS ── */
+.agrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.acard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.acard:hover {
+  border-color: var(--amber);
+  background: var(--surface2);
+}
+.abadge {
+  display: inline-flex;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+.ab-amber { background: rgba(232,160,32,0.1); color: var(--amber); border: 1px solid var(--amber); }
+.ab-red { background: rgba(224,58,58,0.1); color: var(--red); border: 1px solid var(--red); }
+.ab-blue { background: rgba(34,184,204,0.1); color: var(--cyan); border: 1px solid var(--cyan); }
+
+.atitle { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.adesc { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wrapper > * {
+  animation: fadeIn 0.4s ease forwards;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-meta">
+      <span class="badge">INVESTIGAÇÃO</span>
+      <span class="badge ops">Compliance Zero · Carbono Oculto · Sem Desconto</span>
+      <span class="badge date">Atualizado: Abr/2026</span>
+    </div>
+    <h1>TEIA <span class="highlight">MASTER</span><br>Rede de Conexões Investigativas</h1>
+    <p class="subtitle">
+      Mapeamento das relações entre Banco Master · Fictor · Reag Investimentos · PCC · STF · INSS.<br>
+      Baseado em fontes documentais públicas, relatórios da PF, CPI do Crime Organizado e imprensa verificada.
+    </p>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-value">R$ 12bi</span>
+      <span class="stat-label">Fraude estimada (Compliance Zero)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">R$ 250mi</span>
+      <span class="stat-label">Movimentado para o PCC (Reag/PF)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">R$ 6,3bi</span>
+      <span class="stat-label">Desvio INSS 2019–2025 (Op. Sem Desconto)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">350</span>
+      <span class="stat-label">Alvos Carbono Oculto (42 na Faria Lima)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Ministros do STF implicados</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">700+</span>
+      <span class="stat-label">Fundos Reag (300 grupos empresariais)</span>
+    </div>
+  </div>
+
+  <!-- NODO CENTRAL -->
+  <div class="section-title">Epicentro do Escândalo</div>
+  <div class="center-card">
+    <div class="center-card-inner">
+      <div>
+        <div class="node-id">NODE-001 · EPICENTRO</div>
+        <h2>BANCO MASTER / DANIEL VORCARO</h2>
+        <p class="desc">
+          Banco liquidado pelo Banco Central em novembro de 2025 após investigação da PF (Op. Compliance Zero).<br>
+          Acusações: fraude sistêmica de R$ 12bi, lavagem de dinheiro, manipulação de mercado, crédito consignado fraudulento ao INSS, emissão de CDBs sem lastro, financiamento de si mesmo via triangulação com fundos da Reag.<br>
+          Vorcaro preso 3x pela PF (nov/2025, fev/2026, abr/2026). Tentou fugir do país na 1ª prisão. Seu braço-direito "Sicário" suicidou-se na cela.
+        </p>
+      </div>
+      <div class="threat-level">
+        <span class="threat-value">CRÍTICO</span>
+        <span class="threat-label">Nível de Risco</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPERAÇÕES -->
+  <div class="section-title">Operações em Curso</div>
+  <div class="ops-grid">
+    <div class="op-card">
+      <div class="op-card-header">
+        <span class="op-name">OP. COMPLIANCE ZERO</span>
+        <span class="op-status status-ativa">Ativa · PF</span>
+      </div>
+      <div class="op-card-body">
+        <ul>
+          <li>Fraudes de R$ 12bi no Banco Master</li>
+          <li>Lavagem de dinheiro via fundos Reag</li>
+          <li>Manipulação de mercado e CDBs sem lastro</li>
+          <li>Triangulação financeira com empresas-fachada</li>
+          <li>Autofinanciamento via crédito consignado INSS</li>
+        </ul>
+      </div>
+    </div>
+    <div class="op-card">
+      <div class="op-card-header">
+        <span class="op-name">OP. CARBONO OCULTO</span>
+        <span class="op-status status-ativa">Ativa · PF+MPSP</span>
+      </div>
+      <div class="op-card-body">
+        <ul>
+          <li>Infiltração do PCC no mercado financeiro formal</li>
+          <li>Lavagem em fundos Reag (~R$ 250mi para PCC)</li>
+          <li>350 alvos, 42 escritórios na Faria Lima</li>
+          <li>Postos de combustível como lavanderia PCC</li>
+          <li>Fabiano Zettel (cunhado de Vorcaro) como elo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="op-card">
+      <div class="op-card-header">
+        <span class="op-name">CPMI DO INSS</span>
+        <span class="op-status status-cpi">Ativa · Senado</span>
+      </div>
+      <div class="op-card-body">
+        <ul>
+          <li>Desvio de R$ 6,3bi de aposentados (2019–2025)</li>
+          <li>Master operava fraudes em crédito consignado</li>
+          <li>PKL One (empresa Reag) captava carteiras fraudulentas</li>
+          <li>Sigilos do fundo Arleen suspensos pelo STF</li>
+          <li>Conexão com Banco Pleno (mesmo conglomerado)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="op-card">
+      <div class="op-card-header">
+        <span class="op-name">CPI DO CRIME ORG.</span>
+        <span class="op-status status-concluida">Encerrada Abr/2026</span>
+      </div>
+      <div class="op-card-body">
+        <ul>
+          <li>Relatório final: Master como canal de lavagem do PCC</li>
+          <li>Proposta de indiciamento de Moraes, Toffoli, Gilmar e Gonet</li>
+          <li>STF interveio: anulou quebra de sigilo do fundo Arleen</li>
+          <li>Apenas 18 oitivas de 90+ convocados</li>
+          <li>Relator: Alessandro Vieira (MDB-SE)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="op-card">
+      <div class="op-card-header">
+        <span class="op-name">OP. SEM DESCONTO</span>
+        <span class="op-status status-ativa">Ativa · PF+CGU</span>
+      </div>
+      <div class="op-card-body">
+        <ul>
+          <li>Fraude no INSS desde 2019</li>
+          <li>Descontos indevidos em benefícios de aposentados</li>
+          <li>Banco Master entre os bancos investigados</li>
+          <li>Ponto de convergência com Carbono Oculto</li>
+          <li>Iniciada em abril de 2025</li>
+        </ul>
+      </div>
+    </div>
+    <div class="op-card">
+      <div class="op-card-header">
+        <span class="op-name">OP. FATURA EXPOSTA</span>
+        <span class="op-status status-ativa">Ativa · PF</span>
+      </div>
+      <div class="op-card-body">
+        <ul>
+          <li>Doleiro Moghrabi: US$ 239mi movimentados</li>
+          <li>Conexões com operadores do Master</li>
+          <li>Beneficiou-se de HC concedido por Gilmar Mendes</li>
+          <li>Evasão de divisas e lavagem internacional</li>
+          <li>Apuração de crimes financeiros transnacionais</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATRIX DE CONEXÕES -->
+  <div class="section-title">Matriz de Conexões Verificadas</div>
+  <div class="matrix-section">
+    <div class="matrix-grid">
+
+      <!-- Master ↔ PCC via Reag -->
+      <div class="conn-card nivel-critico">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">BANCO MASTER</div><div class="actor-b">Faria Lima · Vorcaro</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">PCC</div><div class="actor-b">Crime organizado</div></div>
+          </div>
+          <span class="nivel-badge n-critico">Crítico</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Fundos da Reag usados para movimentar ~R$ 250mi para o PCC, segundo a PF (Op. Carbono Oculto)</div><div class="ev-source">Fonte: CPI Crime Organizado · Senado Federal, mar/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">PKL One (empresa ligada à Reag) captava carteiras de crédito consignado para o Master, investigada por lavagem</div><div class="ev-source">Fonte: Agência Pública · abr/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">PCC opera "indústria de lavagem na Faria Lima" — 42 dos 350 alvos da Op. Carbono Oculto têm escritório na avenida</div><div class="ev-source">Fonte: Senador Contarato, CPI · mar/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Master ↔ Reag -->
+      <div class="conn-card nivel-critico">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">BANCO MASTER</div><div class="actor-b">Daniel Vorcaro</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">REAG INVESTIMENTOS</div><div class="actor-b">João Carlos Mansur</div></div>
+          </div>
+          <span class="nivel-badge n-critico">Crítico</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Master financiava a si mesmo: emprestava para empresas recém-fundadas que aplicavam em fundos da Reag</div><div class="ev-source">Fonte: Agência Pública · abr/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Reag foi liquidada pelo Banco Central em janeiro de 2026 após investigações da PF</div><div class="ev-source">Fonte: Senado Notícias · mar/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Fabiano Zettel (cunhado de Vorcaro): fundo Arleen usado em operações financeiras com pivôs da Carbono Oculto como "duto para lavagem"</div><div class="ev-source">Fonte: Senador Humberto Costa · CPI · mar/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Master ↔ Fictor -->
+      <div class="conn-card nivel-grave">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">BANCO MASTER</div><div class="actor-b">A ser vendido</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">GRUPO FICTOR</div><div class="actor-b">Holding empresarial</div></div>
+          </div>
+          <span class="nivel-badge n-grave">Grave</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Em novembro de 2025, Vorcaro anunciou venda do Master ao Grupo Fictor — horas depois foi preso pela PF ao tentar deixar o país</div><div class="ev-source">Fonte: Bloomberg Linha · fev/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Banco Central impediu a compra e ordenou liquidação — deterioração financeira acelerada, fraudes e descumprimento regulatório</div><div class="ev-source">Fonte: Banco Central do Brasil · nov/2025</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Fictor posteriormente entrou com pedido de recuperação judicial após negócio barrado</div><div class="ev-source">Fonte: Bloomberg Linha · fev/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Vorcaro ↔ Moraes -->
+      <div class="conn-card nivel-critico">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">DANIEL VORCARO</div><div class="actor-b">Banco Master</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">ALEXANDRE DE MORAES</div><div class="actor-b">Min. STF</div></div>
+          </div>
+          <span class="nivel-badge n-critico">Crítico</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">PF encontrou no celular de Vorcaro mensagens com Moraes até horas antes da 1ª prisão, em novembro de 2025</div><div class="ev-source">Fonte: O Globo · nov/2025</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Escritório Barci de Moraes (esposa do ministro) fechou contrato com o Master prevendo pagamentos mensais superiores a R$ 21mi</div><div class="ev-source">Fonte: O Globo · nov/2025</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">PF aponta 8 viagens de Moraes e sua esposa em jatos executivos de empresas de Vorcaro entre mai/2025 e out/2025. Ministro nega</div><div class="ev-source">Fonte: Folha de S.Paulo · abr/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Vorcaro ↔ Toffoli -->
+      <div class="conn-card nivel-critico">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">DANIEL VORCARO</div><div class="actor-b">Banco Master</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">DIAS TOFFOLI</div><div class="actor-b">Min. STF · Ex-relator</div></div>
+          </div>
+          <span class="nivel-badge n-critico">Crítico</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Mensagens no celular de Vorcaro implicam Toffoli. Ministro se afastou do caso Master em fev/2026 após relatório da PF</div><div class="ev-source">Fonte: Bloomberg Linha · fev/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Empresa Maridt (Toffoli como sócio) vendeu participação no resort Tayayá a fundo de investimentos integrado à engrenagem de fraudes do Master</div><div class="ev-source">Fonte: Folha de S.Paulo · mar/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">CPI aprovou quebra de sigilo do fundo Arleen (comprador do Tayayá de Toffoli) — depois anulado pelo STF (Gilmar Mendes)</div><div class="ev-source">Fonte: Metrópoles · mar/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reag ↔ PCC (Carbono Oculto) -->
+      <div class="conn-card nivel-critico">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">REAG INVESTIMENTOS</div><div class="actor-b">João Carlos Mansur</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">PCC</div><div class="actor-b">Operação Carbono Oculto</div></div>
+          </div>
+          <span class="nivel-badge n-critico">Crítico</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">PF: fundos da Reag movimentaram cerca de R$ 250mi para o PCC, usados também em operações fraudulentas do Master</div><div class="ev-source">Fonte: CPI Crime Organizado · Senado · mar/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Op. Carbono Oculto identificou bilhões do PCC lavados em fundos de investimento, vários deles da Reag</div><div class="ev-source">Fonte: Estadão · ago/2025</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Mansur depôs à CPI em mar/2026 e ficou em silêncio na maior parte do tempo. Negou ligação com o PCC</div><div class="ev-source">Fonte: Senado Notícias · mar/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Master ↔ BRB/Moraes -->
+      <div class="conn-card nivel-grave">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">BANCO MASTER</div><div class="actor-b">Fusão tentada</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">BRB (Banco de Brasília)</div><div class="actor-b">Banco estatal / Vorcaro–Moraes</div></div>
+          </div>
+          <span class="nivel-badge n-grave">Grave</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Escritório da esposa de Moraes assinou contrato com o Master relacionado à proposta de fusão com o BRB estatal. Moraes nega que o escritório atuou no processo</div><div class="ev-source">Fonte: O Globo · nov/2025</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Duas visitas de Moraes à casa de Vorcaro foram documentadas, uma delas com o ex-CEO do BRB</div><div class="ev-source">Fonte: Mapa Mental Moraes · histórico investigativo</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CPI vs STF -->
+      <div class="conn-card nivel-suspeito">
+        <div class="conn-header">
+          <div style="display:flex;align-items:center;gap:8px;flex:1">
+            <div class="conn-actors"><div class="actor-a">CPI / CPMI</div><div class="actor-b">Senado Federal</div></div>
+            <div class="conn-arrow">⟷</div>
+            <div class="conn-actors"><div class="actor-a">STF</div><div class="actor-b">Intervenções nas CPIs</div></div>
+          </div>
+          <span class="nivel-badge n-suspeito">Suspeito</span>
+        </div>
+        <div class="conn-body">
+          <ul class="conn-evidence">
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Gilmar Mendes anulou quebra de sigilo do fundo Arleen (ligado a Toffoli) aprovada pela CPI — decisão criticada por parlamentares</div><div class="ev-source">Fonte: Metrópoles · mar/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Flávio Dino suspendeu quebra de sigilo da PKL One (ligada à Reag) aprovada pela CPMI do INSS em bloco</div><div class="ev-source">Fonte: Agência Pública · abr/2026</div></div>
+            </li>
+            <li class="evidence-item">
+              <span class="ev-dot"></span>
+              <div><div class="ev-text">Pedido de CPI específica para o STF/Master (35 senadores) negado em março de 2026</div><div class="ev-source">Fonte: Senado Federal · mar/2026</div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLUXO FINANCEIRO -->
+  <div class="section-title">Fluxo Financeiro Investigado</div>
+  <div class="flow-section">
+    <div class="flow-diagram">
+      <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:20px;letter-spacing:0.1em;text-transform:uppercase;">Rotas de Lavagem Documentadas pela PF / CPI</p>
+      
+      <div class="flow-row">
+        <div class="flow-node fn-pcc">PCC<br>(tráfico/extorsão)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">R$250mi+</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-reag">Fundos REAG<br>(700+ fundos)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">lavagem</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-master">BANCO MASTER<br>(cliente Reag)</div>
+      </div>
+
+      <div class="flow-row" style="margin-top:16px;">
+        <div class="flow-node fn-master">BANCO MASTER</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">empréstimos</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-inss">Empresas-fachada<br>(recém-fundadas)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">aplicam em</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-reag">Fundos REAG</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">retorna ao</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-master">MASTER</div>
+      </div>
+
+      <div class="flow-row" style="margin-top:16px;">
+        <div class="flow-node fn-inss">INSS / Aposentados</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">consignado fraudulento</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-master">BANCO MASTER<br>+ PKL One (Reag)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">desvio</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-reag">Fundos REAG</div>
+      </div>
+
+      <div class="flow-row" style="margin-top:16px;">
+        <div class="flow-node fn-master">BANCO MASTER</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">venda barrada pelo BC</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-fictor">GRUPO FICTOR<br>(liquidado)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">fusão tentada</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-brb">BRB<br>(banco estatal)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-label">advogada de</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node fn-stf">Barci de Moraes<br>(Escritório / Moraes/STF)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-title">Cronologia Crítica</div>
+  <div class="timeline" style="margin-bottom:48px;">
+    <div class="tl-item ev-info">
+      <div class="tl-date">AGO 2025</div>
+      <div class="tl-title">Operação Carbono Oculto deflagrada</div>
+      <div class="tl-desc">MPSP e PF investigam infiltração do PCC no mercado financeiro. Fundos da Reag identificados como canais de lavagem.</div>
+    </div>
+    <div class="tl-item ev-critico">
+      <div class="tl-date">NOV 2025</div>
+      <div class="tl-title">Banco Master liquidado · Vorcaro preso (1ª vez)</div>
+      <div class="tl-desc">Banco Central ordena liquidação. Horas após anunciar venda ao Grupo Fictor, Vorcaro é preso pela PF tentando fugir do país. "Sicário" preso no mesmo dia, suicida-se na cela.</div>
+    </div>
+    <div class="tl-item ev-critico">
+      <div class="tl-date">NOV 2025</div>
+      <div class="tl-title">CPI do Crime Organizado instalada no Senado</div>
+      <div class="tl-desc">Missão: investigar PCC, CV e lavagem de dinheiro. Na reta final, concentra-se no caso Master.</div>
+    </div>
+    <div class="tl-item ev-grave">
+      <div class="tl-date">FEV 2026</div>
+      <div class="tl-title">Toffoli se afasta do caso Master · André Mendonça assume</div>
+      <div class="tl-desc">Após relatório da PF com mensagens de Vorcaro, Toffoli abandona a relatoria. Empresa Maridt (sócio: Toffoli) vendeu resort ao fundo da teia do Master.</div>
+    </div>
+    <div class="tl-item ev-grave">
+      <div class="tl-date">MAR 2026</div>
+      <div class="tl-title">Mansur (Reag) ouve CPI em silêncio · Gilmar anula sigilo Arleen</div>
+      <div class="tl-desc">Fundador da Reag usa direito ao silêncio. No mesmo período, Gilmar Mendes anula quebra de sigilo do fundo Arleen aprovada pela CPI — gerando acusações de obstrução.</div>
+    </div>
+    <div class="tl-item ev-critico">
+      <div class="tl-date">ABR 2026</div>
+      <div class="tl-title">Vorcaro preso pela 3ª vez · CPI encerrada</div>
+      <div class="tl-desc">3ª fase da Op. Compliance Zero. CPI encerra com 18 oitivas (de 90+ convocados). Relatório final propõe indiciamento de Moraes, Toffoli, Gilmar e PGR Gonet. Vorcaro negocia delação premiada.</div>
+    </div>
+  </div>
+
+  <!-- TABELA DE ATORES -->
+  <div class="section-title">Atores-Chave e Exposição</div>
+  <table class="actors-table">
+    <thead>
+      <tr>
+        <th>Ator</th>
+        <th>Papel</th>
+        <th>Tipo de Conexão</th>
+        <th>Status Atual</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-critico"></span>Daniel Vorcaro</div><div class="actor-role">Dono do Banco Master</div></td>
+        <td>Epicentro. Fraude R$12bi, lavagem, fuga tentada</td>
+        <td><span class="conn-type">PRESO / RÉU</span></td>
+        <td>Preso 3x. Negocia delação premiada com PF/PGR</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-critico"></span>Alexandre de Moraes</div><div class="actor-role">Min. STF</div></td>
+        <td>Contato via mensagens + escritório da esposa com contrato Master + viagens em jatos de Vorcaro</td>
+        <td><span class="conn-type">INVESTIGADO / IMPLICADO</span></td>
+        <td>Nega relação. CPI propõe indiciamento por crimes de responsabilidade</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-critico"></span>Dias Toffoli</div><div class="actor-role">Min. STF · Ex-relator Master</div></td>
+        <td>Mensagens no celular de Vorcaro. Empresa Maridt vendeu resort ao fundo da teia Master</td>
+        <td><span class="conn-type">AFASTADO / IMPLICADO</span></td>
+        <td>Afastou-se do caso em fev/2026. CPI propõe indiciamento</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-grave"></span>Gilmar Mendes</div><div class="actor-role">Min. STF</div></td>
+        <td>Anulou quebra de sigilo do fundo Arleen aprovada pela CPI. HC para doleiro Moghrabi</td>
+        <td><span class="conn-type">INTERVENÇÃO JUDICIAL</span></td>
+        <td>CPI propõe indiciamento. Mantém decisões monocráticas</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-grave"></span>João Carlos Mansur</div><div class="actor-role">Fundador da Reag</div></td>
+        <td>Reag como braço financeiro do Master e canal de lavagem do PCC</td>
+        <td><span class="conn-type">INVESTIGADO / SILÊNCIO</span></td>
+        <td>Ficou em silêncio na CPI. Reag liquidada pelo BC em jan/2026</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-grave"></span>Fabiano Zettel</div><div class="actor-role">Cunhado de Vorcaro</div></td>
+        <td>Fundo Arleen — "duto para lavagem de recursos ilícitos" ligando Reag, Master e PCC</td>
+        <td><span class="conn-type">SIGILO QUEBRADO / CPI</span></td>
+        <td>Sigilos fiscal, bancário, telefônico e telemático quebrados pela CPI</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-grave"></span>Grupo Fictor</div><div class="actor-role">Holding empresarial</div></td>
+        <td>Anunciou compra do Master horas antes da prisão de Vorcaro. BC impediu aquisição</td>
+        <td><span class="conn-type">COMPRA FRUSTRADA</span></td>
+        <td>Pediu recuperação judicial após negócio barrado. Suspeitas de BC sobre motivação</td>
+      </tr>
+      <tr>
+        <td><div class="actor-name"><span class="risk-dot rd-medio"></span>PCC</div><div class="actor-role">Organização criminosa</div></td>
+        <td>R$250mi+ lavados via fundos Reag. Op. Carbono Oculto: PCC com "indústria financeira" na Faria Lima</td>
+        <td><span class="conn-type">LAVAGEM / INFILTRAÇÃO</span></td>
+        <td>Sob investigação PF+MPSP. Vários operadores presos</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- STF INTERFERENCE -->
+  <div class="section-title">Interferências do STF nas Investigações</div>
+  <div class="stf-block">
+    <h3>Padrão de Obstáculos Institucionais Documentados</h3>
+    <div class="stf-items">
+      <div class="stf-item">
+        <div class="stf-item-title">Gilmar Mendes anula sigilo do fundo Arleen</div>
+        <div class="stf-item-desc">Quebra de sigilo do fundo Arleen (ligado a Toffoli pelo resort Tayayá) aprovada pela CPI foi anulada monocraticamente por Gilmar. Parlamentares acusaram obstrução. Mar/2026.</div>
+      </div>
+      <div class="stf-item">
+        <div class="stf-item-title">Flávio Dino suspende PKL One (CPMI INSS)</div>
+        <div class="stf-item-desc">Sigilo da PKL One (empresa Reag) aprovado pela CPMI do INSS suspenso pelo STF sob argumento de aprovação "em bloco". Fev/2026.</div>
+      </div>
+      <div class="stf-item">
+        <div class="stf-item-title">Toffoli era relator do caso Master</div>
+        <div class="stf-item-desc">Ministro com conexões documentadas com Vorcaro era o relator do inquérito do próprio Banco Master no STF — conflito de interesse que levou meses para ser formalizado. Jan-Fev/2026.</div>
+      </div>
+      <div class="stf-item">
+        <div class="stf-item-title">CPI para investigar STF/Master negada</div>
+        <div class="stf-item-desc">Pedido de 35 senadores para criar CPI específica sobre as ligações STF-Master foi rejeitado em março de 2026. Senadores citaram "escudo institucional" protegendo investigados.</div>
+      </div>
+      <div class="stf-item">
+        <div class="stf-item-title">Dilema da delação de Vorcaro</div>
+        <div class="stf-item-desc">Advogados de Vorcaro tentaram excluir ministros da delação. PGR recusou. Se provas implicarem Toffoli e Moraes, Mendonça enfrentará pressão inédita sobre o próprio Tribunal. Abr/2026.</div>
+      </div>
+      <div class="stf-item">
+        <div class="stf-item-title">André Mendonça: novo relator sob vigilância</div>
+        <div class="stf-item-desc">Assumiu o caso após afastamento de Toffoli. PGR e PF negociam delação de Vorcaro. Mendonça sinalizou que não protegerá colegas se houver provas — mas enfrenta pressão interna.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED ARTEFACTS -->
+  <div class="section-title">Artefatos Relacionados & Transversalidade</div>
+  <div class="agrid" style="margin-bottom: 80px;">
+    <a href="padroes-sistemicos-dashboard.html" class="acard">
+      <div class="abadge ab-red">Metodologia</div>
+      <div class="atitle">Padrões P1–P10</div>
+      <div class="adesc">A base analítica que conecta as 10 falhas de design do sistema estatal brasileiro.</div>
+    </a>
+    <a href="global-kompromat.html" class="acard">
+      <div class="abadge ab-red">Estado Capturado</div>
+      <div class="atitle">Global Kompromat</div>
+      <div class="adesc">Mapa forense de redes de influência, captura institucional e lawfare global.</div>
+    </a>
+    <a href="republica-capturada.html" class="acard">
+      <div class="abadge ab-amber">Dossiê Master</div>
+      <div class="atitle">República Capturada</div>
+      <div class="adesc">Mapeamento das operações Greenwashing, Carbono Oculto e conexões institucionais.</div>
+    </a>
+    <a href="operacao-silencio-digital.html" class="acard">
+      <div class="abadge ab-blue">Censura</div>
+      <div class="atitle">Silêncio Digital</div>
+      <div class="adesc">O regime de censura judicial e o uso de ordens sigilosas para proteger a teia.</div>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-note">
+      <strong>FONTE DOS DADOS:</strong> Este dossiê compila informações de fontes primárias autenticadas: relatórios da PF, autos de liquidação do BC, depoimentos na CPI do Crime Organizado (2025-2026) e registros de investigação jornalística. CC0 1.0 Universal — Domínio Público.
+    </div>
+    <div class="footer-sources">
+      DOC-ID: MASTER-TEIA-2026-V1.5<br>
+      <a href="https://lawfare-timeline.vercel.app/">lawfare-timeline.vercel.app</a><br>
+      Base de dados atualizada: abr/2026
+    </div>
+  </footer>
+
+</div>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

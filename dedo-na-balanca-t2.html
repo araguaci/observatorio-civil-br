@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dedo na Balança — 2ª Temporada</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap');
+
+:root {
+  --bg:       #09090b;
+  --bg2:      #101014;
+  --bg3:      #16161c;
+  --bg4:      #1e1e26;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.13);
+  --text:     #e9e7e1;
+  --text2:    #9a9890;
+  --text3:    #56545a;
+  --red:      #e84040;
+  --red2:     #ff7070;
+  --amber:    #e8a020;
+  --amber2:   #ffc940;
+  --teal:     #1cb87a;
+  --blue:     #4478e8;
+  --purple:   #9060e8;
+  --display:  'Playfair Display', serif;
+  --mono:     'IBM Plex Mono', monospace;
+  --sans:     'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCANLINES */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* NOISE GRAIN */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9998; opacity: 0.4;
+}
+
+.wrap { max-width: 1340px; margin: 0 auto; padding: 0 24px 100px; }
+
+/* ─── HEADER ─── */
+.header {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 48px;
+  position: relative;
+}
+.header-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--red);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px;
+}
+.dot-pulse {
+  width: 7px; height: 7px; background: var(--red); border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+.header-title {
+  font-family: var(--display);
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.header-title em {
+  font-style: italic;
+  color: var(--amber);
+}
+.header-season {
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--text3); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.header-tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--text2);
+  max-width: 640px;
+  line-height: 1.5;
+  border-left: 2px solid var(--amber);
+  padding-left: 16px;
+  margin-bottom: 28px;
+}
+.header-meta {
+  display: flex; gap: 24px; flex-wrap: wrap;
+}
+.meta-chip {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text3);
+  border: 1px solid var(--border2);
+  padding: 4px 10px; border-radius: 3px;
+}
+.meta-chip span { color: var(--text2); }
+
+/* ─── SEASON PREMISE ─── */
+.premise {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-bottom: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media(max-width:700px){ .premise { grid-template-columns: 1fr; } }
+.premise-col {}
+.premise-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--amber);
+  margin-bottom: 8px;
+}
+.premise-text {
+  font-size: 12px; color: var(--text2); line-height: 1.7;
+}
+.premise-text strong { color: var(--text); }
+
+/* ─── PATTERNS LEGEND ─── */
+.patterns-header {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 16px;
+}
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 48px;
+}
+@media(max-width:780px){ .patterns-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .patterns-grid { grid-template-columns: 1fr; } }
+.pattern-pill {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px; padding: 10px 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  transition: border-color 0.2s;
+  cursor: default;
+}
+.pattern-pill:hover { border-color: var(--border2); }
+.pill-code {
+  font-size: 10px; font-weight: 600;
+  color: var(--text3); flex-shrink: 0;
+  padding-top: 1px;
+}
+.pill-text {
+  font-size: 11px; color: var(--text2); line-height: 1.5;
+}
+.pill-text strong { color: var(--text); display: block; }
+
+/* ─── EPISODE GRID ─── */
+.episodes-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.episodes-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+.ep-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-bottom: 2px;
+}
+@media(max-width:860px){ .ep-grid { grid-template-columns: 1fr; } }
+
+/* EPISODE CARD */
+.ep-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+.ep-card:first-child { border-radius: 4px 0 0 0; }
+.ep-card:nth-child(2) { border-radius: 0 4px 0 0; }
+.ep-grid + .ep-grid .ep-card:last-child { border-radius: 0 0 4px 0; }
+
+/* special EP0 */
+.ep-card.ep0 {
+  border-color: var(--border2);
+  border-left: 3px solid var(--text3);
+  grid-column: 1 / -1;
+  border-radius: 4px 4px 0 0;
+}
+.ep-card.ep7 {
+  border-left: 3px solid var(--red);
+  grid-column: 1 / -1;
+  border-radius: 0 0 4px 4px;
+}
+
+.ep-card:hover { background: var(--bg3); border-color: var(--border2); }
+.ep-card.open  { background: var(--bg3); border-color: var(--border2); }
+
+.ep-accent { width: 100%; height: 2px; }
+
+.ep-head {
+  padding: 20px 20px 16px;
+  display: flex; align-items: flex-start; gap: 14px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.ep-card.open .ep-head { border-color: var(--border); }
+
+.ep-num {
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--text3); flex-shrink: 0; padding-top: 3px;
+  min-width: 40px;
+}
+.ep-title-block { flex: 1; }
+.ep-title {
+  font-family: var(--display);
+  font-size: clamp(14px, 2vw, 17px);
+  font-weight: 700; line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.ep-subtitle {
+  font-size: 10px; color: var(--text3);
+  font-style: italic; line-height: 1.5;
+}
+.ep-arrow {
+  font-size: 12px; color: var(--text3);
+  transition: transform 0.2s; flex-shrink: 0;
+  padding-top: 4px;
+}
+.ep-card.open .ep-arrow { transform: rotate(90deg); color: var(--amber); }
+
+.ep-tags {
+  padding: 0 20px 16px 74px;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.ep-tag {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 3px 8px;
+  border-radius: 2px; border: 1px solid;
+}
+.tag-red    { color: var(--red2);   border-color: rgba(232,64,64,0.25);   background: rgba(232,64,64,0.07); }
+.tag-amber  { color: var(--amber2); border-color: rgba(232,160,32,0.25);  background: rgba(232,160,32,0.07); }
+.tag-teal   { color: #4ecda4;       border-color: rgba(28,184,122,0.25);  background: rgba(28,184,122,0.07); }
+.tag-blue   { color: #7098f0;       border-color: rgba(68,120,232,0.25);  background: rgba(68,120,232,0.07); }
+.tag-purple { color: #b080f8;       border-color: rgba(144,96,232,0.25);  background: rgba(144,96,232,0.07); }
+.tag-gray   { color: var(--text3);  border-color: var(--border2);          background: var(--bg4); }
+
+/* EXPANDABLE BODY */
+.ep-body {
+  display: none;
+  padding: 0 20px 24px 74px;
+  animation: fadeIn 0.2s ease;
+}
+.ep-card.open .ep-body { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+.ep-section { margin-bottom: 20px; }
+.ep-section:last-child { margin-bottom: 0; }
+
+.ep-section-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ep-section-label::after { content: ''; height: 1px; flex: 1; background: var(--border); }
+
+.ep-tese {
+  font-size: 12px; color: var(--text2); line-height: 1.75;
+}
+.ep-tese strong { color: var(--text); }
+.ep-tese em { color: var(--amber); font-style: normal; }
+
+/* CASOS LIST */
+.casos-list {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.caso-item {
+  background: var(--bg4); border: 1px solid var(--border);
+  border-radius: 3px; padding: 10px 14px;
+  font-size: 11px; line-height: 1.6; color: var(--text2);
+}
+.caso-item strong { color: var(--text); }
+.caso-item .caso-year {
+  font-family: var(--mono);
+  font-size: 10px; color: var(--text3);
+  float: right; padding-left: 8px;
+}
+
+/* SATIRICAL BLOCK */
+.satire-block {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--amber);
+  border-radius: 3px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.75;
+  font-style: italic;
+}
+.satire-block strong { color: var(--amber); font-style: normal; }
+
+/* PERGUNTA ABERTA */
+.open-question {
+  background: rgba(232,64,64,0.06);
+  border: 1px solid rgba(232,64,64,0.2);
+  border-radius: 3px;
+  padding: 12px 16px;
+  font-size: 11px; color: var(--text2); line-height: 1.65;
+}
+.open-question::before {
+  content: '🔴 PERGUNTA ABERTA — ';
+  font-weight: 600; color: var(--red2);
+  font-size: 10px; letter-spacing: 0.05em;
+}
+
+/* ELEIÇÃO TICKER */
+.election-bar {
+  display: flex; align-items: stretch;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+.election-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--bg);
+  background: var(--amber); padding: 10px 16px;
+  writing-mode: horizontal-tb;
+  display: flex; align-items: center;
+  flex-shrink: 0;
+}
+.election-ticker {
+  padding: 0 20px;
+  overflow: hidden;
+  display: flex; align-items: center;
+  flex: 1;
+}
+.ticker-inner {
+  display: flex; gap: 0;
+  animation: ticker 28s linear infinite;
+  white-space: nowrap;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-item {
+  font-size: 11px; color: var(--text2);
+  padding: 0 32px;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.ticker-item strong { color: var(--amber2); }
+.ticker-item span { color: var(--text3); }
+
+/* ─── ARCO CTA ─── */
+.arc-block {
+  margin-top: 48px;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.arc-header {
+  background: var(--bg3);
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 16px;
+}
+.arc-icon { font-size: 20px; }
+.arc-title {
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+  color: var(--text);
+}
+.arc-subtitle { font-size: 11px; color: var(--text3); }
+.arc-body {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media(max-width:700px){ .arc-body { grid-template-columns: 1fr; } }
+.arc-season {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 16px;
+  text-align: center;
+}
+.arc-season-num {
+  font-family: var(--display);
+  font-size: 32px; font-weight: 900;
+  line-height: 1; margin-bottom: 8px;
+}
+.arc-season-desc {
+  font-size: 11px; color: var(--text2); line-height: 1.6;
+}
+.t1 .arc-season-num { color: var(--text3); }
+.t2 .arc-season-num { color: var(--amber); }
+.t2 { border-color: var(--amber); }
+.t3 .arc-season-num { color: var(--red2); }
+.arc-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: var(--text3);
+}
+
+/* ─── CREDITS / POST-CREDITS ─── */
+.postcredits {
+  margin-top: 32px;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 4px;
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.postcredits::before {
+  content: 'PÓS-CRÉDITOS';
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  font-size: 9px; font-weight: 600; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--text3);
+}
+.postcredits-text {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(14px, 2.5vw, 20px);
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 24px auto 20px;
+}
+.postcredits-text em { color: var(--red2); font-style: normal; }
+.postcredits-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px 24px;
+  display: inline-block;
+  text-align: left;
+  margin-top: 8px;
+}
+.postcredits-code .line { display: block; }
+.postcredits-code .val { color: var(--amber2); }
+.postcredits-code .key { color: var(--text2); }
+.postcredits-code .comment { color: var(--text3); }
+
+/* FOOTER */
+.footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-left {
+  font-size: 10px; color: var(--text3);
+}
+.footer-right {
+  font-size: 10px; color: var(--text3);
+}
+.footer-right a { color: var(--text2); text-decoration: none; }
+.footer-right a:hover { color: var(--text); }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-eyebrow">
+      <div class="dot-pulse"></div>
+      Série Documental · Lawfare Timeline · CC0 Domínio Público
+    </div>
+    <h1 class="header-title">Dedo na<br><em>Balança</em></h1>
+    <div class="header-season">2ª Temporada — 2026</div>
+    <p class="header-tagline">
+      "Mesma Novela, Elenco Novo, Patrocinador Antigo.<br>
+      Os atores mudam a cada quatro anos. O roteiro não mudou desde 1988."
+    </p>
+    <div class="header-meta">
+      <div class="meta-chip">Episódios: <span>8 (EP0–EP7)</span></div>
+      <div class="meta-chip">Padrões cobertos: <span>6/6 ✓</span></div>
+      <div class="meta-chip">Inspirado em: <span>República Capturada</span></div>
+      <div class="meta-chip">Status: <span>Roteiro em andamento</span></div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       ELECTION TICKER
+  ══════════════════════════════════════════ -->
+  <div class="election-bar">
+    <div class="election-label">CICLO ELEITORAL</div>
+    <div class="election-ticker">
+      <div class="ticker-inner">
+        <div class="ticker-item"><strong>Ano 1</strong> <span>→</span> Novas indicações ao STF. Recomposição de maioria.</div>
+        <div class="ticker-item"><strong>Ano 2</strong> <span>→</span> Redistribuição de relatorias. Revisão de prazos.</div>
+        <div class="ticker-item"><strong>Ano 3</strong> <span>→</span> Prescrições estratégicas. Arquivamentos silenciosos.</div>
+        <div class="ticker-item"><strong>Ano 4</strong> <span>→</span> Campanha. Todos se comportam. Até janeiro seguinte.</div>
+        <div class="ticker-item"><strong>Roteiro:</strong> <span>imutável</span> · <strong>Elenco:</strong> <span>renovável</span> · <strong>Financiamento:</strong> <span>o mesmo</span></div>
+        <!-- duplicado para loop contínuo -->
+        <div class="ticker-item"><strong>Ano 1</strong> <span>→</span> Novas indicações ao STF. Recomposição de maioria.</div>
+        <div class="ticker-item"><strong>Ano 2</strong> <span>→</span> Redistribuição de relatorias. Revisão de prazos.</div>
+        <div class="ticker-item"><strong>Ano 3</strong> <span>→</span> Prescrições estratégicas. Arquivamentos silenciosos.</div>
+        <div class="ticker-item"><strong>Ano 4</strong> <span>→</span> Campanha. Todos se comportam. Até janeiro seguinte.</div>
+        <div class="ticker-item"><strong>Roteiro:</strong> <span>imutável</span> · <strong>Elenco:</strong> <span>renovável</span> · <strong>Financiamento:</strong> <span>o mesmo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       PREMISE
+  ══════════════════════════════════════════ -->
+  <div class="premise">
+    <div class="premise-col">
+      <div class="premise-label">Tema Central — T2</div>
+      <div class="premise-text">
+        Se a T1 documentou <strong>como o sistema foi capturado</strong>, a T2 documenta 
+        <strong>como o sistema se mantém capturado</strong> — os mecanismos ativos 
+        de manutenção da blindagem. Não é falha. É arquitetura.
+      </div>
+    </div>
+    <div class="premise-col">
+      <div class="premise-label">Fio Condutor</div>
+      <div class="premise-text">
+        T1 documentou o <em>quê</em>. T2 documenta o <em>como se mantém</em>. 
+        A pergunta não respondida que atravessa todos os oito episódios e aponta para a T3: 
+        <strong>existe saída que não passe pelo sistema?</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       PADRÕES LEGEND
+  ══════════════════════════════════════════ -->
+  <div class="patterns-header">6 Padrões Sistêmicos Documentados</div>
+  <div class="patterns-grid">
+    <div class="pattern-pill">
+      <div class="pill-code">P01</div>
+      <div class="pill-text"><strong>Anulação por vício processual</strong>Atacar o processo, nunca os fatos</div>
+    </div>
+    <div class="pattern-pill">
+      <div class="pill-code">P02</div>
+      <div class="pill-text"><strong>Investigador vira investigado</strong>Intimidação institucional estrutural</div>
+    </div>
+    <div class="pattern-pill">
+      <div class="pill-code">P03</div>
+      <div class="pill-text"><strong>Captura judicial de emergência</strong>Liminares atípicas no momento crítico</div>
+    </div>
+    <div class="pattern-pill">
+      <div class="pill-code">P04</div>
+      <div class="pill-text"><strong>Weaponização da mídia</strong>Rabo preso entre fonte e veículo</div>
+    </div>
+    <div class="pattern-pill">
+      <div class="pill-code">P05</div>
+      <div class="pill-text"><strong>Cofres públicos como vetor</strong>Dinheiro difuso, beneficiário concentrado</div>
+    </div>
+    <div class="pattern-pill">
+      <div class="pill-code">P06</div>
+      <div class="pill-text"><strong>Prescrição estratégica</strong>Tempo como ativo financeiro</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       EPISODES
+  ══════════════════════════════════════════ -->
+  <div class="episodes-label">Grade de Episódios — Clique para expandir</div>
+
+  <!-- EP0 — PRÓLOGO -->
+  <div class="ep-grid" style="margin-bottom:2px">
+    <div class="ep-card ep0" onclick="toggle(this)">
+      <div class="ep-accent" style="background: var(--text3)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP0</div>
+        <div class="ep-title-block">
+          <div class="ep-title">Não É Defeito, É Feature</div>
+          <div class="ep-subtitle">"Parabéns por adquirir o Sistema Judicial Brasileiro® versão 2026."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-gray">Prólogo · 12min</span>
+        <span class="ep-tag tag-gray">Meta-padrão</span>
+        <span class="ep-tag tag-gray">Manual de instruções</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese</div>
+          <div class="ep-tese">
+            O que o cidadão chama de <em>"corrupção sistêmica"</em> é, na verdade, 
+            <strong>funcionamento correto conforme especificações originais.</strong> 
+            O prólogo existe para estabelecer que a temporada não vai documentar falhas — 
+            vai documentar uma arquitetura. Há diferença fundamental entre as duas coisas: 
+            falhas se corrigem, arquiteturas se redesenham.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Formato</div>
+          <div class="satire-block">
+            <strong>Narrador em voz de manual técnico:</strong> "Para melhores resultados, 
+            recomenda-se não investigar. Em caso de investigação acidental, 
+            consulte os padrões P01 a P06 descritos nos próximos episódios. 
+            Contra-indicação: não administrar este sistema em pessoas que acreditam 
+            que a lei se aplica a todos igualmente. Pode causar decepção severa, 
+            crise existencial e eventual exílio na Suíça."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            O prólogo encerra com o calendário de 4 anos em tela — o ciclo como garantia de continuidade. 
+            <strong>O sistema não precisa ser reformado porque é reeleito a cada mandato.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EPISODES 1-6 in 2-column grid -->
+  <div class="ep-grid">
+
+    <!-- EP1 -->
+    <div class="ep-card" onclick="toggle(this)">
+      <div class="ep-accent" style="background: linear-gradient(90deg, var(--blue), var(--purple))"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP1</div>
+        <div class="ep-title-block">
+          <div class="ep-title">Tem Culpado Sim, Mas o Processo Tá Errado</div>
+          <div class="ep-subtitle">"A inocência é cara. A nulidade, mais barata."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-blue">P01 — Vício Processual</span>
+        <span class="ep-tag tag-gray">CPP como colander</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central</div>
+          <div class="ep-tese">
+            A lei processual penal brasileira funciona como um coador: 
+            <strong>retém os pequenos, escoa os grandes.</strong> 
+            O mesmo CPP que condena o dono da padaria em 18 meses 
+            anula sistematicamente investigações que chegam ao atacado da criminalidade. 
+            Em <em>nenhum dos três casos extintos</em> o mérito foi discutido — os fatos nunca foram julgados.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Casos-âncora</div>
+          <div class="casos-list">
+            <div class="caso-item">
+              <span class="caso-year">2011</span>
+              <strong>Castelo de Areia</strong> — Anulada porque a investigação partiu de 
+              "denúncia anônima". O STJ contrariou 33 decisões anteriores da mesma corte para este caso específico.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">2011</span>
+              <strong>Satiagraha</strong> — Anulada por participação informal de agentes da ABIN. 
+              Único condenado: o delegado que investigou, não o banqueiro que foi preso.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">2021</span>
+              <strong>Lava Jato</strong> — Incompetência territorial. Curitiba → Brasília → prescrição. 
+              As provas não desapareceram. O prazo, sim.
+            </div>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Humor pesado</div>
+          <div class="satire-block">
+            <strong>Voz de locutor de rádio anos 90:</strong> "Problemas com a Justiça? 
+            Não se preocupe com os fatos — o processo sempre tem um erro! 
+            Ligue agora e peça nossa promoção 'Nulidade ou Devolução'! 
+            Denúncia anônima, ABIN informal, juízo incompetente — nós achamos o vício que você precisa! 
+            Parcele em 36x no cartão da impunidade."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            Os vetores de nulidade se intensificam em anos pré-eleitorais. 
+            <strong>Quando o candidato é investigado, o advogado já tem o argumento pronto antes do julgamento.</strong> 
+            O episódio mapeia a correlação entre calendário eleitoral e volume de recursos com arguição de nulidade.
+          </div>
+        </div>
+        <div class="open-question">
+          Quem assinou os três memorandos de estratégia defensiva com estrutura idêntica em casos sem relação? Houve coordenação jurídica comum entre os escritórios que atuaram nas três anulações?
+        </div>
+      </div>
+    </div>
+
+    <!-- EP2 -->
+    <div class="ep-card" onclick="toggle(this)">
+      <div class="ep-accent" style="background: linear-gradient(90deg, var(--red), #c83030)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP2</div>
+        <div class="ep-title-block">
+          <div class="ep-title">Aqui Quem Prende É Preso</div>
+          <div class="ep-subtitle">"Depoimento voluntário ao STF — traga documentos pessoais e uma mala."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-red">P02 — Investigador Investigado</span>
+        <span class="ep-tag tag-gray">Intimidação estrutural</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central</div>
+          <div class="ep-tese">
+            A intimidação institucional não precisa ser explícita — 
+            <em>os casos já são o recado.</em> 
+            Nenhum servidor público calcula o risco de investigar poder sem olhar para 
+            <strong>Protógenes, Moro e Dallagnol.</strong> 
+            O efeito dissuasório é o produto real desse padrão — não a punição em si, mas o cálculo que ela induz.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">O currículo do risco</div>
+          <div class="casos-list">
+            <div class="caso-item">
+              <span class="caso-year">2016</span>
+              <strong>Protógenes Queiroz</strong> — Delegado da Satiagraha. Condenado pelo STF a 2,5 anos. 
+              Expulso da PF. Hoje: asilado político na Suíça.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">2021</span>
+              <strong>Sérgio Moro</strong> — Juiz da Lava Jato. Declarado parcial pelo STF. 
+              Provas coletadas durante sua atuação impedidas de uso futuro.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">2023</span>
+              <strong>Deltan Dallagnol</strong> — Procurador-chefe. 
+              Mandato de deputado cassado pela Justiça Eleitoral.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">2025</span>
+              <strong>Del. Andrei Rodrigues</strong> — Relatório sobre Toffoli chamado de 
+              "lixo jurídico" pelo próprio tribunal. A relatoria foi redistribuída 3 dias depois. Irônico.
+            </div>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Humor pesado</div>
+          <div class="satire-block">
+            <strong>Vaga de emprego (formato LinkedIn):</strong> "VAGA: Delegado Federal sênior. 
+            Requisitos: disposição para investigar poder. Benefícios: nenhum. 
+            Riscos: condenação, expulsão, exílio. Salário: compatível com mercado até o processo começar. 
+            Candidatos com dependentes devem reconsiderar. 
+            Candidatos com passaporte europeu têm preferência."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            O padrão se intensifica em anos eleitorais: investigadores de candidatos 
+            ou financiadores passam a ser alvos simultâneos de representações disciplinares, 
+            ações de improbidade e processos no CNJ. 
+            <strong>A eleição não cria o padrão — ela o aciona com maior frequência e maior velocidade.</strong>
+          </div>
+        </div>
+        <div class="open-question">
+          Quantas investigações não foram abertas porque alguém calculou esse risco e decidiu que não valia? Esse dado existe e nunca foi compilado.
+        </div>
+      </div>
+    </div>
+
+    <!-- EP3 -->
+    <div class="ep-card" onclick="toggle(this)">
+      <div class="ep-accent" style="background: linear-gradient(90deg, var(--amber), #c87800)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP3</div>
+        <div class="ep-title-block">
+          <div class="ep-title">Liminar às Três da Manhã</div>
+          <div class="ep-subtitle">"Quando os ministros descansam, os banqueiros também."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-amber">P03 — Captura Judicial</span>
+        <span class="ep-tag tag-gray">Liminares atípicas</span>
+        <span class="ep-tag tag-gray">Recesso estratégico</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central</div>
+          <div class="ep-tese">
+            Em cada operação, existe um <strong>momento-chave</strong> em que uma decisão 
+            monocrática singular, tomada em circunstâncias atípicas — recesso, madrugada, 48 horas — 
+            desfaz meses de investigação. <em>Não é coincidência. É arquitetura.</em>
+            O episódio documenta o <strong>timing</strong> dessas decisões como dado estatístico, 
+            não como acusação.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Três clocks — cronômetro em tela</div>
+          <div class="casos-list">
+            <div class="caso-item">
+              <span class="caso-year">48h · 2008</span>
+              <strong>Satiagraha / Gilmar Mendes</strong> — 2 habeas corpus em 48 horas. 
+              Segunda: preso. Quarta: livre. STF pleno depois referendou por 9 a 1. 
+              "A Madre Teresa de Calcutá raramente pede habeas corpus."
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">Jan/2010 · Recesso</span>
+              <strong>Castelo de Areia / Asfor Rocha</strong> — Liminar solitária durante recesso de verão. 
+              Outros ministros: praia. Operação: suspensa. Anos depois, Palocci alegaria R$ 5 mi pela decisão. 
+              A testemunha: morta em 2014.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">72h · 2025</span>
+              <strong>Master / Toffoli</strong> — Sigilo decretado 72h após 1ª prisão de Vorcaro. 
+              Conflito de interesse revelado depois: resort da família Toffoli. 
+              Solução adotada: redistribuição. Solução não adotada: investigação do conflito.
+            </div>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Humor pesado</div>
+          <div class="satire-block">
+            <strong>Narrador, com serenidade de quem lê placar de futebol:</strong> 
+            "Probabilidade estatística de três intervenções judiciais monocráticas, 
+            em três operações distintas, todas no exato momento crítico, 
+            todas por ministros diferentes, serem coincidência: calculada por nós em 
+            zero vírgula alguma coisa. Mas não somos estatísticos. 
+            Somos documentaristas. Então apenas mostramos os dados."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            O calendário eleitoral cria <strong>janelas de risco</strong> para esse padrão: 
+            os meses pré-eleitorais concentram tentativas de encerramento de investigações sobre candidatos. 
+            A liminar de recesso é o instrumento preferido porque requer apenas um voto, 
+            ocorre em período de baixa vigilância e é difícil de reverter antes que o dano esteja feito.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EP4 -->
+    <div class="ep-card" onclick="toggle(this)">
+      <div class="ep-accent" style="background: linear-gradient(90deg, var(--teal), #0a8050)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP4</div>
+        <div class="ep-title-block">
+          <div class="ep-title">O Dinheiro Era do Povo, Mas Já Foi</div>
+          <div class="ep-subtitle">"Nunca use dinheiro próprio. O dinheiro próprio tem dono identificável."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-teal">P05 — Cofres Públicos</span>
+        <span class="ep-tag tag-gray">Vítima difusa</span>
+        <span class="ep-tag tag-gray">Fundo cotista único</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central</div>
+          <div class="ep-tese">
+            O esquema não usa dinheiro próprio — 
+            <strong>usa dinheiro de quem não tem voz.</strong> 
+            FGC (poupadores), FGTS (trabalhadores), fundos de pensão (servidores), 
+            créditos de carbono (comunidades amazônicas). 
+            A vítima real é sempre <em>difusa, pulverizada, sem personagem central identificável.</em> 
+            Isso é design, não acidente.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Humor pesado</div>
+          <div class="satire-block">
+            <strong>Apresentador de culinária:</strong> "O segredo do bom esquema financeiro? 
+            Nunca use dinheiro próprio. O dinheiro próprio tem dono identificável. 
+            O dinheiro de 40 milhões de poupadores tem 40 milhões de donos — 
+            ou seja, nenhum com nome no processo. 
+            Tempere com fundo fechado de cotista único, 
+            deixe marinando em Delaware por 18 meses e sirva à temperatura ambiente da impunidade."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Padrão transversal</div>
+          <div class="ep-tese">
+            A estrutura do <strong>fundo fechado de cotista único</strong> aparece em operações 
+            sem relação aparente: carbono, petróleo, finanças, imóveis. 
+            Roteiro jurídico idêntico, setores econômicos diferentes, décadas diferentes. 
+            <em>Quem é o advogado que estruturou esses veículos?</em> 
+            Lacuna investigativa documentada. Resposta: não disponível.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            O financiamento eleitoral e o financiamento dos esquemas compartilham 
+            <strong>a mesma arquitetura de opacidade.</strong> 
+            Doações via empresas, fundos e intermediários — 
+            a trilha financeira que levaria aos beneficiários finais 
+            é cortada antes das eleições e reaberta depois. 
+            O ciclo de 4 anos é também o ciclo de saneamento dos rastros.
+          </div>
+        </div>
+        <div class="open-question">
+          Existe sobreposição entre os gestores dos fundos de pensão investigados e os financiadores das campanhas eleitorais dos indicadores dos ministros que arquivaram as investigações desses fundos?
+        </div>
+      </div>
+    </div>
+
+    <!-- EP5 -->
+    <div class="ep-card" onclick="toggle(this)">
+      <div class="ep-accent" style="background: linear-gradient(90deg, var(--purple), #6030c0)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP5</div>
+        <div class="ep-title-block">
+          <div class="ep-title">A Notícia Saiu Antes da Ordem</div>
+          <div class="ep-subtitle">"Quando é sobre o inimigo do seu dono, é denúncia. Quando é sobre o amigo, é fake news."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-purple">P04 — Weaponização Mídia</span>
+        <span class="ep-tag tag-gray">Captura mútua</span>
+        <span class="ep-tag tag-gray">Rabo preso</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central</div>
+          <div class="ep-tese">
+            O vazamento seletivo funciona nos dois sentidos: para 
+            <strong>construir o caso contra o investigado</strong> e para 
+            <strong>destruir o investigador quando necessário.</strong> 
+            Quem controla o timing do vazamento controla o julgamento público 
+            <em>antes</em> do julgamento jurídico.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">O mecanismo em três atos</div>
+          <div class="casos-list">
+            <div class="caso-item">
+              <strong>Ato 1 — Construção:</strong> Veículo recebe exclusivo de delegacia. 
+              Publica. Investigado é destruído publicamente antes de qualquer julgamento. 
+              Fonte fica devendo um favor.
+            </div>
+            <div class="caso-item">
+              <strong>Ato 2 — Captura mútua:</strong> Veículo protege a fonte. 
+              Fonte precisa do veículo. Nenhum dos dois pode romper sem se expor. 
+              O rabo preso é bilateral.
+            </div>
+            <div class="caso-item">
+              <strong>Ato 3 — Inversão:</strong> Quando a fonte vira investigada, 
+              o veículo publica que a investigação é "perseguição política". 
+              O mesmo material que era "reportagem corajosa" torna-se "atentado à liberdade de imprensa".
+            </div>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Humor pesado</div>
+          <div class="satire-block">
+            <strong>Narrador, admirativo:</strong> "É elegante, quando você para para pensar. 
+            Não é censura. É algo muito mais sofisticado: 
+            é fazer o próprio jornalismo prender os jornalistas. 
+            Sem câmera, sem algemar, sem processo. 
+            Só com uma conta bancária do grupo com R$ 2 bilhões 
+            em dívida com um banco investigado."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            Em período eleitoral, o mecanismo acelera: 
+            <strong>vazamentos de dossiês sobre candidatos rivais</strong> saem 72h antes da votação — 
+            tarde demais para refutação, cedo o suficiente para impacto. 
+            O timing do vazamento é mais importante que o conteúdo.
+            A imprensa que recebeu o dossiê sabe disso. E publica mesmo assim.
+          </div>
+        </div>
+        <div class="open-question">
+          Existe sobreposição entre proprietários de grupos de mídia com exposição financeira em bancos investigados e a linha editorial desses grupos sobre essas investigações? Os dados são públicos. A análise: nunca publicada por nenhum veículo de grande circulação. Irônico.
+        </div>
+      </div>
+    </div>
+
+    <!-- EP6 -->
+    <div class="ep-card" onclick="toggle(this)">
+      <div class="ep-accent" style="background: linear-gradient(90deg, #d04020, #901010)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP6</div>
+        <div class="ep-title-block">
+          <div class="ep-title">Felizmente Prescreveu</div>
+          <div class="ep-subtitle">"O tempo é dinheiro. Literalmente. R$ 47 mil por hora de recurso, em média."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-red">P06 — Prescrição Estratégica</span>
+        <span class="ep-tag tag-gray">Tempo como ativo</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central</div>
+          <div class="ep-tese">
+            O tempo no sistema judicial brasileiro é um 
+            <strong>ativo financeiro para quem tem recursos para administrá-lo.</strong> 
+            Cada recurso interposto é um mês em direção à prescrição. 
+            Uma investigação não precisa ser destruída — 
+            <em>só precisa ser suficientemente atrasada.</em>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Humor pesado</div>
+          <div class="satire-block">
+            <strong>Produto financeiro premium:</strong> "Investimento inicial: honorários advocatícios. 
+            Retorno esperado: liberdade permanente. Prazo: quanto seu dinheiro aguentar. 
+            Risco: ter menos dinheiro do que o processo tem paciência. 
+            Nota: para maiores de 70 anos, o prazo prescricional é reduzido à metade por lei. 
+            Planejamento sucessório e penal podem ser combinados em um único pacote. 
+            Consulte nossos especialistas."
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Caso emblemático</div>
+          <div class="ep-tese">
+            Lava Jato: condenações tramitando em Curitiba. Redistribuídas para Brasília. 
+            <strong>Prescritas no trajeto.</strong> Não houve absolvição. O prazo simplesmente correu. 
+            O episódio mostra a data de aniversário de 70 anos de três investigados ao lado 
+            da data em que seus processos chegaram ao STF. 
+            <em>O espectador faz a conta.</em>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Arco eleitoral</div>
+          <div class="ep-tese">
+            O ciclo eleitoral de 4 anos <strong>coincide perfeitamente</strong> com 
+            o tempo médio de tramitação de recursos no STF. 
+            Um investigado que entra no ciclo eleitoral 
+            com um mandato tem exatamente o tempo necessário para 
+            que os processos mais graves prescrevam antes do final do governo seguinte. 
+            <em>Acidente estatístico?</em> Calculem você mesmos.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ep-grid -->
+
+  <!-- EP7 — FINALE -->
+  <div class="ep-grid" style="margin-top:2px">
+    <div class="ep-card ep7" onclick="toggle(this)">
+      <div class="ep-accent" style="background: var(--red)"></div>
+      <div class="ep-head">
+        <div class="ep-num">EP7</div>
+        <div class="ep-title-block">
+          <div class="ep-title">Eu Continuo Contando os Votos</div>
+          <div class="ep-subtitle">"Eleição de outubro. Vaga no STF em novembro. Coincidência de dezembro."</div>
+        </div>
+        <div class="ep-arrow">▶</div>
+      </div>
+      <div class="ep-tags">
+        <span class="ep-tag tag-red">Meta-padrão · Finale</span>
+        <span class="ep-tag tag-red">Captura eleitoral</span>
+        <span class="ep-tag tag-red">STF como chokepoint</span>
+      </div>
+      <div class="ep-body">
+        <div class="ep-section">
+          <div class="ep-section-label">Tese central — o episódio que explica todos os outros</div>
+          <div class="ep-tese">
+            Este é o episódio que fecha a temporada e responde por que todos os outros existem. 
+            <strong>Quem controla a composição do tribunal que julga controla o resultado.</strong> 
+            E a composição dos tribunais superiores é decidida por quem ganhou a última eleição. 
+            Não é suborno. É planejamento de longo prazo.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Manual do novo presidente — formato instrução técnica</div>
+          <div class="satire-block">
+            <strong>Passo 1:</strong> vença a eleição. 
+            <strong>Passo 2:</strong> observe quantas vagas no STF abrirão durante seu mandato. 
+            <strong>Passo 3:</strong> calcule quantas investigações sobre você ou seus aliados estão em andamento. 
+            <strong>Passo 4:</strong> você já entendeu o passo 4. 
+            <strong>Passo 5:</strong> não existe passo 5. O sistema está completo.
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">O calendário como produto</div>
+          <div class="casos-list">
+            <div class="caso-item">
+              <span class="caso-year">Ano 1</span>
+              <strong>Novas indicações ao STF.</strong> Recomposição de maioria. 
+              Nomeação anunciada com discurso sobre "defesa da democracia".
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">Ano 2</span>
+              <strong>Redistribuição de relatorias.</strong> 
+              Revisão de prazos. Inquéritos sobre aliados "remanejados para análise".
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">Ano 3</span>
+              <strong>Prescrições estratégicas.</strong> Arquivamentos silenciosos. 
+              O Diário Oficial publica. Ninguém lê. Ninguém responde.
+            </div>
+            <div class="caso-item">
+              <span class="caso-year">Ano 4</span>
+              <strong>Campanha.</strong> Todos se comportam. 
+              Os ministros nomeados votam em favor do sistema que os nomeou. 
+              Coincidência. Documentada em 100% dos casos disponíveis.
+            </div>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-section-label">Dado mais perturbador da série — tela preta, sem narração</div>
+          <div class="ep-tese">
+            <em>Longa pausa. Créditos sobem em silêncio. Exceto pelo ruído de uma urna eletrônica.</em>
+          </div>
+        </div>
+        <div class="open-question">
+          Como se reforma uma instituição que tem poder de decidir se é ou não reformável? Esta é a pergunta que aponta para a T3. A resposta, se existe, não passa pelo sistema.
+        </div>
+      </div>
+    </div>
+  </div><!-- /ep7 grid -->
+
+  <!-- ══════════════════════════════════════════
+       ARCO DAS TEMPORADAS
+  ══════════════════════════════════════════ -->
+  <div class="arc-block">
+    <div class="arc-header">
+      <div class="arc-icon">◈</div>
+      <div>
+        <div class="arc-title">Arco da Série — Três Temporadas</div>
+        <div class="arc-subtitle">Cada temporada uma pergunta. Cada pergunta mais difícil que a anterior.</div>
+      </div>
+    </div>
+    <div class="arc-body">
+      <div class="arc-season t1">
+        <div class="arc-season-num">T1</div>
+        <div class="arc-season-desc">
+          <strong style="color:var(--text)">República Capturada</strong><br>
+          O quê aconteceu?<br>
+          <span style="color:var(--text3)">Documentação dos eventos, operações e atores.</span>
+        </div>
+      </div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-season t2">
+        <div class="arc-season-num">T2</div>
+        <div class="arc-season-desc">
+          <strong style="color:var(--text)">Dedo na Balança</strong><br>
+          Como se mantém?<br>
+          <span style="color:var(--text3)">Os 6 mecanismos ativos de manutenção da blindagem.</span>
+        </div>
+      </div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-season t3">
+        <div class="arc-season-num">T3</div>
+        <div class="arc-season-desc">
+          <strong style="color:var(--text)">Existe Saída?</strong><br>
+          Como se rompe?<br>
+          <span style="color:var(--text3)">Estreia quando o país decidir que quer uma.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       PÓS-CRÉDITOS
+  ══════════════════════════════════════════ -->
+  <div class="postcredits">
+    <p class="postcredits-text">
+      "A pergunta que nenhum episódio respondeu: existe um mecanismo de ruptura 
+      que não precise do sistema para funcionar? 
+      Alguém está trabalhando nessa resposta. Ou fingindo trabalhar. 
+      A diferença, por enquanto, <em>é indistinguível.</em>"
+    </p>
+    <div class="postcredits-code">
+      <span class="line"><span class="comment">// De 1988 a 2026:</span></span>
+      <span class="line"><span class="key">ministros_nomeados_por_investigados</span> <span class="comment">// votaram a favor do nomeador</span></span>
+      <span class="line"><span class="val">taxa_coincidencia: 100%</span></span>
+      <span class="line"><span class="val">tamanho_amostra: todos_os_casos_disponíveis</span></span>
+      <span class="line"><span class="comment">// longa pausa</span></span>
+      <span class="line"><span class="comment">// ruído de urna eletrônica</span></span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      Lawfare Timeline · CC0 1.0 Universal Public Domain · 
+      Todos os dados verificáveis em fontes primárias públicas.
+    </div>
+    <div class="footer-right">
+      <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+function toggle(card) {
+  card.classList.toggle('open');
+}
+
+// Keyboard accessibility
+document.querySelectorAll('.ep-card').forEach(card => {
+  card.setAttribute('tabindex', '0');
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle(card);
+    }
+  });
+});
+
+// Open EP0 by default for orientation
+document.querySelector('.ep-card.ep0').classList.add('open');
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

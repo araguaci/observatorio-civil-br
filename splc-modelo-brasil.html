@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPLC → Brasil — Modelo Estrutural Transferível</title>
+<meta name="description" content="Análise comparativa do modelo SPLC aplicado ao Brasil: seis funções estruturais documentadas, padrões P1–P8, evidências classificadas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:  #09090b;
+  --bg2: #0f0f13;
+  --bg3: #141419;
+  --bg4: #1a1a22;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --border3: rgba(255,255,255,0.18);
+  --text:  #e6e3dc;
+  --text2: #8a887f;
+  --text3: #525050;
+  --red:    #e24b4a;  --red-dim:    rgba(226,75,74,0.14);
+  --amber:  #ef9f27;  --amber-dim:  rgba(239,159,39,0.13);
+  --blue:   #378add;  --blue-dim:   rgba(55,138,221,0.13);
+  --green:  #1d9e75;  --green-dim:  rgba(29,158,117,0.13);
+  --purple: #7f77dd;  --purple-dim: rgba(127,119,221,0.13);
+  --teal:   #2ab5c8;  --teal-dim:   rgba(42,181,200,0.13);
+  --coral:  #d85a30;  --coral-dim:  rgba(216,90,48,0.13);
+  --font-display: 'Syne', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(9,9,11,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border2);
+  padding: 0 28px;
+  height: 50px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mast-left {
+  display: flex; align-items: center; gap: 16px;
+}
+.mast-badge {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red); border: 1px solid rgba(226,75,74,0.3);
+  padding: 3px 9px; border-radius: 2px;
+  display: flex; align-items: center; gap: 6px;
+}
+.mast-badge::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--red); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
+.mast-title {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
+}
+.mast-title span { color: var(--red); }
+.mast-date { font-size: 10px; color: var(--text3); letter-spacing: 0.12em; }
+
+/* ── PAGE WRAPPER ── */
+.page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 40px;
+}
+.hero-label {
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber); display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.hero-label::before { content: ''; width: 28px; height: 1px; background: var(--amber); }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800; line-height: 1.08; letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.hero h1 em { color: var(--red); font-style: normal; }
+.hero-sub {
+  font-size: 13px; color: var(--text2); max-width: 720px; line-height: 1.75;
+  margin-bottom: 28px;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 20px;
+}
+.meta-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; color: var(--text3); letter-spacing: 0.1em;
+}
+.meta-item .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text3); display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.section-label .num {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+}
+
+/* ── TAB NAV ── */
+.tab-nav {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px; padding-bottom: 0;
+}
+.tab-btn {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 9px 16px;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: var(--text3); cursor: pointer; transition: all 0.15s;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--text2); }
+.tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── EVIDENCE LEGEND ── */
+.ev-legend {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 14px 18px; border-radius: 4px; margin-bottom: 28px;
+}
+.ev-item { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--text2); }
+.ev-pill {
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 2px; font-weight: 600;
+}
+.ev-doc  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(29,158,117,.3); }
+.ev-inv  { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(239,159,39,.3); }
+.ev-inf  { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(127,119,221,.3); }
+
+/* ── COMPARE GRID ── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 32px;
+}
+@media (max-width: 680px) { .compare-grid { grid-template-columns: 1fr; } }
+.col-head {
+  background: var(--bg3); padding: 14px 18px;
+  border: 1px solid var(--border2);
+  font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; gap: 10px;
+}
+.col-head .flag { font-size: 16px; }
+.col-head.us { border-top: 2px solid var(--blue); }
+.col-head.br { border-top: 2px solid var(--amber); }
+.compare-cell {
+  background: var(--bg2); padding: 16px 18px;
+  border: 1px solid var(--border);
+  font-size: 12px; color: var(--text2); line-height: 1.7;
+}
+.compare-cell strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ── FUNCTION BLOCKS ── */
+.fn-block {
+  border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+  margin-bottom: 12px;
+}
+.fn-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg3);
+  cursor: pointer;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.fn-header:hover { background: var(--bg4); }
+.fn-header-left { display: flex; align-items: flex-start; gap: 12px; }
+.fn-num {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  min-width: 28px; padding-top: 2px;
+}
+.fn-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1.3; }
+.fn-title span { color: var(--red); }
+.fn-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+.fn-chevron { color: var(--text3); font-size: 16px; padding-top: 2px; flex-shrink: 0; transition: transform 0.2s; }
+.fn-block.open .fn-chevron { transform: rotate(180deg); }
+.fn-body {
+  display: none; padding: 18px;
+  background: var(--bg2);
+}
+.fn-block.open .fn-body { display: block; }
+
+/* ── COMPARE PAIR inside fn-body ── */
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+@media (max-width: 680px) { .pair { grid-template-columns: 1fr; } }
+.pair-col { padding: 14px 16px; border-radius: 3px; border: 1px solid var(--border); }
+.pair-col.us { border-left: 3px solid var(--blue); background: rgba(55,138,221,0.05); }
+.pair-col.br { border-left: 3px solid var(--amber); background: rgba(239,159,39,0.05); }
+.pair-flag { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.pair-text { font-size: 12px; color: var(--text2); line-height: 1.7; }
+.pair-text strong { color: var(--text); }
+
+/* ── EVIDENCE TAG ── */
+.etag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+  padding: 2px 8px; border-radius: 2px; margin-left: 6px; vertical-align: middle;
+}
+.etag-doc  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(29,158,117,.3); }
+.etag-inv  { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(239,159,39,.3); }
+.etag-inf  { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(127,119,221,.3); }
+
+/* ── SOURCE LIST ── */
+.source-list { list-style: none; margin-top: 10px; }
+.source-list li {
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text3);
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.source-list li:last-child { border-bottom: none; }
+.source-list li::before { content: '→'; color: var(--text3); flex-shrink: 0; }
+.source-list a { color: var(--blue); text-decoration: none; }
+.source-list a:hover { text-decoration: underline; }
+
+/* ── PATTERNS SECTION ── */
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.pat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+.pat-id {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.15em; color: var(--text3); margin-bottom: 8px;
+}
+.pat-name {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  line-height: 1.3; margin-bottom: 8px;
+}
+.pat-status {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+  padding: 3px 9px; border-radius: 99px;
+}
+.st-confirmed  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(29,158,117,.3); }
+.st-partial    { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(239,159,39,.3); }
+.st-inferred   { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(127,119,221,.3); }
+.pat-desc { font-size: 12px; color: var(--text2); line-height: 1.7; margin-top: 10px; }
+.pat-splc { font-size: 11px; color: var(--text3); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.pat-splc strong { color: var(--blue); }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; margin-bottom: 28px; }
+.timeline::before {
+  content: ''; position: absolute; left: 16px; top: 0; bottom: 0;
+  width: 1px; background: var(--border2);
+}
+.tl-item {
+  display: flex; gap: 20px; margin-bottom: 20px; position: relative;
+}
+.tl-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 5px;
+  position: relative; z-index: 1;
+  margin-left: 12px;
+  border: 1px solid var(--bg);
+}
+.tl-content { flex: 1; }
+.tl-date { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; margin-bottom: 4px; }
+.tl-text { font-size: 12px; color: var(--text2); line-height: 1.7; }
+.tl-text strong { color: var(--text); }
+
+/* ── FINANCIALS ── */
+.fin-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+.fin-table th {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3); text-align: left; padding: 10px 14px;
+  border-bottom: 1px solid var(--border2); background: var(--bg3);
+}
+.fin-table td {
+  font-size: 12px; color: var(--text2); padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.fin-table td:first-child { color: var(--text); }
+.fin-table td.val { color: var(--amber); font-weight: 500; }
+.fin-table tr:hover td { background: var(--bg3); }
+
+/* ── ASSESSMENT BOX ── */
+.assessment {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--red);
+  padding: 20px 22px;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+.assessment-title {
+  font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--red);
+  margin-bottom: 12px;
+}
+.assessment-text { font-size: 13px; color: var(--text2); line-height: 1.8; }
+.assessment-text strong { color: var(--text); }
+
+/* ── GAP BOX ── */
+.gap-box {
+  background: var(--purple-dim);
+  border: 1px solid rgba(127,119,221,.3);
+  padding: 16px 18px; border-radius: 4px; margin-top: 14px;
+}
+.gap-box-label {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 8px;
+}
+.gap-box-text { font-size: 12px; color: var(--text2); line-height: 1.7; }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0 0;
+  margin-top: 60px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  font-size: 10px; color: var(--text3); letter-spacing: 0.08em;
+}
+.footer a { color: var(--text3); text-decoration: none; }
+.footer a:hover { color: var(--text2); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+/* ════════════════════════════════════════
+   OVERRIDES — tudo expandido / visível
+   ════════════════════════════════════════ */
+.tab-nav    { display: none !important; }
+.tab-panel  { display: block !important; }
+.fn-body    { display: block !important; }
+.fn-chevron { display: none !important; }
+.fn-header  { cursor: default !important; border-bottom: 1px solid var(--border2) !important; }
+.fn-block   { scroll-margin-top: 72px; }
+.tab-panel  { scroll-margin-top: 72px; }
+
+/* espaçamento entre seções expandidas */
+.tab-panel + .tab-panel { margin-top: 64px; }
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed; top: 50px; left: 0; right: 0; z-index: 190;
+  height: 2px; background: rgba(255,255,255,0.05); pointer-events: none;
+}
+.progress-fill { height: 100%; background: var(--amber); width: 0%; }
+
+/* ── LAYOUT ── */
+:root { --nav-w: 220px; }
+
+.site-layout {
+  display: flex;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+/* ── SIDE NAV ── */
+.sidenav {
+  width: var(--nav-w);
+  flex-shrink: 0;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  padding: 24px 0 100px;
+  border-right: 1px solid var(--border);
+  scrollbar-width: none;
+  background: var(--bg);
+  z-index: 100;
+}
+.sidenav::-webkit-scrollbar { display: none; }
+
+.snav-group-label {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text3); padding: 14px 18px 5px;
+  display: flex; align-items: center; gap: 8px;
+}
+.snav-group-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.snav-link {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 18px;
+  text-decoration: none;
+  color: var(--text3);
+  font-size: 11px;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.snav-link:hover { color: var(--text2); }
+.snav-link.active {
+  color: var(--amber);
+  border-left-color: var(--amber);
+  background: linear-gradient(90deg, rgba(239,159,39,0.07) 0%, transparent 100%);
+}
+.snav-link .nn {
+  font-size: 9px; min-width: 18px; padding-top: 1px;
+  flex-shrink: 0; opacity: 0.55;
+}
+.snav-link.active .nn { opacity: 1; color: var(--amber); }
+.snav-link.snav-sub { padding-left: 32px; font-size: 10px; }
+.snav-link.snav-sub.active { border-left-color: rgba(239,159,39,0.5); }
+
+/* ── PAGE (reset para layout flex) ── */
+.page {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0 40px 100px;
+}
+
+@media (max-width: 980px) {
+  .sidenav { display: none; }
+  .page { padding: 0 20px 80px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mast-left">
+    <div class="mast-badge">Análise estrutural · 2026</div>
+    <div class="mast-title">SPLC <em>→</em> <span>Brasil</span></div>
+  </div>
+  <div class="mast-date">ABR 2026 · LAWFARE-TIMELINE</div>
+</header>
+
+<div class="site-layout">
+
+<!-- SIDE NAV -->
+<nav class="sidenav" id="sidenav">
+
+  <div class="snav-group-label">Conteúdo</div>
+
+  <a class="snav-link" href="#tab-funcoes"><span class="nn">01</span>Funções Estruturais</a>
+  <a class="snav-link snav-sub" href="#fn-f1">F1 · Inimigo Perene</a>
+  <a class="snav-link snav-sub" href="#fn-f2">F2 · Acumulação Offshore</a>
+  <a class="snav-link snav-sub" href="#fn-f3">F3 · Blindagem Circular</a>
+  <a class="snav-link snav-sub" href="#fn-f4">F4 · Gasoduto</a>
+  <a class="snav-link snav-sub" href="#fn-f5">F5 · Dois Lados</a>
+  <a class="snav-link snav-sub" href="#fn-f6">F6 · Elite Branca</a>
+
+  <div class="snav-group-label">Finanças</div>
+
+  <a class="snav-link" href="#tab-financas"><span class="nn">02</span>Anatomia Financeira</a>
+
+  <div class="snav-group-label">Padrões</div>
+
+  <a class="snav-link" href="#tab-padroes"><span class="nn">03</span>Padrões P1–P8</a>
+  <a class="snav-link snav-sub" href="#fn-p1">P1 · Vício Processual</a>
+  <a class="snav-link snav-sub" href="#fn-p2">P2 · Ativista → Réu</a>
+  <a class="snav-link snav-sub" href="#fn-p3">P3 · Captura Judicial</a>
+  <a class="snav-link snav-sub" href="#fn-p4">P4 · Mídia Financiada</a>
+  <a class="snav-link snav-sub" href="#fn-p5">P5 · Fundos Públicos</a>
+  <a class="snav-link snav-sub" href="#fn-p6">P6 · Blindagem Temporal</a>
+  <a class="snav-link snav-sub" href="#fn-p7">P7 · Jurisdição</a>
+  <a class="snav-link snav-sub" href="#fn-p8">P8 · Exaustão</a>
+
+  <div class="snav-group-label">Cronologia</div>
+
+  <a class="snav-link" href="#tab-cronologia"><span class="nn">04</span>Cronologia Comparada</a>
+
+  <div class="snav-group-label">Lacunas</div>
+
+  <a class="snav-link" href="#tab-gaps"><span class="nn">05</span>Lacunas Investigativas</a>
+  <a class="snav-link snav-sub" href="#fn-l1">L1 · Destino Recursos</a>
+  <a class="snav-link snav-sub" href="#fn-l2">L2 · Nexo NetLab</a>
+  <a class="snav-link snav-sub" href="#fn-l3">L3 · Dois Lados BR</a>
+  <a class="snav-link snav-sub" href="#fn-l4">L4 · Fundo Baobá</a>
+  <a class="snav-link snav-sub" href="#fn-l5">L5 · Distinção Analítica</a>
+
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">Modelo Estrutural Transferível</div>
+    <h1>O Negócio do<br><em>Antirracismo</em><br>como Franquia</h1>
+    <p class="hero-sub">
+      O indiciamento federal do Southern Poverty Law Center em 21 de abril de 2026 não é um evento isolado.
+      É a formalização de um modelo de negócios que opera em escala global: criar o problema, vender a solução,
+      financiar simultaneamente os dois lados, blindar-se com acusações de cumplicidade contra quem perguntar pela contabilidade.
+      Este dossiê mapeia as seis funções estruturais do modelo e rastreia sua operação no Brasil.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="dot" style="background:var(--green)"></div>Documentado — fontes primárias</div>
+      <div class="meta-item"><div class="dot" style="background:var(--amber)"></div>Em apuração — fontes secundárias</div>
+      <div class="meta-item"><div class="dot" style="background:var(--purple)"></div>Inferência — método histórico</div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE LEGEND -->
+  <div class="ev-legend">
+    <div class="ev-item"><span class="ev-pill ev-doc">Documentado</span> Fontes primárias independentes, documentos públicos, múltiplos verificadores</div>
+    <div class="ev-item"><span class="ev-pill ev-inv">Em apuração</span> Fontes secundárias, jornalismo investigativo, dados auditados mas não judicializados</div>
+    <div class="ev-item"><span class="ev-pill ev-inf">Inferência</span> Método histórico (cui bono), padrão estrutural, ausência de refutação</div>
+  </div>
+
+  <!-- TABS -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="funcoes">Funções Estruturais</button>
+    <button class="tab-btn" data-tab="financas">Anatomia Financeira</button>
+    <button class="tab-btn" data-tab="padroes">Padrões P1–P8</button>
+    <button class="tab-btn" data-tab="cronologia">Cronologia</button>
+    <button class="tab-btn" data-tab="gaps">Lacunas</button>
+  </nav>
+
+  <!-- TAB: FUNÇÕES ESTRUTURAIS -->
+  <div class="tab-panel active" id="tab-funcoes">
+
+    <div class="section-label"><span class="num">01</span>Seis Funções do Modelo</div>
+
+    <p style="font-size:12px;color:var(--text2);margin-bottom:24px;max-width:720px;line-height:1.8">
+      O SPLC não é uma anomalia. É a instância mais documentada de um modelo de negócios que exige, para operar,
+      a existência contínua do problema que alega combater. As seis funções abaixo são observáveis tanto no caso americano
+      quanto na arquitetura brasileira — com nomes e valores distintos, mas estrutura idêntica.
+    </p>
+
+    <!-- F1 -->
+    <div class="fn-block open">
+      <div class="fn-header" onclick="toggleFn(this)">
+        <div class="fn-header-left">
+          <div class="fn-num">F1</div>
+          <div>
+            <div class="fn-title">Fabricação do <span>Inimigo Perene</span></div>
+            <div class="fn-sub">O problema não pode se resolver — ou o modelo colapsa</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment">
+          <div class="assessment-title">Mecanismo Core</div>
+          <div class="assessment-text">
+            O modelo depende de um inimigo perene, mensurável e aterrorizante. Quando o inimigo natural enfraquece,
+            o modelo precisa <strong>produzir inimigo artificialmente</strong> — via informantes pagos, amplificação seletiva,
+            ou importação de categorias de conflito de outros contextos históricos.
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 EUA — SPLC</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Indiciamento federal de 21/abr/2026 alega pagamentos a informantes
+              plantados no Klan, Aryan Nations e NSM sob eufemismo interno "the Fs".
+              Um único informante recebeu $1M+ entre 2014–2023. Outro recebeu $270k
+              enquanto ajudava a organizar o rally Unite the Right em Charlottesville (2017).<br><br>
+              Hate map lista 800+ "grupos de ódio" — mais da metade inexistentes, no papel
+              ou inativos, segundo denúncia do DOJ (Todd Blanche, 2026).<br><br>
+              Mark Potok, porta-voz histórico: <em>"nosso objetivo é destruir esses grupos —
+              não tem nada a ver com criminalidade, é estritamente ideológico"</em> (2007).
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Brasil — equivalentes</div>
+            <div class="pair-text">
+              <strong>Em apuração:</strong> A racialização binária do Brasil — país com 45% de pardos —
+              importou categorias do sul dos EUA (Bell Hooks, Robin DiAngelo) via Selo Sueli Carneiro
+              financiado pela Ford Foundation.<br><br>
+              Pierre Bourdieu denunciou em vida a "americanização imposta" das categorias raciais
+              via Ford. O CEAA da Cândido Mendes foi o vetor acadêmico primário (1962–).<br><br>
+              <strong>Inferência:</strong> Dados de homicídio de jovens negros e desigualdade salarial são reais.
+              A questão estrutural documentada é a <em>importação do enquadramento binário</em>,
+              não a negação das desigualdades subjacentes.
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> DOJ — Indiciamento federal SPLC, 21/abr/2026 · Montgomery, Alabama</li>
+          <li><span class="etag etag-doc">DOC</span> Harper's Magazine — Ken Silverstein, "The Church of Morris Dees" (nov/2000)</li>
+          <li><span class="etag etag-doc">DOC</span> New Yorker — Bob Moser, "The Reckoning of Morris Dees" (mar/2019)</li>
+          <li><span class="etag etag-inv">APU</span> Instituto Monte Castelo — compilação OSF Brasil 2016–2023</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- F2 -->
+    <div class="fn-block">
+      <div class="fn-header" onclick="toggleFn(this)">
+        <div class="fn-header-left">
+          <div class="fn-num">F2</div>
+          <div>
+            <div class="fn-title">Acumulação Offshore <span>com Capital de Pobres</span></div>
+            <div class="fn-sub">Endowment bilionário, vítimas com 51 mil dólares</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 EUA — SPLC</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Caso United Klans of America (1987): SPLC arrecadou
+              $9M em cartas de fundraising com foto do cadáver de Michael Donald.
+              Beulah Mae Donald (mãe) recebeu $51.875.<br><br>
+              Offshore confirmado: Cayman ($960k → Tiger Global, 2014), BVI, Bermudas.
+              Em fev/2018: $92M offshore = 20% dos ativos. Em mar/2021: $162M offshore.
+              Endowment em out/2024: $738M. Ativos líquidos: $786M.<br><br>
+              CharityWatch: rebaixou de B para F (fev/2023). Reserva equivalente a 7 anos e
+              3 meses de operação. Custo de $20 para cada $100 arrecadados.
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Brasil — equivalentes</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Instituto Marielle Franco: $10M total (OSF $1,25M + Ford
+              + Ibirapitanga + matching Kellogg). Anielle Franco: avião da FAB Brasília-SP
+              para final da Copa (set/2023), com "acordo CBF" agendado para o dia da partida.<br><br>
+              <strong>Documentado:</strong> Silvio Almeida (Ministério DH): best-seller Racismo Estrutural,
+              estrela do circuito antirracista → indiciado pela PF por importunação sexual
+              (14/nov/2025) → denunciado ao STF pelo PGR Paulo Gonet (4/mar/2026).<br><br>
+              <strong>Em apuração:</strong> Destino efetivo dos recursos entre financiadores e beneficiários
+              finais no ecossistema de ONGs brasileiras.
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> IRS 990/990-T/8865/926 — cruzados por Joe Schoffstall, Washington Free Beacon, ago/2017</li>
+          <li><span class="etag etag-doc">DOC</span> CharityWatch — rebaixamento para F, 3/fev/2023</li>
+          <li><span class="etag etag-doc">DOC</span> Metrópoles — denúncia Silvio Almeida, set/2024</li>
+          <li><span class="etag etag-doc">DOC</span> Veja — Anielle Franco como vítima, out/2024</li>
+          <li><span class="etag etag-doc">DOC</span> PF — indiciamento Silvio Almeida, 14/nov/2025</li>
+          <li><span class="etag etag-doc">DOC</span> PGR Paulo Gonet — denúncia ao STF, 4/mar/2026</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- F3 -->
+    <div class="fn-block">
+      <div class="fn-header" onclick="toggleFn(this)">
+        <div class="fn-header-left">
+          <div class="fn-num">F3</div>
+          <div>
+            <div class="fn-title">Argumento Circular como <span>Blindagem</span></div>
+            <div class="fn-sub">Perguntar pela contabilidade é cumplicidade com o problema</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment">
+          <div class="assessment-title">Peça-chave da arquitetura</div>
+          <div class="assessment-text">
+            O argumento circular — <strong>"questionar a organização é apoiar o ódio que ela combate"</strong> —
+            é o mecanismo de proteção que torna o esquema invisível por excesso de visibilidade.
+            Sem ele, qualquer análise contábil básica destrói o modelo. Com ele, a análise contábil
+            torna-se prova de cumplicidade moral.
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 EUA — SPLC</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Montgomery Advertiser (1994): série Rising Finalista do Pulitzer.
+              12 de 13 funcionários negros descreveram ambiente interno como racista.
+              Um comparou a organização a uma plantation. Reação: zero revisão interna.<br><br>
+              Stephen B. Bright (Yale): recusou prêmio com nome de Dees em 2007,
+              chamando-o de "vigarista que se aproveitou de pessoas ingênuas enquanto acumulava
+              $175M e dois palácios da pobreza em Montgomery".<br><br>
+              Resposta padrão da organização a qualquer crítica: acusação de extremismo
+              de direita ou cumplicidade com ódio racial.
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Brasil — equivalentes</div>
+            <div class="pair-text">
+              <strong>Em apuração:</strong> Qualquer questionamento ao ecossistema de ONGs é
+              sistematicamente enquadrado como "discurso de ódio", "negacionismo racial" ou
+              "retrocesso" — independentemente do conteúdo factual da crítica.<br><br>
+              Djamila Ribeiro chamou crítica de militante negra de "clarinha de turbante"
+              após questionamento sobre publipost para aplicativo de entrega durante greve
+              de entregadores (jul/2020). O patrocinador vence o discurso.<br><br>
+              <strong>Documentado:</strong> Mecanismo de enquadramento ativo nas decisões judiciais do STF
+              sobre "discurso de ódio" — com definição expandida que inclui crítica a políticas
+              identitárias (Moraes, 2025–2026).
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> Montgomery Advertiser — "Rising Fortunes" (fev/1994), finalista Pulitzer 1995</li>
+          <li><span class="etag etag-doc">DOC</span> Stephen B. Bright — carta pública recusando prêmio, 2007</li>
+          <li><span class="etag etag-doc">DOC</span> Agência Brasil — STF aprova responsabilização redes por "discurso de ódio" (jun/2025)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- F4 -->
+    <div class="fn-block">
+      <div class="fn-header" onclick="toggleFn(this)">
+        <div class="fn-header-left">
+          <div class="fn-num">F4</div>
+          <div>
+            <div class="fn-title">Gasoduto Multinacional → <span>Infraestrutura Local</span></div>
+            <div class="fn-sub">Ford, Kellogg, Open Society, Omidyar → Geledés, Fundo Baobá, ID_BR, Educafro</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 Financiadores — fluxo documentado</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> OSF Brasil 2016–2023: ~R$605M, 95 organizações em 2023,
+              $31,3M em 2023. Maior beneficiário agregado: Conectas ($34M).<br><br>
+              Ford Foundation: presente no Brasil desde 1962. $500M+ em 15 anos.
+              $33,6M em "direitos humanos e segurança" (2006–2018). Principal financiadora
+              do CEAA/Cândido Mendes por 20 anos. IFP: 343 bolsas de pós-graduação no Brasil.<br><br>
+              Kellogg Foundation: presente desde anos 1940. Legado: Fundo Baobá
+              (meta endowment R$250M).<br><br>
+              Omidyar/Luminate: $1M para ONG Nossas (hospeda Sleeping Giants BR, 2018).
+              $920k para Nexo Jornal (jan/2019). $250M no First Look Media / Intercept Brasil.
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Infraestrutura local</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Geledés (f.1988): financiadores públicos em logotipo no site —
+              Ford, Kellogg, OSF, ONU Mulheres, Porticus, Itaú, Fundo Malala.<br><br>
+              Criola (f.1992): OSF, Heinrich Böll, Global Fund for Women, Fundo Baobá.<br><br>
+              Instituto Marielle Franco: $1,25M OSF + Ford + Ibirapitanga + Kellogg = $10M total.<br><br>
+              Educafro (f.1997): em nov/2025 obteve decisão do CNJ elevando cotas no Judiciário
+              de 20% para 30% — multiplicando matematicamente o mercado da própria atividade-fim.<br><br>
+              ID_BR (f.2016): trabalha com Unilever, Carrefour, Disney, L'Oréal.
+              Fundadora Luana Génot: voluntária Obama 2012, bolsista CsF.
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> Instituto Monte Castelo — base pública OSF Brasil 2016–2023</li>
+          <li><span class="etag etag-doc">DOC</span> Geledés.org.br — seção de financiadores (pública, logotipos)</li>
+          <li><span class="etag etag-doc">DOC</span> Portal transparência USAID — grants Brasil 2021–2024</li>
+          <li><span class="etag etag-doc">DOC</span> CNJ — resolução cotas no Judiciário (nov/2025)</li>
+          <li><span class="etag etag-doc">DOC</span> Luminate 990 forms — doações Nexo/Nossas 2018–2019</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- F5 -->
+    <div class="fn-block">
+      <div class="fn-header" onclick="toggleFn(this)">
+        <div class="fn-header-left">
+          <div class="fn-num">F5</div>
+          <div>
+            <div class="fn-title">Financiamento <span>Simultâneo dos Dois Lados</span></div>
+            <div class="fn-sub">O problema e a solução na mesma planilha</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment">
+          <div class="assessment-title">O paradoxo estrutural documentado</div>
+          <div class="assessment-text">
+            O indiciamento federal formaliza o que críticos documentavam desde 1998 (Laird Wilcox, "The Watchdogs"):
+            <strong>a organização que combatia o ódio pagava pelo ódio que precisava para arrecadar.</strong>
+            Não é metáfora. Está no indiciamento, com data, valor e número de conta bancária.
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 EUA — SPLC</div>
+            <div class="pair-text">
+              <strong>Documentado (indiciamento 2026):</strong> Empresas de fachada
+              (Center Investigative Agency, Fox Photography, Rare Books Warehouse) canalizavam
+              pagamentos a informantes em Klan, National Alliance, Aryan Nations e NSM.<br><br>
+              Informante recebeu $270k enquanto ajudava a organizar Unite the Right em
+              Charlottesville (2017) — evento que gerou $48M em doações para o SPLC nos
+              dias seguintes.<br><br>
+              <strong>Documentado (2012):</strong> Floyd Corkins II, atentado à Family Research Council
+              (DC): confessou ter encontrado o endereço na hate map do SPLC. A FRC permanece
+              listada 13 anos após o atentado.
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Brasil — equivalentes</div>
+            <div class="pair-text">
+              <strong>Inferência (método histórico):</strong> A tese de que o ecossistema identitário
+              brasileiro amplifica deliberadamente a extrema-direita para justificar sua própria
+              intervenção é inferência — não há documentação equivalente ao indiciamento do SPLC.<br><br>
+              <strong>Em apuração:</strong> Operação Narco Fluxo (15/abr/2026): Raphael Sousa (Choquei,
+              27M seguidores) classificado pela PF como "operador de mídia da organização criminosa"
+              com 17 interações documentadas com Janja. Alcance combinado dos 33 presos: 55M+ seguidores.<br><br>
+              O elo entre financiamento externo e amplificação seletiva de conflito racial
+              no Brasil não está documentado com a precisão do caso SPLC.
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> DOJ — indiciamento SPLC, 21/abr/2026 · detalhes das empresas de fachada</li>
+          <li><span class="etag etag-doc">DOC</span> FBI — confissão Floyd Lee Corkins II, 2012 · condenado a 25 anos</li>
+          <li><span class="etag etag-doc">DOC</span> PF — Operação Narco Fluxo, 15/abr/2026 · indiciamentos</li>
+          <li><span class="etag etag-inf">INF</span> Inferência histórica — cui bono análise do padrão de amplificação de conflito</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- F6 -->
+    <div class="fn-block">
+      <div class="fn-header" onclick="toggleFn(this)">
+        <div class="fn-header-left">
+          <div class="fn-num">F6</div>
+          <div>
+            <div class="fn-title">Elite Branca Gerindo o <span>Trauma Alheio</span></div>
+            <div class="fn-sub">Mobilidade social ascendente via antirracismo</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 EUA — SPLC</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Morris Dees: branco, Hall da Fama do Direct Marketing
+              Association (1998), ex-sócio da Fuller &amp; Dees (vendeu livros de receita,
+              veneno de rato e almofadas de trator pela mesma planilha).<br><br>
+              Presidente Margaret Huang: salário 2024 = $522k/ano, 8x+ a renda média
+              do condado onde a sede fica.<br><br>
+              BLM Global Network Foundation: Patrisse Cullors comprou 4 propriedades
+              ($3,2M) incluindo mansão $1,4M em Topanga Canyon (mar/2021).
+              Mansão secreta $6M em Studio City, CA (okt/2020, New York Magazine, abr/2022).<br><br>
+              Tamika Palmer (mãe de Breonna Taylor): "nunca lidei com BLM Louisville,
+              os considero fraude" (Facebook, abr/2021).
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Brasil — equivalentes</div>
+            <div class="pair-text">
+              <strong>Documentado:</strong> Silvio Almeida: intelectual-estrela do circuito antirracista
+              por uma década → réu no STF, acusado de importunação sexual (inclusive contra
+              Anielle Franco, colega de gabinete), relatado por André Mendonça, o único
+              ministro evangélico do Supremo.<br><br>
+              Djamila Ribeiro: cátedra Martin Luther King Jr. Visiting Professors no MIT (2025–2026)
+              — primeira brasileira. Publipost pago para aplicativo de entrega durante greve
+              dos entregadores (jul/2020).<br><br>
+              <strong>Em apuração:</strong> Proporção de ativistas antirracismo de topo que seriam
+              classificados como brancos em qualquer sistema fenotípico padrão.
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> IRS 990 — salário Margaret Huang 2024</li>
+          <li><span class="etag etag-doc">DOC</span> New York Post — Isabel Vincent, propriedades Cullors (abr/2021)</li>
+          <li><span class="etag etag-doc">DOC</span> New York Magazine — Sean Campbell, mansão $6M BLM (abr/2022)</li>
+          <li><span class="etag etag-doc">DOC</span> PGR Paulo Gonet — denúncia Silvio Almeida ao STF (4/mar/2026)</li>
+          <li><span class="etag etag-doc">DOC</span> MIT — cátedra MLK Jr. Visiting Professors, Djamila Ribeiro (2025)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /tab-funcoes -->
+
+  <!-- TAB: ANATOMIA FINANCEIRA -->
+  <div class="tab-panel" id="tab-financas">
+
+    <div class="section-label"><span class="num">02</span>Anatomia Financeira Comparada</div>
+
+    <div class="section-label" style="margin-top:28px"><span class="num">—</span>SPLC: Evolução do Endowment</div>
+    <table class="fin-table">
+      <thead>
+        <tr>
+          <th>Período</th>
+          <th>Arrecadação</th>
+          <th>Gasto em programas</th>
+          <th>Reserva / Offshore</th>
+          <th>Evidência</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1984–1994</td>
+          <td class="val">$62M</td>
+          <td>$21M (34%)</td>
+          <td>$52M acumulado</td>
+          <td><span class="etag etag-doc">DOC</span> Montgomery Advertiser 1994</td>
+        </tr>
+        <tr>
+          <td>2000</td>
+          <td class="val">$44M / ano</td>
+          <td>$13M (30%)</td>
+          <td>—</td>
+          <td><span class="etag etag-doc">DOC</span> Harper's / Silverstein 2000</td>
+        </tr>
+        <tr>
+          <td>fev/2018</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="val">$92M offshore (20% ativos)</td>
+          <td><span class="etag etag-doc">DOC</span> IRS 8865/926</td>
+        </tr>
+        <tr>
+          <td>mar/2021</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="val">$162M offshore / $580M total</td>
+          <td><span class="etag etag-doc">DOC</span> IRS 990</td>
+        </tr>
+        <tr>
+          <td>out/2024</td>
+          <td>—</td>
+          <td>68% (CharityWatch F)</td>
+          <td class="val">Endowment $738M · Ativos $786M</td>
+          <td><span class="etag etag-doc">DOC</span> IRS 990 / CharityWatch fev/2023</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-label" style="margin-top:28px"><span class="num">—</span>Gasoduto OSF → Brasil (2016–2023)</div>
+    <table class="fin-table">
+      <thead>
+        <tr>
+          <th>Beneficiário / Projeto</th>
+          <th>Valor</th>
+          <th>Período</th>
+          <th>Evidência</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Total OSF Brasil</td><td class="val">~R$605M</td><td>2016–2023</td><td><span class="etag etag-inv">APU</span> Instituto Monte Castelo</td></tr>
+        <tr><td>OSF Brasil (só 2023)</td><td class="val">$31,3M · 95 org.</td><td>2023</td><td><span class="etag etag-doc">DOC</span> OSF relatório público</td></tr>
+        <tr><td>Conectas DH (agregado)</td><td class="val">~$34M</td><td>2016–2023</td><td><span class="etag etag-inv">APU</span> Monte Castelo</td></tr>
+        <tr><td>Instituto Marielle Franco</td><td class="val">$10M</td><td>2018–2023</td><td><span class="etag etag-doc">DOC</span> OSF + Ford + Kellogg + Ibirapitanga</td></tr>
+        <tr><td>ONG Nossas / Sleeping Giants BR</td><td class="val">$400k OSF + $1M Luminate</td><td>2016–2018</td><td><span class="etag etag-doc">DOC</span> Luminate 990</td></tr>
+        <tr><td>Nexo Jornal</td><td class="val">$920k</td><td>jan/2019</td><td><span class="etag etag-doc">DOC</span> Luminate 990</td></tr>
+        <tr><td>Intercept Brasil</td><td class="val">$250M</td><td>2016–dez/2022</td><td><span class="etag etag-doc">DOC</span> First Look Media / Omidyar</td></tr>
+        <tr><td>Folha de S.Paulo ("debate climático")</td><td class="val">$200k</td><td>2022</td><td><span class="etag etag-inv">APU</span> Monte Castelo</td></tr>
+        <tr><td>Instituto Makarapy / MST</td><td class="val">$1,5M</td><td>2022</td><td><span class="etag etag-inv">APU</span> Monte Castelo</td></tr>
+        <tr><td>Ford Foundation Brasil (total 15 anos)</td><td class="val">~$500M</td><td>1962–2018</td><td><span class="etag etag-inv">APU</span> compilação acadêmica</td></tr>
+        <tr><td>USAID → ONGs brasileiras</td><td class="val">R$267M+</td><td>2021–2024</td><td><span class="etag etag-doc">DOC</span> Portal transparência EUA</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label" style="margin-top:28px"><span class="num">—</span>Engenharia de Matching</div>
+    <div class="assessment">
+      <div class="assessment-title">Padrão detectado: capital local como ornamento contábil</div>
+      <div class="assessment-text">
+        Iniciativa Marielle Franco: OSF entra com tranche 1 ($1,25M), Ford entra com tranche 2,
+        Ibirapitanga entra com matching, Kellogg cobre a contrapartida = $10M total.
+        <strong>O capital local é ornamento contábil. A direção estratégica está em Washington, Nova York e Palo Alto.</strong><br><br>
+        Pacto pela Equidade Racial (ago/2021): Febraban, Anbima, B3, Gerdau, Suzano, Vale, CSN.
+        Antirracismo como hedge reputacional: <strong>linha de balanço com retorno mensurável em índice ESG,
+        blindagem contra cancelamento e atratividade junto a fundos americanos que exigem score de diversidade.</strong>
+      </div>
+    </div>
+
+  </div><!-- /tab-financas -->
+
+  <!-- TAB: PADRÕES P1-P8 -->
+  <div class="tab-panel" id="tab-padroes">
+
+    <div class="section-label"><span class="num">03</span>Avaliação de Padrões P1–P8</div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:24px;max-width:720px;line-height:1.8">
+      Os padrões estruturais P1–P8 do projeto são aplicados aqui ao modelo SPLC→Brasil.
+      O modelo não é um caso de corrupção convencional — é um caso de captura institucional
+      operada via infraestrutura civil. Os padrões mais relevantes são P3, P4, P5 e P8.
+    </p>
+
+    <div class="patterns-grid">
+
+      <div class="pat-card">
+        <div class="pat-id">P1 · Anulação por Vício Processual</div>
+        <div class="pat-name">Processo Contaminado pela Vítima-Árbitro</div>
+        <span class="pat-status st-partial">Parcial</span>
+        <div class="pat-desc">
+          No SPLC: denúncias internas de racismo nunca geraram revisão formal.
+          No Brasil: questionamentos a cotas por vício procedimental (UnB, UFMG)
+          geram reação institucional que reafirma o mecanismo em vez de auditá-lo.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> 22 expulsões na UFMG (2021) por fraude de cotas — processo interno, sem revisão do mecanismo de cotas em si.</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P2 · Investigador Torna-se Investigado</div>
+        <div class="pat-name">Ativista Torna-se Réu</div>
+        <span class="pat-status st-confirmed">Confirmado</span>
+        <div class="pat-desc">
+          Silvio Almeida: principal teórico do antirracismo brasileiro,
+          ministro dos Direitos Humanos → réu no STF por importunação sexual,
+          acusado inclusive pela própria colega de gabinete Anielle Franco.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> Morris Dees demitido em mar/2019 por escândalo interno de assédio sexual e racismo.</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P3 · Captura Judicial de Emergência</div>
+        <div class="pat-name">Weaponização do Antirracismo como Instrumento de Censura</div>
+        <span class="pat-status st-confirmed">Confirmado</span>
+        <div class="pat-desc">
+          O conceito de "discurso de ódio" com definição expansiva é usado pelo STF
+          para censurar oposição política. Decisão Moraes (2025): plataformas responsabilizadas
+          por conteúdo "que ameace a democracia" — definição nunca precisamente delimitada.
+          NetLab (Ford/OSF) alimenta diretamente as decisões de censura.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> Hate map como instrumento de perseguição ideológica, não de combate ao crime documentado (Potok, 2007).</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P4 · Weaponização da Mídia</div>
+        <div class="pat-name">Ecossistema Financiado Produzindo Consenso Artificial</div>
+        <span class="pat-status st-confirmed">Confirmado</span>
+        <div class="pat-desc">
+          Intercept Brasil (Omidyar, $250M, missão cumprida em 2022 → desativado).
+          Nexo Jornal ($920k Luminate). ONG Nossas/Sleeping Giants ($1,4M OSF+Luminate).
+          Folha de S.Paulo ($200k OSF). NetLab/UFRJ (Ford/OSF → TSE → decisões judiciais).
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> Hate map como mecanismo de agenda-setting — listagem como "extremista" precedeu ataques físicos (caso Corkins, 2012).</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P5 · Fundos Públicos como Vetor</div>
+        <div class="pat-name">Recursos Públicos e Acordos Institucionais como Legitimação</div>
+        <span class="pat-status st-confirmed">Confirmado</span>
+        <div class="pat-desc">
+          TSE + USAID: dois eventos conjuntos em 2021 sobre "desinformação".
+          NetLab: parceiro formal do TSE + R$6M OSF/Ford pós-2023.
+          Ministério da Igualdade Racial: R$109,9M de orçamento (2023),
+          R$6,1M em passagens e diárias até jun/2023.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> FBI utilizou SPLC como parceiro operacional por décadas — cortado por Kash Patel apenas em out/2025.</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P6 · Uso de Prazos Prescricionais</div>
+        <div class="pat-name">Blindagem Temporal via Argumento Identitário</div>
+        <span class="pat-status st-partial">Parcial</span>
+        <div class="pat-desc">
+          A estrutura de acusação de "racismo" contra qualquer crítica funciona
+          como mecanismo de prescrição moral: o argumento não precisa ser respondido,
+          apenas repelido. Equivalente funcional ao uso de prazo prescricional como
+          barreira processual.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> Argumento circular de 55 anos — questionar = cumplicidade — impediu auditoria pública efetiva até o indiciamento de 2026.</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P7 · Deslocamento Jurisdicional</div>
+        <div class="pat-name">Accountability Apenas Fora da Jurisdição Capturada</div>
+        <span class="pat-status st-confirmed">Confirmado</span>
+        <div class="pat-desc">
+          O modelo SPLC só colapsa com indiciamento federal — jurisdição federal,
+          não estadual de Alabama. No Brasil: as inconsistências mais graves
+          do ecossistema de ONGs só aparecem via transparência americana (IRS 990, USAID grants)
+          — nunca via auditoria brasileira.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> IRS 990 cruzados por jornalista americano (Washington Free Beacon, 2017) revelaram offshore — não auditoria interna.</div>
+      </div>
+
+      <div class="pat-card">
+        <div class="pat-id">P8 · Exaustão Cognitiva como Estratégia</div>
+        <div class="pat-name">Flood de Pauta Identitária como Fragmentação do Eleitorado</div>
+        <span class="pat-status st-inferred">Inferência</span>
+        <div class="pat-desc">
+          A saturação permanente de pauta racial, de gênero e de identidade impede
+          que grupos com interesse material comum (evangélicos, agronegócio, suburbanos,
+          rurais) se reconheçam como interesse convergente. Equivalente ao modelo
+          RAND "Firehose of Falsehood" aplicado à pauta identitária.
+        </div>
+        <div class="pat-splc"><strong>SPLC:</strong> Hate map com 800+ "grupos" — volume deliberado para impossibilitar análise caso a caso.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /tab-padroes -->
+
+  <!-- TAB: CRONOLOGIA -->
+  <div class="tab-panel" id="tab-cronologia">
+
+    <div class="section-label"><span class="num">04</span>Cronologia Comparada</div>
+
+    <div class="compare-grid" style="margin-bottom:28px">
+      <div class="col-head us"><span class="flag">🇺🇸</span> EUA — SPLC</div>
+      <div class="col-head br"><span class="flag">🇧🇷</span> Brasil — Ecossistema</div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-date">1971 — EUA</div>
+          <div class="tl-text"><strong>SPLC fundado</strong> por Morris Dees e Joseph Levin em Montgomery, Alabama. Dees: ex-sócio da Fuller &amp; Dees (mala direta). Hall da Fama do Direct Marketing Association (1998). <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-date">1962–1988 — Brasil</div>
+          <div class="tl-text"><strong>Ford Foundation no Brasil desde 1962</strong>, governo Goulart. Principal financiadora do CEAA/Cândido Mendes — berço acadêmico da racialização do Brasil. IFP: 343 bolsas de pós-graduação a negros/pardos/indígenas (2000–2012). <span class="etag etag-inv">APU</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-date">30/abr/1988 — Brasil</div>
+          <div class="tl-text"><strong>Geledés fundado</strong> por Sueli Carneiro. Financiadores fundadores incluem Ford e Kellogg. Site declara abertamente: Ford, Kellogg, OSF, ONU Mulheres, Porticus, Fundo Malala. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-date">fev/1994 — EUA</div>
+          <div class="tl-text"><strong>Rising Fortunes</strong> — Montgomery Advertiser, finalista Pulitzer 1995. 12/13 funcionários negros: ambiente interno racista. $62M arrecadados, $21M gastos, $52M de reserva. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-date">nov/2000 — EUA</div>
+          <div class="tl-text"><strong>"The Church of Morris Dees"</strong> — Ken Silverstein, Harper's. $44M arrecadados, $13M gastos em programas. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-date">2003–2012 — Brasil</div>
+          <div class="tl-text"><strong>Implantação do sistema de cotas</strong> via pressão acadêmica com financiamento Ford. UnB (2003): caso dos gêmeos Alan e Alex Teixeira da Cunha — mesma carga genética, destinos opostos pela heteroidentificação. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-date">ago/2017 — EUA</div>
+          <div class="tl-text"><strong>Offshore confirmado</strong> por Joe Schoffstall (Washington Free Beacon) via IRS 990/8865/926: Cayman, BVI, Bermudas. $92M offshore = 20% ativos. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-date">14/mar/2018 — Brasil</div>
+          <div class="tl-text"><strong>Assassinato de Marielle Franco.</strong> OSF aporta $1,25M para fundar a Iniciativa Marielle Franco. Com matching Ford/Ibirapitanga/Kellogg: $10M total. Fundo Baobá como administrador. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-date">mar/2019 — EUA</div>
+          <div class="tl-text"><strong>Morris Dees demitido</strong> em meio a escândalo de assédio sexual e racismo interno. Bob Moser (New Yorker): <em>"nós éramos parte do golpe"</em>. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-date">2020–2021 — Brasil</div>
+          <div class="tl-text"><strong>Explosão do "mercado de letramento racial"</strong> pós-morte de George Floyd (25/mai/2020) e João Alberto no Carrefour (19/nov/2020). Magazine Luiza, Natura, L'Oréal, Itaú, Bradesco. Pacto pela Equidade Racial (ago/2021): Febraban, B3, Vale. <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-date">6/set/2024 — Brasil</div>
+          <div class="tl-text"><strong>Silvio Almeida demitido</strong> após denúncias da ONG Me Too Brasil. Veja (out/2024): Anielle Franco entre as vítimas. PF indicia Almeida (14/nov/2025). PGR denuncia ao STF (4/mar/2026). <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-date">21/abr/2026 — EUA</div>
+          <div class="tl-text"><strong>Indiciamento federal do SPLC</strong>: 11 acusações, fraude eletrônica, falsas declarações bancárias, conspiração para lavagem de dinheiro. DOJ (Todd Blanche): "fabricando o extremismo que dizia combater". <span class="etag etag-doc">DOC</span></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /tab-cronologia -->
+
+  <!-- TAB: LACUNAS -->
+  <div class="tab-panel" id="tab-gaps">
+
+    <div class="section-label"><span class="num">05</span>Lacunas Investigativas</div>
+
+    <div class="assessment">
+      <div class="assessment-title">A pergunta que não foi feita</div>
+      <div class="assessment-text">
+        O caso SPLC levou 55 anos para chegar a um indiciamento federal —
+        com décadas de jornalismo independente documentando as inconsistências.
+        No Brasil, o equivalente investigativo está em estágio muito anterior.
+        As lacunas abaixo são as perguntas que os documentos disponíveis ainda não respondem.
+      </div>
+    </div>
+
+    <!-- LACUNA 01 — FECHADA -->
+    <div class="fn-block open" style="margin-bottom:12px">
+      <div class="fn-header" onclick="toggleFn(this)" style="background:var(--green-dim);border-bottom:1px solid rgba(29,158,117,.2)">
+        <div class="fn-header-left">
+          <div class="fn-num" style="color:var(--green)">L1</div>
+          <div>
+            <div class="fn-title">Destino Efetivo dos Recursos — <span style="color:var(--green)">Parcialmente Fechada</span></div>
+            <div class="fn-sub">O Brasil tem mecanismo de transparência — mas com lacuna estrutural crítica para doações estrangeiras</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment" style="border-left-color:var(--green)">
+          <div class="assessment-title" style="color:var(--green)">O que a pesquisa encontrou</div>
+          <div class="assessment-text">
+            OSCIPs com Termo de Parceria com o governo são obrigadas a publicar na imprensa oficial
+            demonstrativo de receitas/despesas e relatório anual de metas (Lei 9.790/99, art. 11, Decreto 3.100/99).
+            <strong>Porém: a prestação de contas ao TCU e ao parceiro público cobre apenas recursos de origem pública —
+            não há exigência equivalente para doações privadas estrangeiras.</strong>
+            Essa é a brecha estrutural: o dinheiro da Ford, da OSF e da Kellogg entra sem o escrutínio do IRS 990 americano.
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 EUA — IRS 990</div>
+            <div class="pair-text">
+              Formulário 990 é obrigatório para toda ONG com receita acima de $50k/ano.
+              Exige: lista de salários dos 5 maiores executivos, breakdown de gastos por programa,
+              reservas, investimentos, offshore (990-T, 8865, 926). Público, pesquisável, cruzável.
+              Foi exatamente via 990 que Schoffstall revelou os $92M offshore do SPLC (2017).
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 Brasil — o que existe e o que falta</div>
+            <div class="pair-text">
+              <strong>Existe:</strong> OSCIPs com Termo de Parceria prestam contas ao TCU dos recursos públicos.
+              Fundações publicam balanço no Diário Oficial (exigência do MP).<br><br>
+              <strong>Falta:</strong> Nenhuma exigência de publicação de salários de dirigentes, taxa de overhead,
+              ou destino de doações estrangeiras privadas. A OSF pode transferir R$31M/ano
+              para 95 organizações brasileiras sem nenhum escrutínio equivalente ao 990.
+              O Fundo Baobá publica auditoria externa (BDO, 2020 disponível) — mas sem
+              breakdown de salários de liderança comparável ao padrão IRS.
+            </div>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> Lei 9.790/99 e Decreto 3.100/99 — obrigações de transparência das OSCIPs</li>
+          <li><span class="etag etag-doc">DOC</span> Jusbrasil — análise: OSCIP presta contas ao TCU <em>apenas</em> dos recursos públicos</li>
+          <li><span class="etag etag-doc">DOC</span> Fundo Baobá — relatório de auditoria BDO, exercício 2020 (disponível em baoba.org.br)</li>
+          <li><span class="etag etag-doc">DOC</span> IRS Form 990 — estrutura comparativa, disponível em IRS.gov</li>
+        </ul>
+        <div class="gap-box" style="margin-top:12px">
+          <div class="gap-box-label">O que ainda falta fechar</div>
+          <div class="gap-box-text">
+            Cruzamento sistemático dos balanços publicados pelo Fundo Baobá (2011–2024) para reconstituir
+            a evolução patrimonial, breakdown programa vs. operação, e eventual destinação a salários de liderança.
+            Os documentos existem — nenhum pesquisador fez o cruzamento no padrão Schoffstall/Free Beacon.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LACUNA 02 — FECHADA -->
+    <div class="fn-block open" style="margin-bottom:12px">
+      <div class="fn-header" onclick="toggleFn(this)" style="background:var(--green-dim);border-bottom:1px solid rgba(29,158,117,.2)">
+        <div class="fn-header-left">
+          <div class="fn-num" style="color:var(--green)">L2</div>
+          <div>
+            <div class="fn-title">Nexo NetLab → Decisões Judiciais — <span style="color:var(--green)">Fechada com fontes primárias</span></div>
+            <div class="fn-sub">Cadeia documentada: OSF/Ford → NetLab → INQ 4781 → intimidação de big techs</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment" style="border-left-color:var(--green)">
+          <div class="assessment-title" style="color:var(--green)">Cadeia documentada — fonte primária disponível</div>
+          <div class="assessment-text">
+            A decisão do INQ 4781 está no portal do STF em PDF com assinatura digital verificável.
+            A citação do estudo NetLab aparece textualmente no documento oficial.
+            O financiamento do NetLab pela OSF e Ford está nos próprios relatórios do NetLab.
+            <strong>Não é inferência — é cadeia documental direta de três elos verificáveis.</strong>
+          </div>
+        </div>
+
+        <div style="margin:14px 0 8px;font-size:11px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase">Cadeia documentada passo a passo</div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--bg3);border-radius:3px;border-left:3px solid var(--blue)">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--blue);min-width:24px;padding-top:2px">01</div>
+            <div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Financiamento:</strong> NetLab/UFRJ recebeu R$869k da Ford Foundation + R$1,2M da Oak Foundation + R$2,8M da Open Society Foundations (set/2024–ago/2027). Fontes: relatórios públicos do próprio NetLab. <span class="etag etag-doc">DOC</span></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--bg3);border-radius:3px;border-left:3px solid var(--amber)">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);min-width:24px;padding-top:2px">02</div>
+            <div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Estudo produzido:</strong> 1/mai/2023 — NetLab publica "A guerra das plataformas contra o PL 2630", sustentando que Google, Meta, Spotify e Brasil Paralelo veicularam anúncios contra o PL das Fake News burlando termos de uso. O NetLab havia enviado sugestões ao próprio PL — comprometendo sua isenção como perito técnico. <span class="etag etag-doc">DOC</span></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--bg3);border-radius:3px;border-left:3px solid var(--red)">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--red);min-width:24px;padding-top:2px">03</div>
+            <div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Decisão judicial:</strong> INQ 4781 — Moraes cita textualmente o estudo NetLab para intimidar Brasil Paralelo e big techs, determinar remoção de anúncios contra o PL sob pena de R$150k/hora, e intimar presidentes das plataformas a depor na PF. Decisão feita <em>de ofício</em> — sem pedido do MP. <span class="etag etag-doc">DOC</span> Fonte primária: STF.jus.br/arquivo/cms/noticiaNoticiaStf/anexo/INQ4781GOOGLE.pdf</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--bg3);border-radius:3px;border-left:3px solid var(--purple)">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--purple);min-width:24px;padding-top:2px">04</div>
+            <div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Segundo elo — Flávio Dino:</strong> Mai/2023 — Dino (então Ministro da Justiça, depois ministro do STF) cita dados do NetLab para fundamentar censura do Google. O site havia apenas publicado argumentos contra o PL em sua página inicial. <span class="etag etag-doc">DOC</span></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--bg3);border-radius:3px;border-left:3px solid var(--purple)">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--purple);min-width:24px;padding-top:2px">05</div>
+            <div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Terceiro elo — Dias Toffoli:</strong> Toffoli cita estudo NetLab para sustentar voto pela inconstitucionalidade do art. 19 do Marco Civil e responsabilização das redes por conteúdo de terceiros. <span class="etag etag-doc">DOC</span> Fonte: Gazeta do Povo, dez/2025</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--bg3);border-radius:3px;border-left:3px solid var(--teal)">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--teal);min-width:24px;padding-top:2px">06</div>
+            <div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Meta (Senacon):</strong> Relatórios do NetLab usados pela Secretaria Nacional do Consumidor para notificar e multar a Meta em nov/2023. A Meta tentou desqualificar os pesquisadores após a multa. <span class="etag etag-doc">DOC</span> Fonte: UFRJ.br (artigo do reitor)</div>
+          </div>
+        </div>
+
+        <div class="assessment" style="border-left-color:var(--amber);margin-top:8px">
+          <div class="assessment-title" style="color:var(--amber)">Avaliação crítica do elo</div>
+          <div class="assessment-text">
+            O jurista Costa Alves (citado por Gazeta do Povo, mai/2023) avalia: embasar decisão que
+            restringe liberdade de expressão em um único relatório universitário é
+            <strong>"extremamente frágil do ponto de vista epistêmico-empírico"</strong>.
+            A decisão do INQ 4781 foi feita de ofício — o relator do inquérito atuou como investigador,
+            acusador e juiz simultaneamente. O mesmo vício de impedimento que a Vaza Jato gerou
+            para Moro está presente aqui, com a agravante de que o NetLab é financiado pela OSF e Ford —
+            as mesmas fundações que financiam o ecossistema de ONGs que Moraes protege com o inquérito.
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> <a href="https://www.stf.jus.br/arquivo/cms/noticiaNoticiaStf/anexo/INQ4781GOOGLE.pdf" target="_blank">STF — INQ 4781 · decisão Moraes citando NetLab (texto: "salientado no estudo do NetLab, da UFRJ")</a></li>
+          <li><span class="etag etag-doc">DOC</span> <a href="https://www.gazetadopovo.com.br/vida-e-cidadania/quais-sao-grupos-academicos-ongs-stf-usa-base-teorica-censura/" target="_blank">Gazeta do Povo — NetLab: R$2,8M OSF + R$1,2M Oak + R$869k Ford (dez/2025)</a></li>
+          <li><span class="etag etag-doc">DOC</span> <a href="https://www.gazetadopovo.com.br/vida-e-cidadania/alexandre-moraes-flavio-dino-ativistas-esquerda-netlab-ofensiva-google-big-techs/" target="_blank">Gazeta do Povo — Moraes e Dino usam dados NetLab contra big techs (mai/2023)</a></li>
+          <li><span class="etag etag-doc">DOC</span> <a href="https://ufrj.br/2024/06/artigo-de-reitor-da-ufrj-repudia-censura-a-ciencia/" target="_blank">UFRJ — Reitor: relatórios NetLab usados pela Senacon para multar a Meta (jun/2024)</a></li>
+          <li><span class="etag etag-doc">DOC</span> Partido NOVO — NetLab: R$2M de dinheiro público + financiamento privado estrangeiro (jan/2025)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LACUNA 03 — INFERÊNCIA MANTIDA -->
+    <div class="fn-block" style="margin-bottom:12px">
+      <div class="fn-header" onclick="toggleFn(this)" style="background:var(--purple-dim);border-bottom:1px solid rgba(127,119,221,.2)">
+        <div class="fn-header-left">
+          <div class="fn-num" style="color:var(--purple)">L3</div>
+          <div>
+            <div class="fn-title">Financiamento Simultâneo dos Dois Lados — <span style="color:var(--purple)">Inferência Qualificada</span></div>
+            <div class="fn-sub">Permanece inferência — sem equivalente documentado ao indiciamento SPLC</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment" style="border-left-color:var(--purple)">
+          <div class="assessment-title" style="color:var(--purple)">Por que esta lacuna não pode ser fechada hoje</div>
+          <div class="assessment-text">
+            No caso americano, o elo foi provado via indiciamento federal com documentos de pagamento,
+            nomes de empresas de fachada e valores por conta bancária. No Brasil, a hipótese análoga
+            precisaria de documentação equivalente — que não existe publicamente.
+            <strong>Tratar inferência como documentação seria o mesmo erro metodológico que o projeto critica
+            quando praticado pela mídia mainstream.</strong>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">🇺🇸 O que torna o SPLC documentado</div>
+            <div class="pair-text">
+              Indiciamento federal com: nomes de empresas de fachada, valores específicos
+              ($270k para informante em Charlottesville), período (2014–2023), contas bancárias.
+              Assinado por procurador-geral federal com jurisdição sobre Montgomery, Alabama.
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">🇧🇷 O que existe no Brasil</div>
+            <div class="pair-text">
+              <strong>Documentado (Narco Fluxo, abr/2026):</strong> Choquei classificado pela PF como
+              "operador de mídia" do esquema criminoso. 17 interações com Janja documentadas via LAI.
+              Ele admitiu "pode ter ajudado a eleger Lula".<br><br>
+              <strong>Inferência:</strong> O elo entre o ecossistema de ONGs identitárias e o financiamento
+              de grupos que amplificam conflito racial para justificar a própria intervenção
+              não foi documentado com a precisão do caso americano.
+            </div>
+          </div>
+        </div>
+        <div class="gap-box" style="margin-top:12px">
+          <div class="gap-box-label">O que fecharia esta lacuna</div>
+          <div class="gap-box-text">
+            Documentação equivalente ao indiciamento SPLC: pagamentos identificados, empresas intermediárias,
+            valores específicos de ONGs para grupos que amplificam conflito racial. Não existe hoje.
+            A investigação aberta na Operação Narco Fluxo pode eventualmente produzir esse material —
+            mas não produz ainda. Esta lacuna deve permanecer classificada como inferência.
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> PF — Operação Narco Fluxo, 15/abr/2026 · classificação de Choquei</li>
+          <li><span class="etag etag-inf">INF</span> Hipótese estrutural derivada do modelo SPLC — sem equivalente documental brasileiro</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LACUNA 04 — PARCIALMENTE FECHADA -->
+    <div class="fn-block open" style="margin-bottom:12px">
+      <div class="fn-header" onclick="toggleFn(this)" style="background:var(--amber-dim);border-bottom:1px solid rgba(239,159,39,.2)">
+        <div class="fn-header-left">
+          <div class="fn-num" style="color:var(--amber)">L4</div>
+          <div>
+            <div class="fn-title">Audit Trail do Fundo Baobá — <span style="color:var(--amber)">Parcialmente Mapeada</span></div>
+            <div class="fn-sub">Estrutura de endowment identificada — cruzamento contábil completo ainda por fazer</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment" style="border-left-color:var(--amber)">
+          <div class="assessment-title" style="color:var(--amber)">O que a pesquisa encontrou</div>
+          <div class="assessment-text">
+            O Fundo Baobá publica balanços e auditoria externa (BDO, 2020 disponível publicamente).
+            A estrutura de matching da Kellogg foi confirmada: para cada R$1 captado de doador nacional,
+            a Kellogg doa R$3. Para cada R$1 de doador internacional, a Kellogg doa R$2.
+            Limite: US$25M para o fundo patrimonial.
+            <strong>A auditoria existe e está disponível — mas nenhuma análise no padrão Schoffstall
+            foi feita sobre os documentos publicados.</strong>
+          </div>
+        </div>
+
+        <table class="fin-table" style="margin-top:14px">
+          <thead>
+            <tr><th>Item</th><th>Status</th><th>Fonte</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Estrutura de matching Kellogg (R$1:R$3 nacional, R$1:R$2 internacional)</td><td class="val">Documentado</td><td><span class="etag etag-doc">DOC</span> baoba.org.br/fundo-patrimonial</td></tr>
+            <tr><td>Limite do fundo patrimonial: US$25M (Kellogg)</td><td class="val">Documentado</td><td><span class="etag etag-doc">DOC</span> baoba.org.br</td></tr>
+            <tr><td>Auditoria externa BDO (2020)</td><td class="val">Documentado</td><td><span class="etag etag-doc">DOC</span> baoba.org.br/wp-content/uploads/2021/11/...</td></tr>
+            <tr><td>Doação R$1,25M para Marcha Mulheres Negras (dez/2024)</td><td class="val">Documentado</td><td><span class="etag etag-doc">DOC</span> baoba.org.br/retrospectiva-fundo-baoba-2024</td></tr>
+            <tr><td>Doação R$500k para SPD (2023)</td><td class="val">Documentado</td><td><span class="etag etag-doc">DOC</span> baoba.org.br</td></tr>
+            <tr><td>Patrimônio total atual (2023–2024)</td><td style="color:var(--amber)">Não publicado</td><td>Relatórios disponíveis apenas até 2020</td></tr>
+            <tr><td>Salários de dirigentes</td><td style="color:var(--red)">Não divulgado</td><td>Sem equivalente ao IRS 990 americano</td></tr>
+            <tr><td>Breakdown programa vs. overhead vs. captação</td><td style="color:var(--red)">Fragmentado</td><td>Auditoria 2020 disponível; 2021–2024 não encontrada</td></tr>
+          </tbody>
+        </table>
+
+        <div class="gap-box" style="margin-top:12px">
+          <div class="gap-box-label">Próximos passos investigativos</div>
+          <div class="gap-box-text">
+            1. Cruzar balanços publicados 2011–2024 (via CNPJ no portal MJSP e MP de SP, onde a fundação está registrada).<br>
+            2. Comparar relação programa/overhead em cada exercício com a métrica CharityWatch (benchmark: menos de 25% overhead = aceitável).<br>
+            3. Identificar se existe remuneração de dirigentes — a Lei 9.790/99 permite remunerar dirigentes executivos; verificar se está sendo praticado e em qual valor.<br>
+            4. Mapear os 95 beneficiários identificados pela OSF em 2023 e cruzar com o portfólio do Baobá.
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><span class="etag etag-doc">DOC</span> <a href="https://baoba.org.br/fundo-patrimonial/" target="_blank">Fundo Baobá — estrutura do fundo patrimonial e matching Kellogg</a></li>
+          <li><span class="etag etag-doc">DOC</span> <a href="https://baoba.org.br/wp-content/uploads/2021/11/RELATORIO-DE-AUDITORIA-2020_assinado.pdf" target="_blank">Fundo Baobá — Auditoria BDO, exercício 2020 (PDF)</a></li>
+          <li><span class="etag etag-doc">DOC</span> <a href="https://baoba.org.br/retrospectiva-fundo-baoba-2024/" target="_blank">Fundo Baobá — Retrospectiva 2024 com valores de doações</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LACUNA 05 — DISTINÇÃO ANALÍTICA -->
+    <div class="fn-block" style="margin-bottom:12px">
+      <div class="fn-header" onclick="toggleFn(this)" style="border-bottom:1px solid var(--border)">
+        <div class="fn-header-left">
+          <div class="fn-num">L5</div>
+          <div>
+            <div class="fn-title">A Distinção Analítica <span>Que o Argumento Colapsa</span></div>
+            <div class="fn-sub">Desigualdade estrutural real ≠ importação artificial do enquadramento binário — colapsar as duas enfraquece ambas</div>
+          </div>
+        </div>
+        <div class="fn-chevron">▾</div>
+      </div>
+      <div class="fn-body">
+        <div class="assessment">
+          <div class="assessment-title">Por que esta distinção é crítica para a credibilidade do argumento</div>
+          <div class="assessment-text">
+            O argumento mais forte do dossiê — que o modelo SPLC foi importado para o Brasil com seus mecanismos financeiros —
+            <strong>não depende da tese de que o racismo brasileiro estava se autorresolvendo.</strong>
+            A segunda tese é empiricamente vulnerável. Colapsar as duas oferece ao adversário um alvo fácil
+            para desqualificar a primeira, que é factualmente sólida.
+          </div>
+        </div>
+        <div class="pair">
+          <div class="pair-col us">
+            <div class="pair-flag">Tese A — Suporte documental forte</div>
+            <div class="pair-text">
+              O ecossistema de ONGs antiracismo brasileiro foi construído com financiamento externo
+              (Ford desde 1962, Kellogg desde 1940s, OSF desde 1995), utiliza categorias raciais
+              importadas do sul americano via Cândido Mendes/Ford, e exibe os mesmos padrões
+              financeiros do SPLC (acumulação de endowment, opacidade de destino, elite branca
+              gerindo trauma alheio).
+              <strong>Este argumento é documentado e independente da questão do racismo.</strong>
+            </div>
+          </div>
+          <div class="pair-col br">
+            <div class="pair-flag">Tese B — Vulnerável empiricamente</div>
+            <div class="pair-text">
+              "O racismo brasileiro estava em vias de se autorresolver pela miscigenação natural."<br><br>
+              <strong>Contrafactual disponível:</strong> FBSP — homicídio de jovens negros cresce em relação
+              a brancos em todas as regiões. Desigualdade salarial por raça aumentou em setores formais.
+              Taxa de encarceramento de negros é 2,3x a de brancos (DEPEN 2023).<br><br>
+              A tese pode ser verdadeira para <em>identidade</em> racial (o pardo não se percebia "negro")
+              e falsa para <em>desigualdade estrutural</em>. Misturar os dois planos é o erro.
+            </div>
+          </div>
+        </div>
+        <div class="gap-box" style="margin-top:12px;background:rgba(239,159,39,0.06);border-color:rgba(239,159,39,.3)">
+          <div class="gap-box-label" style="color:var(--amber)">Recomendação para o argumento do projeto</div>
+          <div class="gap-box-text">
+            Separar explicitamente: (1) a crítica ao modelo financeiro das ONGs — que é documentada e não requer
+            posição sobre a existência de racismo; (2) a crítica à importação de categorias identitárias americanas
+            — que é documentada via genealogia Ford/Cândido Mendes; (3) a questão da desigualdade racial estrutural
+            — que deve ser tratada com os dados do FBSP, não como negação.
+            Fazer (1) e (2) sem (3) é possível e muito mais sólido.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-gaps -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a>
+      · Análise estrutural comparada SPLC → Brasil · Abr/2026
+    </div>
+    <div>
+      CC0 1.0 · Domínio público · Sem restrições de uso
+    </div>
+  </footer>
+
+</div><!-- /page -->
+</div><!-- /site-layout -->
+
+<script>
+// ── IDs dinâmicos para fn-blocks via .fn-num ──
+document.querySelectorAll('.fn-num').forEach(el => {
+  const txt = el.textContent.trim().toLowerCase(); // "f1","f2","l1","p1"...
+  const block = el.closest('.fn-block');
+  if (block && !block.id && /^[a-z]\d+$/.test(txt)) {
+    block.id = 'fn-' + txt;
+  }
+});
+
+// Pat-cards (padrões P1–P8) via .pat-id text
+document.querySelectorAll('.pat-id').forEach(el => {
+  const m = el.textContent.match(/P(\d+)/i);
+  if (m) {
+    const card = el.closest('.pat-card');
+    if (card && !card.id) card.id = 'fn-p' + m[1];
+  }
+});
+
+// ── PROGRESS BAR ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (window.scrollY / total * 100) + '%';
+}, { passive: true });
+
+// ── SCROLL SPY para sidenav ──
+const navLinks = Array.from(document.querySelectorAll('.sidenav a[href^="#"]'));
+
+const targets = navLinks.map(link => {
+  const id = link.getAttribute('href').slice(1);
+  return { link, el: document.getElementById(id) };
+}).filter(t => t.el);
+
+function getTop(el) {
+  return el.getBoundingClientRect().top + window.scrollY;
+}
+
+function updateNav() {
+  const scrollY = window.scrollY + 90;
+  let current = null;
+  for (let i = targets.length - 1; i >= 0; i--) {
+    if (scrollY >= getTop(targets[i].el)) { current = targets[i]; break; }
+  }
+  navLinks.forEach(l => l.classList.remove('active'));
+  if (!current) return;
+  current.link.classList.add('active');
+  // highlight parent section too when a sub-item is active
+  const href = current.link.getAttribute('href');
+  const sectionOf = {
+    '#fn-f1':'#tab-funcoes','#fn-f2':'#tab-funcoes','#fn-f3':'#tab-funcoes',
+    '#fn-f4':'#tab-funcoes','#fn-f5':'#tab-funcoes','#fn-f6':'#tab-funcoes',
+    '#fn-p1':'#tab-padroes','#fn-p2':'#tab-padroes','#fn-p3':'#tab-padroes',
+    '#fn-p4':'#tab-padroes','#fn-p5':'#tab-padroes','#fn-p6':'#tab-padroes',
+    '#fn-p7':'#tab-padroes','#fn-p8':'#tab-padroes',
+    '#fn-l1':'#tab-gaps','#fn-l2':'#tab-gaps','#fn-l3':'#tab-gaps',
+    '#fn-l4':'#tab-gaps','#fn-l5':'#tab-gaps'
+  };
+  const parentHref = sectionOf[href];
+  if (parentHref) {
+    const parentLink = document.querySelector('.sidenav a[href="' + parentHref + '"]');
+    if (parentLink) parentLink.classList.add('active');
+  }
+  // scroll nav link into view if needed
+  current.link.scrollIntoView({ block: 'nearest' });
+}
+
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+
+// ── SMOOTH SCROLL compensando o header sticky ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.getElementById(a.getAttribute('href').slice(1));
+    if (target) {
+      e.preventDefault();
+      window.scrollTo({ top: getTop(target) - 70, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

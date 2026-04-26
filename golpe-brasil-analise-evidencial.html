@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quem Deu o Golpe no Brasil? — Análise Evidencial Baseada em Documentos Primários</title>
+<meta name="description" content="Análise evidencial baseada em documentos primários: Vaza Toga, Operação Narco Fluxo, INQ 4.781, cadeia USAID→NetLab→TSE, 8 de Janeiro e a tese do weaponized legalism. Documentado / em apuração / inferência.">
+<meta name="keywords" content="golpe Brasil, Moraes, STF, lawfare, Vaza Toga, eleição 2022, weaponized legalism, PCC, Choquei, USAID, NetLab, 8 de janeiro, Bolsonaro">
+<meta property="og:title" content="Quem Deu o Golpe no Brasil? — Análise Evidencial">
+<meta property="og:description" content="Síntese analítica baseada nos documentos primários: dois vetores de ruptura simultâneos, instrumentos diferentes, assimetria de consequências.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@400;700;800&display=swap');
+
+  :root {
+    --bg: #060810;
+    --surface: #0d1117;
+    --surface2: #111620;
+    --border: #1e2530;
+    --border-m: #252f3e;
+    --red: #ff2d2d; --red-dim: rgba(255,45,45,0.10);
+    --orange: #ff8c00; --orange-dim: rgba(255,140,0,0.08);
+    --yellow: #ffd700; --yellow-dim: rgba(255,215,0,0.07);
+    --green: #00ff88; --green-dim: rgba(0,255,136,0.07);
+    --blue: #4d9fff; --blue-dim: rgba(77,159,255,0.07);
+    --purple: #b06fff; --purple-dim: rgba(176,111,255,0.07);
+    --teal: #00d4aa; --teal-dim: rgba(0,212,170,0.07);
+    --pink: #ff4d9e; --pink-dim: rgba(255,77,158,0.07);
+    --gold: #ffb700; --gold-dim: rgba(255,183,0,0.07);
+    --gray: #7a8494; --white: #e8edf3; --muted: #4a5568;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--mono);
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.35;
+  }
+  .w { max-width: 980px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 36px;
+    animation: fadeDown .5s ease both;
+  }
+  .op-tag {
+    font-size: 9px; letter-spacing: 3px; color: var(--red);
+    text-transform: uppercase; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .op-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--red); }
+  .header h1 {
+    font-family: var(--sans); font-weight: 800;
+    font-size: clamp(20px, 3.2vw, 34px);
+    line-height: 1.08; margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+  .header h1 em { color: var(--red); font-style: normal; }
+  .header-sub {
+    font-size: 12px; color: var(--gray); line-height: 1.7;
+    max-width: 680px; border-left: 2px solid var(--border-m);
+    padding-left: 14px;
+  }
+  .header-meta {
+    margin-top: 14px; display: flex; gap: 16px; flex-wrap: wrap;
+    font-size: 10px; color: var(--muted); letter-spacing: 0.5px;
+  }
+  .vtag {
+    display: inline-block; font-size: 9px;
+    background: var(--red-dim); color: var(--red);
+    border: 1px solid rgba(255,45,45,.3);
+    padding: 2px 8px; border-radius: 3px;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 32px; padding: 10px 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; animation: fadeDown .5s .05s ease both;
+  }
+  .li { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--gray); }
+  .ld { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+  /* ── SECTION DIVIDERS ── */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 8px 0 16px; animation: fadeIn .4s ease both;
+  }
+  .divider-label {
+    font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--muted); white-space: nowrap;
+  }
+  .divider-line { height: 1px; flex: 1; background: var(--border); }
+
+  /* ── SUMMARY BOX ── */
+  .summary-box {
+    margin-bottom: 32px;
+    padding: 20px 22px;
+    background: rgba(255,45,45,.05);
+    border: 1px solid rgba(255,45,45,.25);
+    border-left: 4px solid var(--red);
+    border-radius: 10px;
+    animation: fadeDown .5s .1s ease both;
+  }
+  .summary-box h2 {
+    font-family: var(--sans); font-size: 11px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .summary-text {
+    font-size: 12px; color: var(--gray); line-height: 1.85;
+  }
+  .summary-text strong { color: var(--white); }
+  .summary-text em { color: var(--gold); font-style: normal; font-weight: 700; }
+
+  /* ── VECTOR CARDS (nodes) ── */
+  .vector-grid {
+    display: flex; flex-direction: column; gap: 0;
+    margin-bottom: 8px;
+  }
+  .vnode {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 12px;
+    animation: fadeIn .4s ease both;
+  }
+  .spine { display: flex; flex-direction: column; align-items: center; }
+  .sdot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid; flex-shrink: 0;
+    position: relative; z-index: 1; margin-top: 14px;
+  }
+  .sline { width: 2px; flex: 1; min-height: 12px; }
+
+  .vcard {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 13px 15px; margin-bottom: 8px;
+    transition: border-color .18s;
+  }
+  .vcard:hover { border-color: var(--border-m); }
+  .vcard-head {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .vcard-title {
+    font-family: var(--sans); font-size: 13px;
+    font-weight: 700; line-height: 1.25; color: var(--white);
+  }
+  .badge {
+    font-size: 8px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 3px;
+    white-space: nowrap; flex-shrink: 0; font-weight: 700;
+  }
+  .b-doc { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,255,136,.25); }
+  .b-inv { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(255,140,0,.25); }
+  .b-inf { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,215,0,.2); }
+  .b-str { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(176,111,255,.25); }
+  .b-tog { background: var(--pink-dim); color: var(--pink); border: 1px solid rgba(255,77,158,.25); }
+  .b-key { background: rgba(255,45,45,.12); color: var(--red); border: 1px solid rgba(255,45,45,.3); }
+
+  .vcard-body { font-size: 11px; color: var(--gray); line-height: 1.75; }
+  .vcard-body strong { color: var(--white); font-weight: 600; }
+  .vcard-body em { color: var(--gold); font-style: normal; }
+
+  /* ── LINKS BLOCK ── */
+  .links-block {
+    margin-top: 10px; padding: 9px 12px;
+    background: rgba(77,159,255,.04);
+    border: 1px solid rgba(77,159,255,.12);
+    border-radius: 6px;
+  }
+  .links-title {
+    font-size: 8px; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 7px; font-weight: 700;
+  }
+  .link-list { display: flex; flex-direction: column; gap: 4px; }
+  .link-item {
+    display: flex; align-items: baseline; gap: 8px;
+    font-size: 10px;
+  }
+  .link-label { color: var(--muted); flex-shrink: 0; font-size: 9px; }
+  .link-item a {
+    color: var(--blue); text-decoration: none;
+    border-bottom: 1px dashed rgba(77,159,255,.3);
+    line-height: 1.4;
+    transition: color .15s;
+  }
+  .link-item a:hover { color: var(--teal); border-bottom-color: rgba(0,212,170,.4); }
+  .link-ext {
+    font-size: 8px; color: var(--muted); margin-left: 4px;
+    border: 1px solid var(--border); padding: 1px 4px; border-radius: 2px;
+  }
+
+  /* ── NODE COLORS ── */
+  .n-red .sdot { border-color: var(--red); background: var(--red-dim); }
+  .n-red .sline { background: linear-gradient(var(--red-dim), var(--border)); }
+  .n-red .vcard { background: var(--red-dim); border-color: rgba(255,45,45,.18); }
+
+  .n-orange .sdot { border-color: var(--orange); background: var(--orange-dim); }
+  .n-orange .sline { background: linear-gradient(var(--orange-dim), var(--border)); }
+  .n-orange .vcard { background: var(--orange-dim); border-color: rgba(255,140,0,.14); }
+
+  .n-pink .sdot { border-color: var(--pink); background: var(--pink-dim); }
+  .n-pink .sline { background: linear-gradient(var(--pink-dim), var(--border)); }
+  .n-pink .vcard { background: var(--pink-dim); border-color: rgba(255,77,158,.14); }
+
+  .n-purple .sdot { border-color: var(--purple); background: var(--purple-dim); }
+  .n-purple .sline { background: linear-gradient(var(--purple-dim), var(--border)); }
+  .n-purple .vcard { background: var(--purple-dim); border-color: rgba(176,111,255,.14); }
+
+  .n-teal .sdot { border-color: var(--teal); background: var(--teal-dim); }
+  .n-teal .sline { background: linear-gradient(var(--teal-dim), var(--border)); }
+  .n-teal .vcard { background: var(--teal-dim); border-color: rgba(0,212,170,.14); }
+
+  .n-blue .sdot { border-color: var(--blue); background: var(--blue-dim); }
+  .n-blue .sline { background: linear-gradient(var(--blue-dim), var(--border)); }
+  .n-blue .vcard { background: var(--blue-dim); border-color: rgba(77,159,255,.14); }
+
+  .n-gold .sdot { border-color: var(--gold); background: var(--gold-dim); }
+  .n-gold .sline { background: linear-gradient(var(--gold-dim), var(--border)); }
+  .n-gold .vcard { background: var(--gold-dim); border-color: rgba(255,183,0,.14); }
+
+  .n-final .sdot {
+    border-color: var(--red); background: var(--red);
+    box-shadow: 0 0 0 4px rgba(255,45,45,.18);
+    animation: pulse 2s infinite;
+  }
+  .n-final .vcard {
+    background: rgba(255,45,45,.06);
+    border: 2px solid rgba(255,45,45,.4);
+  }
+  .n-final .vcard-title { color: var(--red); font-size: 14px; }
+
+  /* ── COMPARISON TABLE ── */
+  .cmp-section {
+    margin-top: 32px; margin-bottom: 32px;
+    padding: 20px 22px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; animation: fadeDown .5s .2s ease both;
+  }
+  .cmp-section h2 {
+    font-family: var(--sans); font-size: 11px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cmp-section h2::before { content: ''; width: 3px; height: 14px; background: var(--gold); border-radius: 2px; }
+  .cmp-table { width: 100%; border-collapse: collapse; }
+  .cmp-table th {
+    font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); text-align: left; padding: 7px 10px;
+    border-bottom: 1px solid var(--border); font-weight: 700;
+  }
+  .cmp-table th:first-child { width: 22%; }
+  .cmp-table td {
+    font-size: 11px; color: var(--gray); padding: 9px 10px;
+    border-bottom: 1px solid var(--border); vertical-align: top;
+    line-height: 1.6;
+  }
+  .cmp-table td:first-child { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+  .cmp-table td strong { color: var(--white); font-weight: 600; }
+  .cmp-table tr:last-child td { border-bottom: none; }
+  .cmp-table .td-a { background: rgba(255,45,45,.04); }
+  .cmp-table .td-b { background: rgba(77,159,255,.04); }
+  .col-a { color: var(--orange) !important; }
+  .col-b { color: var(--blue) !important; }
+  @media (max-width: 600px) {
+    .cmp-table { display: block; overflow-x: auto; }
+  }
+
+  /* ── CENTRAL QUESTION ── */
+  .question-box {
+    margin-top: 32px; padding: 22px 24px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(255,183,0,.25);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    animation: fadeDown .5s .25s ease both;
+  }
+  .question-box h2 {
+    font-family: var(--sans); font-size: 11px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
+  }
+  .question-text {
+    font-size: 13px; color: var(--white);
+    line-height: 1.75; font-weight: 600;
+    font-family: var(--sans); border-left: none;
+    margin-bottom: 16px;
+  }
+  .question-answer {
+    font-size: 11px; color: var(--gray); line-height: 1.8;
+  }
+  .question-answer strong { color: var(--white); }
+  .question-answer em { color: var(--teal); font-style: normal; }
+
+  /* ── ALL ARTICLES INDEX ── */
+  .index-section {
+    margin-top: 32px; padding: 20px 22px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; animation: fadeDown .5s .3s ease both;
+  }
+  .index-section h2 {
+    font-family: var(--sans); font-size: 11px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 16px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .index-card {
+    display: block; text-decoration: none;
+    padding: 10px 12px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color .15s, background .15s;
+  }
+  .index-card:hover {
+    border-color: var(--border-m);
+    background: rgba(77,159,255,.05);
+  }
+  .index-card-title {
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    color: var(--white); margin-bottom: 4px; line-height: 1.3;
+  }
+  .index-card-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
+  .index-card-tag {
+    display: inline-block; margin-top: 6px;
+    font-size: 8px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 3px; font-weight: 700;
+  }
+  .tag-red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,45,45,.2); }
+  .tag-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(77,159,255,.2); }
+  .tag-pink { background: var(--pink-dim); color: var(--pink); border: 1px solid rgba(255,77,158,.2); }
+  .tag-teal { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,212,170,.2); }
+  .tag-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(255,183,0,.2); }
+  .tag-purple { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(176,111,255,.2); }
+  .tag-orange { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(255,140,0,.2); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 32px; padding: 16px 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; font-size: 10px; color: var(--muted);
+    line-height: 1.7;
+  }
+  .footer strong { color: var(--gray); }
+  .footer a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed rgba(77,159,255,.3); }
+  .footer a:hover { color: var(--teal); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(255,45,45,.2); }
+    50%       { box-shadow: 0 0 0 8px rgba(255,45,45,.05); }
+  }
+</style>
+</head>
+<body>
+<div class="w">
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div class="op-tag">Síntese Analítica · Documentos Primários · abr/2026 <span class="vtag">v1.0</span></div>
+  <h1>Quem Deu o Golpe<br>no <em>Brasil</em>?</h1>
+  <div class="header-sub">
+    Análise evidencial baseada em documentos primários: Vaza Toga, Operação Narco Fluxo,
+    cadeia USAID→NetLab→TSE, 8 de Janeiro e a tese do weaponized legalism.
+    Cada achado classificado explicitamente em documentado / em apuração / inferência.
+  </div>
+  <div class="header-meta">
+    <span>gosurf.site · lawfare-timeline</span>
+    <span>·</span>
+    <span>47+ fontes primárias verificáveis</span>
+    <span>·</span>
+    <span>abr/2026</span>
+  </div>
+</div>
+
+<!-- ══ LEGEND ══ -->
+<div class="legend">
+  <div class="li"><div class="ld" style="background:rgba(0,255,136,.6)"></div>Documentado</div>
+  <div class="li"><div class="ld" style="background:rgba(255,140,0,.6)"></div>Em apuração</div>
+  <div class="li"><div class="ld" style="background:rgba(255,140,0,.9);border:1px solid #ff8c00"></div>⚠ Em apuração contaminada</div>
+  <div class="li"><div class="ld" style="background:rgba(255,45,45,.4);border:1px dashed #ff2d2d"></div>Evidência suprimida</div>
+  <div class="li"><div class="ld" style="background:rgba(255,215,0,.6)"></div>Inferência</div>
+  <div class="li"><div class="ld" style="background:rgba(176,111,255,.6)"></div>Estrutural</div>
+  <div class="li"><div class="ld" style="background:rgba(255,77,158,.6)"></div>Vaza Toga</div>
+  <div class="li"><div class="ld" style="background:rgba(255,183,0,.6)"></div>Síntese</div>
+  <div class="li"><div class="ld" style="background:rgba(255,45,45,.8)"></div>Tese central</div>
+</div>
+
+<!-- ══ SUMMARY ══ -->
+<div class="summary-box">
+  <h2>⚡ Tese Central</h2>
+  <div class="summary-text">
+    A pergunta "quem deu o golpe" pressupõe um evento único, abrupto, clássico. O que os documentos registram é diferente:
+    <strong>dois vetores de ruptura — mas com evidências de qualidades radicalmente distintas.</strong>
+    <br><br>
+    <strong>Vetor A</strong> (weaponized legalism): documentado por fontes primárias independentes — documentos vazados, registros oficiais do STF/TSE,
+    dados eleitorais públicos, auditorias externas. Evidências não dependem do aparato que se beneficia.
+    <br><br>
+    <strong>Vetor B</strong> (evento físico e narrativa): houve destruição real. Mas a narrativa oficial
+    sobre <em>quem a iniciou, quem facilitou e quem foi forçado a estar lá</em> é contestada por
+    evidências contemporâneas ao evento que foram seletivamente suprimidas — vídeos de agentes de segurança
+    facilitando acesso, registros de bombas lançadas por helicóptero para forçar entrada de inocentes,
+    e imagens da sequência temporal que indicam depredação anterior à chegada do coletivo principal.
+    <strong>Quando as evidências que sustentam a narrativa oficial são preservadas e as que a contradizem
+    desaparecem sob controle do mesmo aparato investigativo, não é arquivo — é operação.</strong>
+    <br><br>
+    Sobre responsabilidade e culpabilidade: produzidas por processo com relator-vítima-árbitro simultâneos,
+    depoimentos sob custódia prolongada do mesmo relator, sem contraditório. O mesmo critério que anulou Moro
+    e a Lava Jato por parcialidade deveria exigir revisão integral aqui.
+    <br><br>
+    A hipótese que os elementos documentados impõem: que o evento foi ao menos deliberadamente facilitado
+    — e as evidências exculpatórias suprimidas — pelo aparato que o usou para eliminar a oposição política.
+    <br><br>
+    O que os documentos registram com clareza inequívoca: <strong>um lado foi punido sem due process.
+    O outro continua no cargo sem investigação neutra. A assimetria é, em si, o registro do golpe.</strong>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ VETOR A ══════════════════════════════ -->
+<div class="divider" style="animation-delay:.02s">
+  <span class="divider-label">Vetor A — Ruptura Institucional por Dentro (STF / TSE / Lawfare)</span>
+  <div class="divider-line"></div>
+</div>
+
+<div class="vector-grid">
+
+  <!-- Node A1 -->
+  <div class="vnode n-red" style="animation-delay:.04s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">A1 — Acumulação Inconstitucional de Cargos: Moraes como árbitro, juiz e investigador simultâneos</div>
+        <span class="badge b-str">Estrutural documentado</span>
+      </div>
+      <div class="vcard-body">
+        Alexandre de Moraes acumulou <strong>simultaneamente</strong>:
+        Presidente do TSE (árbitro da eleição 2022) · Ministro do STF (corte suprema)
+        · Relator do INQ 4.781 (Fake News) · Relator do INQ 4.874 (Milícias Digitais).
+        <br><br>
+        Isso significa que <strong>o árbitro da disputa eleitoral era, ao mesmo tempo,
+        o juiz que investigava e punia um dos candidatos</strong>.
+        Sem precedente democrático documentado em qualquer democracia do hemisfério ocidental.
+        Não é inferência — é fato estrutural verificável nos registros oficiais do STF e TSE.
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[principal]</span><a href="https://gosurf.site/vaza-toga" target="_blank">VAZA TOGA — Dossiê Completo INQ 4.781</a></div>
+            <div class="link-item"><span class="link-label">[contexto]</span><a href="https://gosurf.site/cadeia-influencia-usaid-tse-2022" target="_blank">USAID → ONGs → NetLab → TSE/Moraes — Cadeia de Influência Jurídica</a></div>
+            <div class="link-item"><span class="link-label">[análise]</span><a href="https://gosurf.site/brasil-estado-totalitario" target="_blank">Weaponized Legalism — Brasil: Anatomia de um Estado Capturado</a></div>
+            <div class="link-item"><span class="link-label">[perfil]</span><a href="https://gosurf.site/gilmar-mendes-em-fatos" target="_blank">Gilmar Mendes — Perfil Analítico (acumulação sistêmica no STF)</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node A2 -->
+  <div class="vnode n-pink" style="animation-delay:.07s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">A2 — Vaza Toga: o TSE como braço investigativo secreto do STF</div>
+        <span class="badge b-tog">Documentado · Folha SP ago/2024</span>
+      </div>
+      <div class="vcard-body">
+        Assessor Airton Vieira (gabinete Moraes/STF) solicitava relatórios informais ao TSE via WhatsApp.
+        <strong>20+ casos documentados.</strong> Pediu que técnicos "caprichassem" e "usassem a criatividade"
+        em dossiês sobre opositores. Resultado: quebra de sigilo bancário, cancelamento de passaportes,
+        bloqueio de redes de Constantino, Figueiredo, Revista Oeste.
+        <br><br>
+        <strong>1.400+ pessoas perfiladas</strong> pelo critério de criticar o STF ou Lula,
+        retuitar conteúdo rotulado "desinformação" ou fazer menções anônimas.
+        Certidões emitidas em minutos. Defesas e MP sem acesso.
+        <br><br>
+        Comparação que os documentos registram:
+        <strong>Vaza Jato (2019)</strong> → anulou toda a Lava Jato → beneficiou Lula diretamente.
+        <strong>Vaza Toga (2024)</strong> → evidências comparáveis ou mais graves → <em>zero revisão</em> de decisão.
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[principal]</span><a href="https://gosurf.site/vaza-toga" target="_blank">VAZA TOGA — Dossiê Completo INQ 4.781 (22 min)</a></div>
+            <div class="link-item"><span class="link-label">[síntese]</span><a href="https://gosurf.site/operacao-silencio-digital" target="_blank">Operação Silêncio Digital — Regime de Censura Judicial 2020–2026</a></div>
+            <div class="link-item"><span class="link-label">[nulidades]</span><a href="https://gosurf.site/dossie-juridico-nulidades-8jan" target="_blank">Dossiê Jurídico — Nulidades do 8 de Janeiro</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node A3 -->
+  <div class="vnode n-teal" style="animation-delay:.10s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">A3 — USAID → ONGs → NetLab → Decisões Moraes/Dino: o elo documentado</div>
+        <span class="badge b-doc">Elo documentado · Gazeta do Povo</span>
+      </div>
+      <div class="vcard-body">
+        <strong>R$ 267M+</strong> da USAID a ONGs brasileiras (portal transparência EUA).
+        2 eventos conjuntos USAID + TSE em 2021 sobre "desinformação".
+        NetLab (UFRJ): parceiro formal do TSE + R$ 6M Open Society/Ford pós-2023.
+        <br><br>
+        O elo com decisões judiciais é <strong>documentado</strong>:
+        Moraes usou estudo NetLab no INQ 4.781 para intimar Brasil Paralelo e big techs.
+        Dino citou NetLab para censurar Google. Toffoli citou NetLab em voto sobre Marco Civil.
+        <br><br>
+        Resultado: ecossistema de "checagem" de <em>espectro único</em> — sem contraponto documentado
+        — alimentando diretamente decisões de censura da oposição digital.
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[principal]</span><a href="https://gosurf.site/cadeia-influencia-usaid-tse-2022" target="_blank">USAID → ONGs → NetLab → TSE/Moraes — Cadeia de Influência (8 camadas)</a></div>
+            <div class="link-item"><span class="link-label">[detalhado]</span><a href="https://gosurf.site/choquei-pcc-fluxo" target="_blank">PCC → Choquei → Eleição 2022 — Cadeia de Influência Jurídica v3.0</a></div>
+            <div class="link-item"><span class="link-label">[censura]</span><a href="https://gosurf.site/operacao-silencio-digital" target="_blank">Operação Silêncio Digital — Regime de Censura Judicial 2020–2026</a></div>
+            <div class="link-item"><span class="link-label">[guerra info]</span><a href="https://gosurf.site/guerra-da-informacao-br2022" target="_blank">Firehose of Falsehood — Arquitetura de Influência · Brasil 2022</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node A4 -->
+  <div class="vnode n-purple" style="animation-delay:.13s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">A4 — Assimetria eleitoral oficial: 226 × 14 inserções no TSE e campanha "Bora Votar"</div>
+        <span class="badge b-doc">Documentado · TSE oficial</span>
+      </div>
+      <div class="vcard-body">
+        Nos 8 dias finais da eleição 2022:
+        <strong>Lula: 226 inserções. Bolsonaro: 14. Razão de 16:1</strong> — decisão oficial do TSE
+        presidido pelo mesmo Moraes que investigava Bolsonaro.
+        Radiolão (154k alegadas, não validadas) + denunciante do esquema virado réu no INQ 4.874.
+        <br><br>
+        Campanha "Bora Votar" (TSE, set/2021–out/2022):
+        88M pessoas atingidas · artistas progressistas sem contraponto documentado ·
+        <strong>+51% jovens 16-17 anos</strong> (1,4M→2,1M) ·
+        <strong>+2,04M novos eleitores</strong> no total.
+        O voto jovem por candidato não foi discriminado oficialmente.
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[completo]</span><a href="https://gosurf.site/choquei-pcc-fluxo" target="_blank">PCC → Choquei → Eleição 2022 — Cadeia Jurídica v3.0 (camadas 4, 6)</a></div>
+            <div class="link-item"><span class="link-label">[cadeia]</span><a href="https://gosurf.site/cadeia-influencia-usaid-tse-2022" target="_blank">USAID → NetLab → TSE/Moraes — Cadeia de Influência Jurídica</a></div>
+            <div class="link-item"><span class="link-label">[janela]</span><a href="https://gosurf.site/janela-2026" target="_blank">Janela 2026 — Cenário Estratégico de Defesa Institucional</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node A5 -->
+  <div class="vnode n-orange" style="animation-delay:.16s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">A5 — PCC → Choquei → Janja: vetor de influência eleitoral com dinheiro criminoso</div>
+        <span class="badge b-doc">Documentado · PF Narco Fluxo abr/2026</span>
+      </div>
+      <div class="vcard-body">
+        Operação Narco Fluxo (15/abr/2026): <strong>33 presos</strong>, R$ 1,6bi lavados via bets,
+        rifas e criptomoedas. MC Ryan SP (líder), Frank Magrini (elo PCC).
+        <br><br>
+        <strong>Raphael Sousa (Choquei, 27M seguidores)</strong>: PF o classifica como
+        "operador de mídia da organização" — lavagem de reputação, promoção de investigados,
+        contenção de crises com autoridades. Admitiu que "pode ter ajudado a eleger Lula".
+        <br><br>
+        <strong>Janja:</strong> 17 interações LAI documentadas · fotos exclusivas de bastidores enviadas
+        pela primeira-dama · presença no carro de som da vitória ·
+        reunião no Planalto (fev/2024) com influenciadores "pela Democracia".
+        Choquei: "influencer oficial do PT desde 2022" (Piauí/Núcleo Jor).
+        <br><br>
+        <em>Alcance combinado dos presos: 55M+ seguidores.</em>
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[principal]</span><a href="https://gosurf.site/choquei-pcc-fluxo" target="_blank">PCC → Choquei → Eleição 2022 — Cadeia de Influência Jurídica v3.0</a></div>
+            <div class="link-item"><span class="link-label">[operação]</span><a href="https://gosurf.site/choquei-narco-fluxo" target="_blank">NARCO FLUXO — Choquei: Da Campanha Eleitoral ao Crime Organizado</a></div>
+            <div class="link-item"><span class="link-label">[rede]</span><a href="https://gosurf.site/rede-master-conexoes" target="_blank">TEIA MASTER — Rede de Conexões Investigativas (PCC · STF · INSS)</a></div>
+            <div class="link-item"><span class="link-label">[pcc global]</span><a href="https://gosurf.site/pcc-cv-intel-dashboard-2026" target="_blank">PCC & CV Intelligence Dashboard 2026</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node A6 -->
+  <div class="vnode n-blue" style="animation-delay:.19s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">A6 — Captura sistêmica do aparato estatal: finanças, regulação, judiciário</div>
+        <span class="badge b-doc">Documentado · múltiplas operações</span>
+      </div>
+      <div class="vcard-body">
+        O padrão que os documentos registram não é episódico — é sistêmico.
+        O mesmo conjunto de funções se repete em todos os ciclos:
+        <strong>banqueiro frágil → político-operador → doleiro/operador financeiro
+        → regulador omisso → juiz capturável → mídia como vetor</strong>.
+        Os nomes mudam; a arquitetura não.
+        <br><br>
+        Casos documentados: Banco Master (R$ 6,5bi em CDBs sem titular) ·
+        Operação Hydra (fintech/lavagem) · Operação Narco Fluxo (PCC/cultura/mídia) ·
+        INSS/Sem Desconto (R$ 7bi) · JBS/J&F (impunidade funcional em 5 operações) ·
+        Carbono Oculto / Greenwashing.
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[sistêmico]</span><a href="https://gosurf.site/rede-recorrente-1999-2026" target="_blank">Rede Recorrente Brasil 1999–2026 — o mesmo padrão em 25 anos</a></div>
+            <div class="link-item"><span class="link-label">[padrões]</span><a href="https://gosurf.site/padroes-sistemicos-dashboard" target="_blank">Padrões × Operações Anticorrupção — Dashboard 2026 (10 padrões)</a></div>
+            <div class="link-item"><span class="link-label">[república]</span><a href="https://gosurf.site/republica-capturada" target="_blank">República Capturada — Dashboard Investigativo</a></div>
+            <div class="link-item"><span class="link-label">[diagnóstico]</span><a href="https://gosurf.site/brasil-maquina-de-captura" target="_blank">Máquina de Captura — Diagnóstico Sistêmico</a></div>
+            <div class="link-item"><span class="link-label">[global]</span><a href="https://gosurf.site/global-kompromat" target="_blank">Global Kompromat — Mapa de Captura Institucional</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /vector-grid A -->
+
+<!-- ══════════════════════════════ VETOR B ══════════════════════════════ -->
+<div class="divider" style="animation-delay:.22s">
+  <span class="divider-label">Vetor B — Evento Físico Documentado · Processo Punitivo Contaminado (8 de Janeiro / Plano Punhal)</span>
+  <div class="divider-line"></div>
+</div>
+
+<div class="vector-grid">
+
+  <!-- Node B1 -->
+  <div class="vnode n-orange" style="animation-delay:.24s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">B1 — Plano Punhal Verde e Amarelo: indiciamento em processo estruturalmente contaminado</div>
+        <span class="badge b-inf">⚠ Em apuração contaminada — processo irregular</span>
+      </div>
+      <div class="vcard-body">
+        A PF indiciou Bolsonaro e aliados pelo <strong>Plano Punhal Verde e Amarelo</strong>.
+        <strong>Problema metodológico crítico:</strong> o relator de toda a instrução era Alexandre de Moraes —
+        simultaneamente suposta vítima do plano, árbitro eleitoral do pleito contestado
+        e juiz da Suprema Corte. Em qualquer sistema de due process, isso é causa de impedimento absoluto.
+        <br><br>
+        <strong>Contaminação probatória:</strong> o mesmo CPP art. 157 que a Vaza Toga viola ao produzir provas
+        irregulares contra a oposição, contamina tudo que o aparato Moraes produziu para documentar o "golpe".
+        Depoimentos obtidos durante prisões preventivas longas, por investigadores subordinados ao relator
+        interessado, sem contraditório efetivo. <strong>A Vaza Jato anulou a Lava Jato inteira por princípio
+        análogo.</strong> O mesmo padrão exigiria revisão completa aqui.
+        <br><br>
+        <em>O que está documentado:</em> o indiciamento existe.
+        <em>O que está em apuração:</em> se as provas são válidas sob um processo neutro.
+        <em>O que é inferência:</em> a culpabilidade individual dos indiciados.
+        <div class="links-block">
+          <div class="links-title">↗ Documentação das irregularidades processuais</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[nulidades]</span><a href="https://gosurf.site/dossie-juridico-nulidades-8jan" target="_blank">Dossiê Jurídico — Nulidades do 8 de Janeiro (due process violado)</a></div>
+            <div class="link-item"><span class="link-label">[força-tarefa]</span><a href="https://gosurf.site/vaza-toga" target="_blank">VAZA TOGA — força-tarefa secreta: 1.400+ perfilados sem contraditório</a></div>
+            <div class="link-item"><span class="link-label">[padrão]</span><a href="https://gosurf.site/brazil-democratic-erosion-2026" target="_blank">Brazil Democratic Erosion Report 2026 [EN] — processo contaminado</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node B2 -->
+  <div class="vnode n-red" style="animation-delay:.27s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">B2 — 8 de Janeiro: destruição real · narrativa oficial contestada · evidências exculpatórias extraviadas</div>
+        <span class="badge b-inf">⚠ Em apuração contaminada — supressão seletiva de evidências</span>
+      </div>
+      <div class="vcard-body">
+        <strong>O que é inegável:</strong> houve destruição física nas sedes. Mas "inegável" não é sinônimo de
+        "narrativa oficial verificada" — são categorias distintas. A destruição aconteceu;
+        <em>quem a iniciou, quem facilitou e quem foi forçado a estar lá</em> são questões em apuração
+        com evidências seletivamente suprimidas.
+        <br><br>
+        <strong>Suppression seletiva de evidências — o que desapareceu:</strong><br>
+        <em>① Vídeos mostrando agentes de segurança facilitando o acesso</em> — filmagens da época
+        mostravam portões abertos por seguranças, policiais posando para selfies com manifestantes,
+        e rotas de fuga desobstruídas antes da chegada do coletivo principal. Estas imagens foram
+        extraviadas. O que permanece são apenas as imagens da destruição posterior.<br>
+        <em>② Sequência temporal suprimida:</em> relatos e imagens contemporâneas ao evento indicavam
+        que parte da depredação já estava concluída antes da chegada do coletivo maior —
+        possivelmente por agentes infiltrados. A culpa foi atribuída ao coletivo que chegou
+        depois, a um cenário já estabelecido.<br>
+        <em>③ Uso de bombas por helicóptero para forçar entrada:</em> registros da época documentam
+        o lançamento de agentes de dispersão de helicópteros em direção à multidão,
+        em sentido que empurrava as pessoas para dentro dos prédios — não para fora.
+        Inocentes que não participavam de qualquer depredação foram fisicamente forçados
+        a adentrar o espaço que seria usado para incriminá-los coletivamente.
+        Estas imagens também desapareceram do registro oficial.
+        <br><br>
+        <strong>Implicação metodológica grave:</strong> quando as evidências que sustentam a narrativa
+        oficial são preservadas e as que a contradizem são extraviadas pelo mesmo aparato que
+        controla a investigação, não estamos diante de "evento documentado" —
+        estamos diante de <em>documentação seletiva como instrumento da própria operação</em>.
+        Isso não é falha de arquivo; é supressão ativa de evidências exculpatórias,
+        o que contamina toda a base probatória.
+        <br><br>
+        <strong>Consequência:</strong> centenas de pessoas que não praticaram qualquer ato de violência
+        foram condenadas com base no critério de presença física num espaço para o qual
+        foram, em parte, forçadas por ação do próprio aparato de segurança.
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês de contexto</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[nulidades]</span><a href="https://gosurf.site/dossie-juridico-nulidades-8jan" target="_blank">Dossiê Jurídico — Nulidades do 8 de Janeiro (certidões em minutos, sem contraditório)</a></div>
+            <div class="link-item"><span class="link-label">[vaza toga]</span><a href="https://gosurf.site/vaza-toga" target="_blank">VAZA TOGA — força-tarefa secreta: 1.400+ perfilados</a></div>
+            <div class="link-item"><span class="link-label">[silêncio]</span><a href="https://gosurf.site/operacao-silencio-digital" target="_blank">Operação Silêncio Digital — supressão de narrativas contrárias</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node B3 -->
+  <div class="vnode n-yellow" style="animation-delay:.30s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">B3 — Hipótese de Facilitação: o 8/jan como crise controlada pelo grupo que a explorou</div>
+        <span class="badge b-inf">Inferência qualificada — lógica coerente, evidência parcial</span>
+      </div>
+      <div class="vcard-body">
+        A hipótese de que o 8/jan foi <em>ao menos deliberadamente não impedido</em> pelo grupo que
+        dele se beneficiou não é teoria conspiratória — é a aplicação padrão do método histórico (<strong>cui bono</strong>)
+        cruzado com falhas documentadas no aparato de segurança.
+        <br><br>
+        <strong>Elementos que suportam a inferência:</strong><br>
+        <em>① Falha de segurança inexplicável:</em> mobilização anunciada publicamente por dias, capital federal,
+        aparato de segurança não respondeu por horas — incompatível com qualquer padrão operacional normal
+        para a sede dos três poderes.<br>
+        <em>② Agentes de segurança facilitando o acesso (imagens extraviadas):</em> filmagens contemporâneas
+        ao evento registraram portões abertos por seguranças e policiais posando com manifestantes.
+        Estas imagens desapareceram do arquivo oficial — preservadas apenas as imagens da destruição posterior.<br>
+        <em>③ Uso de força para forçar entrada (imagens extraviadas):</em> registros indicam lançamento de
+        agentes dispersivos de helicópteros em direção que empurrava a multidão para dentro dos prédios.
+        Inocentes foram forçados a adentrar o espaço da "cena do crime" pelo próprio aparato de segurança.
+        Estas imagens também desapareceram.<br>
+        <em>④ Sequência temporal suprimida:</em> parte da depredação pode ter sido realizada antes da chegada
+        do coletivo principal — possivelmente por agentes infiltrados. A culpa foi atribuída ao coletivo
+        que chegou a um cenário parcialmente já estabelecido.<br>
+        <em>⑤ Benefício político imediato e abrangente:</em> em 72 horas — prisões em massa,
+        intervenção federal, cassações, passaportes bloqueados e eliminação da oposição como força organizada.<br>
+        <em>⑥ Indício formal suprimido (Do Val):</em> Sen. Marcos do Val afirmou que Moraes participou de
+        reunião em dez/2022 com propostas sobre "segurança eleitoral" de natureza suspeita. Gravou.
+        A gravação foi apreendida pela PF — comandada por Moraes. Testemunho não refutado; evidência inacessível.<br>
+        <em>⑦ Padrão histórico global:</em> os dossiês `global-kompromat` e `atores-ruptura-democratica-global`
+        documentam que eventos de ruptura são frequentemente <em>permitidos ou facilitados</em>
+        por quem os instrumentaliza politicamente.
+        <br><br>
+        <strong>Limite metodológico honesto:</strong> a evidência documental disponível não permite
+        classificação acima de inferência qualificada. Mas <em>a mesma suspeita que aplicamos à
+        narrativa oposicionista é metodologicamente obrigatória em relação à narrativa oficial.</em>
+        Um processo contaminado não pode produzir a "verdade oficial" sobre um evento que beneficiou exatamente o contaminator.
+        <div class="links-block">
+          <div class="links-title">↗ Contexto e padrões documentados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[nulidades]</span><a href="https://gosurf.site/dossie-juridico-nulidades-8jan" target="_blank">Dossiê Jurídico — Nulidades do 8 de Janeiro (processo contaminado)</a></div>
+            <div class="link-item"><span class="link-label">[global]</span><a href="https://gosurf.site/global-kompromat" target="_blank">Global Kompromat — Padrões de Ruptura Facilitada</a></div>
+            <div class="link-item"><span class="link-label">[atores]</span><a href="https://gosurf.site/atores-ruptura-democratica-global" target="_blank">Atores da Ruptura Democrática Global</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node B4 -->
+  <div class="vnode n-blue" style="animation-delay:.33s">
+    <div class="spine"><div class="sdot"></div><div class="sline"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">B4 — Perseguição transnacional: delegado da PF expulso dos EUA · Caso Ramagem</div>
+        <span class="badge b-doc">Documentado · Dep. Estado EUA</span>
+      </div>
+      <div class="vcard-body">
+        O único delegado da PF lotado nas dependências do ICE em Miami foi utilizado
+        como instrumento de <strong>perseguição extrajudicial a opositores</strong> — segundo dossiê
+        da operação "Armadilha ICE". Expulsão compulsória documentada pelo Departamento de Estado americano.
+        <br><br>
+        O caso Ramagem documenta o uso da estrutura de inteligência estatal
+        para fins políticos além das fronteiras do Brasil — <em>o aparato de captura se estende além da jurisdição territorial.</em>
+        <div class="links-block">
+          <div class="links-title">↗ Dossiês detalhados</div>
+          <div class="link-list">
+            <div class="link-item"><span class="link-label">[principal]</span><a href="https://gosurf.site/operacao-armadilha-ice" target="_blank">Operação Armadilha ICE — Perseguição Transnacional (26 min)</a></div>
+            <div class="link-item"><span class="link-label">[persona]</span><a href="https://gosurf.site/operacao-persona-non-grata" target="_blank">PERSONA NON GRATA — Delegado da PF Expulso dos EUA</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /vector-grid B -->
+
+<!-- ══ COMPARISON TABLE ══ -->
+<div class="cmp-section">
+  <h2>Comparação Evidencial — Dois Vetores de Ruptura</h2>
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Dimensão</th>
+        <th class="col-a">Vetor A — Institutional Capture<br>(STF / Moraes / Lawfare)</th>
+        <th class="col-b">Vetor B — Força / 8 de Janeiro<br>(Bolsonaro / militares)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Instrumento</td>
+        <td class="td-a">Judiciário · Censura digital · Assimetria eleitoral · Financiamento externo de ecossistema</td>
+        <td class="td-b">Força militar (planejada) · Mobilização de massa · Ataque físico</td>
+      </tr>
+      <tr>
+        <td>Período</td>
+        <td class="td-a"><strong>2020–2026</strong> · contínuo e em curso</td>
+        <td class="td-b">Pico <strong>2022–2023</strong> · aguda e localizada</td>
+      </tr>
+      <tr>
+        <td>Evidência central</td>
+        <td class="td-a">Vaza Toga · INQ 4.781 · Narco Fluxo · 226×14 TSE · USAID→NetLab</td>
+        <td class="td-b">Imagens 8/jan (independentes) · Plano Punhal (PF — processo contaminado) · Indiciamentos (relator parte interessada)</td>
+      </tr>
+      <tr>
+        <td>Qualidade da evidência</td>
+        <td class="td-a">Fontes primárias independentes · Documentos públicos · Múltiplos verificadores</td>
+        <td class="td-b"><strong>Evento físico: documentado.</strong> Responsabilidade e planejamento: produzidos por processo contaminado — relator é suposta vítima e parte interessada</td>
+      </tr>
+      <tr>
+        <td>Consequências</td>
+        <td class="td-a"><strong>Zero revisão</strong> de decisões · Moraes continua no cargo · Enriquecimento suspeito sem investigação neutra</td>
+        <td class="td-b">Bolsonaro réu · 200+ presos · passaportes cancelados · prisões preventivas longas · oposição desarticulada</td>
+      </tr>
+      <tr>
+        <td>Assimetria de julgamento</td>
+        <td class="td-a" colspan="2" style="background:rgba(255,183,0,.06);color:var(--gold);font-weight:600;text-align:center;">
+          Vaza Jato (2019): STF anulou Lava Jato por parcialidade do juiz → beneficiou Lula diretamente.<br>
+          Vaza Toga (2024): evidências de parcialidade comparáveis ou mais graves de Moraes → zero revisão.<br>
+          O mesmo critério que anulou Moro deveria anular Moraes. A assimetria é o próprio golpe.
+        </td>
+      </tr>
+      <tr>
+        <td>Supressão de evidências</td>
+        <td class="td-a">Tentada (censura digital documentada) · Parcialmente frustrada por vazamentos</td>
+        <td class="td-b"><strong>Evidências exculpatórias extraviadas:</strong> vídeos de agentes facilitando acesso · imagens de bombas forçando entrada · sequência temporal anterior ao coletivo. Preservadas apenas imagens que sustentam a narrativa oficial. Investigação sob controle do beneficiário.</td>
+      </tr>
+      <tr>
+        <td>Hipótese de facilitação</td>
+        <td class="td-a">Não aplicável</td>
+        <td class="td-b"><em>Inferência qualificada (7 elementos):</em> falha de segurança · agentes facilitando (imagens extraviadas) · bombas forçando entrada (imagens extraviadas) · benefício político imediato · indício Do Val suprimido · depredação anterior ao coletivo · padrão histórico global</td>
+      </tr>
+      <tr>
+        <td>O que os documentos suportam</td>
+        <td class="td-a">Equidade eleitoral comprometida · Justiça paralela · Censura sistêmica · Captura de Estado</td>
+        <td class="td-b">Evento físico real · Processo punitivo estruturalmente irregular · Responsabilidade individual: em apuração contaminada</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══ CENTRAL QUESTION ══ -->
+<div class="question-box">
+  <h2>🔑 A Pergunta que os Documentos Colocam</h2>
+  <div class="question-text">
+    Quando o árbitro eleitoral é simultaneamente juiz dos investigados, usa o aparato judicial
+    para suprimir a oposição digital, aceita financiamento externo via ONGs para um ecossistema
+    de checagem de espectro único, e os documentos que provam isso não geram nenhuma revisão —
+    ainda existe Estado de Direito?
+  </div>
+  <div class="question-answer">
+    Os artefatos deste repositório respondem: <strong>formalmente sim, materialmente comprometido.</strong>
+    <br><br>
+    O que isso representa historicamente — captura sistêmica, golpe branco, defesa legítima da democracia
+    contra uma ameaça real, ou as três coisas simultaneamente em diferentes camadas —
+    <em>é a questão política central do Brasil em 2026</em>, e os historiadores vão debater por décadas.
+    <br><br>
+    O que os documentos não deixam dúvida: <strong>a assimetria de consequências é real e documentada.</strong>
+    Um lado foi punido com todo o vigor do Estado. O outro continua no cargo julgando os demais.
+  </div>
+</div>
+
+<!-- ══ NODE FINAL ══ -->
+<div class="vector-grid" style="margin-top:24px;">
+  <div class="vnode n-final" style="animation-delay:.34s">
+    <div class="spine"><div class="sdot"></div><div class="sline" style="background:transparent"></div></div>
+    <div class="vcard">
+      <div class="vcard-head">
+        <div class="vcard-title">SÍNTESE FINAL — Dois Vetores, Um Árbitro, Assimetria Radical de Evidência e Consequência</div>
+        <span class="badge b-key">Tese central v2.0 — padrão epistemológico consistente</span>
+      </div>
+      <div class="vcard-body">
+        <strong>Vetor A (documentado por fontes independentes, sem punição):</strong>
+        Captura progressiva das instituições · weaponized legalism · censura digital sistêmica ·
+        assimetria eleitoral oficial · financiamento externo de ecossistema de controle narrativo ·
+        justiça paralela com força-tarefa secreta · enriquecimento suspeito sem investigação neutra.<br><br>
+
+        <strong>Vetor B (destruição real · narrativa oficial em apuração contaminada · evidências exculpatórias extraviadas):</strong>
+        Houve destruição física — isso é inegável. Mas a narrativa de quem a iniciou, quem facilitou
+        e quem foi forçado a estar lá é contestada por evidências contemporâneas seletivamente suprimidas:
+        vídeos de agentes de segurança abrindo portões e posando com manifestantes (extraviados);
+        imagens de bombas lançadas de helicóptero em direção que forçava a multidão para dentro (extraviadas);
+        sequência temporal indicando depredação anterior ao coletivo principal (suprimida do registro oficial).
+        Quando as evidências que sustentam a narrativa são preservadas e as que a contradizem desaparecem
+        sob controle do mesmo aparato investigativo, <em>não é falha de arquivo — é operação de controle narrativo</em>.
+        A responsabilidade individual foi apurada por relator-vítima-árbitro sem contraditório.<br><br>
+
+        <em>Sete elementos documentados sustentam como inferência qualificada</em> que o evento foi ao menos
+        deliberadamente facilitado — e suas evidências exculpatórias suprimidas —
+        pelo aparato que o usou para eliminar a oposição política organizada.<br><br>
+
+        <strong>A assimetria que os documentos registram sem ambiguidade:</strong>
+        O Vetor B foi punido com o aparato integral do Estado — prisões, processos, passaportes, exílios —
+        por um sistema documentadamente irregular. O Vetor A continua operando, sem revisão,
+        com o mesmo ator acumulando árbitro + juiz + investigador. E julgando os que o denunciam.
+        <strong>A assimetria de julgamento é, em si, o registro mais claro do golpe.</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ALL ARTICLES INDEX ══ -->
+<div class="index-section">
+  <h2>📚 Todos os Dossiês — Acesso Direto</h2>
+  <div class="index-grid">
+
+    <a class="index-card" href="https://gosurf.site/vaza-toga" target="_blank">
+      <div class="index-card-title">VAZA TOGA — Dossiê Completo INQ 4.781</div>
+      <div class="index-card-desc">O gabinete do STF instrumentalizou o TSE. 20+ relatórios encomendados. 1.400+ perfilados.</div>
+      <span class="index-card-tag tag-pink">Lawfare · Judiciário</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/choquei-pcc-fluxo" target="_blank">
+      <div class="index-card-title">PCC → Choquei → Eleição 2022 — Cadeia Jurídica v3.0</div>
+      <div class="index-card-desc">8 vetores convergentes · 47 fontes · PCC→mídia→campanha Lula documentado pela PF.</div>
+      <span class="index-card-tag tag-red">PCC · Eleição · Lawfare</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/cadeia-influencia-usaid-tse-2022" target="_blank">
+      <div class="index-card-title">USAID → NetLab → TSE/Moraes — Cadeia de Influência</div>
+      <div class="index-card-desc">8 camadas, 18 nós. Financiamento externo → checagem → decisões judiciais.</div>
+      <span class="index-card-tag tag-teal">Interferência Externa</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/operacao-silencio-digital" target="_blank">
+      <div class="index-card-title">Operação Silêncio Digital — Censura Judicial 2020–2026</div>
+      <div class="index-card-desc">Ordens sigilosas, @AlexandreFiles, regime de censura sistêmica nas redes.</div>
+      <span class="index-card-tag tag-red">Censura · Lawfare</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/choquei-narco-fluxo" target="_blank">
+      <div class="index-card-title">NARCO FLUXO — Choquei e o Crime Organizado</div>
+      <div class="index-card-desc">Da campanha eleitoral ao PCC. 33 presos. R$ 1,6bi. Operador de mídia documentado pela PF.</div>
+      <span class="index-card-tag tag-red">PCC · Crime · Eleição</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/dossie-juridico-nulidades-8jan" target="_blank">
+      <div class="index-card-title">Dossiê Jurídico — Nulidades do 8 de Janeiro</div>
+      <div class="index-card-desc">Normas sistematicamente violadas nos processos. Força-tarefa secreta. Due process.</div>
+      <span class="index-card-tag tag-pink">Judiciário · 8/Jan</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/brasil-estado-totalitario" target="_blank">
+      <div class="index-card-title">Weaponized Legalism — Anatomia do Estado Capturado</div>
+      <div class="index-card-desc">Como o Brasil se tornou um estado totalitário sem golpe clássico.</div>
+      <span class="index-card-tag tag-red">Lawfare · Estratégia</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/republica-capturada" target="_blank">
+      <div class="index-card-title">República Capturada — Dashboard Investigativo</div>
+      <div class="index-card-desc">Greenwashing, Carbono Oculto, Compliance Zero, Sem Desconto. Panamá Papers.</div>
+      <span class="index-card-tag tag-orange">Corrupção · Dashboard</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/operacao-armadilha-ice" target="_blank">
+      <div class="index-card-title">Operação Armadilha ICE — Perseguição Transnacional</div>
+      <div class="index-card-desc">Delegado da PF no ICE/Miami como instrumento de perseguição extrajudicial.</div>
+      <span class="index-card-tag tag-blue">Soberania · Lawfare</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/rede-recorrente-1999-2026" target="_blank">
+      <div class="index-card-title">Rede Recorrente Brasil 1999–2026</div>
+      <div class="index-card-desc">O mesmo padrão estrutural em 25 anos. Os nomes mudam; a arquitetura não.</div>
+      <span class="index-card-tag tag-purple">Sistêmico · Timeline</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/padroes-sistemicos-dashboard" target="_blank">
+      <div class="index-card-title">Padrões × Operações Anticorrupção — Dashboard 2026</div>
+      <div class="index-card-desc">10 padrões em 25 anos de operações. Captura cultural (P9) e infraestrutura (P10).</div>
+      <span class="index-card-tag tag-orange">Corrupção · Dashboard</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/gilmar-mendes-em-fatos" target="_blank">
+      <div class="index-card-title">Gilmar Mendes — Perfil Analítico</div>
+      <div class="index-card-desc">Ministro do STF desde 2002. Habeas Corpus, CPI 2025–2026. Dimensão institucional.</div>
+      <span class="index-card-tag tag-pink">Judiciário · Lawfare</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/brasil-maquina-de-captura" target="_blank">
+      <div class="index-card-title">Máquina de Captura — Diagnóstico Sistêmico</div>
+      <div class="index-card-desc">Indicadores socioeconômicos × arquitetura de direito extrativa.</div>
+      <span class="index-card-tag tag-gold">Dashboard · Brasil</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/global-kompromat" target="_blank">
+      <div class="index-card-title">Global Kompromat — Captura Institucional Global</div>
+      <div class="index-card-desc">Redes de kompromat transnacional. O Brasil no mapa global de captura.</div>
+      <span class="index-card-tag tag-purple">Geopolítica · Lawfare</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/grafo-poder-global-atores" target="_blank">
+      <div class="index-card-title">Grafo do Poder Global — Redes de Influência</div>
+      <div class="index-card-desc">Mapeamento visual de atores financeiros, ONGs, inteligência e poder judicial.</div>
+      <span class="index-card-tag tag-purple">Geopolítica · Dashboard</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/janela-2026" target="_blank">
+      <div class="index-card-title">Janela 2026 — Cenário Estratégico</div>
+      <div class="index-card-desc">Defesa institucional, eleições 2026, janela de oportunidade.</div>
+      <span class="index-card-tag tag-gold">Estratégia · Brasil</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/brazil-democratic-erosion-2026" target="_blank">
+      <div class="index-card-title">Brazil Democratic Erosion Report 2026 [EN]</div>
+      <div class="index-card-desc">Primary documents, leaked evidence, legal analysis. For international audiences.</div>
+      <span class="index-card-tag tag-blue">English · Report</span>
+    </a>
+
+    <a class="index-card" href="https://gosurf.site/choquei-pcc-fluxo-en" target="_blank">
+      <div class="index-card-title">PCC → Choquei → 2022 Election [EN]</div>
+      <div class="index-card-desc">Full English version. 8 documented vectors. 47 verifiable primary sources.</div>
+      <span class="index-card-tag tag-blue">English · PCC · Lawfare</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <strong>Classificação:</strong> Material de estudo e pesquisa acadêmica independente ·
+  CC0 1.0 Universal — Domínio Público · Livre redistribuição, cópia e adaptação<br><br>
+  <strong>Método:</strong> Todas as afirmações classificadas explicitamente em documentado / em apuração / inferência.
+  Fontes primárias identificadas e linkadas. Contradições e limitações documentadas no próprio material.<br><br>
+  <strong>Proteções:</strong> CF/88 arts. 5º IV, XIII, XIV · DUDH art. 19 · CADH art. 13 · STF ADPF 130 ·
+  Lei 12.527/11 (LAI)<br><br>
+  <strong>Repositório:</strong>
+  <a href="https://gosurf.site" target="_blank">gosurf.site</a> ·
+  <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a> ·
+  v1.0 · abr/2026
+</div>
+
+</div><!-- /w -->
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

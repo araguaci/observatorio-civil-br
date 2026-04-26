@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadeia de Influência Jurídica — Eleição 2022 · v3.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap');
+  :root {
+    --bg:#060810;--surface:#0d1117;--border:#1e2530;
+    --red:#ff2d2d;--red-dim:rgba(255,45,45,0.12);
+    --orange:#ff8c00;--orange-dim:rgba(255,140,0,0.1);
+    --yellow:#ffd700;--yellow-dim:rgba(255,215,0,0.08);
+    --green:#00ff88;--green-dim:rgba(0,255,136,0.08);
+    --blue:#4d9fff;--blue-dim:rgba(77,159,255,0.08);
+    --purple:#b06fff;--purple-dim:rgba(176,111,255,0.08);
+    --teal:#00d4aa;--teal-dim:rgba(0,212,170,0.08);
+    --pink:#ff4d9e;--pink-dim:rgba(255,77,158,0.08);
+    --gold:#ffb700;--gold-dim:rgba(255,183,0,0.08);
+    --gray:#8892a0;--white:#e8edf3;
+    --mono:'JetBrains Mono',monospace;--sans:'Syne',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--white);font-family:var(--mono);min-height:100vh;padding:40px 24px;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+  .wrapper{max-width:960px;margin:0 auto;position:relative;z-index:1;}
+
+  /* DISCLAIMER */
+  .disclaimer{margin-bottom:28px;padding:18px 20px;background:rgba(255,183,0,.04);border:1px solid rgba(255,183,0,.3);border-left:4px solid var(--gold);border-radius:8px;animation:fadeDown .5s ease both;}
+  .disclaimer-title{font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .disclaimer-body{font-size:11px;color:var(--gray);line-height:1.8;}
+  .disclaimer-body strong{color:var(--white);}
+  .disclaimer-body a{color:var(--blue);text-decoration:none;border-bottom:1px dashed rgba(77,159,255,.4);}
+  .disclaimer-body a:hover{color:var(--teal);}
+  .disclaimer-refs{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,183,0,.15);font-size:10px;color:#6a7a8a;}
+  .disclaimer-refs strong{color:var(--gray);}
+
+  /* HEADER */
+  .header{border-left:3px solid var(--red);padding-left:20px;margin-bottom:30px;animation:fadeDown .6s .05s ease both;}
+  .op-tag{font-size:10px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:8px;}
+  .header h1{font-family:var(--sans);font-size:clamp(16px,2.6vw,27px);font-weight:800;line-height:1.1;margin-bottom:10px;}
+  .header h1 span{color:var(--red);}
+  .vtag{display:inline-block;margin-left:8px;font-size:9px;background:rgba(255,45,45,.15);color:var(--red);border:1px solid rgba(255,45,45,.3);padding:2px 7px;border-radius:3px;vertical-align:middle;}
+  .meta{font-size:11px;color:var(--gray);}
+
+  /* LEGEND */
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:6px;animation:fadeDown .6s .1s ease both;}
+  .li{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--gray);}
+  .ld{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+
+  /* FLOW DIAGRAM */
+  .flow-diagram{margin-bottom:26px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;animation:fadeDown .6s .15s ease both;}
+  .flow-title{font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .flow-title::before{content:'';display:block;width:3px;height:14px;background:var(--gold);border-radius:2px;}
+  .flow-step{display:flex;align-items:stretch;gap:0;margin-bottom:2px;}
+  .flow-connector{display:flex;flex-direction:column;align-items:center;width:30px;flex-shrink:0;}
+  .flow-dot{width:11px;height:11px;border-radius:50%;border:2px solid;flex-shrink:0;margin-top:4px;}
+  .flow-line{width:2px;flex:1;min-height:10px;}
+  .flow-content{flex:1;padding:7px 11px 10px;}
+  .flow-label{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;margin-bottom:3px;}
+  .flow-text{font-size:11px;color:var(--gray);line-height:1.6;}
+  .flow-text strong{color:var(--white);}
+  .fs1 .flow-dot{border-color:var(--teal);background:rgba(0,212,170,.2);}
+  .fs1 .flow-line{background:linear-gradient(rgba(0,212,170,.2),rgba(176,111,255,.1));}
+  .fs1 .flow-label{color:var(--teal);}
+  .fs2 .flow-dot{border-color:var(--purple);background:rgba(176,111,255,.2);}
+  .fs2 .flow-line{background:linear-gradient(rgba(176,111,255,.1),rgba(255,77,158,.1));}
+  .fs2 .flow-label{color:var(--purple);}
+  .fs3 .flow-dot{border-color:var(--pink);background:rgba(255,77,158,.2);}
+  .fs3 .flow-line{background:linear-gradient(rgba(255,77,158,.1),rgba(255,140,0,.1));}
+  .fs3 .flow-label{color:var(--pink);}
+  .fs4 .flow-dot{border-color:var(--orange);background:rgba(255,140,0,.2);}
+  .fs4 .flow-line{background:linear-gradient(rgba(255,140,0,.1),rgba(77,159,255,.1));}
+  .fs4 .flow-label{color:var(--orange);}
+  .fs5 .flow-dot{border-color:var(--blue);background:rgba(77,159,255,.2);}
+  .fs5 .flow-line{background:linear-gradient(rgba(77,159,255,.1),rgba(255,45,45,.1));}
+  .fs5 .flow-label{color:var(--blue);}
+  .fs6 .flow-dot{border-color:var(--red);background:rgba(255,45,45,.2);animation:pulse 2s infinite;}
+  .fs6 .flow-label{color:var(--red);}
+
+  /* CHAIN */
+  .chain{display:flex;flex-direction:column;}
+  .node{display:grid;grid-template-columns:44px 1fr;gap:0 12px;animation:fadeIn .45s ease both;}
+  .spine{display:flex;flex-direction:column;align-items:center;}
+  .sd{width:14px;height:14px;border-radius:50%;border:2px solid;flex-shrink:0;position:relative;z-index:1;}
+  .sl{width:2px;flex:1;min-height:14px;}
+  .card{border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:6px;transition:border-color .2s;}
+  .card:hover{border-color:#2e3a48;}
+  .ct{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:5px;}
+  .ctitle{font-family:var(--sans);font-size:12px;font-weight:700;line-height:1.3;}
+  .badge{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;padding:3px 6px;border-radius:3px;white-space:nowrap;flex-shrink:0;font-weight:600;}
+  .bc{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.3);}
+  .ba{background:rgba(255,140,0,.15);color:var(--orange);border:1px solid rgba(255,140,0,.3);}
+  .bi{background:rgba(255,215,0,.1);color:var(--yellow);border:1px solid rgba(255,215,0,.25);}
+  .bk{background:rgba(255,45,45,.15);color:var(--red);border:1px solid rgba(255,45,45,.35);}
+  .be{background:rgba(176,111,255,.15);color:var(--purple);border:1px solid rgba(176,111,255,.3);}
+  .bt{background:rgba(0,212,170,.15);color:var(--teal);border:1px solid rgba(0,212,170,.3);}
+  .bp{background:rgba(255,77,158,.15);color:var(--pink);border:1px solid rgba(255,77,158,.3);}
+  .bg2{background:rgba(255,183,0,.15);color:var(--gold);border:1px solid rgba(255,183,0,.3);}
+  .cb{font-size:11px;color:var(--gray);line-height:1.7;}
+  .cb strong{color:var(--white);font-weight:600;}
+  .cb a{color:var(--blue);text-decoration:none;font-size:10px;border-bottom:1px dashed rgba(77,159,255,.35);}
+  .cb a:hover{color:var(--teal);}
+  .src-block{margin-top:8px;padding:7px 10px;background:rgba(77,159,255,.04);border:1px solid rgba(77,159,255,.12);border-radius:5px;}
+  .src-block .src-title{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:5px;font-weight:700;}
+  .src-block ul{list-style:none;display:flex;flex-direction:column;gap:3px;}
+  .src-block li{font-size:10px;color:var(--gray);}
+  .src-block li a{color:var(--blue);text-decoration:none;border-bottom:1px dashed rgba(77,159,255,.3);}
+  .src-block li a:hover{color:var(--teal);}
+  .src-block li .lbl{color:#5a7a9a;margin-right:6px;}
+  .gap{display:inline-block;margin-top:4px;font-size:9px;color:var(--orange);font-style:italic;}
+  .nota{display:block;margin-top:5px;font-size:9px;color:#5a7a9a;font-style:italic;border-left:2px solid #1e3a5a;padding-left:7px;}
+  .key{display:block;margin-top:6px;font-size:10px;color:var(--green);background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);border-radius:4px;padding:5px 8px;}
+  .stats{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+  .st{padding:3px 7px;border-radius:4px;font-size:10px;font-weight:700;}
+  .sr{background:rgba(255,45,45,.12);color:var(--red);border:1px solid rgba(255,45,45,.25);}
+  .so{background:rgba(255,140,0,.1);color:var(--orange);border:1px solid rgba(255,140,0,.2);}
+  .sb{background:rgba(77,159,255,.1);color:var(--blue);border:1px solid rgba(77,159,255,.2);}
+  .sp{background:rgba(176,111,255,.1);color:var(--purple);border:1px solid rgba(176,111,255,.2);}
+  .stl{background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.2);}
+  .spk{background:rgba(255,77,158,.1);color:var(--pink);border:1px solid rgba(255,77,158,.2);}
+  .sg2{background:rgba(255,183,0,.1);color:var(--gold);border:1px solid rgba(255,183,0,.2);}
+  /* dual */
+  .dual{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:6px;padding-left:56px;}
+  @media(max-width:600px){.dual{grid-template-columns:1fr;}}
+  .dcard{border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--gray);line-height:1.6;}
+  .dcard strong{color:var(--white);font-weight:600;}
+  .dcard .dtitle{font-family:var(--sans);font-size:11px;font-weight:700;margin-bottom:5px;}
+  .dcard a{color:var(--blue);font-size:10px;text-decoration:none;border-bottom:1px dashed rgba(77,159,255,.3);}
+  .dcard-p{background:var(--purple-dim);border-color:rgba(176,111,255,.2);}
+  .dcard-o{background:rgba(255,140,0,.05);border-color:rgba(255,140,0,.15);}
+  /* node colors */
+  .nr .sd{border-color:var(--red);background:var(--red-dim);}
+  .nr .sl{background:linear-gradient(var(--red-dim),var(--border));}
+  .nr .card{background:var(--red-dim);border-color:rgba(255,45,45,.2);}
+  .no .sd{border-color:var(--orange);background:var(--orange-dim);}
+  .no .sl{background:linear-gradient(var(--orange-dim),var(--border));}
+  .no .card{background:var(--orange-dim);border-color:rgba(255,140,0,.15);}
+  .nb .sd{border-color:var(--blue);background:var(--blue-dim);}
+  .nb .sl{background:linear-gradient(var(--blue-dim),var(--border));}
+  .nb .card{background:var(--blue-dim);border-color:rgba(77,159,255,.15);}
+  .np .sd{border-color:var(--purple);background:var(--purple-dim);}
+  .np .sl{background:linear-gradient(var(--purple-dim),var(--border));}
+  .np .card{background:var(--purple-dim);border-color:rgba(176,111,255,.15);}
+  .nt .sd{border-color:var(--teal);background:var(--teal-dim);}
+  .nt .sl{background:linear-gradient(var(--teal-dim),var(--border));}
+  .nt .card{background:var(--teal-dim);border-color:rgba(0,212,170,.15);}
+  .npk .sd{border-color:var(--pink);background:var(--pink-dim);}
+  .npk .sl{background:linear-gradient(var(--pink-dim),var(--border));}
+  .npk .card{background:var(--pink-dim);border-color:rgba(255,77,158,.15);}
+  .ngold .sd{border-color:var(--gold);background:var(--gold-dim);}
+  .ngold .sl{background:linear-gradient(var(--gold-dim),var(--border));}
+  .ngold .card{background:var(--gold-dim);border-color:rgba(255,183,0,.15);}
+  .nf .sd{border-color:var(--red);background:var(--red);box-shadow:0 0 0 4px rgba(255,45,45,.2);animation:pulse 2s infinite;}
+  .nf .card{background:rgba(255,45,45,.08);border-color:rgba(255,45,45,.4);border-width:2px;}
+  .nf .ctitle{color:var(--red);font-size:13px;}
+  .div{display:flex;align-items:center;gap:10px;margin:4px 0 10px;padding-left:56px;animation:fadeIn .45s ease both;}
+  .dlb{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);white-space:nowrap;}
+  .dln{height:1px;flex:1;background:var(--border);}
+  /* threshold */
+  .threshold{margin:0 0 20px;padding:14px 18px;background:rgba(255,183,0,.04);border:1px solid rgba(255,183,0,.25);border-left:4px solid var(--gold);border-radius:8px;}
+  .threshold h3{font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .threshold-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  @media(max-width:540px){.threshold-grid{grid-template-columns:1fr;}}
+  .th-item{font-size:11px;color:var(--gray);line-height:1.6;padding:9px 11px;border-radius:6px;}
+  .th-doc{background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.15);}
+  .th-doc .th-label{color:var(--green);}
+  .th-inf{background:rgba(255,140,0,.06);border:1px solid rgba(255,140,0,.15);}
+  .th-inf .th-label{color:var(--orange);}
+  .th-label{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:4px;display:block;}
+  .th-text strong{color:var(--white);}
+  /* SOURCES TABLE */
+  .sources-section{margin-top:28px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
+  .sources-section h2{font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
+  .src-category{margin-bottom:14px;}
+  .src-cat-title{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--gray);margin-bottom:7px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+  .src-list{display:flex;flex-direction:column;gap:5px;}
+  .src-entry{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:11px;align-items:start;}
+  .src-num{color:#4a5568;font-size:10px;padding-top:1px;}
+  .src-entry a{color:var(--blue);text-decoration:none;border-bottom:1px dashed rgba(77,159,255,.3);word-break:break-all;}
+  .src-entry a:hover{color:var(--teal);}
+  .src-entry .src-desc{color:var(--gray);}
+  .src-entry .src-status{display:inline-block;font-size:8px;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;}
+  .s-doc{background:rgba(0,255,136,.12);color:var(--green);border:1px solid rgba(0,255,136,.2);}
+  .s-par{background:rgba(255,140,0,.12);color:var(--orange);border:1px solid rgba(255,140,0,.2);}
+  .s-ale{background:rgba(255,215,0,.1);color:var(--yellow);border:1px solid rgba(255,215,0,.2);}
+  /* conclusion */
+  .concl{margin-top:22px;padding:15px 18px;background:rgba(255,45,45,.05);border:1px solid rgba(255,45,45,.25);border-left:4px solid var(--red);border-radius:8px;}
+  .concl h3{font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  @media(max-width:540px){.cgrid{grid-template-columns:1fr;}}
+  .ci{padding:9px 11px;border-radius:6px;font-size:10px;line-height:1.6;}
+  .cs{background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.2);}
+  .cs .cl{color:var(--green);}
+  .cg{background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.2);}
+  .cg .cl{color:var(--orange);}
+  .cl2{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:5px;display:block;}
+  .ct2{color:var(--gray);}
+  .ct2 strong{color:var(--white);}
+  .footer-full{margin-top:22px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:10px;color:#4a5568;}
+  .footer-full strong{color:var(--gray);}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(255,45,45,.2)}50%{box-shadow:0 0 0 8px rgba(255,45,45,.05)}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- ══════════════════════════════ DISCLAIMER ══════════════════════════════ -->
+<div class="disclaimer">
+  <div class="disclaimer-title">⚖️ Disclaimer — Natureza Jurídica e Acadêmica deste Material</div>
+  <div class="disclaimer-body">
+    <strong>Este documento é produzido exclusivamente para fins de estudo, análise acadêmica, documentação histórica e pesquisa jornalística independente.</strong> Não constitui peça processual, acusação formal, nem manifesto político.<br><br>
+
+    Todas as afirmações aqui contidas estão classificadas em três categorias explícitas: <strong>(a) fato documentado</strong> — com fonte primária identificada e verificável; <strong>(b) em apuração</strong> — com indício formal mas sem confirmação judicial; <strong>(c) inferência qualificada</strong> — argumento lógico baseado em dados, sem valor de prova. O leitor é responsável por distinguir essas categorias ao fazer uso do material.<br><br>
+
+    Este estudo se enquadra nas proteções constitucionais previstas nos <strong>artigos 5º, IV (livre manifestação do pensamento), XIII (liberdade de expressão intelectual e científica) e XIV (acesso à informação) da CF/88</strong>, bem como no <strong>art. 19 da Declaração Universal dos Direitos Humanos (ONU, 1948)</strong> e no <strong>art. 13 da Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica)</strong>.<br><br>
+
+    <strong>Contexto de produção:</strong> Este material foi elaborado em um período em que pesquisadores, jornalistas, advogados, políticos eleitos e cidadãos comuns têm sido alvo de inquéritos, prisões, bloqueios de contas, cancelamentos de passaportes e censura digital por parte do Poder Judiciário brasileiro, notadamente por meio do <strong>INQ 4.781 (Fake News)</strong> e do <strong>INQ 4.874 (Milícias Digitais)</strong>, sob relatoria do ministro Alexandre de Moraes — <strong>o mesmo agente que é objeto de análise neste estudo</strong>. O <a href="https://ndmais.com.br/politica/vaza-toga-mensagens-expoem-judiciario-e-suposta-ilegalidade/" target="_blank">caso "Vaza Toga"</a>, publicado pela Folha de S.Paulo em agosto de 2024, documentou o uso do TSE como instrumento de investigação informal pelo gabinete de Moraes, o que torna particularmente relevante a documentação rigorosa da metodologia analítica deste trabalho.<br><br>
+
+    A análise de atos públicos de agentes públicos no exercício de funções públicas <strong>não constitui crime, injúria, difamação ou "ataque às instituições"</strong> no ordenamento jurídico brasileiro ou internacional. Ao contrário: é <strong>dever cívico e acadêmico</strong> documentá-los. O presente estudo não incita à violência, não contém discurso de ódio e não advoga ruptura institucional — antes, <strong>defende o Estado de Direito, o devido processo legal e a paridade de armas no processo eleitoral</strong>, valores inscritos no art. 1º da CF/88.
+  </div>
+  <div class="disclaimer-refs">
+    <strong>Proteções legais aplicáveis:</strong> CF/88 arts. 5º IV, XIII, XIV · DUDH art. 19 · CADH art. 13 · Lei 9.504/97 (Lei Eleitoral) · Lei 12.527/11 (Lei de Acesso à Informação) · Código Penal art. 138-139 (limites da crítica a agentes públicos) · STF — ADPF 130 (liberdade de imprensa) · STJ — Súmula 403 (crítica a ato público não gera dano moral)
+  </div>
+</div>
+
+<!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
+<div class="header">
+  <div class="op-tag">⬛ Dossiê Eleitoral 2022 · Material de Estudo · Livre Redistribuição <span class="vtag">v2.4</span></div>
+  <h1>USAID → ONGs → NetLab → TSE/Moraes → Resultado<br><span>Cadeia de Influência Jurídica — 8 Camadas · 18 Nós · Fontes Primárias</span></h1>
+  <div class="meta">Operação Narco Fluxo · USAID/NED/NetLab · Vaza Toga · TSE 2022 · 47 fontes verificáveis · abr/2026</div>
+</div>
+
+<div class="legend">
+  <div class="li"><div class="ld" style="background:rgba(0,255,136,.6)"></div>Documentado</div>
+  <div class="li"><div class="ld" style="background:rgba(255,140,0,.6)"></div>Em apuração</div>
+  <div class="li"><div class="ld" style="background:rgba(255,215,0,.6)"></div>Inferência</div>
+  <div class="li"><div class="ld" style="background:rgba(176,111,255,.6)"></div>Estrutural</div>
+  <div class="li"><div class="ld" style="background:rgba(0,212,170,.6)"></div>Interferência externa</div>
+  <div class="li"><div class="ld" style="background:rgba(255,77,158,.6)"></div>Vaza Toga</div>
+  <div class="li"><div class="ld" style="background:rgba(255,183,0,.6)"></div>Síntese</div>
+  <div class="li"><div class="ld" style="background:rgba(255,45,45,.8)"></div>Tese central</div>
+</div>
+
+<!-- ══════════════════════ FLOW DIAGRAM ══════════════════════ -->
+<div class="flow-diagram">
+  <div class="flow-title">Cadeia de Influência Jurídica — 5 Etapas Documentadas</div>
+
+  <div class="flow-step fs1">
+    <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
+    <div class="flow-content">
+      <div class="flow-label">Etapa 1 — Financiamento externo do ecossistema</div>
+      <div class="flow-text"><strong>USAID + NED + Open Society + Ford Foundation</strong> → R$ 267M+ em ONGs brasileiras + NetLab (R$ 6M) + agências de checagem (US$ 5,7M alegados) → ecossistema de "combate à desinformação" com espectro único</div>
+    </div>
+  </div>
+
+  <div class="flow-step fs2">
+    <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
+    <div class="flow-content">
+      <div class="flow-label">Etapa 2 — Produção de relatórios [ELO DOCUMENTADO]</div>
+      <div class="flow-text"><strong>NetLab (parceiro formal TSE)</strong> → relatórios sobre "atores de risco" → <strong>Moraes e Dino citaram relatórios do NetLab em decisões judiciais</strong> → censura big techs, bloqueio canais, intimações. Elo documentado pela Gazeta do Povo (mai/2023 e set/2025).</div>
+    </div>
+  </div>
+
+  <div class="flow-step fs3">
+    <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
+    <div class="flow-content">
+      <div class="flow-label">Etapa 3 — Vaza Toga: TSE como braço investigativo [FOLHA SP]</div>
+      <div class="flow-text">Assessor Airton Vieira (STF) requisitava relatórios informais ao TSE. <strong>20+ casos documentados.</strong> Pediu "criatividade" em dossiês → quebra de sigilo, cancelamento de passaportes, bloqueio de redes de figuras da oposição.</div>
+    </div>
+  </div>
+
+  <div class="flow-step fs4">
+    <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
+    <div class="flow-content">
+      <div class="flow-label">Etapa 4 — Assimetria eleitoral oficial [DECISÃO TSE]</div>
+      <div class="flow-text">O mesmo aparato que puni oposição na esfera penal embasa as <strong>226 × 14 inserções (16:1)</strong> na reta final. Radiolão (154k, alegado) + denunciante investigado. "Bora Votar" + espectro único + 2,04M jovens.</div>
+    </div>
+  </div>
+
+  <div class="flow-step fs5">
+    <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
+    <div class="flow-content">
+      <div class="flow-label">Etapa 5 — PCC/Escudo/Choquei/Janja: vetor de influência e fabricação narrativa [DOCUMENTADO PF abr/2026]</div>
+      <div class="flow-text"><strong>PCC → R$ 1,6bi</strong> → MC Ryan SP (líder) + 33 presos (Narco Fluxo) → <strong>Choquei</strong> classificado como "operador de mídia" pela PF → artistas/influenciadores como <strong>"escudo de conformidade"</strong> (CNN Brasil/TRF3) → conteúdo pró-Lula + abafamento de investigações → <strong>Janja</strong>: 17 interações LAI + Raphael no Palácio do Planalto (fev/2024) + fotos exclusivas enviadas para a página. Choquei = "influencer oficial PT desde 2022" (Piauí/Núcleo Jor). Alcance combinado dos presos: <strong>55M+ seguidores</strong>.</div>
+    </div>
+  </div>
+
+  <div class="flow-step fs6">
+    <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line" style="background:transparent"></div></div>
+    <div class="flow-content">
+      <div class="flow-label">Resultado — 2.139.645 votos = produto de sistema, não de 8 acasos</div>
+      <div class="flow-text"><strong>Com a documentação da Operação Narco Fluxo (abr/2026), o vetor ① PCC→Choquei→Janja passa de "em apuração" para "documentado pela PF".</strong> Os vetores ② a ⑦ já configuravam tese de equidade eleitoral gravemente comprometida. A convergência de 8 vetores independentes na mesma direção não é estatisticamente compatível com aleatoriedade.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ THRESHOLD ══════════════════════ -->
+<div class="threshold">
+  <h3>⚖️ Declaração Formal — Vetores ② a ⑦ São Juridicamente Suficientes</h3>
+  <div class="threshold-grid">
+    <div class="th-item th-doc">
+      <span class="th-label">✅ Documentado — 8 vetores</span>
+      <div class="th-text">
+        <strong>① PCC→Choquei: "operador de mídia" (PF Narco Fluxo abr/2026)</strong><br>
+        <strong>① Artistas/influenciadores: "escudo de conformidade" (TRF3/CNN)</strong><br>
+        <strong>② USAID/NED → R$ 267M ONGs + 2 eventos TSE 2021</strong><br>
+        <strong>③ NetLab → relatórios → decisões Moraes+Dino</strong><br>
+        <strong>④ 226 × 14 inserções TSE (razão 16:1)</strong><br>
+        <strong>⑤ Radiolão indeferido + denunciante investigado</strong><br>
+        <strong>⑥ "Bora Votar": +51% jovens, 88M alcance, espectro único</strong><br>
+        <strong>⑦ Vaza Toga: 20+ relatórios encomendados + 1.400+ perfilados</strong>
+      </div>
+    </div>
+    <div class="th-item th-inf">
+      <span class="th-label">⚠ Enquadramento jurídico dos vetores documentados</span>
+      <div class="th-text">
+        <strong>• Equidade eleitoral comprometida</strong> — Lei 9.504/97 art. 23<br>
+        <strong>• Uso unilateral de instrumento estatal</strong> — CF/88 art. 14<br>
+        <strong>• Interferência externa indireta</strong> — Lei 9.096/95 art. 31<br>
+        <strong>• Conflito estrutural do árbitro</strong> — LOMAN + Código de Ética<br>
+        <strong>• Nulidade processual (Vaza Toga)</strong> — CPP art. 157<br>
+        Justificam: CPMI · arguição de nulidade · revisão processual
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAIN ══════════════════════ -->
+<div class="chain">
+
+<div class="div" style="animation-delay:.02s"><span class="dlb">camada 1-A — financeira e narrativa (PCC · Operação Narco Fluxo · abr/2026)</span><div class="dln"></div></div>
+
+<div class="node nr" style="animation-delay:.05s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">PCC → Bets/Rifas → MC Ryan SP (líder) → Choquei (operador de mídia) · R$ 1,6bi · Operação Narco Fluxo · PF 15/abr/2026</div><span class="badge bc">Documentado · PF oficial · TRF3 confirmou prisões</span></div>
+  <div class="cb">
+  <strong>Operação Narco Fluxo (15/abr/2026):</strong> 33 presos. MC Ryan SP apontado como <strong>líder do esquema de lavagem</strong>. Frank Magrini (operador financeiro, histórico PCC) identificado como elo com a facção — financiou início de carreira de MC Ryan em 2014 e recebia "mensalidades" do grupo. R$ 1,6bi movimentados em menos de 2 anos via bets, rifas ilegais, shows e criptomoedas (USDT). <strong>Raphael Sousa (Choquei)</strong>: PF o classifica como <strong>"operador de mídia da organização"</strong> — função: gestão de imagem, "lavagem de reputação", promoção de investigados e contenção de crises junto a autoridades. Admitiu que <em>"pode ter ajudado a eleger Lula"</em>. Toda equipe era declaradamente pró-Lula. <strong>Janja:</strong> 17 interações oficiais (LAI) · fotos exclusivas de bastidores enviadas pela própria · presença no carro de som da vitória. Encontro no Palácio do Planalto (fev/2024): Janja reuniu Raphael e influencers no evento <em>"Influenciadores pela Democracia"</em>. Choquei era <strong>"influencer oficial" do PT desde 2022</strong> (Piauí). TRF3 manteve todas as prisões após audiências de custódia.
+  <div class="stats"><span class="st sr">R$ 1,6bi lavados</span><span class="st so">33 presos</span><span class="st sr">27M seg. Choquei</span><span class="st sb">PCC via Frank Magrini</span><span class="st spk">Janja: 17 interações LAI</span></div>
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F01]</span><a href="https://www.poder360.com.br/poder-governo/janja-interagia-com-choquei-perfil-cujo-dono-foi-preso-pela-pf/" target="_blank">Poder360 — Janja interagia com Choquei, preso pela PF · 16/04/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F02]</span><a href="https://www.gazetadopovo.com.br/republica/governo-manteve-relacao-proxima-com-choquei-perfil-de-lula-x-interagiu-com-envolvido-em-operacao-da-pf/" target="_blank">Gazeta do Povo — Lula e Janja trocaram mensagens com Choquei · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F03]</span><a href="https://revistaoeste.com/brasil/criador-da-pagina-choquei-esta-em-presidio-de-seguranca-maxima-em-goias/" target="_blank">Revista Oeste — Choquei em presídio de segurança máxima (Goiás) · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F01b]</span><a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/operacao-narco-fluxo-justica-mantem-todas-as-prisoes-de-investigados/" target="_blank">CNN Brasil — TRF3 mantém todas as prisões da Narco Fluxo · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F01c]</span><a href="https://www.itatiaia.com.br/brasil/brasil-geral/choquei-rompe-silencio-apos-prisao-de-dono-por-envolvimento-em-esquema-bilionario/" target="_blank">Itatiaia — Choquei rompe silêncio: nota da defesa · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+    </ul>
+  </div>
+  <span class="gap">⚠ Em apuração: ciência dolosa de Raphael sobre origem PCC dos valores · conteúdo das conversas Janja/Raphael não devassado · R$ 260bi (versão ampliada PF) vs R$ 1,6bi (versão inicial) — diferença não esclarecida</span></div></div>
+</div>
+
+<div class="div" style="animation-delay:.065s"><span class="dlb">camada 1-B — escudo de conformidade: artistas e influenciadores comprados pelo PCC (novo · documentado PF)</span><div class="dln"></div></div>
+
+<div class="node npk" style="animation-delay:.075s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">Artistas e Influenciadores como "Escudo de Conformidade" — Lavagem de Reputação e Fabricação de Narrativas · Narco Fluxo</div><span class="badge bp">Documentado PF · abr/2026</span></div>
+  <div class="cb">
+  A PF denominou formalmente o mecanismo de <strong>"escudo de conformidade"</strong>: artistas e influenciadores de grande alcance eram usados para <em>naturalizar transações milionárias, dar aparência de legalidade ao grupo criminoso e gerir a imagem pública dos investigados</em>. A estrutura operava em duas funções simultâneas:
+  <br><br>
+  <strong>① Lavagem financeira:</strong> Shows, produtos, ingressos e plataformas digitais usados como canais de pulverização de recursos ilícitos. Criptoativos (USDT) e dinheiro em espécie completavam o ciclo.
+  <br>
+  <strong>② Lavagem de reputação e fabricação de narrativas:</strong> O mesmo alcance usado para disseminar conteúdo favorável ao grupo — incluindo, no caso do Choquei, conteúdo político pró-Lula e gerenciamento de crises dos investigados junto a autoridades.
+  <br><br>
+  <strong>Presos na operação com função de "escudo" (documentado TRF3):</strong>
+  <div class="stats">
+    <span class="st spk">MC Ryan SP · líder / lavagem</span>
+    <span class="st spk">MC Poze do Rodo · 15M seg.</span>
+    <span class="st spk">Chrys Dias · influencer 15M seg.</span>
+    <span class="st spk">Débora Paixão · influencer / financiadora</span>
+    <span class="st spk">Rodrigo Inácio · GR6 Produtora (maior funk BR)</span>
+    <span class="st sr">Raphael Sousa · Choquei 27M seg. / op. mídia</span>
+  </div>
+  <br>
+  <strong>Dimensão eleitoral documentada (Choquei):</strong> A Choquei operou ativamente como cabo eleitoral de Lula nas eleições de 2022 — "bateu recordes de engajamento e fez parte da mobilização digital petista" (Núcleo Jor, mar/2024). Publicou conteúdo político pró-Lula durante o período eleitoral com frequência acima do padrão histórico (dados PF). Tinha linha direta com Janja que enviava fotos exclusivas. <strong>O mesmo perfil classificado pela PF como "operador de mídia do PCC" era, simultaneamente, o principal influencer digital da campanha Lula/PT.</strong>
+  <br><br>
+  <strong>Outros influenciadores no ecossistema:</strong> A Operação Narco Fluxo não esgota a lista — a PF indica que "novos desdobramentos não estão descartados". O modelo de compra de visibilidade de influenciadores por dinheiro de origem criminosa para fabricar narrativas, abafar investigações e gerir imagem política é o mecanismo central identificado.
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F01d]</span><a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/chrys-dias-esta-entre-os-presos-em-operacao-contra-lavagem-de-dinheiro/" target="_blank">CNN Brasil — Chrys Dias preso: "escudo de conformidade" · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F01e]</span><a href="https://www.tabcd.com.br/noticia/pf-desmonta-esquema-bilionario-com-funkeiros-influenciadores-e-ligacao-com-o-pcc" target="_blank">Tribuna ABCD — PF: 33 presos, 3 pilares (pulverização/dissimulação/interposição) · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F01f]</span><a href="https://nucleo.jor.br/reportagem/2024-03-25-ministerio-saude-choquei-influencers-parceiros/" target="_blank">Núcleo Jor — Choquei: "influencer oficial" PT 2022, cabo eleitoral Lula · mar/2024</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F01g]</span><a href="https://saocarlosnotoque.com/pagina-choquei-esta-entre-perfis-com-mais-correcoes-por-desinformacao-no-mundo/" target="_blank">São Carlos no Toque — Choquei: perfil com mais correções de desinformação · abr/2026</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F01h]</span><a href="https://www.gazetadopovo.com.br/vozes/deltan-dallagnol/esquerda-mente-vitima-choquei-nao-seria-protegida-pl-das-fake-news/" target="_blank">Gazeta do Povo (Deltan) — Choquei: cabo eleitoral Lula + caso Jéssica · dez/2023</a> <span class="src-status s-doc">documentado</span></li>
+    </ul>
+  </div>
+  <span class="key">🔗 Elo sistêmico: PCC → dinheiro ilícito → artistas/influenciadores (escudo) → alcance de 100M+ usuários → fabricação de narrativas pró-Lula + gerenciamento de imagem do crime organizado → eleições 2022</span>
+  <span class="gap">⚠ Distinção crítica: a PF documenta a função de "operador de mídia" e "lavagem de reputação" do Choquei para o grupo criminoso. A extensão em que isso incluía deliberadamente conteúdo político eleitoral vs. publicidade contratada normalmente ainda está em apuração judicial. Defesa nega ciência sobre origem dos valores e finalidade política das postagens.</span>
+  </div></div>
+</div>
+
+<div class="div" style="animation-delay:.08s"><span class="dlb">camada 2 — interferência externa (USAID · NED · ONGs)</span><div class="dln"></div></div>
+
+<div class="node nt" style="animation-delay:.11s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">USAID + NED + Atlantic Council · R$ 267M ONGs · 2 Eventos com TSE em 2021</div><span class="badge bt">Documentado parcial</span></div>
+  <div class="cb">R$ 267M+ a ONGs brasileiras (portal transparência EUA). 2 eventos USAID+TSE em 2021 sobre desinformação. Benz (CREDN ago/2025): alegou US$ 90M em rede de 11 agências — sem evidência primária independente verificada.
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F04]</span><a href="https://www.gazetadopovo.com.br/republica/mais-de-duas-dezenas-de-ongs-brasileiras-receberam-r-267-milhoes-da-usaid/" target="_blank">Gazeta do Povo — Dezenas de ONGs receberam R$ 267M da USAID · fev/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F05]</span><a href="https://www.gazetadopovo.com.br/republica/usaid-e-tse-fizeram-eventos-para-combater-desinformacao-um-ano-antes-das-eleicoes-de-2022/" target="_blank">Gazeta do Povo — USAID e TSE fizeram eventos em 2021 · fev/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F06]</span><a href="https://www2.camara.leg.br/atividade-legislativa/comissoes/comissoes-permanentes/credn/noticias/mike-benz-reitera-denuncia-de-interferencia-dos-eua-nas-eleicoes-do-brasil" target="_blank">Câmara — Mike Benz reitera denúncia na CREDN · ago/2025</a> <span class="src-status s-par">parcial</span></li>
+      <li><span class="lbl">[F07]</span><a href="https://www.ainvestigacao.com/p/cpac-texas-flavio-bolsonaro-denuncia" target="_blank">A Investigação — Flávio Bolsonaro na CPAC Texas · mar/2026</a> <span class="src-status s-par">parcial</span></li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="div" style="animation-delay:.14s"><span class="dlb">camada 3 — netlab · elo documentado com decisões judiciais</span><div class="dln"></div></div>
+
+<div class="node nt" style="animation-delay:.17s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">NetLab UFRJ → Relatórios → Decisões Moraes + Dino · Elo Direto Documentado</div><span class="badge bc">ELO DOCUMENTADO</span></div>
+  <div class="cb">
+  <strong>Moraes</strong> usou estudo NetLab no INQ 4.781 para intimar Brasil Paralelo e big techs. <strong>Dino</strong> citou NetLab para censurar Google. <strong>Toffoli</strong> citou NetLab em voto sobre Marco Civil. NetLab: parceiro formal TSE (Termo oficial) + R$ 6M Open Society/Ford pós-2023.
+  <span class="key">🔗 Elo fechado: Open Society → NetLab → relatórios → decisões Moraes/Dino → censura oposição digital</span>
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F08]</span><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/moraes-pf-ouvir-presidentes-big-techs-contra-pl-das-fake-news/" target="_blank">Gazeta do Povo — Moraes usa estudo NetLab no INQ 4.781 · mai/2023</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F09]</span><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/netlab-ufrj-recebeu-2-milhoes-governo-lanca-livro-defesa-regulacao-redes-sociais/" target="_blank">Gazeta do Povo — NetLab recebeu R$ 2M do governo Lula · set/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F10]</span><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/quais-sao-grupos-academicos-ongs-stf-usa-base-teorica-censura/" target="_blank">Gazeta do Povo — Grupos que o STF usa como base teórica para censura · dez/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F11]</span><a href="https://novo.org.br/noticias/netlab-george-soros-novo-tcu-transparencia/" target="_blank">NOVO/TCU — NetLab recebe Soros; TCU exige transparência · abr/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F12]</span><a href="https://www.justicaeleitoral.jus.br/desinformacao/" target="_blank">TSE oficial — Parceiros do programa anti-desinformação (inclui NetLab)</a> <span class="src-status s-doc">documentado</span></li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="div" style="animation-delay:.20s"><span class="dlb">camada 4 — assimetria judicial documentada</span><div class="dln"></div></div>
+
+<div class="node np" style="animation-delay:.23s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">TSE — 226 × 14 Inserções (16:1) · Radiolão · Moraes Acumulou TSE+STF+INQ 4874</div><span class="badge bc">Documentado · TSE oficial</span></div>
+  <div class="cb">Lula: <strong>226 inserções</strong>. Bolsonaro: <strong>14</strong>. Razão 16:1 nos 8 dias finais. Radiolão: 154k alegado (não validado) + denunciante virado investigado no INQ 4874 do próprio Moraes. Acumulação estrutural: Pres. TSE + Min. STF + Relator INQ 4874.
+  <span class="nota">⚠ 226 inserções (decisão oficial TSE) ≠ 154.085 inserções de rádio (auditoria campanha Bolsonaro, não validada)</span>
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F13]</span><a href="https://www.cnnbrasil.com.br/politica/tse-garante-226-direitos-de-resposta-a-lula-em-insercoes-de-bolsonaro-na-tv-e-radio/" target="_blank">CNN Brasil — TSE garante 226 direitos de resposta a Lula · out/2022</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F14]</span><a href="https://agenciabrasil.ebc.com.br/politica/noticia/2022-10/tse-concede-lula-24-direitos-de-resposta-contra-bolsonaro" target="_blank">Agência Brasil — TSE concede 24 direitos de resposta a Lula · out/2022</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F15]</span><a href="https://www.infomoney.com.br/politica/tse-concede-direitos-de-resposta-a-lula-e-bolsonaro-deve-perder-quase-metade-das-insercoes-na-reta-final/amp/" target="_blank">InfoMoney — Bolsonaro perde quase metade das inserções · out/2022</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F16]</span><a href="https://www.conjur.com.br/2022-out-26/tse-rejeita-pedido-bolsonaro-investigar-irregularidades-insercoes-radio/" target="_blank">Conjur — TSE rejeita investigação radiolão · 26/out/2022</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F17]</span><a href="https://www.cnnbrasil.com.br/politica/moraes-nega-pedido-da-campanha-de-bolsonaro-para-investigar-e-responsabilizar-radios/" target="_blank">CNN Brasil — Moraes nega pedido + remete ao INQ 4874 · out/2022</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F18]</span><a href="https://www.tse.jus.br/comunicacao/noticias/2022/Outubro/presidente-do-tse-extingue-peticao-da-coligacao-pelo-bem-do-brasil-sobre-veiculacao-de-insercoes-de-radio" target="_blank">TSE oficial — Decisão completa de Moraes sobre radiolão · out/2022</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F19]</span><a href="https://www.metropoles.com/brasil/eleicoes-2022/campanha-de-bolsonaro-diz-que-teve-154-mil-insercoes-a-menos-que-lula" target="_blank">Metrópoles — 154k inserções a menos (alegação campanha) · out/2022</a> <span class="src-status s-ale">alegado</span></li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="div" style="animation-delay:.26s"><span class="dlb">camada 5 — vaza toga · justiça paralela</span><div class="dln"></div></div>
+
+<div class="node npk" style="animation-delay:.29s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">Vaza Toga 1 — 20+ Relatórios Encomendados · "Use a Criatividade" · Folha SP</div><span class="badge bp">Documentado · Folha SP ago/2024</span></div>
+  <div class="cb">Assessor Airton Vieira (STF) solicitava relatórios ao TSE via WhatsApp. 20+ casos. Pediu que Tagliaferro <strong>"caprichasse"</strong> e <strong>"usasse a criatividade"</strong> em dossiês → quebra de sigilo bancário, cancelamento passaporte, bloqueio redes de Constantino, Figueiredo, Revista Oeste.
+  <span class="key">🔗 Mesmo aparato NetLab/TSE que produz "relatórios de desinformação" usado como braço investigativo do STF contra oposição</span>
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F20]</span><a href="https://obastidor.com.br/justica/vaza-toga-7559" target="_blank">O Bastidor — Vaza Toga: mensagens completas detalhadas · ago/2024</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F21]</span><a href="https://oantagonista.com.br/analise/a-gravidade-da-vaza-toga/" target="_blank">O Antagonista — A gravidade da Vaza Toga (análise Glenn Greenwald) · ago/2024</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F22]</span><a href="https://ndmais.com.br/politica/vaza-toga-mensagens-expoem-judiciario-e-suposta-ilegalidade/" target="_blank">ND Mais — Vaza Toga: mensagens expõem judiciário · ago/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F23]</span><a href="https://pt.wikipedia.org/wiki/Vaza_Toga" target="_blank">Wikipedia BR — Vaza Toga (cronologia completa)</a> <span class="src-status s-doc">referência</span></li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="node npk" style="animation-delay:.32s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">Vaza Toga 2 — 1.400+ Perfilados · Critério: Criticar STF ou Lula · Shellenberger</div><span class="badge bp">Documentado · Shellenberger ago/2025</span></div>
+  <div class="cb">Força-tarefa secreta perfilou <strong>1.400+ detidos do 8/jan</strong>. Critérios: criticar STF ou Lula, retuitar conteúdo rotulado desinformação, menções anônimas. Certidões em minutos. Defesas e MP sem acesso. Coordenação: Cristina Yukiko Kusahara (chefe gabinete Moraes/STF).
+  <div class="src-block">
+    <div class="src-title">Fontes</div>
+    <ul>
+      <li><span class="lbl">[F24]</span><a href="https://www.gazetadopovo.com.br/republica/mensagens-vazadas-justica-paralela-moraes-8-janeiro/" target="_blank">Gazeta do Povo — Força-tarefa secreta no 8/jan · ago/2025</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F25]</span><a href="https://ndmais.com.br/justica/vaza-toga-supostas-conversas-de-ex-assessor-de-moraes-denunciam-justica-paralela-no-8-1/" target="_blank">ND Mais — Vaza Toga 2: "força-tarefa secreta e ilegal" · ago/2025</a> <span class="src-status s-doc">documentado</span></li>
+    </ul>
+  </div>
+  <span class="gap">⚠ PF indiciou Tagliaferro pelo vazamento (abr/2025), não pelo conteúdo. Moraes nega irregularidades.</span></div></div>
+</div>
+
+<div class="node npk" style="animation-delay:.35s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">Assimetria de Consequências — Vaza Jato Anulou Lava Jato · Vaza Toga Não Anulou Nada</div><span class="badge be">Estrutural documentado</span></div>
+  <div class="cb">Vaza Jato (2019) → STF declarou parcialidade de Moro → anulou Lava Jato → beneficiou Lula (habilitação eleitoral). Vaza Toga (2024) → evidências comparáveis → <strong>zero revisão</strong> de decisões.
+  <div class="src-block">
+    <div class="src-title">Fonte</div>
+    <ul>
+      <li><span class="lbl">[F26]</span><a href="https://www.gazetadopovo.com.br/republica/operacao-vaza-toga-acoes-ilegais-alexandre-moraes-stf/" target="_blank">Gazeta do Povo — Vaza Toga vs. Vaza Jato: comparação jurídica · ago/2025</a> <span class="src-status s-doc">documentado</span></li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="div" style="animation-delay:.38s"><span class="dlb">camada 6 — mobilização eleitoral jovem</span><div class="dln"></div></div>
+
+<div class="node nb" style="animation-delay:.41s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">"Bora Votar" · 88M Alcance · Espectro Único · +51% Jovens 16-17 · +2,04M Total</div><span class="badge bc">Documentado · TSE oficial</span></div>
+  <div class="cb">Campanha TSE set/2021–2022. Tuitaço 16/mar/2022: <strong>88M pessoas · 4.700 participantes</strong>. Artistas progressistas sem contraponto documentado. <strong>+51,13%</strong> jovens 16-17 (1,4M→2,1M). <strong>1,7M compareceram.</strong> Total 16-18: <strong>+2,04M novos aptos.</strong>
+  <div class="src-block">
+    <div class="src-title">Fontes primárias</div>
+    <ul>
+      <li><span class="lbl">[F27]</span><a href="https://www.tse.jus.br/comunicacao/noticias/2024/Abril/campanhas-do-tse-e-parcerias-levaram-a-recordes-de-titulos-de-jovens" target="_blank">TSE oficial — Campanhas e recordes de títulos de jovens · abr/2024</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F28]</span><a href="https://www.tse.jus.br/comunicacao/noticias/2023/Julho/campanhas-da-justica-eleitoral-contribuem-para-crescimento-do-voto-jovem" target="_blank">TSE oficial — +51% jovens 16-17 em 2022 · jul/2023</a> <span class="src-status s-doc">documentado</span></li>
+      <li><span class="lbl">[F29]</span><a href="https://www.poder360.com.br/eleicoes/bolsonaro-diz-que-campanha-do-tse-para-jovens-favoreceu-pt/" target="_blank">Poder360 — Bolsonaro: campanha TSE favoreceu PT · jan/2024</a> <span class="src-status s-doc">declaração</span></li>
+    </ul>
+  </div>
+  <span class="nota">⚠ Voto jovem por candidato não discriminado em dados oficiais</span></div></div>
+</div>
+
+<div class="div" style="animation-delay:.44s"><span class="dlb">camada 7 — síntese de influência jurídica</span><div class="dln"></div></div>
+
+<div class="node ngold" style="animation-delay:.47s">
+  <div class="spine"><div class="sd"></div><div class="sl"></div></div>
+  <div class="card"><div class="ct"><div class="ctitle">Eleição 2022 — 2.139.645 Votos = Produto de Sistema · 7 Vetores Convergentes</div><span class="badge bg2">Síntese jurídica</span></div>
+  <div class="cb">
+  <strong>Financiamento externo</strong> → ecossistema de checagem de espectro único<br>
+  <strong>↓ NetLab</strong> → relatórios → decisões Moraes/Dino → censura oposição digital<br>
+  <strong>↓ Vaza Toga</strong> → TSE como braço investigativo → supressão atores oposição<br>
+  <strong>↓ TSE 226×14</strong> → assimetria oficial de propaganda nos 8 dias finais<br>
+  <strong>↓ "Bora Votar"</strong> → +2,04M jovens mobilizados por campanha de espectro único<br>
+  <strong>↓ PCC/Choquei</strong> → 27M seguidores + desinformação + linha direta (em apuração)<br><br>
+  <strong>Cada vetor é independente. Todos convergem na mesma direção. A probabilidade estatística de convergência aleatória de 7 vetores independentes é matematicamente desprezível.</strong>
+  <span class="key">🔑 Mesmo sem o elo PCC→Lula confirmado, os vetores ② a ⑦ são suficientes para sustentar tese de equidade eleitoral gravemente comprometida perante CPMI, TSE, STF ou instância internacional.</span></div></div>
+</div>
+
+<!-- FINAL -->
+<div class="node nf" style="animation-delay:.51s">
+  <div class="spine"><div class="sd"></div><div class="sl" style="background:transparent"></div></div>
+  <div class="card"><div class="ct">
+    <div class="ctitle">TESE JURÍDICA INTEGRAL — EQUIDADE ELEITORAL COMPROMETIDA</div>
+    <span class="badge bk">Tese Central v2.4</span>
+  </div>
+  <div class="cb">
+  <strong>① Financiamento ilícito de mídia (em apuração)</strong> — PCC → Choquei · Lei 9.504/97 art. 24 + Lei 12.850/13<br>
+  <strong>② Interferência externa (documentado parcial)</strong> — USAID/NED → ONGs → checagem → censura TSE · Lei 9.096/95 art. 31<br>
+  <strong>③ Captura de instrumento estatal (documentado)</strong> — NetLab+TSE → relatórios → decisões · CF/88 art. 14<br>
+  <strong>④ Assimetria judicial 16:1 (decisão oficial)</strong> — 226 inserções subtraídas · Lei 9.504/97 art. 23<br>
+  <strong>⑤ Conflito estrutural de cargos (documentado)</strong> — TSE+STF+INQ simultâneos · LOMAN<br>
+  <strong>⑥ Justiça paralela (documentado Folha)</strong> — Vaza Toga: TSE como braço STF · CPP art. 157<br>
+  <strong>⑦ Mobilização assimétrica (documentado TSE)</strong> — "Bora Votar" + espectro único · CF/88 art. 5<br><br>
+  <strong>Provas ainda necessárias:</strong> quebra de sigilo Janja/Raphael · rastreamento completo PCC→Choquei · CPMI USAID instalada · autenticidade integral Vaza Toga em juízo · revisão nulidade processual.
+  </div></div>
+</div>
+
+</div><!-- /chain -->
+
+<!-- ══════════════════════ SOURCES TABLE COMPLETA ══════════════════════ -->
+<div class="sources-section">
+  <h2>📚 Referências Completas — 47 Fontes Verificáveis</h2>
+
+  <div class="src-category">
+    <div class="src-cat-title">Operação Narco Fluxo / Choquei / PCC</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">01</span><span class="src-desc"><a href="https://www.poder360.com.br/poder-governo/janja-interagia-com-choquei-perfil-cujo-dono-foi-preso-pela-pf/" target="_blank">Poder360 — Janja interagia com Choquei, preso pela PF</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">02</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/governo-manteve-relacao-proxima-com-choquei-perfil-de-lula-x-interagiu-com-envolvido-em-operacao-da-pf/" target="_blank">Gazeta do Povo — Lula e Janja trocaram mensagens com Choquei · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">03</span><span class="src-desc"><a href="https://revistaoeste.com/brasil/criador-da-pagina-choquei-esta-em-presidio-de-seguranca-maxima-em-goias/" target="_blank">Revista Oeste — Choquei em presídio de segurança máxima · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">04</span><span class="src-desc"><a href="https://revistaoeste.com/politica/lula-e-janja-trocaram-mensagens-com-choquei-cujo-dono-foi-preso-pela-pf/" target="_blank">Revista Oeste — Lula e Janja trocaram mensagens com Choquei</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">05</span><span class="src-desc"><a href="https://www.cnnbrasil.com.br/nacional/brahma-do-pcc-saiba-quem-e-homem-acusado-de-lavar-dinheiro-da-faccao-nos-eua/" target="_blank">CNN Brasil — "Brahma" do PCC: lavagem de dinheiro nos EUA</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">06</span><span class="src-desc"><a href="https://noticias-do-brasil.news/crime/crime-organizado/grupo-chins-ligado-ao-pcc-alvo-de-operao-por-lavagem-de-dinheiro.html" target="_blank">Notícias do Brasil — Grupo chinês ligado ao PCC · fev/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">WSJ / PCC Global</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">07</span><span class="src-desc"><a href="https://www.dgabc.com.br/Noticia/4315633/wall-street-journal-destaca-poder-organizacional-e-financeiro-do-pcc-buscam-fortuna-nao-fama" target="_blank">Diário do Grande ABC — WSJ destaca poderio do PCC · 21/04/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">08</span><span class="src-desc"><a href="https://timesbrasil.com.br/brasil/reportagem-do-wall-street-journal-mostra-como-pcc-virou-potencia-global-na-venda-de-drogas/" target="_blank">Times Brasil — WSJ: PCC potência global · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">USAID / NED / Interferência Externa</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">09</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/mais-de-duas-dezenas-de-ongs-brasileiras-receberam-r-267-milhoes-da-usaid/" target="_blank">Gazeta do Povo — R$ 267M da USAID para ONGs brasileiras · fev/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">10</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/usaid-e-tse-fizeram-eventos-para-combater-desinformacao-um-ano-antes-das-eleicoes-de-2022/" target="_blank">Gazeta do Povo — USAID e TSE: 2 eventos conjuntos em 2021 · fev/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">11</span><span class="src-desc"><a href="https://www2.camara.leg.br/atividade-legislativa/comissoes/comissoes-permanentes/credn/noticias/mike-benz-reitera-denuncia-de-interferencia-dos-eua-nas-eleicoes-do-brasil" target="_blank">Câmara Federal — Benz reitera denúncia na CREDN · ago/2025</a> <span class="src-status s-par">parcial</span></span></div>
+      <div class="src-entry"><span class="src-num">12</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/barros-quer-cpmi-para-investigar-influencia-da-usaid-nas-eleicoes-e-estudo-sobre-extincao-do-pt/" target="_blank">Gazeta do Povo — CPMI para investigar USAID nas eleições · ago/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">13</span><span class="src-desc"><a href="https://www.ainvestigacao.com/p/cpac-texas-flavio-bolsonaro-denuncia" target="_blank">A Investigação — "Operação Tio Joe": financiamento internacional · mar/2026</a> <span class="src-status s-par">parcial</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">NetLab / Ecossistema de Checagem</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">14</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/moraes-pf-ouvir-presidentes-big-techs-contra-pl-das-fake-news/" target="_blank">Gazeta do Povo — Moraes usa NetLab no INQ 4.781 · mai/2023</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">15</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/netlab-ufrj-recebeu-2-milhoes-governo-lanca-livro-defesa-regulacao-redes-sociais/" target="_blank">Gazeta do Povo — NetLab: R$ 2M do governo Lula · set/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">16</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/quais-sao-grupos-academicos-ongs-stf-usa-base-teorica-censura/" target="_blank">Gazeta do Povo — Grupos que o STF usa como base teórica · dez/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">17</span><span class="src-desc"><a href="https://novo.org.br/noticias/netlab-george-soros-novo-tcu-transparencia/" target="_blank">NOVO/TCU — NetLab, Soros e transparência exigida pelo TCU · abr/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">18</span><span class="src-desc"><a href="https://www.justicaeleitoral.jus.br/desinformacao/" target="_blank">TSE oficial — Parceiros programa anti-desinformação (inclui NetLab)</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">19</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/eleicoes-2022/campanha-de-bolsonaro-diz-que-insercoes-nao-publicadas/" target="_blank">Gazeta do Povo — Análise NetLab + ecossistema de checagem 2022</a> <span class="src-status s-doc">documentado</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">TSE 2022 — Assimetria Eleitoral</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">20</span><span class="src-desc"><a href="https://www.cnnbrasil.com.br/politica/tse-garante-226-direitos-de-resposta-a-lula-em-insercoes-de-bolsonaro-na-tv-e-radio/" target="_blank">CNN Brasil — TSE: 226 direitos de resposta a Lula · out/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">21</span><span class="src-desc"><a href="https://agenciabrasil.ebc.com.br/politica/noticia/2022-10/tse-concede-lula-24-direitos-de-resposta-contra-bolsonaro" target="_blank">Agência Brasil — 24 direitos de resposta a Lula · out/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">22</span><span class="src-desc"><a href="https://www.infomoney.com.br/politica/tse-concede-direitos-de-resposta-a-lula-e-bolsonaro-deve-perder-quase-metade-das-insercoes-na-reta-final/amp/" target="_blank">InfoMoney — Bolsonaro perde quase metade das inserções · out/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">23</span><span class="src-desc"><a href="https://www.tse.jus.br/comunicacao/noticias/2022/Outubro/presidente-do-tse-extingue-peticao-da-coligacao-pelo-bem-do-brasil-sobre-veiculacao-de-insercoes-de-radio" target="_blank">TSE oficial — Decisão Moraes sobre radiolão · 26/out/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">24</span><span class="src-desc"><a href="https://www.conjur.com.br/2022-out-26/tse-rejeita-pedido-bolsonaro-investigar-irregularidades-insercoes-radio/" target="_blank">Conjur — TSE rejeita investigação radiolão · out/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">25</span><span class="src-desc"><a href="https://revistaoeste.com/politica/eleicoes-2022/fraude-das-radios-moraes-indefere-pedido-de-investigacao/" target="_blank">Revista Oeste — Radiolão: Moraes indefere + risco de investigação do denunciante · out/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">26</span><span class="src-desc"><a href="https://www.metropoles.com/brasil/eleicoes-2022/campanha-de-bolsonaro-diz-que-teve-154-mil-insercoes-a-menos-que-lula" target="_blank">Metrópoles — 154k inserções alegadas (auditoria campanha) · out/2022</a> <span class="src-status s-ale">alegado</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">Vaza Toga</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">27</span><span class="src-desc"><a href="https://obastidor.com.br/justica/vaza-toga-7559" target="_blank">O Bastidor — Vaza Toga: análise completa das mensagens · ago/2024</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">28</span><span class="src-desc"><a href="https://oantagonista.com.br/analise/a-gravidade-da-vaza-toga/" target="_blank">O Antagonista (Glenn Greenwald) — A gravidade da Vaza Toga · ago/2024</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">29</span><span class="src-desc"><a href="https://ndmais.com.br/politica/vaza-toga-mensagens-expoem-judiciario-e-suposta-ilegalidade/" target="_blank">ND Mais — Vaza Toga: mensagens expõem judiciário · ago/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">30</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/mensagens-vazadas-justica-paralela-moraes-8-janeiro/" target="_blank">Gazeta do Povo — Força-tarefa secreta: 1.400+ perfilados · ago/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">31</span><span class="src-desc"><a href="https://ndmais.com.br/justica/vaza-toga-supostas-conversas-de-ex-assessor-de-moraes-denunciam-justica-paralela-no-8-1/" target="_blank">ND Mais — Vaza Toga 2: "justiça paralela no 8/1" · ago/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">32</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/operacao-vaza-toga-acoes-ilegais-alexandre-moraes-stf/" target="_blank">Gazeta do Povo — Vaza Toga: ações ilegais de Moraes no STF · ago/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">33</span><span class="src-desc"><a href="https://pt.wikipedia.org/wiki/Vaza_Toga" target="_blank">Wikipedia BR — Vaza Toga: cronologia completa com todas as referências</a> <span class="src-status s-doc">referência</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">TSE — Campanha "Bora Votar" / Eleitorado Jovem</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">34</span><span class="src-desc"><a href="https://www.tse.jus.br/comunicacao/noticias/2024/Abril/campanhas-do-tse-e-parcerias-levaram-a-recordes-de-titulos-de-jovens" target="_blank">TSE oficial — Recordes de títulos de jovens: campanhas e parcerias · abr/2024</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">35</span><span class="src-desc"><a href="https://www.tse.jus.br/comunicacao/noticias/2023/Julho/campanhas-da-justica-eleitoral-contribuem-para-crescimento-do-voto-jovem" target="_blank">TSE oficial — +51% eleitorado jovem 16-17 em 2022 · jul/2023</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">36</span><span class="src-desc"><a href="https://www.tse.jus.br/comunicacao/noticias/2022/Marco/eleicoes-2022-participe-do-tuitaco-para-incentivar-a-participacao-dos-jovens" target="_blank">TSE oficial — Tuitaço #RolêDasEleições: 88M alcance · mar/2022</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">37</span><span class="src-desc"><a href="https://www.tse.jus.br/comunicacao/noticias/2021/Setembro/bora-votar-conheca-a-nova-campanha-para-o-eleitorado-jovem" target="_blank">TSE oficial — Campanha "Bora Votar" lançamento · set/2021</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">38</span><span class="src-desc"><a href="https://www.poder360.com.br/eleicoes/bolsonaro-diz-que-campanha-do-tse-para-jovens-favoreceu-pt/" target="_blank">Poder360 — Bolsonaro: campanha TSE favoreceu PT · jan/2024</a> <span class="src-status s-doc">declaração</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">Operação Narco Fluxo · Escudo de Conformidade · Artistas e Influenciadores PCC (abr/2026)</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">48</span><span class="src-desc"><a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/operacao-narco-fluxo-justica-mantem-todas-as-prisoes-de-investigados/" target="_blank">CNN Brasil — TRF3 mantém todas as prisões da Narco Fluxo · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">49</span><span class="src-desc"><a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/chrys-dias-esta-entre-os-presos-em-operacao-contra-lavagem-de-dinheiro/" target="_blank">CNN Brasil — Chrys Dias preso: "escudo de conformidade" explicado · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">50</span><span class="src-desc"><a href="https://www.itatiaia.com.br/brasil/brasil-geral/choquei-rompe-silencio-apos-prisao-de-dono-por-envolvimento-em-esquema-bilionario/" target="_blank">Itatiaia — Choquei rompe silêncio: nota da defesa completa · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">51</span><span class="src-desc"><a href="https://www.tabcd.com.br/noticia/pf-desmonta-esquema-bilionario-com-funkeiros-influenciadores-e-ligacao-com-o-pcc" target="_blank">Tribuna ABCD — PF: 3 pilares do esquema (pulverização/dissimulação/interposição) · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">52</span><span class="src-desc"><a href="https://timesbrasil.com.br/brasil/operacoes-da-pf/operacao-narco-fluxo-quem-sao-os-influenciadores-presos-pela-pf-em-esquema-de-r-16-bilhao/" target="_blank">Times Brasil — Lista de presos: influenciadores e artistas da Narco Fluxo · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">53</span><span class="src-desc"><a href="https://nucleo.jor.br/reportagem/2024-03-25-ministerio-saude-choquei-influencers-parceiros/" target="_blank">Núcleo Jor — Choquei: "influencer oficial PT desde 2022", cabo eleitoral Lula · mar/2024</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">54</span><span class="src-desc"><a href="https://saocarlosnotoque.com/pagina-choquei-esta-entre-perfis-com-mais-correcoes-por-desinformacao-no-mundo/" target="_blank">São Carlos no Toque — Choquei: maior taxa de correções de desinformação no mundo · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">55</span><span class="src-desc"><a href="https://gazetabrasil.com.br/entretenimento/2026/04/21/choquei-quebra-o-silencio-e-fala-pela-primeira-vez-sobre-a-prisao-do-dono-da-pagina-choquei/" target="_blank">Gazeta Brasil — PF: Choquei "lavagem de reputação" + R$ 260bi (escopo ampliado) · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">56</span><span class="src-desc"><a href="https://istoe.com.br/choquei-raphael-sousa-oliveira-pf" target="_blank">IstoÉ — Choquei nega vínculo com PCC; PF aponta "operador de mídia" e "gestão de imagem" · abr/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">Choquei / Janja / Relação Política (antecedentes)</div>
+    <div class="src-list">
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">39</span><span class="src-desc"><a href="https://www.ihu.unisinos.br/663516-dono-do-banco-master-lucrou-mais-de-r-440-milhoes-com-operacoes-de-fundos-investigados-por-ligacao-com-o-pcc" target="_blank">IHU — Banco Master e fundos investigados por ligação com PCC · mar/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">40</span><span class="src-desc"><a href="https://informanahora.com.br/noticia/1382/cpi-investiga-lavagem-de-dinheiro-entre-master-e-refit.html" target="_blank">Informa na Hora — CPI investiga Banco Master e Refit · mar/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">41</span><span class="src-desc"><a href="https://agenciabrasil.ebc.com.br/justica/noticia/2026-03/classificacao-de-faccoes-como-terroristas-pelos-eua-ameaca-soberania" target="_blank">Agência Brasil — Classificação terrorista pelos EUA · mar/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">42</span><span class="src-desc"><a href="https://apublica.org/2026/03/pcc-e-cv-terroristas-mais-impacto-na-economia-do-que-nas-faccoes/" target="_blank">Agência Pública — PCC e CV terroristas: impacto econômico · mar/2026</a> <span class="src-status s-doc">documentado</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">Contexto Político / Vaza Jato / Lava Jato</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">43</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/republica/vaza-jato-prisao-bolsonaro-conexao-moraes-esconde/" target="_blank">Gazeta do Povo — Vaza Toga e prisão de Bolsonaro: conexão que Moraes esconde · ago/2025</a> <span class="src-status s-doc">documentado</span></span></div>
+      <div class="src-entry"><span class="src-num">44</span><span class="src-desc"><a href="https://www.gazetadopovo.com.br/opiniao/artigos/vaza-toga-de-alexandre-de-moraes-e-mais-grave-que-vaza-jato/" target="_blank">Gazeta do Povo — Vaza Toga é mais grave que Vaza Jato (análise jurídica) · ago/2024</a> <span class="src-status s-doc">análise</span></span></div>
+    </div>
+  </div>
+
+  <div class="src-category">
+    <div class="src-cat-title">Fontes Oficiais / Institucionais</div>
+    <div class="src-list">
+      <div class="src-entry"><span class="src-num">45</span><span class="src-desc"><a href="https://www.tse.jus.br/desinformacao/" target="_blank">TSE.jus.br — Programa Permanente de Enfrentamento à Desinformação (lista de parceiros)</a> <span class="src-status s-doc">oficial</span></span></div>
+      <div class="src-entry"><span class="src-num">46</span><span class="src-desc"><a href="https://netlab.eco.ufrj.br" target="_blank">NetLab UFRJ — Site oficial (financiamento e parcerias públicas)</a> <span class="src-status s-doc">oficial</span></span></div>
+      <div class="src-entry"><span class="src-num">47</span><span class="src-desc"><a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app — Base de dados de referência (1.424+ eventos documentados)</a> <span class="src-status s-doc">referência</span></span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONCLUSION -->
+<div class="concl">
+  <h3>📋 Balanço Evidencial Final — v3.0</h3>
+  <div class="cgrid">
+    <div class="ci cs">
+      <span class="cl2">✅ Documentado — fontes primárias</span>
+      <div class="ct2">
+        <strong>PCC→Choquei "operador de mídia"</strong>: PF Narco Fluxo (abr/2026)<br>
+        <strong>Artistas/influenciadores "escudo conformidade"</strong>: CNN Brasil/TRF3<br>
+        <strong>Janja: 17 interações LAI + Planalto fev/2024</strong>: Poder360/Piauí<br>
+        <strong>33 presos · 55M+ seguidores combinados</strong>: PF oficial<br>
+        <strong>R$ 267M USAID → ONGs</strong>: portal transparência EUA<br>
+        <strong>2 eventos USAID+TSE 2021</strong>: Gazeta do Povo<br>
+        <strong>NetLab → decisões Moraes+Dino</strong>: Gazeta do Povo 2023-2025<br>
+        <strong>NetLab: Termo cooperação TSE</strong>: TSE oficial<br>
+        <strong>226 × 14 inserções (16:1)</strong>: CNN/TSE oficial<br>
+        <strong>Vaza Toga: 20+ relatórios</strong>: Folha SP ago/2024<br>
+        <strong>1.400+ perfilados 8/jan</strong>: Shellenberger ago/2025<br>
+        <strong>+51% jovens · 88M alcance</strong>: TSE oficial
+      </div>
+    </div>
+    <div class="ci cg">
+      <span class="cl2">⚠ Lacunas e distinções</span>
+      <div class="ct2">
+        <strong>Ciência dolosa de Raphael</strong>: em apuração judicial<br>
+        <strong>Conversas Janja/Raphael</strong>: conteúdo não devassado<br>
+        <strong>R$ 260bi vs R$ 1,6bi</strong>: escopo da operação em definição<br>
+        <strong>Outros influencers no esquema</strong>: "novos desdobramentos não descartados" (PF)<br>
+        <strong>Benz: US$ 90M + CIA</strong>: sem evidência primária independente<br>
+        <strong>NetLab</strong>: coordenação intencional é inferência<br>
+        <strong>226 ≠ 154.085</strong>: métricas distintas<br>
+        <strong>Voto jovem por candidato</strong>: não discriminado<br>
+        <strong>CPMI USAID</strong>: ainda não instalada
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-full">
+  <strong>Classificação:</strong> Material de estudo e pesquisa acadêmica independente · CC0 1.0 Universal — Domínio Público · Livre redistribuição, cópia e adaptação<br><br>
+  <strong>Proteções:</strong> CF/88 arts. 5º IV, XIII, XIV · DUDH art. 19 · CADH art. 13 · Lei 12.527/11 (LAI) · STF ADPF 130<br><br>
+  <strong>Método:</strong> Todas as afirmações classificadas explicitamente em documentado / em apuração / inferência. Fontes primárias identificadas e linkadas. Contradições e limitações documentadas no próprio material. Nenhuma afirmação foi feita sem classificação evidencial.<br><br>
+  <strong>Repositório:</strong> <a href="https://lawfare-timeline.vercel.app" target="_blank" style="color:var(--blue);text-decoration:none;">lawfare-timeline.vercel.app</a> · v3.0 · abr/2026 · Atualizado com Operação Narco Fluxo (PF 15/abr/2026)
+</div>
+
+</div>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

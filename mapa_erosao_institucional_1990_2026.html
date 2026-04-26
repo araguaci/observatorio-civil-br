@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa de Erosão Institucional 1990–2026 — Dossiê Investigativo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg:  #09090b;
+  --bg2: #0f0f13;
+  --bg3: #16161c;
+  --bg4: #1e1e26;
+  --border:  #252530;
+  --border2: #333340;
+  --text:  #e6e4de;
+  --text2: #96948c;
+  --text3: #52504e;
+  --red:    #e83a3a;
+  --red2:   #ff6060;
+  --amber:  #e89820;
+  --amber2: #ffc030;
+  --green:  #26c870;
+  --blue:   #3878ff;
+  --blue2:  #78a8ff;
+  --purple: #8858e8;
+  --cyan:   #18c8d8;
+  --orange: #e86020;
+  --font-d: 'Syne', sans-serif;
+  --font-m: 'IBM Plex Mono', monospace;
+
+  /* chart palette — legível em fundo escuro */
+  --c-stf:  #e85050;
+  --c-mpf:  #e89820;
+  --c-pf:   #4898ff;
+  --c-cong: #9878f8;
+  --c-imp:  #48c870;
+  --c-tse:  #e85898;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-m);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.wrap { max-width: 1360px; margin: 0 auto; padding: 0 24px 100px; }
+
+/* ── HEADER ── */
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 36px 0 28px;
+  margin-bottom: 36px;
+  position: relative;
+}
+.header-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:.35; transform:scale(.7); }
+}
+h1 {
+  font-family: var(--font-d);
+  font-size: clamp(22px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+h1 .hl-red   { color: var(--red); }
+h1 .hl-amber { color: var(--amber); }
+.header-sub {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 12px;
+  max-width: 760px;
+  line-height: 1.7;
+}
+.header-meta {
+  position: absolute;
+  right: 0; top: 36px;
+  text-align: right;
+  font-size: 10px;
+  color: var(--text3);
+  line-height: 1.9;
+}
+.cc0-badge {
+  display: inline-block;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 4px;
+}
+
+/* ── SEVERITY BAND ── */
+.severity-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.sev-item {
+  background: var(--bg2);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sev-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); }
+.sev-value { font-family: var(--font-d); font-size: 22px; font-weight: 700; }
+.sev-desc  { font-size: 11px; color: var(--text2); }
+.col-red    { color: var(--red); }
+.col-amber  { color: var(--amber2); }
+.col-green  { color: var(--green); }
+.col-blue   { color: var(--blue2); }
+.col-orange { color: var(--orange); }
+
+/* ── STICKY NAV ── */
+.tab-nav {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(9,9,11,0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 2px solid var(--border2);
+  margin-left: -24px;
+  margin-right: -24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-bottom: 40px;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 18px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+  margin-bottom: -1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.tab-btn:hover { color: var(--text2); }
+.tab-btn.active {
+  color: var(--text);
+  border-bottom-color: var(--red);
+}
+
+/* ── SECTION PANELS ── */
+.tab-panel { display: block; }
+.tab-panel + .tab-panel {
+  border-top: 1px solid var(--border);
+  padding-top: 44px;
+  margin-top: 52px;
+}
+.tab-panel { scroll-margin-top: 52px; }
+
+/* ── SECTION TITLE ── */
+.sec-title {
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.sec-sub {
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* ── PERIOD FILTER BUTTONS ── */
+.period-nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.pbtn {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  cursor: pointer;
+  background: var(--bg2);
+  color: var(--text3);
+  transition: all .15s;
+}
+.pbtn:hover { border-color: var(--text3); color: var(--text2); }
+.pbtn.active {
+  background: rgba(232,58,58,.12);
+  color: var(--red2);
+  border-color: rgba(232,58,58,.4);
+}
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text2);
+}
+.leg-dot {
+  width: 10px; height: 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── CHART WRAPPER ── */
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* ── EVENTS TABLE ── */
+.events-list {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.ev-header {
+  padding: 10px 16px;
+  background: var(--bg3);
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--font-m);
+  color: var(--text3);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 56px 80px 1fr 96px;
+  gap: 10px;
+}
+.ev-item {
+  display: grid;
+  grid-template-columns: 56px 80px 1fr 96px;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+  font-size: 12px;
+  transition: background .12s;
+}
+.ev-item:hover { background: var(--bg3); }
+.ev-item:last-child { border-bottom: none; }
+.ev-year {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--text3);
+  padding-top: 1px;
+}
+.ev-inst {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  white-space: nowrap;
+  align-self: start;
+}
+.ev-desc { color: var(--text2); line-height: 1.55; }
+.ev-badge {
+  font-family: var(--font-m);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 2px;
+  text-align: center;
+  align-self: start;
+}
+
+/* Institution badge colors (dark theme) */
+.inst-stf  { background: rgba(232,80,80,.15);  color: var(--red2); }
+.inst-mpf  { background: rgba(232,152,32,.12); color: var(--amber2); }
+.inst-pf   { background: rgba(72,152,255,.12); color: var(--blue2); }
+.inst-cong { background: rgba(152,120,248,.12);color: #c0a8ff; }
+.inst-imp  { background: rgba(72,200,112,.1);  color: var(--green); }
+.inst-tse  { background: rgba(232,88,152,.12); color: #ff90c0; }
+
+/* Severity badge colors (dark theme) */
+.badge-critico    { background: rgba(232,58,58,.15);  color: var(--red2); }
+.badge-grave      { background: rgba(232,152,32,.12); color: var(--amber2); }
+.badge-estrutural { background: rgba(136,88,232,.12); color: #b090ff; }
+
+/* ── INSTITUTION BARS ── */
+.inst-bars-wrap { display: flex; flex-direction: column; gap: 0; }
+.inst-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.inst-row:last-child { border-bottom: none; }
+.inst-name {
+  font-size: 11px;
+  color: var(--text2);
+  width: 160px;
+  flex-shrink: 0;
+}
+.inst-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.inst-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .6s ease;
+}
+.inst-score {
+  font-family: var(--font-d);
+  font-size: 15px;
+  font-weight: 700;
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.inst-change {
+  font-size: 10px;
+  width: 64px;
+  text-align: right;
+  color: var(--text3);
+  flex-shrink: 0;
+}
+
+/* ── VERDICT BOX ── */
+.verdict {
+  background: rgba(232,58,58,.06);
+  border: 1px solid rgba(232,58,58,.3);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+.verdict-title {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.verdict-text { font-size: 13px; color: var(--text2); line-height: 1.75; }
+.verdict-text strong { color: var(--text); }
+
+/* ── MECH CARDS ── */
+.mech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+  margin-top: 20px;
+}
+.mech-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.mech-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+.mech-red::before    { background: var(--red); }
+.mech-amber::before  { background: var(--amber); }
+.mech-blue::before   { background: var(--blue); }
+.mech-green::before  { background: var(--green); }
+.mech-purple::before { background: var(--purple); }
+.mech-orange::before { background: var(--orange); }
+.mech-num   { font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.mech-title { font-family: var(--font-d); font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+.mech-body  { color: var(--text2); font-size: 12px; line-height: 1.7; }
+
+/* ── HIGHLIGHT QUOTE ── */
+.hq {
+  border-left: 3px solid var(--red);
+  padding: 14px 20px;
+  margin: 24px 0;
+  background: var(--bg2);
+  border-radius: 0 3px 3px 0;
+}
+.hq-text { font-size: 13px; color: var(--text); line-height: 1.7; font-style: italic; }
+.hq-attr { font-size: 11px; color: var(--text3); margin-top: 8px; }
+
+/* ── SIGNAL BOX ── */
+.signal-box {
+  background: var(--bg2);
+  border: 1px solid rgba(232,152,32,.35);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.signal-label { font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.signal-body  { font-size: 12px; color: var(--text2); line-height: 1.75; }
+.signal-body strong { color: var(--text); }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9998;
+  height: 2px; background: rgba(255,255,255,0.04); pointer-events: none;
+}
+.progress-fill { height: 100%; background: var(--red); width: 0%; }
+
+/* ── RELATED ARTICLES ── */
+.related-section { margin: 56px 0 32px; }
+.related-heading {
+  font-family: var(--font-d);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text3);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.related-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.related-card {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color .15s, background .15s;
+}
+.related-card:hover { border-color: var(--border2); background: var(--bg3); }
+.rc-label { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); }
+.rc-title { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.4; }
+.rc-desc  { font-size: 11px; color: var(--text2); line-height: 1.5; }
+.rc-red    .rc-label { color: var(--red2); }
+.rc-amber  .rc-label { color: var(--amber2); }
+.rc-blue   .rc-label { color: var(--blue2); }
+.rc-green  .rc-label { color: var(--green); }
+.rc-orange .rc-label { color: var(--orange); }
+
+/* ── LAWFARE BANNER ── */
+.lawfare-banner {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 24px;
+  background: var(--bg2);
+  border: 1px solid rgba(232,152,32,0.35);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color .15s, background .15s;
+  margin-top: 12px;
+}
+.lawfare-banner:hover { border-color: rgba(232,152,32,0.65); background: var(--bg3); }
+.lb-icon { font-size: 24px; flex-shrink: 0; }
+.lb-body { flex: 1; }
+.lb-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 4px; }
+.lb-name { font-size: 14px; font-weight: 700; font-family: var(--font-d); color: var(--text); }
+.lb-url { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.lb-arrow { font-size: 20px; color: var(--amber); flex-shrink: 0; opacity: 0.7; }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+  padding-top: 24px;
+  font-size: 10px;
+  color: var(--text3);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer a { color: var(--text3); text-decoration: none; }
+.footer a:hover { color: var(--text2); }
+
+/* ── PERIOD LABEL ── */
+#period-label { color: var(--amber2); }
+
+/* ── CHART NOTE ── */
+.chart-note {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 8px;
+  font-family: var(--font-m);
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .ev-header, .ev-item { grid-template-columns: 44px 60px 1fr; }
+  .ev-badge { display: none; }
+  .inst-name { width: 110px; }
+  .header-meta { display: none; }
+  .related-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">
+    <div class="pulse-dot"></div>
+    Dossiê Investigativo · Lawfare-Timeline
+  </div>
+  <h1>
+    <span class="hl-red">EROSÃO</span><br>
+    INSTITUCIONAL
+  </h1>
+  <div class="header-sub">
+    Mapa interativo da degradação institucional brasileira de 1990 a 2026. Seis eixos monitorados — STF, MPF, Polícia Federal, Congresso, Imprensa e Eleições — com índices de integridade ponderados por eventos documentados, reversibilidade e vetores de correção ativos. Índice médio atual: <strong style="color:var(--red)">2,9/10</strong> vs. 6,4/10 em 1990.
+  </div>
+  <div class="header-meta">
+    <div>ATUALIZADO · 24/ABR/2026</div>
+    <div><a href="https://lawfare-timeline.vercel.app" target="_blank" style="color:var(--amber);text-decoration:none;letter-spacing:inherit">LAWFARE-TIMELINE.VERCEL.APP ↗</a></div>
+    <div class="cc0-badge">CC0 1.0 DOMÍNIO PÚBLICO</div>
+  </div>
+</div>
+
+<!-- SEVERITY BAND -->
+<div class="severity-band">
+  <div class="sev-item">
+    <div class="sev-label">Período analisado</div>
+    <div class="sev-value">36 anos</div>
+    <div class="sev-desc">1990 – 2026</div>
+  </div>
+  <div class="sev-item">
+    <div class="sev-label">Eixos institucionais</div>
+    <div class="sev-value col-blue">6</div>
+    <div class="sev-desc">STF · MPF · PF · Cong · Imp · TSE</div>
+  </div>
+  <div class="sev-item">
+    <div class="sev-label">Índice médio atual</div>
+    <div class="sev-value col-red">2,9/10</div>
+    <div class="sev-desc">vs 6,4/10 em 1990 — queda de 55%</div>
+  </div>
+  <div class="sev-item">
+    <div class="sev-label">Vetores sem correção</div>
+    <div class="sev-value col-red">4/6</div>
+    <div class="sev-desc">STF · MPF · TSE · Congresso</div>
+  </div>
+  <div class="sev-item">
+    <div class="sev-label">Pior índice individual</div>
+    <div class="sev-value col-red">STF 1,5</div>
+    <div class="sev-desc">De 7,0 em 1990 para 1,5 em 2026</div>
+  </div>
+</div>
+
+<!-- NAV STICKY -->
+<nav class="tab-nav" id="sticky-nav">
+  <a class="tab-btn active" href="#tab-grafico">01 · Gráfico</a>
+  <a class="tab-btn" href="#tab-eventos">02 · Eventos</a>
+  <a class="tab-btn" href="#tab-indices">03 · Índices</a>
+  <a class="tab-btn" href="#tab-sintese">04 · Síntese</a>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     SEÇÃO 01 — GRÁFICO INTERATIVO
+════════════════════════════════════════ -->
+<div id="tab-grafico" class="tab-panel">
+  <div class="sec-title">Gráfico de Erosão — 1990–2026</div>
+  <div class="sec-sub">Índice de integridade por instituição · filtrar por período presidencial</div>
+
+  <div class="period-nav" id="period-nav">
+    <button class="pbtn" onclick="filterPeriod(this,'all')">Todos (1990–2026)</button>
+    <button class="pbtn" onclick="filterPeriod(this,'collor')">Collor 1990–92</button>
+    <button class="pbtn" onclick="filterPeriod(this,'fhc')">FHC 1995–2002</button>
+    <button class="pbtn" onclick="filterPeriod(this,'lula1')">Lula I/II 2003–10</button>
+    <button class="pbtn" onclick="filterPeriod(this,'dilma')">Dilma 2011–16</button>
+    <button class="pbtn" onclick="filterPeriod(this,'temer')">Temer 2016–18</button>
+    <button class="pbtn" onclick="filterPeriod(this,'bolso')">Bolsonaro 2019–22</button>
+    <button class="pbtn active" onclick="filterPeriod(this,'lula3')">Lula III 2023–26</button>
+  </div>
+
+  <div class="legend">
+    <span class="leg-item"><span class="leg-dot" style="background:var(--c-stf)"></span>STF / Judiciário</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--c-mpf)"></span>MPF / PGR</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--c-pf)"></span>Polícia Federal</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--c-cong)"></span>Congresso Nacional</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--c-imp)"></span>Imprensa</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--c-tse)"></span>Eleições / TSE</span>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="erosaoChart"
+      role="img"
+      aria-label="Gráfico de linhas mostrando o índice de integridade de 6 instituições brasileiras de 1990 a 2026, com tendência geral de queda.">
+      Índices de integridade institucional: STF cai de 7 para 1,5; MPF de 6 para 3; PF de 5,5 para 4; Congresso de 4,5 para 2; Imprensa de 8 para 3,5; TSE de 7 para 2.
+    </canvas>
+  </div>
+
+  <div class="chart-note">
+    Escala 0–10 · 10 = integridade plena · 0 = captura total · Metodologia: eventos documentados × reversibilidade × vetores de correção ativos · Selecione um período acima para filtrar o gráfico e a tabela de eventos.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SEÇÃO 02 — EVENTOS ÂNCORA
+════════════════════════════════════════ -->
+<div id="tab-eventos" class="tab-panel">
+  <div class="sec-title">Eventos Âncora de Erosão</div>
+  <div class="sec-sub">Período: <span id="period-label">Lula III (2023–2026)</span></div>
+
+  <div class="events-list">
+    <div class="ev-header">
+      <span>Ano</span>
+      <span>Eixo</span>
+      <span>Evento documentado</span>
+      <span>Impacto</span>
+    </div>
+    <div id="events-container"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SEÇÃO 03 — ÍNDICES POR EIXO
+════════════════════════════════════════ -->
+<div id="tab-indices" class="tab-panel">
+  <div class="sec-title">Índice de Integridade por Eixo</div>
+  <div class="sec-sub">Estado atual — 2024–2026 · escala 0–10</div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px 28px;margin-bottom:24px">
+    <div id="inst-bars" class="inst-bars-wrap"></div>
+    <div style="font-size:10px;color:var(--text3);margin-top:16px;font-family:var(--font-m);line-height:1.6">
+      Escala 0–10 · 10 = integridade plena · 0 = captura total · Metodologia: eventos documentados × reversibilidade × vetores de correção ativos
+    </div>
+  </div>
+
+  <div class="mech-grid">
+    <div class="mech-card mech-red">
+      <div class="mech-num">STF — 1,5/10</div>
+      <div class="mech-title">Captura quase total</div>
+      <div class="mech-body">De 7,0 em 1990 para 1,5 em 2026. Decisões monocráticas sem prazo de revisão, ministros que julgam casos de seus financiadores, quórum de impeachment alterado unilateralmente. Único tribunal no mundo onde um ministro pode suspender qualquer investigação nacional sem prazo para referendo colegiado.</div>
+    </div>
+    <div class="mech-card mech-amber">
+      <div class="mech-num">MPF — 3,0/10</div>
+      <div class="mech-title">Dependência política estrutural</div>
+      <div class="mech-body">PGR Paulo Gonet é cofundador do IDP de Gilmar Mendes — conflito de interesses não declarado. Histórico: "engavetador-geral" Geraldo Brindeiro arquivou 90%+ dos inquéritos na era FHC. Fase Lava Jato (2013–2016) foi exceção, não regra — e foi sistematicamente desmontada.</div>
+    </div>
+    <div class="mech-card mech-blue">
+      <div class="mech-num">PF — 4,0/10</div>
+      <div class="mech-title">Interferência política documentada</div>
+      <div class="mech-body">Moro pediu demissão em 2020 acusando Bolsonaro de interferência — gravação confirmou. Auditores da Receita que investigaram Gilmar receberam tornozeleira eletrônica em 2025 por inquérito aberto pela PF. Apesar das pressões, mantém maior capacidade operacional que os demais eixos.</div>
+    </div>
+    <div class="mech-card mech-purple">
+      <div class="mech-num">Congresso — 2,0/10</div>
+      <div class="mech-title">Paralisia estrutural</div>
+      <div class="mech-body">Eduardo Cunha (réu da Lava Jato) presidiu o impeachment de Dilma. Temer sobreviveu a dois pedidos de autorização para processo arquivados pela Câmara. IDP assina contrato com CBF (R$ 10M/ano), filho de Gilmar signatário — Congresso silente. 2 pedidos de impeachment de ministros do STF: zero apreciados.</div>
+    </div>
+    <div class="mech-card mech-green">
+      <div class="mech-num">Imprensa — 3,5/10</div>
+      <div class="mech-title">Censura judicial e dependência financeira</div>
+      <div class="mech-body">X bloqueado por 39 dias (2024). Multa de R$ 50k/dia para uso de VPN por 20M+ usuários. Bloqueios de perfis e canais por decisões monocráticas desde 2022. Jornalistas processados por cobertura investigativa. Dependência de verbas publicitárias estatais cria autocensura estrutural.</div>
+    </div>
+    <div class="mech-card mech-orange">
+      <div class="mech-num">TSE — 2,0/10</div>
+      <div class="mech-title">Árbitro e parte simultâneos</div>
+      <div class="mech-body">Eleições 2022: Moraes acumula funções de árbitro e parte. TSE rejeita auditorias independentes. Moraes exige remoção de conteúdos no exterior antes de notificação — Starlink bloqueada. Inquéritos eleitorais multiplicam-se sob presidência de Moraes com poderes não previstos na legislação eleitoral.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SEÇÃO 04 — SÍNTESE ANALÍTICA
+════════════════════════════════════════ -->
+<div id="tab-sintese" class="tab-panel">
+  <div class="sec-title">Síntese Analítica</div>
+  <div class="sec-sub">36 anos · o que os dados revelam sobre o design do colapso</div>
+
+  <div class="verdict">
+    <div class="verdict-title">Conclusão estrutural</div>
+    <div class="verdict-text">
+      A erosão institucional brasileira entre 1990 e 2026 não é acumulação de erros — é <strong>resultado de incentivos sistêmicos que favorecem a captura em vez da accountability</strong>. Nenhum dos seis eixos monitorados apresenta vetor de correção ativo com capacidade de reverter a tendência no horizonte eleitoral de 2026.<br><br>
+      O padrão mais grave não é o STF (1,5/10) ou o TSE (2,0/10) isoladamente — é a <strong>sincronização entre eles</strong>: quando o tribunal que julga os membros do tribunal eleitoral é controlado pelos mesmos atores que controlam o tribunal eleitoral, o sistema de freios e contrapesos deixa de existir funcionalmente.
+    </div>
+  </div>
+
+  <div class="mech-grid">
+    <div class="mech-card mech-red">
+      <div class="mech-num">Vetor 01 — Concentração sem accountability</div>
+      <div class="mech-title">Poder monocrático sem revisão</div>
+      <div class="mech-body">80% das decisões do STF são monocráticas. Taxa de reversão: 2%. Sem prazo obrigatório para referendo colegiado, qualquer liminar é permanente por padrão. A concentração de poder discricionário sem mecanismo de contestação efetivo é a fonte primária de todos os outros vetores de erosão.</div>
+    </div>
+    <div class="mech-card mech-amber">
+      <div class="mech-num">Vetor 02 — Captura do regulador de si mesmo</div>
+      <div class="mech-title">O STF julga quem julga o STF</div>
+      <div class="mech-body">O mesmo tribunal que alterou monocraticamente o quórum do seu próprio impeachment é o tribunal que julgaria eventuais crimes de seus membros. PGR que poderia acusar é cofundador de instituto do decano. CPI que investiga é anulada pelo mesmo ministro investigado. O ciclo é fechado por design.</div>
+    </div>
+    <div class="mech-card mech-blue">
+      <div class="mech-num">Vetor 03 — Inversão da persecução</div>
+      <div class="mech-title">Investigadores investigados</div>
+      <div class="mech-body">Delegado Protógenes: preso e expulso da PF. Auditores da Receita (2018→2025): relatório sobre Gilmar → tornozeleira eletrônica. Moro: declarado parcial e afastado. Dallagnol: mandato cassado. O cálculo de risco pessoal impede sistematicamente que qualquer servidor investigue atores de poder acima de determinado patamar.</div>
+    </div>
+    <div class="mech-card mech-purple">
+      <div class="mech-num">Vetor 04 — Janela 2026</div>
+      <div class="mech-title">Ciclo eleitoral como horizonte de contenção</div>
+      <div class="mech-body">Investigações de grande impacto que não produzem condenações definitivas antes de um ciclo eleitoral tendem a ser absorvidas pelo novo arranjo pós-eleição. CPI do Crime Organizado, delação Vorcaro e operações em curso precisam de velocidade que o sistema foi projetado para impedir.</div>
+    </div>
+  </div>
+
+  <div class="signal-box">
+    <div class="signal-label">⚡ O único vetor de correção funcional identificado</div>
+    <div class="signal-body">
+      A jurisdição internacional opera como único canal efetivo quando o sistema interno está capturado. JBS: DOJ americano processou. Odebrecht: FCPA americano, Suíça, Peru. Ramagem: ICE. O silêncio seletivo do DOJ sobre as LLCs de Delaware identificadas em operações brasileiras sugere que esse canal também opera sob lógica de interesse — não de princípio. <strong>Quando o único vetor de accountability disponível é externo e seletivo, o Estado de Direito interno é, funcionalmente, inexistente para os atores de poder acima do limiar de proteção.</strong>
+    </div>
+  </div>
+
+  <div class="hq">
+    <div class="hq-text">"A pergunta correta não é 'por que o sistema não funciona?'. A pergunta é: para quem ele funciona — e essa resposta está nos dados."</div>
+    <div class="hq-attr">— Princípio analítico do lawfare-timeline: função sobre declaração</div>
+  </div>
+</div>
+
+<!-- ARTIGOS RELACIONADOS -->
+<div class="related-section">
+  <div class="related-heading">Leitura Relacionada — gosurf.site</div>
+
+  <div class="related-grid">
+
+    <a class="related-card rc-red" href="https://gosurf.site/artigos/duplo-padrao-judicial.html" target="_blank">
+      <div class="rc-label">Dossiê · Duplo Padrão</div>
+      <div class="rc-title">Duplo Padrão Judicial — Dossiê Investigativo 2026</div>
+      <div class="rc-desc">Perseguição a opositores x proteção ao crime organizado. COAF, Vorcaro/Master e a seletividade documentada 2019–2026.</div>
+    </a>
+
+    <a class="related-card rc-amber" href="https://gosurf.site/artigos/gilmar_mendes_poder_dashboard.html" target="_blank">
+      <div class="rc-label">Perfil · STF</div>
+      <div class="rc-title">Gilmar Mendes — Dossiê de Poder 2026</div>
+      <div class="rc-desc">24 anos no STF, 620 HCs monocráticos, rede IDP, Fórum de Lisboa e os mecanismos de blindagem documentados.</div>
+    </a>
+
+    <a class="related-card rc-blue" href="https://gosurf.site/artigos/padroes-sistemicos-dashboard.html" target="_blank">
+      <div class="rc-label">Dashboard · P1–P8</div>
+      <div class="rc-title">Mestre: Padrões × Operações Anticorrupção 2026</div>
+      <div class="rc-desc">Análise transversal dos padrões identificados em 25 anos de operações — P1 a P8 aplicados ao corpus do lawfare-timeline.</div>
+    </a>
+
+    <a class="related-card rc-red" href="https://gosurf.site/artigos/vaza-toga.html" target="_blank">
+      <div class="rc-label">Dossiê · INQ 4.781</div>
+      <div class="rc-title">VAZA TOGA — Dossiê Completo INQ 4.781</div>
+      <div class="rc-desc">Sistema paralelo de produção de provas: gabinete do STF instrumentalizou o TSE para justificar decisões fora dos ritos processuais.</div>
+    </a>
+
+    <a class="related-card rc-amber" href="https://gosurf.site/artigos/operacao-silencio-digital.html" target="_blank">
+      <div class="rc-label">Dossiê · Censura Judicial</div>
+      <div class="rc-title">Operação Silêncio Digital — Regime de Censura 2020–2026</div>
+      <div class="rc-desc">Ordens sigilosas, bloqueio do X por 39 dias, multa de R$ 50k/dia por VPN e o mecanismo de censura judicial sistêmica.</div>
+    </a>
+
+    <a class="related-card rc-orange" href="https://gosurf.site/artigos/republica-capturada.html" target="_blank">
+      <div class="rc-label">Dashboard · Captura Institucional</div>
+      <div class="rc-title">República Capturada — Dashboard Investigativo</div>
+      <div class="rc-desc">Mapeamento forense das operações e conexões transversais com Lava Jato, Panama Papers e Banco Master.</div>
+    </a>
+
+    <a class="related-card rc-red" href="https://gosurf.site/artigos/golpe-brasil-analise-evidencial.html" target="_blank">
+      <div class="rc-label">Análise Evidencial · 2026</div>
+      <div class="rc-title">Quem Deu o Golpe no Brasil?</div>
+      <div class="rc-desc">Síntese baseada em documentos primários: dois vetores de ruptura simultâneos, USAID, NetLab e assimetria de consequências.</div>
+    </a>
+
+    <a class="related-card rc-amber" href="https://gosurf.site/artigos/brasil-falha-institucional-diagnostico.html" target="_blank">
+      <div class="rc-label">Dashboard · Diagnóstico Sistêmico</div>
+      <div class="rc-title">Falha Institucional: Diagnóstico Sistêmico Brasil (2025)</div>
+      <div class="rc-desc">Análise transversal de falhas estruturais, captura orçamentária e o paradoxo da segurança pública. Dados 2022–2025.</div>
+    </a>
+
+  </div>
+
+  <!-- LAWFARE TIMELINE BANNER -->
+  <a class="lawfare-banner" href="https://lawfare-timeline.vercel.app" target="_blank">
+    <div class="lb-icon">⚖</div>
+    <div class="lb-body">
+      <div class="lb-eyebrow">Arquivo completo · Linha do tempo · 1.400+ entradas</div>
+      <div class="lb-name">LAWFARE-TIMELINE</div>
+      <div class="lb-url">lawfare-timeline.vercel.app — INQ 4.781 · Satiagraha · Castelo de Areia · Vaza Toga · STF · TSE/USAID</div>
+    </div>
+    <div class="lb-arrow">→</div>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>
+    <a href="https://lawfare-timeline.vercel.app" target="_blank" style="color:var(--amber);text-decoration:none">LAWFARE-TIMELINE.VERCEL.APP ↗</a> · DOSSIÊ: MAPA_EROSAO_INSTITUCIONAL_1990_2026.HTML<br>
+    Produzido por <a href="https://lawfare-timeline.vercel.app">Artes do Sul Desenvolvimento Web</a> · Bombinhas/SC · Brasil
+  </div>
+  <div style="text-align:right">
+    <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0 DOMÍNIO PÚBLICO</a><br>
+    Copie, distribua, adapte sem restrições · Atualizado 24/abr/2026
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- Chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── DADOS ──
+const YEARS = [1990,1992,1995,1998,2002,2005,2008,2010,2013,2016,2018,2020,2022,2024,2026];
+
+const DATA = {
+  stf:  [7.0, 6.5, 6.8, 6.5, 6.0, 5.5, 4.5, 4.8, 5.0, 4.5, 3.5, 3.0, 2.5, 1.8, 1.5],
+  mpf:  [6.0, 5.5, 6.0, 6.2, 6.5, 6.8, 6.5, 6.8, 7.0, 5.0, 3.5, 4.0, 3.5, 3.0, 3.0],
+  pf:   [5.5, 5.0, 5.5, 5.5, 5.8, 6.0, 5.5, 6.5, 7.0, 6.5, 5.0, 5.5, 5.0, 4.5, 4.0],
+  cong: [4.5, 3.5, 4.0, 3.5, 4.0, 3.5, 3.0, 3.5, 3.0, 2.5, 3.0, 2.5, 2.0, 2.0, 2.0],
+  imp:  [8.0, 7.5, 7.5, 7.0, 7.5, 7.0, 6.5, 6.5, 6.0, 5.5, 4.5, 4.0, 4.0, 3.5, 3.5],
+  tse:  [7.0, 6.5, 7.0, 7.5, 7.5, 7.5, 7.0, 7.0, 6.5, 6.0, 5.5, 4.5, 3.5, 2.5, 2.0],
+};
+
+const COLORS = {
+  stf: '#e85050', mpf: '#e89820', pf: '#4898ff',
+  cong: '#9878f8', imp: '#48c870', tse: '#e85898'
+};
+
+const DASHES = {
+  stf: [], mpf: [6,3], pf: [3,3], cong: [8,4], imp: [4,2], tse: [10,3]
+};
+
+const LABELS = {
+  stf: 'STF / Judiciário', mpf: 'MPF / PGR', pf: 'Polícia Federal',
+  cong: 'Congresso', imp: 'Imprensa', tse: 'Eleições / TSE'
+};
+
+const CURRENT = { stf: 1.5, mpf: 3.0, pf: 4.0, cong: 2.0, imp: 3.5, tse: 2.0 };
+const INITIAL = { stf: 7.0, mpf: 6.0, pf: 5.5, cong: 4.5, imp: 8.0, tse: 7.0 };
+
+const EVENTS = [
+  {year:1992,period:'collor',inst:'stf', badge:'grave',    label:'inst-stf', desc:'PC Farias e CPI do Congresso: STF não impede impeachment mas não lidera investigação'},
+  {year:1993,period:'collor',inst:'cong',badge:'critico',  label:'inst-cong',desc:'CPI do Orçamento — 18 parlamentares cassados, mas sistema se auto-preserva'},
+  {year:1994,period:'fhc',  inst:'tse', badge:'grave',    label:'inst-tse', desc:'Privatizações e financiamento opaco de campanha — TSE sem instrumentos de controle'},
+  {year:1999,period:'fhc',  inst:'mpf', badge:'grave',    label:'inst-mpf', desc:'Escândalo do grampo — PGR Geraldo Brindeiro arquiva 90%+ dos inquéritos (apelido: "engavetador-geral")'},
+  {year:2002,period:'fhc',  inst:'stf', badge:'estrutural',label:'inst-stf', desc:'FHC nomeia Gilmar Mendes ao STF — início da construção da infraestrutura de poder paralela'},
+  {year:2005,period:'lula1',inst:'cong',badge:'critico',  label:'inst-cong',desc:'Mensalão — esquema de compra de votos parlamentares; STF julga em 2012, condenações revertidas'},
+  {year:2007,period:'lula1',inst:'mpf', badge:'grave',    label:'inst-mpf', desc:'Satiagraha começa: PF e MPF produzem maior investigação financeira até então — STF intervém em 2008'},
+  {year:2008,period:'lula1',inst:'stf', badge:'critico',  label:'inst-stf', desc:'Gilmar solta Daniel Dantas com 2 HCs em 48h; delegado Protógeno expulso; juiz De Sanctis punido'},
+  {year:2013,period:'dilma',inst:'pf',  badge:'grave',    label:'inst-pf',  desc:'Início da Lava Jato — fase mais independente da PF e MPF registrada na história recente'},
+  {year:2014,period:'dilma',inst:'stf', badge:'estrutural',label:'inst-stf', desc:'Gilmar usa pedido de vista para manter doações empresariais em campanhas — contra maioria do plenário'},
+  {year:2016,period:'dilma',inst:'cong',badge:'critico',  label:'inst-cong',desc:'Impeachment de Dilma: Eduardo Cunha (réu na Lava Jato) preside votação'},
+  {year:2016,period:'temer',inst:'mpf', badge:'critico',  label:'inst-mpf', desc:'Temer sobrevive a dois pedidos de autorização para processo — Câmara arquiva'},
+  {year:2017,period:'temer',inst:'stf', badge:'critico',  label:'inst-stf', desc:'Gilmar solta Jacó Barata (3x), Eike Batista; 21 presos da Lava Jato no Rio liberados em 30 dias'},
+  {year:2018,period:'temer',inst:'pf',  badge:'grave',    label:'inst-pf',  desc:'Receita Federal produz relatório sobre Gilmar; auditores afastados por Moraes; PF não age'},
+  {year:2019,period:'bolso',inst:'mpf', badge:'critico',  label:'inst-mpf', desc:'Chats Vaza Jato revelam colaboração imprópria Moro-Dallagnol; STF não apura sistematicamente'},
+  {year:2019,period:'bolso',inst:'stf', badge:'estrutural',label:'inst-stf', desc:'INQ 4781 — Moraes abre inquérito das fake news com poderes de relator, réu e julgador simultâneos'},
+  {year:2020,period:'bolso',inst:'pf',  badge:'grave',    label:'inst-pf',  desc:'Moro pede demissão acusando Bolsonaro de interferência na PF — gravação confirma pressão'},
+  {year:2021,period:'bolso',inst:'tse', badge:'grave',    label:'inst-tse', desc:'TSE: Moraes assume presidência, inquéritos eleitorais multiplicam-se com poderes inéditos'},
+  {year:2022,period:'bolso',inst:'imp', badge:'critico',  label:'inst-imp', desc:'Bloqueios de perfis e canais por decisões monocráticas; jornalistas processados por cobertura'},
+  {year:2022,period:'bolso',inst:'tse', badge:'critico',  label:'inst-tse', desc:'Eleições 2022: TSE rejeita auditorias independentes; Moraes acumula funções de árbitro e parte'},
+  {year:2023,period:'lula3',inst:'stf', badge:'critico',  label:'inst-stf', desc:'STF amplia competência nos julgamentos do 8/1; réus julgados sem individualização de condutas'},
+  {year:2023,period:'lula3',inst:'cong',badge:'grave',    label:'inst-cong',desc:'IDP assina contrato 10 anos com CBF (R$10M/ano); filho de Gilmar signatário — Congresso silente'},
+  {year:2024,period:'lula3',inst:'stf', badge:'critico',  label:'inst-stf', desc:'Gilmar anula CPI Senado no caso Master (2x); suspende lei de impeachment de 1950 monocraticamente'},
+  {year:2024,period:'lula3',inst:'tse', badge:'critico',  label:'inst-tse', desc:'Moraes exige remoção de conteúdos no exterior antes de notificação — Starlink bloqueada'},
+  {year:2024,period:'lula3',inst:'imp', badge:'critico',  label:'inst-imp', desc:'X bloqueado por 39 dias; multa de R$50k/dia para uso de VPN; 20M+ usuários afetados'},
+  {year:2025,period:'lula3',inst:'pf',  badge:'grave',    label:'inst-pf',  desc:'PF abre inquérito com tornozeleira contra auditores da Receita que investigaram Gilmar em 2018'},
+  {year:2026,period:'lula3',inst:'mpf', badge:'estrutural',label:'inst-mpf', desc:'PGR Paulo Gonet — cofundador do IDP de Gilmar — ocupa cargo até 2027 sem conflito declarado'},
+];
+
+const PERIOD_RANGES = {
+  all:    {min:1990, max:2026, label:'Todos os períodos (1990–2026)'},
+  collor: {min:1990, max:1994, label:'Collor / Itamar (1990–1994)'},
+  fhc:    {min:1995, max:2002, label:'FHC (1995–2002)'},
+  lula1:  {min:2003, max:2010, label:'Lula I e II (2003–2010)'},
+  dilma:  {min:2011, max:2016, label:'Dilma (2011–2016)'},
+  temer:  {min:2016, max:2018, label:'Temer (2016–2018)'},
+  bolso:  {min:2019, max:2022, label:'Bolsonaro (2019–2022)'},
+  lula3:  {min:2023, max:2026, label:'Lula III (2023–2026)'},
+};
+
+let currentPeriod = 'lula3';
+let chart;
+
+// ── GRÁFICO ──
+function buildChart(period) {
+  const {min, max} = PERIOD_RANGES[period];
+  const idxs = YEARS.map((y,i) => ({y,i})).filter(({y}) => y >= min && y <= max);
+  const labels = idxs.map(({y}) => y);
+  const datasets = Object.keys(DATA).map(k => ({
+    label: LABELS[k],
+    data: idxs.map(({i}) => DATA[k][i]),
+    borderColor: COLORS[k],
+    backgroundColor: COLORS[k] + '18',
+    borderDash: DASHES[k],
+    borderWidth: 2.5,
+    pointRadius: 4,
+    pointHoverRadius: 7,
+    pointBackgroundColor: COLORS[k],
+    tension: 0.3,
+    fill: false,
+  }));
+
+  if (chart) chart.destroy();
+
+  Chart.defaults.color = '#52504e';
+  chart = new Chart(document.getElementById('erosaoChart'), {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#16161c',
+          borderColor: '#333340',
+          borderWidth: 1,
+          titleColor: '#e6e4de',
+          bodyColor: '#96948c',
+          padding: 10,
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}/10`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#52504e', font: { size: 11, family: "'IBM Plex Mono', monospace" }, autoSkip: false, maxRotation: 0 }
+        },
+        y: {
+          min: 0, max: 10,
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#52504e', font: { size: 11, family: "'IBM Plex Mono', monospace" }, stepSize: 2 },
+          title: { display: true, text: 'índice integridade (0–10)', color: '#52504e', font: { size: 10 } }
+        }
+      }
+    }
+  });
+}
+
+// ── EVENTOS ──
+function buildEvents(period) {
+  const {min, max, label} = PERIOD_RANGES[period];
+  document.getElementById('period-label').textContent = label;
+  const filtered = EVENTS.filter(e => e.year >= min && e.year <= max);
+  const container = document.getElementById('events-container');
+  if (!filtered.length) {
+    container.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--text3)">Nenhum evento registrado neste filtro.</div>';
+    return;
+  }
+  container.innerHTML = filtered.map(e => `
+    <div class="ev-item">
+      <span class="ev-year">${e.year}</span>
+      <span class="ev-inst ${e.label}">${e.inst.toUpperCase()}</span>
+      <span class="ev-desc">${e.desc}</span>
+      <span class="ev-badge badge-${e.badge}">${e.badge}</span>
+    </div>
+  `).join('');
+}
+
+// ── BARRAS DE ÍNDICE ──
+function buildBars() {
+  const order = ['stf','tse','cong','mpf','imp','pf'];
+  document.getElementById('inst-bars').innerHTML = order.map(k => {
+    const score = CURRENT[k];
+    const initial = INITIAL[k];
+    const pct = Math.round(score / 10 * 100);
+    const change = ((score - initial)).toFixed(1);
+    const scoreColor = score <= 2.0 ? 'var(--red2)' : score <= 3.5 ? 'var(--amber2)' : 'var(--green)';
+    const changeStr = change < 0 ? change : '+' + change;
+    return `<div class="inst-row">
+      <span class="inst-name">${LABELS[k]}</span>
+      <div class="inst-bar-track">
+        <div class="inst-bar-fill" style="width:${pct}%;background:${COLORS[k]}"></div>
+      </div>
+      <span class="inst-score" style="color:${scoreColor}">${score.toFixed(1)}</span>
+      <span class="inst-change">${changeStr} vs 1990</span>
+    </div>`;
+  }).join('');
+}
+
+// ── FILTRO DE PERÍODO ──
+function filterPeriod(btn, period) {
+  currentPeriod = period;
+  document.querySelectorAll('.pbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildChart(period);
+  buildEvents(period);
+}
+
+// ── INIT ──
+buildChart('lula3');
+buildEvents('lula3');
+buildBars();
+
+// ── PROGRESS BAR ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  if (total > 0) prog.style.width = (window.scrollY / total * 100) + '%';
+}, { passive: true });
+
+// ── SMOOTH SCROLL com offset do sticky nav ──
+const NAV_H = document.getElementById('sticky-nav').offsetHeight + 4;
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.getElementById(a.getAttribute('href').slice(1));
+    if (target) {
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - NAV_H;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ── SCROLL SPY ──
+const sections = ['tab-grafico','tab-eventos','tab-indices','tab-sintese'];
+const navLinks = {};
+document.querySelectorAll('#sticky-nav a').forEach(a => {
+  const id = a.getAttribute('href').slice(1);
+  navLinks[id] = a;
+});
+
+function getOffsetTop(el) {
+  return el.getBoundingClientRect().top + window.scrollY;
+}
+
+function updateActiveTab() {
+  const scrollY = window.scrollY + NAV_H + 20;
+  let active = sections[0];
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && getOffsetTop(el) <= scrollY) active = id;
+  }
+  Object.values(navLinks).forEach(l => l.classList.remove('active'));
+  if (navLinks[active]) navLinks[active].classList.add('active');
+}
+
+window.addEventListener('scroll', updateActiveTab, { passive: true });
+updateActiveTab();
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

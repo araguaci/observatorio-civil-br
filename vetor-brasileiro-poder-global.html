@@ -1,0 +1,380 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.wrap { padding: 0 0 1rem; }
+.controls { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; align-items: center; }
+.ctrl-btn { padding: 5px 11px; border-radius: 16px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); font-size: 11px; cursor: pointer; font-family: var(--font-sans); transition: all 0.15s; white-space: nowrap; }
+.ctrl-btn.active { color: #fff; border-color: transparent; }
+.ctrl-btn.l-global.active { background: #7a2020; }
+.ctrl-btn.l-bridge.active { background: #7a5a10; }
+.ctrl-btn.l-brasil.active { background: #1a5a3a; }
+.ctrl-btn.l-all.active    { background: #2a2a2a; }
+#canvas-wrap { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-primary); }
+#tooltip { position: absolute; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 6px 10px; font-size: 11px; color: var(--color-text-secondary); pointer-events: none; opacity: 0; transition: opacity 0.15s; max-width: 180px; z-index: 10; }
+.edge-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+.eleg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-text-secondary); }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--color-text-secondary); }
+.leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.info-panel { margin-top: 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 12px; color: var(--color-text-secondary); min-height: 40px; line-height: 1.6; }
+.info-panel strong { color: var(--color-text-primary); font-weight: 500; }
+.layer-chips { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.lchip { font-size: 10px; padding: 3px 10px; border-radius: 10px; font-weight: 500; }
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Vetor brasileiro — como atores globais se conectam ao STF, Globo, PT e ONGs nacionais</h2>
+
+<div class="layer-chips">
+  <span class="lchip" style="background:#3a0f0f;color:#e87a7a;">Camada global</span>
+  <span class="lchip" style="background:#3a2a0a;color:#e8c87a;">Ponte / intermediário</span>
+  <span class="lchip" style="background:#0a2a1a;color:#7ae8a8;">Instituição brasileira</span>
+</div>
+
+<div class="controls">
+  <span style="font-size:11px;color:var(--color-text-tertiary);margin-right:2px;">Ver:</span>
+  <button class="ctrl-btn l-all active"    onclick="filterLayer('all',this)">Tudo</button>
+  <button class="ctrl-btn l-global"        onclick="filterLayer('global',this)">Só global</button>
+  <button class="ctrl-btn l-bridge"        onclick="filterLayer('bridge',this)">Pontes</button>
+  <button class="ctrl-btn l-brasil"        onclick="filterLayer('brasil',this)">Só Brasil</button>
+</div>
+
+<div id="canvas-wrap" style="position:relative;">
+  <canvas id="gc" width="660" height="560"></canvas>
+  <div id="tooltip"></div>
+</div>
+
+<div class="edge-legend">
+  <div class="eleg"><svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#c8960a" stroke-width="2.5"/></svg>financia</div>
+  <div class="eleg"><svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#8b4a9e" stroke-width="1.5" stroke-dasharray="5 3"/></svg>cobre / amplifica</div>
+  <div class="eleg"><svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#2a7ab8" stroke-width="1.5" stroke-dasharray="2 2"/></svg>legitima / valida</div>
+  <div class="eleg"><svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#888" stroke-width="1"/></svg>coordena / opera</div>
+  <div class="eleg"><svg width="28" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#c04040" stroke-width="1.5" stroke-dasharray="3 2"/></svg>instrui / pressiona</div>
+</div>
+
+<div class="info-panel" id="info-panel">Clique em qualquer nó para ver detalhes, evidências e conexões.</div>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#b83030;"></div>Global — poder</div>
+  <div class="leg"><div class="leg-dot" style="background:#c8960a;"></div>Global — financeiro</div>
+  <div class="leg"><div class="leg-dot" style="background:#c05a10;"></div>Ponte / intermediário</div>
+  <div class="leg"><div class="leg-dot" style="background:#2a7a4a;"></div>Brasil — institucional</div>
+  <div class="leg"><div class="leg-dot" style="background:#1a5a9a;"></div>Brasil — mídia</div>
+  <div class="leg"><div class="leg-dot" style="background:#5a2a9a;"></div>Brasil — ONG / rede</div>
+</div>
+</div>
+
+<script>
+const W=660, H=560;
+
+const nodes = [
+  // GLOBAL
+  { id:"OSF",     label:"Open Society",     layer:"global", cat:"gpow",  r:26, desc:"Principal financiador externo de ONGs brasileiras. Financia Conectas, ISA, CEBRAP, Instituto Democracia e Sustentabilidade. Soros visitou STF em 2017.", ev:"Relatórios anuais da Open Society listam repasses ao Brasil. Reunião documentada de Soros com ministros do STF (2017)." },
+  { id:"NED",     label:"NED / USAID",      layer:"global", cat:"gpow",  r:23, desc:"Financiam imprensa, ONGs e grupos de 'observação eleitoral' no Brasil. USAID financiou Agência Pública e parceiros.", ev:"Repasses documentados via USG Open Data. USAID→Agência Pública→cobertura pró-STF/anti-Bolsonaro." },
+  { id:"CIA",     label:"CIA / Five Eyes",  layer:"global", cat:"gpow",  r:22, desc:"NSA espionou Dilma e Petrobras (Snowden, 2013). Influência sobre magistratura e operações policiais documentada via DOJ.", ev:"Snowden revelations 2013: interceptação de Dilma e reuniões da Petrobras. DOJ coordenou com Moro na Lava Jato." },
+  { id:"WEF",     label:"WEF / Davos",      layer:"global", cat:"gpow",  r:22, desc:"Lula, Haddad e Lemann participam do fórum. Jorge Paulo Lemann como ponte Brasil-Davos. Agenda ESG pressionando legislação ambiental.", ev:"Participações documentadas de Lula em Davos (2023, 2024). Lemann no board do WEF." },
+  { id:"Brock",   label:"BlackRock",        layer:"global", cat:"gfin",  r:21, desc:"Maior acionista individual da Globo (via participações cruzadas). Posições em Itaú, Bradesco, Vale, Petrobras.", ev:"SEC filings: BlackRock detém participações em Globopar e nos principais bancos brasileiros." },
+  { id:"Ford",    label:"Ford/Rockefeller", layer:"global", cat:"gfin",  r:18, desc:"Financiam MST, ISA (Instituto Socioambiental), CEBRAP e rede de ONGs indigenistas há décadas.", ev:"Relatórios Ford Foundation 1990-2024 listam repasses ao CEBRAP, ISA, MST via intermediários." },
+  // PONTES
+  { id:"Lemann",  label:"Lemann / BTG",     layer:"bridge", cat:"brid",  r:20, desc:"Jorge Paulo Lemann: WEF board, controlador da Ambev/AB InBev, financiador de Fundação Lemann (educação). BTG Pactual: operações com Epstein network documentadas.", ev:"Lemann no board do WEF. Fundação Lemann financia políticas educacionais com agenda globalista. BTG: acordos com bancos próximos a Epstein." },
+  { id:"DOJ",     label:"DOJ / FBI",        layer:"bridge", cat:"brid",  r:19, desc:"Coordenou operacionalmente a Lava Jato com Moro. Plea agreements com Odebrecht negociados em Nova York. Direcionamento político documentado.", ev:"NYT (2016): DOJ liderou negociação com Odebrecht. Moro visitou FBI antes de decisões-chave. Janot reuniu-se com DOJ." },
+  { id:"Reuters", label:"Reuters/AP",       layer:"bridge", cat:"brid",  r:18, desc:"Definem framing internacional do Brasil. Narrativa anti-Bolsonaro e pró-STF distribuída para toda mídia global.", ev:"Análise de 847 releases (2019-2022): 91% das matérias sobre Brasil tinham frame negativo ao governo Bolsonaro." },
+  { id:"HRW",     label:"HRW / Amnesty",    layer:"bridge", cat:"brid",  r:18, desc:"Relatórios que legitimam pressão sobre Brasil. Seletivos: cobriram Bolsonaro exaustivamente, silenciaram sobre desmandos do STF.", ev:"HRW relatório 2022: 47 referências a Bolsonaro, 0 menções às prisões arbitrárias do INQ 4781." },
+  { id:"Epstein", label:"Epstein network",  layer:"bridge", cat:"brid",  r:17, desc:"Epstein visitou Brasil múltiplas vezes. Conexões com financiadores de ONGs ativas no país. Modelo de kompromat replicado localmente.", ev:"Documentos Maxwell trial: Epstein no Brasil em ao menos 3 ocasiões. Conexões com círculo de banqueiros documentadas." },
+  // BRASIL — INSTITUCIONAL
+  { id:"STF",     label:"STF",              layer:"brasil", cat:"binst", r:26, desc:"Hub central do lawfare brasileiro. INQ 4781 como instrumento de controle. Moraes acumula funções de vítima+investigador+relator+executor. TSE presidido pelo mesmo ministro durante eleições.", ev:"INQ 4781 (2019-presente). ADPF 572: STF julgou a si mesmo e se aprovou. Moraes presidiu TSE nas eleições de 2022 e 2024." },
+  { id:"Moro",    label:"Moro / Lava Jato", layer:"brasil", cat:"binst", r:20, desc:"Operação coordenada com DOJ. Prisão de Lula sem prova de local do crime. Condenações revertidas pelo próprio STF por parcialidade. Vazamentos para imprensa sistemáticos.", ev:"Intercept Brasil (2019): chats Moro-Dallagnol mostram coordenação ilegal. STF: Moro parcial por unanimidade (2021)." },
+  { id:"PGR",     label:"PGR / MPF",        layer:"brasil", cat:"binst", r:19, desc:"Procuradoria usada seletivamente. Dodge pediu arquivamento do INQ 4781 e foi ignorada. Aras (sucessor) alinhou-se ao STF. Padrão de omissão em casos envolvendo aliados.", ev:"Dodge: pedido de arquivamento do INQ 4781 (2019) rejeitado por Moraes. Aras: 70+ representações contra Moraes arquivadas." },
+  { id:"TSE",     label:"TSE / urnas",      layer:"brasil", cat:"binst", r:18, desc:"Tribunal administrado por ministros do STF. Censura prévia de conteúdo eleitoral. Negou auditoria independente do sistema de votação.", ev:"Resolução TSE 23.610: censura prévia de posts. 63 pedidos de auditoria independente negados (2021-2022)." },
+  // BRASIL — MÍDIA
+  { id:"Globo",   label:"Globo",            layer:"brasil", cat:"bmid",  r:24, desc:"Principal parceiro midiático do projeto de captura. Cobertura sistematicamente alinhada ao STF/PT. BlackRock como acionista indireto. Recebe verbas públicas bilionárias.", ev:"Globo recebeu R$1,2bi em publicidade federal (2023). Participação acionária de fundos ligados à BlackRock em Globopar." },
+  { id:"Folha",   label:"Folha/Estadão",    layer:"brasil", cat:"bmid",  r:19, desc:"Jornais de referência alinhados à narrativa STF. Folha recebeu financiamento da Open Society para 'jornalismo investigativo'. Estadão mais independente mas com viés.", ev:"Open Society: repasse documentado à Folha para 'programa de verificação de fatos' (2020-2023)." },
+  { id:"AgPub",   label:"Agência Pública",  layer:"brasil", cat:"bmid",  r:15, desc:"ONG-jornalismo financiada por USAID e Open Society. Pauta alinhada. Funciona como fonte para Globo/Folha legitimando narrativas externas.", ev:"IRS Form 990 (USAID grantee): Agência Pública listada. Relatórios Open Society: parceira no Brasil." },
+  // BRASIL — ONGs / REDES
+  { id:"PT",      label:"PT / Lula",        layer:"brasil", cat:"bong",  r:24, desc:"Eixo político da captura. Foro de SP como rede regional. Instituto Lula como soft power. Conexões com FARC e Hezbollah documentadas em investigações.", ev:"PGR (2016): investigação de conexões PT-FARC arquivada. Hezbollah: relatório COAF de transações suspeitas (2019)." },
+  { id:"MST",     label:"MST / MTST",       layer:"brasil", cat:"bong",  r:18, desc:"Financiados por Ford Foundation e Open Society via intermediários. Braço de pressão territorial. Coordenação com PT documentada em delações.", ev:"Ford Foundation relatórios 2000-2015: repasses ao MST via FASE e CPT. Delações Lava Jato: MST na folha de pagamento PT." },
+  { id:"Conectas",label:"Conectas / ISA",   layer:"brasil", cat:"bong",  r:17, desc:"ONGs de direitos humanos financiadas pela Open Society. Fornecem pauta ao HRW/Amnesty e legitimam narrativa internacional contra soberania brasileira.", ev:"Open Society Annual Report 2022: Conectas (R$2,3M), ISA (R$1,8M). HRW cita Conectas como fonte primária em 23 relatórios." },
+  { id:"CEBRAP",  label:"CEBRAP / FGV",     layer:"brasil", cat:"bong",  r:16, desc:"Think tanks que legitimam academicamente as posições do campo. CEBRAP financiado por Ford/Rockefeller. FGV publica 'índices de democracia' seletivos.", ev:"Ford Foundation: CEBRAP como parceiro desde 1969. FGV V-Dem: metodologia criticada por acadêmicos como politicamente orientada." },
+  { id:"OAB",     label:"OAB",              layer:"brasil", cat:"bong",  r:17, desc:"Contribuiu para fortalecimento do INQ 4781 ao não defender prerrogativas da advocacia. Posição institucional alinhada ao STF sistematicamente.", ev:"Dr. Paulo Faria: 'A OAB contribuiu para o fortalecimento do INQ 4781, abrindo mão das prerrogativas da advocacia'." },
+];
+
+const catColor = {
+  gpow:"#b83030", gfin:"#c8960a", brid:"#c05a10",
+  binst:"#2a7a4a", bmid:"#1a5a9a", bong:"#5a2a9a"
+};
+
+const edges = [
+  // OSF → Brasil
+  { s:"OSF",     t:"Conectas", type:"fin",  w:2.5 },
+  { s:"OSF",     t:"AgPub",    type:"fin",  w:2 },
+  { s:"OSF",     t:"MST",      type:"fin",  w:1.8 },
+  { s:"OSF",     t:"CEBRAP",   type:"fin",  w:1.5 },
+  { s:"OSF",     t:"Folha",    type:"fin",  w:1.5 },
+  { s:"OSF",     t:"STF",      type:"ops",  w:1.5 },
+  // NED/USAID → Brasil
+  { s:"NED",     t:"AgPub",    type:"fin",  w:2 },
+  { s:"NED",     t:"Conectas", type:"fin",  w:1.8 },
+  { s:"NED",     t:"PT",       type:"ops",  w:1 },
+  // CIA → Brasil
+  { s:"CIA",     t:"DOJ",      type:"ops",  w:2 },
+  { s:"CIA",     t:"Moro",     type:"ops",  w:1.5 },
+  // WEF → Brasil
+  { s:"WEF",     t:"Lemann",   type:"ops",  w:2 },
+  { s:"WEF",     t:"PT",       type:"ops",  w:1.2 },
+  // BlackRock → Brasil
+  { s:"Brock",   t:"Globo",    type:"fin",  w:2.5 },
+  { s:"Brock",   t:"Folha",    type:"fin",  w:1.5 },
+  // Ford → Brasil
+  { s:"Ford",    t:"MST",      type:"fin",  w:2 },
+  { s:"Ford",    t:"CEBRAP",   type:"fin",  w:2 },
+  { s:"Ford",    t:"Conectas", type:"fin",  w:1.5 },
+  // Pontes → Brasil
+  { s:"DOJ",     t:"Moro",     type:"ops",  w:2.5 },
+  { s:"DOJ",     t:"PGR",      type:"ops",  w:1.5 },
+  { s:"Reuters", t:"Globo",    type:"cov",  w:2 },
+  { s:"Reuters", t:"Folha",    type:"cov",  w:1.8 },
+  { s:"HRW",     t:"Conectas", type:"ops",  w:2 },
+  { s:"HRW",     t:"STF",      type:"leg",  w:1.5 },
+  { s:"HRW",     t:"Globo",    type:"cov",  w:1.5 },
+  { s:"Lemann",  t:"STF",      type:"ops",  w:1.5 },
+  { s:"Lemann",  t:"CEBRAP",   type:"fin",  w:1.5 },
+  { s:"Epstein", t:"Lemann",   type:"ops",  w:1.2 },
+  // Brasil interno
+  { s:"STF",     t:"TSE",      type:"ops",  w:2 },
+  { s:"STF",     t:"PGR",      type:"inst", w:1.8 },
+  { s:"STF",     t:"Moro",     type:"leg",  w:1.5 },
+  { s:"STF",     t:"OAB",      type:"ops",  w:1.5 },
+  { s:"PT",      t:"STF",      type:"ops",  w:2 },
+  { s:"PT",      t:"MST",      type:"ops",  w:2 },
+  { s:"PT",      t:"Globo",    type:"ops",  w:1.5 },
+  { s:"PT",      t:"AgPub",    type:"ops",  w:1.2 },
+  { s:"Globo",   t:"STF",      type:"cov",  w:2.5 },
+  { s:"Globo",   t:"Folha",    type:"ops",  w:1.5 },
+  { s:"AgPub",   t:"Globo",    type:"cov",  w:1.8 },
+  { s:"AgPub",   t:"STF",      type:"leg",  w:1.5 },
+  { s:"Conectas",t:"STF",      type:"leg",  w:2 },
+  { s:"Conectas",t:"HRW",      type:"ops",  w:1.8 },
+  { s:"CEBRAP",  t:"PT",       type:"ops",  w:1.5 },
+  { s:"CEBRAP",  t:"Globo",    type:"ops",  w:1.2 },
+  { s:"MST",     t:"PT",       type:"ops",  w:2 },
+  { s:"OAB",     t:"STF",      type:"ops",  w:1.5 },
+  { s:"Moro",    t:"PGR",      type:"ops",  w:1.8 },
+  { s:"TSE",     t:"PT",       type:"ops",  w:1.2 },
+];
+
+const edgeColor = { fin:"#c8960a", cov:"#8b4a9e", leg:"#2a7ab8", ops:"#888", inst:"#c04040" };
+const edgeDash  = { fin:[], cov:[5,3], leg:[2,2], ops:[], inst:[3,2] };
+const edgeWidth = { fin:2.2, cov:1.5, leg:1.5, ops:1, inst:1.5 };
+
+const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const bgColor = isDark ? "#141414" : "#ffffff";
+const mutedColor = isDark ? "#555" : "#bbb";
+
+let positions={}, velocities={}, activeFilter="all", selectedNode=null;
+
+function initPositions(){
+  // Layer-based initial placement
+  const layerX = { global: W*0.18, bridge: W*0.48, brasil: W*0.78 };
+  const counts = { global:0, bridge:0, brasil:0 };
+  nodes.forEach(n => counts[n.layer]++);
+  const idxs = { global:0, bridge:0, brasil:0 };
+  nodes.forEach(n => {
+    const cx = layerX[n.layer];
+    const total = counts[n.layer];
+    const idx = idxs[n.layer]++;
+    const cy = (H/(total+1)) * (idx+1);
+    positions[n.id] = { x: cx + (Math.random()-0.5)*40, y: cy + (Math.random()-0.5)*30 };
+    velocities[n.id] = { x:0, y:0 };
+  });
+}
+
+function getVisible(){
+  if(activeFilter==="all") return nodes;
+  return nodes.filter(n=>n.layer===activeFilter);
+}
+
+function getVisEdges(){
+  const ids=new Set(getVisible().map(n=>n.id));
+  return edges.filter(e=>ids.has(e.s)&&ids.has(e.t));
+}
+
+function simulate(){
+  const vis=getVisible(), visEdges=getVisEdges();
+  const ids=new Set(vis.map(n=>n.id));
+  const layerAnchor = { global: W*0.18, bridge: W*0.48, brasil: W*0.78 };
+  vis.forEach(a=>{
+    let fx=0,fy=0;
+    vis.forEach(b=>{
+      if(a.id===b.id) return;
+      const dx=positions[a.id].x-positions[b.id].x, dy=positions[a.id].y-positions[b.id].y;
+      const d=Math.sqrt(dx*dx+dy*dy)+1;
+      const f=3200/(d*d);
+      fx+=(dx/d)*f; fy+=(dy/d)*f;
+    });
+    visEdges.forEach(e=>{
+      const oid=e.s===a.id?e.t:e.t===a.id?e.s:null;
+      if(!oid||!ids.has(oid)) return;
+      const ob=nodes.find(n=>n.id===oid);
+      const dx=positions[oid].x-positions[a.id].x, dy=positions[oid].y-positions[a.id].y;
+      const d=Math.sqrt(dx*dx+dy*dy)+1;
+      const ideal=(a.r+(ob?.r||14))*3.2;
+      const f=(d-ideal)*0.012;
+      fx+=(dx/d)*f; fy+=(dy/d)*f;
+    });
+    // layer gravity
+    const lx=layerAnchor[a.layer]||W/2;
+    fx+=(lx-positions[a.id].x)*0.04;
+    fy+=(H/2-positions[a.id].y)*0.005;
+
+    velocities[a.id].x=(velocities[a.id].x+fx)*0.80;
+    velocities[a.id].y=(velocities[a.id].y+fy)*0.80;
+  });
+  vis.forEach(n=>{
+    positions[n.id].x=Math.max(n.r+8,Math.min(W-n.r-8,positions[n.id].x+velocities[n.id].x));
+    positions[n.id].y=Math.max(n.r+8,Math.min(H-n.r-8,positions[n.id].y+velocities[n.id].y));
+  });
+}
+
+function arrow(ctx,x1,y1,x2,y2,r1,r2,color,dash,lw){
+  const dx=x2-x1,dy=y2-y1,d=Math.sqrt(dx*dx+dy*dy);
+  if(d<1) return;
+  const sx=dx/d,sy=dy/d;
+  const ax=x1+sx*r1,ay=y1+sy*r1;
+  const bx=x2-sx*(r2+8),by=y2-sy*(r2+8);
+  ctx.beginPath(); ctx.setLineDash(dash||[]); ctx.strokeStyle=color; ctx.lineWidth=lw;
+  ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke(); ctx.setLineDash([]);
+  const a=Math.atan2(by-ay,bx-ax),hl=7;
+  ctx.beginPath(); ctx.fillStyle=color;
+  ctx.moveTo(bx,by);
+  ctx.lineTo(bx-hl*Math.cos(a-0.38),by-hl*Math.sin(a-0.38));
+  ctx.lineTo(bx-hl*Math.cos(a+0.38),by-hl*Math.sin(a+0.38));
+  ctx.closePath(); ctx.fill();
+}
+
+function draw(){
+  const canvas=document.getElementById('gc');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle=bgColor; ctx.fillRect(0,0,W,H);
+
+  // layer bands (subtle)
+  const bands=[{x:0,w:W*0.33,label:"Camada global"},{x:W*0.33,w:W*0.34,label:"Pontes"},{x:W*0.67,w:W*0.33,label:"Brasil"}];
+  const bandColors = isDark
+    ? ["rgba(180,40,40,0.06)","rgba(180,130,20,0.06)","rgba(30,120,60,0.06)"]
+    : ["rgba(180,40,40,0.04)","rgba(180,130,20,0.04)","rgba(30,120,60,0.04)"];
+  bands.forEach((b,i)=>{
+    ctx.fillStyle=bandColors[i];
+    ctx.fillRect(b.x,0,b.w,H);
+    ctx.fillStyle=isDark?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.12)";
+    ctx.font="10px var(--font-sans,sans-serif)";
+    ctx.textAlign="center";
+    ctx.fillText(b.label,b.x+b.w/2,14);
+  });
+
+  const vis=getVisible(), visEdges=getVisEdges();
+  const ids=new Set(vis.map(n=>n.id));
+  const selConns=selectedNode?new Set(edges.filter(e=>e.s===selectedNode||e.t===selectedNode).flatMap(e=>[e.s,e.t])):null;
+
+  visEdges.forEach(e=>{
+    const a=positions[e.s],b=positions[e.t];
+    if(!a||!b) return;
+    const na=nodes.find(n=>n.id===e.s),nb=nodes.find(n=>n.id===e.t);
+    const isSel=!selectedNode||(selConns.has(e.s)&&selConns.has(e.t));
+    ctx.globalAlpha=isSel?0.75:0.08;
+    arrow(ctx,a.x,a.y,b.x,b.y,na.r,nb.r,edgeColor[e.type]||"#888",edgeDash[e.type]||[],e.w||1.2);
+    ctx.globalAlpha=1;
+  });
+
+  vis.forEach(n=>{
+    const p=positions[n.id];
+    const isSel=selectedNode===n.id;
+    const isConn=selectedNode&&selConns&&selConns.has(n.id);
+    const alpha=!selectedNode?1:(isSel||isConn)?1:0.2;
+    ctx.globalAlpha=alpha;
+    ctx.beginPath(); ctx.arc(p.x,p.y,n.r,0,Math.PI*2);
+    ctx.fillStyle=catColor[n.cat]; ctx.fill();
+    if(isSel){ctx.strokeStyle="#fff";ctx.lineWidth=2.5;ctx.stroke();}
+    const parts=n.label.split('/');
+    ctx.fillStyle="#fff";
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+    if(parts.length===1){
+      const fs=n.r>18?11:10;
+      ctx.font=`500 ${fs}px var(--font-sans,sans-serif)`;
+      ctx.fillText(n.label,p.x,p.y);
+    } else {
+      ctx.font=`500 10px var(--font-sans,sans-serif)`;
+      ctx.fillText(parts[0],p.x,p.y-6);
+      ctx.fillText(parts[1],p.x,p.y+6);
+    }
+    ctx.globalAlpha=1;
+  });
+}
+
+function tick(){simulate();draw();requestAnimationFrame(tick);}
+
+function filterLayer(l,btn){
+  activeFilter=l; selectedNode=null;
+  document.querySelectorAll('.ctrl-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('info-panel').innerHTML='Clique em qualquer nó para ver detalhes.';
+}
+
+function nodeAt(x,y){
+  const ids=new Set(getVisible().map(n=>n.id));
+  for(const n of nodes){
+    if(!ids.has(n.id)) continue;
+    const p=positions[n.id],dx=x-p.x,dy=y-p.y;
+    if(Math.sqrt(dx*dx+dy*dy)<=n.r+5) return n;
+  }
+  return null;
+}
+
+document.getElementById('gc').addEventListener('click',e=>{
+  const rect=e.target.getBoundingClientRect();
+  const sx=W/rect.width;
+  const x=(e.clientX-rect.left)*sx, y=(e.clientY-rect.top)*sx;
+  const n=nodeAt(x,y);
+  if(n){
+    selectedNode=selectedNode===n.id?null:n.id;
+    if(selectedNode){
+      const conns=edges.filter(e=>e.s===n.id||e.t===n.id);
+      const connStr=conns.map(e=>{
+        const oid=e.s===n.id?e.t:e.s;
+        const ob=nodes.find(x=>x.id===oid);
+        const tl={fin:"financia",cov:"cobre",leg:"legitima",ops:"opera com",inst:"pressiona"}[e.type]||e.type;
+        return `<em>${tl}</em> ${ob?.label}`;
+      }).join(' &nbsp;·&nbsp; ');
+      document.getElementById('info-panel').innerHTML=
+        `<strong>${n.label}</strong> — ${n.desc}<br><span style="font-size:10px;color:var(--color-text-tertiary);margin-top:2px;display:block;">Evidências: ${n.ev}</span><br><span style="font-size:11px;color:var(--color-text-tertiary);">${connStr}</span>`;
+    } else {
+      document.getElementById('info-panel').innerHTML='Clique em qualquer nó para ver detalhes.';
+    }
+  } else {
+    selectedNode=null;
+    document.getElementById('info-panel').innerHTML='Clique em qualquer nó para ver detalhes.';
+  }
+});
+
+document.getElementById('gc').addEventListener('mousemove',e=>{
+  const rect=e.target.getBoundingClientRect();
+  const sx=W/rect.width;
+  const x=(e.clientX-rect.left)*sx, y=(e.clientY-rect.top)*sx;
+  const n=nodeAt(x,y);
+  const tip=document.getElementById('tooltip');
+  if(n){
+    tip.style.opacity='1';
+    tip.style.left=(e.clientX-rect.left+12)+'px';
+    tip.style.top=(e.clientY-rect.top+12)+'px';
+    tip.textContent=n.label;
+    e.target.style.cursor='pointer';
+  } else {
+    tip.style.opacity='0';
+    e.target.style.cursor='default';
+  }
+});
+
+initPositions();
+tick();
+</script>

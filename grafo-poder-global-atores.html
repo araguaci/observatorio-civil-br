@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grafo do Poder Global — Redes de Influência Transnacional</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090e;
+  --surface: #0f0f17;
+  --surface2: #14141f;
+  --border: #1c1c2e;
+  --border-light: #252540;
+  --gold: #c8a94a;
+  --gold-dim: #7a6428;
+  --gold-glow: rgba(200,169,74,0.08);
+  --red: #c0392b;
+  --red-dim: #7a2218;
+  --red-glow: rgba(192,57,43,0.08);
+  --amber: #d4780a;
+  --amber-dim: #7a4205;
+  --amber-glow: rgba(212,120,10,0.08);
+  --blue: #2c5f9e;
+  --blue-dim: #1a3a62;
+  --blue-glow: rgba(44,95,158,0.1);
+  --teal: #1a7a6e;
+  --purple: #6a3d9a;
+  --text: #e8e4d8;
+  --text-muted: #8a8070;
+  --text-dim: #4a4438;
+  --serif: 'Playfair Display', Georgia, serif;
+  --body: 'Crimson Pro', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+  background: var(--bg); 
+  color: var(--text); 
+  font-family: var(--body); 
+  min-height: 100vh; 
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+/* HEADER */
+.site-header { padding: 3.5rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; text-align: center; }
+.site-header h1 { font-family: var(--serif); font-size: 2.8rem; font-weight: 900; letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 0.5rem; }
+.site-header h1 em { font-style: italic; color: var(--gold); }
+.site-header .sub { font-family: var(--mono); font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; }
+
+/* CONTROLS */
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; justify-content: center; }
+.ctrl-btn { 
+  padding: 6px 14px; 
+  border-radius: 4px; 
+  border: 1px solid var(--border); 
+  background: var(--surface); 
+  color: var(--text-muted); 
+  font-size: 11px; 
+  font-family: var(--mono); 
+  cursor: pointer; 
+  transition: all 0.2s; 
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ctrl-btn:hover { border-color: var(--text-dim); color: var(--text); }
+.ctrl-btn.active { color: #fff; border-color: transparent; }
+
+.ctrl-btn.f-fin.active  { background: var(--gold); }
+.ctrl-btn.f-ong.active  { background: var(--teal); }
+.ctrl-btn.f-int.active  { background: var(--red); }
+.ctrl-btn.f-med.active  { background: var(--purple); }
+.ctrl-btn.f-jud.active  { background: var(--blue); }
+.ctrl-btn.f-tec.active  { background: #1a4a8b; }
+.ctrl-btn.f-all.active  { background: var(--text-dim); }
+
+/* CANVAS */
+#canvas-wrap { 
+  border: 1px solid var(--border); 
+  border-radius: 8px; 
+  overflow: hidden; 
+  background: #050508; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  margin-bottom: 24px;
+}
+#gc { display: block; max-width: 100%; height: auto; margin: 0 auto; cursor: crosshair; }
+
+#tooltip { 
+  position: absolute; 
+  background: var(--surface2); 
+  border: 1px solid var(--gold-dim); 
+  border-radius: 4px; 
+  padding: 8px 14px; 
+  font-size: 11px; 
+  color: var(--text); 
+  pointer-events: none; 
+  opacity: 0; 
+  transition: opacity 0.15s; 
+  max-width: 220px; 
+  line-height: 1.4; 
+  z-index: 100;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* PANELS */
+.info-panel { 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  border-radius: 6px; 
+  padding: 20px 24px; 
+  font-size: 14px; 
+  color: var(--text-muted); 
+  min-height: 90px; 
+  line-height: 1.7; 
+  margin-bottom: 32px;
+  position: relative;
+}
+.info-panel strong { color: var(--gold); font-size: 18px; font-family: var(--serif); display: block; margin-bottom: 6px; }
+.info-panel em { font-style: italic; color: var(--text); }
+
+/* LEGENDS */
+.legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 768px) { .legend-grid { grid-template-columns: 1fr; } }
+
+.legend-group h4 { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 12px; }
+
+.legend-items { display: flex; flex-wrap: wrap; gap: 12px; }
+.leg { display: flex; align-items: center; gap: 8px; font-size: 11px; font-family: var(--mono); color: var(--text-muted); }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+.edge-legend { display: flex; flex-wrap: wrap; gap: 20px; background: var(--surface2); padding: 12px 20px; border-radius: 4px; border: 1px solid var(--border); }
+.eleg { display: flex; align-items: center; gap: 8px; font-size: 11px; font-family: var(--mono); color: var(--text-muted); }
+
+/* RELATED ARTIFACTS */
+.agrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.acard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.acard:hover {
+  border-color: var(--gold);
+  background: var(--surface2);
+}
+.abadge {
+  display: inline-flex;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+.ab-gold { background: var(--gold-glow); color: var(--gold); border: 1px solid var(--gold-dim); }
+.ab-red { background: var(--red-glow); color: var(--red); border: 1px solid var(--red-dim); }
+.ab-blue { background: var(--blue-glow); color: var(--blue); border: 1px solid var(--blue-dim); }
+
+.atitle { font-family: var(--serif); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.adesc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+/* FOOTER */
+.site-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+  padding: 3rem 0;
+  text-align: center;
+}
+.footer-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+.footer-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <div class="sub">Investigação Transnacional · Kompromat · Redes de Influência</div>
+    <h1>Grafo do <em>Poder Global</em></h1>
+  </header>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="ctrl-btn f-all active" onclick="filterCat('all',this)">Todos</button>
+    <button class="ctrl-btn f-fin" onclick="filterCat('fin',this)">Financeiro</button>
+    <button class="ctrl-btn f-ong" onclick="filterCat('ong',this)">ONG/Fundação</button>
+    <button class="ctrl-btn f-int" onclick="filterCat('intel',this)">Inteligência</button>
+    <button class="ctrl-btn f-med" onclick="filterCat('media',this)">Mídia</button>
+    <button class="ctrl-btn f-jud" onclick="filterCat('jud',this)">Judicial</button>
+    <button class="ctrl-btn f-tec" onclick="filterCat('tec',this)">Big Tech</button>
+  </div>
+
+  <!-- GRAPH CANVAS -->
+  <div id="canvas-wrap" style="position:relative;">
+    <canvas id="gc" width="1000" height="600"></canvas>
+    <div id="tooltip"></div>
+  </div>
+
+  <!-- INFO PANEL -->
+  <div class="info-panel" id="info-panel">
+    Clique em qualquer nó do grafo para visualizar o mapeamento detalhado das conexões e o respectivo dossiê de influência.
+  </div>
+
+  <!-- LEGENDS SECTION -->
+  <div class="legend-grid">
+    <div class="legend-group">
+      <h4>Conexões (Edges)</h4>
+      <div class="edge-legend">
+        <div class="eleg"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#c8a94a" stroke-width="2"/></svg>financia</div>
+        <div class="eleg"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#6a3d9a" stroke-width="1.5" stroke-dasharray="4 3"/></svg>amplifica</div>
+        <div class="eleg"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#2c5f9e" stroke-width="1.5" stroke-dasharray="2 2"/></svg>valida</div>
+        <div class="eleg"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#4a4438" stroke-width="1"/></svg>opera com</div>
+      </div>
+    </div>
+    <div class="legend-group">
+      <h4>Categorias</h4>
+      <div class="legend-items">
+        <div class="leg"><div class="leg-dot" style="background:#c8a94a;"></div>Financeiro</div>
+        <div class="leg"><div class="leg-dot" style="background:#1a7a6e;"></div>ONG</div>
+        <div class="leg"><div class="leg-dot" style="background:#c0392b;"></div>Inteligência</div>
+        <div class="leg"><div class="leg-dot" style="background:#6a3d9a;"></div>Mídia</div>
+        <div class="leg"><div class="leg-dot" style="background:#2c5f9e;"></div>Judicial</div>
+        <div class="leg"><div class="leg-dot" style="background:#1a4a8b;"></div>Tecnologia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED ARTIFACTS -->
+  <div class="site-header" style="border:none;margin-top:2rem;margin-bottom:1rem;padding:0;">
+    <div class="sub">Investigação Transversal</div>
+  </div>
+  <div class="agrid">
+    <a href="padroes-sistemicos-dashboard.html" class="acard">
+      <div class="abadge ab-red">Metodologia</div>
+      <div class="atitle">Padrões P1–P10</div>
+      <div class="adesc">A base analítica que conecta as 10 falhas de design do sistema estatal brasileiro.</div>
+    </a>
+    <a href="global-kompromat.html" class="acard">
+      <div class="abadge ab-red">Dossiê</div>
+      <div class="atitle">Global Kompromat</div>
+      <div class="adesc">Mapeamento forense de redes de influência, captura institucional e lawfare global.</div>
+    </a>
+    <a href="republica-capturada.html" class="acard">
+      <div class="abadge ab-gold">Mapeamento</div>
+      <div class="atitle">República Capturada</div>
+      <div class="adesc">Estrutura das operações Master, Greenwashing e Carbono Oculto no Brasil.</div>
+    </a>
+    <a href="operacao-silencio-digital.html" class="acard">
+      <div class="abadge ab-blue">Censura</div>
+      <div class="atitle">Silêncio Digital</div>
+      <div class="adesc">O regime de censura judicial e o uso de ordens sigilosas para proteger a teia.</div>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-text">
+      Este grafo mapeia conexões documentadas, fluxos de financiamento declarados e alinhamentos editoriais persistentes. Não implica, por si só, atividade ilícita, mas destaca a arquitetura de coordenação que sustenta o lawfare moderno nível global.
+    </div>
+    <div class="footer-meta">
+      MAPA DE INFLUÊNCIA · LAWFARE DESIGN SYSTEM 1.0 · CC0 DOMÍNIO PÚBLICO<br>
+      gosurf.site · Artes do Sul · v1.8 (2026)
+    </div>
+  </footer>
+</div>
+
+<script>
+const W = 1000, H = 600;
+const nodes = [
+  { id: "WEF",      label: "WEF / Davos",        cat: "fin",   r: 28, desc: "Fórum de elite global. Coordena agenda política-econômica entre governos, bancos e Big Tech. 'Young Global Leaders' em 193 países." },
+  { id: "Brock",    label: "BlackRock/Vanguard",  cat: "fin",   r: 26, desc: "Maiores gestores de ativos do mundo. Controlam ações de mídia, tech e energia. Agenda ESG como instrumento político." },
+  { id: "OSF",      label: "Open Society",        cat: "fin",   r: 30, desc: "Principal financiador individual de ONGs e movimentos políticos globais. Presente em 120+ países. Expulso da Hungria em 2018." },
+  { id: "Ford",     label: "Ford/Rockefeller",    cat: "fin",   r: 22, desc: "Fundações centenárias com conexões históricas à CIA (Church Committee). Financiam academia, mídia e ONGs estratégicas." },
+  { id: "NED",      label: "NED / USAID",         cat: "ong",   r: 26, desc: "Braços 'civis' da política externa americana. Financiam partidos, imprensa e grupos de oposição em países-alvo." },
+  { id: "HRW",      label: "Human Rights Watch",  cat: "ong",   r: 22, desc: "Principal ONG de DH global. Financiada pela Open Society. Aplicação seletiva politicamente orientada." },
+  { id: "Avaaz",    label: "Avaaz / MoveOn",      cat: "ong",   r: 18, desc: "50M+ membros. Fundada com apoio de Soros/MoveOn. Petições virais e pressão sobre plataformas para censura." },
+  { id: "FSP",      label: "Foro de SP",          cat: "ong",   r: 20, desc: "Rede petista transnacional. Coordena partidos de esquerda em 35+ países latino-americanos. Conexões com narcotráfico." },
+  { id: "CIA",      label: "CIA / Five Eyes",     cat: "intel", r: 28, desc: "Aliança de inteligência anglófona. SIGINT global, operações de influência, kompromat sobre aliados e adversários." },
+  { id: "FSB",      label: "FSB / GRU",           cat: "intel", r: 25, desc: "Inventores do kompromat moderno. Exportam desinformação, financiam partidos eurocéticos, operam honeytrap." },
+  { id: "MSS",      label: "MSS / United Front",  cat: "intel", r: 24, desc: "Espionagem e captura de elites via Belt and Road. Institutos Confúcio. 140+ países." },
+  { id: "NSO",      label: "NSO / Pegasus",       cat: "tec",   r: 20, desc: "Spyware em 50+ países. Infectou presidentes, ministros e jornalistas. Kompromat tecnológico modernizado." },
+  { id: "Reuters",  label: "Reuters/AP/AFP",      cat: "media", r: 24, desc: "Três agências definem o que é notícia para 80%+ dos veículos globais. Quem controla o fio controla a narrativa." },
+  { id: "BBC",      label: "BBC/CNN/NYT",         cat: "media", r: 25, desc: "Quadrúpla que define realidade aceitável para classes médias urbanas globais. Agenda setting coordenada." },
+  { id: "BigTech",  label: "Google/Meta/X",       cat: "tec",   r: 26, desc: "Controlam fluxo de informação para 5B+ pessoas. Twitter Files: FBI/DHS instruíam supressão de conteúdo." },
+  { id: "Lawfare",  label: "Redes judiciais",     cat: "jud",   r: 22, desc: "Magistrados e promotores que coordenam estratégias com objetivos políticos. Playbooks compartilhados entre países." },
+  { id: "ICC",      label: "CPI / CIDH",          cat: "jud",   r: 20, desc: "Tribunais supranacionais com aplicação seletiva. Mandados de prisão como instrumento geopolítico." },
+  { id: "Epstein",  label: "Epstein network",     cat: "intel", r: 21, desc: "Infraestrutura de kompromat documentada. Clientes globais com arquivos mantidos como alavanca permanente." },
+];
+
+const catColor = { fin:"#c8a94a", ong:"#1a7a6e", intel:"#c0392b", media:"#6a3d9a", jud:"#2c5f9e", tec:"#1a4a8b" };
+
+const edges = [
+  { s:"OSF", t:"HRW",     type:"fin", label:"financia" },
+  { s:"OSF", t:"Avaaz",   type:"fin", label:"financia" },
+  { s:"OSF", t:"NED",     type:"fin", label:"co-financia" },
+  { s:"OSF", t:"BBC",     type:"fin", label:"£20M Guardian" },
+  { s:"OSF", t:"Lawfare", type:"fin", label:"financia grupos" },
+  { s:"Ford",t:"NED",     type:"fin", label:"financia" },
+  { s:"Ford",t:"HRW",     type:"fin", label:"financia" },
+  { s:"Brock",t:"Reuters",type:"fin", label:"acionista" },
+  { s:"Brock",t:"BigTech",type:"fin", label:"acionista principal" },
+  { s:"Brock",t:"BBC",    type:"fin", label:"acionista NYT" },
+  { s:"WEF", t:"Brock",   type:"ops", label:"parceria formal" },
+  { s:"WEF", t:"BigTech", type:"ops", label:"parceiro oficial" },
+  { s:"WEF", t:"OSF",     type:"ops", label:"agenda comum" },
+  { s:"WEF", t:"NED",     type:"ops", label:"alinhamento" },
+  { s:"CIA", t:"NED",     type:"ops", label:"origem histórica" },
+  { s:"CIA", t:"Ford",    type:"ops", label:"canal histórico CIA" },
+  { s:"CIA", t:"BigTech", type:"ops", label:"In-Q-Tel / DHS" },
+  { s:"CIA", t:"Reuters", type:"ops", label:"influência editorial" },
+  { s:"CIA", t:"Epstein", type:"ops", label:"relação documentada" },
+  { s:"FSB", t:"Reuters", type:"ops", label:"contra-narrativa RT" },
+  { s:"FSB", t:"Epstein", type:"ops", label:"arquivos / modelo" },
+  { s:"MSS", t:"BigTech", type:"ops", label:"Huawei / vigilância" },
+  { s:"NED", t:"Lawfare", type:"fin", label:"financia" },
+  { s:"NED", t:"HRW",     type:"fin", label:"financia" },
+  { s:"HRW", t:"BBC",     type:"cov", label:"fonte primária" },
+  { s:"HRW", t:"Reuters", type:"cov", label:"fonte primária" },
+  { s:"HRW", t:"ICC",     type:"leg", label:"legitima mandados" },
+  { s:"Avaaz",t:"BigTech",type:"ops", label:"pressão por censura" },
+  { s:"Reuters",t:"BBC",  type:"ops", label:"fio de notícias" },
+  { s:"BBC",  t:"Lawfare",type:"leg", label:"legitima operações" },
+  { s:"BBC",  t:"ICC",    type:"leg", label:"amplifica mandados" },
+  { s:"BigTech",t:"Lawfare",type:"ops",label:"censura coordenada" },
+  { s:"BigTech",t:"CIA",  type:"ops", label:"cooperação SIGINT" },
+  { s:"Lawfare",t:"ICC",  type:"ops", label:"estratégia comum" },
+  { s:"Epstein",t:"CIA",  type:"ops", label:"kompromat" },
+  { s:"Epstein",t:"WEF",  type:"ops", label:"clientes elite" },
+  { s:"NSO",  t:"CIA",    type:"ops", label:"cliente / fornecedor" },
+  { s:"NSO",  t:"MSS",    type:"ops", label:"metodologia análoga" },
+  { s:"FSP",  t:"NED",    type:"ops", label:"contra-rede" },
+  { s:"FSP",  t:"Reuters",type:"cov", label:"narrativa regional" },
+];
+
+const bgColor = "#050508";
+const textColor = "#e8e4d8";
+const mutedColor = "#4a4438";
+
+let activeFilter = "all";
+let selectedNode = null;
+let positions = {};
+let velocities = {};
+let animFrame = null;
+
+function initPositions() {
+  const cx = W/2, cy = H/2;
+  nodes.forEach((n, i) => {
+    const angle = (i / nodes.length) * Math.PI * 2;
+    const rad = 200 + Math.random() * 80;
+    positions[n.id] = { x: cx + Math.cos(angle)*rad, y: cy + Math.sin(angle)*rad };
+    velocities[n.id] = { x: 0, y: 0 };
+  });
+}
+
+function getVisibleNodes() {
+  if (activeFilter === "all") return nodes;
+  return nodes.filter(n => n.cat === activeFilter ||
+    edges.some(e => (e.s === n.id || e.t === n.id) &&
+      nodes.find(x=>x.id===e.s)?.cat===activeFilter &&
+      nodes.find(x=>x.id===e.t)?.cat===activeFilter));
+}
+
+function getVisibleEdges() {
+  const visIds = new Set(getVisibleNodes().map(n=>n.id));
+  return edges.filter(e => visIds.has(e.s) && visIds.has(e.t));
+}
+
+function simulate() {
+  const k = 0.012, repulsion = 4500, damp = 0.8;
+  const visNodes = getVisibleNodes();
+  const visEdges = getVisibleEdges();
+  const visIds = new Set(visNodes.map(n=>n.id));
+
+  visNodes.forEach(a => {
+    let fx=0, fy=0;
+    visNodes.forEach(b => {
+      if (a.id===b.id) return;
+      const dx = positions[a.id].x - positions[b.id].x;
+      const dy = positions[a.id].y - positions[b.id].y;
+      const d = Math.sqrt(dx*dx+dy*dy)+1;
+      const f = repulsion/(d*d);
+      fx += (dx/d)*f;
+      fy += (dy/d)*f;
+    });
+    visEdges.forEach(e => {
+      const other = e.s===a.id ? e.t : e.t===a.id ? e.s : null;
+      if (!other || !visIds.has(other)) return;
+      const dx = positions[other].x - positions[a.id].x;
+      const dy = positions[other].y - positions[a.id].y;
+      const d = Math.sqrt(dx*dx+dy*dy)+1;
+      const ideal = (a.r + (nodes.find(n=>n.id===other)?.r||16)) * 4;
+      const f = (d - ideal) * k;
+      fx += (dx/d)*f;
+      fy += (dy/d)*f;
+    });
+    const cx = positions[a.id].x - W/2;
+    fx -= cx * 0.002;
+    fy -= (positions[a.id].y - H/2) * 0.002;
+
+    velocities[a.id].x = (velocities[a.id].x + fx) * damp;
+    velocities[a.id].y = (velocities[a.id].y + fy) * damp;
+  });
+
+  visNodes.forEach(n => {
+    positions[n.id].x = Math.max(n.r+20, Math.min(W-n.r-20, positions[n.id].x + velocities[n.id].x));
+    positions[n.id].y = Math.max(n.r+20, Math.min(H-n.r-20, positions[n.id].y + velocities[n.id].y));
+  });
+}
+
+function drawArrow(ctx, x1,y1,x2,y2,r1,r2,color,dash) {
+  const dx=x2-x1, dy=y2-y1, d=Math.sqrt(dx*dx+dy*dy);
+  if(d<1) return;
+  const sx=dx/d, sy=dy/d;
+  const ax=x1+sx*r1, ay=y1+sy*r1;
+  const bx=x2-sx*(r2+8), by=y2-sy*(r2+8);
+  ctx.beginPath();
+  ctx.setLineDash(dash||[]);
+  ctx.strokeStyle=color;
+  ctx.moveTo(ax,ay);
+  ctx.lineTo(bx,by);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  const headLen=8, angle=Math.atan2(by-ay,bx-ax);
+  ctx.beginPath();
+  ctx.fillStyle=color;
+  ctx.moveTo(bx,by);
+  ctx.lineTo(bx-headLen*Math.cos(angle-0.4),by-headLen*Math.sin(angle-0.4));
+  ctx.lineTo(bx-headLen*Math.cos(angle+0.4),by-headLen*Math.sin(angle+0.4));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function draw() {
+  const canvas = document.getElementById('gc');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0,0,W,H);
+
+  const visNodes = getVisibleNodes();
+  const visEdges = getVisibleEdges();
+  const selEdgeIds = selectedNode ? new Set(edges.filter(e=>e.s===selectedNode||e.t===selectedNode).map(e=>e.s+e.t)) : null;
+
+  visEdges.forEach(e => {
+    const a = positions[e.s], b = positions[e.t];
+    if(!a||!b) return;
+    const na = nodes.find(n=>n.id===e.s), nb = nodes.find(n=>n.id===e.t);
+    let color, dash=[], lw=1.5;
+    if(e.type==="fin")  { color="#c8a94a"; lw=2; }
+    else if(e.type==="cov") { color="#6a3d9a"; lw=1.5; dash=[5,3]; }
+    else if(e.type==="leg") { color="#2c5f9e"; lw=1.5; dash=[2,2]; }
+    else { color=mutedColor; lw=1; }
+    const isSel = !selectedNode || selEdgeIds.has(e.s+e.t) || selEdgeIds.has(e.t+e.s);
+    ctx.globalAlpha = isSel ? 0.9 : 0.1;
+    ctx.lineWidth = lw;
+    drawArrow(ctx, a.x,a.y, b.x,b.y, na.r, nb.r, color, dash);
+    ctx.globalAlpha=1;
+  });
+
+  visNodes.forEach(n => {
+    const p = positions[n.id];
+    const isSel = selectedNode===n.id;
+    const isConn = selectedNode && (edges.some(e=>(e.s===selectedNode&&e.t===n.id)||(e.t===selectedNode&&e.s===n.id)));
+    const alpha = !selectedNode ? 1 : (isSel||isConn) ? 1 : 0.2;
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, n.r, 0, Math.PI*2);
+    ctx.fillStyle = catColor[n.cat];
+    ctx.fill();
+    if(isSel) {
+      ctx.strokeStyle="#fff";
+      ctx.lineWidth=3;
+      ctx.stroke();
+    }
+    const lines = n.label.split('/');
+    ctx.fillStyle="#fff";
+    ctx.font = `600 ${lines.length>1?10:11}px 'JetBrains Mono', monospace`;
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+    if(lines.length===1) {
+      ctx.fillText(n.label, p.x, p.y);
+    } else {
+      ctx.fillText(lines[0], p.x, p.y-6);
+      ctx.fillText(lines[1], p.x, p.y+6);
+    }
+    ctx.globalAlpha=1;
+  });
+}
+
+function tick() {
+  simulate();
+  draw();
+  animFrame = requestAnimationFrame(tick);
+}
+
+function filterCat(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.ctrl-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedNode = null;
+  document.getElementById('info-panel').innerHTML = 'Clique em qualquer nó do grafo para visualizar o mapeamento detalhado das conexões e o respectivo dossiê de influência.';
+}
+
+function getNodeAt(x, y) {
+  const visIds = new Set(getVisibleNodes().map(n=>n.id));
+  for(const n of nodes) {
+    if(!visIds.has(n.id)) continue;
+    const p = positions[n.id];
+    const dx = x-p.x, dy = y-p.y;
+    if(Math.sqrt(dx*dx+dy*dy) <= n.r+4) return n;
+  }
+  return null;
+}
+
+document.getElementById('gc').addEventListener('click', e => {
+  const rect = e.target.getBoundingClientRect();
+  const sx = W / rect.width;
+  const x = (e.clientX - rect.left) * sx;
+  const y = (e.clientY - rect.top) * sx;
+  const n = getNodeAt(x, y);
+  if(n) {
+    selectedNode = selectedNode===n.id ? null : n.id;
+    if(selectedNode) {
+      const conns = edges.filter(e=>e.s===n.id||e.t===n.id);
+      const connNames = conns.map(e=>{
+        const other = nodes.find(x=>x.id===(e.s===n.id?e.t:e.s));
+        const typeLabel = {fin:"financia",cov:"amplifica",leg:"legitima",ops:"opera com"}[e.type];
+        return `<em>${typeLabel}</em> ${other?.label}`;
+      }).join(' · ');
+      document.getElementById('info-panel').innerHTML =
+        `<strong>${n.label}</strong>${n.desc}<br><span style="color:var(--text-muted);font-size:12px;margin-top:8px;display:block;font-family:var(--mono);">${connNames}</span>`;
+    } else {
+      document.getElementById('info-panel').innerHTML = 'Clique em qualquer nó do grafo para visualizar o mapeamento detalhado das conexões e o respectivo dossiê de influência.';
+    }
+  } else {
+    selectedNode = null;
+    document.getElementById('info-panel').innerHTML = 'Clique em qualquer nó do grafo para visualizar o mapeamento detalhado das conexões e o respectivo dossiê de influência.';
+  }
+});
+
+document.getElementById('gc').addEventListener('mousemove', e => {
+  const rect = e.target.getBoundingClientRect();
+  const sx = W / rect.width;
+  const x = (e.clientX - rect.left) * sx;
+  const y = (e.clientY - rect.top) * sx;
+  const n = getNodeAt(x, y);
+  const tip = document.getElementById('tooltip');
+  if(n) {
+    tip.style.opacity='1';
+    tip.style.left = (e.clientX - rect.left + 15)+'px';
+    tip.style.top  = (e.clientY - rect.top  + 15)+'px';
+    tip.textContent = n.label;
+    e.target.style.cursor='pointer';
+  } else {
+    tip.style.opacity='0';
+    e.target.style.cursor='crosshair';
+  }
+});
+
+initPositions();
+tick();
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>
