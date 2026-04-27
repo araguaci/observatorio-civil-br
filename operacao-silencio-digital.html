@@ -36,6 +36,7 @@ body {
   color: var(--text);
   overflow-x: hidden;
   line-height: 1.65;
+  scroll-behavior: smooth;
 }
 
 body::after {
@@ -121,7 +122,10 @@ body::after {
    TABS
 ═══════════════════════════════════ */
 .tabs {
-  background:var(--surface);border-bottom:1px solid var(--border);
+  background:rgba(11, 16, 21, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
   padding:0 48px;display:flex;gap:0;flex-wrap:wrap;position:sticky;top:0;z-index:100;
 }
 .tab {
@@ -130,12 +134,12 @@ body::after {
   border:none;background:transparent;color:var(--text-dim);
   border-bottom:2px solid transparent;margin-bottom:-1px;transition:.2s;
   white-space:nowrap;
+  text-decoration: none;
 }
 .tab:hover { color:var(--text); }
 .tab.active { color:var(--text-bright);border-bottom-color:var(--red); }
 
-.panel { display:none; padding:40px 48px; max-width:1400px; margin:0 auto; }
-.panel.active { display:block; }
+.panel { display:block; padding:40px 48px; max-width:1400px; margin:0 auto; margin-bottom: 120px; scroll-margin-top: 80px; }
 
 /* ═══════════════════════════════════
    SECTION LABELS / TITLES
@@ -509,19 +513,19 @@ body::after {
 
 <!-- TABS -->
 <div class="tabs">
-  <button class="tab active" onclick="showTab('visao')">🗺 Visão Geral</button>
-  <button class="tab" onclick="showTab('plataformas')">📡 Plataformas</button>
-  <button class="tab" onclick="showTab('cronologia')">📅 Cronologia</button>
-  <button class="tab" onclick="showTab('documentos')">📄 @AlexandreFiles</button>
-  <button class="tab" onclick="showTab('violacoes')">⚖️ Violações</button>
-  <button class="tab" onclick="showTab('relatorios')">🇺🇸 Relatórios EUA</button>
-  <button class="tab" onclick="showTab('padroes')">🔴 Padrões</button>
+  <a href="#visao" class="tab active">🗺 Visão Geral</a>
+  <a href="#plataformas" class="tab">📡 Plataformas</a>
+  <a href="#cronologia" class="tab">📅 Cronologia</a>
+  <a href="#documentos" class="tab">📄 @AlexandreFiles</a>
+  <a href="#violacoes" class="tab">⚖️ Violações</a>
+  <a href="#relatorios" class="tab">🇺🇸 Relatórios EUA</a>
+  <a href="#padroes" class="tab">🔴 Padrões</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
      TAB 1 — VISÃO GERAL
 ═══════════════════════════════════════════════════ -->
-<div id="panel-visao" class="panel active">
+<div id="visao" class="panel">
 
   <div class="section-label">Estrutura Central · Mecanismo de Censura Judicial Sistêmica</div>
 
@@ -630,7 +634,7 @@ body::after {
 <!-- ═══════════════════════════════════════════════════
      TAB 2 — PLATAFORMAS
 ═══════════════════════════════════════════════════ -->
-<div id="panel-plataformas" class="panel">
+<div id="plataformas" class="panel">
 
   <div class="section-label">Tabela Comparativa · Resposta de Cada Plataforma às Ordens Sigilosas</div>
 
@@ -798,7 +802,7 @@ body::after {
 <!-- ═══════════════════════════════════════════════════
      TAB 3 — CRONOLOGIA
 ═══════════════════════════════════════════════════ -->
-<div id="panel-cronologia" class="panel">
+<div id="cronologia" class="panel">
 
   <div class="section-label">Linha do Tempo · 2020–2026 · Principais Eventos Documentados</div>
 
@@ -958,7 +962,7 @@ body::after {
 <!-- ═══════════════════════════════════════════════════
      TAB 4 — @ALEXANDREFILES
 ═══════════════════════════════════════════════════ -->
-<div id="panel-documentos" class="panel">
+<div id="documentos" class="panel">
 
   <div class="section-label">@AlexandreFiles · Corpus Documental · Publicado a partir de 31/ago/2024</div>
 
@@ -1045,7 +1049,7 @@ body::after {
 <!-- ═══════════════════════════════════════════════════
      TAB 5 — VIOLAÇÕES CONSTITUCIONAIS
 ═══════════════════════════════════════════════════ -->
-<div id="panel-violacoes" class="panel">
+<div id="violacoes" class="panel">
 
   <div class="section-label">Violações Constitucionais e Legais · Base Jurídica Documentada</div>
 
@@ -1124,7 +1128,7 @@ body::after {
 <!-- ═══════════════════════════════════════════════════
      TAB 6 — RELATÓRIOS EUA
 ═══════════════════════════════════════════════════ -->
-<div id="panel-relatorios" class="panel">
+<div id="relatorios" class="panel">
 
   <div class="section-label">Documentação Internacional · 3 Relatórios do Congresso dos EUA · 2024–2026</div>
 
@@ -1203,7 +1207,7 @@ body::after {
 <!-- ═══════════════════════════════════════════════════
      TAB 7 — PADRÕES SISTÊMICOS
 ═══════════════════════════════════════════════════ -->
-<div id="panel-padroes" class="panel">
+<div id="padroes" class="panel">
 
   <div class="section-label">Padrões Sistêmicos · Conexão com o Lawfare-Timeline · P1–P8</div>
 
@@ -1316,13 +1320,41 @@ body::after {
 </div>
 
 <script>
-function showTab(id) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo({top: document.querySelector('.tabs').offsetTop - 10, behavior:'smooth'});
-}
+// SCROLL SPY LOGIC
+const sections = document.querySelectorAll('.panel');
+const tabs = document.querySelectorAll('.tab');
+
+const observerOptions = {
+  root: null,
+  rootMargin: '-20% 0px -70% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('href') === '#' + entry.target.id) {
+          tab.classList.add('active');
+        }
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));
+
+// SMOOTH SCROLL FOR ANCHORS
+tabs.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href');
+    document.querySelector(targetId).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
 </script>
 </body>
 </html>

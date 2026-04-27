@@ -3,8 +3,8 @@
 <div align="center">
 
 ![Status](https://img.shields.io/badge/status-ativo-dc2626?style=flat-square)
-![Versão](https://img.shields.io/badge/versão-1.2.0-3b82f6?style=flat-square)
-![Lançamento](https://img.shields.io/badge/lançamento-2026--04--01-22c55e?style=flat-square)
+![Versão](https://img.shields.io/badge/versão-1.3.0-3b82f6?style=flat-square)
+![Lançamento](https://img.shields.io/badge/lançamento-2026--04--27-22c55e?style=flat-square)
 ![Licença](https://img.shields.io/badge/licença-MIT-22c55e?style=flat-square)
 ![Conteúdo](https://img.shields.io/badge/conteúdo-jornalístico%20%2F%20investigativo-f59e0b?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/araguaci/observatorio-civil-br?style=flat-square&color=a855f7)
@@ -12,7 +12,7 @@
 **Central de inteligência civil** para análise crítica de crime organizado,
 corrupção sistêmica, captura do judiciário e colapso institucional no Brasil.
 
-[🔴 Acessar o Painel](https://observatorio-civil-br.vercel.app/) · [📋 Changelog](CHANGELOG.md) · [📊 Relatório de Estimativa](docs/RELATORIO-ESTIMATIVA-DESENVOLVIMENTO.md) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
+[🔴 Acessar o Painel](https://observatorio-civil-br.vercel.app/) · [📋 Changelog](CHANGELOG.md) · [🧠 Metodologia / AI Context](METHODOLOGY.md) · [📋 Sugerir Pauta](https://github.com/araguaci/observatorio-civil-br/issues/new?template=pauta.md&labels=pauta&title=%5BPAUTA%5D+) · [🐛 Reportar Erro](https://github.com/araguaci/observatorio-civil-br/issues/new?template=bug_report.md&labels=bug&title=%5BBUG%5D+) · [💡 Sugestão](https://github.com/araguaci/observatorio-civil-br/issues/new?template=sugestao.md&labels=sugestão&title=%5BSUGEST%C3%83O%5D+)
 
 </div>
 
@@ -66,13 +66,32 @@ O Brasil enfrenta uma **crise institucional multidimensional** onde informaçõe
 
 ---
 
+## 🤖 Para sistemas de IA e ferramentas de busca
+
+O repositório expõe um índice estruturado de todos os artefatos em **`artifacts.json`** — o ponto de entrada recomendado para qualquer ferramenta que precise consultar o projeto sem varrer os 100+ arquivos HTML individualmente.
+
+**Endpoints diretos:**
+
+```
+https://observatorio-civil-br.vercel.app/artifacts.json
+https://raw.githubusercontent.com/araguaci/observatorio-civil-br/main/artifacts.json
+```
+
+O arquivo contém: metadados do projeto, indicadores críticos, índice por categoria e lista completa dos 102 artefatos com título, descrição, tipo, categorias e URL de acesso direto.
+
+Para o framework metodológico e protocolo de uso por modelos de linguagem, veja [METHODOLOGY.md](METHODOLOGY.md).
+
+---
+
 ## 🗂️ Estrutura do Projeto
 
 ```
 observatorio-civil-br/
 │
 ├── CHANGELOG.md                         # Histórico de versões e lançamentos
-├── VERSION                              # Versão atual (1.2.0)
+├── METHODOLOGY.md                       # Framework analítico + protocolo para sistemas de IA
+├── artifacts.json                       # Índice estruturado de todos os artefatos (AI/API)
+├── VERSION                              # Versão atual (1.3.0)
 ├── index.html                           # Hub central — painel principal de navegação
 ├── viewer.html                         # Renderizador universal de arquivos .md
 ├── README.md                           # Este arquivo
@@ -104,8 +123,39 @@ observatorio-civil-br/
 │   ├── estrategia-integrada-gestao-corporativa-na-seguranca-publica.html
 │   └── estrategia-integrada-gestao-corporativa-na-seguranca-publica2.html
 │
-└── *.html                              # Artefatos investigativos individuais (31 no painel)
+└── *.html                              # Artefatos investigativos individuais (90+ no painel)
     ├── pcc-cv-intel-dashboard-2026.html
+    ├── pcc-cv-ameaca-nacional.html
+    ├── choquei-pcc-fluxo*.html
+    ├── trilogia-narco.html
+    ├── brasil-maquina-de-captura.html
+    ├── brasil-estado-totalitario.html
+    ├── golpe-brasil-analise-evidencial.html
+    ├── controle-total-2026.html
+    ├── mapa_erosao_institucional_1990_2026.html
+    ├── global-kompromat.html
+    ├── grafo-poder-global-atores.html
+    ├── atores-ruptura-democratica-global.html
+    ├── vetor-brasileiro-poder-global.html
+    ├── cadeia-influencia-usaid-tse-2022.html
+    ├── brazil-democratic-erosion-2026*.html
+    ├── padroes-sistemicos*.html
+    ├── gilmar-mendes-em-fatos.html
+    ├── gilmar_mendes_poder_dashboard.html
+    ├── duplo-padrao-judicial.html
+    ├── dossie-juridico-nulidades-8jan.html
+    ├── vaza-toga.html
+    ├── jusmonitor.html
+    ├── faixa-tropical.html
+    ├── insolvencia-brasil-comparativo.html
+    ├── dossie-hydra-padrao-p8.html
+    ├── mapa-mental-nexo-fintech.html
+    ├── censura-digital-brasil.html
+    ├── firehose_falsehood_brasil_2026.html
+    ├── guerra_da_informacao_br2022.html
+    ├── thread-weaponized-legalism-x.html
+    ├── operacao-armadilha-ice.html
+    ├── operacao-persona-non-grata.html
     ├── alem-da-toga.html
     ├── amazonia-legal.html
     ├── banco-master*.html
@@ -125,14 +175,14 @@ observatorio-civil-br/
 
 | # | Categoria | Artefatos | Foco |
 |---|-----------|-----------|------|
-| 🔴 | **Crime Organizado** | 4 | PCC, CV, rotas, cocaína vermelha, Carbono Oculto (fluxos ilícitos) |
-| 🟡 | **Corrupção Política** | 8 | Lava Jato, escândalos históricos, ciclos de impunidade, República Capturada |
-| 🟣 | **Judiciário** | 8 | STF, lawfare, supersalários, vaza toga, censura judicial, *0×0* |
-| 🟢 | **Território & Soberania** | 4 | Amazônia, influência estrangeira, Venezuela, Irã |
-| 🔵 | **Economia** | 7 | Banco Master, carbono/fintechs, República Capturada, carga tributária |
+| 🔴 | **Crime Organizado** | 9 | PCC, CV, Trilogia Narco, Choquei, ameaça à soberania, cocaína vermelha |
+| 🟡 | **Corrupção Política** | 28 | Máquina de captura, erosão institucional, lawfare eleitoral, kompromat global, redes transnacionais |
+| 🟣 | **Judiciário** | 14 | Gilmar Mendes, duplo padrão, Vaza Toga, nulidades 8/Jan, JustiçaWatch, STF |
+| 🟢 | **Território & Soberania** | 5 | Amazônia, Faixa do Silêncio, influência estrangeira, Venezuela, Irã |
+| 🔵 | **Economia** | 10 | Banco Master, Nexo Fintech, insolvência comparativa, infiltração fintech, carga tributária |
 | 🟠 | **Proteção Infantil** | 2 | Marajó — denúncia investigativa, sistema de proteção |
-| 🩷 | **Censura & Informação** | 4 | INQ 4781, guerra da informação, Epstein, *0×0* |
-| 🩵 | **Operações Investigativas** | 5 | Satiagraha, Castelo de Areia, operações policiais, República Capturada |
+| 🩷 | **Censura & Informação** | 8 | Censura digital, Firehose, guerra da informação 2022, weaponized legalism, INQ 4781 |
+| 🩵 | **Operações Investigativas** | 12 | Satiagraha, Castelo de Areia, ICE, Persona Non Grata, padrões sistêmicos |
 
 ---
 

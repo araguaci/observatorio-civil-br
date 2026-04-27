@@ -1,0 +1,2232 @@
+{
+  "$schema": "https://observatorio-civil-br.vercel.app/artifacts.json",
+  "project": {
+    "name": "Observatório Civil BR",
+    "tagline": "Central de inteligência civil — Brasil em Estado Crítico",
+    "github": "https://github.com/araguaci/observatorio-civil-br",
+    "url": "https://observatorio-civil-br.vercel.app",
+    "version": "1.3.0",
+    "updated": "2026-04-27",
+    "license": "MIT",
+    "maintainer": "araguaci",
+    "description": "Hub investigativo open-source com 90+ artefatos sobre crime organizado, corrupção sistêmica, captura do judiciário e colapso institucional no Brasil. Baseado exclusivamente em fontes públicas verificáveis.",
+    "methodology": "https://github.com/araguaci/observatorio-civil-br/blob/main/METHODOLOGY.md"
+  },
+  "stats": {
+    "totalArtifacts": 102,
+    "categories": {
+      "Crime Organizado": 17,
+      "Corrupção Política": 37,
+      "Judiciário": 28,
+      "Território & Soberania": 6,
+      "Economia": 14,
+      "Proteção Infantil": 2,
+      "Censura & Informação": 11,
+      "Operações Investigativas": 30
+    },
+    "criticalIndicators": {
+      "territorioSobFaccoes": "26% do território nacional (FBSP 2025)",
+      "impunidadePolítica": "~91% dos processos sem condenação (CNJ)",
+      "cargaTributaria": "33% do PIB (Receita Federal)",
+      "elucidacaoHomicidios": "<10% (IPEA/FBSP)",
+      "rankingCorrupcao": "105°/180 (Transparency International 2024)",
+      "ruleOfLaw": "62°/142 (World Justice Project 2024)",
+      "mortesViolentas": "~87.000/ano (Atlas da Violência)"
+    }
+  },
+  "categories": [
+    {
+      "key": "crime",
+      "label": "Crime Organizado",
+      "count": 17,
+      "artifacts": [
+        {
+          "id": 3,
+          "title": "PCC & CV — Relatório de Inteligência 2026",
+          "file": "pcc-cv-intel-dashboard-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/pcc-cv-intel-dashboard-2026.html"
+        },
+        {
+          "id": 4,
+          "title": "Cocaína Vermelha — Mapa de Conexões",
+          "file": "cocaina-vermelha.html",
+          "url": "https://observatorio-civil-br.vercel.app/cocaina-vermelha.html"
+        },
+        {
+          "id": 5,
+          "title": "Governança Criminal no Brasil",
+          "file": "viewer.html?file=showcase/2025-09-08-governanca-criminal.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-governanca-criminal.md"
+        },
+        {
+          "id": 6,
+          "title": "Operação Narco Fluxo — Dossiê",
+          "file": "operacao-narco-fluxo.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-narco-fluxo.html"
+        },
+        {
+          "id": 7,
+          "title": "Operação Poço de Lobato — Dashboard",
+          "file": "operacao_poco_de_lobato.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao_poco_de_lobato.html"
+        },
+        {
+          "id": 8,
+          "title": "PCC e CV — Ameaça à Soberania Nacional e Global",
+          "file": "pcc-cv-ameaca-nacional.html",
+          "url": "https://observatorio-civil-br.vercel.app/pcc-cv-ameaca-nacional.html"
+        },
+        {
+          "id": 9,
+          "title": "Cadeia de Influência Jurídica — Eleição 2022 · v3.0",
+          "file": "choquei-pcc-fluxo.html",
+          "url": "https://observatorio-civil-br.vercel.app/choquei-pcc-fluxo.html"
+        },
+        {
+          "id": 10,
+          "title": "PCC → Choquei → 2022 Election — Legal Influence Chain [EN]",
+          "file": "choquei-pcc-fluxo-en.html",
+          "url": "https://observatorio-civil-br.vercel.app/choquei-pcc-fluxo-en.html"
+        },
+        {
+          "id": 11,
+          "title": "Narco Fluxo — Choquei: Da Campanha Eleitoral ao Crime Organizado",
+          "file": "choquei-narco-fluxo.html",
+          "url": "https://observatorio-civil-br.vercel.app/choquei-narco-fluxo.html"
+        },
+        {
+          "id": 12,
+          "title": "Trilogia Narco — Do Porto à Rede Social",
+          "file": "trilogia-narco.html",
+          "url": "https://observatorio-civil-br.vercel.app/trilogia-narco.html"
+        },
+        {
+          "id": 49,
+          "title": "Operação Satiagraha & Gilmar Mendes",
+          "file": "satiagraha.html",
+          "url": "https://observatorio-civil-br.vercel.app/satiagraha.html"
+        },
+        {
+          "id": 70,
+          "title": "Banco Master — O Banqueiro e o Sistema",
+          "file": "banco-master.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master.html"
+        },
+        {
+          "id": 71,
+          "title": "Banco Master — Os Donos",
+          "file": "banco-master-os-donos.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master-os-donos.html"
+        },
+        {
+          "id": 72,
+          "title": "Banco Master — Compliance Zero",
+          "file": "banco_master_compliance_zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco_master_compliance_zero.html"
+        },
+        {
+          "id": 76,
+          "title": "Carbono Oculto — O Mapa Que Falta",
+          "file": "carbono_oculto.html",
+          "url": "https://observatorio-civil-br.vercel.app/carbono_oculto.html"
+        },
+        {
+          "id": 80,
+          "title": "Dossiê Hydra — Padrão P8: Infiltração Fintech",
+          "file": "dossie-hydra-padrao-p8.html",
+          "url": "https://observatorio-civil-br.vercel.app/dossie-hydra-padrao-p8.html"
+        },
+        {
+          "id": 81,
+          "title": "Nexo Fintech — Mapa Mental Investigativo 2026",
+          "file": "mapa-mental-nexo-fintech.html",
+          "url": "https://observatorio-civil-br.vercel.app/mapa-mental-nexo-fintech.html"
+        }
+      ]
+    },
+    {
+      "key": "corrupcao",
+      "label": "Corrupção Política",
+      "count": 37,
+      "artifacts": [
+        {
+          "id": 13,
+          "title": "Global Kompromat — Atores Globais",
+          "file": "global-kompromat.html",
+          "url": "https://observatorio-civil-br.vercel.app/global-kompromat.html"
+        },
+        {
+          "id": 16,
+          "title": "Operação Lava Jato — Mapa Analítico",
+          "file": "lava-jato-mapa-mental-analitico.html",
+          "url": "https://observatorio-civil-br.vercel.app/lava-jato-mapa-mental-analitico.html"
+        },
+        {
+          "id": 17,
+          "title": "Lava Jato — Mapa Investigativo",
+          "file": "lava-jato-mapa-mental.html",
+          "url": "https://observatorio-civil-br.vercel.app/lava-jato-mapa-mental.html"
+        },
+        {
+          "id": 18,
+          "title": "Operação Lava Jato — Dashboard",
+          "file": "operacao_lava_jato.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao_lava_jato.html"
+        },
+        {
+          "id": 19,
+          "title": "Paralelos — 4 Operações Anticorrupção",
+          "file": "paralelos.html",
+          "url": "https://observatorio-civil-br.vercel.app/paralelos.html"
+        },
+        {
+          "id": 20,
+          "title": "Padrões Sistêmicos das Operações",
+          "file": "thread-operacoes-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/thread-operacoes-brasil.html"
+        },
+        {
+          "id": 21,
+          "title": "Tragédias do Governo Lula 3",
+          "file": "lula3.html",
+          "url": "https://observatorio-civil-br.vercel.app/lula3.html"
+        },
+        {
+          "id": 25,
+          "title": "Linha do Tempo de Escândalos Políticos",
+          "file": "viewer.html?file=showcase/2025-09-08-futuroroubado.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-futuroroubado.md"
+        },
+        {
+          "id": 26,
+          "title": "Painel da Corrupção no Brasil",
+          "file": "viewer.html?file=showcase/2025-08-17-painel-da-corrupcao-no-brasil.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-17-painel-da-corrupcao-no-brasil.md"
+        },
+        {
+          "id": 27,
+          "title": "Máquina de Captura — Diagnóstico Sistêmico",
+          "file": "brasil-maquina-de-captura.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-maquina-de-captura.html"
+        },
+        {
+          "id": 28,
+          "title": "Weaponized Legalism — Brasil: Anatomia de um Estado Capturado",
+          "file": "brasil-estado-totalitario.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-estado-totalitario.html"
+        },
+        {
+          "id": 29,
+          "title": "Quem Deu o Golpe no Brasil? — Análise Evidencial",
+          "file": "golpe-brasil-analise-evidencial.html",
+          "url": "https://observatorio-civil-br.vercel.app/golpe-brasil-analise-evidencial.html"
+        },
+        {
+          "id": 30,
+          "title": "Democracia Violada — Estado Democrático de Direito",
+          "file": "democracia-violada.html",
+          "url": "https://observatorio-civil-br.vercel.app/democracia-violada.html"
+        },
+        {
+          "id": 31,
+          "title": "O Que Aconteceu com o Brasil",
+          "file": "o-que-aconteceu-com-o-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/o-que-aconteceu-com-o-brasil.html"
+        },
+        {
+          "id": 32,
+          "title": "Controle Total — Arquitetura do Poder | Brasil 2025–2026",
+          "file": "controle-total-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/controle-total-2026.html"
+        },
+        {
+          "id": 33,
+          "title": "Mapa de Erosão Institucional 1990–2026",
+          "file": "mapa_erosao_institucional_1990_2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/mapa_erosao_institucional_1990_2026.html"
+        },
+        {
+          "id": 34,
+          "title": "Falha Institucional — Diagnóstico Sistêmico Brasil 2025",
+          "file": "brasil-falha-institucional-diagnostico.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-falha-institucional-diagnostico.html"
+        },
+        {
+          "id": 35,
+          "title": "Teatro das Tesouras — Anatomia de um Sistema Imortal",
+          "file": "teatro-das-tesouras.html",
+          "url": "https://observatorio-civil-br.vercel.app/teatro-das-tesouras.html"
+        },
+        {
+          "id": 36,
+          "title": "Global Kompromat — Mapa de Captura Institucional",
+          "file": "global-kompromat.html",
+          "url": "https://observatorio-civil-br.vercel.app/global-kompromat.html"
+        },
+        {
+          "id": 37,
+          "title": "Grafo do Poder Global — Redes de Influência Transnacional",
+          "file": "grafo-poder-global-atores.html",
+          "url": "https://observatorio-civil-br.vercel.app/grafo-poder-global-atores.html"
+        },
+        {
+          "id": 38,
+          "title": "Atores da Ruptura Democrática Global",
+          "file": "atores-ruptura-democratica-global.html",
+          "url": "https://observatorio-civil-br.vercel.app/atores-ruptura-democratica-global.html"
+        },
+        {
+          "id": 39,
+          "title": "Vetor Brasileiro no Poder Global",
+          "file": "vetor-brasileiro-poder-global.html",
+          "url": "https://observatorio-civil-br.vercel.app/vetor-brasileiro-poder-global.html"
+        },
+        {
+          "id": 40,
+          "title": "SPLC → Brasil — Modelo Estrutural Transferível",
+          "file": "splc-modelo-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/splc-modelo-brasil.html"
+        },
+        {
+          "id": 41,
+          "title": "Dedo na Balança — 2ª Temporada",
+          "file": "dedo-na-balanca-t2.html",
+          "url": "https://observatorio-civil-br.vercel.app/dedo-na-balanca-t2.html"
+        },
+        {
+          "id": 42,
+          "title": "Cadeia de Influência USAID → TSE 2022 — Lawfare Eleitoral",
+          "file": "cadeia-influencia-usaid-tse-2022.html",
+          "url": "https://observatorio-civil-br.vercel.app/cadeia-influencia-usaid-tse-2022.html"
+        },
+        {
+          "id": 43,
+          "title": "Brazil Democratic Erosion Report 2026 [EN]",
+          "file": "brazil-democratic-erosion-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/brazil-democratic-erosion-2026.html"
+        },
+        {
+          "id": 44,
+          "title": "브라질 민주주의 후퇴 보고서 2026 [KO]",
+          "file": "brazil-democratic-erosion-2026-ko.html",
+          "url": "https://observatorio-civil-br.vercel.app/brazil-democratic-erosion-2026-ko.html"
+        },
+        {
+          "id": 45,
+          "title": "Teia Master — Rede de Conexões Investigativas",
+          "file": "rede-master-conexoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/rede-master-conexoes.html"
+        },
+        {
+          "id": 46,
+          "title": "Padrões Sistêmicos × Operações Anticorrupção",
+          "file": "padroes-sistemicos.html",
+          "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos.html"
+        },
+        {
+          "id": 47,
+          "title": "Padrões × Operações Anticorrupção — Dashboard Mestre 2026",
+          "file": "padroes-sistemicos-dashboard.html",
+          "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos-dashboard.html"
+        },
+        {
+          "id": 62,
+          "title": "Vaza Toga — Dossiê Completo | INQ 4.781 / STF",
+          "file": "vaza-toga.html",
+          "url": "https://observatorio-civil-br.vercel.app/vaza-toga.html"
+        },
+        {
+          "id": 77,
+          "title": "República Capturada",
+          "file": "republica-capturada.html",
+          "url": "https://observatorio-civil-br.vercel.app/republica-capturada.html"
+        },
+        {
+          "id": 92,
+          "title": "Emaranhamento Quântico das Operações",
+          "file": "emaranhamento_quantico_operacoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/emaranhamento_quantico_operacoes.html"
+        },
+        {
+          "id": 93,
+          "title": "Emaranhamento das Operações — Mapa Analítico",
+          "file": "emaranhamento_operacoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/emaranhamento_operacoes.html"
+        },
+        {
+          "id": 94,
+          "title": "JBS / J&F — Caso Levata & Batistas",
+          "file": "jbs-levata-batistas.html",
+          "url": "https://observatorio-civil-br.vercel.app/jbs-levata-batistas.html"
+        },
+        {
+          "id": 95,
+          "title": "Rede Recorrente — Brasil 1999–2026",
+          "file": "rede-recorrente-1999-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/rede-recorrente-1999-2026.html"
+        },
+        {
+          "id": 97,
+          "title": "Operação Castelo de Areia",
+          "file": "operacao_castelo_de_areia.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao_castelo_de_areia.html"
+        }
+      ]
+    },
+    {
+      "key": "judiciario",
+      "label": "Judiciário",
+      "count": 28,
+      "artifacts": [
+        {
+          "id": 9,
+          "title": "Cadeia de Influência Jurídica — Eleição 2022 · v3.0",
+          "file": "choquei-pcc-fluxo.html",
+          "url": "https://observatorio-civil-br.vercel.app/choquei-pcc-fluxo.html"
+        },
+        {
+          "id": 10,
+          "title": "PCC → Choquei → 2022 Election — Legal Influence Chain [EN]",
+          "file": "choquei-pcc-fluxo-en.html",
+          "url": "https://observatorio-civil-br.vercel.app/choquei-pcc-fluxo-en.html"
+        },
+        {
+          "id": 22,
+          "title": "Dossiê Vaza Toga — Master Edition",
+          "file": "vaza-toga.html",
+          "url": "https://observatorio-civil-br.vercel.app/vaza-toga.html"
+        },
+        {
+          "id": 23,
+          "title": "Dossiê Nulidades — 8 de Janeiro",
+          "file": "dossie-juridico-nulidades-8jan.html",
+          "url": "https://observatorio-civil-br.vercel.app/dossie-juridico-nulidades-8jan.html"
+        },
+        {
+          "id": 24,
+          "title": "Duplo Padrão Judicial — Estudo",
+          "file": "duplo-padrao-judicial.html",
+          "url": "https://observatorio-civil-br.vercel.app/duplo-padrao-judicial.html"
+        },
+        {
+          "id": 28,
+          "title": "Weaponized Legalism — Brasil: Anatomia de um Estado Capturado",
+          "file": "brasil-estado-totalitario.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-estado-totalitario.html"
+        },
+        {
+          "id": 32,
+          "title": "Controle Total — Arquitetura do Poder | Brasil 2025–2026",
+          "file": "controle-total-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/controle-total-2026.html"
+        },
+        {
+          "id": 41,
+          "title": "Dedo na Balança — 2ª Temporada",
+          "file": "dedo-na-balanca-t2.html",
+          "url": "https://observatorio-civil-br.vercel.app/dedo-na-balanca-t2.html"
+        },
+        {
+          "id": 42,
+          "title": "Cadeia de Influência USAID → TSE 2022 — Lawfare Eleitoral",
+          "file": "cadeia-influencia-usaid-tse-2022.html",
+          "url": "https://observatorio-civil-br.vercel.app/cadeia-influencia-usaid-tse-2022.html"
+        },
+        {
+          "id": 48,
+          "title": "Além da Toga — Dossiê Gilmar Mendes",
+          "file": "alem-da-toga.html",
+          "url": "https://observatorio-civil-br.vercel.app/alem-da-toga.html"
+        },
+        {
+          "id": 49,
+          "title": "Operação Satiagraha & Gilmar Mendes",
+          "file": "satiagraha.html",
+          "url": "https://observatorio-civil-br.vercel.app/satiagraha.html"
+        },
+        {
+          "id": 50,
+          "title": "Filipe Martins — Mapa Mental Jurídico",
+          "file": "filipe-martins-refem.html",
+          "url": "https://observatorio-civil-br.vercel.app/filipe-martins-refem.html"
+        },
+        {
+          "id": 51,
+          "title": "INQ 4.781 — Inquérito das Fake News",
+          "file": "inq4781.html",
+          "url": "https://observatorio-civil-br.vercel.app/inq4781.html"
+        },
+        {
+          "id": 52,
+          "title": "Dossiê Vaza Toga — High Fidelity",
+          "file": "viewer.html?file=showcase/2025-09-08-vazatoga.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-vazatoga.md"
+        },
+        {
+          "id": 53,
+          "title": "Lawfare no Brasil",
+          "file": "viewer.html?file=showcase/2025-09-08-lawfare.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-lawfare.md"
+        },
+        {
+          "id": 54,
+          "title": "Manual de Sobrevivência em Sistemas Corruptos",
+          "file": "manual-sobrevivencia.html",
+          "url": "https://observatorio-civil-br.vercel.app/manual-sobrevivencia.html"
+        },
+        {
+          "id": 55,
+          "title": "0 × 0 — A Janela Fechada",
+          "file": "zero-x-zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/zero-x-zero.html"
+        },
+        {
+          "id": 56,
+          "title": "A Arquitetura do Privilégio",
+          "file": "viewer.html?file=showcase/2025-08-15-arquitetura-do-privilegio.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-15-arquitetura-do-privilegio.md"
+        },
+        {
+          "id": 57,
+          "title": "Ameaças a Parlamentares (STF)",
+          "file": "stf2_ameaca_parlamentares_14abr2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/stf2_ameaca_parlamentares_14abr2026.html"
+        },
+        {
+          "id": 58,
+          "title": "Gilmar Mendes — Perfil Analítico",
+          "file": "gilmar-mendes-em-fatos.html",
+          "url": "https://observatorio-civil-br.vercel.app/gilmar-mendes-em-fatos.html"
+        },
+        {
+          "id": 59,
+          "title": "Gilmar Mendes — Dossiê Investigativo 2026",
+          "file": "gilmar_mendes_poder_dashboard.html",
+          "url": "https://observatorio-civil-br.vercel.app/gilmar_mendes_poder_dashboard.html"
+        },
+        {
+          "id": 60,
+          "title": "Duplo Padrão Judicial — Dossiê Investigativo 2026",
+          "file": "duplo-padrao-judicial.html",
+          "url": "https://observatorio-civil-br.vercel.app/duplo-padrao-judicial.html"
+        },
+        {
+          "id": 61,
+          "title": "Dossiê Jurídico — Nulidades do 8 de Janeiro",
+          "file": "dossie-juridico-nulidades-8jan.html",
+          "url": "https://observatorio-civil-br.vercel.app/dossie-juridico-nulidades-8jan.html"
+        },
+        {
+          "id": 62,
+          "title": "Vaza Toga — Dossiê Completo | INQ 4.781 / STF",
+          "file": "vaza-toga.html",
+          "url": "https://observatorio-civil-br.vercel.app/vaza-toga.html"
+        },
+        {
+          "id": 63,
+          "title": "JustiçaWatch Brasil — Monitor de Decisões",
+          "file": "jusmonitor.html",
+          "url": "https://observatorio-civil-br.vercel.app/jusmonitor.html"
+        },
+        {
+          "id": 91,
+          "title": "Thread X.com — Weaponized Legalism Brasil",
+          "file": "thread-weaponized-legalism-x.html",
+          "url": "https://observatorio-civil-br.vercel.app/thread-weaponized-legalism-x.html"
+        },
+        {
+          "id": 101,
+          "title": "Operação Armadilha ICE — Perseguição Transnacional",
+          "file": "operacao-armadilha-ice.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-armadilha-ice.html"
+        },
+        {
+          "id": 102,
+          "title": "Persona Non Grata — Delegado da PF Expulso dos EUA",
+          "file": "operacao-persona-non-grata.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+        }
+      ]
+    },
+    {
+      "key": "territorio",
+      "label": "Território & Soberania",
+      "count": 6,
+      "artifacts": [
+        {
+          "id": 64,
+          "title": "Amazônia Legal — Mapa Mental",
+          "file": "amazonia-legal.html",
+          "url": "https://observatorio-civil-br.vercel.app/amazonia-legal.html"
+        },
+        {
+          "id": 65,
+          "title": "Brasil × Venezuela × Irã — Análise Comparativa",
+          "file": "brasil-venezuela-ira.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-venezuela-ira.html"
+        },
+        {
+          "id": 66,
+          "title": "Soberania do Brasil — Análise Estratégica",
+          "file": "viewer.html?file=showcase/2025-08-15-soberania-do-brasil.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-15-soberania-do-brasil.md"
+        },
+        {
+          "id": 67,
+          "title": "Influência Estrangeira no Brasil",
+          "file": "viewer.html?file=showcase/2025-11-11-influencia-estrangeira.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-11-11-influencia-estrangeira.md"
+        },
+        {
+          "id": 68,
+          "title": "Operação Mineração — Ouro Ilegal",
+          "file": "operacao-mineracao.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-mineracao.html"
+        },
+        {
+          "id": 69,
+          "title": "A Faixa do Silêncio — Dossiê Geopolítico",
+          "file": "faixa-tropical.html",
+          "url": "https://observatorio-civil-br.vercel.app/faixa-tropical.html"
+        }
+      ]
+    },
+    {
+      "key": "economia",
+      "label": "Economia",
+      "count": 14,
+      "artifacts": [
+        {
+          "id": 45,
+          "title": "Teia Master — Rede de Conexões Investigativas",
+          "file": "rede-master-conexoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/rede-master-conexoes.html"
+        },
+        {
+          "id": 70,
+          "title": "Banco Master — O Banqueiro e o Sistema",
+          "file": "banco-master.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master.html"
+        },
+        {
+          "id": 71,
+          "title": "Banco Master — Os Donos",
+          "file": "banco-master-os-donos.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master-os-donos.html"
+        },
+        {
+          "id": 72,
+          "title": "Banco Master — Compliance Zero",
+          "file": "banco_master_compliance_zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco_master_compliance_zero.html"
+        },
+        {
+          "id": 73,
+          "title": "Liberdade Econômica Mundial 2024",
+          "file": "economic-freedom.html",
+          "url": "https://observatorio-civil-br.vercel.app/economic-freedom.html"
+        },
+        {
+          "id": 74,
+          "title": "Sistema de Análise de Supersalários",
+          "file": "viewer.html?file=showcase/2025-08-15-analise-de-supersalarios.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-15-analise-de-supersalarios.md"
+        },
+        {
+          "id": 75,
+          "title": "Nada É o Que Parece — Consumidor Brasileiro",
+          "file": "fake-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/fake-brasil.html"
+        },
+        {
+          "id": 76,
+          "title": "Carbono Oculto — O Mapa Que Falta",
+          "file": "carbono_oculto.html",
+          "url": "https://observatorio-civil-br.vercel.app/carbono_oculto.html"
+        },
+        {
+          "id": 77,
+          "title": "República Capturada",
+          "file": "republica-capturada.html",
+          "url": "https://observatorio-civil-br.vercel.app/republica-capturada.html"
+        },
+        {
+          "id": 78,
+          "title": "Operação Sem Desconto — INSS",
+          "file": "operacao-sem-desconto.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-sem-desconto.html"
+        },
+        {
+          "id": 79,
+          "title": "Brasil: Dois Mandatos, Duas Economias — Painel Comparativo 2019–2026",
+          "file": "insolvencia-brasil-comparativo.html",
+          "url": "https://observatorio-civil-br.vercel.app/insolvencia-brasil-comparativo.html"
+        },
+        {
+          "id": 80,
+          "title": "Dossiê Hydra — Padrão P8: Infiltração Fintech",
+          "file": "dossie-hydra-padrao-p8.html",
+          "url": "https://observatorio-civil-br.vercel.app/dossie-hydra-padrao-p8.html"
+        },
+        {
+          "id": 81,
+          "title": "Nexo Fintech — Mapa Mental Investigativo 2026",
+          "file": "mapa-mental-nexo-fintech.html",
+          "url": "https://observatorio-civil-br.vercel.app/mapa-mental-nexo-fintech.html"
+        },
+        {
+          "id": 96,
+          "title": "Banco Master / Compliance Zero",
+          "file": "banco-master-compliance-zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master-compliance-zero.html"
+        }
+      ]
+    },
+    {
+      "key": "infancia",
+      "label": "Proteção Infantil",
+      "count": 2,
+      "artifacts": [
+        {
+          "id": 82,
+          "title": "Marajó — Exploração Sexual Infantil",
+          "file": "marajo-exploracao-sexual-infantil.html",
+          "url": "https://observatorio-civil-br.vercel.app/marajo-exploracao-sexual-infantil.html"
+        },
+        {
+          "id": 83,
+          "title": "Dashboard — Proteção à Infância no Brasil",
+          "file": "protecao-infancia.html",
+          "url": "https://observatorio-civil-br.vercel.app/protecao-infancia.html"
+        }
+      ]
+    },
+    {
+      "key": "censura",
+      "label": "Censura & Informação",
+      "count": 11,
+      "artifacts": [
+        {
+          "id": 51,
+          "title": "INQ 4.781 — Inquérito das Fake News",
+          "file": "inq4781.html",
+          "url": "https://observatorio-civil-br.vercel.app/inq4781.html"
+        },
+        {
+          "id": 53,
+          "title": "Lawfare no Brasil",
+          "file": "viewer.html?file=showcase/2025-09-08-lawfare.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-lawfare.md"
+        },
+        {
+          "id": 55,
+          "title": "0 × 0 — A Janela Fechada",
+          "file": "zero-x-zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/zero-x-zero.html"
+        },
+        {
+          "id": 84,
+          "title": "Censura no Brasil — Abuso Supremo",
+          "file": "viewer.html?file=showcase/2025-09-08-abusosupremo.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-abusosupremo.md"
+        },
+        {
+          "id": 85,
+          "title": "Guerra da Informação",
+          "file": "viewer.html?file=showcase/2025-09-08-guerra-da-informacao.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-guerra-da-informacao.md"
+        },
+        {
+          "id": 86,
+          "title": "Caso Epstein — Mapa de Conexões",
+          "file": "epstein-mindmap.html",
+          "url": "https://observatorio-civil-br.vercel.app/epstein-mindmap.html"
+        },
+        {
+          "id": 87,
+          "title": "Operação Silêncio Digital",
+          "file": "operacao-silencio-digital.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-silencio-digital.html"
+        },
+        {
+          "id": 88,
+          "title": "Censura Digital Brasil — Mapa do Controle Estatal 2021–2026",
+          "file": "censura-digital-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/censura-digital-brasil.html"
+        },
+        {
+          "id": 89,
+          "title": "Firehose of Falsehood 2026 — Tsunami de Escândalos",
+          "file": "firehose_falsehood_brasil_2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/firehose_falsehood_brasil_2026.html"
+        },
+        {
+          "id": 90,
+          "title": "Firehose of Falsehood — Arquitetura de Influência Brasil 2022",
+          "file": "guerra_da_informacao_br2022.html",
+          "url": "https://observatorio-civil-br.vercel.app/guerra_da_informacao_br2022.html"
+        },
+        {
+          "id": 91,
+          "title": "Thread X.com — Weaponized Legalism Brasil",
+          "file": "thread-weaponized-legalism-x.html",
+          "url": "https://observatorio-civil-br.vercel.app/thread-weaponized-legalism-x.html"
+        }
+      ]
+    },
+    {
+      "key": "operacoes",
+      "label": "Operações Investigativas",
+      "count": 30,
+      "artifacts": [
+        {
+          "id": 6,
+          "title": "Operação Narco Fluxo — Dossiê",
+          "file": "operacao-narco-fluxo.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-narco-fluxo.html"
+        },
+        {
+          "id": 7,
+          "title": "Operação Poço de Lobato — Dashboard",
+          "file": "operacao_poco_de_lobato.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao_poco_de_lobato.html"
+        },
+        {
+          "id": 11,
+          "title": "Narco Fluxo — Choquei: Da Campanha Eleitoral ao Crime Organizado",
+          "file": "choquei-narco-fluxo.html",
+          "url": "https://observatorio-civil-br.vercel.app/choquei-narco-fluxo.html"
+        },
+        {
+          "id": 12,
+          "title": "Trilogia Narco — Do Porto à Rede Social",
+          "file": "trilogia-narco.html",
+          "url": "https://observatorio-civil-br.vercel.app/trilogia-narco.html"
+        },
+        {
+          "id": 14,
+          "title": "Operação Armadilha Ice — Dossiê",
+          "file": "operacao-armadilha-ice.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-armadilha-ice.html"
+        },
+        {
+          "id": 15,
+          "title": "Operação Persona Non Grata",
+          "file": "operacao-persona-non-grata.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+        },
+        {
+          "id": 18,
+          "title": "Operação Lava Jato — Dashboard",
+          "file": "operacao_lava_jato.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao_lava_jato.html"
+        },
+        {
+          "id": 19,
+          "title": "Paralelos — 4 Operações Anticorrupção",
+          "file": "paralelos.html",
+          "url": "https://observatorio-civil-br.vercel.app/paralelos.html"
+        },
+        {
+          "id": 20,
+          "title": "Padrões Sistêmicos das Operações",
+          "file": "thread-operacoes-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/thread-operacoes-brasil.html"
+        },
+        {
+          "id": 46,
+          "title": "Padrões Sistêmicos × Operações Anticorrupção",
+          "file": "padroes-sistemicos.html",
+          "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos.html"
+        },
+        {
+          "id": 47,
+          "title": "Padrões × Operações Anticorrupção — Dashboard Mestre 2026",
+          "file": "padroes-sistemicos-dashboard.html",
+          "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos-dashboard.html"
+        },
+        {
+          "id": 49,
+          "title": "Operação Satiagraha & Gilmar Mendes",
+          "file": "satiagraha.html",
+          "url": "https://observatorio-civil-br.vercel.app/satiagraha.html"
+        },
+        {
+          "id": 68,
+          "title": "Operação Mineração — Ouro Ilegal",
+          "file": "operacao-mineracao.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-mineracao.html"
+        },
+        {
+          "id": 70,
+          "title": "Banco Master — O Banqueiro e o Sistema",
+          "file": "banco-master.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master.html"
+        },
+        {
+          "id": 72,
+          "title": "Banco Master — Compliance Zero",
+          "file": "banco_master_compliance_zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco_master_compliance_zero.html"
+        },
+        {
+          "id": 76,
+          "title": "Carbono Oculto — O Mapa Que Falta",
+          "file": "carbono_oculto.html",
+          "url": "https://observatorio-civil-br.vercel.app/carbono_oculto.html"
+        },
+        {
+          "id": 77,
+          "title": "República Capturada",
+          "file": "republica-capturada.html",
+          "url": "https://observatorio-civil-br.vercel.app/republica-capturada.html"
+        },
+        {
+          "id": 78,
+          "title": "Operação Sem Desconto — INSS",
+          "file": "operacao-sem-desconto.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-sem-desconto.html"
+        },
+        {
+          "id": 87,
+          "title": "Operação Silêncio Digital",
+          "file": "operacao-silencio-digital.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-silencio-digital.html"
+        },
+        {
+          "id": 92,
+          "title": "Emaranhamento Quântico das Operações",
+          "file": "emaranhamento_quantico_operacoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/emaranhamento_quantico_operacoes.html"
+        },
+        {
+          "id": 93,
+          "title": "Emaranhamento das Operações — Mapa Analítico",
+          "file": "emaranhamento_operacoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/emaranhamento_operacoes.html"
+        },
+        {
+          "id": 94,
+          "title": "JBS / J&F — Caso Levata & Batistas",
+          "file": "jbs-levata-batistas.html",
+          "url": "https://observatorio-civil-br.vercel.app/jbs-levata-batistas.html"
+        },
+        {
+          "id": 95,
+          "title": "Rede Recorrente — Brasil 1999–2026",
+          "file": "rede-recorrente-1999-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/rede-recorrente-1999-2026.html"
+        },
+        {
+          "id": 96,
+          "title": "Banco Master / Compliance Zero",
+          "file": "banco-master-compliance-zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master-compliance-zero.html"
+        },
+        {
+          "id": 97,
+          "title": "Operação Castelo de Areia",
+          "file": "operacao_castelo_de_areia.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao_castelo_de_areia.html"
+        },
+        {
+          "id": 98,
+          "title": "Operações Policiais — Duas Realidades",
+          "file": "viewer.html?file=showcase/2025-11-11-operacoes-policiais.md",
+          "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-11-11-operacoes-policiais.md"
+        },
+        {
+          "id": 99,
+          "title": "Oliver Ortiz — Linha do Tempo",
+          "file": "oliver-ortiz-timeline.html",
+          "url": "https://observatorio-civil-br.vercel.app/oliver-ortiz-timeline.html"
+        },
+        {
+          "id": 100,
+          "title": "Estratégia Integrada de Segurança Pública",
+          "file": "ferramentas/estrategia-integrada-gestao-corporativa-na-seguranca-publica.html",
+          "url": "https://observatorio-civil-br.vercel.app/ferramentas/estrategia-integrada-gestao-corporativa-na-seguranca-publica.html"
+        },
+        {
+          "id": 101,
+          "title": "Operação Armadilha ICE — Perseguição Transnacional",
+          "file": "operacao-armadilha-ice.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-armadilha-ice.html"
+        },
+        {
+          "id": 102,
+          "title": "Persona Non Grata — Delegado da PF Expulso dos EUA",
+          "file": "operacao-persona-non-grata.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 1,
+      "title": "Painel do Crime — Landing Page 2026",
+      "description": "Visão geral do ecossistema investigativo, missão do observatório e síntese dos padrões sistêmicos de lawfare detectados no Brasil.",
+      "type": "PORTAL DO PROJETO",
+      "categories": [],
+      "categoryLabel": "★ DESTAQUE",
+      "file": "landpage.html",
+      "url": "https://observatorio-civil-br.vercel.app/landpage.html"
+    },
+    {
+      "id": 2,
+      "title": "Matriz de Indulgência Sistêmica",
+      "description": "Análise profunda dos padrões P1–P10. O mapa analítico definitivo sobre o emaranhamento entre Estado, Crime e Lawfare.",
+      "type": "MASTER MATRIX",
+      "categories": [],
+      "categoryLabel": "★ MASTER DASHBOARD",
+      "file": "padroes-sistemicos-dashboard.html",
+      "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos-dashboard.html"
+    },
+    {
+      "id": 3,
+      "title": "PCC & CV — Relatório de Inteligência 2026",
+      "description": "Dashboard investigativo completo sobre as duas maiores facções do Brasil, estrutura de poder, territórios controlados, conexões internacionais e financiamento.",
+      "type": "DASHBOARD INTERATIVO",
+      "categories": [
+        "crime"
+      ],
+      "categoryLabel": "Crime Organizado",
+      "file": "pcc-cv-intel-dashboard-2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/pcc-cv-intel-dashboard-2026.html"
+    },
+    {
+      "id": 4,
+      "title": "Cocaína Vermelha — Mapa de Conexões",
+      "description": "Mapeamento das rotas internacionais de tráfico com participação de facções brasileiras, Venezuela, Irã e organizações criminosas europeias.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "crime"
+      ],
+      "categoryLabel": "Crime Organizado",
+      "file": "cocaina-vermelha.html",
+      "url": "https://observatorio-civil-br.vercel.app/cocaina-vermelha.html"
+    },
+    {
+      "id": 5,
+      "title": "Governança Criminal no Brasil",
+      "description": "Análise dos modelos de controle territorial em SP e RJ, o ciclo vicioso da criminalidade e propostas estratégicas para fortalecer a presença estatal.",
+      "type": "ANÁLISE INTERATIVA",
+      "categories": [
+        "crime"
+      ],
+      "categoryLabel": "Crime Organizado",
+      "file": "viewer.html?file=showcase/2025-09-08-governanca-criminal.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-governanca-criminal.md"
+    },
+    {
+      "id": 6,
+      "title": "Operação Narco Fluxo — Dossiê",
+      "description": "Análise detalhada da logística de exportação de drogas via aeroportos controlada por facções e a rede de apoio logístico.",
+      "type": "DOSSIÊ TÉCNICO",
+      "categories": [
+        "crime",
+        "operacoes"
+      ],
+      "categoryLabel": "Crime Organizado · Operações",
+      "file": "operacao-narco-fluxo.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-narco-fluxo.html"
+    },
+    {
+      "id": 7,
+      "title": "Operação Poço de Lobato — Dashboard",
+      "description": "Investigação sobre a sonegação bilionária do Grupo Refit e suas conexões com o PCC via lavagem de dinheiro no setor de combustíveis.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "crime",
+        "operacoes"
+      ],
+      "categoryLabel": "Crime Organizado · Operações",
+      "file": "operacao_poco_de_lobato.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao_poco_de_lobato.html"
+    },
+    {
+      "id": 8,
+      "title": "PCC e CV — Ameaça à Soberania Nacional e Global",
+      "description": "Análise da dimensão transnacional das principais facções brasileiras: estrutura de poder, conexões internacionais, rotas de tráfico e ameaça geopolítica em 2026.",
+      "type": "RELATÓRIO ESTRATÉGICO",
+      "categories": [
+        "crime"
+      ],
+      "categoryLabel": "Crime Organizado",
+      "file": "pcc-cv-ameaca-nacional.html",
+      "url": "https://observatorio-civil-br.vercel.app/pcc-cv-ameaca-nacional.html"
+    },
+    {
+      "id": 9,
+      "title": "Cadeia de Influência Jurídica — Eleição 2022 · v3.0",
+      "description": "Mapeamento da cadeia PCC → Choquei → Eleição 2022: como estruturas criminosas interferiram no processo eleitoral via canais jurídicos e decisões do TSE.",
+      "type": "MAPA DE INFLUÊNCIA",
+      "categories": [
+        "crime",
+        "judiciario"
+      ],
+      "categoryLabel": "Crime Organizado · Judiciário",
+      "file": "choquei-pcc-fluxo.html",
+      "url": "https://observatorio-civil-br.vercel.app/choquei-pcc-fluxo.html"
+    },
+    {
+      "id": 10,
+      "title": "PCC → Choquei → 2022 Election — Legal Influence Chain [EN]",
+      "description": "English version: mapping of the PCC criminal network's legal influence chain on the 2022 Brazilian election via the Choquei case and TSE decisions.",
+      "type": "INFLUENCE MAP · EN",
+      "categories": [
+        "crime",
+        "judiciario"
+      ],
+      "categoryLabel": "Crime Organizado · Judiciário",
+      "file": "choquei-pcc-fluxo-en.html",
+      "url": "https://observatorio-civil-br.vercel.app/choquei-pcc-fluxo-en.html"
+    },
+    {
+      "id": 11,
+      "title": "Narco Fluxo — Choquei: Da Campanha Eleitoral ao Crime Organizado",
+      "description": "Investigação do fluxo entre a campanha eleitoral de 2022 e o crime organizado via canal Choquei — financiamento, cobertura midiática e impunidade sistêmica.",
+      "type": "DOSSIÊ INVESTIGATIVO",
+      "categories": [
+        "crime",
+        "operacoes"
+      ],
+      "categoryLabel": "Crime Organizado · Operações",
+      "file": "choquei-narco-fluxo.html",
+      "url": "https://observatorio-civil-br.vercel.app/choquei-narco-fluxo.html"
+    },
+    {
+      "id": 12,
+      "title": "Trilogia Narco — Do Porto à Rede Social",
+      "description": "Três atos da narcoeconomia brasileira: logística portuária, lavagem de ativos e amplificação via redes sociais. Dashboard da rota completa do tráfico nacional.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "crime",
+        "operacoes"
+      ],
+      "categoryLabel": "Crime Organizado · Operações",
+      "file": "trilogia-narco.html",
+      "url": "https://observatorio-civil-br.vercel.app/trilogia-narco.html"
+    },
+    {
+      "id": 13,
+      "title": "Global Kompromat — Atores Globais",
+      "description": "A rede internacional de influência e chantagem política que sustenta o ecossistema de corrupção sistêmica no Brasil.",
+      "type": "DOSSIÊ INTERNACIONAL",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "global-kompromat.html",
+      "url": "https://observatorio-civil-br.vercel.app/global-kompromat.html"
+    },
+    {
+      "id": 14,
+      "title": "Operação Armadilha Ice — Dossiê",
+      "description": "Investigação sobre o congelamento de ativos e a rede de blindagem patrimonial de atores sistêmicos do lawfare.",
+      "type": "DOSSIÊ TÉCNICO",
+      "categories": [
+        "operacoes"
+      ],
+      "categoryLabel": "Operações",
+      "file": "operacao-armadilha-ice.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-armadilha-ice.html"
+    },
+    {
+      "id": 15,
+      "title": "Operação Persona Non Grata",
+      "description": "Dossiê sobre as restrições internacionais e o isolamento diplomático de agentes do lawfare brasileiro em 2026.",
+      "type": "DOSSIÊ TÉCNICO",
+      "categories": [
+        "operacoes"
+      ],
+      "categoryLabel": "Operações",
+      "file": "operacao-persona-non-grata.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+    },
+    {
+      "id": 16,
+      "title": "Operação Lava Jato — Mapa Analítico",
+      "description": "Mapa mental analítico completo da maior operação anticorrupção da história brasileira, atores, valores desviados e impacto político.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "lava-jato-mapa-mental-analitico.html",
+      "url": "https://observatorio-civil-br.vercel.app/lava-jato-mapa-mental-analitico.html"
+    },
+    {
+      "id": 17,
+      "title": "Lava Jato — Mapa Investigativo",
+      "description": "Visualização investigativa das conexões entre agentes políticos, empreiteiras e o esquema de propinas da Petrobras.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "lava-jato-mapa-mental.html",
+      "url": "https://observatorio-civil-br.vercel.app/lava-jato-mapa-mental.html"
+    },
+    {
+      "id": 18,
+      "title": "Operação Lava Jato — Dashboard",
+      "description": "Painel visual da operação com linha do tempo, principais condenações, valores recuperados e desdobramentos políticos até o desmonte.",
+      "type": "DASHBOARD",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "operacao_lava_jato.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao_lava_jato.html"
+    },
+    {
+      "id": 19,
+      "title": "Paralelos — 4 Operações Anticorrupção",
+      "description": "Análise comparativa das operações Lava Jato, Satiagraha, Castelo de Areia e Banestado: padrões, resultados e o que foi revertido.",
+      "type": "ANÁLISE COMPARATIVA",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "paralelos.html",
+      "url": "https://observatorio-civil-br.vercel.app/paralelos.html"
+    },
+    {
+      "id": 20,
+      "title": "Padrões Sistêmicos das Operações",
+      "description": "Thread analítica identificando os padrões recorrentes que permitiram a corrupção sistêmica e os mecanismos de reversão das condenações.",
+      "type": "ANÁLISE SISTÊMICA",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "thread-operacoes-brasil.html",
+      "url": "https://observatorio-civil-br.vercel.app/thread-operacoes-brasil.html"
+    },
+    {
+      "id": 21,
+      "title": "Tragédias do Governo Lula 3",
+      "description": "Mapa mental das decisões, omissões e tragédias do terceiro mandato: RS, Marajó, segurança pública, economia e relações internacionais.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "lula3.html",
+      "url": "https://observatorio-civil-br.vercel.app/lula3.html"
+    },
+    {
+      "id": 22,
+      "title": "Dossiê Vaza Toga — Master Edition",
+      "description": "Versão master do dossiê sobre as mensagens vazadas do STF/TSE, expondo a \"justiça criativa\" e o uso informal do aparato estatal.",
+      "type": "DOSSIÊ HIGH-FIDELITY",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "vaza-toga.html",
+      "url": "https://observatorio-civil-br.vercel.app/vaza-toga.html"
+    },
+    {
+      "id": 23,
+      "title": "Dossiê Nulidades — 8 de Janeiro",
+      "description": "Análise técnica das nulidades processuais e violações do devido processo legal nos inquéritos do 8 de Janeiro.",
+      "type": "RELATÓRIO TÉCNICO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "dossie-juridico-nulidades-8jan.html",
+      "url": "https://observatorio-civil-br.vercel.app/dossie-juridico-nulidades-8jan.html"
+    },
+    {
+      "id": 24,
+      "title": "Duplo Padrão Judicial — Estudo",
+      "description": "Estudo comparativo sobre as discrepâncias decisórias e o tratamento assimétrico entre diferentes grupos políticos.",
+      "type": "ESTUDO ANALÍTICO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "duplo-padrao-judicial.html",
+      "url": "https://observatorio-civil-br.vercel.app/duplo-padrao-judicial.html"
+    },
+    {
+      "id": 25,
+      "title": "Linha do Tempo de Escândalos Políticos",
+      "description": "Retrospectiva dos principais casos de corrupção no Brasil de 1980 ao presente, com impacto econômico e político de cada escândalo.",
+      "type": "LINHA DO TEMPO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "viewer.html?file=showcase/2025-09-08-futuroroubado.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-futuroroubado.md"
+    },
+    {
+      "id": 26,
+      "title": "Painel da Corrupção no Brasil",
+      "description": "Visão geral dos dados de escândalos de corrupção desde a década de 1980, com visualizações e análise de padrões históricos.",
+      "type": "PAINEL DE DADOS",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "viewer.html?file=showcase/2025-08-17-painel-da-corrupcao-no-brasil.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-17-painel-da-corrupcao-no-brasil.md"
+    },
+    {
+      "id": 27,
+      "title": "Máquina de Captura — Diagnóstico Sistêmico",
+      "description": "Análise estrutural de como o Estado brasileiro foi capturado por interesses privados e criminosos — mecanismos, atores e consequências institucionais.",
+      "type": "DIAGNÓSTICO SISTÊMICO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "brasil-maquina-de-captura.html",
+      "url": "https://observatorio-civil-br.vercel.app/brasil-maquina-de-captura.html"
+    },
+    {
+      "id": 28,
+      "title": "Weaponized Legalism — Brasil: Anatomia de um Estado Capturado",
+      "description": "Como o ordenamento jurídico brasileiro foi instrumentalizado como ferramenta de controle político — o lawfare institucionalizado em sua forma mais avançada.",
+      "type": "ANÁLISE ESTRUTURAL",
+      "categories": [
+        "corrupcao",
+        "judiciario"
+      ],
+      "categoryLabel": "Corrupção · Judiciário",
+      "file": "brasil-estado-totalitario.html",
+      "url": "https://observatorio-civil-br.vercel.app/brasil-estado-totalitario.html"
+    },
+    {
+      "id": 29,
+      "title": "Quem Deu o Golpe no Brasil? — Análise Evidencial",
+      "description": "Análise baseada em documentos primários, atos processuais e registros públicos que mapeia os agentes e mecanismos da ruptura institucional brasileira.",
+      "type": "ANÁLISE EVIDENCIAL",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "golpe-brasil-analise-evidencial.html",
+      "url": "https://observatorio-civil-br.vercel.app/golpe-brasil-analise-evidencial.html"
+    },
+    {
+      "id": 30,
+      "title": "Democracia Violada — Estado Democrático de Direito",
+      "description": "Mapa mental das violações ao Estado Democrático de Direito — de atos normativos a decisões judiciais que subvertem garantias constitucionais fundamentais.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "democracia-violada.html",
+      "url": "https://observatorio-civil-br.vercel.app/democracia-violada.html"
+    },
+    {
+      "id": 31,
+      "title": "O Que Aconteceu com o Brasil",
+      "description": "Dossiê narrativo sobre a trajetória de erosão institucional brasileira — da redemocratização ao colapso sistêmico atual, documentado com dados e fatos verificados.",
+      "type": "DOSSIÊ NARRATIVO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "o-que-aconteceu-com-o-brasil.html",
+      "url": "https://observatorio-civil-br.vercel.app/o-que-aconteceu-com-o-brasil.html"
+    },
+    {
+      "id": 32,
+      "title": "Controle Total — Arquitetura do Poder | Brasil 2025–2026",
+      "description": "Mapeamento da arquitetura de controle político-institucional: quem controla o quê, mecanismos de concentração de poder e vetores de risco democrático.",
+      "type": "MAPA DE PODER",
+      "categories": [
+        "corrupcao",
+        "judiciario"
+      ],
+      "categoryLabel": "Corrupção · Judiciário",
+      "file": "controle-total-2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/controle-total-2026.html"
+    },
+    {
+      "id": 33,
+      "title": "Mapa de Erosão Institucional 1990–2026",
+      "description": "Linha do tempo visual da degradação institucional brasileira em 36 anos: marcos legais, crises e pontos de ruptura que moldaram o estado crítico atual.",
+      "type": "LINHA DO TEMPO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "mapa_erosao_institucional_1990_2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/mapa_erosao_institucional_1990_2026.html"
+    },
+    {
+      "id": 34,
+      "title": "Falha Institucional — Diagnóstico Sistêmico Brasil 2025",
+      "description": "Diagnóstico técnico das falhas estruturais do sistema institucional brasileiro: causas, mecanismos de perpetuação e propostas de reforma baseadas em evidências.",
+      "type": "DIAGNÓSTICO TÉCNICO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "brasil-falha-institucional-diagnostico.html",
+      "url": "https://observatorio-civil-br.vercel.app/brasil-falha-institucional-diagnostico.html"
+    },
+    {
+      "id": 35,
+      "title": "Teatro das Tesouras — Anatomia de um Sistema Imortal",
+      "description": "Como o sistema político-jurídico brasileiro desenvolveu mecanismos de auto-preservação imunes a reformas — o ciclo infinito da impunidade institucionalizada.",
+      "type": "ANÁLISE SISTÊMICA",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "teatro-das-tesouras.html",
+      "url": "https://observatorio-civil-br.vercel.app/teatro-das-tesouras.html"
+    },
+    {
+      "id": 36,
+      "title": "Global Kompromat — Mapa de Captura Institucional",
+      "description": "Mapeamento das redes de kompromat internacional com nexos brasileiros — como informações comprometedoras capturam instituições e agentes públicos estratégicos.",
+      "type": "MAPA DE INFLUÊNCIA",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "global-kompromat.html",
+      "url": "https://observatorio-civil-br.vercel.app/global-kompromat.html"
+    },
+    {
+      "id": 37,
+      "title": "Grafo do Poder Global — Redes de Influência Transnacional",
+      "description": "Visualização em grafo das redes de influência transnacional com impacto no Brasil — atores, conexões, fluxos de recursos e pontos de captura institucional.",
+      "type": "GRAFO INTERATIVO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "grafo-poder-global-atores.html",
+      "url": "https://observatorio-civil-br.vercel.app/grafo-poder-global-atores.html"
+    },
+    {
+      "id": 38,
+      "title": "Atores da Ruptura Democrática Global",
+      "description": "Redes transnacionais recorrentes na erosão democrática global — financeiros, ONGs, inteligência, mídia, aparato judicial e tecnologia de vigilância com nexos ao Brasil.",
+      "type": "MAPA DE ATORES",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "atores-ruptura-democratica-global.html",
+      "url": "https://observatorio-civil-br.vercel.app/atores-ruptura-democratica-global.html"
+    },
+    {
+      "id": 39,
+      "title": "Vetor Brasileiro no Poder Global",
+      "description": "Como atores globais se conectam ao STF, Globo, PT e ONGs nacionais — o vetor brasileiro na rede de influência internacional sobre democracias periféricas.",
+      "type": "ANÁLISE GEOPOLÍTICA",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "vetor-brasileiro-poder-global.html",
+      "url": "https://observatorio-civil-br.vercel.app/vetor-brasileiro-poder-global.html"
+    },
+    {
+      "id": 40,
+      "title": "SPLC → Brasil — Modelo Estrutural Transferível",
+      "description": "Análise da transferência do modelo SPLC para o Brasil — como organizações externas moldam a narrativa de extremismo interno e influenciam decisões judiciais.",
+      "type": "ANÁLISE COMPARATIVA",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "splc-modelo-brasil.html",
+      "url": "https://observatorio-civil-br.vercel.app/splc-modelo-brasil.html"
+    },
+    {
+      "id": 41,
+      "title": "Dedo na Balança — 2ª Temporada",
+      "description": "Continuação do dossiê sobre interferências no processo eleitoral brasileiro — novos atores, novas evidências e mecanismos aprimorados de manipulação institucional.",
+      "type": "DOSSIÊ ELEITORAL",
+      "categories": [
+        "corrupcao",
+        "judiciario"
+      ],
+      "categoryLabel": "Corrupção · Judiciário",
+      "file": "dedo-na-balanca-t2.html",
+      "url": "https://observatorio-civil-br.vercel.app/dedo-na-balanca-t2.html"
+    },
+    {
+      "id": 42,
+      "title": "Cadeia de Influência USAID → TSE 2022 — Lawfare Eleitoral",
+      "description": "Mapeamento do fluxo de influência USAID → TSE nas eleições de 2022: financiamento, contratos, pessoal e impacto nas decisões do tribunal eleitoral.",
+      "type": "MAPA DE INFLUÊNCIA",
+      "categories": [
+        "corrupcao",
+        "judiciario"
+      ],
+      "categoryLabel": "Corrupção · Judiciário",
+      "file": "cadeia-influencia-usaid-tse-2022.html",
+      "url": "https://observatorio-civil-br.vercel.app/cadeia-influencia-usaid-tse-2022.html"
+    },
+    {
+      "id": 43,
+      "title": "Brazil Democratic Erosion Report 2026 [EN]",
+      "description": "Comprehensive English-language report on Brazil's democratic erosion in 2026 — institutional capture, judicial overreach and civil liberties rollback.",
+      "type": "INTERNATIONAL REPORT · EN",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "brazil-democratic-erosion-2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/brazil-democratic-erosion-2026.html"
+    },
+    {
+      "id": 44,
+      "title": "브라질 민주주의 후퇴 보고서 2026 [KO]",
+      "description": "브라질의 민주주의 후퇴에 관한 한국어 분석 보고서 — 사법부 포획, 제도적 침식 및 시민 자유에 대한 심층 분석.",
+      "type": "RELATÓRIO INTERNACIONAL · KO",
+      "categories": [
+        "corrupcao"
+      ],
+      "categoryLabel": "Corrupção",
+      "file": "brazil-democratic-erosion-2026-ko.html",
+      "url": "https://observatorio-civil-br.vercel.app/brazil-democratic-erosion-2026-ko.html"
+    },
+    {
+      "id": 45,
+      "title": "Teia Master — Rede de Conexões Investigativas",
+      "description": "Grafo investigativo das conexões do Banco Master com o sistema político-financeiro: parceiros, beneficiários e a rede de proteção que blindou o esquema bilionário.",
+      "type": "GRAFO INVESTIGATIVO",
+      "categories": [
+        "corrupcao",
+        "economia"
+      ],
+      "categoryLabel": "Corrupção · Economia",
+      "file": "rede-master-conexoes.html",
+      "url": "https://observatorio-civil-br.vercel.app/rede-master-conexoes.html"
+    },
+    {
+      "id": 46,
+      "title": "Padrões Sistêmicos × Operações Anticorrupção",
+      "description": "Identificação dos padrões sistêmicos recorrentes nas grandes operações anticorrupção brasileiras — por que os mesmos atores sobrevivem e a impunidade persiste.",
+      "type": "ANÁLISE DE PADRÕES",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "padroes-sistemicos.html",
+      "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos.html"
+    },
+    {
+      "id": 47,
+      "title": "Padrões × Operações Anticorrupção — Dashboard Mestre 2026",
+      "description": "Dashboard consolidado que cruza padrões sistêmicos com as principais operações anticorrupção — matriz de atores, ciclos de recidiva e blindagem institucional.",
+      "type": "DASHBOARD MESTRE",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "padroes-sistemicos-dashboard.html",
+      "url": "https://observatorio-civil-br.vercel.app/padroes-sistemicos-dashboard.html"
+    },
+    {
+      "id": 48,
+      "title": "Além da Toga — Dossiê Gilmar Mendes",
+      "description": "Dossiê de condutas político-institucionais do ministro Gilmar Mendes: decisões controversas, conflitos de interesse e impacto nas operações anticorrupção.",
+      "type": "DOSSIÊ INVESTIGATIVO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "alem-da-toga.html",
+      "url": "https://observatorio-civil-br.vercel.app/alem-da-toga.html"
+    },
+    {
+      "id": 49,
+      "title": "Operação Satiagraha & Gilmar Mendes",
+      "description": "A operação que prendeu Daniel Dantas e foi destruída — mapa mental das conexões entre o caso, o STF e as interferências do ministro.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "judiciario",
+        "operacoes",
+        "crime"
+      ],
+      "categoryLabel": "Judiciário · Operações · Crime",
+      "file": "satiagraha.html",
+      "url": "https://observatorio-civil-br.vercel.app/satiagraha.html"
+    },
+    {
+      "id": 50,
+      "title": "Filipe Martins — Mapa Mental Jurídico",
+      "description": "Análise jurídica do caso Filipe Martins: prisão, processo, base legal, contexto político e questões de devido processo legal.",
+      "type": "ANÁLISE JURÍDICA",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "filipe-martins-refem.html",
+      "url": "https://observatorio-civil-br.vercel.app/filipe-martins-refem.html"
+    },
+    {
+      "id": 51,
+      "title": "INQ 4.781 — Inquérito das Fake News",
+      "description": "Diagnóstico analítico do inquérito instaurado pelo próprio STF para investigar críticos — nulidades jurídicas e abusos constitucionais verificados.",
+      "type": "DOSSIÊ JURÍDICO",
+      "categories": [
+        "judiciario",
+        "censura"
+      ],
+      "categoryLabel": "Judiciário · Censura",
+      "file": "inq4781.html",
+      "url": "https://observatorio-civil-br.vercel.app/inq4781.html"
+    },
+    {
+      "id": 52,
+      "title": "Dossiê Vaza Toga — High Fidelity",
+      "description": "Compilação técnica das comunicações e decisões judiciais que revelam o uso político e seletivo do aparato jurídico no Brasil.",
+      "type": "ARTEFATO FORENSE",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "viewer.html?file=showcase/2025-09-08-vazatoga.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-vazatoga.md"
+    },
+    {
+      "id": 53,
+      "title": "Lawfare no Brasil",
+      "description": "O uso estratégico do sistema legal para fins políticos — como o lawfare é aplicado no Brasil para perseguir oponentes e proteger aliados sob aparência de legalidade.",
+      "type": "ANÁLISE CONCEITUAL",
+      "categories": [
+        "judiciario",
+        "censura"
+      ],
+      "categoryLabel": "Judiciário · Censura",
+      "file": "viewer.html?file=showcase/2025-09-08-lawfare.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-lawfare.md"
+    },
+    {
+      "id": 54,
+      "title": "Manual de Sobrevivência em Sistemas Corruptos",
+      "description": "Guia prático de estratégias para cidadãos e organizações navegarem e resistirem em ambientes de corrupção sistêmica e captura institucional.",
+      "type": "GUIA PRÁTICO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "manual-sobrevivencia.html",
+      "url": "https://observatorio-civil-br.vercel.app/manual-sobrevivencia.html"
+    },
+    {
+      "id": 55,
+      "title": "0 × 0 — A Janela Fechada",
+      "description": "Narrativa editorial sobre opacidade judicial, accountability impossível e o placar que não se abre — quando instituições e narrativas se fecham sobre o cidadão.",
+      "type": "LONGFORM EDITORIAL",
+      "categories": [
+        "judiciario",
+        "censura"
+      ],
+      "categoryLabel": "Judiciário · Censura",
+      "file": "zero-x-zero.html",
+      "url": "https://observatorio-civil-br.vercel.app/zero-x-zero.html"
+    },
+    {
+      "id": 56,
+      "title": "A Arquitetura do Privilégio",
+      "description": "Análise estrutural dos mecanismos de proteção das elites brasileiras — foros privilegiados, supersalários, aposentadorias especiais e blindagem jurídica.",
+      "type": "ANÁLISE ESTRUTURAL",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "viewer.html?file=showcase/2025-08-15-arquitetura-do-privilegio.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-15-arquitetura-do-privilegio.md"
+    },
+    {
+      "id": 57,
+      "title": "Ameaças a Parlamentares (STF)",
+      "description": "Registro sistemático de violações de imunidade, ordens de censura e ameaças diretas contra parlamentares eleitos por tribunais superiores em 2026.",
+      "type": "MONITORAMENTO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "stf2_ameaca_parlamentares_14abr2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/stf2_ameaca_parlamentares_14abr2026.html"
+    },
+    {
+      "id": 58,
+      "title": "Gilmar Mendes — Perfil Analítico",
+      "description": "Perfil analítico baseado em fatos documentados: decisões controversas, conexões políticas, casos emblemáticos e o papel do ministro na arquitetura do poder judiciário.",
+      "type": "PERFIL INVESTIGATIVO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "gilmar-mendes-em-fatos.html",
+      "url": "https://observatorio-civil-br.vercel.app/gilmar-mendes-em-fatos.html"
+    },
+    {
+      "id": 59,
+      "title": "Gilmar Mendes — Dossiê Investigativo 2026",
+      "description": "Dashboard investigativo completo sobre o ministro Gilmar Mendes: linha do tempo de decisões, rede de influência, casos arquivados e impacto institucional.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "gilmar_mendes_poder_dashboard.html",
+      "url": "https://observatorio-civil-br.vercel.app/gilmar_mendes_poder_dashboard.html"
+    },
+    {
+      "id": 60,
+      "title": "Duplo Padrão Judicial — Dossiê Investigativo 2026",
+      "description": "Documentação sistemática das decisões judiciais com padrão duplo — casos idênticos com desfechos opostos conforme o alinhamento político do réu.",
+      "type": "DOSSIÊ INVESTIGATIVO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "duplo-padrao-judicial.html",
+      "url": "https://observatorio-civil-br.vercel.app/duplo-padrao-judicial.html"
+    },
+    {
+      "id": 61,
+      "title": "Dossiê Jurídico — Nulidades do 8 de Janeiro",
+      "description": "Análise jurídica das nulidades processuais nos processos do 8 de janeiro: vícios formais, violações ao contraditório e irregularidades documentadas nos autos.",
+      "type": "DOSSIÊ JURÍDICO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "dossie-juridico-nulidades-8jan.html",
+      "url": "https://observatorio-civil-br.vercel.app/dossie-juridico-nulidades-8jan.html"
+    },
+    {
+      "id": 62,
+      "title": "Vaza Toga — Dossiê Completo | INQ 4.781 / STF",
+      "description": "Dossiê completo sobre o vazamento de mensagens do STF — conversas entre magistrados, impacto nos julgamentos e as tentativas de suprimir a investigação.",
+      "type": "DOSSIÊ COMPLETO",
+      "categories": [
+        "judiciario",
+        "corrupcao"
+      ],
+      "categoryLabel": "Judiciário · Corrupção",
+      "file": "vaza-toga.html",
+      "url": "https://observatorio-civil-br.vercel.app/vaza-toga.html"
+    },
+    {
+      "id": 63,
+      "title": "JustiçaWatch Brasil — Monitor de Decisões",
+      "description": "Plataforma de monitoramento de decisões judiciais: conheça as deliberações, exija prestação de contas e acompanhe o impacto das decisões sobre o Estado de Direito.",
+      "type": "MONITOR INTERATIVO",
+      "categories": [
+        "judiciario"
+      ],
+      "categoryLabel": "Judiciário",
+      "file": "jusmonitor.html",
+      "url": "https://observatorio-civil-br.vercel.app/jusmonitor.html"
+    },
+    {
+      "id": 64,
+      "title": "Amazônia Legal — Mapa Mental",
+      "description": "Mapeamento dos desafios da Amazônia: desmatamento, garimpo ilegal, influência de facções, territórios indígenas e soberania nacional ameaçada.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "territorio"
+      ],
+      "categoryLabel": "Território",
+      "file": "amazonia-legal.html",
+      "url": "https://observatorio-civil-br.vercel.app/amazonia-legal.html"
+    },
+    {
+      "id": 65,
+      "title": "Brasil × Venezuela × Irã — Análise Comparativa",
+      "description": "Análise das conexões entre o Brasil, regime venezuelano e influência iraniana — tráfico, lavagem, influência política e riscos à soberania.",
+      "type": "ANÁLISE COMPARATIVA",
+      "categories": [
+        "territorio"
+      ],
+      "categoryLabel": "Território",
+      "file": "brasil-venezuela-ira.html",
+      "url": "https://observatorio-civil-br.vercel.app/brasil-venezuela-ira.html"
+    },
+    {
+      "id": 66,
+      "title": "Soberania do Brasil — Análise Estratégica",
+      "description": "Avaliação estratégica das ameaças à soberania brasileira: infiltração estrangeira, dependência econômica, ciberespionagem e vulnerabilidades militares.",
+      "type": "ANÁLISE ESTRATÉGICA",
+      "categories": [
+        "territorio"
+      ],
+      "categoryLabel": "Território",
+      "file": "viewer.html?file=showcase/2025-08-15-soberania-do-brasil.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-15-soberania-do-brasil.md"
+    },
+    {
+      "id": 67,
+      "title": "Influência Estrangeira no Brasil",
+      "description": "Análise dos impactos do financiamento estrangeiro à sociedade civil: ONGs, políticas públicas, ativismo dirigido e interferência nas eleições.",
+      "type": "ANÁLISE INTERATIVA",
+      "categories": [
+        "territorio"
+      ],
+      "categoryLabel": "Território",
+      "file": "viewer.html?file=showcase/2025-11-11-influencia-estrangeira.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-11-11-influencia-estrangeira.md"
+    },
+    {
+      "id": 68,
+      "title": "Operação Mineração — Ouro Ilegal",
+      "description": "Dossiê sobre a extração ilegal de minérios em terras indígenas, a logística de exportação e a lavagem de ativos via DTVMs.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "territorio",
+        "operacoes"
+      ],
+      "categoryLabel": "Território · Operações",
+      "file": "operacao-mineracao.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-mineracao.html"
+    },
+    {
+      "id": 69,
+      "title": "A Faixa do Silêncio — Dossiê Geopolítico",
+      "description": "Análise geopolítica da faixa territorial de maior vulnerabilidade soberana do Brasil — zonas de controle criminal, vácuos estatais e influência transfronteiriça.",
+      "type": "DOSSIÊ GEOPOLÍTICO",
+      "categories": [
+        "territorio"
+      ],
+      "categoryLabel": "Território",
+      "file": "faixa-tropical.html",
+      "url": "https://observatorio-civil-br.vercel.app/faixa-tropical.html"
+    },
+    {
+      "id": 70,
+      "title": "Banco Master — O Banqueiro e o Sistema",
+      "description": "Mapa mental completo sobre o caso Banco Master: estrutura societária, operações suspeitas, relações políticas e o colapso iminente.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "economia",
+        "crime",
+        "operacoes"
+      ],
+      "categoryLabel": "Economia · Operações · Crime",
+      "file": "banco-master.html",
+      "url": "https://observatorio-civil-br.vercel.app/banco-master.html"
+    },
+    {
+      "id": 71,
+      "title": "Banco Master — Os Donos",
+      "description": "Identificação e análise das estruturas de controle do Banco Master: sócios ocultos, offshore, conexões políticas e beneficiários do esquema.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "economia",
+        "crime"
+      ],
+      "categoryLabel": "Economia · Crime",
+      "file": "banco-master-os-donos.html",
+      "url": "https://observatorio-civil-br.vercel.app/banco-master-os-donos.html"
+    },
+    {
+      "id": 72,
+      "title": "Banco Master — Compliance Zero",
+      "description": "Análise das falhas de compliance, omissão regulatória do BCB e os mecanismos que permitiram anos de irregularidades sem punição.",
+      "type": "ANÁLISE REGULATÓRIA",
+      "categories": [
+        "economia",
+        "operacoes",
+        "crime"
+      ],
+      "categoryLabel": "Economia · Operações · Crime",
+      "file": "banco_master_compliance_zero.html",
+      "url": "https://observatorio-civil-br.vercel.app/banco_master_compliance_zero.html"
+    },
+    {
+      "id": 73,
+      "title": "Liberdade Econômica Mundial 2024",
+      "description": "Posicionamento do Brasil no Índice de Liberdade Econômica global: carga tributária, burocracia, segurança dos contratos e comparações regionais.",
+      "type": "ANÁLISE COMPARATIVA",
+      "categories": [
+        "economia"
+      ],
+      "categoryLabel": "Economia",
+      "file": "economic-freedom.html",
+      "url": "https://observatorio-civil-br.vercel.app/economic-freedom.html"
+    },
+    {
+      "id": 74,
+      "title": "Sistema de Análise de Supersalários",
+      "description": "Análise dos supersalários no setor público brasileiro: quem recebe, quanto custa ao contribuinte e os mecanismos legais que perpetuam o privilégio.",
+      "type": "ANÁLISE DE DADOS",
+      "categories": [
+        "economia"
+      ],
+      "categoryLabel": "Economia",
+      "file": "viewer.html?file=showcase/2025-08-15-analise-de-supersalarios.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-08-15-analise-de-supersalarios.md"
+    },
+    {
+      "id": 75,
+      "title": "Nada É o Que Parece — Consumidor Brasileiro",
+      "description": "Painel do consumidor brasileiro: adulteração de produtos, fraudes comerciais, impunidade empresarial e o custo invisível da corrupção no varejo.",
+      "type": "PAINEL DO CONSUMIDOR",
+      "categories": [
+        "economia"
+      ],
+      "categoryLabel": "Economia",
+      "file": "fake-brasil.html",
+      "url": "https://observatorio-civil-br.vercel.app/fake-brasil.html"
+    },
+    {
+      "id": 76,
+      "title": "Carbono Oculto — O Mapa Que Falta",
+      "description": "Cruzamento entre operações Carbono Oculto, Greenwashing, PCC, fintechs e créditos de carbono na Amazônia — sete camadas do esquema, atores-chave e conexões com Lava Jato.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "economia",
+        "crime",
+        "operacoes"
+      ],
+      "categoryLabel": "Economia · Operações · Crime",
+      "file": "carbono_oculto.html",
+      "url": "https://observatorio-civil-br.vercel.app/carbono_oculto.html"
+    },
+    {
+      "id": 77,
+      "title": "República Capturada",
+      "description": "Dashboard forense das operações Greenwashing, Carbono Oculto, Compliance Zero, Sem Desconto e conexões transversais com Lava Jato e Panama Papers — fontes verificáveis.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "economia",
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Economia · Operações · Corrupção",
+      "file": "republica-capturada.html",
+      "url": "https://observatorio-civil-br.vercel.app/republica-capturada.html"
+    },
+    {
+      "id": 78,
+      "title": "Operação Sem Desconto — INSS",
+      "description": "A fraude sistemática em benefícios previdenciários e empréstimos consignados envolvendo a rede de pagamentos e bancos parceiros.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "economia",
+        "operacoes"
+      ],
+      "categoryLabel": "Economia · Operações",
+      "file": "operacao-sem-desconto.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-sem-desconto.html"
+    },
+    {
+      "id": 79,
+      "title": "Brasil: Dois Mandatos, Duas Economias — Painel Comparativo 2019–2026",
+      "description": "Comparativo econômico entre os governos Bolsonaro e Lula 3: indicadores fiscais, inflação, câmbio, crescimento, dívida e impacto sobre a renda real do brasileiro.",
+      "type": "PAINEL COMPARATIVO",
+      "categories": [
+        "economia"
+      ],
+      "categoryLabel": "Economia",
+      "file": "insolvencia-brasil-comparativo.html",
+      "url": "https://observatorio-civil-br.vercel.app/insolvencia-brasil-comparativo.html"
+    },
+    {
+      "id": 80,
+      "title": "Dossiê Hydra — Padrão P8: Infiltração Fintech",
+      "description": "Investigação do padrão P8 de infiltração criminosa em fintechs — como o crime organizado usa o sistema financeiro digital para lavar recursos e capturar o setor.",
+      "type": "DOSSIÊ TÉCNICO",
+      "categories": [
+        "economia",
+        "crime"
+      ],
+      "categoryLabel": "Economia · Crime Organizado",
+      "file": "dossie-hydra-padrao-p8.html",
+      "url": "https://observatorio-civil-br.vercel.app/dossie-hydra-padrao-p8.html"
+    },
+    {
+      "id": 81,
+      "title": "Nexo Fintech — Mapa Mental Investigativo 2026",
+      "description": "Mapa mental das conexões entre o ecossistema fintech brasileiro, o crime organizado e a lavagem de ativos — atores, fluxos e os pontos de vulnerabilidade regulatória.",
+      "type": "MAPA MENTAL",
+      "categories": [
+        "economia",
+        "crime"
+      ],
+      "categoryLabel": "Economia · Crime Organizado",
+      "file": "mapa-mental-nexo-fintech.html",
+      "url": "https://observatorio-civil-br.vercel.app/mapa-mental-nexo-fintech.html"
+    },
+    {
+      "id": 82,
+      "title": "Marajó — Exploração Sexual Infantil",
+      "description": "Dashboard investigativo sobre a exploração sexual infantil sistêmica na Ilha do Marajó: redes, omissão do Estado, dados e ausência de responsabilização.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "infancia"
+      ],
+      "categoryLabel": "Proteção Infantil",
+      "file": "marajo-exploracao-sexual-infantil.html",
+      "url": "https://observatorio-civil-br.vercel.app/marajo-exploracao-sexual-infantil.html"
+    },
+    {
+      "id": 83,
+      "title": "Dashboard — Proteção à Infância no Brasil",
+      "description": "Panorama dos indicadores de proteção à infância: abuso, trabalho infantil, acesso à educação e falhas sistemáticas do sistema de proteção.",
+      "type": "DASHBOARD",
+      "categories": [
+        "infancia"
+      ],
+      "categoryLabel": "Proteção Infantil",
+      "file": "protecao-infancia.html",
+      "url": "https://observatorio-civil-br.vercel.app/protecao-infancia.html"
+    },
+    {
+      "id": 84,
+      "title": "Censura no Brasil — Abuso Supremo",
+      "description": "Investigação dos casos de censura judicial entre 2019 e 2025: prisões políticas, censura midiática, influências estrangeiras e impacto democrático.",
+      "type": "INVESTIGAÇÃO",
+      "categories": [
+        "censura"
+      ],
+      "categoryLabel": "Censura",
+      "file": "viewer.html?file=showcase/2025-09-08-abusosupremo.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-abusosupremo.md"
+    },
+    {
+      "id": 85,
+      "title": "Guerra da Informação",
+      "description": "O conflito multidimensional no campo da percepção — como a desinformação, propaganda e censura redefinem segurança, economia e sociedade na era digital.",
+      "type": "ANÁLISE ESTRATÉGICA",
+      "categories": [
+        "censura"
+      ],
+      "categoryLabel": "Censura",
+      "file": "viewer.html?file=showcase/2025-09-08-guerra-da-informacao.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-09-08-guerra-da-informacao.md"
+    },
+    {
+      "id": 86,
+      "title": "Caso Epstein — Mapa de Conexões",
+      "description": "Mapeamento das conexões do caso Epstein com o Brasil: figuras políticas, financeiros, redes de poder e os silêncios que protegem os envolvidos.",
+      "type": "MAPA DE CONEXÕES",
+      "categories": [
+        "censura"
+      ],
+      "categoryLabel": "Censura",
+      "file": "epstein-mindmap.html",
+      "url": "https://observatorio-civil-br.vercel.app/epstein-mindmap.html"
+    },
+    {
+      "id": 87,
+      "title": "Operação Silêncio Digital",
+      "description": "Investigação sobre a interrupção deliberada de comunicações, repressão em redes sociais e as infraestruturas de monitoramento civil.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "censura",
+        "operacoes"
+      ],
+      "categoryLabel": "Censura · Operações",
+      "file": "operacao-silencio-digital.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-silencio-digital.html"
+    },
+    {
+      "id": 88,
+      "title": "Censura Digital Brasil — Mapa do Controle Estatal 2021–2026",
+      "description": "Mapeamento do aparato de censura digital estatal brasileiro entre 2021 e 2026 — ordens judiciais, remoções de conteúdo, bloqueios e infraestrutura de vigilância.",
+      "type": "MAPA DO CONTROLE",
+      "categories": [
+        "censura"
+      ],
+      "categoryLabel": "Censura",
+      "file": "censura-digital-brasil.html",
+      "url": "https://observatorio-civil-br.vercel.app/censura-digital-brasil.html"
+    },
+    {
+      "id": 89,
+      "title": "Firehose of Falsehood 2026 — Tsunami de Escândalos",
+      "description": "Análise da técnica \"firehose of falsehood\" aplicada ao Brasil em 2026 — como o volume saturado de escândalos simultâneos paralisa a resposta cívica e judicial.",
+      "type": "ANÁLISE DE INFORMAÇÃO",
+      "categories": [
+        "censura"
+      ],
+      "categoryLabel": "Censura",
+      "file": "firehose_falsehood_brasil_2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/firehose_falsehood_brasil_2026.html"
+    },
+    {
+      "id": 90,
+      "title": "Firehose of Falsehood — Arquitetura de Influência Brasil 2022",
+      "description": "Mapeamento da arquitetura de influência informacional nas eleições de 2022: campanhas de desinformação, atores, canais e o impacto na percepção eleitoral.",
+      "type": "ANÁLISE ELEITORAL",
+      "categories": [
+        "censura"
+      ],
+      "categoryLabel": "Censura",
+      "file": "guerra_da_informacao_br2022.html",
+      "url": "https://observatorio-civil-br.vercel.app/guerra_da_informacao_br2022.html"
+    },
+    {
+      "id": 91,
+      "title": "Thread X.com — Weaponized Legalism Brasil",
+      "description": "Compilação em formato thread do conceito de \"weaponized legalism\" aplicado ao Brasil — como o direito é usado como arma de censura e controle político.",
+      "type": "THREAD INVESTIGATIVO",
+      "categories": [
+        "censura",
+        "judiciario"
+      ],
+      "categoryLabel": "Censura · Judiciário",
+      "file": "thread-weaponized-legalism-x.html",
+      "url": "https://observatorio-civil-br.vercel.app/thread-weaponized-legalism-x.html"
+    },
+    {
+      "id": 92,
+      "title": "Emaranhamento Quântico das Operações",
+      "description": "Dashboard analítico das conexões sistêmicas entre Castelo de Areia, Satiagraha, Lava Jato e Banco Master — o DNA da impunidade no Brasil.",
+      "type": "MATRIZ INVESTIGATIVA",
+      "categories": [
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Operações · Corrupção",
+      "file": "emaranhamento_quantico_operacoes.html",
+      "url": "https://observatorio-civil-br.vercel.app/emaranhamento_quantico_operacoes.html"
+    },
+    {
+      "id": 93,
+      "title": "Emaranhamento das Operações — Mapa Analítico",
+      "description": "Dashboard analítico sobre a rede de conexões, padrões e impunidade nas maiores operações anticorrupção do Brasil nos últimos 17 anos.",
+      "type": "MAPA MENTAL INVESTIGATIVO",
+      "categories": [
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Operações · Corrupção",
+      "file": "emaranhamento_operacoes.html",
+      "url": "https://observatorio-civil-br.vercel.app/emaranhamento_operacoes.html"
+    },
+    {
+      "id": 94,
+      "title": "JBS / J&F — Caso Levata & Batistas",
+      "description": "Análise profunda do ecossistema JBS/J&F: de frigoríficos a artilharia pesada. A maior delação da história do Brasil sob a ótica da impunidade.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Operações · Corrupção",
+      "file": "jbs-levata-batistas.html",
+      "url": "https://observatorio-civil-br.vercel.app/jbs-levata-batistas.html"
+    },
+    {
+      "id": 95,
+      "title": "Rede Recorrente — Brasil 1999–2026",
+      "description": "Análise estrutural dos ciclos de impunidade e recidiva criminal em alto escalão nas últimas duas décadas de história brasileira.",
+      "type": "ANÁLISE ESTRUTURAL",
+      "categories": [
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Operações · Corrupção",
+      "file": "rede-recorrente-1999-2026.html",
+      "url": "https://observatorio-civil-br.vercel.app/rede-recorrente-1999-2026.html"
+    },
+    {
+      "id": 96,
+      "title": "Banco Master / Compliance Zero",
+      "description": "Investigação sobre o rombo de R$51bi no FGC, fraudes no INSS e infiltração do PCC no sistema financeiro via fintechs e fundos.",
+      "type": "DASHBOARD INVESTIGATIVO",
+      "categories": [
+        "operacoes",
+        "economia"
+      ],
+      "categoryLabel": "Operações · Economia",
+      "file": "banco-master-compliance-zero.html",
+      "url": "https://observatorio-civil-br.vercel.app/banco-master-compliance-zero.html"
+    },
+    {
+      "id": 97,
+      "title": "Operação Castelo de Areia",
+      "description": "Análise da operação que investigou o Grupo Camargo Corrêa e foi arquivada — conexões políticas, irregularidades processuais e impunidade garantida.",
+      "type": "ANÁLISE DE OPERAÇÃO",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "operacao_castelo_de_areia.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao_castelo_de_areia.html"
+    },
+    {
+      "id": 98,
+      "title": "Operações Policiais — Duas Realidades",
+      "description": "Mapeamento de operações policiais de 1990 ao presente: casos emblemáticos de corrupção policial, violência e direitos humanos, lado a lado com sucessos.",
+      "type": "ANÁLISE INTERATIVA",
+      "categories": [
+        "operacoes"
+      ],
+      "categoryLabel": "Operações",
+      "file": "viewer.html?file=showcase/2025-11-11-operacoes-policiais.md",
+      "url": "https://observatorio-civil-br.vercel.app/viewer.html?file=showcase/2025-11-11-operacoes-policiais.md"
+    },
+    {
+      "id": 99,
+      "title": "Oliver Ortiz — Linha do Tempo",
+      "description": "Cronologia completa do caso Oliver Ortiz: tráfico internacional, conexões políticas, a operação e os desdobramentos judiciais.",
+      "type": "LINHA DO TEMPO",
+      "categories": [
+        "operacoes"
+      ],
+      "categoryLabel": "Operações",
+      "file": "oliver-ortiz-timeline.html",
+      "url": "https://observatorio-civil-br.vercel.app/oliver-ortiz-timeline.html"
+    },
+    {
+      "id": 100,
+      "title": "Estratégia Integrada de Segurança Pública",
+      "description": "Modelo estratégico para gestão corporativa aplicada à segurança pública: governança, inteligência, cooperação interagencial e métricas de resultado.",
+      "type": "FRAMEWORK ESTRATÉGICO",
+      "categories": [
+        "operacoes"
+      ],
+      "categoryLabel": "Operações",
+      "file": "ferramentas/estrategia-integrada-gestao-corporativa-na-seguranca-publica.html",
+      "url": "https://observatorio-civil-br.vercel.app/ferramentas/estrategia-integrada-gestao-corporativa-na-seguranca-publica.html"
+    },
+    {
+      "id": 101,
+      "title": "Operação Armadilha ICE — Perseguição Transnacional",
+      "description": "Análise da operação ICE contra servidores brasileiros nos EUA — perseguição transnacional, lawfare internacional e as implicações diplomáticas do caso.",
+      "type": "ANÁLISE DE OPERAÇÃO",
+      "categories": [
+        "operacoes",
+        "judiciario"
+      ],
+      "categoryLabel": "Operações · Judiciário",
+      "file": "operacao-armadilha-ice.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-armadilha-ice.html"
+    },
+    {
+      "id": 102,
+      "title": "Persona Non Grata — Delegado da PF Expulso dos EUA",
+      "description": "Dossiê sobre a expulsão do delegado da PF dos Estados Unidos em abril de 2026 — contexto, motivações, impacto diplomático e desdobramentos investigativos.",
+      "type": "DOSSIÊ DIPLOMÁTICO",
+      "categories": [
+        "operacoes",
+        "judiciario"
+      ],
+      "categoryLabel": "Operações · Judiciário",
+      "file": "operacao-persona-non-grata.html",
+      "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+    }
+  ]
+}

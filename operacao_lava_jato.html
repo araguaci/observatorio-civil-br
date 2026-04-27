@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-analytics-domain="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operação Lava Jato — Dashboard Investigativo</title>
+  <meta name="description" content="Análise detalhada da Operação Lava Jato: corrupção sistêmica, impacto institucional e ondas de anulações jurídicas.">
+  <link rel="canonical" href="https://gosurf.site/operacao-lava-jato">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gosurf.site/operacao-lava-jato">
+  <meta property="og:title" content="Operação Lava Jato — Dashboard Investigativo">
+  <meta property="og:description" content="Investigação sobre o maior esquema de corrupção do país envolvendo Petrobras, empreiteiras e partidos políticos.">
+  <meta property="og:image" content="https://gosurf.site/og_card_operacao_lava_jato.png">
+  <meta property="og:locale" content="pt_BR">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Operação Lava Jato — Dashboard Investigativo">
+  <meta name="twitter:description" content="Investigação sobre o maior esquema de corrupção do país.">
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -43,22 +62,29 @@
   .sec.act{display:block}
 
   /* KPI grid */
-  /* KPI: grade fixa 4×2 (8 cards) */
-  .kgrid{
-    display:grid;
-    grid-template-columns:repeat(4, minmax(0, 1fr));
-    grid-template-rows:repeat(2, auto);
-    gap:12px 14px;
-    padding:18px 0 12px;
-    max-width:100%;
+  .kgrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 18px 0 10px;
   }
-  @media (max-width: 1100px){
-    .kgrid{grid-template-columns:repeat(2, minmax(0, 1fr));grid-template-rows:auto;}
+  @media (max-width: 900px) { .kgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .kgrid { grid-template-columns: 1fr; } }
+  .kcard {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 15px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s;
+    cursor: default;
   }
-  @media (max-width: 520px){
-    .kgrid{grid-template-columns:1fr;}
+  .kcard:hover {
+    transform: translateY(-2px);
+    background: var(--bg3);
+    border-color: rgba(255,255,255,0.15);
   }
-  .kcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;overflow:hidden;min-height:100px;display:flex;flex-direction:column;justify-content:flex-start}
   .kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
   .kb::before{background:linear-gradient(90deg,var(--blue),var(--blue2))}
   .kg::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
@@ -67,9 +93,11 @@
   .ko::before{background:linear-gradient(90deg,var(--orange),var(--orange2))}
   .kp::before{background:linear-gradient(90deg,var(--purple),var(--purple2))}
   .kn::before{background:linear-gradient(90deg,var(--green),var(--green2))}
-  .klabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
-  .kval{font-size:22px;font-weight:800;line-height:1.1;flex:1;display:flex;align-items:center}
-  .ksub{font-size:11px;color:var(--text2);margin-top:auto;padding-top:6px;font-family:var(--mono)}
+  .klabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:5px}
+  .kval{font-size:22px;font-weight:800;line-height:1}
+  .ksub{font-size:11px;color:var(--text2);margin-top:3px;font-family:var(--mono)}
+  .kb:hover .kval { text-shadow: 0 0 15px rgba(58,143,255,0.4); }
+  .kr:hover .kval { text-shadow: 0 0 15px rgba(232,85,85,0.4); }
   .kb .kval{color:var(--blue2)}
   .kg .kval{color:var(--gold)}
   .kr .kval{color:var(--red2)}
@@ -88,7 +116,13 @@
   .gnote{font-size:11px;color:var(--text2);margin-top:2px}
 
   /* Panels */
-  .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:12px}
+  .pgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 850px) { .pgrid { grid-template-columns: 1fr; } }
   .panel{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
   .ptitle{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
   .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -112,7 +146,24 @@
   .tldesc{font-size:12px;color:var(--text2);line-height:1.5}
 
   /* Actors */
-  .agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+  .agrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 1100px) { .agrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .agrid { grid-template-columns: 1fr; } }
+  
+  /* Investigados grid (10 items) */
+  .agrid-large {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 1200px) { .agrid-large { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 900px) { .agrid-large { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .agrid-large { grid-template-columns: 1fr; } }
+
   .acard{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
   .aname{font-size:13px;font-weight:700;margin-bottom:3px}
   .arole{font-size:11px;color:var(--text2);font-family:var(--mono);margin-bottom:6px}
@@ -173,10 +224,80 @@
   .dual{display:flex;gap:8px;margin-bottom:8px;padding:10px 12px;border-radius:8px;background:var(--bg3);border-left:3px solid var(--border)}
   .dual-a{font-size:12px;line-height:1.6}
   .dual-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;font-family:var(--mono)}
-</style>
 
+  /* === RELATED ARTIFACTS === */
+  .related-wrap {
+    padding: 64px 32px;
+    background: linear-gradient(to bottom, var(--bg), var(--bg2));
+    border-top: 2px solid var(--blue-dim);
+    margin-top: 40px;
+  }
+  .related-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text2);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .related-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1000px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 20px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+  }
+  .related-card:hover {
+    border-color: var(--blue);
+    background: var(--bg3);
+    transform: translateY(-2px);
+  }
+  .related-card-cat {
+    font-size: 9px;
+    color: var(--blue2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .related-card-title {
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .related-card-arrow {
+    margin-top: 12px;
+    font-size: 10px;
+    color: var(--text2);
+    text-align: right;
+    font-family: var(--mono);
+  }
+  @media (max-width: 600px) {
+    .related-wrap { padding: 40px 22px; }
+  }
+</style>
+</head>
+<body>
 <header>
-  <div class="hbadge">⚖ Mapa Mental • Análise Jurídico-Investigativa</div>
+  <div class="hbadge">MAPA MENTAL • ANÁLISE JURÍDICO-INVESTIGATIVA</div>
   <h1>Operação <span>Lava Jato</span></h1>
   <div class="hmeta">
     <span class="hm"><b>Deflagração:</b> 17 mar 2014</span>
@@ -311,7 +432,7 @@
     </div>
     <div class="panel" style="margin-bottom:12px">
       <div class="ptitle"><span class="dot dr"></span>Investigados de Alto Perfil</div>
-      <div class="agrid">
+      <div class="agrid-large">
         <div class="acard"><div class="aname" style="color:var(--red2)">Lula (PT)</div><div class="arole">Ex-presidente da República</div><div class="astatus">Preso 580 dias. Condenações anuladas pelo STF (2021) por suspeição de Moro e incompetência da 13ª Vara. Eleito presidente em 2022.</div></div>
         <div class="acard"><div class="aname" style="color:var(--red2)">Marcelo Odebrecht</div><div class="arole">CEO — Grupo Odebrecht</div><div class="astatus">Preso 2015. Delação de 77 executivos. Maior acordo de leniência da história mundial. Atos da Lava Jato contra ele progressivamente anulados.</div></div>
         <div class="acard"><div class="aname" style="color:var(--red2)">Eduardo Cunha (PMDB)</div><div class="arole">Ex-presidente da Câmara</div><div class="astatus">Condenado a 15 anos e 4 meses por Moro. Cassado da Câmara. Símbolo da corrupção parlamentar. Responsável por abrir impeachment de Dilma enquanto era investigado.</div></div>
@@ -566,6 +687,32 @@
 
 </main>
 
+<div class="related-wrap">
+  <div class="related-title">Artefatos Relacionados</div>
+  <div class="related-grid">
+    <a href="/rede" class="related-card">
+      <div class="related-card-cat">Investigação</div>
+      <div class="related-card-title">Rede Recorrente: Atores por Função 1999–2026</div>
+      <div class="related-card-arrow">ACESSAR ARTEFATO ➔</div>
+    </a>
+    <a href="/master" class="related-card">
+      <div class="related-card-cat">Crimes Financeiros</div>
+      <div class="related-card-title">Banco Master: Pirâmide de CDBs e Captura do STF</div>
+      <div class="related-card-arrow">ACESSAR ARTEFATO ➔</div>
+    </a>
+    <a href="/pcc" class="related-card">
+      <div class="related-card-cat">Inteligência</div>
+      <div class="related-card-title">PCC & CV: Dashboard de Inteligência 2026</div>
+      <div class="related-card-arrow">ACESSAR ARTEFATO ➔</div>
+    </a>
+    <a href="/republica-capturada" class="related-card">
+      <div class="related-card-cat">Estrutura</div>
+      <div class="related-card-title">República Capturada: O Brasil do Lawfare</div>
+      <div class="related-card-arrow">ACESSAR ARTEFATO ➔</div>
+    </a>
+  </div>
+</div>
+
 <script>
 function show(id){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
@@ -578,3 +725,5 @@ setTimeout(()=>{
   if(f) f.style.width='98%';
 },400);
 </script>
+</body>
+</html>

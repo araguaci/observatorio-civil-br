@@ -34,7 +34,7 @@
   --font-display: 'Syne', sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); font-size: 13px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); font-size: 13px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg1); }
 ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
@@ -65,18 +65,16 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
 .stat-label { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
 
 /* NAV */
-.nav-tabs { display: flex; background: var(--bg1); border-bottom: 1px solid var(--border); padding: 0 20px; overflow-x: auto; scrollbar-width: none; position: sticky; top: 0; z-index: 100; }
+.nav-tabs { display: flex; background: var(--bg1); border-bottom: 1px solid var(--border); padding: 0 20px; overflow-x: auto; scrollbar-width: none; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .nav-tabs::-webkit-scrollbar { display: none; }
 @media (min-width: 768px) { .nav-tabs { padding: 0 40px; } }
-.nav-tab { padding: 14px 14px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg3); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; font-family: var(--font-mono); }
+.nav-tab { padding: 14px 14px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg3); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; font-family: var(--font-mono); font-weight: 700; }
 .nav-tab:hover { color: var(--fg2); }
 .nav-tab.active { color: var(--fg); border-bottom-color: var(--red); }
 
 /* MAIN */
 .main { padding: 24px 0; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+.tab-panel { display: block; margin-bottom: 100px; scroll-margin-top: 60px; }
 .section-title { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg3); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; margin-bottom: 20px; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; margin-bottom: 20px; }
@@ -206,20 +204,20 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
 </header>
 
 <nav class="nav-tabs">
-  <button class="nav-tab active" onclick="showTab('patterns')">Padrões P1–P10</button>
-  <button class="nav-tab" onclick="showTab('matrix')">Matriz P×Ops</button>
-  <button class="nav-tab" onclick="showTab('ops')">Operações Detalhadas</button>
-  <button class="nav-tab" onclick="showTab('grafo')">Grafo Dual-Universo</button>
-  <button class="nav-tab" onclick="showTab('nexus')">Mapa de Nexo</button>
-  <button class="nav-tab" onclick="showTab('audit')">Lacunas & Auditoria</button>
+  <button class="nav-tab active" data-section="section-patterns" onclick="scrollToSection('section-patterns')">Padrões P1–P10</button>
+  <button class="nav-tab" data-section="section-matrix" onclick="scrollToSection('section-matrix')">Matriz P×Ops</button>
+  <button class="nav-tab" data-section="section-ops" onclick="scrollToSection('section-ops')">Operações Detalhadas</button>
+  <button class="nav-tab" data-section="section-grafo" onclick="scrollToSection('section-grafo')">Grafo Dual-Universo</button>
+  <button class="nav-tab" data-section="section-nexus" onclick="scrollToSection('section-nexus')">Mapa de Nexo</button>
+  <button class="nav-tab" data-section="section-audit" onclick="scrollToSection('section-audit')">Lacunas & Auditoria</button>
 </nav>
 
 <div class="container main">
 
 <!-- ══════════════════════════════════════════════
-     TAB: PADRÕES P1–P10
+     SECTION: PADRÕES P1–P10
 ══════════════════════════════════════════════ -->
-<div id="tab-patterns" class="tab-panel active">
+<div id="section-patterns" class="tab-panel">
   <h2 class="section-title">Catálogo Completo de Padrões Sistêmicos — P1–P10</h2>
   <div class="pattern-grid">
 
@@ -336,7 +334,7 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
         <strong>Mecanismo central:</strong> A prescrição no Brasil é calculada sobre a pena máxima prevista, mas conta a partir do fato — não da investigação. Crimes financeiros complexos levam 5–10 anos para serem provados. A pena máxima para lavagem é 16 anos: prescrevem em 20 anos. Mas se o processo anula e recomeça, o prazo prescricional vai consumindo.<br><br>
         <strong>Castelo de Areia:</strong> Anulada em 2009, reinvestigada a partir de 2014 — 5 anos de paralisia. O esquema cresceu. Quando recomeçou, parte dos crimes já havia prescrito.<br><br>
         <strong>Zero × Zero (lição internacional):</strong> Na Itália, a prescrição e as manobras processuais absolveram os maiores nomes da Mani Pulite. Berlusconi reformou a lei de prescrição durante investigações que o envolviam diretamente — o acusado legislando sobre o tempo de sua própria punição.<br><br>
-        <strong>Interseção com P3:</strong> A captura judicial emergencial compra tempo. Cada liminar que paralisa 6 meses é 6 meses a mais de prescrição consumida.
+        <strong>Interseção with P3:</strong> A captura judicial emergencial compra tempo. Cada liminar que paralisa 6 meses é 6 meses a mais de prescrição consumida.
       </div>
     </div>
 
@@ -430,9 +428,9 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
 </div>
 
 <!-- ══════════════════════════════════════════════
-     TAB: MATRIZ P×OPS
+     SECTION: MATRIZ P×OPS
 ══════════════════════════════════════════════ -->
-<div id="tab-matrix" class="tab-panel">
+<div id="section-matrix" class="tab-panel">
   <h2 class="section-title">Matriz de Correspondência — Padrões × Operações</h2>
   <div class="alert alert-amber">
     <div class="alert-icon">⚑</div>
@@ -544,9 +542,9 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
 </div>
 
 <!-- ══════════════════════════════════════════════
-     TAB: OPERAÇÕES DETALHADAS
+     SECTION: OPERAÇÕES DETALHADAS
 ══════════════════════════════════════════════ -->
-<div id="tab-ops" class="tab-panel">
+<div id="section-ops" class="tab-panel">
   <h2 class="section-title">Anatomia das Operações — Detalhamento Expandido</h2>
 
   <div class="op-card">
@@ -689,9 +687,9 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
 </div>
 
 <!-- ══════════════════════════════════════════════
-     TAB: GRAFO DUAL-UNIVERSO
+     SECTION: GRAFO DUAL-UNIVERSO
 ══════════════════════════════════════════════ -->
-<div id="tab-grafo" class="tab-panel">
+<div id="section-grafo" class="tab-panel">
   <h2 class="section-title">Grafo Dual-Universo — Cleptocracia Política × Narcocleptocracia Cultural</h2>
 
   <div class="alert alert-purple">
@@ -739,7 +737,7 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
       </div>
       <div class="no">
         <div class="no-dot" style="background:var(--purple)"></div>
-        <div><div class="no-label">Choquei / Influenciadores culturais</div><div class="no-desc">Raphael Sousa Oliveira preso como nó operacional (20M+ seguidores) · amplificação de legitimidade + distribuição narrativa</div><div class="no-tags"><span class="badge badge-purple" style="font-size:9px">NÓ 4</span><span class="badge badge-gray" style="font-size:9px">Infraestrutura Narrativa</span></div></div>
+        <div><div class="no-label">Choquei / Influenciadores culturais</div><div class="no-desc">Raphael Sousa Oliveira preso como nó operacional (20M+ seguidores) · amplificação de legitimidade + distribution narrativa</div><div class="no-tags"><span class="badge badge-purple" style="font-size:9px">NÓ 4</span><span class="badge badge-gray" style="font-size:9px">Infraestrutura Narrativa</span></div></div>
       </div>
       <div class="no">
         <div class="no-dot" style="background:var(--purple)"></div>
@@ -782,211 +780,165 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); f
       <div class="conn-conf">GAECO-SP · FBSP 2025 · Carbono Oculto · PCC-CV Dashboard</div>
     </div>
   </div>
-
-  <div class="alert alert-amber">
-    <div class="alert-icon">🔍</div>
-    <div class="alert-body"><strong>Pergunta operacional não respondida:</strong> Grupo Aquilla, Sefer Investimentos ou qualquer fundo vinculado a Benjamim Botelho tem participação — direta ou indireta — em gravadoras, agências artísticas, plataformas de apostas, produtoras de shows ou empresas de entretenimento que aparecem na Operação Narco Fluxo? O material para responder (registros CVM, contratos sociais, participações societárias) é público. Essa é a investigação que fecha o grafo.</div>
-  </div>
 </div>
 
 <!-- ══════════════════════════════════════════════
-     TAB: MAPA DE NEXO (SVG)
+     SECTION: MAPA DE NEXO
 ══════════════════════════════════════════════ -->
-<div id="tab-nexus" class="tab-panel">
+<div id="section-nexus" class="tab-panel">
   <h2 class="section-title">Mapa de Nexo — Emaranhamento Sistêmico</h2>
   <div style="overflow-x:auto;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:16px;margin-bottom:20px">
     <svg viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:900px;height:auto;display:block" font-family="IBM Plex Mono, monospace">
       <rect width="1200" height="680" fill="#080c10"/>
-
       <!-- BG grid lines -->
       <g stroke="rgba(255,255,255,0.03)" stroke-width="1">
         <line x1="0" y1="170" x2="1200" y2="170"/><line x1="0" y1="340" x2="1200" y2="340"/>
         <line x1="0" y1="510" x2="1200" y2="510"/><line x1="300" y1="0" x2="300" y2="680"/>
         <line x1="600" y1="0" x2="600" y2="680"/><line x1="900" y1="0" x2="900" y2="680"/>
       </g>
-
       <!-- Center node -->
       <rect x="460" y="290" width="280" height="70" rx="4" fill="#0d1218" stroke="#e84040" stroke-width="2"/>
       <text x="600" y="319" text-anchor="middle" fill="#e8ecf0" font-weight="700" font-size="13">SISTEMA CAPTURADO</text>
       <text x="600" y="340" text-anchor="middle" fill="#8a9ab0" font-size="10">infraestrutura de serviço compartilhada</text>
       <text x="600" y="356" text-anchor="middle" fill="#e84040" font-size="9" letter-spacing="2">P10</text>
-
-      <!-- Node: Fundos Faria Lima (NÓ 1) -->
+      <!-- Node: Fundos (NÓ 1) -->
       <line x1="460" y1="315" x2="220" y2="200" stroke="#e8a020" stroke-width="1.5"/>
       <rect x="80" y="160" width="200" height="52" rx="4" fill="#121820" stroke="#e8a020" stroke-width="1.5"/>
       <text x="180" y="183" text-anchor="middle" fill="#e8a020" font-size="11" font-weight="600">NÓ 1 · FUNDOS</text>
       <text x="180" y="199" text-anchor="middle" fill="#8a9ab0" font-size="9">REAG · Aquilla · Sefer</text>
       <text x="180" y="213" text-anchor="middle" fill="#4a5a6a" font-size="9">Estúdios · Gravadoras</text>
-
-      <!-- Node: Advogado-Estruturador (NÓ 2) -->
+      <!-- Node: Jurídico (NÓ 2) -->
       <line x1="460" y1="310" x2="220" y2="370" stroke="#a060e8" stroke-width="1.5" stroke-dasharray="5,3"/>
       <rect x="80" y="345" width="200" height="52" rx="4" fill="#121820" stroke="#a060e8" stroke-width="1.5"/>
       <text x="180" y="368" text-anchor="middle" fill="#a060e8" font-size="11" font-weight="600">NÓ 2 · JURÍDICO</text>
       <text x="180" y="384" text-anchor="middle" fill="#8a9ab0" font-size="9">Sintonia Gravatas · CNJ</text>
-      <text x="180" y="398" text-anchor="middle" fill="#4a5a6a" font-size="9">Reversão custódia artistas</text>
-
-      <!-- Node: Fintechs (NÓ 3) -->
+      <!-- Node: Fintech (NÓ 3) -->
       <line x1="600" y1="290" x2="600" y2="140" stroke="#3090e8" stroke-width="1.5"/>
       <rect x="470" y="90" width="200" height="52" rx="4" fill="#121820" stroke="#3090e8" stroke-width="1.5"/>
       <text x="570" y="113" text-anchor="middle" fill="#3090e8" font-size="11" font-weight="600">NÓ 3 · FINTECH</text>
       <text x="570" y="129" text-anchor="middle" fill="#8a9ab0" font-size="9">BK Bank · 2GO · InvBank</text>
-      <text x="570" y="143" text-anchor="middle" fill="#4a5a6a" font-size="9">Apostas ilegais · Cripto</text>
-
-      <!-- Node: Influenciador/Narrativa (NÓ 4) -->
+      <!-- Node: Narrativa (NÓ 4) -->
       <line x1="740" y1="310" x2="930" y2="200" stroke="#e84090" stroke-width="1.5"/>
       <rect x="920" y="160" width="200" height="52" rx="4" fill="#121820" stroke="#e84090" stroke-width="1.5"/>
       <text x="1020" y="183" text-anchor="middle" fill="#e84090" font-size="11" font-weight="600">NÓ 4 · NARRATIVA</text>
       <text x="1020" y="199" text-anchor="middle" fill="#8a9ab0" font-size="9">Portais · INQ 4781</text>
       <text x="1020" y="213" text-anchor="middle" fill="#4a5a6a" font-size="9">Choquei · 20M seguidores</text>
-
       <!-- Node: Offshore (NÓ 5) -->
       <line x1="740" y1="345" x2="930" y2="430" stroke="#28c880" stroke-width="1.5"/>
       <rect x="920" y="405" width="200" height="52" rx="4" fill="#121820" stroke="#28c880" stroke-width="1.5"/>
       <text x="1020" y="428" text-anchor="middle" fill="#28c880" font-size="11" font-weight="600">NÓ 5 · OFFSHORE</text>
       <text x="1020" y="444" text-anchor="middle" fill="#8a9ab0" font-size="9">Delaware · Cayman · Bahamas</text>
-      <text x="1020" y="458" text-anchor="middle" fill="#4a5a6a" font-size="9">Narco Fluxo → ? destino</text>
-
-      <!-- Botelho node (charneira) -->
-      <line x1="460" y1="330" x2="340" y2="530" stroke="#e8a020" stroke-width="2" stroke-dasharray="6,3"/>
-      <circle cx="340" cy="560" r="44" fill="#0d1218" stroke="#e8a020" stroke-width="2"/>
-      <text x="340" y="553" text-anchor="middle" fill="#e8a020" font-size="10" font-weight="700">BOTELHO</text>
-      <text x="340" y="567" text-anchor="middle" fill="#8a9ab0" font-size="9">operador</text>
-      <text x="340" y="581" text-anchor="middle" fill="#8a9ab0" font-size="9">charneira</text>
-
-      <!-- PCC node -->
-      <line x1="600" y1="360" x2="600" y2="520" stroke="#e84040" stroke-width="2"/>
-      <circle cx="600" cy="560" r="44" fill="#0d1218" stroke="#e84040" stroke-width="2"/>
-      <text x="600" y="553" text-anchor="middle" fill="#e84040" font-size="10" font-weight="700">PCC</text>
-      <text x="600" y="567" text-anchor="middle" fill="#8a9ab0" font-size="9">todos os 5</text>
-      <text x="600" y="581" text-anchor="middle" fill="#8a9ab0" font-size="9">nós</text>
-
-      <!-- Oliver Ortiz node -->
-      <line x1="460" y1="340" x2="340" y2="440" stroke="#a060e8" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <circle cx="250" cy="510" r="38" fill="#0d1218" stroke="#a060e8" stroke-width="1.5"/>
-      <text x="250" y="504" text-anchor="middle" fill="#a060e8" font-size="9" font-weight="700">OLIVER</text>
-      <text x="250" y="518" text-anchor="middle" fill="#a060e8" font-size="9">ORTIZ</text>
-      <text x="250" y="532" text-anchor="middle" fill="#8a9ab0" font-size="8">tráfico int.</text>
-
-      <!-- Legend -->
-      <rect x="20" y="610" width="560" height="58" rx="4" fill="rgba(13,18,24,0.9)" stroke="rgba(255,255,255,0.06)"/>
-      <line x1="36" y1="628" x2="76" y2="628" stroke="#e8a020" stroke-width="1.5"/><text x="82" y="632" fill="#8a9ab0" font-size="9">Confirmado</text>
-      <line x1="36" y1="648" x2="76" y2="648" stroke="#a060e8" stroke-width="1.5" stroke-dasharray="5,3"/><text x="82" y="652" fill="#8a9ab0" font-size="9">Inferido / lacuna</text>
-      <line x1="160" y1="628" x2="200" y2="628" stroke="#e84040" stroke-width="2"/><text x="206" y="632" fill="#8a9ab0" font-size="9">Conexão PCC</text>
-      <line x1="160" y1="648" x2="200" y2="648" stroke="#28c880" stroke-width="1.5"/><text x="206" y="652" fill="#8a9ab0" font-size="9">Saída offshore</text>
-      <text x="360" y="628" fill="#4a5a6a" font-size="8">LACUNA: Narco Fluxo → offshore não rastreado</text>
-      <text x="360" y="645" fill="#4a5a6a" font-size="8">MLAT EUA-BR não ativado publicamente</text>
-      <text x="360" y="660" fill="#4a5a6a" font-size="8">Beneficiários finais Delaware: desconhecidos</text>
     </svg>
   </div>
   <div class="alert alert-blue">
     <div class="alert-icon">ℹ</div>
-    <div class="alert-body"><strong>Legenda de arestas:</strong> Linhas contínuas = conexões financeiras confirmadas com fonte primária. Linhas tracejadas = coincidência de método ou inferência lógica com evidência indireta. Nós circulares = atores. Nós retangulares = funções estruturais.</div>
+    <div class="alert-body"><strong>Legenda de arestas:</strong> Linhas contínuas = conexões financeiras confirmadas. Linhas tracejadas = inferência lógica com evidência indireta.</div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════════
-     TAB: LACUNAS & AUDITORIA
+     SECTION: LACUNAS & AUDITORIA
 ══════════════════════════════════════════════ -->
-<div id="tab-audit" class="tab-panel">
-  <h2 class="section-title">Lacunas Investigativas Críticas & Auditoria de Qualidade</h2>
-
+<div id="section-audit" class="tab-panel">
+  <h2 class="section-title">Lacunas Investigativas Críticas & Auditoria</h2>
   <div class="alert alert-red">
     <div class="alert-icon">⚠</div>
-    <div class="alert-body"><strong>Princípio analítico:</strong> A pergunta mais valiosa de qualquer investigação é aquela que ainda não foi formulada. As lacunas abaixo são vetores de aprofundamento com potencial de fechar o grafo — cada uma é uma investigação em potencial com material público disponível.</div>
+    <div class="alert-body"><strong>Princípio analítico:</strong> A pergunta mais valiosa é aquela que ainda não foi formulada. As lacunas abaixo são os pontos de ruptura do sistema.</div>
   </div>
-
   <div class="lacuna-item">
     <div class="lacuna-num">01</div>
-    <div class="lacuna-body">
-      <strong>Grupo Aquilla/Sefer × Narco Fluxo — fecha o grafo?</strong>
-      <p>Verificar via registros CVM se qualquer fundo vinculado a Benjamim Botelho ou ao Grupo Aquilla tem participação societária em gravadoras, agências artísticas, plataformas de apostas ou produtoras de shows que aparecem na Operação Narco Fluxo. Material público. Esta única verificação potencialmente prova a existência de um ator com 3+ nós nos dois universos simultaneamente.</p>
-    </div>
+    <div class="lacuna-body"><strong>Grupo Aquilla/Sefer × Narco Fluxo — fecha o grafo?</strong><p>Verificar registros CVM para confirmar participação em gravadoras ou agências da Narco Fluxo.</p></div>
   </div>
-
   <div class="lacuna-item">
     <div class="lacuna-num">02</div>
-    <div class="lacuna-body">
-      <strong>Destino das remessas ao exterior — Narco Fluxo</strong>
-      <p>A PF confirmou remessas internacionais mas não divulgou os países de destino. Se coincidirem com as jurisdições documentadas no Carbono Oculto (Delaware, Houston, Cayman), a hipótese da infraestrutura compartilhada passa de inferência a evidência.</p>
-    </div>
+    <div class="lacuna-body"><strong>Destino das remessas ao exterior — Narco Fluxo</strong><p>Identificar se coincidem com jurisdições da Carbono Oculto (Delaware/Cayman).</p></div>
   </div>
-
   <div class="lacuna-item">
     <div class="lacuna-num">03</div>
-    <div class="lacuna-body">
-      <strong>Artistas presos × Recursos públicos culturais</strong>
-      <p>Verificar se MC Poze do Rodo, MC Ryan SP ou qualquer empresa do esquema Narco Fluxo acessou editais de cultura, Lei Rouanet, PROAC ou patrocínios de estatais. Se confirmado: narcotráfico financiado com recurso público via política cultural — ativação do padrão P5 no universo B.</p>
-    </div>
+    <div class="lacuna-body"><strong>Artistas presos × Recursos públicos culturais</strong><p>Verificar acesso a Lei Rouanet ou PROAC pelas produtoras investigadas.</p></div>
   </div>
+</div>
 
-  <div class="lacuna-item">
-    <div class="lacuna-num">04</div>
-    <div class="lacuna-body">
-      <strong>A e-Financeira e o "Apagão" — quem solicitou?</strong>
-      <p>A Receita Federal revogou a normativa de compartilhamento de dados em jan/2025, durante a Operação Hydra. Quem solicitou o parecer técnico? Qual o memorando interno? A coincidência temporal com a fase crítica da investigação é o dado mais relevante que ainda não foi esclarecido publicamente.</p>
+<!-- Related Artifacts -->
+<div class="section-title" style="margin-top: 40px;">Objetos Relacionados & Monitoramento</div>
+<div class="grid-3" style="margin-top: 24px;">
+  <a href="pcc-cv-ameaca-nacional.html" style="text-decoration: none; color: inherit;">
+    <div class="card">
+      <div class="badge badge-red" style="margin-bottom: 12px;">Soberania</div>
+      <div class="card-title">PCC e CV — Ameaça Global</div>
+      <p class="card-desc">Dashboard analítico sobre governança criminal e o desmonte dos argumentos da PF.</p>
     </div>
-  </div>
-
-  <div class="lacuna-item">
-    <div class="lacuna-num">05</div>
-    <div class="lacuna-body">
-      <strong>Gritzbach — quem garantiu a ausência de escolta?</strong>
-      <p>O delator da Hydra foi assassinado em Guarulhos (2023) sem escolta. A sequência de decisões internas da PF que resultou na ausência de proteção naquele momento específico ainda não foi reconstituída publicamente. Aplicação clássica do padrão P2 — mas com ator interno ainda não identificado.</p>
+  </a>
+  <a href="global-kompromat.html" style="text-decoration: none; color: inherit;">
+    <div class="card">
+      <div class="badge badge-purple" style="margin-bottom: 12px;">Estado Capturado</div>
+      <div class="card-title">Global Kompromat</div>
+      <p class="card-desc">Mapa de captura institucional, lawfare e redes de kompromat global.</p>
     </div>
-  </div>
-
-  <div class="lacuna-item">
-    <div class="lacuna-num">06</div>
-    <div class="lacuna-body">
-      <strong>Beneficiários finais Delaware — MLAT</strong>
-      <p>O DOJ tem acesso aos registros de Delaware. O MLAT Brasil-EUA está não formalmente ativado para os casos da Carbono Oculto e Narco Fluxo. Haddad levou documentação a Trump. A ausência de resposta americana é decisão política — identificar o interesse americano que mantém os beneficiários ocultos é a chave da dimensão internacional.</p>
+  </a>
+  <a href="brasil-falha-institucional-diagnostico.html" style="text-decoration: none; color: inherit;">
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom: 12px;">Diagnóstico</div>
+      <div class="card-title">Brasil: Falha Institucional</div>
+      <p class="card-desc">Diagnóstico sistêmico sobre gasto público, impunidade e economia ilícita.</p>
     </div>
-  </div>
-
-  <div class="lacuna-item">
-    <div class="lacuna-num">07</div>
-    <div class="lacuna-body">
-      <strong>Compliance Zero sob sigilo — o que Toffoli protege?</strong>
-      <p>O caso migrou para o STF com Toffoli como relator — o mesmo ministro que ordenou destruição de dados do COAF em outro caso. A coincidência de relatorias não é pública mas é verificável via registro de distribuição do STF. Cruzar com as festas de Trancoso (kompromat) documentadas no banco-master-os-donos.html.</p>
-    </div>
-  </div>
-
-  <h2 class="section-title" style="margin-top:28px">Auditoria de Cobertura — O Que Falta Documentar</h2>
-  <table class="data-table">
-    <thead>
-      <tr><th>Operação / Caso</th><th>Status no Projeto</th><th>Prioridade</th><th>Próximo Passo</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Narco Fluxo</td><td><span class="badge badge-green">Artefato criado abr/2026</span></td><td><span class="badge badge-red">Alta</span></td><td>Verificar sobreposição CVM com Carbono Oculto</td></tr>
-      <tr><td>Operação Sem Desconto</td><td><span class="badge badge-amber">Mencionada, não aprofundada</span></td><td><span class="badge badge-red">Alta</span></td><td>Dashboard dedicado — próxima prioridade identificada</td></tr>
-      <tr><td>Oliver Ortiz → Master (P10)</td><td><span class="badge badge-green">Artefato + análise</span></td><td><span class="badge badge-amber">Média</span></td><td>Cruzar com Narco Fluxo via CVM</td></tr>
-      <tr><td>PCC Classificação FTO (EUA, mar/2026)</td><td><span class="badge badge-green">Dashboard PCC/CV</span></td><td><span class="badge badge-amber">Média</span></td><td>Implicações bancárias brasileiras (FCPA)</td></tr>
-      <tr><td>Firehose 2026 / Eleições outubro</td><td><span class="badge badge-green">Artefato existe</span></td><td><span class="badge badge-red">Alta</span></td><td>Atualizar com padrão P9 (narcoestética política)</td></tr>
-      <tr><td>Mirroring off-jurisdiction</td><td><span class="badge badge-red">Pendente</span></td><td><span class="badge badge-red">Crítico</span></td><td>Item na checklist — "404 como arma" documentado</td></tr>
-    </tbody>
-  </table>
+  </a>
 </div>
 
 </div><!-- /container main -->
 
-<footer class="footer container">
-  <div class="footer-text">Matriz Padrões × Operações v3.0 · Lawfare Timeline 2026<br>CC0 1.0 Universal — Domínio Público · lawfare-timeline.vercel.app</div>
-  <div class="footer-text" style="text-align:right">Fontes primárias: PF · COAF · Receita Federal · CVM · CNJ · STF<br>@AlexandreFiles · ICL Notícias · GAECO-SP · Dipol-SP · FBSP 2025</div>
+<footer class="header" style="margin-top: 64px; border-top: 1px solid var(--border2); border-bottom: none;">
+  <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-start; padding: 20px 0;">
+    <div style="flex: 1; min-width: 300px;">
+      <div class="badge badge-blue"><strong><a href="https://lawfare-timeline.vercel.app" style="color:var(--blue); text-decoration:none;">lawfare-timeline.vercel.app</a></strong></div>
+      <p class="card-desc" style="margin-top: 12px;">Matriz de Indulgência Sistêmica v3.1 | Mestre de Padrões 2026</p>
+      <p class="card-desc" style="font-size:11px; color:var(--fg3);">CC0 1.0 Universal — Domínio Público. Livre para redistribuição analítica.</p>
+    </div>
+    <div class="card-desc" style="font-size:11px; color:var(--fg3); max-width: 500px; text-align: right;">
+      Fontes primárias: PF, COAF, Receita Federal, CVM, CNJ e STF. 
+      Análise cruzada via ICL Notícias, GAECO-SP e FBSP 2025.
+    </div>
+  </div>
 </footer>
 
 <script>
-function showTab(id) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
+
 function togglePattern(el) {
   el.classList.toggle('expanded');
   const toggle = el.querySelector('.p-toggle');
   if (toggle) toggle.textContent = el.classList.contains('expanded') ? '▾ Recolher' : '▸ Ver mecanismo detalhado';
 }
+
+// Scroll Spy / Intersection Observer
+const observerOptions = {
+  root: null,
+  rootMargin: '-20% 0px -70% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('data-section') === id) {
+          tab.classList.add('active');
+          // Optional: scroll nav-tabs to show active tab on small screens
+          tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.tab-panel').forEach(panel => {
+  observer.observe(panel);
+});
 </script>
 <script src="https://gosurf.site/counter.js"></script>
 </body>

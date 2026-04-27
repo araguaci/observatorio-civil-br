@@ -514,9 +514,15 @@ h1 span { color: var(--red); }
 /* STANDARDIZED GRID FOR RELATED ARTIFACTS */
 .agrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-top: 24px;
+}
+@media (max-width: 1200px) {
+  .agrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .agrid { grid-template-columns: 1fr; }
 }
 .acard {
   background: var(--bg2);
@@ -674,13 +680,13 @@ h1 span { color: var(--red); }
   <div class="section-label">O mecanismo em 7 camadas</div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--red)"></div>
       <div class="acc-title">CAMADA 1 — Origem: Crime organizado (PCC/CV)</div>
       <div class="acc-badge tag-red">Documentado</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>Tráfico, extorsão e crimes violentos geram o caixa inicial</div>
       <div class="acc-item"><div class="acc-bullet"></div>10.900 depósitos em espécie nos postos (2022-2023) = R$ 61mi inseridos abaixo do radar do COAF</div>
       <div class="acc-item"><div class="acc-bullet"></div>Maquininhas de cartão em postos de fachada como segunda porta de entrada</div>
@@ -689,13 +695,13 @@ h1 span { color: var(--red); }
   </div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--amber)"></div>
       <div class="acc-title">CAMADA 2 — Entrada formal: Rede de combustíveis</div>
       <div class="acc-badge tag-amber">Documentado</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>Redes Aster, Copape, Duvale, Arka, GGX Global (103 postos), Rodopetro entre as principais</div>
       <div class="acc-item"><div class="acc-bullet"></div>140 postos sem movimentação real receberam R$ 2bi em notas fiscais fictícias</div>
       <div class="acc-item"><div class="acc-bullet"></div>Adulteração de gasolina com metanol importado — dupla fraude: tributária + contra o consumidor</div>
@@ -705,13 +711,13 @@ h1 span { color: var(--red); }
   </div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--blue)"></div>
       <div class="acc-title">CAMADA 3 — Banco paralelo: Fintechs sem rastreamento</div>
       <div class="acc-badge tag-blue">Documentado</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>BK Bank: R$ 46bi movimentados sem rastreamento (2020–2024) — "paraíso fiscal doméstico"</div>
       <div class="acc-item"><div class="acc-bullet"></div>Bankrow: presidente Marcelo Dias de Moraes como alvo direto</div>
       <div class="acc-item"><div class="acc-bullet"></div>Modelo "contas-bolsão": recursos de vários clientes misturados — impede rastreamento estatal</div>
@@ -721,13 +727,13 @@ h1 span { color: var(--red); }
   </div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--green)"></div>
       <div class="acc-title">CAMADA 4 — Ativo fictício: Créditos de carbono amazônicos</div>
       <div class="acc-badge tag-green">Documentado (Greenwashing)</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>530.000 hectares de terras públicas da União grilados no sul do Amazonas (Apuí/AM)</div>
       <div class="acc-item"><div class="acc-bullet"></div>Corrupção de servidores INCRA, IPAAM e cartórios para falsificar títulos de propriedade</div>
       <div class="acc-item"><div class="acc-bullet"></div>Certificadora Verra (internacional) não verificava cadeia dominial — validou projetos fictícios</div>
@@ -738,13 +744,13 @@ h1 span { color: var(--red); }
   </div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--purple)"></div>
       <div class="acc-title">CAMADA 5 — Blindagem: Fundos de investimento em cascata (Faria Lima)</div>
       <div class="acc-badge tag-purple">Documentado</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>40+ fundos multimercado e imobiliários fechados — cotista único de cada fundo é outro fundo</div>
       <div class="acc-item"><div class="acc-bullet"></div>REAG DTVM (R$ 299bi sob gestão) como hub central — liquidada pelo BC após a operação</div>
       <div class="acc-item"><div class="acc-bullet"></div>6 fundos (Astralo 95, Hans 95, Olaf 95, Maia 95, Reag Growth 95, Anna): R$ 102,4bi — PCC + Master</div>
@@ -754,13 +760,13 @@ h1 span { color: var(--red); }
   </div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--red)"></div>
       <div class="acc-title">CAMADA 6 — Legitimação: Banco Master + banco público (BRB)</div>
       <div class="acc-badge tag-red">Documentado (Compliance Zero)</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>Master emprestava para empresas que depositavam nos fundos REAG — dinheiro circulava no mesmo dia inflando patrimônio</div>
       <div class="acc-item"><div class="acc-bullet"></div>Venda de R$ 12,2bi em carteiras de crédito consignado fictícias ao BRB (banco público do DF)</div>
       <div class="acc-item"><div class="acc-bullet"></div>Suspeita: Vorcaro era acionista oculto do BRB via fundos Borneo/Deneb (REAG) — conflito de interesses direto</div>
@@ -770,13 +776,13 @@ h1 span { color: var(--red); }
   </div>
 
   <div class="accordion">
-    <div class="accordion-header" onclick="toggleAcc(this)">
+    <div class="accordion-header open" onclick="toggleAcc(this)">
       <div class="acc-dot" style="background:var(--text3)"></div>
       <div class="acc-title">CAMADA 7 — Blindagem final: Offshores Delaware + imóveis + luxo</div>
       <div class="acc-badge tag-gray">Parcialmente documentado</div>
       <div class="acc-arrow">▼</div>
     </div>
-    <div class="accordion-body">
+    <div class="accordion-body open">
       <div class="acc-item"><div class="acc-bullet"></div>15+ LLCs em Delaware — anonimato total dos sócios, sem tributação local, abertura em 1 dia útil por US$ 250</div>
       <div class="acc-item"><div class="acc-bullet"></div>R$ 1,2bi enviados ao exterior via "contratos de mútuo" que retornam como "investimento estrangeiro" — fechando o ciclo</div>
       <div class="acc-item"><div class="acc-bullet"></div>Haddad: "crime organizado usa Delaware para lavagem + compra petróleo russo driblando sanções"</div>
@@ -1474,56 +1480,106 @@ h1 span { color: var(--red); }
   </div>
 
   <!-- RELATED ARTEFACTS -->
-  <div class="section-label" style="margin-top:64px">Artefatos Relacionados</div>
+  <div class="section-label" style="margin-top:64px">Ecossistema de Inteligência Forense — Objetos Relacionados</div>
   <div class="agrid">
-    <a href="operacao-narco-fluxo.html" class="acard">
-      <div class="abadge ab-purple">Narco Fluxo</div>
-      <div class="atitle">Captura Cultural P9/P10</div>
-      <div class="adesc">O financiamento de gravadoras e influenciadores via duto fintech.</div>
-    </a>
-    <a href="operacao-hydra-fintech-laundry.html" class="acard">
-      <div class="abadge ab-red">Operação Hydra</div>
-      <div class="atitle">Lavanderia Fintech P8</div>
-      <div class="adesc">Fluxos de R$ 6 bi e o papel das IPs reguladas na lavagem sistêmica.</div>
-    </a>
-    <a href="mapa-mental-nexo-fintech.html" class="acard">
-      <div class="abadge ab-amber">Mapa Mental</div>
-      <div class="atitle">Nexo Fintech Master/PCC</div>
-      <div class="adesc">Visualização da infraestrutura compartilhada (P10) entre duto e hub.</div>
-    </a>
     <a href="padroes-sistemicos-dashboard.html" class="acard">
-      <div class="abadge ab-red">Sistêmico</div>
-      <div class="atitle">Padrões P1–P10</div>
-      <div class="adesc">A base doutrinária que conecta todas as operações de combate à corrupção.</div>
+      <div class="abadge ab-red">Doutrina</div>
+      <div class="atitle">Mestre de Padrões P1–P10</div>
+      <div class="adesc">A base analítica que conecta as 10 falhas de design do sistema estatal brasileiro.</div>
+    </a>
+    <a href="global-kompromat.html" class="acard">
+      <div class="abadge ab-purple">Estado Capturado</div>
+      <div class="atitle">Global Kompromat</div>
+      <div class="adesc">Mapa forense de redes de influência, captura institucional e lawfare global.</div>
+    </a>
+    <a href="pcc-cv-ameaca-nacional.html" class="acard">
+      <div class="abadge ab-red">Soberania</div>
+      <div class="atitle">PCC e CV — Ameaça Global</div>
+      <div class="adesc">Dashboard sobre governança criminal e o desmonte das narrativas de segurança oficiais.</div>
+    </a>
+    <a href="brasil-falha-institucional-diagnostico.html" class="acard">
+      <div class="abadge ab-blue">Diagnóstico</div>
+      <div class="atitle">Brasil: Falha Institucional</div>
+      <div class="adesc">Análise macro sobre gasto público, impunidade e o paradoxo da economia ilícita.</div>
+    </a>
+    <a href="operacao-narco-fluxo.html" class="acard">
+      <div class="abadge ab-purple">Narcoestética</div>
+      <div class="atitle">Operação Narco Fluxo</div>
+      <div class="adesc">R$ 1,6 bi lavados via cultura, gravadoras e influenciadores digitais (P9/P10).</div>
+    </a>
+    <a href="operacao-silencio-digital.html" class="acard">
+      <div class="abadge ab-amber">Censura</div>
+      <div class="atitle">Operação Silêncio Digital</div>
+      <div class="adesc">O mecanismo de censura judicial e o bloqueio sistêmico de perfis (2020–2026).</div>
+    </a>
+    <a href="dossie-hydra-padrao-p8.html" class="acard">
+      <div class="abadge ab-blue">Fintechs</div>
+      <div class="atitle">Dossiê Hydra — Padrão P8</div>
+      <div class="adesc">A infiltração sistemática do crime organizado no duto das fintechs reguladas.</div>
     </a>
     <a href="operacao-mineracao.html" class="acard">
       <div class="abadge ab-red">Mineração</div>
-      <div class="atitle">Captura de Recursos</div>
-      <div class="adesc">Uso do hub Master para controle de minerais estratégicos e geopolítica.</div>
-    </a>
-    <a href="carbono_oculto.html" class="acard">
-      <div class="abadge ab-green">Captura Ambiental</div>
-      <div class="atitle">Operação Carbono Oculto</div>
-      <div class="adesc">Grilagem na Amazônia e o duto de R$ 98 bi em créditos fictícios.</div>
+      <div class="atitle">Operação Mineração</div>
+      <div class="adesc">Captura de minerais críticos e o ecossistema financeiro Master/PCC.</div>
     </a>
     <a href="banco-master-compliance-zero.html" class="acard">
-      <div class="abadge ab-blue">Financeiro</div>
-      <div class="atitle">Banco Master / Compliance Zero</div>
-      <div class="adesc">A ascensão atípica do banco que se tornou o hub central do sistema.</div>
+      <div class="abadge ab-blue">Hub Financeiro</div>
+      <div class="atitle">Compliance Zero / Master</div>
+      <div class="adesc">A ascensão atípica do banco que centraliza a infraestrutura de serviço do sistema.</div>
     </a>
     <a href="emaranhamento_operacoes.html" class="acard">
-      <div class="abadge ab-purple">Emaranhamento</div>
-      <div class="atitle">Matriz de Intersecção</div>
-      <div class="adesc">Cruzamento visual de atores e empresas em múltiplas operações.</div>
+      <div class="abadge ab-purple">Matriz</div>
+      <div class="atitle">Emaranhamento de Operações</div>
+      <div class="adesc">Visualização do nexo entre Lava Jato, Hydra, Master e Carbono Oculto.</div>
+    </a>
+    <a href="rede-recorrente-1999-2026.html" class="acard">
+      <div class="abadge ab-gray">Arquitetura</div>
+      <div class="atitle">Rede Recorrente</div>
+      <div class="adesc">Análise histórica das funções que se repetem no sistema jurídico-financeiro (1999–2026).</div>
+    </a>
+    <a href="dossie-juridico-nulidades-8jan.html" class="acard">
+      <div class="abadge ab-amber">Lawfare</div>
+      <div class="atitle">Nulidades do 8 de Janeiro</div>
+      <div class="adesc">Dossiê sobre violações processuais e weaponized legalism em casos políticos.</div>
+    </a>
+    <a href="mapa-mental-nexo-fintech.html" class="acard">
+      <div class="abadge ab-amber">Conexão</div>
+      <div class="atitle">Mapa Mental Nexo Fintech</div>
+      <div class="adesc">Visualização do P10 entre o hub Master e os dutos de pagamento das facções.</div>
+    </a>
+    <a href="carbono-oculto.html" class="acard">
+      <div class="abadge ab-green">Grilagem</div>
+      <div class="atitle">Mapa Forense Carbono Oculto</div>
+      <div class="adesc">A intersecção entre combustíveis, terras públicas e créditos ambientais fictícios.</div>
+    </a>
+    <a href="vaza-toga.html" class="acard">
+      <div class="abadge ab-red">Vazamento</div>
+      <div class="atitle">Vaza Toga</div>
+      <div class="adesc">Documentos e diálogos que expõem os bastidores das decisões judiciais no Brasil.</div>
+    </a>
+    <a href="controle-total-2026.html" class="acard">
+      <div class="abadge ab-red">Crítico</div>
+      <div class="atitle">Controle Total 2026</div>
+      <div class="adesc">Arquitetura do poder, crise diplomática e risco de ruptura eleitoral no Brasil.</div>
     </a>
   </div>
 
-</div>
+</div><!-- /container main -->
 
-<div class="footer">
-  <div>República Capturada — Dashboard Investigativo · CC0 1.0 Universal · Domínio Público</div>
-  <div>Dados verificáveis · Fontes primárias · Nenhum direito reservado · Fork livre</div>
-</div>
+<footer class="header" style="margin-top: 64px; border-top: 1px solid var(--border); border-bottom: none; background: transparent;">
+  <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-start; padding: 20px 0;">
+    <div style="flex: 1; min-width: 300px;">
+      <div class="cc0" style="padding: 4px 12px; font-weight: 700;"><strong><a href="https://lawfare-timeline.vercel.app" style="color:var(--text2); text-decoration:none;">LAWFARE-TIMELINE.VERCEL.APP</a></strong></div>
+      <p class="card-date" style="margin-top: 12px; font-size: 11px;">República Capturada v4.0 | Mapeamento Forense 2026</p>
+      <p class="card-date" style="font-size:10px; color:var(--text3);">CC0 1.0 Universal — Domínio Público. Nível de Acesso: Público / Desclassificado.</p>
+    </div>
+    <div class="card-date" style="font-size:10px; color:var(--text3); max-width: 500px; text-align: right;">
+      Fontes primárias: PF, COAF, Receita Federal, CVM, CNJ e STF. 
+      Análise independente via GAECO-SP e AlexndreFiles. 
+      Verificação: 20/04/2026 15:46 BRT.
+    </div>
+  </div>
+</footer>
 
 </div>
 
