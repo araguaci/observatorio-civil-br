@@ -5,24 +5,24 @@
     "tagline": "Central de inteligência civil — Brasil em Estado Crítico",
     "github": "https://github.com/araguaci/observatorio-civil-br",
     "url": "https://observatorio-civil-br.vercel.app",
-    "version": "1.3.0",
-    "updated": "2026-04-27",
+    "version": "1.4.0",
+    "updated": "2026-05-09",
     "license": "MIT",
     "maintainer": "araguaci",
-    "description": "Hub investigativo open-source com 90+ artefatos sobre crime organizado, corrupção sistêmica, captura do judiciário e colapso institucional no Brasil. Baseado exclusivamente em fontes públicas verificáveis.",
+    "description": "Hub investigativo open-source com 100+ artefatos sobre crime organizado, corrupção sistêmica, captura do judiciário e colapso institucional no Brasil. Baseado exclusivamente em fontes públicas verificáveis.",
     "methodology": "https://github.com/araguaci/observatorio-civil-br/blob/main/METHODOLOGY.md"
   },
   "stats": {
-    "totalArtifacts": 102,
+    "totalArtifacts": 108,
     "categories": {
       "Crime Organizado": 17,
-      "Corrupção Política": 37,
-      "Judiciário": 28,
+      "Corrupção Política": 42,
+      "Judiciário": 30,
       "Território & Soberania": 6,
-      "Economia": 14,
+      "Economia": 15,
       "Proteção Infantil": 2,
       "Censura & Informação": 11,
-      "Operações Investigativas": 30
+      "Operações Investigativas": 33
     },
     "criticalIndicators": {
       "territorioSobFaccoes": "26% do território nacional (FBSP 2025)",
@@ -147,7 +147,7 @@
     {
       "key": "corrupcao",
       "label": "Corrupção Política",
-      "count": 37,
+      "count": 42,
       "artifacts": [
         {
           "id": 13,
@@ -370,13 +370,43 @@
           "title": "Operação Castelo de Areia",
           "file": "operacao_castelo_de_areia.html",
           "url": "https://observatorio-civil-br.vercel.app/operacao_castelo_de_areia.html"
+        },
+        {
+          "id": 103,
+          "title": "Paradoxo Constitucional — Brasil 2019–2026",
+          "file": "paradoxo-constitucional.html",
+          "url": "https://observatorio-civil-br.vercel.app/paradoxo-constitucional.html"
+        },
+        {
+          "id": 104,
+          "title": "Assimetria Punitiva — P3 invertido (2023 × pandemia)",
+          "file": "assimetria-punitiva.html",
+          "url": "https://observatorio-civil-br.vercel.app/assimetria-punitiva.html"
+        },
+        {
+          "id": 105,
+          "title": "Pandemia Capturada — desvios Covid por UF (2020–2024)",
+          "file": "pandemia-capturada.html",
+          "url": "https://observatorio-civil-br.vercel.app/pandemia-capturada.html"
+        },
+        {
+          "id": 106,
+          "title": "Operação Mare Liberum — aduanas e porto do Rio",
+          "file": "mare-liberum.html",
+          "url": "https://observatorio-civil-br.vercel.app/mare-liberum.html"
+        },
+        {
+          "id": 107,
+          "title": "Matriz de Emaranhamento — 7 operações anticorrupção",
+          "file": "emaranhamento-operacoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/emaranhamento-operacoes.html"
         }
       ]
     },
     {
       "key": "judiciario",
       "label": "Judiciário",
-      "count": 28,
+      "count": 30,
       "artifacts": [
         {
           "id": 9,
@@ -545,6 +575,18 @@
           "title": "Persona Non Grata — Delegado da PF Expulso dos EUA",
           "file": "operacao-persona-non-grata.html",
           "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+        },
+        {
+          "id": 103,
+          "title": "Paradoxo Constitucional — Brasil 2019–2026",
+          "file": "paradoxo-constitucional.html",
+          "url": "https://observatorio-civil-br.vercel.app/paradoxo-constitucional.html"
+        },
+        {
+          "id": 104,
+          "title": "Assimetria Punitiva — P3 invertido (2023 × pandemia)",
+          "file": "assimetria-punitiva.html",
+          "url": "https://observatorio-civil-br.vercel.app/assimetria-punitiva.html"
         }
       ]
     },
@@ -594,7 +636,7 @@
     {
       "key": "economia",
       "label": "Economia",
-      "count": 14,
+      "count": 15,
       "artifacts": [
         {
           "id": 45,
@@ -679,6 +721,12 @@
           "title": "Banco Master / Compliance Zero",
           "file": "banco-master-compliance-zero.html",
           "url": "https://observatorio-civil-br.vercel.app/banco-master-compliance-zero.html"
+        },
+        {
+          "id": 108,
+          "title": "LGPD como vantagem competitiva",
+          "file": "lgpd-como-vantagem.html",
+          "url": "https://observatorio-civil-br.vercel.app/lgpd-como-vantagem.html"
         }
       ]
     },
@@ -777,7 +825,7 @@
     {
       "key": "operacoes",
       "label": "Operações Investigativas",
-      "count": 30,
+      "count": 33,
       "artifacts": [
         {
           "id": 6,
@@ -958,6 +1006,24 @@
           "title": "Persona Non Grata — Delegado da PF Expulso dos EUA",
           "file": "operacao-persona-non-grata.html",
           "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+        },
+        {
+          "id": 105,
+          "title": "Pandemia Capturada — desvios Covid por UF (2020–2024)",
+          "file": "pandemia-capturada.html",
+          "url": "https://observatorio-civil-br.vercel.app/pandemia-capturada.html"
+        },
+        {
+          "id": 106,
+          "title": "Operação Mare Liberum — aduanas e porto do Rio",
+          "file": "mare-liberum.html",
+          "url": "https://observatorio-civil-br.vercel.app/mare-liberum.html"
+        },
+        {
+          "id": 107,
+          "title": "Matriz de Emaranhamento — 7 operações anticorrupção",
+          "file": "emaranhamento-operacoes.html",
+          "url": "https://observatorio-civil-br.vercel.app/emaranhamento-operacoes.html"
         }
       ]
     }
@@ -2227,6 +2293,83 @@
       "categoryLabel": "Operações · Judiciário",
       "file": "operacao-persona-non-grata.html",
       "url": "https://observatorio-civil-br.vercel.app/operacao-persona-non-grata.html"
+    },
+    {
+      "id": 103,
+      "title": "Paradoxo Constitucional — Brasil 2019–2026",
+      "description": "Dois vetores de ruptura simultâneos (via militar × estado de exceção legal): INQ 4.781, evidências da Vaza Toga e padrões sistêmicos. URL canônica alternativa: gosurf.site.",
+      "type": "SÍNTESE INSTITUCIONAL",
+      "categories": [
+        "corrupcao",
+        "judiciario"
+      ],
+      "categoryLabel": "Corrupção · Judiciário",
+      "file": "paradoxo-constitucional.html",
+      "url": "https://observatorio-civil-br.vercel.app/paradoxo-constitucional.html"
+    },
+    {
+      "id": 104,
+      "title": "Assimetria Punitiva — P3 invertido (2023 × pandemia)",
+      "description": "Contraste entre celeridade punitiva em manifestantes e desfechos dos desvios pandêmicos documentados — padrão P3 em análise forense. Canônico gosurf.site.",
+      "type": "ESTUDO P3 / LAWFARE",
+      "categories": [
+        "judiciario",
+        "corrupcao"
+      ],
+      "categoryLabel": "Judiciário · Corrupção",
+      "file": "assimetria-punitiva.html",
+      "url": "https://observatorio-civil-br.vercel.app/assimetria-punitiva.html"
+    },
+    {
+      "id": 105,
+      "title": "Pandemia Capturada — desvios Covid por UF (2020–2024)",
+      "description": "Mapeamento forense de desvios de verbas emergenciais por UF, operações da PF e volume investigado — encadeamento aos padrões P3 e P7. Canônico gosurf.site.",
+      "type": "MAPEAMENTO FORENSE",
+      "categories": [
+        "corrupcao",
+        "operacoes"
+      ],
+      "categoryLabel": "Corrupção · Operações",
+      "file": "pandemia-capturada.html",
+      "url": "https://observatorio-civil-br.vercel.app/pandemia-capturada.html"
+    },
+    {
+      "id": 106,
+      "title": "Operação Mare Liberum — aduanas e porto do Rio",
+      "description": "Análise transversal da operação (importações, porto, volume financeiro e declarações irregulares) nos padrões sistêmicos do corpus anticorrupção. Canônico gosurf.site.",
+      "type": "DOSSIÊ OPERACIONAL",
+      "categories": [
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Operações · Corrupção",
+      "file": "mare-liberum.html",
+      "url": "https://observatorio-civil-br.vercel.app/mare-liberum.html"
+    },
+    {
+      "id": 107,
+      "title": "Matriz de Emaranhamento — 7 operações anticorrupção",
+      "description": "Mapeamento transversal de sete operações (inclui Mare Liberum): atores recorrentes, padrões e desfechos. Edição distinta de emaranhamento_operacoes.html. Canônico gosurf.site.",
+      "type": "MATRIZ SISTÊMICA",
+      "categories": [
+        "operacoes",
+        "corrupcao"
+      ],
+      "categoryLabel": "Operações · Corrupção",
+      "file": "emaranhamento-operacoes.html",
+      "url": "https://observatorio-civil-br.vercel.app/emaranhamento-operacoes.html"
+    },
+    {
+      "id": 108,
+      "title": "LGPD como vantagem competitiva",
+      "description": "Marco de proteção de dados e conformidade como barreira estratégica (moat regulatório). Canônico gosurf.site.",
+      "type": "ENSAIO REGULATÓRIO",
+      "categories": [
+        "economia"
+      ],
+      "categoryLabel": "Economia",
+      "file": "lgpd-como-vantagem.html",
+      "url": "https://observatorio-civil-br.vercel.app/lgpd-como-vantagem.html"
     }
   ]
 }
