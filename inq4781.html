@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INQ 4.781 — Inquérito das Fake News | Mapa Mental Completo</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #080b0f;
-    --surface: #0d1117;
-    --surface2: #111820;
-    --border: #1e2a35;
+    --bg: #09090b;
+    --surface: #0f0f13;
+    --surface2: #16161c;
+    --border: #252530;
+    --border-strong: #333340;
     --accent-red: #c0392b;
     --accent-red-hot: #e74c3c;
     --accent-amber: #e67e22;
@@ -30,6 +31,8 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
+
   body {
     font-family: 'IBM Plex Sans', sans-serif;
     background: var(--bg);
@@ -38,12 +41,12 @@
     line-height: 1.6;
   }
 
-  /* SCANLINE EFFECT */
+  /* SCANLINE EFFECT (harmonizado com duplo-padrão-judicial) */
   body::after {
     content: '';
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
     pointer-events: none;
     z-index: 9999;
   }
@@ -130,47 +133,126 @@
     margin-top: 4px;
   }
 
-  /* NAVIGATION TABS */
+  /* NAVIGATION — sticky + blur (referência duplo-padrão-judicial / mare-liberum) */
   .nav-tabs {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
+    z-index: 200;
+    background: rgba(9, 9, 11, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 2px solid var(--border-strong);
     padding: 0 60px;
     display: flex;
-    gap: 0;
+    gap: 2px;
     overflow-x: auto;
+    scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
 
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
   .tab-btn {
-    padding: 16px 28px;
+    flex-shrink: 0;
+    padding: 14px 20px;
     background: none;
     border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
     color: var(--text-dim);
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
+    transition: color 0.2s, border-color 0.2s;
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
   }
 
-  .tab-btn:hover { color: var(--text); border-bottom-color: var(--border); }
-  .tab-btn.active { color: var(--accent-red-hot); border-bottom-color: var(--accent-red-hot); }
+  .tab-btn:hover { color: var(--text-bright); }
+  .tab-btn.active {
+    color: var(--accent-red-hot);
+    border-bottom-color: var(--accent-red-hot);
+  }
 
-  /* CONTENT */
+  /* CONTENT — todas as secções visíveis em scroll longo */
   .content {
     max-width: 1600px;
     margin: 0 auto;
     padding: 40px 60px;
   }
 
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+  .tab-content {
+    display: block !important;
+    scroll-margin-top: 56px;
+  }
+
+  .tab-content + .tab-content {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    height: 2px;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent-red-hot);
+    width: 0%;
+  }
+
+  .go-top {
+    position: fixed;
+    right: 18px;
+    bottom: 22px;
+    z-index: 250;
+    width: 46px;
+    height: 46px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: rgba(15,15,17,0.96);
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, border-color 0.15s, color 0.15s;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .go-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .go-top:hover {
+    border-color: var(--accent-red-hot);
+    color: var(--accent-red-hot);
+  }
+
+  .go-top:focus-visible {
+    outline: 2px solid var(--accent-red-hot);
+    outline-offset: 2px;
+  }
 
   /* LEGEND BAR */
   .legend-bar {
@@ -583,7 +665,8 @@
   @media (max-width: 768px) {
     .header { padding: 24px 20px; }
     .content { padding: 24px 20px; }
-    .nav-tabs { padding: 0 20px; }
+    .nav-tabs { padding: 0 16px; }
+    .go-top { right: 12px; bottom: 16px; }
     .header-grid { grid-template-columns: 1fr; }
     .actors-grid { grid-template-columns: 1fr; }
   }
@@ -633,6 +716,9 @@
 </head>
 <body>
 
+<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+<button type="button" class="go-top" id="go-top" aria-label="Voltar ao topo">↑</button>
+
 <div class="tooltip" id="tooltip"></div>
 
 <header class="header">
@@ -643,8 +729,10 @@
       <p class="header-subtitle">
         O inquérito de natureza constitucional controversa aberto pelo STF em março de 2019 
         para investigar alegadas notícias fraudulentas, ataques e ameaças contra ministros do tribunal — 
-        que se tornaria o maior instrumento de perseguição política da Nova República segundo críticos, 
-        ou peça essencial de defesa da democracia segundo seus defensores.
+        que se tornou o maior instrumento de perseguição política da Nova República segundo críticos. 
+        Em 2025, o inquérito acumula novas vítimas: Silas Malafaia (réu sem foro e sem queixa dos ofendidos), 
+        Romeu Zema (pré-candidato à Presidência incluído por Gilmar Mendes), Gustavo Gayer, Flávio Bolsonaro. 
+        Gilmar declarou o inquérito "necessário" para as eleições de 2026.
       </p>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px;">
@@ -653,8 +741,8 @@
         <span class="badge-label">Número do Inquérito</span>
       </div>
       <div class="header-badge" style="border-color: var(--accent-amber);">
-        <span class="badge-num" style="color:var(--accent-amber);">2019</span>
-        <span class="badge-label">Abertura • STF</span>
+        <span class="badge-num" style="color:var(--accent-amber);">2019–26</span>
+        <span class="badge-label">Abertura • Em curso</span>
       </div>
       <div class="header-badge" style="border-color: var(--accent-teal);">
         <span class="badge-num" style="color:var(--accent-teal); font-size:24px;">Art. 43</span>
@@ -664,40 +752,40 @@
   </div>
 </header>
 
-<nav class="nav-tabs">
-  <button class="tab-btn active" onclick="showTab('visao-geral')">VISÃO GERAL</button>
-  <button class="tab-btn" onclick="showTab('mapa-mental')">MAPA MENTAL</button>
-  <button class="tab-btn" onclick="showTab('atores')">ATORES</button>
-  <button class="tab-btn" onclick="showTab('linha-tempo')">LINHA DO TEMPO</button>
-  <button class="tab-btn" onclick="showTab('rede')">REDE DE CONEXÕES</button>
-  <button class="tab-btn" onclick="showTab('analise-juridica')">ANÁLISE JURÍDICA</button>
+<nav class="nav-tabs" id="sticky-nav" aria-label="Seções do dossiê">
+  <a class="tab-btn active" href="#tab-visao-geral">01 · Visão geral</a>
+  <a class="tab-btn" href="#tab-mapa-mental">02 · Mapa mental</a>
+  <a class="tab-btn" href="#tab-atores">03 · Atores</a>
+  <a class="tab-btn" href="#tab-linha-tempo">04 · Linha do tempo</a>
+  <a class="tab-btn" href="#tab-rede">05 · Rede</a>
+  <a class="tab-btn" href="#tab-analise-juridica">06 · Análise jurídica</a>
 </nav>
 
 <!-- ═══════════════════ TAB: VISÃO GERAL ═══════════════════ -->
-<div class="tab-content active content" id="tab-visao-geral">
+<div class="tab-content content" id="tab-visao-geral">
   <h2 class="section-title">Visão Geral do Inquérito</h2>
   <p class="section-subtitle">CONTEXTUALIZAÇÃO • ORIGEM • ESTRUTURA • IMPACTO</p>
 
   <div class="stats-row">
     <div class="stat-card">
-      <span class="stat-num" style="color:var(--accent-red);">100+</span>
+      <span class="stat-num" style="color:var(--accent-red);">150+</span>
       <span class="stat-desc">Investigados ao longo do processo</span>
     </div>
     <div class="stat-card">
-      <span class="stat-num" style="color:var(--accent-amber);">5+</span>
+      <span class="stat-num" style="color:var(--accent-amber);">7+</span>
       <span class="stat-desc">Anos de duração ativa</span>
     </div>
     <div class="stat-card">
       <span class="stat-num" style="color:var(--accent-gold);">Moraes</span>
-      <span class="stat-desc">Relator principal</span>
+      <span class="stat-desc">Relator sem sorteio</span>
     </div>
     <div class="stat-card">
       <span class="stat-num" style="color:var(--accent-blue);">Art. 43</span>
-      <span class="stat-desc">Fundamento no RISTF</span>
+      <span class="stat-desc">RISTF — fundamento ilegítimo</span>
     </div>
     <div class="stat-card">
-      <span class="stat-num" style="color:var(--accent-purple);">PGR</span>
-      <span class="stat-desc">Questionou abertura</span>
+      <span class="stat-num" style="color:var(--accent-purple);">Gonet</span>
+      <span class="stat-desc">PGR — braço acusador</span>
     </div>
   </div>
 
@@ -727,43 +815,67 @@
       <h3>Uso como Arma Política — Visão Crítica <span>ANÁLISE</span></h3>
       <div class="legal-point">
         <div class="legal-point-num">01</div>
-        <div class="legal-point-text"><strong>Ampliação do escopo:</strong> Originado para investigar fake news sobre o STF, rapidamente expandiu para incluir qualquer crítica a ministros, jornalistas, políticos e militares que discordassem das decisões do tribunal.</div>
+        <div class="legal-point-text"><strong>Ampliação permanente do escopo:</strong> Originado para investigar fake news sobre o STF, expandiu para incluir qualquer crítica a ministros, políticos e militares. Em 2025, alcança pastores, governadores e senadores sem foro privilegiado.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">02</div>
-        <div class="legal-point-text"><strong>Moraes como delegado e juiz:</strong> Alexandre de Moraes acumulou funções de investigador, acusador e julgador no mesmo processo — violação flagrante do sistema acusatório segundo juristas.</div>
+        <div class="legal-point-text"><strong>Moraes como delegado e juiz:</strong> Acumula funções de investigador, acusador e julgador no mesmo processo — e assume relatoria de casos por "conexão" sem sorteio, nulidade processual segundo juristas.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">03</div>
-        <div class="legal-point-text"><strong>Sigilo como instrumento:</strong> Investigados tomaram conhecimento de suas situações apenas após medidas já decretadas, inviabilizando a ampla defesa.</div>
+        <div class="legal-point-text"><strong>Sigilo como instrumento:</strong> Investigados tomam conhecimento de suas situações apenas após medidas já decretadas, inviabilizando a ampla defesa.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">04</div>
-        <div class="legal-point-text"><strong>Ausência de prazo:</strong> O inquérito não tem prazo definido para encerramento, permitindo manutenção permanente de investigados em estado de incerteza jurídica.</div>
+        <div class="legal-point-text"><strong>Arma eleitoral declarada:</strong> Gilmar Mendes declarou publicamente em 2025 que o inquérito será "necessário" nas eleições de 2026 — convertendo o processo em instrumento de gestão eleitoral explícita.</div>
+      </div>
+      <div class="legal-point">
+        <div class="legal-point-num">05</div>
+        <div class="legal-point-text"><strong>Duplo padrão como norma:</strong> Gayer tornado réu por associar Lula ao nazismo; Dino associa Bolsonaro ao nazismo e o chama de "serial killer" sem qualquer processo. A assimetria não é acidente — é o método.</div>
+      </div>
+      <div class="legal-point">
+        <div class="legal-point-num">06</div>
+        <div class="legal-point-text"><strong>PGR capturada:</strong> Paulo Gonet, ex-sócio de Gilmar Mendes, nomeado por Lula, opera como chancela acusatória do consórcio STF/governo. Ignorou contrato de R$ 129M entre Vorcaro e escritório da mulher de Moraes; moveu denúncias contra críticos por meias inferências.</div>
       </div>
     </div>
 
     <div class="legal-section">
-      <h3>Principais Alvos e Investigados <span>PERSEGUIÇÃO</span></h3>
+      <h3>Alvos e Investigados — 2019/2026 <span>PERSEGUIÇÃO</span></h3>
       <div class="legal-point">
         <div class="legal-point-num">►</div>
-        <div class="legal-point-text"><strong>Tiago Pavinatto</strong> — Youtuber conservador, entre os mais notórios alvos; teve contas bloqueadas e enfrentou processos por críticas ao STF.</div>
+        <div class="legal-point-text"><strong>Tiago Pavinatto</strong> — Youtuber conservador; contas bloqueadas, vídeos removidos, processos por críticas ao STF.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">►</div>
-        <div class="legal-point-text"><strong>Alexandre Frota</strong> — Ex-ator, ex-deputado, transitou de aliado a crítico de Bolsonaro; incluído no radar por declarações públicas.</div>
+        <div class="legal-point-text"><strong>Allan dos Santos</strong> — Terça Livre; preso in abstentia, foragido nos EUA, extradição negada.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">►</div>
-        <div class="legal-point-text"><strong>Madeleine Lacsko</strong> — Ativista e produtora de conteúdo conservador, investigada por suposta disseminação de conteúdo contra o tribunal.</div>
+        <div class="legal-point-text"><strong>Roberto Jefferson</strong> — Ex-deputado; preso duas vezes, escalada de confronto armado com a PF.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">►</div>
-        <div class="legal-point-text"><strong>General Santos Cruz</strong> — Ex-ministro, envolvido em tensões com o campo bolsonarista; enquadrado no contexto das disputas entre militares e STF.</div>
+        <div class="legal-point-text"><strong>Madeleine Lacsko / Alexandre Frota / Filipe Martins</strong> — produtores de conteúdo e políticos do campo conservador.</div>
       </div>
       <div class="legal-point">
         <div class="legal-point-num">►</div>
-        <div class="legal-point-text"><strong>Luciano Ayan</strong> — Articulador do PL das Fake News, envolvido em pressões para regulação de conteúdo digital; figura ligada ao ecossistema institucional de controle da narrativa.</div>
+        <div class="legal-point-text"><strong>Silas Malafaia</strong> <span style="color:var(--accent-red);font-family:'IBM Plex Mono',monospace;font-size:10px;">NOVO 2025</span> — Pastor; réu por chamar generais de "frouxos". Sem foro. Sem queixa. Sem sorteio.</div>
+      </div>
+      <div class="legal-point">
+        <div class="legal-point-num">►</div>
+        <div class="legal-point-text"><strong>Romeu Zema</strong> <span style="color:var(--accent-red);font-family:'IBM Plex Mono',monospace;font-size:10px;">NOVO 2025</span> — Gov. MG, pré-candidato 2026; incluído por Gilmar após vídeo satírico. Sem competência do STF.</div>
+      </div>
+      <div class="legal-point">
+        <div class="legal-point-num">►</div>
+        <div class="legal-point-text"><strong>Gustavo Gayer</strong> <span style="color:var(--accent-red);font-family:'IBM Plex Mono',monospace;font-size:10px;">NOVO 2025</span> — Dep. Federal; réu por analogia ao nazismo enquanto Dino faz o mesmo sem consequências.</div>
+      </div>
+      <div class="legal-point">
+        <div class="legal-point-num">►</div>
+        <div class="legal-point-text"><strong>Flávio Bolsonaro</strong> <span style="color:var(--accent-red);font-family:'IBM Plex Mono',monospace;font-size:10px;">NOVO 2025</span> — Senador; investigado por post sobre Foro de São Paulo enquanto o campo governista acusa genocídio impunemente.</div>
+      </div>
+      <div class="legal-point">
+        <div class="legal-point-num">►</div>
+        <div class="legal-point-text"><strong>Blogueiro / parentes Dino</strong> <span style="color:var(--accent-red);font-family:'IBM Plex Mono',monospace;font-size:10px;">NOVO 2025</span> — Busca e apreensão por publicações sobre familiares do ministro Flávio Dino.</div>
       </div>
     </div>
   </div>
@@ -1078,13 +1190,180 @@
       </div>
     </div>
 
+
+    <!-- SILAS MALAFAIA -->
+    <div class="actor-card role-media">
+      <div class="actor-header">
+        <div class="actor-name">Silas Malafaia</div>
+        <div class="actor-role-badge badge-media">Réu — 2025</div>
+      </div>
+      <div class="actor-position">Pastor evangélico • Liderança religiosa conservadora • Crítico vocal do STF</div>
+      <div class="actor-desc">
+        Tornado réu pelo STF por injúria após chamar generais de "frouxos", "covardes" e "omissos" — linguagem comum no debate político, protegida pela liberdade de expressão. O caso concentra três ilegalidades simultâneas: (1) Malafaia não tem foro privilegiado no STF; (2) os supostos ofendidos não apresentaram queixa; (3) a relatoria foi atribuída a Moraes por "conexão" com o INQ 4.781, sem sorteio — procedimento que constitui, segundo juristas, nulidade absoluta. O editorial do Estadão o qualifica como "compêndio das ilegalidades" do tribunal. Caso emblemático da criminalização da hipérbole política.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">Sem foro privilegiado</span>
+        <span class="tag">Sem queixa dos ofendidos</span>
+        <span class="tag">Relatoria sem sorteio</span>
+        <span class="tag">Injúria política</span>
+        <span class="tag">Incompetência absoluta</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:90%; background:var(--severity-critical)"></div></div>
+        <span class="sev-label" style="color:var(--severity-critical)">CRÍTICO</span>
+      </div>
+    </div>
+
+    <!-- ROMEU ZEMA -->
+    <div class="actor-card role-politician">
+      <div class="actor-header">
+        <div class="actor-name">Romeu Zema</div>
+        <div class="actor-role-badge badge-politician">Alvo — 2025</div>
+      </div>
+      <div class="actor-position">Governador de Minas Gerais • Pré-candidato à Presidência 2026 • Novo</div>
+      <div class="actor-desc">
+        Pré-candidato à Presidência incluído no INQ 4.781 por solicitação do ministro Gilmar Mendes, após publicar vídeo com fantoches do próprio Gilmar. O STF não tem competência para julgá-lo: governadores com prerrogativa de foro no STJ, e o foro por prerrogativa não se estende a pré-candidatos. A inclusão de um adversário eleitoral de Lula no inquérito — via Gilmar, enquanto o STF declarava o inquérito "necessário" nas eleições — concentra o padrão de uso seletivo do aparato penal como instrumento de neutralização política eleitoral.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">Governador MG</span>
+        <span class="tag">Pré-candidato 2026</span>
+        <span class="tag">Incompetência STF</span>
+        <span class="tag">Vídeo-sátira</span>
+        <span class="tag">Gilmar solicitou</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:88%; background:var(--severity-critical)"></div></div>
+        <span class="sev-label" style="color:var(--severity-critical)">CRÍTICO</span>
+      </div>
+    </div>
+
+    <!-- GUSTAVO GAYER -->
+    <div class="actor-card role-politician">
+      <div class="actor-header">
+        <div class="actor-name">Gustavo Gayer</div>
+        <div class="actor-role-badge badge-politician">Réu — 1ª Turma</div>
+      </div>
+      <div class="actor-position">Deputado Federal • PL/GO • Crítico do STF e do governo Lula</div>
+      <div class="actor-desc">
+        Tornado réu pela 1ª Turma do STF por associar o presidente Lula ao nazismo. O caso documenta a contradição jurisprudencial em estado bruto: o deputado José Neto chamou o próprio Gayer de "nazista" — denúncia rejeitada pela mesma 1ª Turma. O ministro Flávio Dino associou Bolsonaro ao nazismo e o chamou de "serial killer" — sem qualquer processo. O duplo padrão de aplicação do tipo penal é a própria evidência do uso seletivo da lei como instrumento político.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">Deputado federal PL</span>
+        <span class="tag">1ª Turma STF</span>
+        <span class="tag">Duplo padrão</span>
+        <span class="tag">Analogia ao nazismo</span>
+        <span class="tag">Criminalização política</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:82%; background:var(--severity-high)"></div></div>
+        <span class="sev-label" style="color:var(--severity-high)">ALTO</span>
+      </div>
+    </div>
+
+    <!-- FLÁVIO BOLSONARO -->
+    <div class="actor-card role-politician">
+      <div class="actor-header">
+        <div class="actor-name">Flávio Bolsonaro</div>
+        <div class="actor-role-badge badge-politician">Investigado — 2025</div>
+      </div>
+      <div class="actor-position">Senador • PL/RJ • Principal adversário do campo governista em 2026</div>
+      <div class="actor-desc">
+        Moraes abriu inquérito contra Flávio Bolsonaro por post que menciona Lula e acusa o Foro de São Paulo de crimes — enquanto o próprio Lula e correligionários acusaram Jair Bolsonaro de genocídio em inúmeras ocasiões sem qualquer consequência processual. A simetria quebrada — crítica ao governo gera inquérito, acusação pelo governo não gera nada — documenta o princípio de seletividade como norma operacional do STF/PGR, e não como exceção.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">Senador PL/RJ</span>
+        <span class="tag">Post sobre Foro SP</span>
+        <span class="tag">Seletividade penal</span>
+        <span class="tag">Adversário eleitoral</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:80%; background:var(--severity-high)"></div></div>
+        <span class="sev-label" style="color:var(--severity-high)">ALTO</span>
+      </div>
+    </div>
+
+    <!-- BLOGUEIRO ALVO DE BUSCA / PARENTES DINO -->
+    <div class="actor-card role-target">
+      <div class="actor-header">
+        <div class="actor-name">Blogueiro + Parentes Dino</div>
+        <div class="actor-role-badge badge-target">Alvo — Busca e Apreensão</div>
+      </div>
+      <div class="actor-position">Cidadão anônimo • Alvo de busca e apreensão por criticar parentes do ministro Flávio Dino</div>
+      <div class="actor-desc">
+        Moraes ordenou busca e apreensão contra um blogueiro por publicações sobre parentes do ministro Flávio Dino — utilizando o INQ 4.781 como base processual. O caso representa a face mais crua do padrão: membros do tribunal passaram a ter seus familiares protegidos pelo aparato penal do próprio tribunal. Manifestações jornalísticas sobre a vida pública de ministros ou seus círculos tornaram-se objeto de persecução penal, eliminando qualquer separação entre a pessoa do magistrado e a instituição que ele tutela.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">Busca e apreensão</span>
+        <span class="tag">Crítica a parentes Dino</span>
+        <span class="tag">Jornalismo perseguido</span>
+        <span class="tag">INQ como escudo pessoal</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:78%; background:var(--severity-high)"></div></div>
+        <span class="sev-label" style="color:var(--severity-high)">ALTO</span>
+      </div>
+    </div>
+
+    <!-- GILMAR MENDES como ator expansor -->
+    <div class="actor-card role-judge">
+      <div class="actor-header">
+        <div class="actor-name">Gilmar Mendes</div>
+        <div class="actor-role-badge badge-judge">Expansor Ativo</div>
+      </div>
+      <div class="actor-position">Ministro STF • Decano • Solicitou inclusão de adversários eleitorais no inquérito</div>
+      <div class="actor-desc">
+        Formalmente não é relator do INQ 4.781, mas atua como vetor de expansão de seus alvos: solicitou a inclusão do governador Romeu Zema no inquérito após vídeo satírico com fantoches do próprio Gilmar. Declarou publicamente que o inquérito será "necessário" nas eleições de 2026 — transformando o processo num instrumento explícito de gestão eleitoral. Simultaneamente, abriu queixa-crime pessoal contra um influencer que o chamou de "gordola". O consórcio STF/PGR opera com Gonet (ex-sócio de Gilmar) como chancela acusatória.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">Solicitou inclusão Zema</span>
+        <span class="tag">Instrumento eleitoral 2026</span>
+        <span class="tag">Queixa-crime pessoal</span>
+        <span class="tag">Ex-sócio de Gonet/PGR</span>
+        <span class="tag">Decano STF</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:93%; background:var(--severity-critical)"></div></div>
+        <span class="sev-label" style="color:var(--severity-critical)">CRÍTICO</span>
+      </div>
+    </div>
+
+    <!-- PAULO GONET -->
+    <div class="actor-card role-operator">
+      <div class="actor-header">
+        <div class="actor-name">Paulo Gonet</div>
+        <div class="actor-role-badge badge-operator">PGR — Braço Acusador</div>
+      </div>
+      <div class="actor-position">Procurador-Geral da República • Ex-sócio de Gilmar Mendes • Nomeado por Lula</div>
+      <div class="actor-desc">
+        Ex-sócio de Gilmar Mendes, nomeado PGR pelo governo Lula, opera segundo o editorial do Estadão como "fiel tarefeiro de seu ex-sócio e companhia limitada". Oferece denúncias contra críticos do governo e do STF com base em meias inferências; ignorou o contrato de R$ 129 milhões entre Daniel Vorcaro (Banco Master) e o escritório de advocacia da mulher de Alexandre de Moraes — que sequer foi tratado como indício. A PGR, que deveria funcionar como contrapeso acusatório independente, foi capturada para operar como linha de montagem da persecução seletiva.
+      </div>
+      <div class="actor-tags">
+        <span class="tag">PGR desde 2023</span>
+        <span class="tag">Ex-sócio Gilmar</span>
+        <span class="tag">Nomeado por Lula</span>
+        <span class="tag">Seletividade acusatória</span>
+        <span class="tag">Captura do MP</span>
+      </div>
+      <div class="severity-indicator">
+        <span class="sev-label">IMPACTO</span>
+        <div class="sev-bar"><div class="sev-fill" style="width:88%; background:var(--severity-critical)"></div></div>
+        <span class="sev-label" style="color:var(--severity-critical)">CRÍTICO</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <!-- ═══════════════════ TAB: LINHA DO TEMPO ═══════════════════ -->
 <div class="tab-content content" id="tab-linha-tempo">
   <h2 class="section-title">Linha do Tempo</h2>
-  <p class="section-subtitle">CRONOLOGIA COMPLETA • 2019 — 2024+</p>
+  <p class="section-subtitle">CRONOLOGIA COMPLETA • 2019 — 2026</p>
 
   <div class="legend-bar">
     <span class="legend-label">EVENTOS:</span>
@@ -1178,10 +1457,50 @@
 
     <div class="timeline-item">
       <div class="timeline-dot" style="background:var(--severity-info)"></div>
-      <div class="timeline-date">2024 — HOJE</div>
+      <div class="timeline-date">2024 — 2025</div>
       <div class="timeline-title">Inquérito Permanece Aberto — Sem Prazo de Encerramento</div>
       <div class="timeline-desc">O INQ 4.781 continua ativo, sem previsão de encerramento. Novas investigações derivadas incluem o processo do golpe de Estado envolvendo Bolsonaro e militares. O inquérito das fake news funciona como raiz de um ecossistema de processos interligados que mantém dezenas de pessoas sob investigação permanente sem julgamento definitivo.</div>
       <span class="timeline-severity sev-info">EM CURSO</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--severity-critical)"></div>
+      <div class="timeline-date">2025</div>
+      <div class="timeline-title">Silas Malafaia Tornado Réu — Incompetência Absoluta</div>
+      <div class="timeline-desc">O STF torna réu o pastor Silas Malafaia por injúria após chamar generais de "frouxos", "covardes" e "omissos". Três ilegalidades acumuladas: Malafaia não tem foro no STF; os supostos ofendidos não apresentaram queixa; a relatoria foi atribuída a Moraes por "conexão" com o INQ 4.781 sem sorteio. O editorial do Estadão o qualifica como "compêndio das ilegalidades" do tribunal e "biópsia do Estado policial". A linguagem é feijão com arroz do debate político — suficiente para mover o maquinário penal da Corte.</div>
+      <span class="timeline-severity sev-critical">RUPTURA DO DEVIDO PROCESSO</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--severity-critical)"></div>
+      <div class="timeline-date">2025</div>
+      <div class="timeline-title">Gilmar Solicita Inclusão de Zema — Instrumento Eleitoral Declarado</div>
+      <div class="timeline-desc">O ministro Gilmar Mendes solicita a inclusão do governador Romeu Zema — pré-candidato à Presidência em 2026 — no INQ 4.781, após vídeo satírico com fantoches do próprio Gilmar. Gilmar declarou publicamente que o inquérito será "necessário" nas eleições, convertendo o processo num instrumento explícito de gestão eleitoral. Zema não tem foro no STF para esse tipo de ação. O caso aproxima o Brasil do padrão de uso judicial para eliminação de adversários eleitorais documentado na literatura sobre autocratização competitiva.</div>
+      <span class="timeline-severity sev-critical">WEAPONIZAÇÃO ELEITORAL</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--severity-high)"></div>
+      <div class="timeline-date">2025</div>
+      <div class="timeline-title">Duplo Padrão Gayer/Neto — Jurisprudência à La Carte</div>
+      <div class="timeline-desc">A 1ª Turma do STF torna réu o deputado Gustavo Gayer por associar Lula ao nazismo. A mesma 1ª Turma rejeita denúncia do próprio Gayer contra o deputado José Neto, que o chamara de "nazista". O ministro Dino associou Bolsonaro ao nazismo e o chamou de "serial killer" — sem qualquer processo. O mesmo Dino abriu queixa-crime pessoal contra influencer que o chamou de "gordola". O princípio Beria opera abertamente: a lei é servida à la carte conforme quem é o alvo.</div>
+      <span class="timeline-severity sev-high">DUPLO PADRÃO SISTÊMICO</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--severity-high)"></div>
+      <div class="timeline-date">2025</div>
+      <div class="timeline-title">Flávio Bolsonaro Investigado — Simetria Zero</div>
+      <div class="timeline-desc">Moraes abre inquérito contra Flávio Bolsonaro por post que menciona Lula e acusa o Foro de São Paulo de crimes. Paralelamente, Lula e correligionários — incluindo Dino — acusaram Jair Bolsonaro de genocídio em inúmeras ocasiões sem qualquer processo. A seletividade é a norma: para críticos do campo governista, meia inferência basta; para o campo governista, nem um contrato de R$ 129 milhões entre Vorcaro e o escritório da mulher de Moraes é tratado como indício pela PGR.</div>
+      <span class="timeline-severity sev-high">SELETIVIDADE PENAL</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--severity-critical)"></div>
+      <div class="timeline-date">2025 — 2026</div>
+      <div class="timeline-title">Estado de Exceção Permanente — Pré-Eleições 2026</div>
+      <div class="timeline-desc">Com o INQ 4.781 ativo por mais de 7 anos, Gilmar declarado o inquérito "necessário" para as eleições de 2026, e novas vítimas sendo incorporadas (Malafaia, Zema, Gayer, Flávio Bolsonaro), o inquérito funciona como instrumento de controle político pré-eleitoral. O editorial do Estadão sintetiza: "Ninguém sabe exatamente o que pode dizer, quem pode julgá-lo e segundo quais regras. O cidadão já não responde pelo que faz, mas por quem é e por quem desagrada." O nome disso, conclui o editorial, é conhecido — e não é Estado Democrático de Direito.</div>
+      <span class="timeline-severity sev-critical">EXCEÇÃO PERMANENTE</span>
     </div>
 
   </div>
@@ -1309,17 +1628,67 @@
 </div>
 
 <script>
-// ═══════════════════ TAB SYSTEM ═══════════════════
-function showTab(id) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  event.target.classList.add('active');
+// ═══════════════════ NAVEGAÇÃO LONGA + SCROLLSPY (duplo-padrão-judicial) ═══════════════════
+(function () {
+  const prog = document.getElementById('prog');
+  const nav = document.getElementById('sticky-nav');
+  const goTop = document.getElementById('go-top');
+  if (!nav || !prog || !goTop) return;
 
-  if (id === 'mapa-mental') setTimeout(setupMindMap, 50);
-  if (id === 'rede') setTimeout(drawNetwork, 100);
-}
+  const NAV_H = () => nav.offsetHeight + 4;
 
+  window.addEventListener('scroll', function () {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (total > 0) prog.style.width = (window.scrollY / total * 100) + '%';
+    goTop.classList.toggle('is-visible', window.scrollY > 360);
+  }, { passive: true });
+
+  goTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    const id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    a.addEventListener('click', function (e) {
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - NAV_H();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    });
+  });
+
+  const sections = [
+    'tab-visao-geral', 'tab-mapa-mental', 'tab-atores',
+    'tab-linha-tempo', 'tab-rede', 'tab-analise-juridica'
+  ];
+  const navLinks = {};
+  document.querySelectorAll('#sticky-nav a').forEach(function (a) {
+    navLinks[a.getAttribute('href').slice(1)] = a;
+  });
+
+  function getOffsetTop(el) {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function updateActiveNav() {
+    const y = window.scrollY + NAV_H() + 28;
+    let active = sections[0];
+    for (let i = 0; i < sections.length; i++) {
+      const sid = sections[i];
+      const el = document.getElementById(sid);
+      if (el && getOffsetTop(el) <= y) active = sid;
+    }
+    Object.keys(navLinks).forEach(function (k) {
+      navLinks[k].classList.remove('active');
+    });
+    if (navLinks[active]) navLinks[active].classList.add('active');
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+})();
 // ═══════════════════ MIND MAP ═══════════════════
 let mmScale = 1, mmOffX = 0, mmOffY = 0;
 let mmDragging = false, mmLastX = 0, mmLastY = 0;
@@ -1346,6 +1715,12 @@ const nodes = [
   { id: 16, label: 'Twitter\nFiles BR', sub: 'Revelações', x: -460, y: -200, r: 26, color: '#1a5276', textColor: '#fff' },
   { id: 17, label: 'PGR\nQuestionou', sub: 'Raquel Dodge', x: 150, y: -440, r: 26, color: '#117a65', textColor: '#fff' },
   { id: 18, label: 'Art. 43\nRISTF', sub: 'Fundamento', x: 400, y: -280, r: 26, color: '#7d6608', textColor: '#fff' },
+  { id: 19, label: 'Silas\nMalafaia', sub: 'Réu 2025', x: -200, y: 360, r: 34, color: '#8e44ad', textColor: '#fff' },
+  { id: 20, label: 'Romeu\nZema', sub: 'Alvo eleitoral', x: -360, y: 280, r: 32, color: '#2471a3', textColor: '#fff' },
+  { id: 21, label: 'Gustavo\nGayer', sub: 'Réu 1ª Turma', x: 60, y: 400, r: 30, color: '#2471a3', textColor: '#fff' },
+  { id: 22, label: 'Flávio\nBolsonaro', sub: 'Investigado', x: -60, y: -460, r: 30, color: '#2471a3', textColor: '#fff' },
+  { id: 23, label: 'Gilmar\nMendes', sub: 'Expansor', x: -500, y: 60, r: 34, color: '#7b241c', textColor: '#fff' },
+  { id: 24, label: 'Paulo\nGonet', sub: 'PGR 2023', x: 560, y: 60, r: 32, color: '#117a65', textColor: '#fff' },
 ];
 
 const edges = [
@@ -1358,6 +1733,10 @@ const edges = [
   [4,5,'REDE'], [5,6,'CAMPO'], [6,7,'CAMPO'],
   [1,12,'INVESTIGOU'], [12,14,'ENVOLVIDO'],
   [15,2,'VOTOU CONTRA'], [14,0,'AGRAVOU'],
+  [0,19,'TORNOU RÉU'], [23,20,'SOLICITOU'], [0,20,'INCLUIU'],
+  [0,21,'TORNOU RÉU'], [0,22,'INQUÉRITO'],
+  [23,0,'EXPANDE'], [24,0,'CHANCELA'],
+  [23,24,'EX-SÓCIOS'],
 ];
 
 function setupMindMap() {
@@ -1369,22 +1748,25 @@ function setupMindMap() {
   mmOffX = W/2;
   mmOffY = 350;
 
-  canvas.addEventListener('mousedown', e => { mmDragging=true; mmLastX=e.clientX; mmLastY=e.clientY; });
-  canvas.addEventListener('mouseup', () => mmDragging=false);
-  canvas.addEventListener('mouseleave', () => mmDragging=false);
-  canvas.addEventListener('mousemove', e => {
-    if(mmDragging){ mmOffX += e.clientX-mmLastX; mmOffY += e.clientY-mmLastY; mmLastX=e.clientX; mmLastY=e.clientY; drawMindMap(); }
-    else {
-      const rect = canvas.getBoundingClientRect();
-      const mx = (e.clientX-rect.left-mmOffX)/mmScale;
-      const my = (e.clientY-rect.top-mmOffY)/mmScale;
-      const tip = document.getElementById('tooltip');
-      const hit = nodes.find(n => Math.hypot(n.x-mx,n.y-my)<n.r+5);
-      if(hit){ tip.style.display='block'; tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY-10)+'px'; tip.innerHTML=`<strong>${hit.label.replace('\n',' ')}</strong>${hit.sub}`; }
-      else tip.style.display='none';
-    }
-  });
-  canvas.addEventListener('wheel', e => { e.preventDefault(); mmScale = Math.max(0.4, Math.min(2.5, mmScale*(e.deltaY<0?1.1:0.9))); drawMindMap(); });
+  if (!canvas._inqMmListeners) {
+    canvas._inqMmListeners = true;
+    canvas.addEventListener('mousedown', e => { mmDragging=true; mmLastX=e.clientX; mmLastY=e.clientY; });
+    canvas.addEventListener('mouseup', () => mmDragging=false);
+    canvas.addEventListener('mouseleave', () => mmDragging=false);
+    canvas.addEventListener('mousemove', e => {
+      if(mmDragging){ mmOffX += e.clientX-mmLastX; mmOffY += e.clientY-mmLastY; mmLastX=e.clientX; mmLastY=e.clientY; drawMindMap(); }
+      else {
+        const rect = canvas.getBoundingClientRect();
+        const mx = (e.clientX-rect.left-mmOffX)/mmScale;
+        const my = (e.clientY-rect.top-mmOffY)/mmScale;
+        const tip = document.getElementById('tooltip');
+        const hit = nodes.find(n => Math.hypot(n.x-mx,n.y-my)<n.r+5);
+        if(hit){ tip.style.display='block'; tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY-10)+'px'; tip.innerHTML=`<strong>${hit.label.replace('\n',' ')}</strong>${hit.sub}`; }
+        else tip.style.display='none';
+      }
+    });
+    canvas.addEventListener('wheel', e => { e.preventDefault(); mmScale = Math.max(0.4, Math.min(2.5, mmScale*(e.deltaY<0?1.1:0.9))); drawMindMap(); });
+  }
   drawMindMap();
 }
 
@@ -1485,8 +1867,13 @@ const netNodes = [
   { id:11, label:'F.Martins', color:'#2471a3', x:300,y:120, r:18, group:'target' },
   { id:12, label:'Bloqueio X', color:'#1a5276', x:160,y:100, r:18, group:'act' },
   { id:13, label:'8/Jan', color:'#922b21', x:500,y:80, r:20, group:'act' },
-  { id:14, label:'PGR', color:'#117a65', x:680,y:440, r:16, group:'inst' },
+  { id:14, label:'Gonet/PGR', color:'#117a65', x:680,y:440, r:20, group:'inst' },
   { id:15, label:'M.Aurélio', color:'#117a65', x:260,y:60, r:16, group:'stf' },
+  { id:16, label:'Malafaia', color:'#8e44ad', x:220,y:580, r:26, group:'target' },
+  { id:17, label:'Zema', color:'#2471a3', x:80,y:520, r:24, group:'target' },
+  { id:18, label:'Gayer', color:'#2471a3', x:580,y:520, r:22, group:'target' },
+  { id:19, label:'Fl.Bolsonaro', color:'#2471a3', x:700,y:300, r:20, group:'target' },
+  { id:20, label:'Gilmar', color:'#7b241c', x:100,y:380, r:28, group:'stf' },
 ];
 
 const netEdges = [
@@ -1494,6 +1881,8 @@ const netEdges = [
   [1,8],[1,0],[1,11],[1,13],
   [8,9],[9,10],[2,3],[3,4],[4,6],
   [13,0],[12,0],[14,1],[15,1],
+  [0,16],[0,18],[0,19],[20,17],[0,17],
+  [20,0],[14,0],[20,14],
 ];
 
 function drawNetwork() {
@@ -1538,7 +1927,7 @@ function drawNetwork() {
   });
 
   // Legend
-  const groups = [{c:'#c0392b',l:'STF/Judiciário'},{c:'#8e44ad',l:'Investigados/Mídia'},{c:'#2471a3',l:'Políticos'},{c:'#d35400',l:'Militares'},{c:'#b7950b',l:'Instrumentos Legis.'},{c:'#117a65',l:'Dissidentes/Inst.'}];
+  const groups = [{c:'#c0392b',l:'STF/Judiciário'},{c:'#8e44ad',l:'Investigados/Mídia'},{c:'#2471a3',l:'Políticos alvo'},{c:'#d35400',l:'Militares'},{c:'#b7950b',l:'Instrumentos Legis.'},{c:'#117a65',l:'PGR'},{c:'#7b241c',l:'STF Expansores'}];
   groups.forEach((g,i) => {
     ctx.beginPath(); ctx.arc(20, 20+i*22, 6, 0, Math.PI*2);
     ctx.fillStyle=g.c; ctx.fill();
@@ -1550,14 +1939,17 @@ function drawNetwork() {
 
 function resetNetwork() { drawNetwork(); }
 
-// Init
+// Init canvas (todas as seções visíveis — inicializar ao carregar)
 window.addEventListener('load', () => {
-  const tab = document.getElementById('tab-mapa-mental');
-  if (tab && tab.classList.contains('active')) setupMindMap();
+  setTimeout(() => {
+    setupMindMap();
+    drawNetwork();
+  }, 80);
+
   window.addEventListener('resize', () => {
     const c = document.getElementById('mindmap-canvas');
     const tabMm = document.getElementById('tab-mapa-mental');
-    if (c && tabMm && tabMm.classList.contains('active')) {
+    if (c && tabMm && c._inqMmListeners) {
       const W = Math.max(c.offsetWidth || c.parentElement?.offsetWidth || 800, 400);
       c.width = W;
       c.height = 700;
@@ -1565,6 +1957,7 @@ window.addEventListener('load', () => {
       mmOffY = 350;
       drawMindMap();
     }
+    drawNetwork();
   });
 });
 </script>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Greenwashing — Dossiê Forense</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080e0d;--bg2:#0d1a18;--bg3:#112220;--bg4:#162d2a;
+  --gr:#22c55e;--gr2:#4ade80;--gr-dim:#15803d;--gr-glow:rgba(34,197,94,0.12);
+  --red:#ef4444;--red2:#f87171;--red-dim:#7f1d1d;
+  --amber:#f59e0b;--amber2:#fcd34d;--amber-dim:#78350f;
+  --blue:#3b82f6;--blue2:#93c5fd;--blue-dim:#1e3a5f;
+  --teal:#14b8a6;--teal2:#5eead4;--teal-dim:#0f766e;
+  --purple:#a78bfa;--purple2:#c4b5fd;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --text:#dff0eb;--text2:#7da89f;--text3:#4a706a;
+  --font:'Syne',sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6}
+
+/* ── NOISE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── HEADER ── */
+header{
+  padding:32px 30px 22px;
+  border-bottom:2px solid var(--gr-dim);
+  background:linear-gradient(135deg,#080e0d 0%,#0d2218 50%,#080e0d 100%);
+  position:relative;overflow:hidden;z-index:1;
+}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 35% 50%,rgba(34,197,94,0.09) 0%,transparent 60%);pointer-events:none}
+header::after{content:'';position:absolute;top:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gr),var(--gr2),transparent)}
+.hbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,0.1);border:1px solid var(--gr-dim);border-radius:4px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--gr2);text-transform:uppercase;margin-bottom:12px}
+.hbadge::before{content:'🌿';font-size:13px}
+header h1{font-size:clamp(22px,4vw,36px);font-weight:800;letter-spacing:-0.5px;color:#fff;line-height:1.1;margin-bottom:6px}
+header h1 em{color:var(--gr2);font-style:normal}
+.hsubt{font-size:14px;color:var(--text2);font-family:var(--mono);margin-bottom:14px}
+.hmeta{display:flex;gap:20px;flex-wrap:wrap}
+.hm{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.hm b{color:var(--gr2)}
+.hstatus{display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.12);border:1px solid var(--red-dim);border-radius:4px;padding:4px 10px;font-size:11px;color:var(--red2);font-family:var(--mono);margin-top:10px}
+.hstatus::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* ── NAV ── */
+nav{
+  display:flex;gap:4px;padding:10px 24px;
+  background:rgba(13,26,24,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;flex-wrap:wrap;
+  position:sticky;top:0;z-index:100;
+}
+.nb{
+  padding:6px 14px;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--text2);
+  font-family:var(--font);font-size:12px;font-weight:500;
+  cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none;
+  display:inline-block;
+}
+.nb:hover{border-color:var(--gr-dim);color:var(--gr2)}
+.nb.act{background:rgba(34,197,94,0.12);border-color:var(--gr);color:var(--gr);font-weight:700}
+
+/* ── MAIN ── */
+main{padding:0 20px 60px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+
+/* ── SECTION ANCHOR ── */
+.section{padding-top:32px;padding-bottom:8px}
+.sh{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gr);font-family:var(--mono);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.sh::before{content:'';display:block;width:18px;height:2px;background:var(--gr)}
+.stitle{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
+.sdesc{font-size:13px;color:var(--text2);margin-bottom:20px;max-width:720px}
+
+/* ── KPI GRID ── */
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:800px){.kgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.kgrid{grid-template-columns:1fr}}
+.kcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s}
+.kcard:hover{border-color:var(--border2)}
+.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kg::before{background:linear-gradient(90deg,var(--gr),var(--gr2))}
+.kr::before{background:linear-gradient(90deg,var(--red),var(--red2))}
+.ka::before{background:linear-gradient(90deg,var(--amber),var(--amber2))}
+.kb::before{background:linear-gradient(90deg,var(--blue),var(--blue2))}
+.kt::before{background:linear-gradient(90deg,var(--teal),var(--teal2))}
+.kp::before{background:linear-gradient(90deg,var(--purple),var(--purple2))}
+.klabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:8px}
+.kval{font-size:26px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
+.ksub{font-size:11px;color:var(--text2);font-family:var(--mono)}
+
+/* ── PANEL ── */
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:12px}
+.panel.full{width:100%}
+.ptitle{font-size:13px;font-weight:700;color:var(--gr2);margin-bottom:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dg{background:var(--gr)}.dr{background:var(--red)}.da{background:var(--amber)}.db{background:var(--blue)}.dt{background:var(--teal)}.dp{background:var(--purple)}
+
+/* ── ACTOR CARDS ── */
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:960px){.agrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.agrid{grid-template-columns:1fr}}
+.acard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .2s}
+.acard:hover{border-color:var(--border2)}
+.atop{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.avt{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.aname{font-size:14px;font-weight:700;color:#fff;line-height:1.2}
+.aorg{font-size:11px;color:var(--text2);font-family:var(--mono)}
+.astatus{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:3px;padding:3px 8px;margin-bottom:8px;font-family:var(--mono)}
+.st-preso{background:rgba(239,68,68,0.12);color:var(--red2);border:1px solid var(--red-dim)}
+.st-ind{background:rgba(245,158,11,0.12);color:var(--amber2);border:1px solid var(--amber-dim)}
+.st-inv{background:rgba(59,130,246,0.12);color:var(--blue2);border:1px solid var(--blue-dim)}
+.st-solto{background:rgba(167,139,250,0.12);color:var(--purple2);border:1px solid rgba(139,92,246,.3)}
+.abody{font-size:12px;color:var(--text2);line-height:1.55}
+.atags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+
+/* ── TAGS ── */
+.tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;letter-spacing:.5px;padding:2px 7px;border-radius:3px;font-family:var(--mono);white-space:nowrap}
+.tg{background:rgba(34,197,94,0.1);color:var(--gr2);border:1px solid rgba(34,197,94,.2)}
+.tr{background:rgba(239,68,68,0.1);color:var(--red2);border:1px solid rgba(239,68,68,.2)}
+.ta{background:rgba(245,158,11,0.1);color:var(--amber2);border:1px solid rgba(245,158,11,.2)}
+.tb{background:rgba(59,130,246,0.1);color:var(--blue2);border:1px solid rgba(59,130,246,.2)}
+.tt{background:rgba(20,184,166,0.1);color:var(--teal2);border:1px solid rgba(20,184,166,.2)}
+.tp{background:rgba(167,139,250,0.1);color:var(--purple2);border:1px solid rgba(167,139,250,.2)}
+.tgray{background:rgba(255,255,255,0.05);color:var(--text2);border:1px solid var(--border)}
+
+/* ── TIMELINE ── */
+.tline{position:relative;padding-left:28px;margin-bottom:8px}
+.tline::before{content:'';position:absolute;left:6px;top:8px;bottom:0;width:1px;background:var(--border2)}
+.titem{position:relative;margin-bottom:22px}
+.titem::before{content:'';position:absolute;left:-22px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid var(--bg2)}
+.ti-g::before{background:var(--gr);border-color:var(--bg2)}
+.ti-r::before{background:var(--red);border-color:var(--bg2)}
+.ti-a::before{background:var(--amber);border-color:var(--bg2)}
+.ti-b::before{background:var(--blue);border-color:var(--bg2)}
+.ti-t::before{background:var(--teal);border-color:var(--bg2)}
+.ti-gray::before{background:var(--text3);border-color:var(--bg2)}
+.tdate{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:3px}
+.ttitle{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.tdesc{font-size:12px;color:var(--text2);line-height:1.55}
+.ttags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+
+/* ── PATTERN GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px}
+@media(max-width:680px){.pgrid{grid-template-columns:1fr}}
+.pcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.pnum{font-size:22px;font-weight:800;color:var(--text3);flex-shrink:0;font-family:var(--mono);min-width:36px}
+.pname{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.pdesc{font-size:12px;color:var(--text2);line-height:1.5}
+.pstatus{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:var(--mono);font-weight:600;padding:2px 7px;border-radius:3px;margin-top:6px}
+.ps-on{background:rgba(239,68,68,0.1);color:var(--red2);border:1px solid rgba(239,68,68,.2)}
+.ps-off{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border)}
+
+/* ── COMPANY GRID ── */
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:900px){.cgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.cgrid{grid-template-columns:repeat(2,1fr)}}
+.ccard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 14px;text-align:center;transition:border-color .2s}
+.ccard:hover{border-color:var(--border2)}
+.cicon{font-size:22px;margin-bottom:6px}
+.cname{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px}
+.csub{font-size:10px;color:var(--text2);font-family:var(--mono)}
+
+/* ── HIBOX ── */
+.hibox{background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px 16px;margin-top:10px}
+.hibox.red{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,.2)}
+.hibox.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,.2)}
+.hibox.blue{background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,.2)}
+.ht{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gr2);font-family:var(--mono);margin-bottom:6px}
+.hibox.red .ht{color:var(--red2)}
+.hibox.amber .ht{color:var(--amber2)}
+.hibox.blue .ht{color:var(--blue2)}
+.hd{font-size:12px;color:var(--text2);line-height:1.55}
+
+/* ── PHASE CARDS ── */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:860px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.fgrid{grid-template-columns:1fr}}
+.fcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
+.fcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gr),var(--gr2))}
+.fnum{font-size:28px;font-weight:800;color:var(--gr-dim);font-family:var(--mono);line-height:1;margin-bottom:4px}
+.fname{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.fdate{font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:6px}
+.fdesc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* ── CONN TABLE ── */
+.ctable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+.ctable th{text-align:left;padding:8px 12px;border-bottom:1px solid var(--border2);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-family:var(--mono)}
+.ctable td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.ctable tr:hover td{background:rgba(255,255,255,0.02)}
+.ctable td:first-child{color:#fff;font-weight:600}
+
+/* ── SEPARATOR ── */
+.sep{height:1px;background:var(--border);margin:8px 0 20px}
+
+/* ── GO TOP ── */
+#gotop{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(34,197,94,0.15);border:1px solid var(--gr-dim);
+  color:var(--gr2);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;opacity:0;pointer-events:none;
+  backdrop-filter:blur(8px);
+}
+#gotop.vis{opacity:1;pointer-events:auto}
+#gotop:hover{background:rgba(34,197,94,0.25);border-color:var(--gr)}
+
+/* ── COPY RAW ── */
+#rawdata{display:none}
+.copybar{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;margin:20px 0 0;font-size:12px;color:var(--text2)}
+.copybtn{background:rgba(34,197,94,0.12);border:1px solid var(--gr-dim);border-radius:5px;color:var(--gr2);font-family:var(--mono);font-size:11px;font-weight:600;padding:5px 14px;cursor:pointer;transition:all .2s}
+.copybtn:hover{background:rgba(34,197,94,0.22)}
+
+/* ── PROSE ── */
+p.body{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:8px}
+p.body b{color:var(--text)}
+.hl-red{color:var(--red2);font-weight:700}
+.hl-gr{color:var(--gr2);font-weight:700}
+.hl-am{color:var(--amber2);font-weight:700}
+
+/* ── LIST ── */
+ul.blist{list-style:none;margin:0;padding:0}
+ul.blist li{padding:5px 0 5px 16px;position:relative;font-size:12px;color:var(--text2);line-height:1.5;border-bottom:1px solid var(--border)}
+ul.blist li:last-child{border-bottom:none}
+ul.blist li::before{content:'›';position:absolute;left:0;color:var(--gr);font-weight:700}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--gr-dim)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:20px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
+.fcc{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.fcc b{color:var(--gr2)}
+
+/* ── PRINT / COPY AREA ── */
+#textcopy{
+  position:fixed;left:-9999px;top:0;
+  width:1px;height:1px;overflow:hidden;
+  white-space:pre-wrap;font-family:monospace;font-size:12px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hbadge">Dossiê Forense · CC0 1.0</div>
+  <h1>Operação <em>Greenwashing</em></h1>
+  <p class="hsubt">A maior fraude em créditos de carbono da história do Brasil — Amazônia, Verra e o mercado voluntário como veículo de lavagem</p>
+  <div class="hmeta">
+    <span class="hm">Deflagração: <b>05/jun/2024</b></span>
+    <span class="hm">Fases: <b>6 concluídas</b></span>
+    <span class="hm">Indiciados: <b>31</b></span>
+    <span class="hm">Bens bloqueados: <b>R$ 1,6bi</b></span>
+    <span class="hm">Créditos fictícios: <b>R$ 180mi</b></span>
+    <span class="hm">Relatório PF: <b>392 págs · mai/2025</b></span>
+  </div>
+  <div class="hstatus">MPF: denúncia ou arquivamento pendentes — mai/2026</div>
+</header>
+
+<nav id="mainnav">
+  <a class="nb act" href="#sec-resumo">Resumo</a>
+  <a class="nb" href="#sec-kpi">Dados</a>
+  <a class="nb" href="#sec-atores">Atores</a>
+  <a class="nb" href="#sec-fases">Fases</a>
+  <a class="nb" href="#sec-mecanismo">Mecanismo</a>
+  <a class="nb" href="#sec-compradores">Compradores</a>
+  <a class="nb" href="#sec-padroes">Padrões P01–P09</a>
+  <a class="nb" href="#sec-conexoes">Conexões</a>
+  <a class="nb" href="#sec-regulacao">Regulação</a>
+  <a class="nb" href="#sec-timeline">Timeline</a>
+  <a class="nb" href="#sec-gaps">Lacunas</a>
+</nav>
+
+<main>
+
+<!-- ════════ RESUMO ════════ -->
+<div class="section" id="sec-resumo">
+  <div class="sh">Síntese executiva</div>
+  <div class="stitle">O que é a Operação Greenwashing</div>
+  <div class="sdesc">Investigação da PF/Rondônia que desmontou a maior fraude em créditos de carbono já documentada no Brasil.</div>
+
+  <div class="panel full">
+    <div class="ptitle"><span class="dot dg"></span>Tese central da investigação</div>
+    <p class="body">Uma organização criminosa estruturada em três núcleos liderados por <b>Ricardo Stoppe Júnior</b>, <b>Élcio Moço</b> e <b>José Capelasso</b> grilou aproximadamente <b class="hl-red">530.000 hectares de terras públicas federais</b> no sul do Amazonas (município de Lábrea, Apuí e adjacências) e usou essas áreas como lastro para emitir créditos de carbono fictícios via projetos REDD+ certificados pela <b>Verra</b> — uma das maiores certificadoras do mercado voluntário global.</p>
+    <p class="body">Os créditos gerados foram vendidos a corporações internacionais (Boeing, Gol, Nestlé, Spotify, Toshiba, iFood, Itaú, PwC) como compensação de emissões de CO₂, enquanto as mesmas áreas eram simultaneamente utilizadas para exploração ilegal de madeira. A fraude só foi possível com a <b>corrupção sistêmica</b> de servidores do INCRA, IPAAM e cartórios de registro imobiliário no Amazonas.</p>
+    <p class="body">O principal investigado participou da <b class="hl-am">COP28 em Dubai (dez/2023)</b> representando o Brasil como "maior vendedor global de créditos de carbono" — menos de seis meses antes de ser preso.</p>
+    <div class="hibox">
+      <div class="ht">Analogia estrutural com a Lava Jato</div>
+      <div class="hd">Créditos de carbono fictícios replicam a lógica dos contratos superfaturados da Petrobras: ativo com valor inflado, validação institucional frágil (Verra em lugar das auditorias internas), e beneficiário final que usa a credencial para acessar o mercado formal. A diferença geracional: o instrumento agora é a agenda ESG global.</div>
+    </div>
+    <div class="hibox amber" style="margin-top:10px">
+      <div class="ht">Status processual — mai/2026</div>
+      <div class="hd">Dois relatórios finais entregues (108p dez/2024 + 392p mai/2025). 31 indiciados. Todos aguardam em liberdade. MPF ainda não formalizou denúncia nem arquivamento. Terceiro relatório previsto ainda não concluído. Nenhuma defesa pública dos acusados disponível para consulta.</div>
+    </div>
+  </div>
+
+  <div class="copybar">
+    <span>Todos os dados desta página disponíveis para cópia — use Ctrl+A → Ctrl+C para exportar para ferramenta de análise</span>
+    <button class="copybtn" onclick="copyAll()">📋 Copiar texto completo</button>
+  </div>
+</div>
+
+<!-- ════════ KPI ════════ -->
+<div class="section" id="sec-kpi">
+  <div class="sh">Métricas da operação</div>
+  <div class="stitle">Números documentados</div>
+  <div class="sdesc">Dados extraídos dos relatórios da PF, decisões judiciais e cobertura jornalística verificada.</div>
+
+  <div class="kgrid">
+    <div class="kcard kg">
+      <div class="klabel">Terras griladas</div>
+      <div class="kval">530k ha</div>
+      <div class="ksub">Sul do Amazonas — terras da União</div>
+    </div>
+    <div class="kcard kr">
+      <div class="klabel">Créditos fictícios vendidos</div>
+      <div class="kval">R$ 180mi</div>
+      <div class="ksub">168,8 milhões de UECs geradas</div>
+    </div>
+    <div class="kcard ka">
+      <div class="klabel">Bens bloqueados</div>
+      <div class="kval">R$ 1,6bi</div>
+      <div class="ksub">Fase 1 + sequestros posteriores</div>
+    </div>
+    <div class="kcard kb">
+      <div class="klabel">Indiciados (PF)</div>
+      <div class="kval">31</div>
+      <div class="ksub">2 relatórios finais · 3º pendente</div>
+    </div>
+    <div class="kcard kt">
+      <div class="klabel">Mandados — fase 1</div>
+      <div class="kval">76</div>
+      <div class="ksub">6 estados · 5 presos preventivos</div>
+    </div>
+    <div class="kcard kp">
+      <div class="klabel">Páginas relatório final</div>
+      <div class="kval">392</div>
+      <div class="ksub">+ 108p (relatório parcial dez/2024)</div>
+    </div>
+  </div>
+
+  <div class="kgrid">
+    <div class="kcard kg">
+      <div class="klabel">Fases deflagradas</div>
+      <div class="kval">6</div>
+      <div class="ksub">Jun/2024 – Dez/2024 (Protegere)</div>
+    </div>
+    <div class="kcard kr">
+      <div class="klabel">Expansão planejada ORCRIM</div>
+      <div class="kval">3,5mi ha</div>
+      <div class="ksub">Objetivo em 6 municípios do AM</div>
+    </div>
+    <div class="kcard ka">
+      <div class="klabel">Impacto Fundo XP</div>
+      <div class="kval">−10%+</div>
+      <div class="ksub">AZ Quest Luna em 1 semana</div>
+    </div>
+    <div class="kcard kb">
+      <div class="klabel">Projetos suspensos — Verra</div>
+      <div class="kval">3</div>
+      <div class="ksub">Unitor · Sempre-viva · Fortaleza Ituxi</div>
+    </div>
+    <div class="kcard kt">
+      <div class="klabel">Investidores / compradores</div>
+      <div class="kval">8+</div>
+      <div class="ksub">Grandes marcas expostas a créditos suspeitos</div>
+    </div>
+    <div class="kcard kp">
+      <div class="klabel">Investigação origem</div>
+      <div class="kval">2022</div>
+      <div class="ksub">Denúncia anônima + Mongabay mai/2024</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ATORES ════════ -->
+<div class="section" id="sec-atores">
+  <div class="sh">Atores investigados</div>
+  <div class="stitle">Núcleos da organização criminosa</div>
+  <div class="sdesc">PF identificou três núcleos de comando + rede de corruptores institucionais.</div>
+
+  <div class="agrid">
+    <div class="acard">
+      <div class="atop">
+        <div class="avt" style="background:rgba(239,68,68,.15);color:var(--red2)">RS</div>
+        <div>
+          <div class="aname">Ricardo Stoppe Júnior</div>
+          <div class="aorg">Grupo Ituxi · Lábrea/AM</div>
+        </div>
+      </div>
+      <div class="astatus st-ind">◈ Indiciado · Solto</div>
+      <div class="abody">Líder do núcleo principal. Médico e empresário. Grilou 530k ha de terras federais. Participou da COP28 Dubai (dez/2023) como "maior vendedor global de carbono". Indiciado por corrupção ativa, desmatamento em terra pública, falsidade ideológica, estelionato, crime contra o sistema financeiro, invasão de terra pública, lavagem e organização criminosa. Preso preventivamente na fase 1 por 6 meses. Defesa pública atualmente desconhecida (ex-advogado e assessor romperam vínculo).</div>
+      <div class="atags">
+        <span class="tag tr">Líder ORCRIM</span>
+        <span class="tag tg">COP28 Dubai</span>
+        <span class="tag ta">530k ha grilados</span>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="atop">
+        <div class="avt" style="background:rgba(245,158,11,.15);color:var(--amber2)">EM</div>
+        <div>
+          <div class="aname">Élcio Aparecido Moço</div>
+          <div class="aorg">Sócio em 7 empresas c/ filho de Stoppe</div>
+        </div>
+      </div>
+      <div class="astatus st-ind">◈ Indiciado · Solto</div>
+      <div class="abody">Líder do 2º núcleo. Condenado em 2017 por lavagem de madeira — sentença revertida em 2019. Indiciado em 2019 por suporno a dois servidores públicos. Forma conglomerado de 7 empresas com Ricardo Villares Lot Stoppe (filho). Preso preventivamente na fase 1. Defesa não comenta.</div>
+      <div class="atags">
+        <span class="tag tr">Reincidente ambiental</span>
+        <span class="tag ta">7 empresas</span>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="atop">
+        <div class="avt" style="background:rgba(167,139,250,.15);color:var(--purple2)">JC</div>
+        <div>
+          <div class="aname">José Luiz Capelasso</div>
+          <div class="aorg">Núcleo 3 · documentos florestais</div>
+        </div>
+      </div>
+      <div class="astatus st-ind">◈ Indiciado · Solto</div>
+      <div class="abody">Líder do 3º núcleo. Condenado em 2012 por comercialização ilegal de certificados de origem florestal (cobrança de R$ 3.000 por documento falso). Solto posteriormente. Preso preventivamente na fase 1.</div>
+      <div class="atags">
+        <span class="tag tr">Reincidente</span>
+        <span class="tag ta">DOF fraudulento</span>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="atop">
+        <div class="avt" style="background:rgba(59,130,246,.15);color:var(--blue2)">RVS</div>
+        <div>
+          <div class="aname">Ricardo Villares Lot Stoppe</div>
+          <div class="aorg">Filho de Stoppe Jr. — empresas-laranja</div>
+        </div>
+      </div>
+      <div class="astatus st-ind">◈ Indiciado · Solto</div>
+      <div class="abody">Todas as empresas do esquema constavam em seu nome. PF identificou suas assinaturas em documentos-chave, descartando função de mero interposto — classificado como participante consciente dos ilícitos. Sócio de Moço em 7 empresas.</div>
+      <div class="atags">
+        <span class="tag tb">Frontman documentado</span>
+        <span class="tag ta">Assinaturas comprovadas</span>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="atop">
+        <div class="avt" style="background:rgba(20,184,166,.15);color:var(--teal2)">PC</div>
+        <div>
+          <div class="aname">Poliana Heloísa Capelasso</div>
+          <div class="aorg">Núcleo Capelasso</div>
+        </div>
+      </div>
+      <div class="astatus st-solto">◐ Prisão domiciliar (mãe)</div>
+      <div class="abody">Presa na fase 1. Obteve habeas corpus e foi para prisão domiciliar com monitoramento eletrônico por ser mãe de dois filhos pequenos. Único membro do grupo com habeas corpus deferido.</div>
+      <div class="atags">
+        <span class="tag tp">HC deferido</span>
+        <span class="tag tgray">Monitoramento eletrônico</span>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="atop">
+        <div class="avt" style="background:rgba(239,68,68,.15);color:var(--red2)">IP</div>
+        <div>
+          <div class="aname">Servidores IPAAM</div>
+          <div class="aorg">Instituto de Proteção Ambiental AM</div>
+        </div>
+      </div>
+      <div class="astatus st-preso">● Presos (fases 3–5)</div>
+      <div class="abody">Servidores estratégicos e de direção do IPAAM preso nas fases Expurgare (3ª) e 5ª. Emitiam licenças ambientais fraudulentas, suspendiam multas e autorizavam desmatamento irregular. Alguns já indiciados em 2019 na Operação Arquimedes por crimes semelhantes. Diretor-presidente afastado por decisão judicial.</div>
+      <div class="atags">
+        <span class="tag tr">Captura regulatória</span>
+        <span class="tag ta">Reincidência Arquimedes/2019</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ptitle"><span class="dot da"></span>Rede de suporte institucional corruptível</div>
+    <div class="agrid" style="margin-bottom:0">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname">INCRA</div>
+        <div class="pdesc">Servidores do Instituto Nacional de Colonização e Reforma Agrária corrompidos para falsificar títulos e inserir dados fictícios no SIGEF (Sistema de Gestão Fundiária), deslocando títulos sobre terras públicas federais.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname">Cartórios do Amazonas</div>
+        <div class="pdesc">Cartórios de registro imobiliário em cidades do interior do AM registravam transferências de propriedade sobre terras que não pertenciam aos solicitantes, consolidando a cadeia dominial fraudulenta.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname">Agrimensores e engenheiros</div>
+        <div class="pdesc">Profissionais técnicos especializados em georreferenciamento inseriam dados fictícios no SIGEF, criando sobreposição de títulos sobre áreas de floresta federal protegida.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ FASES ════════ -->
+<div class="section" id="sec-fases">
+  <div class="sh">Cronologia operacional</div>
+  <div class="stitle">6 fases deflagradas</div>
+  <div class="sdesc">Cada fase expandiu o escopo ou visou obstrução de investigação.</div>
+
+  <div class="fgrid">
+    <div class="fcard">
+      <div class="fnum">01</div>
+      <div class="fname">Fase inicial</div>
+      <div class="fdate">05 jun 2024</div>
+      <div class="fdesc">76 mandados em 6 estados. Prisão preventiva de Stoppe Jr., Moço, Capelasso, Ricardo Villares e Poliana. Bloqueio de R$ 1,6bi. Revelação pública do esquema REDD+ fraudulento. Verra suspende 3 projetos em 10/jun.</div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">02</div>
+      <div class="fname">Fase 2</div>
+      <div class="fdate">2024 (sem data pública)</div>
+      <div class="fdesc">Aprofundamento de quebras de sigilo. Coleta de provas documentais em computadores e residências dos investigados. Contribuiu para o relatório de 108 páginas (dez/2024).</div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">03</div>
+      <div class="fname">Expurgare</div>
+      <div class="fdate">09 dez 2024</div>
+      <div class="fdesc">Foco nos servidores do IPAAM. Constatação de que cargos estratégicos e de direção facilitavam licenças fraudulentas e autorizavam desmatamento. Descapitalização de R$ 1bi do esquema. Afastamento do diretor-presidente do órgão.</div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">04</div>
+      <div class="fname">Protegere</div>
+      <div class="fdate">13–15 dez 2024</div>
+      <div class="fdesc">Ação conjunta com ICMBio na Floresta Nacional do Iquiri. Sobrevoos e vistoria in loco. Identificação de exploração florestal irregular em andamento. Apreensão e destruição de armas e munições. Aplicação de multas.</div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">05</div>
+      <div class="fname">Fase 5</div>
+      <div class="fdate">19 dez 2024</div>
+      <div class="fdesc">Prisão preventiva de servidor IPAAM responsável pela gerência de controle florestal. Motivo: tentativa de obstruir cumprimento de medidas cautelares determinadas pela 7ª Vara Ambiental e Agrária da JF/AM.</div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">06</div>
+      <div class="fname">Relatório final</div>
+      <div class="fdate">Mai 2025</div>
+      <div class="fdesc">Relatório de 392 páginas concluído. Somado ao de 108p (dez/2024), totaliza 500p de indiciamento. 31 pessoas formalmente indiciadas. Encaminhado à Justiça Federal. MPF define denúncia ou arquivamento — ainda pendente em mai/2026.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MECANISMO ════════ -->
+<div class="section" id="sec-mecanismo">
+  <div class="sh">Anatomia da fraude</div>
+  <div class="stitle">Como o esquema funcionava — 5 camadas</div>
+  <div class="sdesc">Da grilagem amazônica ao ativo ESG negociado globalmente.</div>
+
+  <div class="tline">
+    <div class="titem ti-r">
+      <div class="tdate">Camada 1 — Base fundiária</div>
+      <div class="ttitle">Grilagem de terras públicas federais</div>
+      <div class="tdesc">Organização criminosa identificou ~530.000 ha de terras da União no sul do Amazonas (Lábrea, Apuí). Corrompeu agrimensores para inserir dados fictícios no SIGEF, "deslocando" títulos privados sobre essas áreas. Corrompeu cartórios para registrar transferências formalmente válidas. Resultado: propriedade fictícia de floresta pública com documentação legal aparentemente limpa.</div>
+      <div class="ttags"><span class="tag tr">SIGEF adulterado</span><span class="tag tr">530k ha</span><span class="tag ta">INCRA corrompido</span></div>
+    </div>
+    <div class="titem ti-a">
+      <div class="tdate">Camada 2 — Licenciamento ambiental</div>
+      <div class="ttitle">Captura do IPAAM</div>
+      <div class="tdesc">Com a cadeia dominial fraudada, servidores de carreira do IPAAM (alguns já investigados em 2019 na Operação Arquimedes) emitiam licenças ambientais irregulares, autorizações de planos de manejo e suspendiam multas sobre as áreas. Criava-se a aparência de conformidade ambiental exigida para certificação REDD+.</div>
+      <div class="ttags"><span class="tag tr">IPAAM capturado</span><span class="tag ta">Licenças fraudulentas</span></div>
+    </div>
+    <div class="titem ti-g">
+      <div class="tdate">Camada 3 — Certificação internacional</div>
+      <div class="ttitle">Verra e os projetos REDD+</div>
+      <div class="tdesc">Projetos Fortaleza do Ituxi REDD, Unitor REDD+ e Sempre-Viva foram desenvolvidos pela empresa <b>Carbonext</b> e certificados pela <b>Verra</b> — maior certificadora do mercado voluntário de carbono do mundo. A Verra não verificava a cadeia dominial das terras; certificava apenas se a floresta existia e se havia metodologia de monitoramento. Resultado: 168,8 milhões de UECs geradas com validação internacional.</div>
+      <div class="ttags"><span class="tag tg">Verra certificou</span><span class="tag tg">Carbonext</span><span class="tag ta">168,8mi UECs</span></div>
+    </div>
+    <div class="titem ti-b">
+      <div class="tdate">Camada 4 — Dupla exploração</div>
+      <div class="ttitle">Crédito e madeira simultâneos</div>
+      <div class="tdesc">Enquanto os projetos REDD+ geravam créditos de carbono pela "conservação" das florestas, as mesmas áreas eram usadas para extração ilegal de madeira — lavada via planos de manejo irregulares autorizados pelo IPAAM comprometido. A organização cobrava duplamente: pelos créditos vendidos e pela madeira extraída.</div>
+      <div class="ttags"><span class="tag tr">Dupla monetização ilegal</span><span class="tag ta">Lavagem de madeira</span></div>
+    </div>
+    <div class="titem ti-g">
+      <div class="tdate">Camada 5 — Mercado global</div>
+      <div class="ttitle">Venda a corporações multinacionais</div>
+      <div class="tdesc">Créditos certificados pela Verra foram comercializados como ativos ESG legítimos para Boeing, Gol, Nestlé, Spotify, Toshiba, iFood, Itaú, PwC e outros, via plataforma Moss e mercado voluntário. Empresas compravam como compensação de emissões de carbono (scope 3) em relatórios de sustentabilidade. Fundo AZ Quest Luna (XP) perdeu mais de 10% em uma semana após a deflagração.</div>
+      <div class="ttags"><span class="tag tg">Boeing · Gol · Nestlé</span><span class="tag tb">Moss / mercado voluntário</span><span class="tag tr">AZ Quest Luna −10%</span></div>
+    </div>
+  </div>
+
+  <div class="hibox red">
+    <div class="ht">Falha sistêmica da Verra — o elo fraco global</div>
+    <div class="hd">A Verra certificava a existência e monitoramento da floresta, mas <b>não verificava a cadeia dominial das terras</b>. Uma floresta pode existir e estar sendo desmatada ao mesmo tempo que é "conservada" em papel — se a propriedade é fictícia, toda a adicionalidade do projeto é nula. Esta falha não é exclusiva do caso brasileiro: o Guardian/Zeit/SourceMaterial publicaram em jan/2023 que mais de 90% dos créditos REDD+ da Verra eram "ghost credits" sem impacto climático real.</div>
+  </div>
+</div>
+
+<!-- ════════ COMPRADORES ════════ -->
+<div class="section" id="sec-compradores">
+  <div class="sh">Exposição corporativa</div>
+  <div class="stitle">Compradores dos créditos fictícios</div>
+  <div class="sdesc">Corporações que adquiriram créditos dos projetos Fortaleza Ituxi e Unitor via Verra / Moss. Verra suspendeu os 3 projetos em 10/jun/2024.</div>
+
+  <div class="cgrid">
+    <div class="ccard">
+      <div class="cicon">✈️</div>
+      <div class="cname">Boeing</div>
+      <div class="csub">Aviação / EUA</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">🛫</div>
+      <div class="cname">GOL Linhas Aéreas</div>
+      <div class="csub">Programa "Meu Voo Compensa"</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">🍫</div>
+      <div class="cname">Nestlé</div>
+      <div class="csub">Alimentos / Suíça</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">🎵</div>
+      <div class="cname">Spotify</div>
+      <div class="csub">Streaming / Suécia</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">💻</div>
+      <div class="cname">Toshiba</div>
+      <div class="csub">Tecnologia / Japão</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">🍔</div>
+      <div class="cname">iFood</div>
+      <div class="csub">Delivery / Brasil</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">🏦</div>
+      <div class="cname">Itaú</div>
+      <div class="csub">Financeiro / Brasil</div>
+    </div>
+    <div class="ccard">
+      <div class="cicon">📊</div>
+      <div class="cname">PwC</div>
+      <div class="csub">Auditoria / EUA</div>
+    </div>
+  </div>
+
+  <div class="pgrid">
+    <div class="panel">
+      <div class="ptitle"><span class="dot dr"></span>Caso GOL — consequências jurídicas (2025)</div>
+      <p class="body">Em jan/2025, após interpelação do <b>Idec</b>, a GOL retirou do ar o programa "Meu Voo Compensa", rompeu parceria com a Moss e apagou todas as informações do programa — <b class="hl-red">sem prestar contas</b> no Relatório de Sustentabilidade 2024 (publicado ago/2025).</p>
+      <p class="body">Em dez/2025, o Idec entrou com <b>ação civil pública no TJSP</b> pedindo R$ 5 milhões por danos morais coletivos — <span class="hl-am">primeira ação judicial de consumidor por greenwashing no Brasil</span>. O programa usava tokens da Moss em vez de créditos verificados; a própria Verra havia proibido tokenização de créditos desde 2022.</p>
+    </div>
+    <div class="panel">
+      <div class="ptitle"><span class="dot da"></span>Exposição dos demais compradores</div>
+      <p class="body">As empresas que compraram créditos dos projetos Fortaleza Ituxi e Unitor poderão alegar boa-fé, mas enfrentam risco reputacional e potencial revisão de seus relatórios ESG. A Verra não invalidou retroativamente os créditos já "aposentados" (cancelados em compensação), deixando em aberto se as emissões foram de fato neutralizadas.</p>
+      <div class="hibox amber">
+        <div class="ht">Lacuna regulatória global</div>
+        <div class="hd">Nenhum órgão regulador exige que empresas devolva ou corrija créditos de carbono comprados de projetos posteriormente suspensos. O ativo foi contabilizado nos balanços ESG como neutralização real.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ PADRÕES ════════ -->
+<div class="section" id="sec-padroes">
+  <div class="sh">Framework analítico</div>
+  <div class="stitle">Padrões P01–P09 — ativação na Greenwashing</div>
+  <div class="sdesc">Aplicação do modelo de padrões sistêmicos do corpus lawfare-timeline a esta operação.</div>
+
+  <div class="pgrid">
+    <div class="pcard">
+      <div class="pnum">P01</div>
+      <div>
+        <div class="pname">Infiltração do Estado por operador político-econômico</div>
+        <div class="pdesc">INCRA e IPAAM capturados por operadores do esquema via corrupção de servidores estratégicos. Padrão replicado da Operação Arquimedes (2019) — mesmos servidores, nova operação.</div>
+        <div class="pstatus ps-on">● Ativo</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P02</div>
+      <div>
+        <div class="pname">Financista de banco frágil / instrumento financeiro fictício</div>
+        <div class="pdesc">Crédito de carbono como ativo financeiro fictício vendido ao mercado formal global. Carbonext como veículo de estruturação. Moss como plataforma de distribuição. Verra como validador capturável.</div>
+        <div class="pstatus ps-on">● Ativo (variante ESG)</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P03</div>
+      <div>
+        <div class="pname">Captura judicial de emergência</div>
+        <div class="pdesc">Parcialmente ativo: Poliana Capelasso obteve HC com fundamento familiar. Não há captura de instância superior documentada. Padrão de neutralização judicial plena ainda não acionado — operação em fase pré-denúncia.</div>
+        <div class="pstatus ps-on">● Parcial</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P04</div>
+      <div>
+        <div class="pname">Uso de interposta pessoa / testa-de-ferro</div>
+        <div class="pdesc">Todas as empresas em nome de Ricardo Villares Lot Stoppe (filho). Poliana Capelasso como frontman do núcleo 3. Padrão clássico de interposição geracional para dificultar rastreamento.</div>
+        <div class="pstatus ps-on">● Ativo</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P05</div>
+      <div>
+        <div class="pname">Credencial institucional como escudo</div>
+        <div class="pdesc">Stoppe Jr. utilizava participação em COP28 e certificação Verra como credencial de legitimidade. Padrão idêntico ao uso de auditorias e diplomas em casos financeiros — a credencial blinda o ator até a deflagração.</div>
+        <div class="pstatus ps-on">● Ativo (COP28 / Verra)</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P06</div>
+      <div>
+        <div class="pname">Regulador omisso como facilitador</div>
+        <div class="pdesc">Verra não verificava cadeia dominial. INCRA e IPAAM corrompidos. CVM sem atuação no mercado voluntário de carbono. Ausência de marco regulatório até dez/2024 (Lei 15.042). Ecosistema de omissão regulatória simultânea em múltiplas esferas.</div>
+        <div class="pstatus ps-on">● Ativo (múltiplas esferas)</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P07</div>
+      <div>
+        <div class="pname">Investigador que vira réu / obstrução</div>
+        <div class="pdesc">Servidor IPAAM preso na 5ª fase por obstruir ativamente o cumprimento de medidas cautelares. Padrão de contrainvestigação interna — o órgão regulador tenta proteger seus próprios corruptos.</div>
+        <div class="pstatus ps-on">● Ativo (5ª fase)</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P08</div>
+      <div>
+        <div class="pname">Reincidência institucional / padrão histórico</div>
+        <div class="pdesc">Moço condenado em 2017 e absolvido em 2019. Capelasso condenado em 2012. Servidores do IPAAM indiciados na Operação Arquimedes (2019) e novamente na Greenwashing (2024). Padrão de ciclo impune documentado.</div>
+        <div class="pstatus ps-on">● Ativo (reincidência tripla)</div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pnum">P09</div>
+      <div>
+        <div class="pname">Fragmentação jurisdicional como proteção</div>
+        <div class="pdesc">Operação em 6 estados. Compradores internacionais (EUA, Suíça, Suécia, Japão). Certificação holandesa (Verra via Netherlands CCCA). MLAT não ativado publicamente. Jurisdições múltiplas dificultam coordenação de enforcement.</div>
+        <div class="pstatus ps-on">● Ativo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hibox">
+    <div class="ht">Leitura do risco de neutralização</div>
+    <div class="hd"><b>9 de 9 padrões ativos</b> na Greenwashing — o conjunto completo do framework. Distingue-se de operações anteriores pela dimensão internacional dos compradores e pela captura de um mercado emergente (carbono) antes que qualquer regulação nacional existisse. A janela de neutralização mais provável: P03 na fase de denúncia pelo MPF — padrão de habeas corpus preventivo antes do recebimento da ação penal.</div>
+  </div>
+</div>
+
+<!-- ════════ CONEXÕES ════════ -->
+<div class="section" id="sec-conexoes">
+  <div class="sh">Emaranhamento do corpus</div>
+  <div class="stitle">Conexões com outras operações</div>
+  <div class="sdesc">Como a Greenwashing se conecta ao corpus lawfare-timeline.</div>
+
+  <table class="ctable">
+    <thead>
+      <tr>
+        <th>Operação</th>
+        <th>Elo documentado</th>
+        <th>Natureza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tg">Carbono Oculto</span></td>
+        <td>Família Vorcaro (Alliance Participações / Apuí) — créditos de carbono fictícios no AM + Banco Master liquidado. Infraestrutura financeira transversal: carbono como ativo de lavagem em ambas as operações.</td>
+        <td><span class="tag tr">Ator compartilhado</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tb">Compliance Zero</span></td>
+        <td>Banco Master financiava fundos REAG que investiam no setor de carbono. Linha Carbono Oculto → Compliance Zero → Greenwashing como cadeia de lavagem: crédito fictício → fundo regulado → banco frágil.</td>
+        <td><span class="tag ta">Infraestrutura financeira</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag ta">Lava Jato</span></td>
+        <td>Analogia estrutural: contrato superfaturado (Petrobras) = crédito de carbono fictício (Verra). Validação institucional frágil como veículo em ambos. Evolução geracional: de doleiros para ESG.</td>
+        <td><span class="tag tgray">Padrão sistêmico</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tgray">Op. Arquimedes (2019)</span></td>
+        <td>Mesmos servidores do IPAAM indiciados em 2019 reaparecem na Greenwashing (2024). Captura regulatória persistente após 5 anos sem punição efetiva.</td>
+        <td><span class="tag tr">Reincidência institucional</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hibox">
+    <div class="ht">Hipótese central do corpus</div>
+    <div class="hd">Greenwashing, Carbono Oculto, Compliance Zero e Sem Desconto podem ser faces de uma arquitetura única: crime organizado → sistema financeiro formal (REAG/Master) → ativos ambientais fictícios (carbono). A infraestrutura financeira é transversal. O crédito de carbono é a versão ESG dos contratos fantasmas da Lava Jato — mesmo mecanismo, nova roupagem regulatória.</div>
+  </div>
+</div>
+
+<!-- ════════ REGULAÇÃO ════════ -->
+<div class="section" id="sec-regulacao">
+  <div class="sh">Contexto regulatório</div>
+  <div class="stitle">Lei do carbono e janela de vulnerabilidade</div>
+  <div class="sdesc">A maior fraude do setor ocorreu antes de qualquer marco regulatório nacional — e o arcabouço operacional ainda está incompleto.</div>
+
+  <div class="pgrid">
+    <div class="panel">
+      <div class="ptitle"><span class="dot dg"></span>Lei 15.042/2024 — SBCE</div>
+      <p class="body">Sancionada em <b>12 dez 2024</b> — seis meses após a deflagração da Greenwashing. Cria o <b>Sistema Brasileiro de Comércio de Emissões de Gases de Efeito Estufa (SBCE)</b>, dividido em mercado regulado (operadores acima de 25.000 tCO₂e/ano) e voluntário.</p>
+      <ul class="blist" style="margin-top:8px">
+        <li>Implementação gradual em 5 fases ao longo de 6 anos</li>
+        <li>SBCE em operação plena prevista para <b>2030</b></li>
+        <li>Secretaria Extraordinária do Mercado de Carbono criada em <b>out/2025</b> (Fazenda)</li>
+        <li>Prazo para arcabouço infralegal: <b>dezembro de 2026</b></li>
+        <li>CVM regula negociação de CBEs e CRVEs no mercado de capitais</li>
+        <li>Agronegócio <b>excluído</b> do mercado regulado</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="ptitle"><span class="dot dr"></span>Gap estrutural crítico</div>
+      <p class="body">A Lei 15.042 foi aprovada <span class="hl-red">depois</span> da maior fraude do setor. O mercado voluntário operou entre 2019 e 2024 sem qualquer regulação nacional. Verra, uma ONG americana com sede em Washington DC, era o único árbitro de qualidade — e sua metodologia REDD+ não exigia verificação de propriedade fundiária.</p>
+      <div class="hibox red">
+        <div class="ht">Janela de vulnerabilidade remanescente</div>
+        <div class="hd">Arcabouço infralegal ausente até dez/2026. SBCE operacional apenas em 2030. Mercado voluntário permanece autorregulado até lá. CVM sem jurisprudência específica. Janela de 4 anos para novos esquemas similares.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel full">
+    <div class="ptitle"><span class="dot da"></span>Desdobramentos pós-Greenwashing no setor</div>
+    <div class="cgrid" style="margin-bottom:0;margin-top:8px">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname" style="margin-bottom:4px">Verra (jun/2024)</div>
+        <div class="pdesc">Suspendeu 3 projetos (Unitor, Sempre-Viva, Fortaleza Ituxi). Nenhuma transação possível nas contas suspensas. Não revisou retroativamente créditos já aposentados.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname" style="margin-bottom:4px">Idec × GOL (dez/2025)</div>
+        <div class="pdesc">1ª ação judicial brasileira por greenwashing corporativo. ACP no TJSP. R$ 5mi danos morais coletivos. Gol retirou programa do ar antes mesmo da ação (jan/2025).</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname" style="margin-bottom:4px">CVM (2023)</div>
+        <div class="pdesc">Resolução CVM 193/23 obriga companhias abertas a divulgar métricas ESG para reduzir greenwashing. Não abrange mercado voluntário de carbono.</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div class="pname" style="margin-bottom:4px">Mercado voluntário global</div>
+        <div class="pdesc">Guardian/Zeit (jan/2023): mais de 90% dos créditos REDD+ Verra são "ghost credits" sem impacto climático verificável. Crise de credibilidade sistêmica anterior à Greenwashing brasileira.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ TIMELINE ════════ -->
+<div class="section" id="sec-timeline">
+  <div class="sh">Linha do tempo</div>
+  <div class="stitle">Cronologia completa — 2009–2026</div>
+  <div class="sdesc">Da primeira denúncia ao status processual atual.</div>
+
+  <div class="tline">
+    <div class="titem ti-gray">
+      <div class="tdate">2009</div>
+      <div class="ttitle">Primeiras denúncias não investigadas</div>
+      <div class="tdesc">Múltiplas denúncias ligadas a Stoppe Jr. resultam na abertura de inquéritos que não avançam. Padrão de prescrição por inação documentado.</div>
+    </div>
+    <div class="titem ti-a">
+      <div class="tdate">2012</div>
+      <div class="ttitle">Capelasso condenado por DOFs fraudulentos</div>
+      <div class="tdesc">José Luiz Capelasso condenado por comercializar ilegalmente certificados de origem florestal falsos (R$ 3.000/documento). Solto posteriormente.</div>
+      <div class="ttags"><span class="tag ta">Reincidência futura</span></div>
+    </div>
+    <div class="titem ti-a">
+      <div class="tdate">2017–2019</div>
+      <div class="ttitle">Moço condenado e absolvido — Capelasso indiciado novamente</div>
+      <div class="tdesc">Moço condenado em 2017 por lavagem de madeira; sentença revertida em 2019. No mesmo ano, Moço e Capelasso indiciados por suporno a dois servidores públicos. Padrão de ciclo impune.</div>
+    </div>
+    <div class="titem ti-a">
+      <div class="tdate">2019</div>
+      <div class="ttitle">Operação Arquimedes — servidores IPAAM indiciados</div>
+      <div class="tdesc">PF indicia servidores do IPAAM por crimes ambientais similares. Os mesmos servidores são encontrados na Greenwashing 5 anos depois, ainda em cargos estratégicos. Captura regulatória persistente.</div>
+    </div>
+    <div class="titem ti-gray">
+      <div class="tdate">2022</div>
+      <div class="ttitle">Início da investigação PF / Rondônia</div>
+      <div class="tdesc">Denúncia anônima chega à PF em Rondônia. Delegado Thiago Scarpellini inicia verificação. Primeiro contato com a escala da grilagem no sul do Amazonas.</div>
+    </div>
+    <div class="titem ti-gray">
+      <div class="tdate">Jan 2023</div>
+      <div class="ttitle">Guardian/Zeit/SourceMaterial: crise global dos créditos Verra</div>
+      <div class="tdesc">Investigação jornalística internacional revela que mais de 90% dos créditos REDD+ da Verra são "ghost credits" — sem impacto climático real. Contexto global da fragilidade sistêmica da certificação voluntária.</div>
+      <div class="ttags"><span class="tag tgray">Contexto internacional</span></div>
+    </div>
+    <div class="titem ti-gray">
+      <div class="tdate">Dez 2023</div>
+      <div class="ttitle">Stoppe Jr. na COP28 Dubai como "maior vendedor global de carbono"</div>
+      <div class="tdesc">Líder da organização criminosa representa o Brasil em conferência climática da ONU nos Emirados Árabes enquanto a investigação da PF já estava em curso há mais de um ano. Paradoxo-símbolo da operação.</div>
+      <div class="ttags"><span class="tag ta">COP28 / UNFCCC</span></div>
+    </div>
+    <div class="titem ti-g">
+      <div class="tdate">Mai 2024</div>
+      <div class="ttitle">Mongabay publica investigação — gatilho público</div>
+      <div class="tdesc">Reportagem da jornalista Fernanda Wenzel liga proprietários dos projetos Unitor e Fortaleza Ituxi a lavagem de madeira. Center for Climate Crime Analysis (CCCA) analisa e confirma discrepância entre volumes declarados e estimativas por satélite.</div>
+      <div class="ttags"><span class="tag tg">Mongabay / CCCA</span></div>
+    </div>
+    <div class="titem ti-r">
+      <div class="tdate">05 Jun 2024</div>
+      <div class="ttitle">Deflagração — Fase 1</div>
+      <div class="tdesc">76 mandados em 6 estados. 5 presos preventivos. R$ 1,6bi bloqueados. Revelação pública do esquema. Cobertura nacional e internacional.</div>
+      <div class="ttags"><span class="tag tr">Deflagração</span><span class="tag tg">6 estados</span></div>
+    </div>
+    <div class="titem ti-r">
+      <div class="tdate">10 Jun 2024</div>
+      <div class="ttitle">Verra suspende 3 projetos</div>
+      <div class="tdesc">5 dias após a deflagração, Verra suspende as contas de Unitor, Sempre-Viva e Fortaleza Ituxi. Nenhuma nova transação possível. Medida declarada "preventiva, sem julgamento sobre os envolvidos".</div>
+      <div class="ttags"><span class="tag ta">Verra suspende</span></div>
+    </div>
+    <div class="titem ti-a">
+      <div class="tdate">Ago–Nov 2024</div>
+      <div class="ttitle">Fases 2 e coleta de provas</div>
+      <div class="tdesc">Quebras de sigilo telefônico, busca em computadores e documentos. Acumulação de provas para os relatórios finais.</div>
+    </div>
+    <div class="titem ti-r">
+      <div class="tdate">09 Dez 2024</div>
+      <div class="ttitle">3ª Fase — Expurgare: IPAAM</div>
+      <div class="tdesc">Mandados contra servidores estratégicos do IPAAM. Descapitalização de R$ 1bi adicional. Afastamento do diretor-presidente do órgão por decisão judicial.</div>
+      <div class="ttags"><span class="tag tr">IPAAM desmontado</span></div>
+    </div>
+    <div class="titem ti-b">
+      <div class="tdate">12 Dez 2024</div>
+      <div class="ttitle">Lei 15.042 sancionada — SBCE criado</div>
+      <div class="tdesc">Marco regulatório do mercado de carbono brasileiro aprovado — seis meses após a maior fraude do setor. Implementação plena prevista para 2030.</div>
+      <div class="ttags"><span class="tag tb">Marco regulatório</span></div>
+    </div>
+    <div class="titem ti-r">
+      <div class="tdate">13–15 Dez 2024</div>
+      <div class="ttitle">4ª Fase — Protegere: Floresta Nacional do Iquiri</div>
+      <div class="tdesc">Ação conjunta PF + ICMBio. Sobrevoos e vistoria em solo. Exploração florestal em curso documentada. Armas apreendidas e destruídas.</div>
+    </div>
+    <div class="titem ti-r">
+      <div class="tdate">19 Dez 2024</div>
+      <div class="ttitle">5ª Fase: servidor IPAAM preso por obstrução</div>
+      <div class="tdesc">Gerente de controle florestal do IPAAM preso preventivamente por tentar impedir cumprimento de medidas cautelares da 3ª fase.</div>
+      <div class="ttags"><span class="tag tr">Obstrução de justiça</span></div>
+    </div>
+    <div class="titem ti-g">
+      <div class="tdate">Jan 2025</div>
+      <div class="ttitle">GOL retira programa "Meu Voo Compensa" do ar</div>
+      <div class="tdesc">Após interpelação do Idec. Rompe parceria com Moss. Apaga informações do programa. Não menciona no Relatório de Sustentabilidade 2024.</div>
+    </div>
+    <div class="titem ti-b">
+      <div class="tdate">Mai 2025</div>
+      <div class="ttitle">Relatório final PF — 392 páginas</div>
+      <div class="tdesc">Segundo relatório final entregue à Justiça Federal. Somado ao de 108p (dez/2024): 500 páginas de indiciamento. 31 pessoas formalmente indiciadas. MPF assume o caso.</div>
+      <div class="ttags"><span class="tag tg">392 páginas</span><span class="tag ta">31 indiciados</span></div>
+    </div>
+    <div class="titem ti-b">
+      <div class="tdate">Out 2025</div>
+      <div class="ttitle">Secretaria Extraordinária do Mercado de Carbono criada</div>
+      <div class="tdesc">Vinculada ao Ministério da Fazenda. Meta: arcabouço infralegal completo até dez/2026. SBCE operacional em 2030.</div>
+    </div>
+    <div class="titem ti-r">
+      <div class="tdate">Dez 2025</div>
+      <div class="ttitle">Idec entra com ação contra GOL — 1ª ação de greenwashing no Brasil</div>
+      <div class="tdesc">ACP no TJSP. R$ 5mi danos morais coletivos. Primeira vez que associação de consumidores busca reconhecimento judicial de greenwashing corporativo no Brasil. Inclui nexo com o Projeto Fortaleza Ituxi / Operação Greenwashing.</div>
+      <div class="ttags"><span class="tag tr">1ª ação greenwashing BR</span></div>
+    </div>
+    <div class="titem ti-a">
+      <div class="tdate">Mai 2026</div>
+      <div class="ttitle">Status atual — MPF pendente</div>
+      <div class="tdesc">31 indiciados aguardam em liberdade. MPF ainda não formalizou denúncia nem arquivamento. 3º relatório PF previsto ainda não concluído. Ação Idec × GOL em andamento no TJSP. SBCE em fase de regulamentação infralegal.</div>
+      <div class="ttags"><span class="tag ta">Denúncia pendente</span><span class="tag tgray">Liberdade plena</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ GAPS ════════ -->
+<div class="section" id="sec-gaps">
+  <div class="sh">Lacunas investigativas</div>
+  <div class="stitle">O que ainda não foi respondido</div>
+  <div class="sdesc">Gaps identificados para pesquisa futura e investigação continuada.</div>
+
+  <div class="pgrid">
+    <div class="panel">
+      <div class="ptitle"><span class="dot dr"></span>Lacunas processuais</div>
+      <ul class="blist">
+        <li>MPF: denúncia ou arquivamento? Prazo não divulgado publicamente</li>
+        <li>3º relatório final PF: quando será concluído?</li>
+        <li>Qual a posição processual dos 26 indiciados além dos líderes?</li>
+        <li>Há pedido de cooperação internacional formal (MLAT) com EUA, Holanda ou países-sede das corporações compradoras?</li>
+        <li>Carbonext: envolvimento direto ou vítima do esquema?</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="ptitle"><span class="dot da"></span>Lacunas patrimoniais e financeiras</div>
+      <ul class="blist">
+        <li>Destino dos R$ 180mi em créditos vendidos: rastreamento do fluxo financeiro completo</li>
+        <li>Offshores: há estrutura internacional documentada no caso?</li>
+        <li>Beneficiários finais dos fundos que compraram créditos além dos nomes públicos</li>
+        <li>Moss: responsabilidade civil / penal como intermediária?</li>
+        <li>Fundo AZ Quest Luna (XP): ressarcimento dos cotistas?</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="ptitle"><span class="dot db"></span>Lacunas regulatórias</div>
+      <ul class="blist">
+        <li>Créditos já "aposentados" pelas empresas: são válidos retroativamente?</li>
+        <li>ICMBIO: papel como órgão de controle durante o período do esquema</li>
+        <li>IBAMA: ausência de atuação documentada nas fases anteriores</li>
+        <li>Verra: revisão de metodologia pós-Greenwashing para verificação fundiária?</li>
+        <li>SBCE: como o sistema regulado vai tratar projetos REDD+ existentes no mercado voluntário?</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="ptitle"><span class="dot dg"></span>Lacunas de impacto ambiental</div>
+      <ul class="blist">
+        <li>Volume real de madeira extraída das áreas durante o período do esquema</li>
+        <li>Situação atual das terras: retomada pela União?</li>
+        <li>Comunidades tradicionais e indígenas afetadas pela grilagem</li>
+        <li>Quais os 530.000 ha exatos e há sobreposição com Terras Indígenas?</li>
+        <li>Impacto no desmatamento oficial do Amazonas (PRODES/INPE)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hibox blue">
+    <div class="ht">Vetor de enforcement internacional</div>
+    <div class="hd">Empresas americanas (Boeing) e europeias (Nestlé/CH, Spotify/SE, Toshiba/JP) compraram créditos fictícios. Se as compensações foram declaradas em relatórios ESG sujeitos a regulação do SEC (EUA) ou CSRD (UE), há potencial vetor de enforcement estrangeiro — como em JBS, Lava Jato e Hydra. MLAT com EUA não ativado publicamente no caso.</div>
+  </div>
+</div>
+
+<!-- ════════ ÁREA DE TEXTO PARA CÓPIA ════════ -->
+<textarea id="textcopy" aria-hidden="true"></textarea>
+
+</main>
+
+<footer>
+  <div class="fcc">Operação Greenwashing · Dossiê Forense · <b>CC0 1.0 Domínio Público</b> · lawfare-timeline</div>
+  <div class="fcc">Atualizado: <b>Mai/2026</b> · Fontes: PF, MPF, Brasilagro, Mongabay, Idec, Senado Federal, CNN Brasil, Agência Brasil</div>
+</footer>
+
+<!-- GO TOP -->
+<button id="gotop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
+
+<script>
+// ── NAV ATIVO por scroll ──
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav .nb');
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const id = e.target.id;
+      navLinks.forEach(l => {
+        l.classList.toggle('act', l.getAttribute('href') === '#'+id);
+      });
+    }
+  });
+},{rootMargin:'-15% 0px -70% 0px'});
+
+sections.forEach(s => obs.observe(s));
+
+// ── GO TOP visibilidade ──
+const gotop = document.getElementById('gotop');
+window.addEventListener('scroll',()=>{
+  gotop.classList.toggle('vis', window.scrollY > 400);
+},{passive:true});
+
+// ── CÓPIA COMPLETA ──
+function copyAll(){
+  const content = document.querySelector('main').innerText;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(content).then(()=>{
+      const btn = document.querySelector('.copybtn');
+      btn.textContent = '✅ Copiado!';
+      setTimeout(()=>btn.textContent='📋 Copiar texto completo',2000);
+    });
+  } else {
+    const ta = document.getElementById('textcopy');
+    ta.style.position='fixed';ta.style.left='0';ta.style.top='0';
+    ta.style.width='2em';ta.style.height='2em';ta.style.opacity='0';
+    ta.value = document.querySelector('main').innerText;
+    ta.focus();ta.select();
+    document.execCommand('copy');
+    ta.style.position='fixed';ta.style.left='-9999px';
+  }
+}
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

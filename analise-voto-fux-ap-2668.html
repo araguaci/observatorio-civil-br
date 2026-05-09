@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise do Voto — Ministro Luiz Fux na AP 2668 — STF 10/09/2025</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:  #080c10; --bg1: #0d1218; --bg2: #121820; --bg3: #1a2230;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --fg:  #e8ecf0; --fg2: #8a9ab0; --fg3: #4a5a6a;
+  --red:    #e84040; --red2:    rgba(232,64,64,0.15);
+  --amber:  #e8a020; --amber2:  rgba(232,160,32,0.15);
+  --blue:   #3090e8; --blue2:   rgba(48,144,232,0.12);
+  --green:  #28c880; --green2:  rgba(40,200,128,0.12);
+  --purple: #a060e8; --purple2: rgba(160,96,232,0.12);
+  --font-mono:    'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); font-size: 13px; line-height: 1.6; min-height: 100vh; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border2);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .header { padding: 32px 40px 24px; } }
+.header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--amber), var(--blue));
+  background-size: 200% 100%;
+  animation: scanline 3s linear infinite;
+}
+@keyframes scanline { to { background-position: 200% 0; } }
+
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin-bottom: 16px;
+}
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue); flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 8px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.10em;
+  text-transform: uppercase; font-family: var(--font-mono);
+}
+.badge-red    { background: var(--red2);    color: var(--red);    border: 1px solid rgba(232,64,64,0.3); }
+.badge-amber  { background: var(--amber2);  color: var(--amber);  border: 1px solid rgba(232,160,32,0.3); }
+.badge-blue   { background: var(--blue2);   color: var(--blue);   border: 1px solid rgba(48,144,232,0.3); }
+.badge-green  { background: var(--green2);  color: var(--green);  border: 1px solid rgba(40,200,128,0.3); }
+.badge-purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(160,96,232,0.3); }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin-bottom: 12px;
+}
+.hero-title .hl-blue   { color: var(--blue); }
+.hero-title .hl-amber  { color: var(--amber); }
+.hero-title .hl-purple { color: var(--purple); }
+
+.header-subtitle {
+  font-size: 12px; color: var(--fg2); max-width: 820px; line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+  gap: 12px;
+  max-width: 900px;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+  padding: 12px 16px;
+}
+.stat-num {
+  font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1;
+}
+.stat-label {
+  font-size: 10px; color: var(--fg3); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-top: 4px;
+}
+
+.nav-tabs {
+  display: flex; background: var(--bg1); border-bottom: 1px solid var(--border);
+  padding: 0 20px; overflow-x: auto; scrollbar-width: none; position: sticky; top: 0; z-index: 100;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+@media (min-width: 768px) { .nav-tabs { padding: 0 40px; } }
+.nav-tab {
+  padding: 14px 16px; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--fg3); cursor: pointer; border: none;
+  background: none; border-bottom: 2px solid transparent; white-space: nowrap;
+  transition: all 0.15s; font-family: var(--font-mono); min-height: 44px;
+}
+.nav-tab:hover { color: var(--fg2); }
+.nav-tab.active { color: var(--fg); border-bottom-color: var(--blue); }
+
+.main { padding: 24px 20px 80px; }
+@media (min-width: 768px) { .main { padding: 32px 40px 80px; } }
+.tab-panel { display: block; scroll-margin-top: 80px; padding-top: 20px; }
+
+/* ── GO TOP ── */
+.gotop {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--blue);
+  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 1000; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, background 0.2s, border-color 0.2s;
+  font-family: var(--font-mono); font-weight: bold; font-size: 1.2rem;
+}
+.gotop.show { opacity: 1; pointer-events: auto; }
+.gotop:hover { background: var(--bg3); border-color: var(--blue); color: #fff; }
+
+/* ── RELATED ARTIFACTS ── */
+.related-wrap {
+  padding: 4rem 20px; background: linear-gradient(180deg, var(--bg1) 0%, var(--bg) 100%);
+  border-top: 1px solid var(--border); max-width: 1400px; margin: 0 auto;
+}
+@media (min-width: 768px) { .related-wrap { padding: 4rem 40px; } }
+.related-title {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; color: var(--fg3);
+  text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 12px;
+}
+.related-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.section-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg3);
+  margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+
+.card {
+  background: var(--bg1); border: 1px solid var(--border); border-radius: 6px; padding: 20px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.card-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+
+.card-accent {
+  background: var(--bg2); border-radius: 0 6px 6px 0; padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.card-accent-blue   { border-left: 3px solid var(--blue); }
+.card-accent-amber  { border-left: 3px solid var(--amber); }
+.card-accent-red    { border-left: 3px solid var(--red); }
+.card-accent-purple { border-left: 3px solid var(--purple); }
+.card-accent-green  { border-left: 3px solid var(--green); }
+.ca-label { font-size: 10px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+.ca-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.ca-body  { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.ca-cite  { margin-top: 10px; padding: 10px 12px; background: var(--bg3); border-radius: 4px; font-size: 11px; color: var(--fg3); font-style: italic; border-left: 2px solid var(--border2); }
+
+.alert-box {
+  border-radius: 6px; padding: 16px 20px;
+  display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px;
+}
+.alert-amber { background: var(--amber2); border: 1px solid rgba(232,160,32,0.25); }
+.alert-blue  { background: var(--blue2);  border: 1px solid rgba(48,144,232,0.25); }
+.alert-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.alert-body strong { color: var(--fg); }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+}
+
+.table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 6px; border: 1px solid var(--border); }
+.data-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+.data-table th {
+  font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--fg3); text-align: left; padding: 10px 12px;
+  border-bottom: 1px solid var(--border2); background: var(--bg2);
+}
+.data-table td {
+  padding: 10px 12px; font-size: 11px; border-bottom: 1px solid var(--border);
+  vertical-align: top; color: var(--fg2);
+}
+.data-table tr:hover td { background: var(--bg2); }
+.data-table tr:last-child td { border-bottom: none; }
+
+.lead { font-size: 13px; color: var(--fg2); line-height: 1.75; margin-bottom: 20px; }
+.lead strong { color: var(--fg); font-weight: 500; }
+
+.blockquote {
+  border-left: 3px solid var(--blue); padding: 16px 20px;
+  background: var(--bg2); border-radius: 0 6px 6px 0; margin: 20px 0;
+  font-size: 13px; color: var(--fg); line-height: 1.75; font-style: italic;
+}
+.blockquote-attrib { font-size: 11px; color: var(--fg3); margin-top: 10px; font-style: normal; }
+
+.ul-tight { margin: 8px 0 0 18px; color: var(--fg2); font-size: 12px; line-height: 1.65; }
+.ul-tight li { margin-bottom: 6px; }
+
+.footer {
+  margin-top: 48px; padding: 20px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 12px;
+}
+@media (min-width: 768px) { .footer { padding: 20px 40px; } }
+.footer-text { font-size: 11px; color: var(--fg3); line-height: 1.7; }
+.footer-text a { color: var(--blue); text-decoration: none; }
+.footer-text a:hover { text-decoration: underline; }
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 8px; margin-top: 12px;
+}
+.related-card {
+  display: block; padding: 14px 16px; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 6px;
+  text-decoration: none; transition: border-color .15s;
+}
+.related-card:hover { border-color: var(--border2); }
+.rc-label { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 4px; }
+.rc-title { font-size: 12px; font-weight: 600; color: var(--fg); }
+
+@media print {
+  body { background: #fff; color: #111; }
+  .nav-tabs { display: none !important; }
+  .tab-panel { display: block !important; page-break-inside: avoid; }
+  .tab-panel + .tab-panel { page-break-before: always; }
+  :root { --bg: #fff; --bg1: #f8f8f8; --bg2: #f0f0f0; --bg3: #e8e8e8;
+          --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.20);
+          --fg: #111; --fg2: #444; --fg3: #888; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="meta-row">
+    <div class="pulse-dot"></div>
+    <span class="badge badge-blue">AP 2668</span>
+    <span class="badge badge-purple">STF · Ação penal</span>
+    <span class="badge badge-amber">Voto divergente</span>
+    <span class="badge badge-green">10/SET/2025</span>
+    <span style="font-size:10px; color:var(--fg3); margin-left:auto;">Lawfare Timeline Design System</span>
+  </div>
+  <h1 class="hero-title">
+    Voto <span class="hl-blue">Fux</span> na<br>
+    <span class="hl-purple">AP 2668</span>
+  </h1>
+  <p class="header-subtitle">
+    Análise consolidada do voto do Ministro Luiz Fux em contraste com a linha majoritária (rel. Alexandre de Moraes; Min. Flávio Dino).
+    Abordagem técnica, exigência de prova além de dúvida razoável e rejeição de juízos políticos no Supremo.
+  </p>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--blue)">≈429</div>
+      <div class="stat-label">Páginas (aprox.)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--amber)">≈13h</div>
+      <div class="stat-label">Duração da leitura</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--purple)">7</div>
+      <div class="stat-label">Réus na tabela</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--green)">80 TB</div>
+      <div class="stat-label">Data dump citado</div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-tabs" id="main-nav">
+  <button type="button" class="nav-tab active" data-target="tab-visao">01 · Visão</button>
+  <button type="button" class="nav-tab" data-target="tab-preliminares">02 · Preliminares</button>
+  <button type="button" class="nav-tab" data-target="tab-crimes">03 · Crimes</button>
+  <button type="button" class="nav-tab" data-target="tab-reus">04 · Votos por réu</button>
+  <button type="button" class="nav-tab" data-target="tab-conclusao">05 · Conclusão</button>
+  <button type="button" class="nav-tab" data-target="tab-fontes">06 · Fonte &amp; artefatos</button>
+</nav>
+
+<div class="main">
+
+  <div id="tab-visao" class="tab-panel">
+    <p class="section-title">Síntese</p>
+    <p class="lead">
+      O voto proferido pelo Ministro <strong>Luiz Fux</strong> na <strong>AP 2668</strong>, em <strong>10 de setembro de 2025</strong>, diverge dos votos anteriores do relator <strong>Alexandre de Moraes</strong> e do Ministro <strong>Flávio Dino</strong>.
+      Com extensão de aproximadamente <strong>429 páginas</strong> e duração de cerca de <strong>13 horas</strong>, adota postura técnica e minimalista: prioriza objetividade jurídica e rejeita juízos políticos explícitos.
+      Fux enfatiza o STF como guardião da <strong>Constituição Federal de 1988</strong> e exige <strong>prova concreta além de dúvida razoável</strong> (*proof beyond a reasonable doubt*), alinhando-se à jurisprudência citada (ex.: <strong>AP 676</strong>, Rel. Min. Rosa Weber).
+    </p>
+    <div class="alert-box alert-blue">
+      <div class="alert-body">
+        <strong>Metodologia deste artefato:</strong> Estrutura derivada do texto em <code style="font-size:11px; color:var(--fg3)">docs/2025-09-10-analise-do-voto-do-ministro-luiz-fux-na-ap-2668.md</code>, com divisão em preliminares, mérito por tipo penal, votos por réu e conclusão. Para citações exatas e fundamentação completa, consultar o voto integral e o acórdão no portal do STF.
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Eixo jurídico</div>
+        <div class="card-body">
+          Preservação das garantias do art. 5º, LV, CRFB/88; juiz natural; censura ao <em>casuísmo</em> em mudanças jurisprudenciais aplicadas retroativamente para manter competência.
+          Referência à competência do <strong>Plenário</strong> (art. 5º, I, RISTF) pela relevância do cargo presidencial.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Eixo probatório</div>
+        <div class="card-body">
+          Individualização das condutas; improcedência geral por insuficiência probatória (art. 386, VII, CPP) onde aplicável;
+          validação da colaboração de Mauro Cid com calibração de benefícios; acolhimento do cerceamento pelo <em>data dump</em> de 80 TB.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-preliminares" class="tab-panel">
+    <p class="section-title">Preliminares analisadas</p>
+
+    <div class="card-accent card-accent-blue">
+      <div class="ca-label">Competência</div>
+      <div class="ca-title">Incompetência absoluta do STF e foro por prerrogativa</div>
+      <div class="ca-body">
+        Fux argumenta que o foro por prerrogativa cessou para réus como Augusto Heleno e Paulo Sérgio Nogueira antes da instrução, com base na Questão de Ordem na <strong>AP 937 (2018)</strong>.
+        Rejeita aplicação retroativa da tese da QO no <strong>Inq 4787 (2025)</strong> para manter a ação no STF após a prática dos fatos.
+      </div>
+      <div class="ca-cite">"A aplicação da tese mais recente para manter esta ação no STF, muito depois da prática dos crimes, gera questionamentos sobre o casuísmo da medida." (p. 25, conforme texto-fonte)</div>
+      <div class="ca-body" style="margin-top:10px">Propõe remessa ao primeiro grau da Justiça Federal (art. 567, CPP).</div>
+    </div>
+
+    <div class="card-accent card-accent-purple">
+      <div class="ca-label">Órgão julgador</div>
+      <div class="ca-title">Incompetência da Primeira Turma — Plenário</div>
+      <div class="ca-body">
+        Defende julgamento pelo <strong>Plenário do STF</strong>, pela relevância do cargo presidencial, independentemente da Emenda Regimental nº 59/2023.
+      </div>
+      <div class="ca-cite">"O Plenário do Supremo Tribunal Federal, instância de deliberação mais importante da mais alta corte do Poder Judiciário brasileiro, tem como missão julgar os ocupantes do cargo mais elevado e de maior relevância em nosso país." (p. 37)</div>
+    </div>
+
+    <div class="card-accent card-accent-green">
+      <div class="ca-label">Prova</div>
+      <div class="ca-title">Colaboração premiada de Mauro Cid</div>
+      <div class="ca-body">
+        Mantém o acordo homologado em 2023 e valoriza a contribuição para a elucidação; rejeita anulação por omissões parciais.
+      </div>
+      <div class="ca-cite">"É inegável que as informações fornecidas pelo réu Mauro Cid contribuíram para a elucidação dos crimes apurados nesta ação penal." (p. 45)</div>
+    </div>
+
+    <div class="card-accent card-accent-red">
+      <div class="ca-label">Contraditório</div>
+      <div class="ca-title">Cerceamento de defesa (<em>data dump</em>)</div>
+      <div class="ca-body">
+        Acolhe violação ao contraditório por juntada tardia de <strong>80 TB</strong> de dados (citado como equivalente a bilhões de páginas), sem indexação adequada, em prazo de cerca de <strong>cinco meses</strong>.
+        Invoca Súmula Vinculante 14 e tratados internacionais.
+      </div>
+      <div class="ca-cite">"Não houve tempo de analisar a prova. São milhares de documentos que nem sequer agora puderam ser analisados." (p. 58)</div>
+    </div>
+
+    <div class="card-accent card-accent-amber">
+      <div class="ca-label">Direito penal</div>
+      <div class="ca-title">Crime permanente e prescrição</div>
+      <div class="ca-body">
+        Considera o crime de organização criminosa como permanente, com consumação prolongada no tempo, citando precedente do STF.
+      </div>
+      <div class="ca-cite">"O crime permanente se diferencia de outros tipos penais, como o instantâneo e o instantâneo de efeitos permanentes, por uma característica fundamental: a sua consumação se prolonga no tempo." (HC 191068 AgR, STF)</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Demais preliminares</div>
+      <div class="card-body">
+        Separação funcional entre acusação e julgamento; exigência de <strong>denúncia individualizada</strong> (art. 41, CPP); rejeição de postura inquisitorial do juiz.
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-crimes" class="tab-panel">
+    <p class="section-title">Análise dos crimes imputados</p>
+    <p class="lead">
+      O exame meritório adota critérios estritos de <strong>tipicidade</strong>, <strong>dolo</strong> e <strong>nexo causal</strong>, rejeitando punição por cogitações ou atos meramente preparatórios (princípio da lesividade).
+      Aplicação de <strong>consunção</strong> e <strong>especialidade</strong>; rejeição de analogias expansivas <em>in malam partem</em>.
+    </p>
+
+    <div class="card-accent card-accent-blue">
+      <div class="ca-label">Lei 12.850/2013</div>
+      <div class="ca-title">Organização criminosa armada (art. 2º)</div>
+      <div class="ca-body">
+        Exige associação estável para crimes graves (pena máxima superior a 4 anos), divisão de tarefas e emprego de armas no tipo analisado pelo voto.
+        No texto-fonte, Fux rejeita quando ausente permanência ou dolo suficientemente provado para a série indeterminada de delitos.
+      </div>
+      <div class="ca-cite">"A condenação pelo delito de organização criminosa exige que o acusado tenha o dolo de praticar uma série indeterminada de delitos, de modo estável e permanente, punidos com pena máxima superior a 4 anos." (citação a DE GRANDIS, 2023, p. 253)</div>
+    </div>
+
+    <div class="card-accent card-accent-red">
+      <div class="ca-label">CP</div>
+      <div class="ca-title">359-L (abolição violenta) e 359-M (golpe de Estado)</div>
+      <div class="ca-body">
+        Exige violência ou grave ameaça com início de execução. Consunção: quando a abolição se busca mediante deposição violenta do governo legítimo, prevalece a sanção do 359-M.
+        Rejeição de <em>dolo subsequente</em>: o conhecimento deve ser atual no momento da ação.
+      </div>
+      <div class="ca-cite">"O conhecimento deve ser atual, ou seja, deve dar-se no momento da ação. Não existe um dolo subsequente." (Heleno Fragoso, cit.)</div>
+      <div class="ca-body" style="margin-top:10px">Discursos políticos críticos, por si, não tipificam nos termos citados pelo texto-fonte (contexto art. 359-T, CP).</div>
+    </div>
+
+    <div class="card-accent card-accent-amber">
+      <div class="ca-label">Patrimônio / meio ambiente</div>
+      <div class="ca-title">Dano qualificado e bem tombado</div>
+      <div class="ca-body">
+        Tratamento subsidiário e especialidade (Lei 9.605/1998). Ausência de nexo e dolo nos fatos do 08/01/2023 nas linhas sintetizadas do voto.
+      </div>
+      <div class="ca-cite">"O crime de dano é, assim, um delito de caráter subsidiário, porquanto só é aplicado se a conduta não configurar um crime mais grave."</div>
+    </div>
+
+    <div class="card-accent card-accent-purple">
+      <div class="ca-label">Omissão imprópria</div>
+      <div class="ca-title">Posição de garante</div>
+      <div class="ca-body">
+        Exige dever jurídico de agir e posição de garante; crítica à acusação genérica por omissão sem demonstração do dever.
+      </div>
+      <div class="ca-cite">"Será necessário, ademais, que a existência ou a integridade do bem jurídico cujo perigo se criou permaneça efetivamente sob a guarda do omitente: sob seu controle pessoal." (Mir Puig)</div>
+    </div>
+  </div>
+
+  <div id="tab-reus" class="tab-panel">
+    <p class="section-title">Votos por réu (resumo do texto-fonte)</p>
+    <p class="lead">
+      A individualização das condutas leva, no conjunto do material analisado, à <strong>improcedência</strong> em larga medida por insuficiência probatória (art. 386, VII, CPP), com exceções indicadas na tabela.
+    </p>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Réu</th>
+            <th>Crimes imputados</th>
+            <th>Decisão (resumo)</th>
+            <th>Razão principal</th>
+            <th>Citação chave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jair Messias Bolsonaro</td>
+            <td>OC, abolição violenta, golpe, danos</td>
+            <td><span class="badge badge-green">Improcedente</span></td>
+            <td>Cogitações sem atos executórios; obstou ações golpistas (tese do voto, conforme fonte).</td>
+            <td style="font-style:italic">"Pra que alguma coisa fosse feita, teria que ter uma ordem, e essa ordem tinha que vir com o presidente."</td>
+          </tr>
+          <tr>
+            <td>Mauro Cesar Barbosa Cid</td>
+            <td>OC, abolição violenta, golpe</td>
+            <td><span class="badge badge-amber">Parcial</span></td>
+            <td>Só tentativa de golpe; sem associação duradoura provada; colaboração validada.</td>
+            <td style="font-style:italic">"Não há qualquer prova nos autos de que o réu se uniu com mais de quatro pessoas..."</td>
+          </tr>
+          <tr>
+            <td>Almir Garnier Santos</td>
+            <td>OC, abolição violenta, golpe, danos</td>
+            <td><span class="badge badge-green">Improcedente</span></td>
+            <td>Atos preparatórios impuníveis.</td>
+            <td style="font-style:italic">"Antes de iniciada a execução do delito... não há crime a ser punido."</td>
+          </tr>
+          <tr>
+            <td>Walter Souza Braga Netto</td>
+            <td>OC, abolição violenta, golpe</td>
+            <td><span class="badge badge-green">Improcedente</span></td>
+            <td>Ausência de provas concretas de execução.</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Paulo Sérgio Nogueira de Oliveira</td>
+            <td>Danos</td>
+            <td><span class="badge badge-green">Absolvido</span></td>
+            <td>Sem nexo causal ou ordem para depredações.</td>
+            <td style="font-style:italic">"Não há qualquer prova nos autos de que o réu tenha determinado a destruição..."</td>
+          </tr>
+          <tr>
+            <td>Augusto Heleno Ribeiro Pereira</td>
+            <td>OC, abolição violenta, golpe, danos</td>
+            <td><span class="badge badge-green">Absolvido</span></td>
+            <td>Violação à ampla defesa; insuficiência probatória.</td>
+            <td style="font-style:italic">"Não há nenhuma prova nos autos de que a Abin tenha... monitorar o candidato eleito."</td>
+          </tr>
+          <tr>
+            <td>Anderson Gustavo Torres</td>
+            <td>OC, abolição violenta, golpe, danos</td>
+            <td><span class="badge badge-green">Absolvido</span></td>
+            <td>Análise dividida sem prova de desígnios unitários.</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert-box alert-amber">
+      <div class="alert-body">
+        <strong>Nota de consistência:</strong> O parágrafo de conclusão do markdown original afirma condenação parcial de <strong>Mauro Cid</strong> e <strong>Walter Braga Netto</strong> por tentativa de abolição violenta (art. 359-L), enquanto a tabela do mesmo arquivo indica <strong>improcedência</strong> para Braga Netto. Este artefato reproduz a tabela fielmente; confira o voto/acórdão oficial para a redação final consolidada.
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-conclusao" class="tab-panel">
+    <p class="section-title">Conclusão (texto-fonte)</p>
+    <div class="blockquote">
+      Fux julga improcedente a acusação para todos os réus, exceto condenação parcial de Mauro Cid e Walter Braga Netto por tentativa de abolição violenta (art. 359-L, CP). Enfatiza a gravidade dos fatos de 08/01/2023, mas rejeita responsabilidade genérica: "A gravidade do ocorrido não justifica uma acusação de responsabilidade genérica, sem a devida análise individual da conduta de cada um." O voto reforça o Estado de Direito, limitando punições a condutas tipificadas e provadas, preservando a democracia sem excessos interpretativos.
+      <div class="blockquote-attrib">— Extraído de <em>docs/2025-09-10-analise-do-voto-do-ministro-luiz-fux-na-ap-2668.md</em> (conclusão do artigo de análise, não substitui o inteiro teor do voto)</div>
+    </div>
+  </div>
+
+  <div id="tab-fontes" class="tab-panel">
+    <p class="section-title">Fonte primária do conteúdo</p>
+    <div class="card">
+      <div class="card-title">Documento base</div>
+      <div class="card-body">
+        <ul class="ul-tight">
+          <li><strong>Repositório:</strong> <code>docs/2025-09-10-analise-do-voto-do-ministro-luiz-fux-na-ap-2668.md</code></li>
+          <li><strong>Data do post Jekyll:</strong> 2025-09-10</li>
+          <li><strong>Voto objeto:</strong> Min. Luiz Fux, AP 2668, sessão registrada como 10/09/2025 no texto-fonte</li>
+        </ul>
+      </div>
+    </div>
+    <p class="section-title">Consulta obrigatória para citações processuais</p>
+    <div class="card-body" style="margin-bottom:16px; color:var(--fg2); font-size:12px;">
+      Portal do STF: processo <strong>AP 2668</strong>, inteiro teor do voto do Ministro Fux e acórdão definitivo assim que publicados na íntegra.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ RELATED ARTIFACTS (CROSS-ECOSYSTEM) ══ -->
+<div class="related-wrap">
+  <div class="related-title">Artefatos Relacionados</div>
+  <div class="related-grid">
+    <a href="/emaranhamento-operacoes.html" class="related-card">
+      <div class="rc-label" style="color:var(--red);">Ecosistema</div>
+      <div class="rc-title">Emaranhamento de Operações 2026</div>
+      <div style="font-size:11px; color:var(--fg2); margin-top:4px;">O panorama do fluxo de capitais.</div>
+    </a>
+    <a href="/banco-master-compliance-zero.html" class="related-card">
+      <div class="rc-label" style="color:var(--red);">Crimes Financeiros</div>
+      <div class="rc-title">Banco Master: Compliance Zero</div>
+      <div style="font-size:11px; color:var(--fg2); margin-top:4px;">Estruturas bancárias de captura.</div>
+    </a>
+    <a href="/trilogia-narco.html" class="related-card">
+      <div class="rc-label" style="color:var(--red);">Operação</div>
+      <div class="rc-title">Trilogia Narco: Do Porto à Rede Social</div>
+      <div style="font-size:11px; color:var(--fg2); margin-top:4px;">Lavagem de capital transnacional.</div>
+    </a>
+    <a href="/naskar-gestao-ativos.html" class="related-card">
+      <div class="rc-label" style="color:var(--red);">Crimes Financeiros</div>
+      <div class="rc-title">Naskar Gestão de Ativos</div>
+      <div style="font-size:11px; color:var(--fg2); margin-top:4px;">Operadores financeiros offshore.</div>
+    </a>
+    <a href="/paradoxo-constitucional.html" class="related-card">
+      <div class="rc-label" style="color:var(--blue);">Análise</div>
+      <div class="rc-title">Paradoxo constitucional</div>
+      <div style="font-size:11px; color:var(--fg2); margin-top:4px;">Ruptura e lawfare.</div>
+    </a>
+  </div>
+</div>
+
+<div id="gotop" class="gotop" title="Voltar ao topo">↑</div>
+
+<footer class="footer">
+  <div class="footer-text">
+    <strong style="color:var(--fg2);">Análise do Voto Fux · AP 2668</strong> · Artefato Lawfare Design System v1.0<br>
+    Conteúdo editorial derivado do markdown docs/2025-09-10; não substitui o voto oficial.
+  </div>
+  <div class="footer-text" style="text-align:right;">
+    <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0 Universal — Domínio Público</a><br>
+    Copie, distribua e adapte sem restrições
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.nav-tab');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-target');
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        const offset = 70; // offset for sticky nav
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = targetEl.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-100px 0px -50% 0px',
+    threshold: 0
+  };
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const activeTab = document.querySelector(`.nav-tab[data-target="${entry.target.id}"]`);
+        if (activeTab) {
+          activeTab.classList.add('active');
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.tab-panel').forEach(sec => navObserver.observe(sec));
+
+  const gotop = document.getElementById('gotop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      gotop.classList.add('show');
+    } else {
+      gotop.classList.remove('show');
+    }
+  });
+  gotop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

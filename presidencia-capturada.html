@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presidência Capturada — Gastos, Sigilo e Padrões de Extração · Lawfare Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:   #080808;
+  --bg2:  #0f0f0f;
+  --bg3:  #141414;
+  --bg4:  #1a1a1a;
+  --bg5:  #1f1f1f;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --border3: rgba(255,255,255,0.18);
+  --text:  #e6e6e2;
+  --text2: #888880;
+  --text3: #484840;
+  --text4: #2a2a24;
+  --red:   #c0392b;
+  --red2:  #e74c3c;
+  --red-dim: rgba(192,57,43,0.14);
+  --red-dim2: rgba(192,57,43,0.07);
+  --amber: #d4860a;
+  --amber2: #f0a500;
+  --amber-dim: rgba(212,134,10,0.13);
+  --amber-dim2: rgba(212,134,10,0.06);
+  --green: #27ae60;
+  --green-dim: rgba(39,174,96,0.11);
+  --blue:  #2980b9;
+  --blue-dim: rgba(41,128,185,0.12);
+  --purple:#8e44ad;
+  --purple-dim: rgba(142,68,173,0.12);
+  --font-d: 'Syne', sans-serif;
+  --font-m: 'IBM Plex Mono', monospace;
+  --font-m2: 'DM Mono', monospace;
+  --r: 5px;
+  --r2: 9px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-m);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.5;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  border-bottom: 1px solid var(--border2);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(8,8,8,0.97);
+  backdrop-filter: blur(16px);
+}
+.mh-left { display: flex; align-items: center; gap: 14px; }
+.mh-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text3);
+  font-family: var(--font-m2);
+}
+.mh-title {
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.mh-title em { color: var(--red); font-style: normal; }
+.mh-right { display: flex; align-items: center; gap: 6px; }
+.pill {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-m2);
+  background: transparent;
+  text-decoration: none;
+}
+.pill:hover, .pill.active {
+  border-color: var(--border3);
+  color: var(--text);
+  background: var(--bg3);
+}
+.pill.active { color: var(--red); border-color: var(--red-dim); }
+
+/* ── LAYOUT ── */
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 28px 100px;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 52px 0 44px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+  position: relative;
+}
+.hero-kicker {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-family: var(--font-m2);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-kicker::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--red-dim);
+  max-width: 200px;
+}
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+.hero-title span { color: var(--red); }
+.hero-sub {
+  font-size: 13px;
+  color: var(--text2);
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  font-family: var(--font-m2);
+}
+.hero-meta {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.hero-stat-val {
+  font-family: var(--font-d);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--red2);
+  letter-spacing: -0.02em;
+}
+.hero-stat-val.amber { color: var(--amber2); }
+.hero-stat-val.dim { color: var(--text2); }
+.hero-stat-label {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-m2);
+}
+
+/* ── SCOREBOARD ── */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  overflow: hidden;
+  margin-bottom: 36px;
+}
+.sb-cell {
+  background: var(--bg2);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.sb-cell:hover { background: var(--bg3); }
+.sb-val {
+  font-family: var(--font-d);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--amber2);
+}
+.sb-val.red { color: var(--red2); }
+.sb-val.green { color: var(--green); }
+.sb-val.blue { color: var(--blue); }
+.sb-val.dim { color: var(--text2); }
+.sb-label {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  font-family: var(--font-m2);
+}
+
+/* ── TABS ── */
+.tabs-bar {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s;
+  font-family: var(--font-m2);
+  text-decoration: none;
+  display: inline-block;
+}
+.tab-btn:hover { color: var(--text2); }
+.tab-btn.active { color: var(--text); border-bottom-color: var(--red); }
+.tab-panel { padding-top: 80px; margin-top: -60px; margin-bottom: 40px; }
+
+#gotop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  background: var(--bg2);
+  border: 1px solid var(--red-dim);
+  border-radius: 50%;
+  color: var(--red2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 1000;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+#gotop.show { opacity: 1; visibility: visible; }
+#gotop:hover { background: var(--bg3); transform: translateY(-3px); }
+#gotop svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ── SECTION TITLE ── */
+.sec-title {
+  font-family: var(--font-d);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: border-color 0.15s;
+}
+.card:hover { border-color: var(--border2); }
+.card-title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 14px;
+  font-family: var(--font-m2);
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+@media (max-width: 720px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ── PATTERN CARD ── */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.p-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 18px;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.p-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+.p-card.confirmed::before { background: var(--red); }
+.p-card.strong::before    { background: var(--amber); }
+.p-card.partial::before   { background: var(--blue); }
+.p-card.structural::before{ background: var(--purple); }
+.p-card:hover { border-color: var(--border2); background: var(--bg3); }
+.p-card-num {
+  font-family: var(--font-d);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.p-card-num.confirmed { color: var(--red); }
+.p-card-num.strong    { color: var(--amber); }
+.p-card-num.partial   { color: var(--blue); }
+.p-card-num.structural{ color: var(--purple); }
+.p-card-title {
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.p-card-body {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.65;
+  font-family: var(--font-m2);
+}
+.p-card-evidence {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--font-m2);
+}
+.p-card-evidence strong { color: var(--text2); }
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-family: var(--font-m2);
+  font-weight: 500;
+}
+.badge.red     { background: var(--red-dim);    color: var(--red2); border: 1px solid rgba(192,57,43,0.2); }
+.badge.amber   { background: var(--amber-dim);  color: var(--amber2); border: 1px solid rgba(212,134,10,0.2); }
+.badge.green   { background: var(--green-dim);  color: var(--green); border: 1px solid rgba(39,174,96,0.2); }
+.badge.blue    { background: var(--blue-dim);   color: var(--blue); border: 1px solid rgba(41,128,185,0.2); }
+.badge.purple  { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(142,68,173,0.2); }
+.badge.dim     { background: var(--bg4);        color: var(--text3); border: 1px solid var(--border); }
+
+/* ── NOTE ── */
+.note {
+  background: var(--amber-dim2);
+  border: 1px solid var(--amber-dim);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  font-family: var(--font-m2);
+}
+.note strong { color: var(--amber2); }
+.note.red-note {
+  background: var(--red-dim2);
+  border-color: var(--red-dim);
+}
+.note.red-note strong { color: var(--red2); }
+
+/* ── DATA TABLE ── */
+.data-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  margin-bottom: 24px;
+}
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-m2);
+}
+table.data-table thead th {
+  background: var(--bg3);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border2);
+  white-space: nowrap;
+}
+table.data-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+table.data-table tbody tr:last-child { border-bottom: none; }
+table.data-table tbody tr:hover { background: var(--bg3); }
+table.data-table td {
+  padding: 11px 14px;
+  color: var(--text);
+  vertical-align: top;
+}
+table.data-table td.mono {
+  font-family: var(--font-m);
+  color: var(--red2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+table.data-table td.muted { color: var(--text2); }
+table.data-table td.small { font-size: 11px; color: var(--text3); }
+
+/* ── TIMELINE ── */
+.tl { position: relative; padding-left: 24px; }
+.tl::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border2);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 18px;
+}
+.tl-dot {
+  position: absolute;
+  left: -18px;
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--bg);
+}
+.tl-dot.red    { background: var(--red); }
+.tl-dot.amber  { background: var(--amber); }
+.tl-dot.blue   { background: var(--blue); }
+.tl-dot.dim    { background: var(--text3); }
+.tl-date {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  font-family: var(--font-m2);
+}
+.tl-title {
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+.tl-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+  font-family: var(--font-m2);
+}
+
+/* ── SOURCE LINK ── */
+a.src {
+  font-size: 10px;
+  color: var(--blue);
+  text-decoration: none;
+  font-family: var(--font-m2);
+}
+a.src:hover { text-decoration: underline; }
+
+/* ── VERDICT BLOCK ── */
+.verdict {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.verdict-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.verdict-status {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-family: var(--font-m2);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.verdict-status.confirmed { background: var(--red-dim); color: var(--red2); border: 1px solid rgba(192,57,43,0.25); }
+.verdict-status.strong    { background: var(--amber-dim); color: var(--amber2); border: 1px solid rgba(212,134,10,0.25); }
+.verdict-status.partial   { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(41,128,185,0.2); }
+.verdict-q {
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.verdict-a {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+  font-family: var(--font-m2);
+  padding-left: 28px;
+}
+.verdict-src {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text3);
+  padding-left: 28px;
+  font-family: var(--font-m2);
+}
+.verdict-src a { color: var(--blue); text-decoration: none; }
+.verdict-src a:hover { text-decoration: underline; }
+
+/* ── METHODOLOGY STRIP ── */
+.method-strip {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 16px 20px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.method-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--font-m2);
+}
+.method-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── P10 OPEN QUESTION ── */
+.open-q {
+  background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 28px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.open-q::after {
+  content: '?';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-d);
+  font-size: 100px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+.open-q-label {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  font-family: var(--font-m2);
+  margin-bottom: 10px;
+}
+.open-q-title {
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.open-q-body {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 760px;
+  font-family: var(--font-m2);
+}
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-left { font-size: 11px; color: var(--text3); font-family: var(--font-m2); }
+.footer-right { font-size: 10px; color: var(--text3); letter-spacing: 0.12em; font-family: var(--font-m2); }
+.footer-right a { color: var(--blue); text-decoration: none; }
+.footer-right a:hover { text-decoration: underline; }
+
+/* ── CHART BAR ── */
+.bar-chart { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: flex; flex-direction: column; gap: 4px; }
+.bar-meta { display: flex; justify-content: space-between; }
+.bar-key { font-size: 11px; color: var(--text2); font-family: var(--font-m2); }
+.bar-val { font-size: 11px; color: var(--text); font-family: var(--font-m); font-weight: 500; }
+.bar-track {
+  height: 6px;
+  background: var(--bg4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── CPGF BLOCK ── */
+.cpgf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.cpgf-cell {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 10px;
+  text-align: center;
+}
+.cpgf-month { font-size: 10px; color: var(--text3); font-family: var(--font-m2); margin-bottom: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
+.cpgf-val { font-family: var(--font-d); font-size: 14px; font-weight: 700; color: var(--amber2); }
+.cpgf-pct { font-size: 10px; color: var(--text3); font-family: var(--font-m2); margin-top: 3px; }
+.cpgf-pct.danger { color: var(--red); }
+
+/* ── TRAVEL LIST ── */
+.travel-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.travel-item {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: border-color 0.12s;
+}
+.travel-item:hover { border-color: var(--border2); }
+.travel-rank {
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text3);
+  flex-shrink: 0;
+  width: 24px;
+  text-align: right;
+}
+.travel-body { flex: 1; }
+.travel-val {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--red2);
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+.travel-dest {
+  font-size: 11px;
+  color: var(--text);
+  font-family: var(--font-m2);
+  margin-bottom: 3px;
+}
+.travel-desc { font-size: 11px; color: var(--text3); font-family: var(--font-m2); line-height: 1.5; }
+.travel-meta { display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+
+/* ── OPACITY PULSE ── */
+@keyframes pulse-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.pulse-red { animation: pulse-red 2s ease-in-out infinite; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .masthead { padding: 0 16px; }
+  .main { padding: 24px 16px 80px; }
+  .mh-eyebrow { display: none; }
+  .hero-title { font-size: 26px; }
+  .hero-meta { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mh-left">
+    <span class="mh-eyebrow">Lawfare Timeline · BR</span>
+    <span class="mh-title"><em>Presidência Capturada</em> — Gastos, Sigilo & Padrões</span>
+  </div>
+  <div class="mh-right">
+    <a href="#tab-visao" class="pill active">Visão Geral</a>
+    <a href="#tab-padroes" class="pill">Padrões P01–P09</a>
+    <a href="#tab-gastos" class="pill">Gastos Diretos</a>
+    <a href="#tab-sigilo" class="pill">Sigilo</a>
+    <a href="#tab-perguntas" class="pill">Perguntas</a>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-kicker">
+      <span class="pulse-red">●</span>
+      Análise em andamento · Atualizado mai/2026
+    </div>
+    <h1 class="hero-title">Presidência<br><span>Capturada</span></h1>
+    <p class="hero-sub">
+      Gastos da Presidência da República no governo Lula (2023–2026) lidos como padrão de extração institucional.
+      Viagens oficiais, cartão corporativo sigiloso, estrutura não oficializada da primeira-dama e déficit fiscal
+      como contexto de transferência de custo para o contribuinte. Fonte aberta. Sem concessão narrativa.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="hero-stat-val">R$ 7,48 bi</div>
+        <div class="hero-stat-label">Governo sob lupa (viagens + CPGF, 2023–2026)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val amber">97,9%</div>
+        <div class="hero-stat-label">CPGF Presidência com favorecido sigiloso</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val dim">80,07%</div>
+        <div class="hero-stat-label">Dívida bruta / PIB · mar/2026 · BCB</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val amber">R$ 324 bi</div>
+        <div class="hero-stat-label">Gasto fora da meta fiscal em 3 anos · Poder360</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHOD STRIP -->
+  <div class="method-strip">
+    <div class="method-item"><div class="method-dot" style="background:var(--red)"></div><span>[C] Confirmado — fonte oficial</span></div>
+    <div class="method-item"><div class="method-dot" style="background:var(--amber)"></div><span>[E] Estimativa — instituto reconhecido</span></div>
+    <div class="method-item"><div class="method-dot" style="background:var(--blue)"></div><span>[A] Alegação — investigação em andamento</span></div>
+    <div class="method-item"><div class="method-dot" style="background:var(--purple)"></div><span>[I] Inferência estrutural</span></div>
+    <div class="method-item"><div class="method-dot" style="background:var(--text3)"></div><span>Separação obrigatória: gasto direto ≠ contexto ≠ sigilo</span></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-bar">
+    <a href="#tab-visao" class="tab-btn active">Visão Geral</a>
+    <a href="#tab-padroes" class="tab-btn">Padrões P01–P09</a>
+    <a href="#tab-gastos" class="tab-btn">Gastos Diretos</a>
+    <a href="#tab-sigilo" class="tab-btn">Sigilo CPGF</a>
+    <a href="#tab-perguntas" class="tab-btn">Perguntas Abertas</a>
+  </div>
+
+  <!-- ══ TAB: VISÃO GERAL ══ -->
+  <div id="tab-visao" class="tab-panel">
+
+    <p class="sec-title">Scoreboard: o que os números dizem</p>
+    <div class="scoreboard">
+      <div class="sb-cell">
+        <div class="sb-val">R$ 236,7 mil</div>
+        <div class="sb-label">Direto — Rosângela da Silva, nome oficial, Portal da Transparência</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val">R$ 1,9 mi</div>
+        <div class="sb-label">Estrutura ligada à Janja no Planalto · Poder360</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val red">R$ 47,4 mi</div>
+        <div class="sb-label">CPGF Presidência total (30.879 transações)</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val red">R$ 46,4 mi</div>
+        <div class="sb-label">Favorecido sigiloso no CPGF — 97,87% do total</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val">R$ 7,43 bi</div>
+        <div class="sb-label">Viagens federais oficiais 2023–2026 (todos os ministérios)</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val green">R$ 158,1 mi</div>
+        <div class="sb-label">Viagens da Presidência da República no período</div>
+      </div>
+    </div>
+
+    <div class="note red-note">
+      <strong>Leitura correta:</strong> R$ 7,48 bi é governo inteiro sob lupa — não é gasto pessoal da primeira-dama.
+      O direto identificado (R$ 236,7 mil) e o contexto/estrutura (R$ 1,9 mi) ficam analiticamente separados.
+      O CPGF sigiloso (97,9%) não é acusação pessoal — é pressão por transparência sobre caixa-preta pública.
+      A dívida bruta e o gasto fora da meta são contexto fiscal que torna cada despesa pública mais cobrável.
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Viagens por ano — governo federal (R$ bi)</div>
+        <div class="bar-chart" id="bar-anos"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Gasto direto Rosângela — por mês (R$ mil)</div>
+        <div class="bar-chart" id="bar-janja"></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Por que isso entra no lawfare-timeline?</strong>
+      Não por moralismo, mas por estrutura. A opacidade do CPGF (97,9% sigiloso), a não formalização da
+      estrutura da primeira-dama, o gasto fora da meta fiscal e o sigilo sobre favorecidos reproduzem
+      os mesmos mecanismos documentados em operações de extração: invisibilidade institucionalizada,
+      custo socializado, benefício concentrado e ausência de cadeia de responsabilidade rastreável.
+      Esse é o padrão — não a anedota.
+    </div>
+
+    <p class="sec-title">Contexto macroeconômico: quem paga</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Dívida bruta / PIB — evolução</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Dez/2022</span><span class="bar-val">71,68%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:71.68%;background:var(--blue)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Dez/2023</span><span class="bar-val">74,3%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:74.3%;background:var(--amber)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Dez/2024</span><span class="bar-val">78,6%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:78.6%;background:var(--amber)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Mar/2026</span><span class="bar-val">80,07%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:80.07%;background:var(--red)"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text3);font-family:var(--font-m2)">Fonte: BCB SGS · <a class="src" href="https://www.bcb.gov.br/estatisticas/tabelasespeciais" target="_blank">bcb.gov.br</a></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Juros x Saúde x Educação (R$ bi/ano est.)</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Serviço da dívida</span><span class="bar-val" style="color:var(--red2)">~R$ 900 bi</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--red)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Saúde (orç. federal)</span><span class="bar-val">~R$ 200 bi</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--green)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Educação (orç. federal)</span><span class="bar-val">~R$ 140 bi</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--blue)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Gasto fora da meta (3 anos)</span><span class="bar-val" style="color:var(--amber2)">R$ 324 bi</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:36%;background:var(--amber)"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text3);font-family:var(--font-m2)">Fontes: STN · <a class="src" href="https://www.poder360.com.br/poder-economia/lula-gasta-r-324-bilhoes-fora-da-meta-fiscal-em-3-anos/" target="_blank">Poder360</a></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Endividamento familiar — contexto</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Famílias endividadas (jan/26)</span><span class="bar-val">78,4%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:78.4%;background:var(--red)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Com dívidas em atraso</span><span class="bar-val">29,2%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:29.2%;background:var(--amber)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Falências requeridas 2025 (+%)</span><span class="bar-val" style="color:var(--red2)">+60,5%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:60.5%;background:var(--red)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Selic (mai/2026)</span><span class="bar-val">13,25%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:53%;background:var(--amber)"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text3);font-family:var(--font-m2)">Fontes: CNC · Serasa · BCB</div>
+      </div>
+    </div>
+
+  </div><!-- /tab-visao -->
+
+  <!-- ══ TAB: PADRÕES ══ -->
+  <div id="tab-padroes" class="tab-panel">
+
+    <p class="sec-title">Mapeamento P01–P09: padrões de captura identificados</p>
+
+    <div class="note">
+      <strong>Quadro analítico:</strong> Os padrões P01–P09 foram documentados primariamente em operações anti-corrupção
+      (Lava Jato, Carbono Oculto, Sem Desconto, Mare Liberum). A questão aqui é se os mesmos padrões estruturais
+      aparecem na operação da Presidência — não como operação criminal idêntica, mas como reprodução dos
+      mecanismos de invisibilidade, opacidade, captura e transferência de custo.
+    </div>
+
+    <div class="pattern-grid">
+
+      <div class="p-card confirmed">
+        <div class="p-card-num confirmed">P01 · Captura Institucional</div>
+        <div class="p-card-title">Uso de estrutura estatal para fins não oficializados</div>
+        <div class="p-card-body">
+          A estrutura ligada à primeira-dama no Palácio do Planalto não tem cargo formal, orçamento oficial,
+          marco regulatório nem prestação de contas específica. Custo estimado em R$ 1,9 mi/ano
+          (Poder360) sem linha de responsabilidade rastreável na LOA.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Evidência:</strong> Poder360, "Gabinete de Janja no Planalto custa cerca de R$ 2 mi/ano" ·
+          <span class="badge red">Confirmado</span>
+          <br><a class="src" href="https://www.poder360.com.br/poder-governo/gabinete-de-janja-no-planalto-custa-cerca-de-r-2-mi-por-ano/" target="_blank">poder360.com.br →</a>
+        </div>
+      </div>
+
+      <div class="p-card confirmed">
+        <div class="p-card-num confirmed">P02 · Opacidade Financeira</div>
+        <div class="p-card-title">Sigilo sobre beneficiários de gasto público</div>
+        <div class="p-card-body">
+          97,87% das transações do CPGF da Presidência (R$ 46,4 mi em R$ 47,4 mi total) têm favorecido
+          sigiloso. O TCU e Poder360 documentaram que o cartão corporativo da Presidência é
+          praticamente uma caixa-preta pública. Cada centavo é dinheiro do contribuinte.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Evidência:</strong> TCU/Poder360 · CPGF Portal da Transparência
+          <span class="badge red">Confirmado [C]</span>
+          <br><a class="src" href="https://www.poder360.com.br/poder-governo/tcu-mostra-99-de-sigilo-no-cartao-corporativo-da-presidencia/" target="_blank">Poder360/TCU →</a>
+        </div>
+      </div>
+
+      <div class="p-card strong">
+        <div class="p-card-num strong">P03 · Desvio de Finalidade</div>
+        <div class="p-card-title">Agenda pública usada como suporte para agenda não institucional</div>
+        <div class="p-card-body">
+          Viagens oficiais da comitiva presidencial incluem participação da primeira-dama em eventos
+          sem cargo formal que justifique o custo de deslocamento público. Os registros separam
+          "direta" (R$ 236,7 mil em nome de Rosângela) de "comitiva" — mas a comitiva é custo público.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Evidência:</strong> Portal da Transparência · Viagens 2023–2026
+          <span class="badge amber">Forte [C+I]</span>
+          <br><a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">portaldatransparencia.gov.br →</a>
+        </div>
+      </div>
+
+      <div class="p-card strong">
+        <div class="p-card-num strong">P04 · Custo Socializado</div>
+        <div class="p-card-title">Transferência de custo para o contribuinte via mecanismos difusos</div>
+        <div class="p-card-body">
+          Modelo sistemático: estrutura não formalizada (custo no orçamento geral), viagens em comitiva
+          (custo diluído), CPGF sigiloso (custo sem destinatário visível), déficit fiscal acumulado
+          (custo via dívida/inflação/juros futuros). O contribuinte paga; nenhuma linha de orçamento
+          identifica o beneficiário específico.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Inferência estrutural:</strong> Padrão documentado em todas as operações do corpus.
+          <span class="badge amber">Forte [I]</span>
+        </div>
+      </div>
+
+      <div class="p-card partial">
+        <div class="p-card-num partial">P05 · Assimetria de Informação</div>
+        <div class="p-card-title">Governo detém dados; cidadão recebe versão editada</div>
+        <div class="p-card-body">
+          O Portal da Transparência exibe os dados — mas 97,9% do cartão não tem favorecido.
+          A estrutura no Planalto não tem CNPJ, portaria de criação, nem quadro de pessoal
+          publicado no DOU. A assimetria é arquitetada: há divulgação formal sem conteúdo substancial.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Evidência:</strong> CPGF · DOU (ausência de portaria) · Portal da Transparência
+          <span class="badge blue">Parcial [C+A]</span>
+        </div>
+      </div>
+
+      <div class="p-card partial">
+        <div class="p-card-num partial">P06 · Ausência de Accountability Vertical</div>
+        <div class="p-card-title">Nenhum mecanismo formal de prestação de contas</div>
+        <div class="p-card-body">
+          A primeira-dama não tem cargo, não presta contas ao TCU como unidade autônoma, não tem
+          orçamento nominalmente vinculado. A estrutura existe operacionalmente mas é invisível para
+          os sistemas de controle. Esse gap estrutural é funcional — não acidental.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Inferência:</strong> Ausência de registros no DOU / SIORG para a função
+          <span class="badge blue">Parcial [I]</span>
+        </div>
+      </div>
+
+      <div class="p-card strong">
+        <div class="p-card-num strong">P07 · Inflação de Narrativa</div>
+        <div class="p-card-title">Discurso público desconectado da aritmética fiscal</div>
+        <div class="p-card-body">
+          O governo anuncia agenda social, combate à fome e redução da desigualdade enquanto gasta
+          R$ 324 bi acima da meta fiscal em 3 anos, mantém juros reais entre os mais altos do mundo
+          e opera com sigilo em 97,9% do cartão presidencial. A narrativa não sobrevive ao confronto
+          com os números públicos.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Evidência:</strong> Poder360 · BCB · STN
+          <span class="badge amber">Forte [C]</span>
+          <br><a class="src" href="https://www.poder360.com.br/poder-economia/lula-gasta-r-324-bilhoes-fora-da-meta-fiscal-em-3-anos/" target="_blank">Poder360 →</a>
+        </div>
+      </div>
+
+      <div class="p-card structural">
+        <div class="p-card-num structural">P08 · Normalização Progressiva</div>
+        <div class="p-card-title">O excepcional torna-se prática padrão sem debate público</div>
+        <div class="p-card-body">
+          Estrutura sem formalização legal, cartão corporativo com 97,9% de sigilo, gasto acima da meta
+          por 3 anos consecutivos — cada item seria escândalo isolado. Juntos, formam o ambiente
+          operacional "normal" da Presidência. A normalização é o mecanismo: o escândalo não ocorre
+          porque o patamar de referência se deslocou.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Padrão estrutural:</strong> Documentado em Satiagraha, Lava Jato pós-2019, INQ 4781
+          <span class="badge purple">Estrutural [I]</span>
+        </div>
+      </div>
+
+      <div class="p-card structural">
+        <div class="p-card-num structural">P09 · Captura do Controle</div>
+        <div class="p-card-title">Mecanismos de fiscalização coexistem com opacidade estrutural</div>
+        <div class="p-card-body">
+          TCU existe e documenta o sigilo do cartão. CGU existe. Portal da Transparência existe.
+          Mas 97,9% do CPGF continua sigiloso. A coexistência de controle formal com opacidade
+          substantiva não é falha do sistema — é sua operação normal quando os beneficiários
+          também controlam os controladores.
+        </div>
+        <div class="p-card-evidence">
+          <strong>Padrão:</strong> STF como terminal (INQ 4781) · TCU como documentador sem enforcement
+          <span class="badge purple">Estrutural [I]</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- P10 OPEN QUESTION -->
+    <div class="open-q">
+      <div class="open-q-label">Questão Aberta · P10</div>
+      <div class="open-q-title">O Executivo como substrato — não como padrão, mas como habilitador de todos os padrões</div>
+      <div class="open-q-body">
+        P01–P09 foram identificados em operações onde o Executivo era ora investigado, ora omisso, ora cúmplice.
+        A pergunta de P10 é diferente: quando a Presidência da República é simultaneamente o objeto da análise
+        e o habilitador estrutural dos mecanismos de captura — nomeando ministros do STF, controlando a AGU,
+        definindo quais investigações recebem recursos da PGR, estabelecendo quais TCUs recebem prioridade —
+        ela transcende a categoria de "padrão" e torna-se o <em>substrato</em> sobre o qual todos os outros
+        padrões operam. P10 não é mais um item da lista. É o contexto que torna a lista possível.
+      </div>
+    </div>
+
+  </div><!-- /tab-padroes -->
+
+  <!-- ══ TAB: GASTOS DIRETOS ══ -->
+  <div id="tab-gastos" class="tab-panel">
+
+    <p class="sec-title">Viagens — Rosângela da Silva (direto identificado)</p>
+
+    <div class="note">
+      <strong>Separação metodológica:</strong>
+      "Direto" = registro oficial em nome de Rosângela da Silva no Portal da Transparência.
+      "Comitiva" = acompanha comitiva presidencial — custo público real, mas não atribuível a ela individualmente.
+      "Contexto" = estrutura, apoio, equipe sem registro nominal.
+      Apenas o direto entra no total pessoal (R$ 236,7 mil). Os demais são cobranças de transparência.
+    </div>
+
+    <div class="travel-list">
+      <div class="travel-item">
+        <div class="travel-rank">1</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 83.616,44</div>
+          <div class="travel-dest">PARIS / FRANÇA · 24 jul 2024</div>
+          <div class="travel-desc">Comitiva em visita oficial por ocasião da Cerimônia de Abertura dos XXXIII Jogos Olímpicos de 2024.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2024" target="_blank">Portal da Transparência 2024</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">2</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 60.210,58</div>
+          <div class="travel-dest">PARIS / FRANÇA · 26 mar 2025</div>
+          <div class="travel-desc">Participar da Cúpula de Nutrição para o Crescimento — N4G, na cidade de Paris, República Francesa.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência 2025</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">3</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 43.449,53</div>
+          <div class="travel-dest">NOVA YORK / EUA · 09 mar 2024</div>
+          <div class="travel-desc">Compor, a convite do Ministério das Mulheres, a delegação brasileira durante a 68ª Sessão da Comissão sobre a Situação da Mulher (CSW) da ONU.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2024" target="_blank">Portal da Transparência 2024</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">4</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 34.379,77</div>
+          <div class="travel-dest">ROMA / ITÁLIA · 09 fev 2025</div>
+          <div class="travel-desc">Integra a Comitiva do Ministro Welington Dias para a 48ª Sessão do Conselho de Governança do Fundo Internacional de Desenvolvimento Agrícola — FIDA.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência 2025</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">5</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 5.787,69</div>
+          <div class="travel-dest">RIO DE JANEIRO / SP · 03 fev 2023</div>
+          <div class="travel-desc">Visita ao Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernandes Figueira — IFF.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2023" target="_blank">Portal da Transparência 2023</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">6</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 3.174,62</div>
+          <div class="travel-dest">MANAUS / AM · 17 ago 2025</div>
+          <div class="travel-desc">Participar de Encontro da Comunidade Científica e Tecnológica da Amazônia no contexto da COP 30.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência 2025</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">7</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 1.853,74</div>
+          <div class="travel-dest">RIAD / DUBAI / BERLIM · 27 nov 2023</div>
+          <div class="travel-desc">Integrar comitiva presidencial às cidades de Riad (Arábia Saudita), Dubai (EAU) e Berlim (Alemanha).</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2023" target="_blank">Portal da Transparência 2023</a>
+          </div>
+        </div>
+      </div>
+      <div class="travel-item">
+        <div class="travel-rank">8</div>
+        <div class="travel-body">
+          <div class="travel-val">R$ 1.439,80</div>
+          <div class="travel-dest">BOGOTÁ / COLÔMBIA · 20 ago 2025</div>
+          <div class="travel-desc">Participar do Diálogo Regional da América do Sul e Central e Caribe do Balanço Ético Global — BEG e da 5ª Cúpula de Presidentes dos SIDS.</div>
+          <div class="travel-meta">
+            <span class="badge red">direto identificado</span>
+            <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência 2025</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Leitura anti-manipulação:</strong> O total direto (R$ 236,7 mil) é relativamente modesto comparado
+      ao gasto de qualquer ministério. O problema analítico não é o valor nominal — é a ausência de
+      formalização do cargo, de base legal para o custo, e de sistema de accountability. Um gasto de
+      R$ 5 mil sem marco regulatório é estruturalmente mais problemático do que um gasto de R$ 500 mil
+      com prestação de contas completa. O padrão importa mais do que o número.
+    </div>
+
+    <p class="sec-title">Estrutura e contexto (separado do direto)</p>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Valor estimado</th>
+            <th>Status</th>
+            <th>Nota analítica</th>
+            <th>Fonte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Estrutura no Planalto (equipe/ano)</td>
+            <td class="mono">~R$ 1,9 mi/ano</td>
+            <td><span class="badge amber">Contexto</span></td>
+            <td class="muted">Sem portaria, sem cargo formal, sem linha na LOA</td>
+            <td class="small"><a class="src" href="https://www.poder360.com.br/poder-governo/gabinete-de-janja-no-planalto-custa-cerca-de-r-2-mi-por-ano/" target="_blank">Poder360</a></td>
+          </tr>
+          <tr>
+            <td>Janja + equipe / comitiva (viagens)</td>
+            <td class="mono">R$ 791,5 mil</td>
+            <td><span class="badge amber">Contexto</span></td>
+            <td class="muted">Inclui comitiva/contexto — não é gasto pessoal exclusivo</td>
+            <td class="small"><a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência</a></td>
+          </tr>
+          <tr>
+            <td>Viagens da Presidência da República (total)</td>
+            <td class="mono">R$ 158,1 mi</td>
+            <td><span class="badge dim">Federal</span></td>
+            <td class="muted">Todo o Gabinete Presidencial — não atribuir à Janja sem prova</td>
+            <td class="small"><a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2026" target="_blank">Portal da Transparência</a></td>
+          </tr>
+          <tr>
+            <td>Pistas de alimentação no CPGF (keyword)</td>
+            <td class="mono">R$ 8,1 mil</td>
+            <td><span class="badge blue">Pista</span></td>
+            <td class="muted">Identificação por palavra-chave; não é prova de refeição pessoal</td>
+            <td class="small"><a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/cpgf/202604" target="_blank">CPGF Portal</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /tab-gastos -->
+
+  <!-- ══ TAB: SIGILO ══ -->
+  <div id="tab-sigilo" class="tab-panel">
+
+    <p class="sec-title">CPGF Presidência — cartão corporativo sob lupa</p>
+
+    <div class="note red-note">
+      <strong>97,87% sigiloso:</strong> De R$ 47,4 mi em 30.879 transações do Cartão de Pagamentos do Governo
+      Federal da Presidência da República, R$ 46,4 mi têm favorecido sigiloso. O TCU documentou esse índice.
+      Isso não é acusação pessoal à primeira-dama — é pressão pública legítima por transparência sobre
+      caixa-preta financiada pelo contribuinte. O sigilo não ganha passe livre por ser legal.
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Total CPGF Presidência (2023–2026)</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Favorecido sigiloso</span><span class="bar-val red" style="color:var(--red2)">R$ 46,4 mi · 97,87%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:97.87%;background:var(--red)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-meta"><span class="bar-key">Favorecido visível</span><span class="bar-val" style="color:var(--green)">R$ 1,0 mi · 2,13%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:2.13%;background:var(--green)"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:16px;font-size:10px;color:var(--text3);font-family:var(--font-m2)">
+          Total: R$ 47,4 mi · 30.879 transações · Fonte: <a class="src" href="https://portaldatransparencia.gov.br/download-de-dados/cpgf/202604" target="_blank">CPGF Portal da Transparência</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Meses recentes — CPGF (R$ mil)</div>
+        <div class="cpgf-grid">
+          <div class="cpgf-cell">
+            <div class="cpgf-month">ago/25</div>
+            <div class="cpgf-val">609 mil</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">set/25</div>
+            <div class="cpgf-val">485,7 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">out/25</div>
+            <div class="cpgf-val">594,2 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">dez/25</div>
+            <div class="cpgf-val">766,8 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">jan/26</div>
+            <div class="cpgf-val">848,9 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">fev/26</div>
+            <div class="cpgf-val">337 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">mar/26</div>
+            <div class="cpgf-val">429,3 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+          <div class="cpgf-cell">
+            <div class="cpgf-month">abr/26</div>
+            <div class="cpgf-val">488,3 k</div>
+            <div class="cpgf-pct danger">~98% sigilo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="sec-title">Comparativo: sigilo nos cartões por governo</p>
+
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot amber"></div>
+        <div class="tl-date">Governo Bolsonaro (2019–2022)</div>
+        <div class="tl-title">Cartão de Bolsonaro — sigilo também elevado</div>
+        <div class="tl-desc">
+          O padrão de sigilo alto no CPGF não é exclusividade do governo Lula. Bolsonaro também operou
+          com índices elevados. A crítica estrutural é ao <em>sistema</em>, não a um governo específico:
+          o Brasil permite que o cartão corporativo da Presidência seja operacionalmente uma caixa-preta.
+          A cobrança deve ser simétrica para ter credibilidade analítica.
+          <span class="badge dim">Contexto comparativo</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-date">Governo Lula 3 (2023–2026)</div>
+        <div class="tl-title">97,87% sigiloso — índice documentado pelo TCU</div>
+        <div class="tl-desc">
+          TCU publicou análise mostrando que o cartão da Presidência mantém índice próximo de 99% de sigilo.
+          O governo que se apresenta como o mais transparente da história opera com a maior caixa-preta
+          financeira da Presidência da República.
+          <span class="badge red">Confirmado [C]</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot blue"></div>
+        <div class="tl-date">Cobrança estrutural</div>
+        <div class="tl-title">O que deveria acontecer mas não acontece</div>
+        <div class="tl-desc">
+          Transparência plena do CPGF com favorecido e objeto da despesa publicados em tempo real.
+          Base legal para a estrutura da primeira-dama. Linha de prestação de contas ao TCU.
+          Publicação de portaria de criação no DOU. Nenhum desses instrumentos existe hoje.
+          <span class="badge blue">Demanda de transparência</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-sigilo -->
+
+  <!-- ══ TAB: PERGUNTAS ABERTAS ══ -->
+  <div id="tab-perguntas" class="tab-panel">
+
+    <p class="sec-title">Perguntas que a base pública ainda não responde</p>
+
+    <div class="verdict">
+      <div class="verdict-head">
+        <span class="verdict-status confirmed">✓ Confirmada</span>
+        <div class="verdict-q">Existe gasto público direto identificado em nome de Rosângela da Silva?</div>
+      </div>
+      <div class="verdict-a">
+        Sim. O Portal da Transparência registra R$ 236,7 mil em viagens com beneficiária nominada como
+        Rosângela da Silva (2023–2026). Os registros são públicos, verificáveis e em fonte primária.
+        Não há contestação possível sobre esse dado — apenas contextualização sobre o que representa.
+      </div>
+      <div class="verdict-src">
+        Fonte: <a href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência · Viagens 2023–2026</a>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-head">
+        <span class="verdict-status confirmed">✓ Confirmada</span>
+        <div class="verdict-q">A estrutura da primeira-dama tem base legal e prestação de contas formal?</div>
+      </div>
+      <div class="verdict-a">
+        Não. Não há portaria de criação no DOU, não há cargo formal, não há linha orçamentária própria,
+        não há CNPJ de unidade gestora, não há relatório de atividades ao TCU como unidade autônoma.
+        A estrutura existe operacionalmente (Poder360 estimou ~R$ 1,9 mi/ano) mas é juridicamente
+        inexistente nos sistemas de controle. Isso é o padrão P01 + P06 em operação simultânea.
+      </div>
+      <div class="verdict-src">
+        Fontes: <a href="https://www.poder360.com.br/poder-governo/gabinete-de-janja-no-planalto-custa-cerca-de-r-2-mi-por-ano/" target="_blank">Poder360</a> · DOU (ausência de ato normativo)
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-head">
+        <span class="verdict-status strong">◐ Parcial</span>
+        <div class="verdict-q">O CPGF sigiloso financia atividades ligadas à primeira-dama?</div>
+      </div>
+      <div class="verdict-a">
+        Indeterminado. O CPGF sigiloso (97,87% / R$ 46,4 mi) não identifica favorecido.
+        Não há como afirmar — nem negar — que alguma fração financia atividades da estrutura da
+        primeira-dama. A cobrança é por transparência, não por acusação pessoal.
+        A questão relevante é: por que 97,87% de um cartão público é sigiloso?
+      </div>
+      <div class="verdict-src">
+        Fontes: <a href="https://portaldatransparencia.gov.br/download-de-dados/cpgf/202604" target="_blank">CPGF Portal da Transparência</a> · <a href="https://www.poder360.com.br/poder-governo/tcu-mostra-99-de-sigilo-no-cartao-corporativo-da-presidencia/" target="_blank">TCU/Poder360</a>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-head">
+        <span class="verdict-status strong">◐ Parcial</span>
+        <div class="verdict-q">As viagens em comitiva presidencial são custo público justificado?</div>
+      </div>
+      <div class="verdict-a">
+        Parcialmente. Algumas viagens têm justificativa clara (N4G Paris, CSW Nova York — eventos
+        de política internacional). Outras integram comitiva em eventos cujo nexo com função pública
+        da primeira-dama (que não tem função formal) é mais difuso.
+        O critério de inclusão na comitiva não está publicado em nenhum documento oficial.
+      </div>
+      <div class="verdict-src">
+        Fontes: <a href="https://portaldatransparencia.gov.br/download-de-dados/viagens/2025" target="_blank">Portal da Transparência</a>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-head">
+        <span class="verdict-status confirmed">✓ Confirmada</span>
+        <div class="verdict-q">O contexto fiscal amplifica a cobrança sobre cada gasto da Presidência?</div>
+      </div>
+      <div class="verdict-a">
+        Sim, estruturalmente. Com dívida bruta a 80,07% do PIB, juros reais entre os mais altos do mundo,
+        R$ 324 bi gastos acima da meta fiscal em 3 anos, endividamento familiar em recorde histórico (78,4%)
+        e falências corporativas crescendo 60,5% — cada real de gasto público sem transparência plena é
+        cobrável com mais urgência. O contexto fiscal não cria ilicitude individual; cria dever público
+        ampliado de explicar cada centavo.
+      </div>
+      <div class="verdict-src">
+        Fontes: <a href="https://www.bcb.gov.br/estatisticas/tabelasespeciais" target="_blank">BCB SGS</a> · <a href="https://www.poder360.com.br/poder-economia/lula-gasta-r-324-bilhoes-fora-da-meta-fiscal-em-3-anos/" target="_blank">Poder360</a>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Questão-semente para a próxima sessão:</strong>
+      Existe precedente no Brasil de primeira-dama com estrutura formalizada, cargo, orçamento próprio e
+      prestação de contas ao TCU? Se sim, quais foram os critérios? Se não, por que não? O vazio normativo
+      é acidente histórico ou conveniência estrutural reproduzida por todos os governos?
+    </div>
+
+  </div><!-- /tab-perguntas -->
+
+</main>
+
+<footer class="footer">
+  <div class="footer-left">
+    Lawfare Timeline · CC0 1.0 Public Domain · Fonte aberta · Dados: Portal da Transparência, BCB, TCU, Poder360<br>
+    Fiscalização cidadã ≠ sentença judicial · Gasto direto ≠ contexto ≠ sigilo · Metodologia: separação obrigatória
+  </div>
+  <div class="footer-right">
+    <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a>
+    &nbsp;·&nbsp;
+    <a href="https://fiscalizando-a-janja.vercel.app" target="_blank">fiscalizando-a-janja.vercel.app</a>
+  </div>
+</footer>
+
+<a href="#" id="gotop" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>
+</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.tab-panel');
+  const navLinks = document.querySelectorAll('.tab-btn, .pill');
+  const gotop = document.getElementById('gotop');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(sec => observer.observe(sec));
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      gotop.classList.add('show');
+    } else {
+      gotop.classList.remove('show');
+    }
+  });
+
+  gotop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ── BAR CHART: anos ──
+(function() {
+  const data = [
+    { label: '2023', val: 2330, max: 2480 },
+    { label: '2024', val: 2420, max: 2480 },
+    { label: '2025', val: 2480, max: 2480 },
+    { label: '2026 (parcial)', val: 240.9, max: 2480 },
+  ];
+  const el = document.getElementById('bar-anos');
+  if (!el) return;
+  el.innerHTML = data.map(d => `
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-key">${d.label}</span>
+        <span class="bar-val">R$ ${d.val >= 1000 ? (d.val/1000).toFixed(2) + ' bi' : d.val + ' mi'}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${(d.val/d.max*100).toFixed(1)}%;background:${d.val < 500 ? 'var(--blue)' : 'var(--amber)'}"></div>
+      </div>
+    </div>
+  `).join('');
+})();
+
+// ── BAR CHART: janja por mês ──
+(function() {
+  const data = [
+    { label: 'fev/23', val: 5.8 },
+    { label: 'mar/23', val: 4.7 },
+    { label: 'nov/23', val: 1.9 },
+    { label: 'mar/24', val: 43.4 },
+    { label: 'jul/24', val: 83.6 },
+    { label: 'fev/25', val: 34.4 },
+    { label: 'mar/25', val: 60.2 },
+    { label: 'ago/25', val: 4.6 },
+    { label: 'set/25', val: 0.3 },
+    { label: 'out/25', val: 0.9 },
+  ];
+  const max = Math.max(...data.map(d => d.val));
+  const el = document.getElementById('bar-janja');
+  if (!el) return;
+  el.innerHTML = data.map(d => `
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-key">${d.label}</span>
+        <span class="bar-val" style="color:var(--red2)">R$ ${d.val.toFixed(1)} mil</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${(d.val/max*100).toFixed(1)}%;background:var(--red)"></div>
+      </div>
+    </div>
+  `).join('');
+})();
+</script>
+</body>
+</html>

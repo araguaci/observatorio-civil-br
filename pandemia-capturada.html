@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pandemia Capturada — Desvios de Recursos Covid por UF · 2020–2024</title>
+<meta name="description" content="Mapeamento forense dos desvios de verbas da pandemia por unidade federativa. 77 operações da PF. R$ 2,27B+ investigados. Padrão sistêmico P3+P7.">
+<link rel="canonical" href="https://gosurf.site/pandemia-capturada">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c;
+  --bg2: #0f0f13;
+  --bg3: #141418;
+  --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.12);
+  --text: #e8e6e0;
+  --text-dim: #7a7870;
+  --text-mid: #b0ada6;
+  --red: #e63946;
+  --red-dim: rgba(230,57,70,0.12);
+  --red-glow: rgba(230,57,70,0.25);
+  --amber: #f4a261;
+  --amber-dim: rgba(244,162,97,0.1);
+  --green: #52b788;
+  --green-dim: rgba(82,183,136,0.1);
+  --blue: #4895ef;
+  --blue-dim: rgba(72,149,239,0.1);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.1);
+  --cyan: #06d6a0;
+  --mono: 'IBM Plex Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --serif: 'Crimson Pro', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ═══════ HEADER ═══════ */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 60px 0 48px;
+  position: relative;
+}
+
+.header-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.header-meta span { color: var(--red); }
+
+h1 {
+  font-family: var(--display);
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+h1 em {
+  font-style: normal;
+  color: var(--red);
+}
+
+.header-sub {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-mid);
+  max-width: 680px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.stat-box {
+  background: var(--bg2);
+  padding: 20px 24px;
+}
+
+.stat-num {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ═══════ PADRÃO BOX ═══════ */
+.pattern-box {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  background: var(--red-dim);
+  padding: 24px 28px;
+  margin: 40px 0;
+}
+
+.pattern-title {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.pattern-desc {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.pattern-desc strong { font-weight: 600; color: var(--amber); }
+
+/* ═══════ MECANISMO COMUM ═══════ */
+.mechanism {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin: 0 0 48px;
+}
+
+.mechanism-title {
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.step {
+  background: var(--bg);
+  padding: 16px;
+  position: relative;
+}
+
+.step-num {
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.step-text {
+  font-size: 11px;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+/* ═══════ REGIÃO SECTION ═══════ */
+.region-section { margin-bottom: 56px; }
+
+.region-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.region-name {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.region-count {
+  font-size: 11px;
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.08em;
+}
+
+/* ═══════ UF CARDS ═══════ */
+.uf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1px;
+  background: var(--border);
+}
+
+.uf-card {
+  background: var(--bg2);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.uf-card:hover { background: var(--bg3); }
+
+.uf-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.uf-info {}
+
+.uf-sigla {
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.uf-nome {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.uf-gov {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.uf-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.badge {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border: 1px solid;
+}
+
+.badge-red { color: var(--red); border-color: var(--red); background: var(--red-dim); }
+.badge-amber { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
+.badge-green { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+.badge-gray { color: var(--text-dim); border-color: var(--border); background: transparent; }
+.badge-purple { color: var(--purple); border-color: var(--purple); background: var(--purple-dim); }
+
+.uf-body {
+  padding: 16px 20px;
+  display: none;
+}
+
+.uf-card.open .uf-body { display: block; }
+
+.uf-operacao {
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.uf-fato {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+
+.uf-desfecho {
+  font-size: 11px;
+  color: var(--text-dim);
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  line-height: 1.6;
+}
+
+.uf-desfecho .status {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.status-impune { color: var(--red); }
+.status-parcial { color: var(--amber); }
+.status-andamento { color: var(--blue); }
+
+.toggle-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 16px;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+  line-height: 1;
+}
+
+.uf-card.open .toggle-icon { transform: rotate(45deg); color: var(--red); }
+
+/* ═══════ CONSÓRCIO NORDESTE ═══════ */
+.consortio-box {
+  border: 1px solid var(--amber);
+  background: var(--amber-dim);
+  padding: 28px;
+  margin: 40px 0;
+  position: relative;
+}
+
+.consortio-tag {
+  font-size: 10px;
+  color: var(--amber);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.consortio-title {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.consortio-body {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.consortio-body strong { font-weight: 600; color: var(--amber); }
+
+/* ═══════ STF BLOQUEIO ═══════ */
+.stf-block {
+  border: 1px solid var(--purple);
+  background: var(--purple-dim);
+  padding: 24px 28px;
+  margin: 40px 0;
+}
+
+.stf-tag {
+  font-size: 10px;
+  color: var(--purple);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.stf-text {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* ═══════ CONCLUSÃO ═══════ */
+.conclusao {
+  margin: 48px 0;
+  padding: 36px;
+  border: 1px solid var(--border-bright);
+  background: var(--bg3);
+  position: relative;
+}
+
+.conclusao::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber), transparent);
+}
+
+.conclusao-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.conclusao-body {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+
+.conclusao-body strong { color: var(--text); font-weight: 600; }
+
+/* ═══════ NAV TABS ═══════ */
+nav {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin: 40px 0 0;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+nav::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+/* ═══════ SECTION PANELS ═══════ */
+.section-panel { display: block; padding: 40px 0; scroll-margin-top: 60px; }
+
+/* ── GO TOP ── */
+.gotop {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--red);
+  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 1000; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, background 0.2s, border-color 0.2s;
+  font-family: var(--mono); font-weight: bold; font-size: 1.2rem;
+}
+.gotop.show { opacity: 1; pointer-events: auto; }
+.gotop:hover { background: var(--bg3); border-color: var(--red); color: #fff; }
+
+/* ── RELATED ARTIFACTS ── */
+.related-wrap {
+  padding: 40px 0 20px; background: transparent;
+  border-top: 1px solid var(--border); margin-top: 40px;
+}
+.related-title {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--text-dim);
+  text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;
+}
+.related-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.related-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;
+}
+.related-card {
+  display: flex; flex-direction: column; padding: 16px 20px; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 6px;
+  text-decoration: none; transition: border-color .15s;
+}
+.related-card:hover { border-color: var(--border-bright); }
+.rc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+.rc-title { font-size: 14px; font-weight: 600; color: var(--text); font-family: var(--display); }
+.rc-desc { font-size: 12px; color: var(--text-mid); margin-top: 6px; line-height: 1.5; font-family: var(--serif); }
+
+/* ═══════ CHICO RODINHA ═══════ */
+.destaque-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  padding: 20px 24px;
+  margin-bottom: 8px;
+}
+
+.destaque-title {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+
+.destaque-body {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.65;
+}
+
+/* ═══════ FOOTER ═══════ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  margin-top: 60px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-left {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.footer-left a { color: var(--text-dim); text-decoration: none; border-bottom: 1px solid var(--border); }
+.footer-left a:hover { color: var(--text); }
+
+.footer-right {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-align: right;
+}
+
+/* ═══════ RESPONSIVE ═══════ */
+@media (max-width: 640px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .uf-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <div class="header-meta">
+    <span>LAWFARE-TIMELINE</span> · Padrões Sistêmicos · P3 × P7 · Dossiê Temático
+  </div>
+  <h1><em>Pandemia</em> Capturada</h1>
+  <p class="header-sub">Mapeamento forense dos desvios de recursos Covid-19 por unidade federativa. 77 operações da Polícia Federal. Governadores convocados e blindados pelo STF. Nenhuma condenação definitiva de mandante até 2024.</p>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--red)">77</div>
+      <div class="stat-label">Operações PF (abr/20–abr/21)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--amber)">R$ 2,27B+</div>
+      <div class="stat-label">Volume investigado</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--blue)">20</div>
+      <div class="stat-label">UFs com operação PF</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--purple)">9</div>
+      <div class="stat-label">Governadores convocados CPI</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--green)">0</div>
+      <div class="stat-label">Mandantes condenados</div>
+    </div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="nav-tab active" data-target="norte">Norte</button>
+  <button class="nav-tab" data-target="nordeste">Nordeste</button>
+  <button class="nav-tab" data-target="consortio">Consórcio NE</button>
+  <button class="nav-tab" data-target="outros">Sul/SE/CO</button>
+  <button class="nav-tab" data-target="padrao">Padrão P3+P7</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     NORTE
+══════════════════════════════════════ -->
+<div id="norte" class="section-panel">
+
+  <div class="pattern-box">
+    <div class="pattern-title">Região Norte — 7 Estados · Todos com investigação PF</div>
+    <div class="pattern-desc">A região com os sistemas de saúde mais frágeis do país foi a mais sistematicamente saqueada. <strong>Amazonas, Amapá e Roraima</strong> apresentam os casos mais graves em termos de proporção entre recursos recebidos e irregularidades documentadas. O STF impediu que governadores fossem ouvidos pela CPI do Senado.</div>
+  </div>
+
+  <div class="uf-grid">
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">AM</div>
+          <div class="uf-nome">Amazonas</div>
+          <div class="uf-gov">Wilson Lima (PSC/UB) · Gov. 2019–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">Gravidade Crítica</span>
+          <span class="badge badge-amber">PF · STJ</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Operação Sangria · 4 fases · 2020–2021</div>
+        <div class="uf-fato">A PF deflagrou 4 fases de operação investigando fraudes e superfaturamento em contratos de combate à Covid-19 no estado mais afetado do país — que chegou ao colapso total do sistema funerário em janeiro de 2021, com corpos empilhados e caixões faltando. Nas buscas, o vice-governador Carlos Alberto (PTB) foi alvo direto. O ex-secretário de Saúde Rodrigo Tobias e a ex-secretária executiva Dayana Mejia foram presos. Contratos superfaturados em EPI, insumos hospitalares e respiradores foram identificados. Investigação da PF apurou crimes de peculato, corrupção, organização criminosa e lavagem de dinheiro.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● EM ANDAMENTO</span><br>
+          Wilson Lima depôs na CPI após operação da PF em sua residência. Processo no STJ. Sem condenação definitiva do mandante até 2024. O Amazonas registrou dois colapsos do sistema de saúde (mai/2020 e jan/2021) com mortes por falta de oxigênio.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">AP</div>
+          <div class="uf-nome">Amapá</div>
+          <div class="uf-gov">Waldez Góes (PDT) · Gov. 2019–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">10 Operações PF</span>
+          <span class="badge badge-amber">Múltiplas fases</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">10 Operações PF desde março/2020</div>
+        <div class="uf-fato">O Amapá foi o estado com maior número de operações da PF relacionadas a desvios de recursos Covid-19: dez operações desde o início da pandemia, sendo ao menos cinco investigando valores administrados direta ou indiretamente por órgãos do governo estadual. As investigações apuram superfaturamento de EPI fornecidos para equipes de saúde, fraudes em licitações e desvios de medicamentos do "kit intubação". O governador Waldez Góes, convocado pela CPI da Pandemia, foi blindado pelo STF junto com os demais governadores.</div>
+        <div class="uf-desfecho">
+          <span class="status status-parcial">● PARCIALMENTE APURADO</span><br>
+          Múltiplas investigações em curso. Nenhuma condenação de mandante. Waldez Góes foi posteriormente nomeado Ministro da Integração Nacional no governo Lula.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">RR</div>
+          <div class="uf-nome">Roraima</div>
+          <div class="uf-gov">Antonio Denarium (PP) · Gov. 2019–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">PF investigação</span>
+          <span class="badge badge-gray">CPI convocado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Investigação PF · Recursos federais Covid</div>
+        <div class="uf-fato">Roraima foi incluído na convocação da CPI da Pandemia por suspeitas de desvios nos recursos federais repassados para combate à Covid-19. O governador Antonio Denarium declarou receber a convocação "com tranquilidade", afirmando não ver "motivação" para o chamamento. A PF investigou irregularidades na gestão dos recursos de saúde no estado.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● EM ANDAMENTO</span><br>
+          Denarium impedido de depor na CPI por decisão do STF junto com os demais governadores convocados.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">PA</div>
+          <div class="uf-nome">Pará</div>
+          <div class="uf-gov">Helder Barbalho (MDB) · Gov. desde 2019</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">PF investigação</span>
+          <span class="badge badge-gray">CPI convocado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Investigação PF · Desvios recursos Covid</div>
+        <div class="uf-fato">Helder Barbalho foi convocado pela CPI da Pandemia por suspeitas de desvios nos recursos repassados pelo governo federal. O governo do Pará publicou nota afirmando "apoiar qualquer investigação que busque a proteção do erário público." O estado foi alvo de operações da PF no período pandêmico.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● EM ANDAMENTO</span><br>
+          Barbalho foi reeleito governador em 2022 e é um dos nomes cotados para 2026. Sem condenação.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">RO</div>
+          <div class="uf-nome">Rondônia</div>
+          <div class="uf-gov">Marcos Rocha (União/PSL) · Gov. desde 2019</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">Superfaturamento</span>
+          <span class="badge badge-gray">CPI convocado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Operação Polígrafo · Jul/2020</div>
+        <div class="uf-fato">A PF apura desde julho de 2020 irregularidades na compra de kits rápidos para teste de Covid-19 pela Secretaria Estadual de Saúde. Foram mapeados indícios de irregularidades na dispensa de licitação e superfaturamento no valor dos testes. O governador Marcos Rocha foi convocado pela CPI para explicar os repasses federais recebidos.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● EM ANDAMENTO</span><br>
+          Investigação criminal em curso. Marcos Rocha foi reeleito em 2022.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">TO</div>
+          <div class="uf-nome">Tocantins</div>
+          <div class="uf-gov">Mauro Carlesse (PSL/PL) · Gov. 2018–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">PF investigação</span>
+          <span class="badge badge-gray">CPI convocado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Investigação PF · Recursos Covid</div>
+        <div class="uf-fato">Mauro Carlesse foi convocado pela CPI da Pandemia por suspeitas de desvios nos recursos federais repassados para o Tocantins. O estado foi alvo de investigações da PF sobre a aplicação de verbas destinadas ao combate à Covid-19.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● EM ANDAMENTO</span><br>
+          Carlesse impedido de depor na CPI pelo STF. Perdeu eleição em 2022.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">AC</div>
+          <div class="uf-nome">Acre</div>
+          <div class="uf-gov">Gladson Cameli (PP) · Gov. desde 2019</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Investigado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Investigações recursos pandemia</div>
+        <div class="uf-fato">O Acre foi incluído entre os estados alvo de operações da PF contra desvios de recursos destinados ao combate à Covid-19. As investigações abrangem contratos emergenciais de saúde firmados durante a pandemia no estado.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● EM ANDAMENTO</span><br>
+          Cameli reeleito em 2022. Sem condenações definitivas.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /uf-grid norte -->
+</div>
+
+<!-- ══════════════════════════════════════
+     NORDESTE
+══════════════════════════════════════ -->
+<div id="nordeste" class="section-panel">
+
+  <div class="pattern-box">
+    <div class="pattern-title">Região Nordeste — 9 Estados · Consórcio Nordeste como veículo supraestadual</div>
+    <div class="pattern-desc">Além dos desvios individuais por estado, o Nordeste criou um mecanismo <strong>coletivo de captura</strong>: o Consórcio Nordeste contratou empresa de comercialização de cannabis para importar R$ 48,7 milhões em respiradores que jamais chegaram. Os nove governadores — de partidos variados — estavam no mesmo guarda-chuva de responsabilidade.</div>
+  </div>
+
+  <div class="uf-grid">
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">BA</div>
+          <div class="uf-nome">Bahia</div>
+          <div class="uf-gov">Rui Costa (PT) · Gov. 2015–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">Indiciado improbidade</span>
+          <span class="badge badge-red">Op. Cianose</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Operação Cianose · Fases I e II · 2022 e 2024</div>
+        <div class="uf-fato">Como presidente do Consórcio Nordeste em 2020, Rui Costa presidiu a operacionalização da compra de 300 respiradores via Secretaria de Saúde da Bahia. O contrato foi com a Hempcare — empresa de cannabidiol com capital de R$ 100 mil e dois funcionários. Os equipamentos nunca foram entregues e os R$ 48,7 milhões não foram restituídos. Rui Costa foi indiciado por improbidade administrativa. Seu ex-secretário da Casa Civil Bruno Dauster foi alvo de busca e apreensão. R$ 3 milhões foram transferidos a um "consultor" com "influência política" junto ao governador.</div>
+        <div class="uf-desfecho">
+          <span class="status status-impune">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Rui Costa foi nomeado Ministro da Casa Civil do governo Lula em 2023. Dauster, seu ex-secretário, acompanhou-o no governo federal. A segunda fase da Operação Cianose foi deflagrada em agosto de 2024.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">RN</div>
+          <div class="uf-nome">Rio Grande do Norte</div>
+          <div class="uf-gov">Fátima Bezerra (PT) · Gov. desde 2019</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">Indiciada improbidade</span>
+          <span class="badge badge-amber">CPI estadual</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">CPI da Covid-19 RN · Consórcio Nordeste</div>
+        <div class="uf-fato">A governadora Fátima Bezerra foi indiciada por improbidade administrativa no âmbito das investigações do Consórcio Nordeste. Cipriano Maia, secretário de Saúde do RN, foi indiciado por liberar verbas "sem a estrita observância das normas pertinentes." A CPI estadual instalada na Assembleia Legislativa do RN rastreou o dinheiro até a contratação da Hempcare pelo Consórcio.</div>
+        <div class="uf-desfecho">
+          <span class="status status-impune">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Fátima Bezerra reeleita governadora em 2022. Em nota, o governo negou irregularidades e acusou a CPI de "uso político".
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">PI</div>
+          <div class="uf-nome">Piauí</div>
+          <div class="uf-gov">Wellington Dias (PT) · Gov. 2015–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">CPI convocado</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">CPI Pandemia · Consórcio Nordeste</div>
+        <div class="uf-fato">Wellington Dias foi um dos nove governadores convocados pela CPI da Pandemia no Senado — o único do Nordeste fora do escopo do Consórcio que motivou convocação individual. Integrou o grupo que recorreu ao STF para evitar os depoimentos. O Piauí foi alvo de investigações da PF sobre repasses federais para saúde.</div>
+        <div class="uf-desfecho">
+          <span class="status status-impune">● SEM CONDENAÇÃO</span><br>
+          Wellington Dias foi nomeado Ministro do Desenvolvimento Social no governo Lula em 2023.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">CE</div>
+          <div class="uf-nome">Ceará</div>
+          <div class="uf-gov">Camilo Santana (PT) · Gov. 2015–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Investigações Covid · Consórcio Nordeste</div>
+        <div class="uf-fato">O Ceará foi alvo de operações da PF relacionadas a desvios de recursos Covid-19. Integrou o Consórcio Nordeste na contratação da Hempcare. Camilo Santana foi considerado um dos governadores mais bem avaliados durante a pandemia, mas o estado não ficou imune a investigações federais.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO</span><br>
+          Camilo Santana foi eleito senador em 2022 e nomeado Ministro da Educação no governo Lula.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">PB</div>
+          <div class="uf-nome">Paraíba</div>
+          <div class="uf-gov">João Azevêdo (PSB/Cidadania) · Gov. desde 2019</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Recursos Covid · Consórcio Nordeste</div>
+        <div class="uf-fato">A Paraíba foi alvo de operações da PF no contexto dos desvios de recursos pandêmicos. Integrou o Consórcio Nordeste na compra frustrada de respiradores via Hempcare, contribuindo com sua parcela de aproximadamente R$ 4,9 milhões para os R$ 48,7 milhões totais — sem receber equipamentos.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          João Azevêdo reeleito em 2022.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">PE</div>
+          <div class="uf-nome">Pernambuco</div>
+          <div class="uf-gov">Paulo Câmara (PSB) · Gov. 2015–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Recursos Covid · Consórcio Nordeste</div>
+        <div class="uf-fato">Pernambuco integrou o Consórcio Nordeste na compra fracassada de respiradores e foi alvo de operações da PF relacionadas a desvios de recursos federais. R$ 4,9 milhões do estado foram para a Hempcare sem contrapartida.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Paulo Câmara não disputou a reeleição em 2022.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">AL</div>
+          <div class="uf-nome">Alagoas</div>
+          <div class="uf-gov">Renan Filho (MDB) · Gov. 2015–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Recursos Covid · Consórcio Nordeste</div>
+        <div class="uf-fato">Alagoas integrou o Consórcio Nordeste e foi alvo de investigações da PF no período pandêmico. O estado contribuiu com sua parcela para a compra frustrada de respiradores pela Hempcare.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Renan Filho foi eleito senador em 2022.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">SE</div>
+          <div class="uf-nome">Sergipe</div>
+          <div class="uf-gov">Belivaldo Chagas (PSD) · Gov. 2018–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Recursos Covid · Consórcio Nordeste</div>
+        <div class="uf-fato">Sergipe integrou o Consórcio Nordeste na compra frustrada de respiradores e foi alvo de operações da PF. O estado contribuiu com aproximadamente R$ 4,9 milhões para o contrato com a Hempcare.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Belivaldo Chagas não disputou reeleição em 2022.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">MA</div>
+          <div class="uf-nome">Maranhão</div>
+          <div class="uf-gov">Flávio Dino (PCdoB) · Gov. 2015–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">PF operações</span>
+          <span class="badge badge-gray">Consórcio NE</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · Recursos Covid · Consórcio Nordeste</div>
+        <div class="uf-fato">O Maranhão foi alvo de operações da PF sobre desvios de recursos Covid e integrou o Consórcio Nordeste. Flávio Dino foi um dos governadores mais ativos politicamente durante a pandemia, mas o estado não ficou fora do radar das investigações federais.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Flávio Dino foi nomeado Ministro da Justiça (2023) e depois Ministro do STF (2023–presente), indicado pelo presidente Lula.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /uf-grid nordeste -->
+
+  <div class="destaque-card" style="margin-top:24px; border-left-color: var(--red)">
+    <div class="destaque-title">⚠ Senador com dinheiro na cueca — Roraima</div>
+    <div class="destaque-body">Em outubro de 2020, durante a Operação Desvid-19, agentes da PF encontraram dinheiro escondido na cueca do senador Chico Rodrigues (DEM-RR), então vice-líder do governo Bolsonaro no Senado. As investigações da CGU e da PF apontaram desvio de recursos públicos no direcionamento de licitações para empresas que não eram contratadas pela Secretaria Estadual de Saúde de Roraima — prejuízo estimado de R$ 20 milhões. Rodrigues pediu para ir ao banheiro durante a busca e apreensão.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     CONSÓRCIO NORDESTE
+══════════════════════════════════════ -->
+<div id="consortio" class="section-panel">
+
+  <div class="consortio-box">
+    <div class="consortio-tag">Caso Âncora · Padrão Supraestadual</div>
+    <div class="consortio-title">Consórcio Nordeste × Hempcare — R$ 48,7 milhões · 300 respiradores · 0 entregues</div>
+    <div class="consortio-body">
+      Em abril de 2020, os nove governadores do Nordeste decidiram compra conjunta de 300 ventiladores pulmonares via Consórcio Nordeste. A operacionalização coube à Bahia, presidida por Rui Costa (PT). A empresa escolhida: <strong>Hempcare</strong> — capital social de R$ 100 mil, dois funcionários, atuação em medicamentos à base de cannabis. Sem experiência em respiradores. Sem histórico de contratos governamentais de porte.<br><br>
+      O preço pago: <strong>R$ 48,7 milhões</strong> — o dobro do valor de mercado (a Biogeoenergy de Araraquara forneceria os mesmos equipamentos por R$ 28 milhões). A cláusula de seguro contratual foi removida deliberadamente, eliminando qualquer garantia de entrega.<br><br>
+      O pagamento foi feito antecipadamente e de forma integral, sem garantias contratuais e contrariando orientação da Procuradoria Geral do Estado. <strong>Nenhum respirador chegou. Nenhum real foi devolvido.</strong><br><br>
+      Liberado o pagamento, R$ 3 milhões foram transferidos para um intermediário descrito como tendo "influência política" junto ao governador da Bahia — empresa em nome de familiares do receptor. A dona da Hempcare confessou à PF que sabia que o pagamento não era por consultoria legítima.<br><br>
+      A CGU auditou e não encontrou <strong>justificativa para a escolha da empresa</strong> no processo licitatório. A Operação Cianose (PF) foi deflagrada em 2022 — 14 mandados. Segunda fase em agosto de 2024 — 34 mandados.
+    </div>
+  </div>
+
+  <div class="mechanism">
+    <div class="mechanism-title">Linha do Tempo — Do Contrato ao Arquivo</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">MAR/2020</div>
+        <div class="step-text">Consórcio Nordeste criado; governadores decidem compra conjunta de respiradores</div>
+      </div>
+      <div class="step">
+        <div class="step-num">ABR/2020</div>
+        <div class="step-text">Contrato com Hempcare formalizado via SES-BA. Pagamento antecipado integral: R$ 48,7M. Cláusula de seguro removida.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2020–2021</div>
+        <div class="step-text">Respiradores não entregues. Contrato rescindido sem restituição. Consórcio registra Boletim de Ocorrência.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2021</div>
+        <div class="step-text">CPI do RN instaurada. CGU audita e aponta ausência de justificativa para escolha da Hempcare.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">ABR/2022</div>
+        <div class="step-text">Operação Cianose Fase I: 14 mandados em BA, DF, RJ, SP. Cristiana Taddeo (Hempcare) presa; solta depois.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2022</div>
+        <div class="step-text">Rui Costa eleito senador? Não. Não disputa. Mas é nomeado Ministro da Casa Civil em 2023.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">AGO/2024</div>
+        <div class="step-text">Operação Cianose Fase II: 34 mandados. Investigação ainda tenta recuperar valores e punir responsáveis.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2024</div>
+        <div class="step-text">Nenhum mandante condenado definitivamente. Dois ex-governadores envolvidos: ministros de Estado.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stf-block">
+    <div class="stf-tag">P1 em ação — STF como chokepoint</div>
+    <div class="stf-text">"A maioria do STF impediu a convocação dos governadores pela CPI da Pandemia, sob argumento de que a convocação de chefes estaduais do Executivo excederia os limites constitucionais da atividade investigatória do Poder Legislativo federal." — Agência Brasil, jun/2021. Os mesmos governadores que recorreram ao STF para não depor foram posteriormente nomeados ministros pelo governo que assumiu em 2023.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     SUL / SUDESTE / CENTRO-OESTE
+══════════════════════════════════════ -->
+<div id="outros" class="section-panel">
+
+  <div class="pattern-box" style="border-left-color: var(--blue); background: var(--blue-dim)">
+    <div class="pattern-title" style="color:var(--blue)">Sul · Sudeste · Centro-Oeste — Casos Selecionados</div>
+    <div class="pattern-desc">O padrão não é regional — é sistêmico. Rio de Janeiro (Witzel), Santa Catarina (Moisés) e Distrito Federal (Ibaneis) replicam o mesmo mecanismo em contextos ideológicos distintos, confirmando que a variável determinante é o <strong>acesso ao erário emergencial</strong>, não a filiação partidária.</div>
+  </div>
+
+  <div class="uf-grid">
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">RJ</div>
+          <div class="uf-nome">Rio de Janeiro</div>
+          <div class="uf-gov">Wilson Witzel (PSC) · Gov. 2019–2020</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-red">Impeachment</span>
+          <span class="badge badge-red">Afastado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Op. Placebo · Op. Mercadores do Caos · STJ</div>
+        <div class="uf-fato">Witzel foi afastado do cargo e investigado por desvios em contratos de combate à Covid-19, incluindo compras de respiradores. O MP Estadual deflagrou a Operação Mercadores do Caos, apontando organização criminosa que desviou R$ 18 milhões. O ex-subsecretário de Saúde Gabriell Neves foi preso. A PF executou 12 mandados do STJ, incluindo buscas na residência de Witzel e de sua esposa Helena. Também foram alvos o então vice-governador Cláudio Castro e o presidente da Alerj André Ceciliano (PT).</div>
+        <div class="uf-desfecho">
+          <span class="status status-parcial">● PARCIALMENTE PUNIDO</span><br>
+          Witzel sofreu impeachment (único governador a ser efetivamente afastado). Cláudio Castro assumiu e foi eleito governador em 2022. Processo no STJ em andamento.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">SC</div>
+          <div class="uf-nome">Santa Catarina</div>
+          <div class="uf-gov">Carlos Moisés (PSL/Republicanos) · Gov. 2019–2022</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">2× absolvido impeachment</span>
+          <span class="badge badge-red">Empresa fantasma</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Veigamed · R$ 33M · Op. Pleumon</div>
+        <div class="uf-fato">R$ 33 milhões pagos em cinco horas à Veigamed — empresa sediada em residência em Nilópolis/RJ, capital social de R$ 1,6M, especializada em gaze e mobília hospitalar, nunca havia vendido respiradores. O TCE-SC apontou o endereço como incompatível com o capital declarado desde abril de 2020. No mesmo endereço: outras duas empresas registradas. Dos 200 respiradores contratados: 50 entregues, incompatíveis com UTIs. R$ 19M não recuperados. Cinco desembargadores do TJSC votaram pela condenação de Moisés no impeachment. Quatro deputados estaduais votaram pela absolvição — resultado: 6×4, um voto abaixo do quórum necessário.</div>
+        <div class="uf-desfecho">
+          <span class="status status-impune">● ABSOLVIDO · 2× IMPEACHMENT</span><br>
+          TCE-SC condenou por unanimidade em set/2023 os operadores ao ressarcimento. Governador não integrou a lista de responsabilizados pelo TCE. PF e MPSC arquivaram inquérito em relação à conduta do governador.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">DF</div>
+          <div class="uf-nome">Distrito Federal</div>
+          <div class="uf-gov">Ibaneis Rocha (MDB) · Gov. desde 2019</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">Op. Falso Negativo</span>
+          <span class="badge badge-gray">CPI convocado</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">Operação Falso Negativo · MPDFT</div>
+        <div class="uf-fato">O MPDFT investigou supostas irregularidades na compra de testes para detecção de Covid-19 pela gestão do Distrito Federal na Operação Falso Negativo. Ibaneis Rocha foi convocado pela CPI da Pandemia e integrou o grupo de governadores que recorreu ao STF para evitar os depoimentos.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● SEM CONDENAÇÃO DEFINITIVA</span><br>
+          Ibaneis Rocha reeleito em 2022. Foi brevemente afastado pelo STF em jan/2023 por omissão nos atos golpistas, depois reintegrado.
+        </div>
+      </div>
+    </div>
+
+    <div class="uf-card" onclick="toggleCard(this)">
+      <span class="toggle-icon">+</span>
+      <div class="uf-header">
+        <div class="uf-info">
+          <div class="uf-sigla">MS / RS / GO / MG</div>
+          <div class="uf-nome">Centro-Oeste · Sul · Sudeste</div>
+          <div class="uf-gov">Múltiplos governadores</div>
+        </div>
+        <div class="uf-badges">
+          <span class="badge badge-amber">77 ops PF total</span>
+          <span class="badge badge-gray">20 UFs</span>
+        </div>
+      </div>
+      <div class="uf-body">
+        <div class="uf-operacao">PF · 77 operações em 20 UFs (abr/2020–abr/2021)</div>
+        <div class="uf-fato">Mato Grosso do Sul, Rio Grande do Sul, Goiás, Minas Gerais, São Paulo e Paraná também foram alvos de operações da PF contra desvios de recursos Covid-19. O mapeamento da PF cobre 20 unidades federativas com pelo menos uma operação deflagrada. As investigações abrangem compra de respiradores superfaturados, construção irregular de hospitais de campanha, insumos não entregues e fraudes em licitações emergenciais.</div>
+        <div class="uf-desfecho">
+          <span class="status status-andamento">● INVESTIGAÇÕES EM ANDAMENTO</span><br>
+          12 prisões preventivas e 140 prisões temporárias no período abr/2020–abr/2021. Contratos sob investigação: valor total superior a R$ 100 milhões.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PADRÃO SISTÊMICO
+══════════════════════════════════════ -->
+<div id="padrao" class="section-panel">
+
+  <div class="pattern-box">
+    <div class="pattern-title">Diagnóstico Estrutural — P3 (Seletividade Punitiva) × P7 (Regulador Omisso)</div>
+    <div class="pattern-desc">O corpus pandêmico não é uma coleção de desvios individuais. É a manifestação de um <strong>mecanismo sistêmico único</strong> que opera com independência de partido, região e ideologia do governante. A variável determinante é o acesso a verbas emergenciais com dispensa de licitação — e a certeza operacional de impunidade no nível do mandante.</div>
+  </div>
+
+  <div class="mechanism">
+    <div class="mechanism-title">Mecanismo Comum — Reproduzido em 20 UFs</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 · JANELA</div>
+        <div class="step-text">Crise emergencial legitima dispensa de licitação. Velocidade de decisão elimina controles ordinários.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02 · EMPRESA</div>
+        <div class="step-text">Contratação de empresa sem histórico, capacidade ou habilitação técnica. Frequentemente: endereço residencial, capital incompatível.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03 · PAGAMENTO</div>
+        <div class="step-text">Pagamento antecipado e integral, sem garantias contratuais. Recursos saem do erário antes de qualquer entrega.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04 · NÃO ENTREGA</div>
+        <div class="step-text">Equipamentos não chegam ou chegam parcial/incompatíveis. Dinheiro não é devolvido.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">05 · OPERAÇÃO</div>
+        <div class="step-text">PF deflagra investigação. Operadores e intermediários são presos temporariamente. Mandantes permanecem sob investigação.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">06 · ISOLAMENTO</div>
+        <div class="step-text">Investigação é isolada nos operadores. Mandante não é alcançado por falta de prova direta ou por decisão processual.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">07 · BLINDAGEM</div>
+        <div class="step-text">STF impede convocação de governadores pela CPI federal. Foro privilegiado protrai o processo no STJ.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">08 · REELEIÇÃO</div>
+        <div class="step-text">Mandante é reeleito, eleito senador, ou nomeado ministro. O ciclo recomeça com novos recursos e novos contratos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="conclusao">
+    <div class="conclusao-title">A Assimetria Punitiva Pandêmica</div>
+    <div class="conclusao-body">
+      O sistema capturado demonstra sua natureza com precisão clínica no contraste pandêmico:<br><br>
+      <strong>Jan/2023:</strong> ~1.500 pessoas condenadas, penas de até 17 anos, por danos ao patrimônio público durante os atos de 8 de janeiro. Processamento em velocidade máxima.<br><br>
+      <strong>2020–2024:</strong> R$ 2,27 bilhões investigados em desvios de verbas Covid. 77 operações da PF. 20 estados. <strong>Zero mandantes condenados definitivamente.</strong> Vários nomeados ministros de Estado.<br><br>
+      Esta não é uma falha do sistema. É o sistema operando conforme sua lógica estrutural: <strong>máxima velocidade punitiva para quem ameaça o controle narrativo e do poder; velocidade mínima para quem desvia recursos dentro da estrutura</strong>. Os que desviam são funcionais ao sistema. Os que protestam são ameaça ao sistema.<br><br>
+      O mecanismo P3 (Seletividade Punitiva) e P7 (Regulador Omisso/Capturado) operam aqui em regime de <strong>inversão simétrica</strong>: anulação para cima, aceleração para baixo. O STF como chokepoint (P1) completa o triângulo, impedindo que a investigação parlamentar alcance os mandantes estaduais.
+    </div>
+  </div>
+
+  <div class="stf-block">
+    <div class="stf-tag">Registro para o corpus · Entrada sugerida · P3+P7 · ID pendente</div>
+    <div class="stf-text">
+      "Pandemia como Janela de Extração Sistêmica (2020–2021): 77 operações da PF em 20 UFs investigando R$ 2,27B+ em desvios de recursos emergenciais. Mecanismo recorrente: dispensa de licitação → empresa fantasma → pagamento antecipado → não entrega → investigação isolada em operadores → mandante blindado por foro privilegiado (STJ) e pelo STF (impedimento de CPI). Desfecho padrão: mandante reeleito ou nomeado ministro. Nenhum governador condenado definitivamente por desvio pandêmico até 2024. Padrões ativos: P3 (seletividade punitiva invertida), P7 (regulador capturado/omisso), P1 (anulação via foro e STF como chokepoint)."
+    </div>
+  </div>
+
+</div><!-- /padrao -->
+
+<!-- ══ RELATED ARTIFACTS (CROSS-ECOSYSTEM) ══ -->
+<div class="related-wrap">
+  <div class="related-title">Artefatos Relacionados</div>
+  <div class="related-grid">
+    <a href="/emaranhamento-operacoes.html" class="related-card">
+      <div class="rc-label" style="color:var(--red);">Ecosistema</div>
+      <div class="rc-title">Emaranhamento de Operações 2026</div>
+      <div class="rc-desc">O panorama do fluxo de capitais.</div>
+    </a>
+    <a href="/trilogia-narco.html" class="related-card">
+      <div class="rc-label" style="color:var(--red);">Operação</div>
+      <div class="rc-title">Trilogia Narco: Do Porto à Rede Social</div>
+      <div class="rc-desc">Lavagem de capital transnacional.</div>
+    </a>
+    <a href="/paradoxo-constitucional.html" class="related-card">
+      <div class="rc-label" style="color:var(--blue);">Análise</div>
+      <div class="rc-title">Paradoxo Constitucional</div>
+      <div class="rc-desc">Ruptura e lawfare.</div>
+    </a>
+    <a href="/exploracao_vulnerabilidade_brasil.html" class="related-card">
+      <div class="rc-label" style="color:var(--amber);">Dossiê</div>
+      <div class="rc-title">Exploração Humana no Brasil</div>
+      <div class="rc-desc">Ciclos sistêmicos de impunidade.</div>
+    </a>
+  </div>
+</div>
+
+<div id="gotop" class="gotop" title="Voltar ao topo">↑</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <a href="https://gosurf.site">gosurf.site</a> · lawfare-timeline<br>
+      Fontes: PF, CGU, CPI da Pandemia/Senado, TJSC, TCE-SC, Agência Brasil, The Intercept Brasil, Jovem Pan, CNN Brasil<br>
+      Licença: CC0 1.0 Domínio Público · Reprodução livre com atribuição à fonte primária
+    </div>
+    <div class="footer-right">
+      Atualizado: maio/2026<br>
+      Padrões: P1 · P3 · P7<br>
+      Status: documentado · não exaustivo
+    </div>
+  </div>
+</footer>
+
+</div><!-- /container -->
+
+<script>
+function toggleCard(el) {
+  el.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.nav-tab');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-target');
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        const offset = 60; // offset for sticky nav
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = targetEl.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-80px 0px -60% 0px',
+    threshold: 0
+  };
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const activeTab = document.querySelector(`.nav-tab[data-target="${entry.target.id}"]`);
+        if (activeTab) {
+          activeTab.classList.add('active');
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.section-panel').forEach(sec => navObserver.observe(sec));
+
+  const gotop = document.getElementById('gotop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      gotop.classList.add('show');
+    } else {
+      gotop.classList.remove('show');
+    }
+  });
+  gotop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>

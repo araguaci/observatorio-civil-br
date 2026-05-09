@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PALANTIR × SOBERANIA DIGITAL — Diagnóstico Crítico Brasil 2025–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090b;
+  --bg2: #111113;
+  --bg3: #18181b;
+  --bg4: #1e1e22;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f4f4f5;
+  --text2: #a1a1aa;
+  --text3: #71717a;
+  --red: #ef4444;
+  --red2: #fca5a5;
+  --red-bg: rgba(239,68,68,0.08);
+  --amber: #f59e0b;
+  --amber2: #fcd34d;
+  --amber-bg: rgba(245,158,11,0.08);
+  --blue: #3b82f6;
+  --blue2: #93c5fd;
+  --blue-bg: rgba(59,130,246,0.08);
+  --green: #22c55e;
+  --green2: #86efac;
+  --green-bg: rgba(34,197,94,0.08);
+  --accent: #dc2626;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --display: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(9,9,11,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.nav-brand { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); }
+.nav-links { display: flex; gap: 0; }
+.nav-link {
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+  padding: 0 14px; height: 52px; display: flex; align-items: center;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+.nav-link:hover, .nav-link.active { color: var(--text); border-bottom-color: var(--red); }
+.nav-stamp { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+
+/* ── HERO ── */
+.hero {
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 2rem 3rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(220,38,38,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; color: var(--red);
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.dot-pulse {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero-title {
+  font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+}
+.hero-title span { color: var(--red); }
+.hero-meta {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+  margin-bottom: 2rem;
+}
+.hero-meta-item { display: flex; align-items: center; gap: 6px; }
+.hero-verdict {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--red-bg); border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 6px; padding: 10px 16px;
+  font-family: var(--mono); font-size: 12px; color: var(--red2);
+}
+.hero-kpis {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden; margin-top: 2.5rem;
+}
+.kpi-cell {
+  background: var(--bg2); padding: 1.25rem 1.5rem;
+}
+.kpi-val {
+  font-family: var(--display); font-weight: 700; font-size: 1.75rem;
+  line-height: 1; margin-bottom: 4px;
+}
+.kpi-label { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1200px; margin: 0 auto; }
+.content { padding: 0 2rem; }
+section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+.section-header {
+  display: flex; align-items: baseline; gap: 12px; margin-bottom: 2rem;
+}
+.section-num { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.section-title { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
+.section-badge { font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: auto; }
+.badge-red { background: var(--red-bg); color: var(--red2); border: 1px solid rgba(239,68,68,0.2); }
+.badge-amber { background: var(--amber-bg); color: var(--amber2); border: 1px solid rgba(245,158,11,0.2); }
+.badge-blue { background: var(--blue-bg); color: var(--blue2); border: 1px solid rgba(59,130,246,0.2); }
+.badge-green { background: var(--green-bg); color: var(--green2); border: 1px solid rgba(34,197,94,0.2); }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.25rem;
+}
+.card-red { border-left: 3px solid var(--red); }
+.card-amber { border-left: 3px solid var(--amber); }
+.card-blue { border-left: 3px solid var(--blue); }
+.card-green { border-left: 3px solid var(--green); }
+.card-title { font-family: var(--display); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.5rem; }
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.65; }
+.card-source { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-top: 8px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; }
+
+/* ── GRID LAYOUTS ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+/* ── RISK MATRIX ── */
+.risk-table { width: 100%; border-collapse: collapse; }
+.risk-table th {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 8px 12px; text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.risk-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.risk-table tr:last-child td { border-bottom: none; }
+.risk-table tr:hover td { background: var(--bg3); }
+.risk-name { font-size: 13px; color: var(--text); }
+.risk-detail { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.risk-bar-wrap { width: 120px; background: var(--bg3); border-radius: 3px; height: 5px; }
+.risk-bar { height: 5px; border-radius: 3px; }
+.risk-score { font-family: var(--mono); font-size: 12px; font-weight: 500; }
+
+/* ── CHAIN / TIMELINE ── */
+.chain { display: flex; flex-direction: column; gap: 0; }
+.chain-item { display: flex; gap: 16px; }
+.chain-left { display: flex; flex-direction: column; align-items: center; width: 32px; flex-shrink: 0; }
+.chain-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  flex-shrink: 0; border: 1px solid var(--border2);
+}
+.chain-line { width: 1px; background: var(--border); flex: 1; min-height: 24px; }
+.chain-content { padding-bottom: 28px; flex: 1; padding-top: 4px; }
+.chain-label { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 4px; }
+.chain-title { font-family: var(--display); font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
+.chain-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+/* ── RECOMMENDATION CARDS ── */
+.rec-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden;
+}
+.rec-card::before {
+  content: attr(data-num);
+  position: absolute; right: -8px; top: -16px;
+  font-family: var(--display); font-weight: 800; font-size: 5rem;
+  color: rgba(255,255,255,0.02); line-height: 1; pointer-events: none;
+}
+.rec-priority {
+  font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 8px;
+}
+.rec-title { font-family: var(--display); font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; }
+.rec-body { font-size: 12px; color: var(--text2); line-height: 1.65; }
+.rec-impact { margin-top: 10px; font-family: var(--mono); font-size: 10px; }
+
+/* ── LAW BLOCK ── */
+.law-block {
+  background: var(--bg3); border-radius: 6px; padding: 1rem;
+  border: 1px solid var(--border); margin-bottom: 8px;
+}
+.law-ref { font-family: var(--mono); font-size: 11px; color: var(--amber2); margin-bottom: 4px; }
+.law-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.law-status { font-family: var(--mono); font-size: 10px; margin-top: 6px; }
+
+/* ── COMPARISON TABLE ── */
+.comp-table { width: 100%; border-collapse: collapse; }
+.comp-table th {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 10px 14px; text-align: left;
+  background: var(--bg3); border-bottom: 1px solid var(--border2);
+}
+.comp-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 12px; vertical-align: top; }
+.comp-table tr:hover td { background: var(--bg3); }
+.comp-table td:first-child { color: var(--text2); font-weight: 500; }
+
+/* ── VERDICT FINAL ── */
+.verdict-final {
+  background: var(--red-bg); border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 10px; padding: 2rem;
+}
+.verdict-stamp {
+  font-family: var(--display); font-weight: 800; font-size: 2rem;
+  color: var(--red); letter-spacing: -0.02em; margin-bottom: 0.75rem;
+}
+.verdict-body { font-size: 13px; color: var(--text2); line-height: 1.75; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); padding: 2rem;
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+
+/* ── TABS ── */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.tab {
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+  padding: 8px 16px; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab:hover { color: var(--text2); }
+.tab.active { color: var(--text); border-bottom-color: var(--red); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+/* ── PRINT ── */
+@media print {
+  nav { position: static; }
+  .hero::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">▲ PALANTIR × BR</div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#vinculo">Vínculo CIA</a>
+    <a class="nav-link" href="#contrato">Contrato FNDE</a>
+    <a class="nav-link" href="#riscos">Vetores de Risco</a>
+    <a class="nav-link" href="#juridico">Análise Jurídica</a>
+    <a class="nav-link" href="#comparativo">Precedentes</a>
+    <a class="nav-link" href="#recomendacoes">Recomendações</a>
+    <a class="nav-link" href="#verdito">Veredicto</a>
+  </div>
+  <div class="nav-stamp">Diagnóstico v2.0 — maio/2026</div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero content">
+  <div class="hero-eyebrow">
+    <span class="dot-pulse"></span>
+    Dossiê de Segurança Nacional · Soberania Digital · Lawfare
+  </div>
+  <h1 class="hero-title">
+    PALANTIR<br>
+    <span>× SOBERANIA</span><br>
+    DIGITAL
+  </h1>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span>Classificação:</span>
+      <span style="color:var(--red);">RISCO CRÍTICO</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Órgão afetado:</span>
+      <span style="color:var(--text);">FNDE / MEC</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Vigência do contrato:</span>
+      <span style="color:var(--text);">2024 — presente</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Atualizado:</span>
+      <span style="color:var(--text);">maio/2026</span>
+    </div>
+  </div>
+  <div class="hero-verdict">
+    ⚠ VÍNCULO CIA VERIFICADO · EXPOSIÇÃO CLOUD ACT CONFIRMADA · VIOLAÇÕES LGPD/ECA POTENCIAIS
+  </div>
+  <div class="hero-kpis">
+    <div class="kpi-cell">
+      <div class="kpi-val" style="color:var(--red);">9.5<span style="font-size:1rem;color:var(--text3);">/10</span></div>
+      <div class="kpi-label">Risco de soberania</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-val" style="color:var(--amber);">US$ 2M</div>
+      <div class="kpi-label">Investimento CIA via In-Q-Tel (2003)</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-val" style="color:var(--red);">US$ 1.3B</div>
+      <div class="kpi-label">Contratos Pentágono (2025)</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-val" style="color:var(--blue);">3</div>
+      <div class="kpi-label">Leis brasileiras potencialmente violadas</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 1: VÍNCULO CIA -->
+<section id="vinculo" class="content">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Palantir & CIA — O Vínculo Estrutural</span>
+    <span class="section-badge badge-red">VERIFICADO</span>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card card-red">
+      <div class="card-title">Fundação co-financiada pela CIA (2003)</div>
+      <div class="card-body">Logo após sua fundação, a Palantir recebeu US$ 2 milhões do <strong>In-Q-Tel</strong> — o braço de capital de risco da CIA. Mais crítico: documentos internos revelam que analistas de diversas agências de inteligência co-desenvolveram o software por quase 3 anos em colaboração iterativa com os engenheiros da empresa. A CIA não apenas financiou — ela ajudou a construir.</div>
+      <div class="card-source">Fontes: The Intercept (2017), Built In (2026), Wikipedia/Palantir Technologies</div>
+      <div class="tag-row">
+        <span class="tag badge-red">In-Q-Tel</span>
+        <span class="tag badge-red">Co-desenvolvimento</span>
+        <span class="tag badge-red">Vínculo estrutural</span>
+      </div>
+    </div>
+    <div class="card card-red">
+      <div class="card-title">Clientes ativos: toda a comunidade de inteligência ocidental</div>
+      <div class="card-body">CIA, NSA, FBI, Pentágono, ICE, Space Force (EUA) · MI6 (Reino Unido) · Mossad (Israel). Em 2025 (governo Trump): US$ 1,3 bilhão para o <strong>Projeto Maven</strong> (IA para drones militares), US$ 30 milhões para <strong>ImmigrationOS</strong> (rastreamento de imigrantes), contratos para plataforma da Space Force.</div>
+      <div class="card-source">Fontes: CartaCapital (dez/2025), Liberation News (jun/2025), American Immigration Council (ago/2025)</div>
+      <div class="tag-row">
+        <span class="tag badge-red">CIA · NSA · FBI</span>
+        <span class="tag badge-red">MI6 · Mossad</span>
+        <span class="tag badge-amber">Projeto Maven</span>
+      </div>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">CEO declarou "lealdade aos EUA" publicamente (2025)</div>
+      <div class="card-body">Em manifesto publicado no X, a Palantir explicitou alinhamento irrestrito com a doutrina de "república tecnológica americana". O CEO Alex Karp co-assinou o livro "The Technological Republic" que define a missão da empresa como defesa do poder americano. Duas divisões da inteligência francesa (DGSI) proibiram internamente o software por risco estrutural de espionagem.</div>
+      <div class="card-source">Fonte: Brasil 247 (abr/2026), Republik/Suíça (dez/2025)</div>
+      <div class="tag-row">
+        <span class="tag badge-amber">Manifesto público</span>
+        <span class="tag badge-amber">DGSI França proibiu</span>
+      </div>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">In-Q-Tel: o que é e como funciona</div>
+      <div class="card-body">Fundado em 1999 pela CIA com missão explícita de fechar o "gap de inovação" entre o establishment de segurança e o Silicon Valley. Em 26 anos, ajudou a lançar mais de 800 empresas. Embora se declare "independente", opera com aprovação exclusiva da CIA e só investe em empresas que ampliam seu alcance, poder e capacidade de espionagem.</div>
+      <div class="card-source">Fonte: Fortune (jul/2025), Wikipedia/In-Q-Tel</div>
+      <div class="tag-row">
+        <span class="tag badge-amber">Braço de VC da CIA</span>
+        <span class="tag badge-amber">800+ empresas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 2: CONTRATO FNDE -->
+<section id="contrato" class="content">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">O Contrato FNDE — Estrutura e Contexto</span>
+    <span class="section-badge badge-amber">ATIVO</span>
+  </div>
+
+  <div class="chain">
+    <div class="chain-item">
+      <div class="chain-left">
+        <div class="chain-icon" style="background:var(--blue-bg);color:var(--blue2);">SERP</div>
+        <div class="chain-line"></div>
+      </div>
+      <div class="chain-content">
+        <div class="chain-label">Camada 1 · Intermediário estatal</div>
+        <div class="chain-title">Serpro (empresa pública brasileira de TI)</div>
+        <div class="chain-body">O Serpro — criado para ser alternativa soberana de TI — foi convertido em intermediário. Possui contrato com a AWS (Amazon Web Services). A ironia institucional: a estatal de TI criada para proteger a soberania digital brasileira viabiliza o acesso à Palantir.</div>
+      </div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-left">
+        <div class="chain-icon" style="background:var(--amber-bg);color:var(--amber2);">AWS</div>
+        <div class="chain-line"></div>
+      </div>
+      <div class="chain-content">
+        <div class="chain-label">Camada 2 · Infraestrutura americana</div>
+        <div class="chain-title">Amazon Web Services — AWS Marketplace</div>
+        <div class="chain-body">Via parceria Serpro-AWS, a Palantir entra como camada adicional de serviço dentro do AWS Marketplace — <strong>sem licitação específica</strong>, sem concorrência pública. O próprio gerente de Cloud do Serpro confirmou em evento no FNDE: "O Serpro é um grande viabilizador para que o FNDE consiga ter acesso às ferramentas da AWS e da Palantir."</div>
+      </div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-left">
+        <div class="chain-icon" style="background:var(--red-bg);color:var(--red2);">PLT</div>
+        <div class="chain-line"></div>
+      </div>
+      <div class="chain-content">
+        <div class="chain-label">Camada 3 · Software de mineração de dados</div>
+        <div class="chain-title">Palantir Foundry + AIP (plataforma de IA)</div>
+        <div class="chain-body">Software em uso desde 2024. Relatório de Gestão do FNDE do 1º semestre de 2025 (depois removido do site) confirmava o uso do Palantir Foundry e da Artificial Intelligence Platform (AIP). Processa dados de repasses federais, monitoramento de programas como PNAE, e correlaciona dados socioeconômicos de municípios.</div>
+      </div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-left">
+        <div class="chain-icon" style="background:var(--bg3);color:var(--text2);">FNDE</div>
+      </div>
+      <div class="chain-content">
+        <div class="chain-label">Camada 4 · Órgão contratante</div>
+        <div class="chain-title">FNDE — Fundo Nacional de Desenvolvimento da Educação</div>
+        <div class="chain-body">Autarquia federal subordinada ao MEC. Responsável por repasses bilionários para educação em todo o Brasil. Processa dados de escolas, municípios, alunos — incluindo menores de idade — cruzados com indicadores socioeconômicos, mobilidade territorial e vulnerabilidade regional.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--amber-bg);border-color:rgba(245,158,11,0.2);margin-top:0.5rem;">
+    <div class="card-title" style="color:var(--amber2);">Defesa oficial do FNDE — e por que é insuficiente</div>
+    <div class="grid3" style="margin-top:0.75rem;">
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px;">ALEGAÇÃO</div>
+        <div style="font-size:12px;color:var(--text2);">"Servidores hospedados no Brasil"</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber2);margin-top:6px;">▲ INSUFICIENTE</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px;">O CLOUD Act (2018) permite ao governo dos EUA exigir dados de empresas americanas independente da localização física dos servidores. O precedente suíço confirma: servidores em solo neutro não são proteção.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px;">ALEGAÇÃO</div>
+        <div style="font-size:12px;color:var(--text2);">"Operação conduzida só por servidores do FNDE"</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber2);margin-top:6px;">▲ NÃO AUDITADO</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px;">Nenhuma auditoria independente foi realizada. O FNDE não publicou logs de acesso nem inventário de dados processados pela plataforma Palantir.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px;">ALEGAÇÃO</div>
+        <div style="font-size:12px;color:var(--text2);">"Dados são públicos ou passíveis de publicização"</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber2);margin-top:6px;">▲ PARCIALMENTE FALSO</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px;">Correlações entre dados individuais de alunos menores com geolocalização e situação socioeconômica geram inferências sensíveis mesmo que dados-fonte sejam públicos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 3: VETORES DE RISCO -->
+<section id="riscos" class="content">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Vetores de Risco — Mapeamento Completo</span>
+    <span class="section-badge badge-red">CRÍTICO</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this,'tab-soberania')">Soberania</div>
+    <div class="tab" onclick="switchTab(this,'tab-dados')">Dados & Privacidade</div>
+    <div class="tab" onclick="switchTab(this,'tab-infra')">Infraestrutura</div>
+    <div class="tab" onclick="switchTab(this,'tab-geo')">Geopolítico</div>
+  </div>
+
+  <div id="tab-soberania" class="tab-panel active">
+    <table class="risk-table" style="width:100%;">
+      <thead>
+        <tr>
+          <th>Vetor</th>
+          <th>Descrição</th>
+          <th>Severidade</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="risk-name">CLOUD Act — acesso extraterritorial</div>
+            <div class="risk-detail">Lei americana de 2018</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">O governo dos EUA pode emitir mandado judicial exigindo que a Palantir entregue dados do FNDE, independente dos servidores estarem em solo brasileiro. Localização física não é proteção suficiente.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">9.5</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Ausência de licitação específica</div>
+            <div class="risk-detail">Triangulação Serpro-AWS-Palantir</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">A Palantir entrou no FNDE sem concorrência pública direta — via "carona" no AWS Marketplace do Serpro. Ausência de análise de soberania no processo licitatório.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">9.0</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Lock-in tecnológico sem alternativa soberana</div>
+            <div class="risk-detail">Dependência de plataforma proprietária</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Uma vez integrado ao ecossistema Palantir Foundry, o FNDE fica dependente da empresa para operação de sistemas críticos. Palantir pode cortar o serviço unilateralmente — como já demonstrou disponibilidade de fazer com outros governos.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">8.5</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Contradição com política de soberania digital</div>
+            <div class="risk-detail">Nuvem de Governo × Palantir</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">O governo federal construiu a Nuvem de Governo com Serpro e Dataprev para proteger dados sensíveis — e usa o Serpro como intermediário para contratar a Palantir, esvaziando a função soberana dessa infraestrutura.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">8.0</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Acesso a dados estratégicos nacionais</div>
+            <div class="risk-detail">Mapeamento de vulnerabilidades territoriais</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Dados do FNDE permitem mapear: padrões de mobilidade geográfica, êxodo rural, correlações entre investimento educacional e desenvolvimento regional, vulnerabilidades territoriais — informações de valor estratégico para qualquer potência estrangeira.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">7.8</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab-dados" class="tab-panel">
+    <table class="risk-table" style="width:100%;">
+      <thead>
+        <tr>
+          <th>Vetor</th>
+          <th>Descrição</th>
+          <th>Severidade</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="risk-name">Dados de menores de idade (ECA)</div>
+            <div class="risk-detail">Art. 17 ECA — Proteção integral</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">O FNDE processa dados de crianças e adolescentes vinculados a programas como PNAE e PDDE. A transferência indireta para empresa com vínculo a agências de espionagem colide frontalmente com a doutrina da proteção integral do ECA.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">9.2</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Ausência de base legal LGPD para transferência internacional</div>
+            <div class="risk-detail">Art. 33 LGPD — Transferência internacional</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Mesmo com servidores no Brasil, a possibilidade de acesso via CLOUD Act configura potencial transferência internacional não autorizada pela ANPD. O FNDE não publicou avaliação de impacto (RIPD) para este contrato.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">8.8</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Inferência sensível por correlação de dados</div>
+            <div class="risk-detail">Dados "públicos" → perfis privados</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Mesmo que os dados individuais sejam públicos, a plataforma Palantir especializa-se em cruzar múltiplas bases para gerar inferências sensíveis. Dados educacionais + geolocalização + situação socioeconômica = perfis de vulnerabilidade individual.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">8.0</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Ausência de RIPD publicado</div>
+            <div class="risk-detail">Art. 38 LGPD — Relatório de impacto</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Tratamento de dados de alto risco exige Relatório de Impacto à Proteção de Dados. Nenhum RIPD foi publicado pelo FNDE para o contrato Palantir — ausência que configura descumprimento direto da LGPD.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">7.5</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Remoção do relatório de gestão do site oficial</div>
+            <div class="risk-detail">Indício de ocultação</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">O Relatório de Gestão do FNDE do 1º semestre de 2025 que confirmava o uso da Palantir foi removido do site oficial — configurando indício de tentativa de ocultação de informação pública relevante, potencialmente violando a LAI (Lei 12.527/2011).</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">7.0</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab-infra" class="tab-panel">
+    <table class="risk-table" style="width:100%;">
+      <thead>
+        <tr>
+          <th>Vetor</th>
+          <th>Descrição</th>
+          <th>Severidade</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="risk-name">Interrupção unilateral do serviço</div>
+            <div class="risk-detail">Dependência crítica de fornecedor estrangeiro</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">A Palantir já demonstrou disponibilidade de cortar serviços para governos que contrariam interesses americanos. O FNDE fica exposto a desligamento súbito de sistema crítico de repasse de verbas educacionais sem plano de contingência.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">8.5</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Opacidade do código-fonte</div>
+            <div class="risk-detail">Software proprietário não auditável</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">O Palantir Foundry é software proprietário de código fechado. O Brasil não tem acesso ao código-fonte para auditoria de segurança independente, backdoors ou mecanismos de coleta não documentada.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">8.0</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Dependência de infraestrutura AWS</div>
+            <div class="risk-detail">Dupla dependência americana</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">A triangulação Serpro-AWS-Palantir cria dupla dependência de infraestrutura americana — ambas sujeitas ao CLOUD Act. Risco multiplicado de exposição via dois vetores simultâneos (Amazon e Palantir).</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">7.5</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Ausência de plano de saída (exit plan)</div>
+            <div class="risk-detail">Portabilidade de dados não garantida</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Não há registro público de plano de migração ou portabilidade de dados em caso de rescisão contratual. O lock-in é agravado pela ausência de alternativa soberana imediata com capacidade equivalente.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">7.0</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab-geo" class="tab-panel">
+    <table class="risk-table" style="width:100%;">
+      <thead>
+        <tr>
+          <th>Vetor</th>
+          <th>Descrição</th>
+          <th>Severidade</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="risk-name">Inteligência competitiva para potências estrangeiras</div>
+            <div class="risk-detail">Mapeamento demográfico estratégico</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Dados do FNDE permitem identificar: onde políticas educacionais funcionam/fracassam, dinâmicas de êxodo rural, vulnerabilidades territoriais, pressões sobre infraestrutura urbana — mapa estratégico para qualquer potência com interesse no Brasil.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">8.8</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Alinhamento explícito com agenda Trump</div>
+            <div class="risk-detail">Contexto político 2025-2026</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">A Palantir cresceu exponencialmente no governo Trump 2.0 (US$ 900M+ em contratos federais em 2025). A empresa declarou lealdade política ao governo americano — criando risco de uso de dados em contexto de disputas comerciais ou diplomáticas EUA-Brasil.</div></td>
+          <td><span class="tag badge-red">CRÍTICO</span></td>
+          <td><span class="risk-score" style="color:var(--red);">8.5</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Precedente para outros órgãos</div>
+            <div class="risk-detail">"E o FNDE é apenas o caso documentado"</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">Conforme Brasil 247/abr2026: o FNDE é o caso com documentação pública disponível. A mesma triangulação Serpro-AWS-Palantir pode estar replicada em outros órgãos sem que haja registros públicos acessíveis.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">8.0</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="risk-name">Instrumento de pressão diplomática</div>
+            <div class="risk-detail">Alavancagem informacional</div>
+          </td>
+          <td><div style="font-size:12px;color:var(--text2);max-width:400px;">A administração Trump já demonstrou disposição de usar acesso a dados como instrumento de pressão diplomática contra aliados. O Brasil — com dados de crianças e repasses educacionais na plataforma Palantir — torna-se vulnerável a esse tipo de alavancagem.</div></td>
+          <td><span class="tag badge-amber">ALTO</span></td>
+          <td><span class="risk-score" style="color:var(--amber);">7.8</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SEÇÃO 4: ANÁLISE JURÍDICA -->
+<section id="juridico" class="content">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Análise Jurídica — Exposição Legal Brasileira</span>
+    <span class="section-badge badge-red">VIOLAÇÕES POTENCIAIS</span>
+  </div>
+
+  <div class="grid3" style="margin-bottom:1.5rem;">
+    <div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">LGPD — Lei 13.709/2018</div>
+      <div class="law-block">
+        <div class="law-ref">Art. 5º, § único — Dados Pessoais Sensíveis</div>
+        <div class="law-text">Dados de crianças e informações socioeconômicas correlacionadas configuram dados sensíveis. Tratamento requer consentimento específico ou base legal explícita.</div>
+        <div class="law-status" style="color:var(--red2);">▲ Potencialmente violado — sem base legal publicada</div>
+      </div>
+      <div class="law-block">
+        <div class="law-ref">Art. 33 — Transferência Internacional</div>
+        <div class="law-text">Transferência internacional de dados pessoais só é permitida para países com nível adequado de proteção (não inclui EUA) ou com cláusulas específicas aprovadas pela ANPD.</div>
+        <div class="law-status" style="color:var(--red2);">▲ Risco estrutural via CLOUD Act</div>
+      </div>
+      <div class="law-block">
+        <div class="law-ref">Art. 38 — RIPD</div>
+        <div class="law-text">Relatório de Impacto à Proteção de Dados obrigatório para tratamento de alto risco. FNDE não publicou RIPD para o contrato Palantir.</div>
+        <div class="law-status" style="color:var(--amber2);">▲ Descumprimento direto verificado</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">ECA — Lei 8.069/1990</div>
+      <div class="law-block">
+        <div class="law-ref">Art. 17 — Proteção da Intimidade</div>
+        <div class="law-text">Direito à inviolabilidade da vida privada, familiar e comunitária. A exposição de dados de menores a empresa com vínculo a agências de inteligência viola a doutrina da proteção integral.</div>
+        <div class="law-status" style="color:var(--red2);">▲ Violação potencial grave</div>
+      </div>
+      <div class="law-block">
+        <div class="law-ref">Art. 70 — Dever de proteção</div>
+        <div class="law-text">É dever de todos prevenir a ocorrência de ameaça ou violação dos direitos da criança. O Estado tem dever agravado de proteção — que inclui proteção de dados.</div>
+        <div class="law-status" style="color:var(--red2);">▲ Responsabilidade institucional</div>
+      </div>
+      <div class="law-block">
+        <div class="law-ref">Art. 79 — Proteção no ambiente digital</div>
+        <div class="law-text">Marco Legal da Primeira Infância e legislação correlata ampliam a proteção digital de crianças. Vedação ao uso comercial ou de inteligência de dados infantis.</div>
+        <div class="law-status" style="color:var(--amber2);">▲ Aplicação discutível</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">CF/88 + Legislação Complementar</div>
+      <div class="law-block">
+        <div class="law-ref">Art. 5º, X e XII CF/88 — Privacidade</div>
+        <div class="law-text">Inviolabilidade da intimidade e vida privada como direito fundamental. EC 115/2022 inseriu proteção de dados pessoais como direito fundamental autônomo (art. 5º, LXXIX).</div>
+        <div class="law-status" style="color:var(--amber2);">▲ Base constitucional de proteção</div>
+      </div>
+      <div class="law-block">
+        <div class="law-ref">Lei 12.527/2011 — LAI</div>
+        <div class="law-text">A remoção do Relatório de Gestão do FNDE do site oficial após publicação da reportagem CartaCapital pode configurar descumprimento da obrigação de transparência ativa.</div>
+        <div class="law-status" style="color:var(--amber2);">▲ Investigação recomendada</div>
+      </div>
+      <div class="law-block">
+        <div class="law-ref">Lei 14.133/2021 — Nova Lei de Licitações</div>
+        <div class="law-text">A contratação sem licitação específica por "carona" em contrato Serpro-AWS merece revisão à luz das regras de contratação direta e análise de risco — especialmente para dados sensíveis.</div>
+        <div class="law-status" style="color:var(--red2);">▲ Questionamento jurídico pertinente</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">O nó central: CLOUD Act × LGPD — incompatibilidade estrutural</div>
+    <div class="card-body">O Exército suíço, após auditorias formais, concluiu que a Palantir era <em>estruturalmente incompatível</em> com a soberania helvética — e a Suíça tem legislação de proteção de dados mais robusta que o Brasil. O risco não é operacional (quem opera os dados), mas <strong>estrutural</strong>: a lei americana (CLOUD Act) pode compelir a Palantir a fornecer acesso aos dados ao governo dos EUA a qualquer momento, independente de onde os servidores estejam, independente de quem os opera, e sem notificação prévia ao Brasil. Este risco foi avaliado pelo Exército suíço como "característica inerente ao produto" — não como risco gerenciável.</div>
+  </div>
+</section>
+
+<!-- SEÇÃO 5: PRECEDENTES INTERNACIONAIS -->
+<section id="comparativo" class="content">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Precedentes Internacionais — Como Outros Países Reagiram</span>
+    <span class="section-badge badge-blue">COMPARATIVO</span>
+  </div>
+
+  <table class="comp-table" style="width:100%;">
+    <thead>
+      <tr>
+        <th>País</th>
+        <th>Contexto</th>
+        <th>Reação</th>
+        <th>Resultado</th>
+        <th>Lição para o Brasil</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>🇨🇭 Suíça</strong></td>
+        <td><div style="color:var(--text2);">Palantir abriu escritório em Zurique (2018) e buscou contratos com o governo federal.</div></td>
+        <td><div style="color:var(--text2);">Exército suíço conduziu <strong>auditorias formais</strong> com 59 pedidos de acesso à informação. Conclusão: sistema incompatível com soberania helvética mesmo com servidores em solo suíço.</div></td>
+        <td><span class="tag badge-red">Rejeição</span></td>
+        <td><div style="font-size:12px;color:var(--text2);">Auditoria formal é possível e necessária. O Brasil não realizou auditoria equivalente.</div></td>
+      </tr>
+      <tr>
+        <td><strong>🇫🇷 França</strong></td>
+        <td><div style="color:var(--text2);">Palantir operando dentro dos serviços de inteligência franceses (DGSI) com agentes fisicamente alocados.</div></td>
+        <td><div style="color:var(--text2);">Duas divisões da DGSI (proteção de ativos econômicos e contraespionagem) <strong>proibiram internamente</strong> o uso do software.</div></td>
+        <td><span class="tag badge-amber">Uso parcial proibido</span></td>
+        <td><div style="font-size:12px;color:var(--text2);">O paradoxo: agência de contraespionagem usando tecnologia americana sujeita ao CLOUD Act. Brasil está em posição análoga com FNDE.</div></td>
+      </tr>
+      <tr>
+        <td><strong>🇩🇪 Alemanha</strong></td>
+        <td><div style="color:var(--text2);">BKA (polícia federal) usava Palantir para análise criminal.</div></td>
+        <td><div style="color:var(--text2);">Tribunal Constitucional Federal alemão limitou o uso por violação de direitos fundamentais. Debate parlamentar intenso sobre soberania de dados.</div></td>
+        <td><span class="tag badge-amber">Uso limitado por tribunal</span></td>
+        <td><div style="font-size:12px;color:var(--text2);">Controle judicial é mecanismo efetivo. O Brasil pode acionar o Judiciário para revisar o contrato.</div></td>
+      </tr>
+      <tr>
+        <td><strong>🇪🇺 União Europeia</strong></td>
+        <td><div style="color:var(--text2);">GDPR em conflito direto com CLOUD Act. Decisão Schrems II invalidou o Privacy Shield EUA-UE.</div></td>
+        <td><div style="color:var(--text2);">European Data Protection Supervisor destacou incompatibilidade estrutural GDPR × CLOUD Act. Empresas americanas obrigadas a escolher entre lei americana e lei europeia.</div></td>
+        <td><span class="tag badge-amber">Restrições formais</span></td>
+        <td><div style="font-size:12px;color:var(--text2);">LGPD brasileira tem base similar ao GDPR. ANPD pode e deve emitir posicionamento sobre o contrato FNDE.</div></td>
+      </tr>
+      <tr>
+        <td><strong>🇧🇷 Brasil</strong></td>
+        <td><div style="color:var(--text2);">FNDE contratou Palantir via Serpro-AWS sem licitação específica (2024). Nenhuma auditoria de soberania realizada.</div></td>
+        <td><div style="color:var(--text2);">Nenhuma reação institucional formal. Relatório de gestão que confirmava o uso foi removido do site. Ausência de posicionamento da ANPD, TCU ou CGU.</div></td>
+        <td><span class="tag badge-red">Nenhuma reação</span></td>
+        <td><div style="font-size:12px;color:var(--text2);">Brasil é o único caso documentado sem nenhuma resposta institucional formal até mai/2026.</div></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SEÇÃO 6: RECOMENDAÇÕES -->
+<section id="recomendacoes" class="content">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">Recomendações — Medidas de Mitigação e Resposta</span>
+    <span class="section-badge badge-green">AÇÃO REQUERIDA</span>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">CURTO PRAZO — Ação Imediata (0–30 dias)</div>
+  <div class="grid3" style="margin-bottom:1.5rem;">
+    <div class="rec-card card-red" data-num="01">
+      <div class="rec-priority" style="color:var(--red2);">↑ URGENTE · Transparência</div>
+      <div class="rec-title">Restaurar e publicar relatório de gestão</div>
+      <div class="rec-body">O FNDE deve imediatamente restaurar o Relatório de Gestão do 1º semestre de 2025 e publicar documentação completa do contrato Palantir: escopo, dados processados, salvaguardas implementadas, logs de acesso.</div>
+      <div class="rec-impact" style="color:var(--text3);">Fundamento legal: LAI art. 8º — Transparência ativa obrigatória</div>
+    </div>
+    <div class="rec-card card-red" data-num="02">
+      <div class="rec-priority" style="color:var(--red2);">↑ URGENTE · Compliance LGPD</div>
+      <div class="rec-title">Publicar RIPD e base legal do tratamento</div>
+      <div class="rec-body">O FNDE deve publicar Relatório de Impacto à Proteção de Dados (RIPD) para o contrato Palantir e explicitar a base legal do Art. 7º LGPD para cada categoria de dado processado — especialmente dados de menores.</div>
+      <div class="rec-impact" style="color:var(--text3);">Fundamento legal: LGPD art. 38 — Obrigação de RIPD para tratamento de alto risco</div>
+    </div>
+    <div class="rec-card card-amber" data-num="03">
+      <div class="rec-priority" style="color:var(--amber2);">↑ URGENTE · Supervisão</div>
+      <div class="rec-title">Acionar ANPD para análise do contrato</div>
+      <div class="rec-body">A ANPD deve ser formalmente acionada (por qualquer cidadão, parlamentar ou MPF) para avaliar a compatibilidade do contrato FNDE-Palantir com a LGPD — especialmente o risco de transferência internacional via CLOUD Act.</div>
+      <div class="rec-impact" style="color:var(--text3);">Mecanismo: Art. 55-J, § 1º LGPD — Competência da ANPD para fiscalização</div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">MÉDIO PRAZO — Recomendações Estruturais (30–180 dias)</div>
+  <div class="grid3" style="margin-bottom:1.5rem;">
+    <div class="rec-card card-amber" data-num="04">
+      <div class="rec-priority" style="color:var(--amber2);">→ MÉDIO PRAZO · Auditoria</div>
+      <div class="rec-title">Auditoria técnica independente (TCU/CGU)</div>
+      <div class="rec-body">O TCU ou CGU devem conduzir auditoria técnica do contrato, avaliando: dados efetivamente processados, acesso de funcionários Palantir, configuração de segurança da plataforma, compatibilidade com LGPD e ECA, e análise do processo licitatório (art. 74 CF/88).</div>
+      <div class="rec-impact" style="color:var(--text3);">Modelo: Auditoria suíça com 59 pedidos de acesso à informação (2025)</div>
+    </div>
+    <div class="rec-card card-amber" data-num="05">
+      <div class="rec-priority" style="color:var(--amber2);">→ MÉDIO PRAZO · Processo legislativo</div>
+      <div class="rec-title">Regulamentar contratações de empresas com vínculos a agências de inteligência</div>
+      <div class="rec-body">Propor legislação específica para contratação pública de tecnologias estrangeiras: lista de empresas com vínculos documentados a agências de inteligência, requisitos obrigatórios de auditoria de soberania, vedação a dados de crianças em sistemas não soberanos.</div>
+      <div class="rec-impact" style="color:var(--text3);">Modelo: Veto a Huawei nos EUA · Regulação Chips Act na UE</div>
+    </div>
+    <div class="rec-card card-amber" data-num="06">
+      <div class="rec-priority" style="color:var(--amber2);">→ MÉDIO PRAZO · Alternativa soberana</div>
+      <div class="rec-title">Desenvolver alternativa soberana via Serpro/Dataprev</div>
+      <div class="rec-body">Financiar desenvolvimento de plataforma de análise de dados educacionais com tecnologia aberta (open-source), hospedada na Nuvem de Governo, com código auditável. Modelo: GovTech soberano que não depende de empresas sujeitas a leis estrangeiras.</div>
+      <div class="rec-impact" style="color:var(--text3);">Alinhamento: Política de Soberania Digital do governo Lula (2023-2026)</div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">LONGO PRAZO — Reformas Sistêmicas</div>
+  <div class="grid2" style="margin-bottom:1.5rem;">
+    <div class="rec-card card-blue" data-num="07">
+      <div class="rec-priority" style="color:var(--blue2);">→ LONGO PRAZO · Política pública</div>
+      <div class="rec-title">Estratégia Nacional de Soberania de Dados</div>
+      <div class="rec-body">Criar política nacional análoga ao GDPR europeu na dimensão de soberania: inventário de todos os contratos de TI federais com empresas sujeitas ao CLOUD Act, classificação de dados por nível de sensibilidade soberana, roadmap de substituição progressiva por alternativas soberanas ou com garantias contratuais adequadas. Incluir avaliação de impacto à soberania (AIS) obrigatória para contratações acima de R$ 1 milhão com fornecedores estrangeiros.</div>
+      <div class="rec-impact" style="color:var(--text3);">Modelo: India Data Protection Act · EU Data Act 2024 · Decreto Brasileiro de Soberania Digital</div>
+    </div>
+    <div class="rec-card card-blue" data-num="08">
+      <div class="rec-priority" style="color:var(--blue2);">→ LONGO PRAZO · Diplomacia digital</div>
+      <div class="rec-title">Negociar acordo bilateral EUA-Brasil de proteção de dados</div>
+      <div class="rec-body">O Brasil deve negociar acordo bilateral com os EUA que limite a aplicação extraterritorial do CLOUD Act a dados do governo brasileiro — similar ao que a UE está negociando. Como membro do G20 e potência emergente, o Brasil tem posição de negociação para exigir reciprocidade na proteção de dados soberanos. Paralelamente, apoiar reforma multilateral do regime de CLOUD Act no âmbito da ONU e OMC.</div>
+      <div class="rec-impact" style="color:var(--text3);">Janela diplomática: Brasil como sede COP e G20 · Relação bilateral em revisão com novo governo Trump</div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">RESCISÃO CONTRATUAL — Análise de Viabilidade</div>
+  <div class="card" style="background:var(--bg2);">
+    <div class="grid2">
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--green2);margin-bottom:8px;">ARGUMENTOS PARA RESCISÃO IMEDIATA</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;">
+          ✓ Incompatibilidade estrutural com CLOUD Act (precedente suíço)<br>
+          ✓ Ausência de RIPD — descumprimento direto da LGPD<br>
+          ✓ Dados de menores sujeitos a agência com vínculo à CIA<br>
+          ✓ Processo licitatório questionável (ausência de concorrência pública)<br>
+          ✓ Remoção de relatório de gestão (indício de ocultação)
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber2);margin-bottom:8px;">RISCOS DA RESCISÃO IMEDIATA</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;">
+          ⚠ Lock-in operacional — sistemas críticos de repasse podem parar<br>
+          ⚠ Ausência de alternativa soberana imediata com capacidade equivalente<br>
+          ⚠ Possível risco de multa contratual<br>
+          ⚠ Necessidade de plano de migração de dados documentado<br>
+          ⚠ Risco de perda de funcionalidades críticas de monitoramento
+        </div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div style="font-size:12px;color:var(--text2);">
+      <strong style="color:var(--text);">Recomendação:</strong> Rescisão programada com prazo de 180 dias, condicionada à: (1) publicação imediata do RIPD e documentação completa, (2) auditoria independente do TCU/CGU, (3) aprovação de plano de migração para alternativa soberana. A rescisão imediata sem plano de contingência pode ser mais danosa que uma transição planejada.
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 7: VEREDICTO -->
+<section id="verdito" class="content" style="border-bottom:none;">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">Veredicto Final</span>
+    <span class="section-badge badge-red">AMEAÇA CONFIRMADA</span>
+  </div>
+
+  <div class="verdict-final">
+    <div class="verdict-stamp">AMEAÇA À SOBERANIA DIGITAL: CONFIRMADA</div>
+    <div class="verdict-body">
+      O vínculo Palantir–CIA é histórico, documentado e estrutural — não é acidental nem periférico. A empresa foi literalmente co-construída com analistas de inteligência americanos e continua sendo fornecedora central da comunidade de inteligência dos EUA, incluindo contratos bilionários com o Pentágono e o ICE em 2025.<br><br>
+      O contrato FNDE expõe dados educacionais de crianças e adolescentes brasileiros a uma empresa cuja arquitetura jurídica (CLOUD Act, 2018) permite acesso pelo governo americano independente da localização física dos servidores. A defesa do FNDE — "servidores no Brasil" — não é proteção juridicamente suficiente, como demonstrado pelo precedente suíço (2025).<br><br>
+      A contratação sem licitação específica, a ausência de RIPD, a remoção do relatório de gestão confirmando o uso e a inexistência de qualquer auditoria de soberania agravam o quadro. O Brasil é o único país com contrato Palantir ativo em órgão estatal sensível que não realizou nenhuma revisão formal do risco soberano.<br><br>
+      A analogia é precisa: se uma empresa brasileira com DNA na ABIN operasse da mesma forma em solo americano, a resposta de Washington seria imediata, enérgica e previsível. O Brasil merece o mesmo nível de seriedade na defesa de sua soberania informacional.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FONTES -->
+  <div style="margin-top:1.5rem;">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">Fontes Documentais</div>
+    <div class="grid3">
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--blue2);margin-bottom:6px;">FONTES PRIMÁRIAS</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.9;">
+          gov.br/fnde — Notícia AIP Bootcamp (mar/2024)<br>
+          FNDE — Relatório de Gestão 1º sem 2025 (removido)<br>
+          Wikipedia — Palantir Technologies / In-Q-Tel<br>
+          Federal Contract ID: 70CTD022FR0000170 (ICE)
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber2);margin-bottom:6px;">INVESTIGAÇÃO JORNALÍSTICA</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.9;">
+          CartaCapital — "Cavalo de Troia" (dez/2025)<br>
+          The Intercept — NSA + Palantir (2017)<br>
+          Brasil 247 — "Hipoteca do futuro" (dez/2025)<br>
+          Brasil 247 — "Manifesto Palantir" (abr/2026)<br>
+          Tribuna do Sertão — Big techs e guerras (mar/2026)
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--red2);margin-bottom:6px;">REFERÊNCIAS INTERNACIONAIS</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.9;">
+          Republik (Suíça) — Auditoria Exército (dez/2025)<br>
+          American Immigration Council — ImmigrationOS (ago/2025)<br>
+          Liberation News — Vigilância Palantir (jun/2025)<br>
+          CNBC — Palantir & governo EUA (out/2022)<br>
+          Fortune — In-Q-Tel (jul/2025)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <div>
+    <span style="color:var(--red);">▲</span> PALANTIR × SOBERANIA DIGITAL — Diagnóstico Crítico Brasil
+  </div>
+  <div>
+    Produzido para: <span style="color:var(--text2);">lawfare-timeline.vercel.app · artesdosul.com</span>
+  </div>
+  <div>
+    v2.0 · maio/2026 · uso livre para fins jornalísticos e de documentação
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+
+function switchTab(el, panelId) {
+  el.closest('section').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.closest('section').querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

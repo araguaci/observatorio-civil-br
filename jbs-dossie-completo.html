@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JBS — Dossiê Completo: Corrupção, Cartel e Captura Sistêmica</title>
+  <meta name="description" content="Análise estrutural da JBS como ator de captura sistêmica: da Lava Jato ao cartel da carne nos EUA. Dossiê investigativo.">
+  <meta property="og:title" content="JBS — Dossiê: Corrupção, Cartel e Captura Sistêmica">
+  <meta property="og:description" content="Da corrupção de 1.829 políticos ao cartel da carne nos EUA. Análise estrutural da maior frigorífica do mundo.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#08090d;--bg2:#0f1117;--bg3:#161924;--bg4:#1d2230;
+  --red:#e03c3c;--red2:#ff6060;--red-dim:#5a1818;--red-glow:rgba(224,60,60,0.15);
+  --gold:#d4a017;--gold2:#f5c842;--gold-dim:#7a5208;--gold-glow:rgba(212,160,23,0.12);
+  --blue:#2a7fff;--blue2:#6aabff;--blue-dim:#0f2d6a;
+  --teal:#18c9a0;--teal2:#4dffd4;--teal-dim:#0a5540;
+  --orange:#e8762a;--orange2:#ffaa60;--orange-dim:#6a3010;
+  --purple:#9060e8;--purple2:#c090ff;--purple-dim:#3a1a6a;
+  --green:#22c55e;--green2:#6eff9e;
+  --text:#dde2ee;--text2:#7888a8;--text3:#4a5878;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.12);
+  --font:'Syne',sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;line-height:1.6}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:0.4;
+}
+
+/* ─── HEADER ─── */
+header{
+  position:relative;overflow:hidden;
+  padding:40px 32px 32px;
+  border-bottom:1px solid var(--red-dim);
+  background:linear-gradient(160deg,#0c0e14 0%,#130508 40%,#0c0810 100%);
+}
+header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 30%,rgba(224,60,60,0.09) 0%,transparent 55%),
+             radial-gradient(ellipse at 10% 80%,rgba(212,160,23,0.05) 0%,transparent 50%);
+}
+header::after{
+  content:'JBS';position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--font);font-size:180px;font-weight:900;letter-spacing:-10px;
+  color:rgba(224,60,60,0.04);line-height:1;pointer-events:none;user-select:none;
+}
+
+.h-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(224,60,60,0.08);border:1px solid var(--red-dim);
+  border-radius:3px;padding:4px 14px;
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2.5px;
+  color:var(--red2);text-transform:uppercase;margin-bottom:14px;
+}
+.h-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+
+header h1{
+  font-size:clamp(26px,4vw,42px);font-weight:900;letter-spacing:-1.5px;
+  color:#fff;line-height:1.05;position:relative;z-index:1;
+}
+header h1 .accent{color:var(--red)}
+header h1 .sub{display:block;font-size:clamp(13px,2vw,17px);font-weight:400;color:var(--text2);letter-spacing:0.5px;margin-top:6px}
+
+.h-meta{display:flex;gap:24px;margin-top:18px;flex-wrap:wrap;position:relative;z-index:1}
+.hm{font-family:var(--mono);font-size:11px;color:var(--text3)}
+.hm b{color:var(--gold2)}
+
+.alert-banner{
+  margin:16px 0 0;padding:10px 16px;
+  background:rgba(224,60,60,0.07);border:1px solid rgba(224,60,60,0.3);
+  border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--red2);
+  display:flex;align-items:flex-start;gap:10px;position:relative;z-index:1;
+}
+.alert-banner .ai{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ─── NAV ─── */
+nav{
+  display:flex;gap:3px;padding:8px 20px;
+  background:rgba(8,9,13,0.95);border-bottom:1px solid var(--border);
+  overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;
+  position:sticky;top:0;z-index:200;backdrop-filter:blur(12px);
+}
+nav::-webkit-scrollbar{display:none}
+.nb{
+  padding:7px 15px;border-radius:5px;border:1px solid transparent;
+  background:transparent;color:var(--text2);font-family:var(--font);
+  font-size:12px;font-weight:500;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.nb:hover{border-color:rgba(224,60,60,0.3);color:var(--red2)}
+.nb.act{background:rgba(224,60,60,0.1);border-color:var(--red);color:var(--red);font-weight:700}
+
+/* ─── MAIN ─── */
+main{padding:0 22px 48px;max-width:1160px;margin:0 auto;position:relative;z-index:1}
+.sec{display:none;padding-top:6px;animation:fadeIn .25s ease}
+.sec.act{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.sec-title{
+  padding:22px 0 14px;
+  font-size:11px;font-family:var(--mono);font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);
+  margin-bottom:18px;display:flex;align-items:center;gap:10px;
+}
+.sec-title::before{content:'';width:20px;height:2px;background:var(--red)}
+
+/* ─── KPI GRID ─── */
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 0 8px}
+@media(max-width:768px){.kgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.kgrid{grid-template-columns:1fr}}
+
+.kcard{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:16px;position:relative;overflow:hidden;
+}
+.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kr::before{background:linear-gradient(90deg,var(--red),var(--red2))}
+.kg::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.kb::before{background:linear-gradient(90deg,var(--blue),var(--blue2))}
+.kt::before{background:linear-gradient(90deg,var(--teal),var(--teal2))}
+.ko::before{background:linear-gradient(90deg,var(--orange),var(--orange2))}
+.kp::before{background:linear-gradient(90deg,var(--purple),var(--purple2))}
+
+.kl{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.kv{font-size:22px;font-weight:800;letter-spacing:-0.5px;line-height:1}
+.kr .kv{color:var(--red2)}
+.kg .kv{color:var(--gold2)}
+.kb .kv{color:var(--blue2)}
+.kt .kv{color:var(--teal2)}
+.ko .kv{color:var(--orange2)}
+.kp .kv{color:var(--purple2)}
+.ks{font-size:11px;color:var(--text2);margin-top:4px}
+
+/* ─── CARDS ─── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:12px}
+.card-h{font-size:13px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card-h .tag{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.tag-r{background:var(--red-glow);border:1px solid var(--red-dim);color:var(--red2)}
+.tag-g{background:var(--gold-glow);border:1px solid var(--gold-dim);color:var(--gold2)}
+.tag-b{background:rgba(42,127,255,0.1);border:1px solid var(--blue-dim);color:var(--blue2)}
+.tag-t{background:rgba(24,201,160,0.1);border:1px solid var(--teal-dim);color:var(--teal2)}
+.tag-o{background:rgba(232,118,42,0.1);border:1px solid var(--orange-dim);color:var(--orange2)}
+
+p{color:var(--text2);font-size:13.5px;margin-bottom:8px;line-height:1.7}
+p:last-child{margin-bottom:0}
+strong{color:var(--text);font-weight:600}
+
+/* ─── GRID LAYOUTS ─── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:768px){.g2,.g3{grid-template-columns:1fr}}
+
+/* ─── TIMELINE ─── */
+.tl{position:relative;padding-left:28px}
+.tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:linear-gradient(to bottom,var(--red),rgba(224,60,60,0.1))}
+.te{position:relative;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.te:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.te::before{content:'';position:absolute;left:-22px;top:5px;width:10px;height:10px;border-radius:50%;border:2px solid var(--red);background:var(--bg)}
+.te-year{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--red2);letter-spacing:1px;margin-bottom:4px}
+.te-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+.te-body{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* ─── PATTERN BADGES ─── */
+.pbadge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;border-radius:5px;
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  border:1px solid var(--border2);background:var(--bg3);
+  color:var(--text2);margin:3px;cursor:default;transition:all .2s;
+}
+.pbadge:hover{border-color:var(--red);color:var(--red2)}
+.pbadge .pid{color:var(--red);font-weight:700}
+
+/* ─── TABLE ─── */
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{text-align:left;padding:9px 12px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border2);background:var(--bg3)}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl tr:hover td{background:rgba(255,255,255,0.02)}
+.tbl td:first-child{color:var(--text);font-weight:600}
+.amount{font-family:var(--mono);color:var(--gold2);font-weight:600}
+.status-ok{color:var(--green2);font-family:var(--mono);font-size:11px}
+.status-bad{color:var(--red2);font-family:var(--mono);font-size:11px}
+.status-pend{color:var(--orange2);font-family:var(--mono);font-size:11px}
+
+/* ─── QUOTE BLOCK ─── */
+.qblock{
+  border-left:3px solid var(--red);padding:12px 16px;
+  background:rgba(224,60,60,0.04);border-radius:0 8px 8px 0;margin:10px 0;
+}
+.qblock p{color:var(--text);font-style:italic;font-size:13px}
+.qblock .qsrc{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:6px}
+
+/* ─── NETWORK NODE ─── */
+.network{display:flex;flex-direction:column;gap:0}
+.nrow{display:flex;align-items:stretch;gap:0}
+.nnode{
+  flex:1;padding:12px 14px;border:1px solid var(--border);
+  background:var(--bg3);margin:2px;border-radius:7px;
+  font-size:12px;color:var(--text2);position:relative;
+}
+.nnode .nt{font-weight:700;color:#fff;font-size:13px;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.nnode .ni{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.nnode-r{border-color:var(--red-dim);background:rgba(224,60,60,0.05)}
+.nnode-g{border-color:var(--gold-dim);background:var(--gold-glow)}
+.nnode-b{border-color:var(--blue-dim);background:rgba(42,127,255,0.05)}
+.arrow{text-align:center;padding:4px 0;font-size:18px;color:var(--red);line-height:1}
+
+/* ─── COMPARISON TABLE ─── */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.cmp-h{padding:10px 14px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center}
+.cmp-h.br{background:rgba(0,120,255,0.08);color:var(--blue2)}
+.cmp-h.us{background:rgba(224,60,60,0.08);color:var(--red2)}
+.cmp-row{display:contents}
+.cmp-cell{padding:10px 14px;font-size:12.5px;color:var(--text2);border-top:1px solid var(--border)}
+.cmp-cell.br-c{background:rgba(0,120,255,0.03)}
+.cmp-cell.us-c{background:rgba(224,60,60,0.03)}
+.cmp-label{grid-column:1/-1;padding:7px 14px;background:var(--bg3);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;border-top:1px solid var(--border)}
+
+/* ─── STRUCTURAL ANALYSIS ─── */
+.struct-box{
+  border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:12px;
+}
+.struct-header{
+  padding:12px 16px;background:var(--bg3);
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;
+  display:flex;align-items:center;gap:10px;
+}
+.struct-body{padding:14px 16px;background:var(--bg2)}
+
+/* ─── SOURCES ─── */
+.src-item{
+  display:flex;align-items:flex-start;gap:10px;padding:8px 0;
+  border-bottom:1px solid var(--border);font-size:12px;
+}
+.src-item:last-child{border-bottom:none}
+.src-n{font-family:var(--mono);color:var(--text3);font-size:10px;min-width:24px}
+.src-body{color:var(--text2);flex:1}
+.src-body b{color:var(--text)}
+.src-tag{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
+
+/* ─── CC0 FOOTER ─── */
+footer{
+  text-align:center;padding:24px;
+  font-family:var(--mono);font-size:11px;color:var(--text3);
+  border-top:1px solid var(--border);
+}
+footer a{color:var(--text2);text-decoration:none}
+footer a:hover{color:var(--red2)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-eyebrow">
+    <span></span>
+    DOSSIÊ INVESTIGATIVO — ATUALIZADO 05.05.2026
+  </div>
+  <h1>
+    <span class="accent">JBS</span> — Corrupção, Cartel<br>e Captura Sistêmica
+    <span class="sub">Da compra de 1.829 políticos brasileiros ao cartel da carne nos EUA</span>
+  </h1>
+  <div class="h-meta">
+    <span class="hm">Operações: <b>Lava Jato · FCPA/DOJ · Cartel EUA 2026</b></span>
+    <span class="hm">Jurisdições: <b>Brasil · EUA</b></span>
+    <span class="hm">Padrões: <b>P1 · P2 · P3 · P6</b></span>
+    <span class="hm">Licença: <b>CC0 1.0 Universal</b></span>
+  </div>
+  <div class="alert-banner">
+    <span class="ai">🚨</span>
+    <span><strong>04–05/05/2026:</strong> DOJ amplia investigação antitruste. Secretária de Agricultura dos EUA cita "histórico documentado de corrupção internacional e cartéis" da JBS explicitamente em coletiva pública. Procurador-Geral Interino Todd Blanche: 3 milhões de documentos analisados, centenas de depoimentos coletados.</span>
+  </div>
+</header>
+
+<nav>
+  <button class="nb act" onclick="show('resumo',this)">Resumo Executivo</button>
+  <button class="nb" onclick="show('atual',this)">Crise Atual 2026</button>
+  <button class="nb" onclick="show('historico',this)">Linha do Tempo</button>
+  <button class="nb" onclick="show('financeiro',this)">Financeiro</button>
+  <button class="nb" onclick="show('rede',this)">Rede de Atores</button>
+  <button class="nb" onclick="show('padroes',this)">Padrões Sistêmicos</button>
+  <button class="nb" onclick="show('paradoxo',this)">O Grande Paradoxo</button>
+  <button class="nb" onclick="show('fontes',this)">Fontes</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════ RESUMO -->
+<section class="sec act" id="resumo">
+  <div class="sec-title">Resumo Executivo</div>
+
+  <div class="kgrid">
+    <div class="kcard kr">
+      <div class="kl">Políticos corrompidos</div>
+      <div class="kv">1.829</div>
+      <div class="ks">28 partidos · Delação Saud</div>
+    </div>
+    <div class="kcard kg">
+      <div class="kl">Propina total declarada</div>
+      <div class="kv">R$ 600M</div>
+      <div class="ks">Inclui R$ 400M admitidos por Joesley</div>
+    </div>
+    <div class="kcard kb">
+      <div class="kl">Multas pagas EUA (2020)</div>
+      <div class="kv">US$ 155M</div>
+      <div class="ks">FCPA/DOJ + SEC · culpa admitida</div>
+    </div>
+    <div class="kcard kt">
+      <div class="kl">Acordo leniência Brasil</div>
+      <div class="kv">R$ 10,3B</div>
+      <div class="ks">J&F / MPF 2017</div>
+    </div>
+    <div class="kcard ko">
+      <div class="kl">Controle mercado EUA</div>
+      <div class="kv">85%</div>
+      <div class="ks">Big Four processamento bovino</div>
+    </div>
+    <div class="kcard kr">
+      <div class="kl">Documentos revisados DOJ</div>
+      <div class="kv">3M+</div>
+      <div class="ks">Investigação antitruste 2026</div>
+    </div>
+    <div class="kcard kp">
+      <div class="kl">Operações policiais (BR)</div>
+      <div class="kv">5+</div>
+      <div class="ks">Corrupção · lavagem · fraude</div>
+    </div>
+    <div class="kcard kg">
+      <div class="kl">Alta preço carne EUA</div>
+      <div class="kv">+18%</div>
+      <div class="ks">Jan/2025–Jan/2026 · gatilho</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px;border-color:var(--red-dim);background:rgba(224,60,60,0.03)">
+    <div class="card-h">Tese Central <span class="tag tag-r">ANÁLISE</span></div>
+    <p>A JBS não é um caso de corrupção corporativa isolada. É um <strong>ator de captura sistêmica</strong> que operou por 10-15 anos comprando o Estado brasileiro no atacado — presidentes, senadores, deputados, reguladores — usando capital público do BNDES para financiar sua expansão global, admitiu culpa formal de suborno internacional perante tribunal americano em 2020, e hoje opera sob investigação antitruste por concentração oligopolista em seu maior mercado externo.</p>
+    <p>O padrão recorrente: <strong>enforcement insuficiente no Brasil + enforcement financeiro nos EUA + controle acionário intacto</strong>. A empresa sobreviveu a tudo. Os irmãos Batista ainda dirigem o negócio. A arquitetura de captura que permitiu isso é o objeto desta análise.</p>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-h">O que esta análise cobre</div>
+      <p>① Linha do tempo completa 2003–2026 das operações e investigações<br>
+      ② Estrutura financeira dos acordos e multas<br>
+      ③ Rede de atores e funções institucionais<br>
+      ④ Padrões sistêmicos do lawfare-timeline (P1–P6)<br>
+      ⑤ Análise comparativa Brasil vs EUA no enforcement<br>
+      ⑥ O paradoxo central: empresa inderrotável</p>
+    </div>
+    <div class="card">
+      <div class="card-h">Aviso Editorial <span class="tag tag-g">CC0</span></div>
+      <p>Este dossiê é baseado em <strong>fatos públicos verificados</strong>: delações premiadas homologadas pelo STF, acordos formais com DOJ/SEC, declarações de procuradores e secretários de governo. Presunção de inocência preservada onde processos estão em curso. Conteúdo em domínio público — CC0 1.0 Universal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ ATUAL 2026 -->
+<section class="sec" id="atual">
+  <div class="sec-title">Crise Atual — Investigação EUA 2026</div>
+
+  <div class="card" style="border-color:var(--red-dim)">
+    <div class="card-h">04 de maio de 2026 — Coletiva DOJ, Washington <span class="tag tag-r">BREAKING</span></div>
+    <p>O governo Trump anunciou a ampliação formal da investigação antitruste contra o "Big Four" do processamento de carne bovina nos EUA: <strong>JBS</strong> (via JBS USA), <strong>Marfrig</strong> (National Beef), <strong>Cargill</strong> e <strong>Tyson Foods</strong>. O procurador-geral interino <strong>Todd Blanche</strong> presidiu a coletiva no DOJ. A investigação, aberta em novembro de 2025 por ordem direta de Trump via Truth Social, já produziu análise de mais de <strong>3 milhões de documentos</strong>.</p>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-h">O que o DOJ alega</div>
+      <p><strong>Formação de cartel:</strong> as quatro empresas teriam coordenado preços em vez de competir, eliminando a dinâmica de mercado.</p>
+      <p><strong>Manipulação de preços:</strong> carne moída chegou a US$ 6,76/kg em jan/2026, alta de 18% em 12 meses — em paralelo à redução natural do rebanho, o impacto seria amplificado pela concentração.</p>
+      <p><strong>Anticompetitividade:</strong> 85% do processamento bovino concentrado em 4 empresas reduz opções dos pecuaristas e eleva preços ao consumidor.</p>
+    </div>
+    <div class="card">
+      <div class="card-h">Dimensão política</div>
+      <p><strong>Navarro:</strong> acusa o "lobby da carne" de pressionar o governo americano após tarifas, redirecionando produção para China. Afirma que empresas "coletam dados individuais para monopólio de preços".</p>
+      <p><strong>Brooke Rollins</strong> (Secretária de Agricultura): mencionou explicitamente o "histórico documentado de corrupção internacional e cartéis" da JBS — linha que vai além do antitruste e recupera o passado FCPA.</p>
+      <p><strong>Delatores incentivados:</strong> DOJ oferece 15–30% dos valores recuperados. Em multas acima de US$ 1M, os prêmios são milionários.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h">Linha causal do evento</div>
+    <div class="tl">
+      <div class="te">
+        <div class="te-year">NOV 2025</div>
+        <div class="te-title">Trump ordena investigação via Truth Social</div>
+        <div class="te-body">Post acusando frigoríficos de "capital estrangeiro" de inflar artificialmente preços. DOJ formaliza abertura do inquérito antitruste.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">ABR 2026</div>
+        <div class="te-title">Peter Navarro eleva retórica pública</div>
+        <div class="te-body">Entrevista Fox Business: acusa as quatro empresas de operar como cartel, cita controle de 85% do mercado, menciona empresas brasileiras por origem.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">05 MAI 2026</div>
+        <div class="te-title">Coletiva DOJ — ampliação formal</div>
+        <div class="te-body">Todd Blanche anuncia expansão. Rollins cita histórico de corrupção da JBS. DOJ lança programa formal de recompensas para delatores. 3M documentos já analisados, centenas de depoimentos colhidos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--gold-dim)">
+    <div class="card-h" style="color:var(--gold2)">Leitura geopolítica crítica <span class="tag tag-g">ANÁLISE</span></div>
+    <p>A investigação Trump <strong>não é necessariamente movida por justiça</strong>. É movida por protecionismo agrícola, pressão doméstica sobre preços de alimentos, e tensão tarifária com o Brasil. Isso não invalida as acusações — significa que vetores distintos podem produzir accountability quando a jurisdição doméstica falha.</p>
+    <p>O precedente relevante: em 2020, foi o DOJ americano, não o MPF brasileiro, que obteve a <strong>declaração formal de culpa</strong> por corrupção internacional da J&F. O Brasil processou mas não desmantelou. Os EUA cobram multa e continuam. Nenhum dos dois destrói o ator sistêmico.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ HISTÓRICO -->
+<section class="sec" id="historico">
+  <div class="sec-title">Linha do Tempo Completa — 2003 a 2026</div>
+
+  <div class="card">
+    <div class="tl">
+      <div class="te">
+        <div class="te-year">2003–2015</div>
+        <div class="te-title">Fase de captura do Estado brasileiro</div>
+        <div class="te-body">JBS distribui propina sistematicamente: R$ 400M+ admitidos por Joesley. 1.829 candidatos, 28 partidos, governos Lula e Dilma. BNDES injeta bilhões para financiar expansão global da empresa — segundo Funaro, "a maior parte das operações possuía ilícitos". JBS destrói concorrentes menores via acesso privilegiado a capital público.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">ABR–MAI 2017</div>
+        <div class="te-title">Delações Lava Jato — Joesley, Wesley, Saud</div>
+        <div class="te-body">Acordo de leniência firmado com a PGR. STF homologa em maio. Joesley grava Michel Temer no Palácio do Jaburu sugerindo manutenção de Cunha e Funaro. Saud detalha propina a 28 senadores, financiamento de campanha para "comprar" 5 deputados a R$ 3M cada para votar contra impeachment de Dilma. Aécio Neves flagrado negociando R$ 2M.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">SET 2017</div>
+        <div class="te-title">Rescisão parcial do acordo — obstrução de investigação</div>
+        <div class="te-body">PGR Rodrigo Janot rescinde acordo de Joesley e Saud por suspeita de omissão e obstrução. Em 2018, PGR Raquel Dodge rescinde acordo de Wesley e Francisco de Assis. A colaboração que deveria desmembrar o esquema é revertida parcialmente — os delatores tornaram-se suspeitos de cumplicidade ativa posterior.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">2017–2019</div>
+        <div class="te-title">Impunidade blindada pelo STF</div>
+        <div class="te-body">Joesley Batista é preso em setembro de 2017, solto em 48 horas. O STF que homologou o acordo também é o tribunal responsável por julgar os crimes revelados pela delação — conflito estrutural clássico do Padrão P3. A empresa opera sem interrupção durante todo o período.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">OUT 2020</div>
+        <div class="te-title">J&F declara culpa no DOJ — FCPA</div>
+        <div class="te-body">Perante juíza Margo K. Brodie, Eastern District de Nova York, a J&F admite violação da Foreign Corrupt Practices Act. Multa original de US$ 256,5M reduzida a US$ 128,3M por crédito de 50% pelos valores pagos no Brasil. JBS paga adicionalmente US$ 26,9M à SEC por falhas contábeis na Pilgrim's Pride. Total: US$ 155,2M pagos aos EUA por crimes de corrupção praticados no Brasil.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">2021–2024</div>
+        <div class="te-title">Reorganização e IPO internacional frustrado</div>
+        <div class="te-body">JBS busca listagem em bolsa americana (NYSE). Tentativa bloqueada por resistência de investidores institucionais e órgãos regulatórios americanos preocupados com o histórico de corrupção e a estrutura de controle acionário opaca. Empresa apresenta F-4/A à SEC em 2025 reconhecendo que o histórico Lava Jato "pode continuar afetando sua reputação".</div>
+      </div>
+      <div class="te">
+        <div class="te-year">NOV 2025</div>
+        <div class="te-title">Trump ordena investigação antitruste</div>
+        <div class="te-body">Post na Truth Social direciona DOJ a investigar cartel de preços de carne. Investigação aberta formalmente. Contexto: preços de carne bovina nos EUA em alta histórica, rebanho em queda, mercado 85% concentrado nas Big Four.</div>
+      </div>
+      <div class="te">
+        <div class="te-year">MAI 2026</div>
+        <div class="te-title">Coletiva DOJ — escalonamento máximo</div>
+        <div class="te-body">Ampliação formal. Rollins cita histórico de corrupção e cartel da JBS explicitamente. Navarro acusa lobby da carne de influenciar política comercial americana. DOJ formaliza programa de recompensas. A JBS enfrenta simultaneamente investigação antitruste no maior mercado do mundo e a memória viva de sua culpa admitida por corrupção em 2020.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ FINANCEIRO -->
+<section class="sec" id="financeiro">
+  <div class="sec-title">Estrutura Financeira das Investigações</div>
+
+  <div class="card">
+    <div class="card-h">Mapa de Sanções e Acordos</div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Jurisdição / Órgão</th>
+          <th>Natureza</th>
+          <th>Valor</th>
+          <th>Ano</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MPF — Acordo de Leniência J&F</td>
+          <td>Corrupção sistêmica · lavagem</td>
+          <td class="amount">R$ 10,3B</td>
+          <td>2017</td>
+          <td class="status-pend">Parcialmente pago</td>
+        </tr>
+        <tr>
+          <td>DOJ — FCPA plea J&F</td>
+          <td>Violação Foreign Corrupt Practices Act</td>
+          <td class="amount">US$ 128,3M</td>
+          <td>2020</td>
+          <td class="status-ok">Pago</td>
+        </tr>
+        <tr>
+          <td>SEC — Acordo JBS/Pilgrim's Pride</td>
+          <td>Falha em controles contábeis</td>
+          <td class="amount">US$ 26,9M</td>
+          <td>2020</td>
+          <td class="status-ok">Pago</td>
+        </tr>
+        <tr>
+          <td>DOJ — Antitruste (cartel carne)</td>
+          <td>Formação de cartel · manipulação preços</td>
+          <td class="amount">A definir</td>
+          <td>2025–2026</td>
+          <td class="status-bad">Em investigação</td>
+        </tr>
+        <tr>
+          <td>Operações PF (5+)</td>
+          <td>Fraude contra administração pública</td>
+          <td class="amount">—</td>
+          <td>2017–</td>
+          <td class="status-pend">Trâmite variado</td>
+        </tr>
+        <tr>
+          <td>CPI BNDES</td>
+          <td>Irregularidades em operações BNDES/Caixa</td>
+          <td class="amount">R$ bilhões</td>
+          <td>2019</td>
+          <td class="status-pend">Sem punição executada</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-h">Contexto BNDES <span class="tag tag-b">CAPITAL PÚBLICO</span></div>
+      <p>Segundo o operador financeiro Lúcio Funaro, em depoimento à CPI do BNDES: <em>"A maior parte das operações feitas pelo BNDES ou a Caixa junto ao grupo JBS possuía ilícitos. Eu não só falei aqui hoje nessa comissão como já falei em outros órgãos de investigação."</em></p>
+      <p>O mecanismo: JBS distribui propina para obter acesso privilegiado ao BNDES → capital público subsidia expansão global → empresa se torna a maior frigorífica do mundo → poder de mercado amplifica capacidade de captura regulatória. <strong>Capital público financiando a construção de um monopólio via corrupção.</strong></p>
+    </div>
+    <div class="card">
+      <div class="card-h">Análise do FCPA <span class="tag tag-r">2020</span></div>
+      <p>A lógica do crédito de 50% no acordo DOJ é relevante: os EUA reconheceram que o Brasil já havia cobrado parte — mas não abriram mão de sua própria jurisdição por isso. A <strong>culpa admitida</strong> é o ponto central: diferente do Brasil, onde as delações foram parcialmente rescindidas, o DOJ conseguiu uma <em>declaração formal</em> de violação da lei americana.</p>
+      <p>Consequência prática: a J&F, holding controladora da JBS, tem em seu registro público americano um plea of guilty por suborno de funcionários estrangeiros. Isso deveria impedir contratos com o governo federal americano — mas não impediu a operação contínua via JBS USA.</p>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--gold-dim)">
+    <div class="card-h" style="color:var(--gold2)">Custo total estimado das irregularidades vs. retorno obtido</div>
+    <p>As multas e acordos totalizam aproximadamente <strong>R$ 10,3B + US$ 155M</strong> (equivalente a ~R$ 800M em 2020 = total ~R$ 11,1B). A JBS obteve acesso privilegiado ao BNDES com operações que Funaro estima em "bilhões com ilícitos" e financiou com esse capital uma expansão global que a tornou a maior processadora de proteína animal do mundo — faturamento em 2023 de <strong>US$ 73B</strong>. A aritmética da captura é favorável aos atores.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ REDE -->
+<section class="sec" id="rede">
+  <div class="sec-title">Rede de Atores e Funções Sistêmicas</div>
+
+  <div class="card">
+    <div class="card-h">Arquitetura da Rede — Funções, não Nomes</div>
+    <p style="margin-bottom:14px">A JBS é um caso paradigmático da tese central do lawfare-timeline: <strong>funções persistem, ocupantes mudam</strong>. O esquema operou por 10–15 anos com diferentes governos, procuradores e juízes — mas as funções estruturais se mantiveram constantes.</p>
+
+    <div class="network">
+      <div class="nrow">
+        <div class="nnode nnode-g" style="flex:2">
+          <div class="nt">🏭 EMPRESA CAPTORA</div>
+          <div>JBS / J&F (Irmãos Batista)</div>
+          <div class="ni">Motor do esquema · financiamento de captura · distribuição de propina industrial</div>
+        </div>
+        <div class="nnode nnode-b" style="flex:2">
+          <div class="nt">🏦 BANCO PÚBLICO CAPTURADO</div>
+          <div>BNDES / Caixa Econômica</div>
+          <div class="ni">Capital público → expansão privada · "maior parte das operações possuía ilícitos" (Funaro)</div>
+        </div>
+      </div>
+      <div class="arrow">↕</div>
+      <div class="nrow">
+        <div class="nnode nnode-r">
+          <div class="nt">🎭 OPERADOR POLÍTICO</div>
+          <div>Rodrigo Loures (intermediário CADE)</div>
+          <div class="ni">Comprado para resolver pendências regulatórias · R$ 15M</div>
+        </div>
+        <div class="nnode nnode-r">
+          <div class="nt">🗳️ COMPRA DE VOTOS</div>
+          <div>5 deputados p/ votar vs. impeachment</div>
+          <div class="ni">R$ 3M cada · via Loures segundo Joesley</div>
+        </div>
+        <div class="nnode nnode-r">
+          <div class="nt">📋 COMPRA DE SILÊNCIO</div>
+          <div>Aécio Neves · Cunha · Funaro</div>
+          <div class="ni">R$ 2M via Andrea Neves · manutenção do silêncio de presos</div>
+        </div>
+      </div>
+      <div class="arrow">↕</div>
+      <div class="nrow">
+        <div class="nnode" style="flex:1.5">
+          <div class="nt">⚖️ ESCUDO INSTITUCIONAL</div>
+          <div>STF (homologação + rescisão + julgamento)</div>
+          <div class="ni">Homologou delação → tribunal do caso → Joesley solto em 48h após prisão — Padrão P3</div>
+        </div>
+        <div class="nnode nnode-b" style="flex:1.5">
+          <div class="nt">🌎 ENFORCEMENT EXTERNO</div>
+          <div>DOJ / SEC (EUA)</div>
+          <div class="ni">Única jurisdição que obteve culpa admitida formal. Multa cobrada. Controle acionário intacto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-h">1.829 atores políticos comprados — escala industrial</div>
+      <div class="tl">
+        <div class="te">
+          <div class="te-year">28 senadores</div>
+          <div class="te-body">"Demos propina para 28 senadores da República" — Joesley Batista à PGR</div>
+        </div>
+        <div class="te">
+          <div class="te-year">Múltiplos presidentes</div>
+          <div class="te-body">Lista inclui presidentes da República, governadores, deputados</div>
+        </div>
+        <div class="te">
+          <div class="te-year">28 partidos</div>
+          <div class="te-body">Distribuição multipartidária — não há fronteira ideológica. PT, PSDB, PMDB, e mais 25</div>
+        </div>
+        <div class="te">
+          <div class="te-year">R$ 600M</div>
+          <div class="te-body">Total das doações ilícitas declaradas pelo diretor Saud</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h">Operação Cartel EUA — atores 2026</div>
+      <div class="tl">
+        <div class="te">
+          <div class="te-year">Todd Blanche</div>
+          <div class="te-body">Procurador-Geral Interino DOJ · presidiu coletiva de 04/05/2026 · afirmou "estrutura atual indica atividade anticompetitiva"</div>
+        </div>
+        <div class="te">
+          <div class="te-year">Brooke Rollins</div>
+          <div class="te-body">Secretária de Agricultura · citou "histórico documentado de corrupção internacional" da JBS explicitamente</div>
+        </div>
+        <div class="te">
+          <div class="te-year">Peter Navarro</div>
+          <div class="te-body">Conselheiro econômico · acusa lobby da carne de influenciar política tarifária · foca origem brasileira das empresas</div>
+        </div>
+        <div class="te">
+          <div class="te-year">Donald Trump</div>
+          <div class="te-body">Gatilho político · acusações via Truth Social nov/2025 · ordem executiva formalizando investigação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ PADRÕES -->
+<section class="sec" id="padroes">
+  <div class="sec-title">Mapeamento de Padrões Sistêmicos</div>
+
+  <div class="card">
+    <div class="card-h">Padrões Identificados no Corpus JBS</div>
+    <div style="margin-bottom:10px">
+      <span class="pbadge"><span class="pid">P1</span> Captura Regulatória</span>
+      <span class="pbadge"><span class="pid">P2</span> Blindagem Processual</span>
+      <span class="pbadge"><span class="pid">P3</span> Terminal STF</span>
+      <span class="pbadge"><span class="pid">P6</span> Exportação da Impunidade</span>
+    </div>
+  </div>
+
+  <div class="struct-box">
+    <div class="struct-header" style="color:var(--red2)">
+      <span style="color:var(--red);font-size:14px">P1</span> CAPTURA REGULATÓRIA — Compra sistêmica do Estado para obter recursos públicos e vantagens competitivas
+    </div>
+    <div class="struct-body">
+      <p><strong>Manifestação JBS:</strong> Propina de R$ 400M+ para obter acesso privilegiado ao BNDES. Compra de Rodrigo Loures para "resolver pendências no CADE". Financiamento de R$ 600M para 1.829 políticos em troca de contrapartidas no setor público. Compra de 5 deputados para votar contra o impeachment de Dilma — preservando o governo que financiava a empresa via banco público.</p>
+      <p><strong>Elemento distintivo:</strong> A corrupção JBS não visava apenas contratos — visava <em>moldar o Estado</em> para que o regime de financiamento público com ilícitos fosse perpetuado. É captura regulatória em modo estrutural, não transacional.</p>
+      <div class="qblock">
+        <p>"Tirando esses R$ 10, R$ 15 milhões aqui, o resto tudo é propina."</p>
+        <div class="qsrc">— Ricardo Saud, diretor JBS, em delação premiada à PGR</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="struct-box">
+    <div class="struct-header" style="color:var(--gold2)">
+      <span style="color:var(--gold);font-size:14px">P2</span> BLINDAGEM PROCESSUAL — Uso de instrumentos legais para neutralizar investigações
+    </div>
+    <div class="struct-body">
+      <p><strong>Manifestação JBS:</strong> O acordo de delação foi rescindido parcialmente por suspeita de que os próprios delatores estavam obstruindo investigações durante a colaboração — transformando o instrumento de accountability em instrumento de proteção. Joesley Batista preso em setembro de 2017, solto em 48 horas. A delação que deveria desmantelar a empresa tornou-se, em parte, um escudo adicional.</p>
+      <p><strong>Paradoxo da delação:</strong> O acordo gerou informações explosivas que expuseram Michel Temer e Aécio Neves — mas a própria rescisão parcial criou ambiguidade jurídica que beneficiou os delatores-suspeitos. O instrumento de cooperação foi capturado pelo próprio réu.</p>
+    </div>
+  </div>
+
+  <div class="struct-box">
+    <div class="struct-header" style="color:var(--purple2)">
+      <span style="color:var(--purple);font-size:14px">P3</span> TERMINAL STF — O STF como ponto de chegada onde investigações são neutralizadas
+    </div>
+    <div class="struct-body">
+      <p><strong>Manifestação JBS:</strong> O STF é simultaneamente o tribunal que homologou os acordos de delação E o tribunal competente para julgar os crimes revelados por esses acordos. O Ministro relator dos acordos da J&F é o mesmo tribunal que julgaria as consequências. Joesley preso, solto em 48h via decisão no âmbito do STF.</p>
+      <p><strong>Estrutura do conflito:</strong> Um tribunal que negocia a delação não pode julgar com independência o que a delação revela. A concentração de competência no STF — que é tanto o foro privilegiado dos 1.829 políticos comprados quanto o homologador dos acordos — cria um loop de proteção mútua.</p>
+    </div>
+  </div>
+
+  <div class="struct-box">
+    <div class="struct-header" style="color:var(--teal2)">
+      <span style="color:var(--teal);font-size:14px">P6</span> EXPORTAÇÃO DA IMPUNIDADE — O ator sistêmico sobrevive ao enforcement doméstico e continua no mercado internacional
+    </div>
+    <div class="struct-body">
+      <p><strong>Manifestação JBS:</strong> O caso mais claro do corpus. A empresa distribui R$ 600M em propina no Brasil, usa o BNDES para se tornar a maior frigorífica do mundo, admite culpa formal de corrupção nos EUA em 2020, paga US$ 155M, e continua operando normalmente. O enforcement americano foi mais efetivo em obter culpa formal do que o enforcement brasileiro — mas nenhum dos dois destruiu o ator.</p>
+      <p><strong>2026 — novo vetor:</strong> A investigação antitruste não é anticorrupção. É uma ação de mercado. O DOJ que processa cartel em 2026 é o mesmo DOJ que recebeu culpa admitida em 2020. O histórico FCPA é agora citado publicamente como contexto para o caso antitruste — exportando o registro de impunidade para o debate presente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ PARADOXO -->
+<section class="sec" id="paradoxo">
+  <div class="sec-title">O Grande Paradoxo — A Empresa Inderrotável</div>
+
+  <div class="card" style="border-color:var(--red-dim);background:rgba(224,60,60,0.03)">
+    <div class="card-h" style="color:var(--red2);font-size:15px">Síntese Analítica Central</div>
+    <p>A JBS é a maior empresa de processamento de proteína animal do mundo. É também uma empresa que:</p>
+    <p>① Admitiu formalmente ter pago propina a funcionários públicos estrangeiros (FCPA, 2020)<br>
+    ② Distribuiu ~R$ 600M para 1.829 políticos brasileiros de 28 partidos<br>
+    ③ Usou capital público do BNDES em operações com ilícitos para financiar expansão global<br>
+    ④ Teve seus acordos de delação parcialmente rescindidos por obstrução de investigação<br>
+    ⑤ Enfrenta hoje investigação antitruste por controlar 85% do mercado de carne bovina americano</p>
+    <p><strong>E continua operando, listada em bolsa, com os mesmos controladores.</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">Brasil vs. EUA — Enforcement Comparado</div>
+    <div class="cmp-grid">
+      <div class="cmp-h br">🇧🇷 Brasil</div>
+      <div class="cmp-h us">🇺🇸 Estados Unidos</div>
+      <div class="cmp-label">Instrumento</div>
+      <div class="cmp-cell br-c">Delação premiada + acordo de leniência MPF</div>
+      <div class="cmp-cell us-c">FCPA plea agreement DOJ + SEC settlement</div>
+      <div class="cmp-label">Resultado</div>
+      <div class="cmp-cell br-c">Acordos parcialmente rescindidos por obstrução</div>
+      <div class="cmp-cell us-c">Culpa admitida formalmente · irrescindível</div>
+      <div class="cmp-label">Valor</div>
+      <div class="cmp-cell br-c">R$ 10,3B (pagamento parcial)</div>
+      <div class="cmp-cell us-c">US$ 155,2M (pagamento integral)</div>
+      <div class="cmp-label">Destino do ator</div>
+      <div class="cmp-cell br-c">Empresa intacta · Batistas no controle</div>
+      <div class="cmp-cell us-c">Empresa intacta · Batistas no controle</div>
+      <div class="cmp-label">Ação subsequente</div>
+      <div class="cmp-cell br-c">Tentativa de IPO na NYSE (2021–2024)</div>
+      <div class="cmp-cell us-c">Nova investigação antitruste (2025–2026)</div>
+      <div class="cmp-label">Conclusão</div>
+      <div class="cmp-cell br-c" style="color:var(--red2)">Accountability incompleto · arquitetura intacta</div>
+      <div class="cmp-cell us-c" style="color:var(--orange2)">Accountability financeiro · arquitetura intacta</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-h">Por que a empresa sobrevive <span class="tag tag-r">ESTRUTURAL</span></div>
+      <p><strong>Tamanho como escudo:</strong> Uma empresa que emprega dezenas de milhares, movimenta US$ 73B/ano e abastece supermercados em 150 países é "too big to dismantle". O custo sistêmico de desmantelamento é real — e essa realidade é weaponizada.</p>
+      <p><strong>Jurisdição fragmentada:</strong> Brasil julga o histórico, EUA julgam o mercado atual — nenhum tem visão completa nem vontade política de fazer o que o outro não faz.</p>
+      <p><strong>Capital como argumento:</strong> O BNDES financiou a empresa por razões de "desenvolvimento nacional". Desmantelá-la seria reconhecer que o próprio Estado foi o co-arquiteto do problema.</p>
+    </div>
+    <div class="card">
+      <div class="card-h">Questão analítica aberta <span class="tag tag-g">PRÓXIMA SESSÃO</span></div>
+      <p>A investigação antitruste americana de 2026 cita o histórico FCPA de 2020 como contexto — conectando dois vetores distintos de accountability. Isso sugere uma <strong>acumulação de registro</strong>: cada enforcement, mesmo sem destruir o ator, incrementa o custo reputacional e o risco regulatório futuro.</p>
+      <p>Pergunta aberta: <strong>existe um threshold de acumulação de registros de culpa após o qual o ator sistêmico deixa de ser financiável / operável em jurisdições com rule of law?</strong> E o IPO bloqueado na NYSE sugere que esse threshold pode estar sendo aproximado?</p>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--gold-dim)">
+    <div class="card-h" style="color:var(--gold2)">A aritmética da captura — por que o crime compensa</div>
+    <p>Custo total estimado das irregularidades: <strong>R$ 10,3B + US$ 155M ≈ R$ 11,1B</strong></p>
+    <p>Retorno obtido: acesso privilegiado ao BNDES para financiar expansão de empresa hoje avaliada em dezenas de bilhões de dólares, que fatura US$ 73B anuais, com 85% de controle sobre o maior mercado de carne do mundo.</p>
+    <p>A conclusão analítica não é que a corrupção é "racional" para os atores — é que o <strong>enforcement insuficiente transforma a propina em custo de negócio</strong>, não em risco existencial. Enquanto a empresa sobrevive, a função de produção do crime é positiva. Isso é o que o lawfare-timeline documenta como padrão sistêmico, não como exceção.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ FONTES -->
+<section class="sec" id="fontes">
+  <div class="sec-title">Fontes e Lacunas Investigativas</div>
+
+  <div class="card">
+    <div class="card-h">Fontes Primárias e Verificadas</div>
+    <div class="src-item">
+      <div class="src-n">01</div>
+      <div class="src-body"><b>STF — Homologação HC 127483</b> · Acordo de delação J&F homologado em maio de 2017 · Registro público disponível no portal STF<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">02</div>
+      <div class="src-body"><b>DOJ — Plea Agreement J&F / Eastern District NY</b> · Culpa admitida por violação FCPA · Juíza Margo K. Brodie · outubro 2020<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">03</div>
+      <div class="src-body"><b>SEC — Settlement JBS/Pilgrim's Pride</b> · US$ 26,9M por falhas contábeis · outubro 2020<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">04</div>
+      <div class="src-body"><b>SEC EDGAR — JBS Form F-4/A</b> (2025) e Form 6-K (2026) · Registros públicos de arquivamento societário reconhecendo investigações e riscos<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">05</div>
+      <div class="src-body"><b>DOJ Coletiva — 04/05/2026</b> · Procurador-Geral Interino Todd Blanche · Secretária Brooke Rollins · Conselheiro Navarro<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">06</div>
+      <div class="src-body"><b>CPI BNDES — Depoimento Lúcio Funaro</b> · Câmara dos Deputados · 28/08/2019 · Portal Câmara<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">07</div>
+      <div class="src-body"><b>Senado Federal — Delação Ricardo Saud</b> (síntese) · BDSF Senado · 1.829 políticos · 28 partidos · R$ 600M<span class="src-tag tag-r">PRIMÁRIA</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">08</div>
+      <div class="src-body"><b>Gazeta do Povo</b> · "Governo Trump intensifica investigação contra JBS" · 04-05/05/2026<span class="src-tag tag-b">JORNALISMO</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">09</div>
+      <div class="src-body"><b>Revista Oeste</b> · "EUA investigam frigoríficos brasileiros por suspeita de cartel" · 04/05/2026<span class="src-tag tag-b">JORNALISMO</span></div>
+    </div>
+    <div class="src-item">
+      <div class="src-n">10</div>
+      <div class="src-body"><b>Seu Dinheiro / Economic News Brasil</b> · Declarações Navarro e análise de concentração de mercado · abr-mai 2026<span class="src-tag tag-b">JORNALISMO</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--orange-dim)">
+    <div class="card-h" style="color:var(--orange2)">Lacunas Investigativas Identificadas</div>
+    <p><strong>① Montante BNDES com ilícitos:</strong> Funaro afirmou que "a maior parte" das operações possuía ilícitos, mas o valor total das operações irregulares identificadas pela CPI nunca foi consolidado publicamente em número definitivo.</p>
+    <p><strong>② Status atual do acordo de leniência R$ 10,3B:</strong> Não foi possível confirmar percentual pago até mai/2026. Pagamento parcial relatado mas cronograma e status atual carecem de verificação independente.</p>
+    <p><strong>③ Lista completa dos 1.829 políticos:</strong> A delação identificou os nomes, mas a publicização completa foi suprimida judicialmente. A lista parcialmente conhecida representa apenas os casos com evidências mais sólidas.</p>
+    <p><strong>④ Conexão entre cartel atual e estrutura Lava Jato:</strong> A investigação antitruste americana trata os crimes como separados. Não há análise pública sobre se as mesmas redes de captura que operaram no Brasil são parte da estrutura de concentração de mercado nos EUA.</p>
+    <p><strong>⑤ IPO NYSE — motivação real do bloqueio:</strong> A tentativa de listagem na bolsa americana foi frustrada, mas os fundamentos exatos — se FCPA, se pressão política, se estrutura de controle — não foram completamente documentados publicamente.</p>
+  </div>
+
+  <div class="card" style="border-color:var(--border2)">
+    <div class="card-h">Links e Cruzamentos — lawfare-timeline</div>
+    <p>Este dossiê cruza com: <strong>Operação Lava Jato</strong> (delação J&F como vetor central), <strong>Carbono Oculto</strong> (padrões BNDES), <strong>República Capturada</strong> (captura sistêmica multipartidária), <strong>Além da Toga</strong> (P3 — terminal STF), e potencialmente <strong>Inq-4781</strong> (proteção política pós-investigação).</p>
+    <p>Consulte: <a href="https://lawfare-timeline.vercel.app" style="color:var(--blue2)">lawfare-timeline.vercel.app</a> · <a href="https://gosurf.site" style="color:var(--blue2)">gosurf.site</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>
+    <strong style="color:var(--text)">JBS — Dossiê Completo</strong> · Corrupção, Cartel e Captura Sistêmica<br>
+    Publicado em domínio público · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0 Universal</a><br>
+    Parte do projeto <a href="https://lawfare-timeline.vercel.app">lawfare-timeline.vercel.app</a> · Artes do Sul Desenvolvimento Web<br>
+    <span style="color:var(--text3)">Última atualização: 05 mai 2026 · Conteúdo baseado em fontes públicas verificadas</span>
+  </p>
+</footer>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('act'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilhas Anticorrupção — Mapa de Relações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #080810;
+  --bg2:     #0d0d18;
+  --bg3:     #13131f;
+  --bg4:     #1a1a28;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+
+  /* TRILHAS — CATEGORIAS */
+  --c-op:     #e05050; /* Operações — vermelho */
+  --c-op-bg:  rgba(224,80,80,0.08);
+  --c-op-glow:rgba(224,80,80,0.25);
+
+  --c-ator:     #5090ff; /* Atores — azul */
+  --c-ator-bg:  rgba(80,144,255,0.08);
+  --c-ator-glow:rgba(80,144,255,0.25);
+
+  --c-inst:     #30c880; /* Instituições — verde */
+  --c-inst-bg:  rgba(48,200,128,0.08);
+  --c-inst-glow:rgba(48,200,128,0.25);
+
+  --c-pad:     #e0a020; /* Padrões sistêmicos — âmbar */
+  --c-pad-bg:  rgba(224,160,32,0.08);
+  --c-pad-glow:rgba(224,160,32,0.25);
+
+  --c-fin:     #b060ff; /* Fluxos financeiros — violeta */
+  --c-fin-bg:  rgba(176,96,255,0.08);
+  --c-fin-glow:rgba(176,96,255,0.25);
+
+  --c-leg:     #20c8d8; /* Estratégias legais — ciano */
+  --c-leg-bg:  rgba(32,200,216,0.08);
+  --c-leg-glow:rgba(32,200,216,0.25);
+
+  --text:  #e0ddd8;
+  --text2: #8a8880;
+  --text3: #454440;
+
+  --font-d: 'Syne', sans-serif;
+  --font-m: 'IBM Plex Mono', monospace;
+
+  --dim: 0.15;
+  --transition: 200ms cubic-bezier(0.25,1,0.5,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-m);
+  font-size: 12px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* scanline sutil */
+body::after {
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.025) 3px,rgba(0,0,0,0.025) 4px);
+}
+
+.container { max-width: 1440px; margin: 0 auto; padding: 0 28px 80px; }
+
+/* ─── HEADER ─── */
+.header {
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.header-left {}
+.header-badge {
+  font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-op); display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.header-badge::before {
+  content:''; width:7px;height:7px;border-radius:50%;background:var(--c-op);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+.header h1 {
+  font-family: var(--font-d); font-size: clamp(22px,3vw,34px); font-weight: 800;
+  letter-spacing: -.02em; line-height: 1.1; color: var(--text);
+}
+.header h1 span { color: var(--c-op); }
+.header-sub { font-size: 12px; color: var(--text2); margin-top: 8px; max-width: 520px; line-height: 1.7; }
+
+.header-stats { display: flex; gap: 2px; flex-wrap: wrap; align-items: flex-start; }
+.stat {
+  padding: 10px 16px; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; text-align: center; min-width: 72px;
+}
+.stat-val { font-size: 20px; font-weight: 700; font-family: var(--font-d); color: var(--text); display: block; }
+.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; }
+
+/* ─── LEGENDA / FILTROS DE TRILHA ─── */
+.track-filters {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; align-items: center;
+}
+.track-filter {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 14px; border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg3);
+  font-size: 11px; font-weight: 500; color: var(--text2);
+  transition: all var(--transition); user-select: none;
+}
+.track-filter .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.track-filter:hover { border-color: var(--border2); color: var(--text); }
+.track-filter.active { color: var(--text); }
+.track-filter[data-track="op"].active   { border-color: var(--c-op);   background: var(--c-op-bg);   color: var(--c-op); }
+.track-filter[data-track="ator"].active { border-color: var(--c-ator); background: var(--c-ator-bg); color: var(--c-ator); }
+.track-filter[data-track="inst"].active { border-color: var(--c-inst); background: var(--c-inst-bg); color: var(--c-inst); }
+.track-filter[data-track="pad"].active  { border-color: var(--c-pad);  background: var(--c-pad-bg);  color: var(--c-pad); }
+.track-filter[data-track="fin"].active  { border-color: var(--c-fin);  background: var(--c-fin-bg);  color: var(--c-fin); }
+.track-filter[data-track="leg"].active  { border-color: var(--c-leg);  background: var(--c-leg-bg);  color: var(--c-leg); }
+.filter-sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+.btn-reset {
+  padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--text3); font-size: 11px; cursor: pointer;
+  font-family: var(--font-m); transition: all var(--transition);
+}
+.btn-reset:hover { color: var(--text2); border-color: var(--border2); }
+
+/* ─── LAYOUT PRINCIPAL: track-grid ─── */
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+/* ─── TRACK (coluna) ─── */
+.track {
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border);
+  min-width: 0;
+}
+.track:last-child { border-right: none; }
+
+.track-header {
+  padding: 14px 12px 12px;
+  border-bottom: 2px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg);
+}
+.track-header-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-bottom: 8px;
+}
+.track-title {
+  font-family: var(--font-d); font-size: 11px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--text2);
+}
+.track-count {
+  font-size: 10px; color: var(--text3); margin-top: 3px;
+}
+
+/* ─── NODE (elemento dentro da trilha) ─── */
+.node {
+  position: relative;
+  margin: 0; padding: 13px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition), opacity var(--transition);
+  user-select: none;
+}
+.node::before {
+  content:'';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  opacity: 0; transition: opacity var(--transition);
+  border-radius: 0 2px 2px 0;
+}
+.node:hover { background: var(--bg3); }
+.node.highlighted::before { opacity: 1; }
+.node.highlighted { background: var(--bg3); }
+.node.dimmed { opacity: var(--dim); }
+
+.node-id {
+  font-size: 9px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 5px;
+}
+.node-name {
+  font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.35;
+  font-family: var(--font-d);
+}
+.node-sub {
+  font-size: 10px; color: var(--text2); margin-top: 4px; line-height: 1.4;
+}
+.node-tags {
+  display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px;
+}
+.tag {
+  font-size: 9px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px; border: 1px solid transparent;
+}
+.node-link { 
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; color: var(--text3); margin-top: 6px;
+  text-decoration: none; transition: color var(--transition);
+}
+.node-link:hover { color: var(--text2); }
+
+/* CORES POR TRILHA */
+.track[data-track="op"]   .track-header { border-bottom-color: var(--c-op); }
+.track[data-track="ator"] .track-header { border-bottom-color: var(--c-ator); }
+.track[data-track="inst"] .track-header { border-bottom-color: var(--c-inst); }
+.track[data-track="pad"]  .track-header { border-bottom-color: var(--c-pad); }
+.track[data-track="fin"]  .track-header { border-bottom-color: var(--c-fin); }
+.track[data-track="leg"]  .track-header { border-bottom-color: var(--c-leg); }
+
+.track[data-track="op"]   .track-header-dot { background: var(--c-op); }
+.track[data-track="ator"] .track-header-dot { background: var(--c-ator); }
+.track[data-track="inst"] .track-header-dot { background: var(--c-inst); }
+.track[data-track="pad"]  .track-header-dot { background: var(--c-pad); }
+.track[data-track="fin"]  .track-header-dot { background: var(--c-fin); }
+.track[data-track="leg"]  .track-header-dot { background: var(--c-leg); }
+
+.track[data-track="op"]   .node.highlighted { background: var(--c-op-bg); }
+.track[data-track="ator"] .node.highlighted { background: var(--c-ator-bg); }
+.track[data-track="inst"] .node.highlighted { background: var(--c-inst-bg); }
+.track[data-track="pad"]  .node.highlighted { background: var(--c-pad-bg); }
+.track[data-track="fin"]  .node.highlighted { background: var(--c-fin-bg); }
+.track[data-track="leg"]  .node.highlighted { background: var(--c-leg-bg); }
+
+.track[data-track="op"]   .node::before { background: var(--c-op); }
+.track[data-track="ator"] .node::before { background: var(--c-ator); }
+.track[data-track="inst"] .node::before { background: var(--c-inst); }
+.track[data-track="pad"]  .node::before { background: var(--c-pad); }
+.track[data-track="fin"]  .node::before { background: var(--c-fin); }
+.track[data-track="leg"]  .node::before { background: var(--c-leg); }
+
+/* Tags coloridas por trilha */
+.tag-op   { background: var(--c-op-bg);   border-color: rgba(224,80,80,.25);    color: var(--c-op); }
+.tag-ator { background: var(--c-ator-bg); border-color: rgba(80,144,255,.25);   color: var(--c-ator); }
+.tag-inst { background: var(--c-inst-bg); border-color: rgba(48,200,128,.25);   color: var(--c-inst); }
+.tag-pad  { background: var(--c-pad-bg);  border-color: rgba(224,160,32,.25);   color: var(--c-pad); }
+.tag-fin  { background: var(--c-fin-bg);  border-color: rgba(176,96,255,.25);   color: var(--c-fin); }
+.tag-leg  { background: var(--c-leg-bg);  border-color: rgba(32,200,216,.25);   color: var(--c-leg); }
+
+/* ─── PAINEL DE RELAÇÕES (lateral) ─── */
+.relations-panel {
+  position: fixed; right: 0; top: 0; bottom: 0; width: 340px;
+  background: var(--bg2); border-left: 1px solid var(--border2);
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 300ms cubic-bezier(.25,1,.5,1);
+  z-index: 100;
+  overflow: hidden;
+}
+.relations-panel.open { transform: translateX(0); }
+
+.rp-header {
+  padding: 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  flex-shrink: 0;
+}
+.rp-track-bar {
+  width: 3px; height: 100%; border-radius: 2px; flex-shrink: 0; align-self: stretch;
+}
+.rp-title-group { flex: 1; min-width: 0; }
+.rp-label { font-size: 9px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 5px; }
+.rp-name { font-family: var(--font-d); font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.rp-sub { font-size: 11px; color: var(--text2); margin-top: 4px; line-height: 1.5; }
+.rp-close {
+  width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border);
+  background: transparent; color: var(--text3); cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition); flex-shrink: 0; font-family: var(--font-m);
+}
+.rp-close:hover { color: var(--text); border-color: var(--border2); }
+
+.rp-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+.rp-section { margin-bottom: 20px; }
+.rp-section-title {
+  font-size: 9px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.rp-rel-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: opacity var(--transition);
+}
+.rp-rel-item:last-child { border-bottom: none; }
+.rp-rel-item:hover { opacity: .75; }
+.rp-rel-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.rp-rel-name { font-size: 12px; color: var(--text); font-weight: 500; font-family: var(--font-d); line-height: 1.3; }
+.rp-rel-type { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.rp-desc { font-size: 11px; color: var(--text2); line-height: 1.6; margin-bottom: 10px; }
+.rp-link-out {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; color: var(--c-ator); text-decoration: none;
+  padding: 5px 10px; border: 1px solid rgba(80,144,255,.2); border-radius: 4px;
+  background: var(--c-ator-bg); transition: all var(--transition);
+}
+.rp-link-out:hover { background: rgba(80,144,255,.15); border-color: rgba(80,144,255,.4); }
+
+/* ─── CANVAS SVG DE CONEXÕES (overlay) ─── */
+#connections-canvas {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 5; overflow: visible;
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.footer-text { font-size: 10px; color: var(--text3); }
+.footer-link { color: var(--c-ator); text-decoration: none; }
+.footer-link:hover { text-decoration: underline; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  .track-grid { grid-template-columns: repeat(3, 1fr); }
+  .track:nth-child(3n) { border-right: none; }
+  .track:nth-child(-n+3) { border-bottom: 1px solid var(--border); }
+}
+@media (max-width: 720px) {
+  .track-grid { grid-template-columns: repeat(2, 1fr); }
+  .track:nth-child(3n) { border-right: 1px solid var(--border); }
+  .track:nth-child(2n) { border-right: none; }
+  .track:nth-child(-n+4) { border-bottom: 1px solid var(--border); }
+  .relations-panel { width: 100%; border-left: none; border-top: 1px solid var(--border2); top: auto; height: 60vh; }
+}
+
+/* ─── ACTIVE STATE (quando algo está selecionado) ─── */
+body.has-selection .node:not(.highlighted):not(.dimmed) { opacity: var(--dim); }
+
+/* ─── ANIMAÇÃO DE ENTRADA ─── */
+.node {
+  animation: fadeSlide .3s ease both;
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.track:nth-child(1) .node { animation-delay: calc(var(--i, 0) * 30ms); }
+.track:nth-child(2) .node { animation-delay: calc(60ms + var(--i, 0) * 30ms); }
+.track:nth-child(3) .node { animation-delay: calc(120ms + var(--i, 0) * 30ms); }
+.track:nth-child(4) .node { animation-delay: calc(180ms + var(--i, 0) * 30ms); }
+.track:nth-child(5) .node { animation-delay: calc(240ms + var(--i, 0) * 30ms); }
+.track:nth-child(6) .node { animation-delay: calc(300ms + var(--i, 0) * 30ms); }
+
+.conn-line {
+  stroke-dasharray: 8 4;
+  stroke-dashoffset: 0;
+  animation: dash 1.2s linear infinite;
+}
+@keyframes dash { to { stroke-dashoffset: -24; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-badge">Lawfare Timeline Brasil · 2026</div>
+      <h1>Mapa de <span>Relações</span><br>Anticorrupção</h1>
+      <p class="header-sub">
+        Clique em qualquer elemento para revelar suas conexões transversais entre operações,
+        atores, instituições, padrões sistêmicos, fluxos financeiros e estratégias legais.
+      </p>
+    </div>
+    <div class="header-stats">
+      <div class="stat"><span class="stat-val">16</span><span class="stat-label">Operações</span></div>
+      <div class="stat"><span class="stat-val">28</span><span class="stat-label">Atores</span></div>
+      <div class="stat"><span class="stat-val">12</span><span class="stat-label">Instituições</span></div>
+      <div class="stat"><span class="stat-val">10</span><span class="stat-label">Padrões</span></div>
+      <div class="stat"><span class="stat-val">8</span><span class="stat-label">Fluxos</span></div>
+      <div class="stat"><span class="stat-val">8</span><span class="stat-label">Estratégias</span></div>
+    </div>
+  </div>
+
+  <!-- FILTROS DE TRILHA -->
+  <div class="track-filters">
+    <button class="track-filter active" data-track="op"   onclick="filterTrack('op')"><span class="dot" style="background:var(--c-op)"></span>Operações</button>
+    <button class="track-filter active" data-track="ator" onclick="filterTrack('ator')"><span class="dot" style="background:var(--c-ator)"></span>Atores</button>
+    <button class="track-filter active" data-track="inst" onclick="filterTrack('inst')"><span class="dot" style="background:var(--c-inst)"></span>Instituições</button>
+    <button class="track-filter active" data-track="pad"  onclick="filterTrack('pad')"><span class="dot" style="background:var(--c-pad)"></span>Padrões</button>
+    <button class="track-filter active" data-track="fin"  onclick="filterTrack('fin')"><span class="dot" style="background:var(--c-fin)"></span>Fluxos Fin.</button>
+    <button class="track-filter active" data-track="leg"  onclick="filterTrack('leg')"><span class="dot" style="background:var(--c-leg)"></span>Estratégias</button>
+    <div class="filter-sep"></div>
+    <button class="btn-reset" onclick="resetAll()">↺ Limpar seleção</button>
+  </div>
+
+  <!-- TRACK GRID -->
+  <div class="track-grid" id="trackGrid" style="position:relative">
+
+    <!-- SVG OVERLAY DE CONEXÕES -->
+    <svg id="connections-canvas" aria-hidden="true"></svg>
+
+    <!-- TRILHA 1: OPERAÇÕES -->
+    <div class="track" data-track="op">
+      <div class="track-header">
+        <div class="track-header-dot"></div>
+        <div class="track-title">Operações</div>
+        <div class="track-count">16 registros</div>
+      </div>
+      <div class="node" data-id="op-castelo" data-track="op" data-rels="ator-dpf,ator-stf,inst-stf,inst-pf,pad-p1,pad-p3,pad-p6,leg-anulacao,fin-bnb" style="--i:0" onclick="selectNode(this)">
+        <div class="node-id">OP-01</div>
+        <div class="node-name">Castelo de Areia</div>
+        <div class="node-sub">2009 · Banco Schahin · R$ 8bi</div>
+        <div class="node-tags">
+          <span class="tag tag-pad">P1</span><span class="tag tag-pad">P3</span><span class="tag tag-pad">P6</span>
+          <span class="tag tag-leg">Anulada</span>
+        </div>
+        <a class="node-link" href="https://gosurf.site/operacao-castelo-de-areia" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-satia" data-track="op" data-rels="ator-proto,ator-dpf,inst-pf,inst-receita,pad-p2,pad-p4,pad-p6,leg-anulacao,fin-offshore" style="--i:1" onclick="selectNode(this)">
+        <div class="node-id">OP-02</div>
+        <div class="node-name">Satiagraha</div>
+        <div class="node-sub">2008 · Dantas / Cacciola · R$ 3bi</div>
+        <div class="node-tags"><span class="tag tag-pad">P2</span><span class="tag tag-pad">P4</span><span class="tag tag-leg">Inv. Alvo</span></div>
+        <a class="node-link" href="https://gosurf.site/satiagraha" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-lavajato" data-track="op" data-rels="ator-moro,ator-dlg,ator-pt,inst-stf,inst-mpf,inst-pf,pad-p1,pad-p2,pad-p4,pad-p6,leg-delacao,leg-anulacao,fin-doleiros,fin-offshore" style="--i:2" onclick="selectNode(this)">
+        <div class="node-id">OP-03</div>
+        <div class="node-name">Lava Jato</div>
+        <div class="node-sub">2014–2021 · R$ 48bi recuperados</div>
+        <div class="node-tags"><span class="tag tag-pad">P1</span><span class="tag tag-pad">P2</span><span class="tag tag-pad">P4</span><span class="tag tag-fin">Doleiros</span></div>
+        <a class="node-link" href="https://gosurf.site/operacao-lava-jato" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-master" data-track="op" data-rels="ator-voto,ator-toffoli,inst-stf,inst-fgc,inst-bc,pad-p3,pad-p5,pad-p6,leg-sigilo,leg-liminar,fin-cdb,fin-fgc" style="--i:3" onclick="selectNode(this)">
+        <div class="node-id">OP-04</div>
+        <div class="node-name">Banco Master / Compliance Zero</div>
+        <div class="node-sub">2024–2025 · R$ 50bi · FGC em risco</div>
+        <div class="node-tags"><span class="tag tag-pad">P3</span><span class="tag tag-pad">P5</span><span class="tag tag-leg">Sigilo STF</span></div>
+        <a class="node-link" href="https://gosurf.site/banco-master-compliance-zero" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-carbon" data-track="op" data-rels="ator-grileiros,inst-ibama,inst-receita,pad-p5,pad-p4,fin-carbono,fin-offshore" style="--i:4" onclick="selectNode(this)">
+        <div class="node-id">OP-05</div>
+        <div class="node-name">Carbono Oculto</div>
+        <div class="node-sub">2024 · Greenwashing / Terras griladas</div>
+        <div class="node-tags"><span class="tag tag-pad">P5</span><span class="tag tag-fin">C-créditos</span></div>
+        <a class="node-link" href="https://gosurf.site/carbono-oculto" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-semd" data-track="op" data-rels="ator-voto,ator-inss,inst-inss,inst-mpf,pad-p5,pad-p6,leg-acordo,fin-consignado" style="--i:5" onclick="selectNode(this)">
+        <div class="node-id">OP-06</div>
+        <div class="node-name">Sem Desconto</div>
+        <div class="node-sub">2024 · INSS · 74% contratos irregulares</div>
+        <div class="node-tags"><span class="tag tag-pad">P5</span><span class="tag tag-fin">Consignado</span></div>
+        <a class="node-link" href="https://gosurf.site/sem-desconto" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-inq" data-track="op" data-rels="ator-stf,ator-toffoli,inst-stf,pad-p2,pad-p4,leg-inq-aberto,leg-sigilo" style="--i:6" onclick="selectNode(this)">
+        <div class="node-id">OP-07</div>
+        <div class="node-name">INQ 4781</div>
+        <div class="node-sub">2019–atual · Inquérito sem réu definido</div>
+        <div class="node-tags"><span class="tag tag-pad">P2</span><span class="tag tag-pad">P4</span><span class="tag tag-leg">Inq. Aberto</span></div>
+        <a class="node-link" href="https://gosurf.site/inq4781" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-pcc" data-track="op" data-rels="ator-pcc,ator-gritz,inst-gaeco,inst-depen,pad-p2,pad-p4,fin-lavagem,fin-offshore" style="--i:7" onclick="selectNode(this)">
+        <div class="node-id">OP-08</div>
+        <div class="node-name">PCC-CV / Corrida dos Ratos</div>
+        <div class="node-sub">Inteligência criminal · nexo político</div>
+        <div class="node-tags"><span class="tag tag-pad">P2</span><span class="tag tag-fin">Lavagem</span></div>
+        <a class="node-link" href="https://gosurf.site/corrida-dos-ratos-mindmap" target="_blank">↗ Artefato</a>
+      </div>
+      <div class="node" data-id="op-pocoL" data-track="op" data-rels="ator-refit,inst-pf,inst-mpf,pad-p5,pad-p6,fin-fundo-fechado" style="--i:8" onclick="selectNode(this)">
+        <div class="node-id">OP-09</div>
+        <div class="node-name">Poço de Lobato</div>
+        <div class="node-sub">Grupo Refit · fundos uni-cotistas</div>
+        <div class="node-tags"><span class="tag tag-pad">P5</span><span class="tag tag-fin">FIF</span></div>
+        <a class="node-link" href="https://gosurf.site/operacao-poco-de-lobato" target="_blank">↗ Artefato</a>
+      </div>
+    </div>
+
+    <!-- TRILHA 2: ATORES -->
+    <div class="track" data-track="ator">
+      <div class="track-header">
+        <div class="track-header-dot"></div>
+        <div class="track-title">Atores</div>
+        <div class="track-count">28 registros</div>
+      </div>
+      <div class="node" data-id="ator-moro" data-track="ator" data-rels="op-lavajato,inst-mpf,inst-pf,inst-stf,pad-p1,pad-p2,leg-delacao,leg-anulacao" style="--i:0" onclick="selectNode(this)">
+        <div class="node-id">AT-01</div>
+        <div class="node-name">Sérgio Moro</div>
+        <div class="node-sub">Juiz → Ministro → Senador<br>Declarado suspeito pelo STF 2021</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-pad">P1</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="ator-toffoli" data-track="ator" data-rels="op-master,op-inq,inst-stf,pad-p3,pad-p4,leg-liminar,leg-sigilo" style="--i:1" onclick="selectNode(this)">
+        <div class="node-id">AT-02</div>
+        <div class="node-name">Dias Toffoli</div>
+        <div class="node-sub">Min. STF · Relator Compliance Zero<br>Ex-presidente STF</div>
+        <div class="node-tags"><span class="tag tag-leg">Liminar</span><span class="tag tag-pad">P3</span></div>
+      </div>
+      <div class="node" data-id="ator-dlg" data-track="ator" data-rels="op-lavajato,inst-mpf,pad-p1,pad-p2,leg-delacao" style="--i:2" onclick="selectNode(this)">
+        <div class="node-id">AT-03</div>
+        <div class="node-name">Deltan Dallagnol</div>
+        <div class="node-sub">Coordenador força-tarefa LJ<br>Condenado pelo CNMP 2023</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="ator-proto" data-track="ator" data-rels="op-satia,inst-pf,pad-p2,pad-p4" style="--i:3" onclick="selectNode(this)">
+        <div class="node-id">AT-04</div>
+        <div class="node-name">Protógenes Queiroz</div>
+        <div class="node-sub">Delegado PF · Op. Satiagraha<br>Afastado após operação</div>
+        <div class="node-tags"><span class="tag tag-op">Satia</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="ator-voto" data-track="ator" data-rels="op-master,op-semd,inst-bc,inst-stf,pad-p3,pad-p5,fin-cdb,fin-fgc" style="--i:4" onclick="selectNode(this)">
+        <div class="node-id">AT-05</div>
+        <div class="node-name">Daniel Vorcaro</div>
+        <div class="node-sub">CEO Banco Master<br>Vínculo Voto Capital</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-fin">FGC</span></div>
+      </div>
+      <div class="node" data-id="ator-gritz" data-track="ator" data-rels="op-pcc,inst-gaeco,pad-p2,fin-lavagem" style="--i:5" onclick="selectNode(this)">
+        <div class="node-id">AT-06</div>
+        <div class="node-name">Gritzbach</div>
+        <div class="node-sub">Delator PCC · Assassinado 2023<br>Aeroporto Guarulhos</div>
+        <div class="node-tags"><span class="tag tag-op">PCC</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="ator-pcc" data-track="ator" data-rels="op-pcc,inst-gaeco,inst-depen,pad-p2,pad-p4,fin-lavagem,fin-offshore" style="--i:6" onclick="selectNode(this)">
+        <div class="node-id">AT-07</div>
+        <div class="node-name">PCC — Comando</div>
+        <div class="node-sub">Nexo político e financeiro<br>Expansão internacional 2020+</div>
+        <div class="node-tags"><span class="tag tag-op">PCC</span><span class="tag tag-fin">Lavagem</span></div>
+      </div>
+      <div class="node" data-id="ator-dpf" data-track="ator" data-rels="op-castelo,op-satia,inst-pf,pad-p2" style="--i:7" onclick="selectNode(this)">
+        <div class="node-id">AT-08</div>
+        <div class="node-name">DPF — Delegados Investigadores</div>
+        <div class="node-sub">Múltiplas operações · Risco P2<br>Inversão de vetor documentada</div>
+        <div class="node-tags"><span class="tag tag-inst">PF</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="ator-stf" data-track="ator" data-rels="op-castelo,op-lavajato,op-inq,inst-stf,pad-p1,pad-p2,pad-p3,leg-liminar,leg-sigilo,leg-anulacao" style="--i:8" onclick="selectNode(this)">
+        <div class="node-id">AT-09</div>
+        <div class="node-name">Ministros STF</div>
+        <div class="node-sub">Chokepoint terminal sistêmico<br>Padrão P3 presente em todos</div>
+        <div class="node-tags"><span class="tag tag-pad">P3</span><span class="tag tag-leg">Liminar</span></div>
+      </div>
+      <div class="node" data-id="ator-refit" data-track="ator" data-rels="op-pocoL,fin-fundo-fechado,pad-p5" style="--i:9" onclick="selectNode(this)">
+        <div class="node-id">AT-10</div>
+        <div class="node-name">Grupo Refit</div>
+        <div class="node-sub">Poço de Lobato · Fundos uni-cotistas<br>Padrão recorrente P5</div>
+        <div class="node-tags"><span class="tag tag-op">P.Lobato</span><span class="tag tag-pad">P5</span></div>
+      </div>
+      <div class="node" data-id="ator-inss" data-track="ator" data-rels="op-semd,inst-inss,pad-p5,fin-consignado" style="--i:10" onclick="selectNode(this)">
+        <div class="node-id">AT-11</div>
+        <div class="node-name">Gestores INSS</div>
+        <div class="node-sub">Op. Sem Desconto · Acordos irregulares<br>Aposentados como laranjas involuntários</div>
+        <div class="node-tags"><span class="tag tag-op">S.Desconto</span><span class="tag tag-pad">P5</span></div>
+      </div>
+      <div class="node" data-id="ator-pt" data-track="ator" data-rels="op-lavajato,inst-mpf,pad-p4,pad-p1,leg-anulacao" style="--i:11" onclick="selectNode(this)">
+        <div class="node-id">AT-12</div>
+        <div class="node-name">Lula / PT</div>
+        <div class="node-sub">Condenado → Anulado STF<br>Presidente 2023–atual</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-pad">P1</span><span class="tag tag-leg">Anulado</span></div>
+      </div>
+      <div class="node" data-id="ator-grileiros" data-track="ator" data-rels="op-carbon,inst-ibama,pad-p5,fin-carbono" style="--i:12" onclick="selectNode(this)">
+        <div class="node-id">AT-13</div>
+        <div class="node-name">Grileiros / Esquema Carbono</div>
+        <div class="node-sub">Terras da União griladas<br>Créditos de carbono fictícios</div>
+        <div class="node-tags"><span class="tag tag-op">Carbono</span><span class="tag tag-fin">C-créditos</span></div>
+      </div>
+    </div>
+
+    <!-- TRILHA 3: INSTITUIÇÕES -->
+    <div class="track" data-track="inst">
+      <div class="track-header">
+        <div class="track-header-dot"></div>
+        <div class="track-title">Instituições</div>
+        <div class="track-count">12 registros</div>
+      </div>
+      <div class="node" data-id="inst-stf" data-track="inst" data-rels="op-castelo,op-lavajato,op-inq,op-master,ator-toffoli,ator-stf,pad-p1,pad-p3,leg-liminar,leg-sigilo,leg-anulacao" style="--i:0" onclick="selectNode(this)">
+        <div class="node-id">IN-01</div>
+        <div class="node-name">STF</div>
+        <div class="node-sub">Chokepoint terminal único<br>P3 presente em todas as op.</div>
+        <div class="node-tags"><span class="tag tag-pad">P3</span><span class="tag tag-leg">Monocrática</span></div>
+      </div>
+      <div class="node" data-id="inst-pf" data-track="inst" data-rels="op-castelo,op-satia,op-lavajato,op-pcc,ator-dpf,ator-proto,pad-p2" style="--i:1" onclick="selectNode(this)">
+        <div class="node-id">IN-02</div>
+        <div class="node-name">Polícia Federal</div>
+        <div class="node-sub">Investigadora principal · Risco P2<br>Delegados tornam-se alvos</div>
+        <div class="node-tags"><span class="tag tag-pad">P2</span><span class="tag tag-op">Multiple</span></div>
+      </div>
+      <div class="node" data-id="inst-mpf" data-track="inst" data-rels="op-lavajato,op-semd,ator-dlg,pad-p1,pad-p2,leg-delacao" style="--i:2" onclick="selectNode(this)">
+        <div class="node-id">IN-03</div>
+        <div class="node-name">MPF / PGR</div>
+        <div class="node-sub">Força-tarefa Lava Jato<br>Condenações via delação</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-leg">Delação</span></div>
+      </div>
+      <div class="node" data-id="inst-bc" data-track="inst" data-rels="op-master,ator-voto,pad-p3,pad-p5,fin-cdb" style="--i:3" onclick="selectNode(this)">
+        <div class="node-id">IN-04</div>
+        <div class="node-name">Banco Central</div>
+        <div class="node-sub">Regulador Banco Master<br>Supervisão questionada</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-pad">P5</span></div>
+      </div>
+      <div class="node" data-id="inst-fgc" data-track="inst" data-rels="op-master,ator-voto,pad-p5,fin-cdb,fin-fgc" style="--i:4" onclick="selectNode(this)">
+        <div class="node-id">IN-05</div>
+        <div class="node-name">FGC</div>
+        <div class="node-sub">Fundo Garantidor de Créditos<br>Risco sistêmico R$ 50bi</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-fin">FGC-risco</span></div>
+      </div>
+      <div class="node" data-id="inst-receita" data-track="inst" data-rels="op-satia,op-carbon,pad-p5,fin-offshore" style="--i:5" onclick="selectNode(this)">
+        <div class="node-id">IN-06</div>
+        <div class="node-name">Receita Federal</div>
+        <div class="node-sub">Satiagraha / Carbono Oculto<br>COAF: dados destruídos 2019</div>
+        <div class="node-tags"><span class="tag tag-op">Satia</span><span class="tag tag-fin">COAF</span></div>
+      </div>
+      <div class="node" data-id="inst-gaeco" data-track="inst" data-rels="op-pcc,ator-gritz,ator-pcc,pad-p2" style="--i:6" onclick="selectNode(this)">
+        <div class="node-id">IN-07</div>
+        <div class="node-name">GAECO-SP</div>
+        <div class="node-sub">Grupo de Atuação Especial<br>PCC / Crime Organizado SP</div>
+        <div class="node-tags"><span class="tag tag-op">PCC</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="inst-inss" data-track="inst" data-rels="op-semd,ator-inss,pad-p5,fin-consignado" style="--i:7" onclick="selectNode(this)">
+        <div class="node-id">IN-08</div>
+        <div class="node-name">INSS</div>
+        <div class="node-sub">Sem Desconto · 7,5M beneficiários<br>Contrato público como vetor</div>
+        <div class="node-tags"><span class="tag tag-op">S.Desconto</span><span class="tag tag-fin">Consignado</span></div>
+      </div>
+      <div class="node" data-id="inst-depen" data-track="inst" data-rels="op-pcc,ator-pcc,pad-p2,pad-p4" style="--i:8" onclick="selectNode(this)">
+        <div class="node-id">IN-09</div>
+        <div class="node-name">DEPEN / Sistema Penitenciário</div>
+        <div class="node-sub">Expansão PCC de dentro<br>Controle de facção via carceragem</div>
+        <div class="node-tags"><span class="tag tag-op">PCC</span><span class="tag tag-pad">P4</span></div>
+      </div>
+      <div class="node" data-id="inst-ibama" data-track="inst" data-rels="op-carbon,ator-grileiros,pad-p5,fin-carbono" style="--i:9" onclick="selectNode(this)">
+        <div class="node-id">IN-10</div>
+        <div class="node-name">IBAMA / MMA</div>
+        <div class="node-sub">Carbono Oculto · Grilagem<br>Registro de créditos fictícios</div>
+        <div class="node-tags"><span class="tag tag-op">Carbono</span><span class="tag tag-fin">C-créditos</span></div>
+      </div>
+    </div>
+
+    <!-- TRILHA 4: PADRÕES SISTÊMICOS -->
+    <div class="track" data-track="pad">
+      <div class="track-header">
+        <div class="track-header-dot"></div>
+        <div class="track-title">Padrões Sistêmicos</div>
+        <div class="track-count">10 padrões</div>
+      </div>
+      <div class="node" data-id="pad-p1" data-track="pad" data-rels="op-castelo,op-lavajato,op-satia,ator-moro,ator-dlg,ator-pt,inst-stf,leg-anulacao" style="--i:0" onclick="selectNode(this)">
+        <div class="node-id">P1</div>
+        <div class="node-name">Anulação via Defeito Processual</div>
+        <div class="node-sub">Nulidades formais invalidam provas reais.<br>75% taxa de anulação documentada.</div>
+        <div class="node-tags"><span class="tag tag-op">Castelo</span><span class="tag tag-op">LJ</span><span class="tag tag-op">Satia</span></div>
+      </div>
+      <div class="node" data-id="pad-p2" data-track="pad" data-rels="op-satia,op-lavajato,op-inq,op-pcc,ator-proto,ator-dlg,ator-gritz,ator-moro,inst-pf,inst-gaeco" style="--i:1" onclick="selectNode(this)">
+        <div class="node-id">P2</div>
+        <div class="node-name">Investigadores se Tornam Alvos</div>
+        <div class="node-sub">Inversão do vetor quando investigação<br>avança sobre alto escalão.</div>
+        <div class="node-tags"><span class="tag tag-op">Satia</span><span class="tag tag-op">PCC</span><span class="tag tag-op">INQ</span></div>
+      </div>
+      <div class="node" data-id="pad-p3" data-track="pad" data-rels="op-castelo,op-master,op-inq,ator-toffoli,ator-stf,inst-stf,leg-liminar,leg-sigilo" style="--i:2" onclick="selectNode(this)">
+        <div class="node-id">P3</div>
+        <div class="node-name">Captura Judicial Emergencial</div>
+        <div class="node-sub">Liminares monocráticas em recesso<br>paralisam operações. Único ministro = poder total.</div>
+        <div class="node-tags"><span class="tag tag-inst">STF</span><span class="tag tag-op">Castelo</span><span class="tag tag-op">Master</span></div>
+      </div>
+      <div class="node" data-id="pad-p4" data-track="pad" data-rels="op-lavajato,op-inq,op-pcc,ator-stf,ator-pt,ator-pcc,inst-depen,leg-inq-aberto" style="--i:3" onclick="selectNode(this)">
+        <div class="node-id">P4</div>
+        <div class="node-name">Weaponização da Narrativa</div>
+        <div class="node-sub">Vazamentos seletivos, firehose de desinformação,<br>escudos discursivos.</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-op">INQ</span><span class="tag tag-op">PCC</span></div>
+      </div>
+      <div class="node" data-id="pad-p5" data-track="pad" data-rels="op-master,op-semd,op-carbon,op-pocoL,ator-voto,ator-inss,ator-grileiros,inst-fgc,inst-inss,inst-ibama,fin-cdb,fin-consignado,fin-carbono,fin-fundo-fechado" style="--i:4" onclick="selectNode(this)">
+        <div class="node-id">P5</div>
+        <div class="node-name">Recursos Públicos como Vetor</div>
+        <div class="node-sub">INSS, FGC, Lei Rouanet, editais públicos<br>capturados para financiar o esquema.</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-op">INSS</span><span class="tag tag-fin">FGC</span></div>
+      </div>
+      <div class="node" data-id="pad-p6" data-track="pad" data-rels="op-castelo,op-satia,op-lavajato,op-semd,leg-prescricao" style="--i:5" onclick="selectNode(this)">
+        <div class="node-id">P6</div>
+        <div class="node-name">Estratégia da Prescrição</div>
+        <div class="node-sub">Atraso deliberado até prescrição.<br>Cada ano = ganho estrutural.</div>
+        <div class="node-tags"><span class="tag tag-op">Castelo</span><span class="tag tag-op">LJ</span><span class="tag tag-leg">Prescrição</span></div>
+      </div>
+      <div class="node" data-id="pad-p7" data-track="pad" data-rels="op-master,op-pocoL,fin-cdb,fin-fundo-fechado,fin-offshore" style="--i:6" onclick="selectNode(this)">
+        <div class="node-id">P7</div>
+        <div class="node-name">Fundos Uni-cotistas Fechados</div>
+        <div class="node-sub">Estrutura financeira recorrente em op. distintas.<br>Possível assessoria jurídica comum.</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-op">P.Lobato</span><span class="tag tag-fin">FIF</span></div>
+      </div>
+      <div class="node" data-id="pad-p8" data-track="pad" data-rels="inst-stf,ator-stf,ator-toffoli,leg-sigilo,leg-liminar" style="--i:7" onclick="selectNode(this)">
+        <div class="node-id">P8</div>
+        <div class="node-name">STF como Chokepoint Terminal</div>
+        <div class="node-sub">Investigações não chegam ao beneficiário final.<br>Para antes — sistematicamente.</div>
+        <div class="node-tags"><span class="tag tag-inst">STF</span><span class="tag tag-leg">Monocrática</span></div>
+      </div>
+      <div class="node" data-id="pad-p9" data-track="pad" data-rels="op-pcc,op-inq,ator-pcc,pad-p4,fin-lavagem" style="--i:8" onclick="selectNode(this)">
+        <div class="node-id">P9</div>
+        <div class="node-name">Captura Cultural (2026)</div>
+        <div class="node-sub">Influenciadores como nós operacionais.<br>Narrativa progressista como escudo.</div>
+        <div class="node-tags"><span class="tag tag-op">PCC</span><span class="tag tag-pad">P4</span><span class="tag tag-fin">Lavagem</span></div>
+      </div>
+      <div class="node" data-id="pad-p10" data-track="pad" data-rels="op-master,op-pocoL,op-castelo,fin-offshore,fin-fundo-fechado,leg-anulacao" style="--i:9" onclick="selectNode(this)">
+        <div class="node-id">P10</div>
+        <div class="node-name">Infraestrutura Jurídica Compartilhada</div>
+        <div class="node-sub">Mesmas estruturas legais usadas em operações<br>distintas. Possível coordenação comum.</div>
+        <div class="node-tags"><span class="tag tag-fin">Offshore</span><span class="tag tag-fin">FIF</span><span class="tag tag-leg">Estrutura</span></div>
+      </div>
+    </div>
+
+    <!-- TRILHA 5: FLUXOS FINANCEIROS -->
+    <div class="track" data-track="fin">
+      <div class="track-header">
+        <div class="track-header-dot"></div>
+        <div class="track-title">Fluxos Financeiros</div>
+        <div class="track-count">8 registros</div>
+      </div>
+      <div class="node" data-id="fin-offshore" data-track="fin" data-rels="op-satia,op-lavajato,op-carbon,op-pcc,ator-pt,inst-receita,pad-p7,pad-p10,leg-mlat" style="--i:0" onclick="selectNode(this)">
+        <div class="node-id">FL-01</div>
+        <div class="node-name">Offshore / Ilhas Cayman</div>
+        <div class="node-sub">Veículo recorrente em múltiplas op.<br>MLAT EUA não ativado formalmente.</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-op">Satia</span><span class="tag tag-leg">MLAT</span></div>
+      </div>
+      <div class="node" data-id="fin-doleiros" data-track="fin" data-rels="op-lavajato,ator-pt,inst-mpf,leg-delacao" style="--i:1" onclick="selectNode(this)">
+        <div class="node-id">FL-02</div>
+        <div class="node-name">Doleiros / Câmbio Ilegal</div>
+        <div class="node-sub">Conversão e movimentação Lava Jato<br>278 condenações via delação</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-leg">Delação</span></div>
+      </div>
+      <div class="node" data-id="fin-cdb" data-track="fin" data-rels="op-master,ator-voto,inst-bc,inst-fgc,pad-p5,pad-p7" style="--i:2" onclick="selectNode(this)">
+        <div class="node-id">FL-03</div>
+        <div class="node-name">CDBs Acima do Mercado</div>
+        <div class="node-sub">Banco Master: captação 120%+ CDI<br>Garantia implícita FGC — risco socializado</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-inst">FGC</span></div>
+      </div>
+      <div class="node" data-id="fin-fgc" data-track="fin" data-rels="op-master,ator-voto,inst-fgc,inst-bc,pad-p5" style="--i:3" onclick="selectNode(this)">
+        <div class="node-id">FL-04</div>
+        <div class="node-name">FGC — Risco Sistêmico</div>
+        <div class="node-sub">R$ 50bi em risco · Fundo público<br>Privatização do lucro / socialização do risco</div>
+        <div class="node-tags"><span class="tag tag-op">Master</span><span class="tag tag-pad">P5</span></div>
+      </div>
+      <div class="node" data-id="fin-consignado" data-track="fin" data-rels="op-semd,ator-inss,inst-inss,pad-p5" style="--i:4" onclick="selectNode(this)">
+        <div class="node-id">FL-05</div>
+        <div class="node-name">Crédito Consignado INSS</div>
+        <div class="node-sub">7,5M beneficiários afetados<br>74% contratos com irregularidades</div>
+        <div class="node-tags"><span class="tag tag-op">S.Desconto</span><span class="tag tag-inst">INSS</span></div>
+      </div>
+      <div class="node" data-id="fin-carbono" data-track="fin" data-rels="op-carbon,ator-grileiros,inst-ibama,pad-p5" style="--i:5" onclick="selectNode(this)">
+        <div class="node-id">FL-06</div>
+        <div class="node-name">Créditos de Carbono Fictícios</div>
+        <div class="node-sub">Terras da União convertidas em ativo<br>Mercado internacional de carbono</div>
+        <div class="node-tags"><span class="tag tag-op">Carbono</span><span class="tag tag-inst">IBAMA</span></div>
+      </div>
+      <div class="node" data-id="fin-fundo-fechado" data-track="fin" data-rels="op-pocoL,op-master,ator-refit,ator-voto,pad-p7,pad-p10" style="--i:6" onclick="selectNode(this)">
+        <div class="node-id">FL-07</div>
+        <div class="node-name">Fundos Fechados Uni-cotistas</div>
+        <div class="node-sub">Estrutura recorrente: Refit + Master<br>Opacidade jurídica / blindagem patrimonial</div>
+        <div class="node-tags"><span class="tag tag-op">P.Lobato</span><span class="tag tag-op">Master</span><span class="tag tag-pad">P7</span></div>
+      </div>
+      <div class="node" data-id="fin-lavagem" data-track="fin" data-rels="op-pcc,ator-pcc,ator-gritz,inst-gaeco,pad-p9" style="--i:7" onclick="selectNode(this)">
+        <div class="node-id">FL-08</div>
+        <div class="node-name">Lavagem via Economia Criativa</div>
+        <div class="node-sub">Choquei: influenciador = nó financeiro<br>Shows / Streaming / Cachê fictícios</div>
+        <div class="node-tags"><span class="tag tag-op">PCC</span><span class="tag tag-pad">P9</span></div>
+      </div>
+    </div>
+
+    <!-- TRILHA 6: ESTRATÉGIAS LEGAIS -->
+    <div class="track" data-track="leg">
+      <div class="track-header">
+        <div class="track-header-dot"></div>
+        <div class="track-title">Estratégias Legais</div>
+        <div class="track-count">8 registros</div>
+      </div>
+      <div class="node" data-id="leg-anulacao" data-track="leg" data-rels="op-castelo,op-lavajato,op-satia,ator-moro,ator-pt,inst-stf,pad-p1,pad-p6" style="--i:0" onclick="selectNode(this)">
+        <div class="node-id">EL-01</div>
+        <div class="node-name">Anulação Retroativa</div>
+        <div class="node-sub">Vício processual na origem anula<br>toda a cadeia de provas acima.</div>
+        <div class="node-tags"><span class="tag tag-pad">P1</span><span class="tag tag-inst">STF</span><span class="tag tag-op">LJ</span></div>
+      </div>
+      <div class="node" data-id="leg-delacao" data-track="leg" data-rels="op-lavajato,op-pcc,ator-dlg,ator-gritz,inst-mpf,fin-doleiros" style="--i:1" onclick="selectNode(this)">
+        <div class="node-id">EL-02</div>
+        <div class="node-name">Colaboração Premiada</div>
+        <div class="node-sub">Principal instrumento LJ.<br>Fragilizada após assassinato Gritzbach.</div>
+        <div class="node-tags"><span class="tag tag-op">LJ</span><span class="tag tag-op">PCC</span><span class="tag tag-pad">P2</span></div>
+      </div>
+      <div class="node" data-id="leg-liminar" data-track="leg" data-rels="op-castelo,op-master,ator-toffoli,ator-stf,inst-stf,pad-p3,pad-p8" style="--i:2" onclick="selectNode(this)">
+        <div class="node-id">EL-03</div>
+        <div class="node-name">Liminar Monocrática</div>
+        <div class="node-sub">1 ministro STF paralisa qualquer<br>investigação. Sem prazo para revisão.</div>
+        <div class="node-tags"><span class="tag tag-inst">STF</span><span class="tag tag-pad">P3</span></div>
+      </div>
+      <div class="node" data-id="leg-sigilo" data-track="leg" data-rels="op-master,op-inq,ator-toffoli,inst-stf,pad-p3,pad-p8" style="--i:3" onclick="selectNode(this)">
+        <div class="node-id">EL-04</div>
+        <div class="node-name">Sigilo Absoluto STF</div>
+        <div class="node-sub">Processo sob sigilo com relator<br>em conflito de interesse documentado.</div>
+        <div class="node-tags"><span class="tag tag-inst">STF</span><span class="tag tag-op">Master</span><span class="tag tag-pad">P3</span></div>
+      </div>
+      <div class="node" data-id="leg-prescricao" data-track="leg" data-rels="op-castelo,op-satia,op-lavajato,op-semd,pad-p6" style="--i:4" onclick="selectNode(this)">
+        <div class="node-id">EL-05</div>
+        <div class="node-name">Estratégia da Prescrição</div>
+        <div class="node-sub">Recursos infinitos até prescrição.<br>Calculado sobre pena máxima desde o fato.</div>
+        <div class="node-tags"><span class="tag tag-pad">P6</span><span class="tag tag-op">Multiple</span></div>
+      </div>
+      <div class="node" data-id="leg-inq-aberto" data-track="leg" data-rels="op-inq,ator-stf,ator-toffoli,pad-p2,pad-p4" style="--i:5" onclick="selectNode(this)">
+        <div class="node-id">EL-06</div>
+        <div class="node-name">Inquérito sem Réu Definido</div>
+        <div class="node-sub">INQ 4781: ferramenta de intimidação permanente.<br>Sem réu = sem prazo = sem fim.</div>
+        <div class="node-tags"><span class="tag tag-op">INQ</span><span class="tag tag-pad">P2</span><span class="tag tag-pad">P4</span></div>
+      </div>
+      <div class="node" data-id="leg-acordo" data-track="leg" data-rels="op-semd,ator-inss,inst-inss,pad-p5,fin-consignado" style="--i:6" onclick="selectNode(this)">
+        <div class="node-id">EL-07</div>
+        <div class="node-name">Acordo de Cooperação Público</div>
+        <div class="node-sub">Contrato público como canal:<br>Banco Master + INSS legitimando esquema.</div>
+        <div class="node-tags"><span class="tag tag-op">S.Desconto</span><span class="tag tag-inst">INSS</span></div>
+      </div>
+      <div class="node" data-id="leg-mlat" data-track="leg" data-rels="op-lavajato,op-satia,fin-offshore,inst-receita" style="--i:7" onclick="selectNode(this)">
+        <div class="node-id">EL-08</div>
+        <div class="node-name">MLAT EUA — Não Ativado</div>
+        <div class="node-sub">Cooperação jurídica internacional disponível<br>mas não formalmente acionada. Lacuna aberta.</div>
+        <div class="node-tags"><span class="tag tag-fin">Offshore</span><span class="tag tag-op">LJ</span></div>
+      </div>
+    </div>
+
+  </div><!-- /track-grid -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-text">
+      Lawfare Timeline Brasil · CC0 1.0 · 
+      <a class="footer-link" href="https://gosurf.site" target="_blank">gosurf.site</a>
+    </div>
+    <div class="footer-text">Clique em qualquer nó para ativar relações transversais</div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- PAINEL DE RELAÇÕES -->
+<div class="relations-panel" id="relationsPanel">
+  <div class="rp-header">
+    <div style="display:flex;gap:10px;flex:1;align-items:flex-start">
+      <div class="rp-track-bar" id="rpTrackBar"></div>
+      <div class="rp-title-group">
+        <div class="rp-label" id="rpLabel">—</div>
+        <div class="rp-name" id="rpName">—</div>
+        <div class="rp-sub" id="rpSub"></div>
+      </div>
+    </div>
+    <button class="rp-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="rp-body" id="rpBody"></div>
+</div>
+
+<script>
+// ─── DADOS ───────────────────────────────────────────────
+const TRACK_COLORS = {
+  op:   '#e05050',
+  ator: '#5090ff',
+  inst: '#30c880',
+  pad:  '#e0a020',
+  fin:  '#b060ff',
+  leg:  '#20c8d8'
+};
+const TRACK_LABELS = {
+  op: 'Operação', ator: 'Ator', inst: 'Instituição',
+  pad: 'Padrão Sistêmico', fin: 'Fluxo Financeiro', leg: 'Estratégia Legal'
+};
+
+// Links para artefatos
+const ARTEFATO_LINKS = {
+  'op-castelo':  'https://gosurf.site/operacao-castelo-de-areia',
+  'op-satia':    'https://gosurf.site/satiagraha',
+  'op-lavajato': 'https://gosurf.site/operacao-lava-jato',
+  'op-master':   'https://gosurf.site/banco-master-compliance-zero',
+  'op-carbon':   'https://gosurf.site/carbono-oculto',
+  'op-semd':     'https://gosurf.site/sem-desconto',
+  'op-inq':      'https://gosurf.site/inq4781',
+  'op-pcc':      'https://gosurf.site/corrida-dos-ratos-mindmap',
+  'op-pocoL':    'https://gosurf.site/operacao-poco-de-lobato',
+};
+
+// Descrições para o painel
+const DESCRIPTIONS = {
+  'inst-stf': 'Único tribunal de alta corte no mundo onde 1 ministro pode suspender qualquer investigação via liminar monocrática sem prazo para revisão colegiada.',
+  'pad-p3':   'Padrão presente em TODAS as operações cobertas — o único dos 10 padrões com presença universal. Uma liminar monocrática, muitas vezes em recesso ou plantão, interrompe antes da fase de extração final.',
+  'pad-p5':   'INSS, FGC, Lei Rouanet, editais culturais. O contribuinte financia a infraestrutura de sua própria espoliação. Padrão recorrente em 4+ operações distintas.',
+  'fin-fgc':  'O risco mais imediato: R$ 50bi em CDBs do Banco Master cobertos pelo FGC. Se confirmada a insolvência, socialização da perda com recursos públicos do Fundo Garantidor.',
+  'leg-mlat': 'Cooperação jurídica com os EUA disponível mas não acionada formalmente. Atividade OFAC-relevante documentada. Lacuna investigativa aberta.',
+  'pad-p7':   'Fundos uni-cotistas fechados aparecem em Banco Master E Grupo Refit/Poço de Lobato — operações sem conexão aparente. Hipótese: assessoria jurídico-financeira comum.',
+};
+
+let selectedId = null;
+let activeFilters = new Set(['op','ator','inst','pad','fin','leg']);
+
+// ─── SELEÇÃO DE NÓ ───────────────────────────────────────
+function selectNode(el) {
+  const id = el.dataset.id;
+  if (selectedId === id) { resetAll(); return; }
+  selectedId = id;
+
+  const rels = el.dataset.rels ? el.dataset.rels.split(',') : [];
+  const allNodes = document.querySelectorAll('.node');
+  const body = document.querySelector('body');
+
+  body.classList.add('has-selection');
+
+  allNodes.forEach(n => {
+    n.classList.remove('highlighted','dimmed');
+    if (n.dataset.id === id || rels.includes(n.dataset.id)) {
+      n.classList.add('highlighted');
+    } else {
+      n.classList.add('dimmed');
+    }
+  });
+
+  // Abrir painel
+  openPanel(el, rels);
+
+  // Desenhar linhas
+  drawConnections(el, rels);
+}
+
+function resetAll() {
+  selectedId = null;
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('highlighted','dimmed'));
+  document.querySelector('body').classList.remove('has-selection');
+  document.getElementById('relationsPanel').classList.remove('open');
+  clearCanvas();
+}
+
+// ─── PAINEL ──────────────────────────────────────────────
+function openPanel(el, rels) {
+  const track = el.dataset.track;
+  const id = el.dataset.id;
+  const color = TRACK_COLORS[track];
+
+  document.getElementById('rpTrackBar').style.background = color;
+  document.getElementById('rpLabel').style.color = color;
+  document.getElementById('rpLabel').textContent = TRACK_LABELS[track] + ' · ' + el.querySelector('.node-id').textContent;
+  document.getElementById('rpName').textContent = el.querySelector('.node-name').textContent;
+  const sub = el.querySelector('.node-sub');
+  document.getElementById('rpSub').textContent = sub ? sub.textContent.replace(/\n/g,' ') : '';
+
+  // Corpo
+  const body = document.getElementById('rpBody');
+  body.innerHTML = '';
+
+  // Descrição
+  if (DESCRIPTIONS[id]) {
+    const d = document.createElement('div');
+    d.className = 'rp-section';
+    d.innerHTML = `<div class="rp-desc">${DESCRIPTIONS[id]}</div>`;
+    body.appendChild(d);
+  }
+
+  // Agrupar relações por trilha
+  const groups = {};
+  rels.forEach(relId => {
+    const relEl = document.querySelector(`[data-id="${relId}"]`);
+    if (!relEl) return;
+    const t = relEl.dataset.track;
+    if (!groups[t]) groups[t] = [];
+    groups[t].push({id: relId, el: relEl});
+  });
+
+  const trackOrder = ['op','ator','inst','pad','fin','leg'];
+  trackOrder.forEach(t => {
+    if (!groups[t]) return;
+    const sec = document.createElement('div');
+    sec.className = 'rp-section';
+    const title = document.createElement('div');
+    title.className = 'rp-section-title';
+    title.style.color = TRACK_COLORS[t];
+    title.textContent = TRACK_LABELS[t] + 's';
+    sec.appendChild(title);
+    groups[t].forEach(({id: relId, el: relEl}) => {
+      const item = document.createElement('div');
+      item.className = 'rp-rel-item';
+      item.onclick = () => selectNode(relEl);
+      item.innerHTML = `
+        <div class="rp-rel-dot" style="background:${TRACK_COLORS[t]}"></div>
+        <div>
+          <div class="rp-rel-name">${relEl.querySelector('.node-name').textContent}</div>
+          <div class="rp-rel-type">${relEl.querySelector('.node-id').textContent}</div>
+        </div>`;
+      sec.appendChild(item);
+    });
+    body.appendChild(sec);
+  });
+
+  // Link artefato
+  if (ARTEFATO_LINKS[id]) {
+    const linkSec = document.createElement('div');
+    linkSec.className = 'rp-section';
+    linkSec.innerHTML = `<a class="rp-link-out" href="${ARTEFATO_LINKS[id]}" target="_blank">↗ Abrir artefato completo</a>`;
+    body.appendChild(linkSec);
+  }
+
+  document.getElementById('relationsPanel').classList.add('open');
+}
+
+function closePanel() {
+  resetAll();
+}
+
+// ─── SVG CONEXÕES ────────────────────────────────────────
+function getNodeCenter(el) {
+  const grid = document.getElementById('trackGrid');
+  const gr = grid.getBoundingClientRect();
+  const nr = el.getBoundingClientRect();
+  return {
+    x: nr.left - gr.left + nr.width / 2,
+    y: nr.top - gr.top + nr.height / 2
+  };
+}
+
+function drawConnections(sourceEl, relIds) {
+  clearCanvas();
+  const svg = document.getElementById('connections-canvas');
+  const src = getNodeCenter(sourceEl);
+  const color = TRACK_COLORS[sourceEl.dataset.track];
+
+  relIds.forEach((relId, i) => {
+    const relEl = document.querySelector(`[data-id="${relId}"]`);
+    if (!relEl) return;
+    const dst = getNodeCenter(relEl);
+    const dstColor = TRACK_COLORS[relEl.dataset.track];
+
+    const id = `grad-${i}`;
+    const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg','defs'), svg.firstChild);
+    const grad = document.createElementNS('http://www.w3.org/2000/svg','linearGradient');
+    grad.setAttribute('id', id);
+    grad.setAttribute('gradientUnits','userSpaceOnUse');
+    grad.setAttribute('x1', src.x); grad.setAttribute('y1', src.y);
+    grad.setAttribute('x2', dst.x); grad.setAttribute('y2', dst.y);
+    grad.innerHTML = `<stop offset="0%" stop-color="${color}" stop-opacity="0.6"/>
+                      <stop offset="100%" stop-color="${dstColor}" stop-opacity="0.4"/>`;
+    defs.appendChild(grad);
+
+    const cx1 = src.x + (dst.x - src.x) * 0.4;
+    const cy1 = src.y;
+    const cx2 = src.x + (dst.x - src.x) * 0.6;
+    const cy2 = dst.y;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', `M${src.x},${src.y} C${cx1},${cy1} ${cx2},${cy2} ${dst.x},${dst.y}`);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke', `url(#${id})`);
+    path.setAttribute('stroke-width','1.5');
+    path.setAttribute('class','conn-line');
+    path.setAttribute('opacity','0.7');
+    svg.appendChild(path);
+  });
+}
+
+function clearCanvas() {
+  const svg = document.getElementById('connections-canvas');
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+}
+
+// ─── FILTRO POR TRILHA ────────────────────────────────────
+function filterTrack(track) {
+  const btn = document.querySelector(`.track-filter[data-track="${track}"]`);
+  const trackEl = document.querySelector(`.track[data-track="${track}"]`);
+
+  if (activeFilters.has(track)) {
+    activeFilters.delete(track);
+    btn.classList.remove('active');
+    if (trackEl) trackEl.style.display = 'none';
+  } else {
+    activeFilters.add(track);
+    btn.classList.add('active');
+    if (trackEl) trackEl.style.display = '';
+  }
+
+  // Ajustar grid
+  const count = activeFilters.size;
+  const grid = document.getElementById('trackGrid');
+  grid.style.gridTemplateColumns = `repeat(${Math.max(count, 1)}, 1fr)`;
+
+  resetAll();
+}
+
+// ─── RESIZE ──────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  if (selectedId) {
+    const el = document.querySelector(`[data-id="${selectedId}"]`);
+    if (el) {
+      const rels = el.dataset.rels ? el.dataset.rels.split(',') : [];
+      drawConnections(el, rels);
+    }
+  }
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

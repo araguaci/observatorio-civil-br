@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasil Institucional — Colapso Republicano</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #080c10; --bg1: #0d1218; --bg2: #121820; --bg3: #1a2230; --border: rgba(255,255,255,0.06); --border2: rgba(255,255,255,0.12); --fg: #e8ecf0; --fg2: #8a9ab0; --fg3: #4a5a6a; --red: #e84040; --red2: rgba(232,64,64,0.15); --amber: #e8a020; --amber2: rgba(232,160,32,0.15); --blue: #3090e8; --blue2: rgba(48,144,232,0.12); --green: #28c880; --green2: rgba(40,200,128,0.12); --purple: #a060e8; --purple2: rgba(160,96,232,0.12); --cyan: #20d0e8; --font-mono: 'IBM Plex Mono', monospace; --font-display: 'Syne', sans-serif; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); font-size: 13px; line-height: 1.6; min-height: 100vh; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+@media print { body { background: #fff; color: #111; } .nav-tabs, #gotop { display: none !important; } .tab-panel { display: block !important; padding-top: 20px !important; margin-top: 0 !important; page-break-inside: avoid; } .tab-panel + .tab-panel { page-break-before: always; } :root { --bg: #fff; --bg1: #f8f8f8; --bg2: #f0f0f0; --bg3: #e8e8e8; --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.20); --fg: #111; --fg2: #444; --fg3: #888; } }
+
+/* HEADER */
+.header { background: var(--bg1); padding: 24px 20px; position: relative; display: flex; flex-direction: column; gap: 16px; overflow: hidden; }
+@media (min-width: 768px) { .header { padding: 32px 40px 24px 40px; } }
+.header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), var(--amber), var(--red)); background-size: 200% 100%; animation: scanline 3s linear infinite; }
+@keyframes scanline { to { background-position: 200% 0; } }
+.hero-title { font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+.hero-title em { color: var(--red); font-style: normal; }
+.subtitle { color: var(--fg2); font-size: 13px; max-width: 800px; font-family: var(--font-mono); }
+
+/* NAV */
+.nav-tabs { display: flex; overflow-x: auto; scrollbar-width: none; gap: 4px; padding: 12px 20px; background: rgba(13, 18, 24, 0.95); backdrop-filter: blur(12px); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border2); position: sticky; top: 0; z-index: 200; }
+@media (min-width: 768px) { .nav-tabs { padding: 12px 40px; } }
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab { padding: 8px 16px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg3); cursor: pointer; border-radius: 99px; background: transparent; transition: all 0.15s; font-family: var(--font-mono); text-decoration: none; border: 1px solid var(--border); white-space: nowrap; }
+.nav-tab:hover { color: var(--fg2); background: var(--bg2); }
+.nav-tab.active { color: var(--fg); border-color: var(--border2); background: var(--bg3); }
+
+/* MAIN CONTENT */
+.main { max-width: 1400px; margin: 0 auto; padding: 40px 20px 80px; }
+@media (min-width: 768px) { .main { padding: 40px 40px 80px; } }
+
+/* TAB PANEL */
+.tab-panel { padding-top: 90px; margin-top: -50px; margin-bottom: 40px; }
+
+/* GRID STATS */
+.grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 12px; max-width: 900px; }
+.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; font-family: var(--font-mono); }
+
+/* CARDS */
+.grid-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+
+.alert_red { background: var(--red2); border: 1px solid rgba(232,64,64,0.25); border-radius: 6px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.alert_amber { background: var(--amber2); border: 1px solid rgba(232,160,32,0.25); border-radius: 6px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.alert_blue { background: var(--blue2); border: 1px solid rgba(48,144,232,0.25); border-radius: 6px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.alert_purple { background: var(--purple2); border: 1px solid rgba(160,96,232,0.25); border-radius: 6px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.alert_cyan { background: rgba(32,208,232,0.12); border: 1px solid rgba(32,208,232,0.25); border-radius: 6px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.alert_neutral { background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+.falha-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.falha-titulo { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--fg); line-height: 1.3; }
+.falha-desc { font-size: 13px; color: var(--fg2); line-height: 1.6; font-family: var(--font-mono); margin-top: auto; }
+
+/* BADGES */
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; font-family: var(--font-mono); flex-shrink: 0; }
+.badge.red { background: var(--red2); color: var(--red); border: 1px solid rgba(232,64,64,0.3); }
+.badge.amber { background: var(--amber2); color: var(--amber); border: 1px solid rgba(232,160,32,0.3); }
+.badge.blue { background: var(--blue2); color: var(--blue); border: 1px solid rgba(48,144,232,0.3); }
+.badge.purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(160,96,232,0.3); }
+.badge.cyan { background: rgba(32,208,232,0.12); color: var(--cyan); border: 1px solid rgba(32,208,232,0.3); }
+.badge.neutral { background: var(--bg3); color: var(--fg2); border: 1px solid var(--border2); }
+
+/* SECTION TITLE */
+.section-title { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg3); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+/* GOTOP */
+#gotop { position: fixed; bottom: 30px; right: 30px; width: 44px; height: 44px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 50%; color: var(--fg); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 1000; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+#gotop.show { opacity: 1; visibility: visible; }
+#gotop:hover { background: var(--bg3); transform: translateY(-3px); }
+#gotop svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* FOOTER */
+.footer { margin-top: 48px; padding: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+@media (min-width: 768px) { .footer { padding: 20px 40px; } }
+.footer-text { font-size: 11px; color: var(--fg3); font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div>
+    <div class="section-title" style="margin-bottom:8px; border:none; padding:0;">Análise Institucional — Brasil</div>
+    <div class="hero-title">Colapso das Instituições <em>Republicanas</em></div>
+    <div class="subtitle">Falhas sistêmicas documentadas por setor — cumulativas e interdependentes</div>
+  </div>
+
+  <div class="grid-stats">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--red)">6</div>
+      <div class="stat-label">pilares com falha estrutural</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--amber)">20+</div>
+      <div class="stat-label">disfunções identificadas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--purple)">∞</div>
+      <div class="stat-label">retroalimentação entre falhas</div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <a href="#sec-mp" class="nav-tab active">MP & Defensorias</a>
+  <a href="#sec-jud" class="nav-tab">Judiciário</a>
+  <a href="#sec-mil" class="nav-tab">Forças Armadas</a>
+  <a href="#sec-leg" class="nav-tab">Congresso</a>
+  <a href="#sec-pol" class="nav-tab">Segurança & Controle</a>
+  <a href="#sec-media" class="nav-tab">Mídia</a>
+</nav>
+
+<main class="main">
+
+  <section id="sec-mp" class="tab-panel">
+    <div class="section-title">Ministério Público & Defensorias</div>
+    <div class="grid-2col">
+      <div class="alert_red">
+        <div class="falha-header">
+          <span class="falha-titulo">Capturado por interesses corporativos</span>
+          <span class="badge red">MP / PGR</span>
+        </div>
+        <div class="falha-desc">Promotores que deveriam ser custos legis tornam-se agentes políticos. Seletividade na persecução criminal protege aliados e persegue adversários. A independência funcional — garantia constitucional — convertida em imunidade à accountability.</div>
+      </div>
+      <div class="alert_red">
+        <div class="falha-header">
+          <span class="falha-titulo">Não defesa da população vulnerável</span>
+          <span class="badge red">MP / Defensorias</span>
+        </div>
+        <div class="falha-desc">Crimes patrimoniais de colarinho branco prescrevem ou são arquivados. Crimes de rua ganham força máxima. A narrativa do "MP combativo" existe para a galeria — não para o trabalhador que perdeu a poupança em fraude.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-jud" class="tab-panel">
+    <div class="section-title">Judiciário</div>
+    <div class="grid-2col">
+      <div class="alert_amber">
+        <div class="falha-header">
+          <span class="falha-titulo">Ignoram o texto da lei quando conveniente</span>
+          <span class="badge amber">Judiciário</span>
+        </div>
+        <div class="falha-desc">Leniência seletiva com traficantes e crime organizado coexiste com dureza máxima em crimes políticos. O mesmo artigo do CPP lido de formas opostas conforme o réu. Segurança jurídica deixa de existir quando a interpretação é instrumentalizada.</div>
+      </div>
+      <div class="alert_amber">
+        <div class="falha-header">
+          <span class="falha-titulo">Legislando por decisão monocrática</span>
+          <span class="badge amber">STF / STJ</span>
+        </div>
+        <div class="falha-desc">Criação de novas normas via interpretação extensiva sem base no texto constitucional. Decisões que substituem o Congresso nacional, sem deliberação coletiva, sem debate parlamentar. Ativismo judicial sem freio converte o STF em terceira câmara legislativa.</div>
+      </div>
+      <div class="alert_amber">
+        <div class="falha-header">
+          <span class="falha-titulo">Censura prévia por ministros individuais</span>
+          <span class="badge amber">STF</span>
+        </div>
+        <div class="falha-desc">Bloqueio de plataformas e perfis sem due process, sem contraditório, sem tribunal colegiado. O que a Constituição proíbe expressamente em seu Art. 5º, IX praticado por quem deveria ser seu guardião.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-mil" class="tab-panel">
+    <div class="section-title">Forças Armadas</div>
+    <div class="grid-2col">
+      <div class="alert_blue">
+        <div class="falha-header">
+          <span class="falha-titulo">Generais como operadores políticos</span>
+          <span class="badge blue">FFAA</span>
+        </div>
+        <div class="falha-desc">Militares que deveriam ser instituição de Estado tornaram-se variável eleitoral e fator de pressão. A politicagem fardada — de qualquer espectro — degrada a neutralidade republicana das Forças Armadas e a subordinação ao poder civil.</div>
+      </div>
+      <div class="alert_blue">
+        <div class="falha-header">
+          <span class="falha-titulo">Omissão diante de ameaças constitucionais</span>
+          <span class="badge blue">Alto Comando</span>
+        </div>
+        <div class="falha-desc">Quando não age, age. A omissão calculada em momentos críticos é tão politicamente carregada quanto a intervenção direta. Nenhuma postura é neutra quando a crise exige posicionamento institucional.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-leg" class="tab-panel">
+    <div class="section-title">Congresso Nacional</div>
+    <div class="grid-2col">
+      <div class="alert_purple">
+        <div class="falha-header">
+          <span class="falha-titulo">Parlamento como balcão de negócios</span>
+          <span class="badge purple">Congresso</span>
+        </div>
+        <div class="falha-desc">Emendas parlamentares impositivas sem controle de mérito. Orçamento secreto institucionalizado. Legisladores que compram votos com verbas públicas e vendem apoio ao Executivo em troca de cargos. O fisiologismo não é bug — é o sistema.</div>
+      </div>
+      <div class="alert_purple">
+        <div class="falha-header">
+          <span class="falha-titulo">Legislação penal encomendada e seletiva</span>
+          <span class="badge purple">Congresso</span>
+        </div>
+        <div class="falha-desc">Leis feitas para proteger réus específicos. Projetos criminalizando a oposição enquanto anistias customizadas protegem aliados. O Código Penal como instrumento de disputas políticas, não de justiça.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-pol" class="tab-panel">
+    <div class="section-title">Segurança & Controle</div>
+    <div class="grid-2col">
+      <div class="alert_neutral">
+        <div class="falha-header">
+          <span class="falha-titulo">Polícia como instrumento de poder</span>
+          <span class="badge neutral">Segurança Pública</span>
+        </div>
+        <div class="falha-desc">Força máxima em periferias, omissão em esquemas de colarinho branco. Milícias que crescem com proteção institucional. Mortes em custódia sem responsabilização. A violência do Estado não é falha — é política.</div>
+      </div>
+      <div class="alert_neutral">
+        <div class="falha-header">
+          <span class="falha-titulo">Órgãos de controle sem dentes</span>
+          <span class="badge neutral">TCU / CGU / ANPD</span>
+        </div>
+        <div class="falha-desc">Tribunais de contas que publicam relatórios sem consequência. CGU que inicia auditorias que nunca chegam a denúncias. Agências reguladoras colonizadas pelos setores que deveriam regular. Accountability formal sem substância.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-media" class="tab-panel">
+    <div class="section-title">Mídia & Jornalismo</div>
+    <div class="grid-2col">
+      <div class="alert_cyan">
+        <div class="falha-header">
+          <span class="falha-titulo">Imprensa como parte do jogo, não árbitro</span>
+          <span class="badge cyan">Mídia / Jornalismo</span>
+        </div>
+        <div class="falha-desc">Grandes veículos com posicionamento editorial alinhado a grupos econômicos específicos. Cobertura seletiva que amplifica narrativas e enterra outras. O "jornalismo de referência" como ator político com mandato não eleito.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a href="#" id="gotop" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>
+</a>
+
+<footer class="footer">
+  <div class="footer-text">Diagnóstico sistêmico — não partidário — as falhas transcendem governos e espectros • Cada card é um vetor de colapso republicano</div>
+  <div class="footer-text">Lawfare Timeline • CC0 1.0 Universal — Domínio Público</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.tab-panel');
+  const navLinks = document.querySelectorAll('.nav-tab');
+  const gotop = document.getElementById('gotop');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+            if (link.scrollIntoView) {
+              link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(sec => observer.observe(sec));
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      gotop.classList.add('show');
+    } else {
+      gotop.classList.remove('show');
+    }
+  });
+
+  gotop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz de Emaranhamento — 7 Operações Anticorrupção · lawfare-timeline</title>
+<meta name="description" content="Mapeamento sistêmico de 7 operações anticorrupção brasileiras: Castelo de Areia, Satiagraha, Lava Jato, Carbono Oculto, Poço de Lobato, Compliance Zero e Mare Liberum. Padrões transversais, atores recorrentes, conexões documentadas.">
+<link rel="canonical" href="https://gosurf.site/emaranhamento-operacoes">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gosurf.site/emaranhamento-operacoes">
+<meta property="og:title" content="Matriz de Emaranhamento — 7 Operações Anticorrupção">
+<meta property="og:description" content="R$ 300B+ investigado. 7 operações. 7 padrões sistêmicos. Os mesmos atores, as mesmas estratégias, os mesmos desfechos. Mare Liberum integrada — abr/2026.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="gosurf.site">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:    #0a0b0e;
+  --bg2:   #111318;
+  --bg3:   #161a22;
+  --b1:    #1e2330;
+  --b2:    #2a3142;
+  --text:  #e8e4d8;
+  --text2: #a8a6a0;
+  --text3: #6b6d75;
+  --red:   #E24B4A; --red-d:  rgba(226,75,74,0.14);
+  --amb:   #EF9F27; --amb-d:  rgba(239,159,39,0.12);
+  --blue:  #378ADD; --blue-d: rgba(55,138,221,0.12);
+  --grn:   #639922; --grn-d:  rgba(99,153,34,0.12);
+  --pur:   #7F77DD; --pur-d:  rgba(127,119,221,0.12);
+  --teal:  #1D9E75; --teal-d: rgba(29,158,117,0.12);
+  --cor:   #D85A30; --cor-d:  rgba(216,90,48,0.12);
+  --mono:  'IBM Plex Mono', monospace;
+  --sans:  'IBM Plex Sans', sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--sans);font-size:15px;line-height:1.65;
+  min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:1rem 1.25rem 80px}
+
+/* ── HERO ── */
+.hero{padding:2.5rem 0 2rem;border-bottom:1px solid var(--b1)}
+.hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);font-weight:400;line-height:1.15;margin-bottom:.5rem}
+.hero h1 em{font-style:italic;color:var(--red)}
+.hero-sub{font-size:15px;color:var(--text2);max-width:600px;margin-bottom:1.5rem}
+.hero-kpis{display:flex;flex-wrap:wrap;gap:10px}
+.hkpi{background:var(--bg2);border:0.5px solid var(--b1);border-radius:8px;padding:10px 16px;min-width:130px}
+.hkpi-v{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--red)}
+.hkpi-l{font-size:11px;color:var(--text3);margin-top:2px;letter-spacing:.04em}
+.hero-meta{margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:11px;color:var(--text3)}
+.hero-meta a{color:var(--text3);text-decoration:none}
+.hero-meta a:hover{color:var(--text2)}
+
+/* ── TABS ── */
+.tab-row{
+  display:flex;flex-wrap:wrap;gap:4px;margin:0 0 2rem;
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,11,14,0.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  padding:15px 0;border-bottom:1px solid var(--b1);
+}
+.tb{
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+  padding:5px 14px;border-radius:20px;cursor:pointer;
+  border:0.5px solid var(--b2);background:transparent;
+  color:var(--text3);transition:all .15s;white-space:nowrap;
+  text-decoration:none;display:inline-block;
+}
+.tb:hover{color:var(--text2)}
+.tb.on{background:var(--red);color:#fff;border-color:transparent}
+.panel{display:block;scroll-margin-top:90px;margin-bottom:3rem}
+
+/* ── GOTOP ── */
+.gotop{
+  position:fixed;bottom:20px;right:20px;width:44px;height:44px;
+  background:var(--bg3);border:1px solid var(--b1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text2);font-size:18px;text-decoration:none;
+  opacity:0;visibility:hidden;transition:all .2s;z-index:99;cursor:pointer;
+}
+.gotop.show{opacity:1;visibility:visible}
+.gotop:hover{background:var(--b2);color:var(--text);border-color:var(--text3)}
+
+/* ── SECTION LABEL ── */
+.sl{
+  font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--text3);margin:1.5rem 0 .75rem;
+  display:flex;align-items:center;gap:10px;
+}
+.sl::after{content:'';flex:1;height:.5px;background:var(--b1)}
+
+/* ── BADGES ── */
+.bd{
+  display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;
+  font-family:var(--mono);font-size:10px;font-weight:500;border:0.5px solid;margin:2px;white-space:nowrap;
+}
+.b-ml {background:var(--red-d);color:#f07070;border-color:rgba(226,75,74,.3)}
+.b-lj {background:var(--blue-d);color:#6aa0e8;border-color:rgba(55,138,221,.3)}
+.b-co {background:var(--teal-d);color:#4ab890;border-color:rgba(29,158,117,.3)}
+.b-pl {background:var(--amb-d);color:#e0a030;border-color:rgba(239,159,39,.3)}
+.b-sa {background:var(--pur-d);color:#9d97e8;border-color:rgba(127,119,221,.3)}
+.b-ca {background:rgba(107,109,117,.1);color:#8a8c94;border-color:rgba(107,109,117,.3)}
+.b-bm {background:var(--cor-d);color:#d0885a;border-color:rgba(216,90,48,.3)}
+.b-p01{background:var(--red-d);color:#f07070;border-color:rgba(226,75,74,.3)}
+.b-p02{background:var(--amb-d);color:#e0a030;border-color:rgba(239,159,39,.3)}
+.b-p03{background:var(--blue-d);color:#6aa0e8;border-color:rgba(55,138,221,.3)}
+.b-p04{background:var(--pur-d);color:#9d97e8;border-color:rgba(127,119,221,.3)}
+.b-p05{background:var(--teal-d);color:#4ab890;border-color:rgba(29,158,117,.3)}
+.b-p06{background:var(--cor-d);color:#d0885a;border-color:rgba(216,90,48,.3)}
+.b-p07{background:var(--grn-d);color:#8ab840;border-color:rgba(99,153,34,.3)}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+
+/* ── CARD ── */
+.card{
+  background:var(--bg2);border:0.5px solid var(--b1);border-radius:10px;
+  padding:14px 16px;transition:border-color .15s;
+}
+.card:hover{border-color:var(--b2)}
+.card.accent-red{border-left:2px solid var(--red)}
+.card.accent-teal{border-left:2px solid var(--teal)}
+.card.accent-new{border-left:2px solid var(--teal);background:rgba(29,158,117,.03)}
+
+/* ── OP CARDS ── */
+.op-card{background:var(--bg2);border:0.5px solid var(--b1);border-radius:10px;padding:14px 16px}
+.op-name{font-family:var(--serif);font-size:17px;font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.op-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:.5px solid var(--b1);font-size:13px}
+.op-row:last-child{border:none}
+.op-rl{color:var(--text3);flex-shrink:0;min-width:110px}
+.op-rv{color:var(--text2);text-align:right;font-size:12px}
+.bar-wrap{margin-top:10px}
+.bar-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:4px}
+.bar-t{height:4px;background:var(--b1);border-radius:2px}
+.bar-f{height:4px;border-radius:2px;transition:width .5s ease}
+
+/* ── MATRIX TABLE ── */
+.mx-wrap{overflow-x:auto;border-radius:10px}
+table.mx{
+  width:100%;border-collapse:collapse;font-size:12px;
+  background:var(--bg2);border:.5px solid var(--b1);
+}
+.mx th,.mx td{padding:8px 10px;text-align:center;border-bottom:.5px solid var(--b1)}
+.mx th{font-family:var(--mono);font-size:10px;color:var(--text3);background:var(--bg3);font-weight:400;letter-spacing:.05em}
+.mx td:first-child{text-align:left;font-family:var(--mono);font-size:11px;color:var(--text2);padding-left:14px;min-width:140px}
+.mx tr:last-child td{border-bottom:none}
+.mx tr:hover td{background:rgba(255,255,255,.012)}
+.vc{writing-mode:vertical-rl;transform:rotate(180deg);min-width:30px;padding:10px 5px !important}
+.ml-h{color:var(--red) !important;font-weight:600}
+.c-full   {color:var(--red);font-size:16px}
+.c-strong {color:var(--amb);font-size:14px}
+.c-part   {color:var(--teal);font-size:13px}
+.c-none   {color:var(--text3);font-size:11px}
+
+/* ── HEAT CELL ── */
+.hcell{
+  width:34px;height:34px;border-radius:6px;display:inline-flex;
+  align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  cursor:default;transition:transform .1s;
+}
+.hcell:hover{transform:scale(1.15)}
+.h4{background:rgba(226,75,74,.5);color:#fcc}
+.h3{background:rgba(239,159,39,.35);color:#fec}
+.h2{background:rgba(29,158,117,.25);color:#ade}
+.h1{background:rgba(107,109,117,.15);color:var(--text3)}
+.h0{background:transparent;color:var(--b2)}
+
+/* ── PROGRESS ── */
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px;flex-wrap:wrap}
+.prog-op{min-width:130px;color:var(--text2);font-size:12px}
+.prog-bar{flex:1;min-width:60px}
+.prog-pct{font-family:var(--mono);font-size:11px;min-width:60px;text-align:right}
+
+/* ── ACTOR CARDS ── */
+.actor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.acard{
+  background:var(--bg2);border:.5px solid var(--b1);border-radius:10px;
+  padding:12px 14px;transition:border-color .15s;
+  display:flex;flex-direction:column;
+}
+.acard:hover{border-color:var(--b2)}
+.aname{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.arole{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:6px}
+.aops{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:8px}
+.adesc{font-size:12px;color:var(--text2);line-height:1.5;margin-top:auto}
+
+/* ── CONN CARDS ── */
+.conn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px}
+.cconn{background:var(--bg2);border:.5px solid var(--b1);border-radius:10px;padding:13px 15px}
+.cconn.hot{border-color:rgba(226,75,74,.25);background:rgba(226,75,74,.025)}
+.cconn.warm{border-color:rgba(239,159,39,.2);background:rgba(239,159,39,.02)}
+.cconn.cool{border-color:rgba(29,158,117,.2);background:rgba(29,158,117,.02)}
+.conn-title{font-size:13px;font-weight:500;color:var(--text);margin:6px 0 5px}
+.conn-body{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* ── KPI ── */
+.kpi{background:var(--bg2);border:.5px solid var(--b1);border-radius:8px;padding:10px 14px}
+.kpi-v{font-family:var(--mono);font-size:19px;font-weight:600}
+.kpi-l{font-size:11px;color:var(--text3);margin-top:2px}
+.kpi-s{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* ── CALLOUT ── */
+.callout{
+  margin-top:12px;padding:11px 14px;
+  background:var(--bg3);border-left:2px solid var(--red);
+  border-radius:0 6px 6px 0;
+  font-size:13px;line-height:1.65;color:var(--text2);
+}
+.callout.amb{border-left-color:var(--amb)}
+.callout.teal{border-left-color:var(--teal)}
+.callout strong{color:var(--text)}
+
+/* ── LINK LIST ── */
+.link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:7px}
+.llink{
+  display:block;background:var(--bg2);border:.5px solid var(--b1);
+  border-radius:9px;padding:11px 13px;text-decoration:none;transition:all .15s;
+}
+.llink:hover{border-color:var(--b2);background:var(--bg3)}
+.llink-t{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;line-height:1.35}
+.llink-m{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.llink-a{float:right;color:var(--text3);font-size:11px}
+.llink.hl{border-color:rgba(29,158,117,.25);background:rgba(29,158,117,.03)}
+.llink.hl .llink-t{color:#5acba0}
+
+/* ── LEGEND ── */
+.legend{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  padding:9px 13px;background:var(--bg3);border:.5px solid var(--b1);
+  border-radius:8px;font-family:var(--mono);font-size:11px;color:var(--text3);
+}
+.leg-i{display:flex;align-items:center;gap:5px}
+
+/* ── FOOTER ── */
+.footer{
+  max-width:1100px;margin:0 auto;padding:20px 1.25rem 40px;
+  border-top:.5px solid var(--b1);
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:11px;color:var(--text3);
+}
+.footer a{color:var(--text3);text-decoration:none}
+.footer a:hover{color:var(--text2)}
+
+@media(max-width:640px){
+  .page{padding:.75rem .75rem 60px}
+  .op-rl{min-width:90px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="page">
+<div class="hero">
+  <div class="hero-tag">lawfare-timeline · corpus · atualizado 28 abr 2026</div>
+  <h1>Matriz de<br><em>Emaranhamento</em></h1>
+  <p class="hero-sub">7 operações anticorrupção. Os mesmos padrões, os mesmos vetores, os mesmos desfechos. Mapeamento sistêmico das conexões transversais — <strong>Mare Liberum integrada</strong>.</p>
+  <div class="hero-kpis">
+    <div class="hkpi"><div class="hkpi-v">7</div><div class="hkpi-l">Operações no corpus</div></div>
+    <div class="hkpi"><div class="hkpi-v">R$ 310B+</div><div class="hkpi-l">Movimentação investigada</div></div>
+    <div class="hkpi"><div class="hkpi-v">7</div><div class="hkpi-l">Padrões sistêmicos</div></div>
+    <div class="hkpi"><div class="hkpi-v">75%</div><div class="hkpi-l">Operações extintas / anuladas</div></div>
+    <div class="hkpi"><div class="hkpi-v">~4%</div><div class="hkpi-l">Valor recuperado</div></div>
+    <div class="hkpi"><div class="hkpi-v">2026</div><div class="hkpi-l">Mare Liberum — nova entrada</div></div>
+  </div>
+  <div class="hero-meta">
+    <span>PF · GAECO · RFB · STF · TRF</span>
+    <span>·</span>
+    <span>2008–2026</span>
+    <span>·</span>
+    <a href="https://gosurf.site" target="_blank">gosurf.site</a>
+    <span>·</span>
+    <span>CC0 1.0 — domínio público</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-row" id="scroll-spy-nav">
+  <a href="#panel-visao" class="tb on">Visão geral</a>
+  <a href="#panel-operacoes" class="tb">7 Operações</a>
+  <a href="#panel-matrix" class="tb">Matriz P×O</a>
+  <a href="#panel-heatmap" class="tb">Heatmap</a>
+  <a href="#panel-conexoes" class="tb">Conexões</a>
+  <a href="#panel-atores" class="tb">Atores recorrentes</a>
+  <a href="#panel-kpis" class="tb">KPIs impunidade</a>
+  <a href="#panel-links" class="tb">Corpus completo</a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: VISÃO GERAL
+════════════════════════════════════════════ -->
+<div id="panel-visao" class="panel">
+
+  <div class="sl">Escala do corpus — 7 operações combinadas</div>
+  <div class="g4">
+    <div class="kpi"><div class="kpi-v" style="color:var(--red)">R$ 86,6B</div><div class="kpi-l">Mare Liberum (2026)</div><div class="kpi-s">Mercadorias irregulares · Porto Rio</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--red)">R$ 98B</div><div class="kpi-l">Carbono Oculto (2025)</div><div class="kpi-s">Postos + fintechs + fundos</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--cor)">R$ 56B</div><div class="kpi-l">Compliance Zero (2025)</div><div class="kpi-s">FGC · Banco Master</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--amb)">R$ 29B</div><div class="kpi-l">Lava Jato (2014–2021)</div><div class="kpi-s">Petrobras estimativa máx.</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--amb)">R$ 12B</div><div class="kpi-l">Poço de Lobato (2025)</div><div class="kpi-s">Delaware LLCs + Houston</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--pur)">R$ 16B</div><div class="kpi-l">Castelo de Areia (2009)</div><div class="kpi-s">Camargo Corrêa faturamento</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--blue)">N/D</div><div class="kpi-l">Satiagraha (2008)</div><div class="kpi-s">Opportunity · Telecom · Fundos</div></div>
+  </div>
+
+  <div class="sl" style="margin-top:1.75rem">Os 6 padrões históricos + 1 emergente</div>
+  <div class="g2">
+    <div class="card">
+      <div style="margin-bottom:8px"><span class="bd b-p01">P01</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">Anulação por vício processual</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Em nenhuma das operações extintas o investigado foi absolvido no mérito. Sempre por irregularidade processual: denúncia anônima (CA), ABIN ilegal (SA), incompetência territorial + parcialidade (LJ). Na ML: 4 anos de investigação interna sem mandado declarado é o novo alvo.</div>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:8px"><span class="bd b-p02">P02</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">O investigador vira investigado</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Protógenes (SA): expulso da PF, asilado na Suíça. Moro (LJ): declarado parcial. Dallagnol (LJ): mandato cassado. Andrei Rodrigues (BM): relatório chamado de "lixo jurídico". Na ML: latente — lag histórico de 12–24 meses.</div>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:8px"><span class="bd b-p03">P03</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">Captura judicial de emergência</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Único padrão presente em 100% das 4 operações-núcleo. Gilmar (SA: 2 HC em 48h), Asfor Rocha (CA: liminar no recesso), Fachin (LJ: anulação), Toffoli (BM: sigilo removido após conflito de interesse revelado). Na ML: 25 afastamentos via TRF-2 = 25 potenciais HC.</div>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:8px"><span class="bd b-p04">P04</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">Weaponização da mídia</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">SA: Globo filmou exclusivamente a prisão de Pitta em pijama — virou argumento para expulsão de Protógenes. LJ: Moro vazou gravação de Lula fora do prazo. BM: Vorcaro acessou sistema sigiloso da PF para "esquentar" prova via site. ML: frame "maior operação da RFB" lançado no mesmo dia.</div>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:8px"><span class="bd b-p05">P05</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">Cofres públicos como vetor</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Presente em 100% do corpus. LJ: Petrobras. CA: licitações públicas. SA: fundos de pensão e concessões de telecom. BM: o FGC como garantia implícita para captar R$ 50B. ML: o auditor fiscal <em>é</em> o mecanismo estatal comprado — nó de verificação do Estado.</div>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:8px"><span class="bd b-p06">P06</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">Prescrição como âncora estratégica</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">CA: anulada 2011, recomeçou, prescreveu. LJ: tríplex e sítio prescreveram na redistribuição Curitiba→Brasília. ML: fatos desde jul/2021. Se a defesa fragmentar 17.000 DIs em episódios individuais e travar a redistribuição, janela prescricional 2026–2030.</div>
+    </div>
+    <div class="card accent-teal">
+      <div style="margin-bottom:8px"><span class="bd b-p07">P07</span> <span style="font-family:var(--mono);font-size:10px;color:var(--teal)">NOVO 2025</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:5px">Infraestrutura advisória compartilhada</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Emergente: fundos fechados de cota única aparecem como veículos de lavagem em BM, CO, PL e Greenwashing — sugerindo assessoria jurídico-financeira comum. CO: 40 fundos para blindar R$ 30B. ML: hipótese — estrutura das "dezenas de milhões" em propinas ainda não revelada.</div>
+    </div>
+    <div class="callout teal" style="margin-top:0">
+      <strong>Observação metodológica:</strong> P03 é o único padrão presente em 100% das 4 operações-núcleo (SA, CA, LJ, BM). P05 é o mais distribuído no corpus completo de 7 operações. P07 é emergente — confirmado em 3 operações, hipótese em mais 2.
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: 7 OPERAÇÕES
+════════════════════════════════════════════ -->
+<div id="panel-operacoes" class="panel">
+  <div class="sl">Fichas — 7 operações ordenadas por data de deflagração</div>
+  <div class="g2">
+
+    <div class="op-card">
+      <div class="op-name"><span class="bd b-sa" style="font-size:11px">2008</span> Satiagraha</div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">Daniel Dantas — Opportunity</span></div>
+      <div class="op-row"><span class="op-rl">Crime</span><span class="op-rv">Lavagem, corrupção, quadrilha</span></div>
+      <div class="op-row"><span class="op-rl">Fase fatal</span><span class="op-rv">Anulada STJ 2011 — ABIN ilegal</span></div>
+      <div class="op-row"><span class="op-rl">P03 — ator</span><span class="op-rv">Gilmar Mendes: 2 HC em 48h</span></div>
+      <div class="op-row"><span class="op-rl">Investigador</span><span class="op-rv">Protógenes: expulso · asilado CH</span></div>
+      <div class="op-row"><span class="op-rl">Padrões</span><span class="op-rv">P01 P02 P03 P04 P05</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal</span><span style="color:var(--red)">0%</span></div><div class="bar-t"><div class="bar-f" style="width:1%;background:var(--red)"></div></div></div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-name"><span class="bd b-ca" style="font-size:11px">2009</span> Castelo de Areia</div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">Grupo Camargo Corrêa</span></div>
+      <div class="op-row"><span class="op-rl">Crime</span><span class="op-rv">Propina, lavagem, licitações</span></div>
+      <div class="op-row"><span class="op-rl">Fase fatal</span><span class="op-rv">Anulada STJ 2011 — denúncia anônima</span></div>
+      <div class="op-row"><span class="op-rl">P03 — ator</span><span class="op-rv">Asfor Rocha: liminar no recesso</span></div>
+      <div class="op-row"><span class="op-rl">Suspeita extra</span><span class="op-rv">Propina R$ 5M p/ Asfor Rocha (Palocci)</span></div>
+      <div class="op-row"><span class="op-rl">Padrões</span><span class="op-rv">P01 P03 P05 P06</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal</span><span style="color:var(--red)">0%</span></div><div class="bar-t"><div class="bar-f" style="width:1%;background:var(--red)"></div></div></div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-name"><span class="bd b-lj" style="font-size:11px">2014–2021</span> Lava Jato</div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">Petrobras · empreiteiras · PT/PMDB</span></div>
+      <div class="op-row"><span class="op-rl">Rombo</span><span class="op-rv">R$ 6–29 bi (Petrobras)</span></div>
+      <div class="op-row"><span class="op-rl">Fase fatal</span><span class="op-rv">Vaza Jato 2019 → STF 2021</span></div>
+      <div class="op-row"><span class="op-rl">P03 — ator</span><span class="op-rv">Fachin: anulação incompetência territorial</span></div>
+      <div class="op-row"><span class="op-rl">Investigadores</span><span class="op-rv">Moro parcial · Dallagnol cassado</span></div>
+      <div class="op-row"><span class="op-rl">Padrões</span><span class="op-rv">P01 P02 P03 P04 P05 P06</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal residual</span><span style="color:var(--amb)">~30%</span></div><div class="bar-t"><div class="bar-f" style="width:30%;background:var(--amb)"></div></div></div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-name"><span class="bd b-co" style="font-size:11px">2025 ago</span> Carbono Oculto</div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">PCC — setor de combustíveis</span></div>
+      <div class="op-row"><span class="op-rl">Movimentação</span><span class="op-rv">R$ 98 bi (postos + fintechs + fundos)</span></div>
+      <div class="op-row"><span class="op-rl">Estrutura lavagem</span><span class="op-rv">40 fundos fechados · fintechs conta-bolsão</span></div>
+      <div class="op-row"><span class="op-rl">Conexão ML</span><span class="op-rv">Porto do RJ · sobreposição 2021–2025</span></div>
+      <div class="op-row"><span class="op-rl">Padrões</span><span class="op-rv">P04 P05 P07</span></div>
+      <div class="op-row"><span class="op-rl">Status</span><span class="op-rv">Em andamento — delações em negociação</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal</span><span style="color:var(--teal)">em curso</span></div><div class="bar-t"><div class="bar-f" style="width:20%;background:var(--teal)"></div></div></div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-name"><span class="bd b-pl" style="font-size:11px">2025 nov</span> Poço de Lobato</div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">Ricardo Magro — Grupo Refit (Miami)</span></div>
+      <div class="op-row"><span class="op-rl">Movimentação</span><span class="op-rv">R$ 12 bi · Delaware LLCs · Houston</span></div>
+      <div class="op-row"><span class="op-rl">Vetor geopolítico</span><span class="op-rv">Diesel russo via Amapá · OFAC</span></div>
+      <div class="op-row"><span class="op-rl">MLAT</span><span class="op-rv">Brasil-EUA invocado — sem resposta pública</span></div>
+      <div class="op-row"><span class="op-rl">Conexão ML</span><span class="op-rv">Corredor portuário RJ · mesmo período</span></div>
+      <div class="op-row"><span class="op-rl">Padrões</span><span class="op-rv">P05 P07</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal</span><span style="color:var(--teal)">em curso</span></div><div class="bar-t"><div class="bar-f" style="width:15%;background:var(--teal)"></div></div></div>
+    </div>
+
+    <div class="op-card">
+      <div class="op-name"><span class="bd b-bm" style="font-size:11px">2025</span> Compliance Zero (Master)</div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">Daniel Vorcaro — Banco Master</span></div>
+      <div class="op-row"><span class="op-rl">Rombo FGC</span><span class="op-rv">R$ 56 bi · 2 prisões em 4 meses</span></div>
+      <div class="op-row"><span class="op-rl">P03 — ator</span><span class="op-rv">Toffoli: sigilo → removido da relatoria</span></div>
+      <div class="op-row"><span class="op-rl">Relatoria atual</span><span class="op-rv">André Mendonça</span></div>
+      <div class="op-row"><span class="op-rl">Padrões</span><span class="op-rv">P01 P02 P03 P04 P05 P06 P07</span></div>
+      <div class="op-row"><span class="op-rl">Status</span><span class="op-rv">Inquérito prorrogado · STF sob sigilo</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal</span><span style="color:var(--pur)">indefinida</span></div><div class="bar-t"><div class="bar-f" style="width:18%;background:var(--pur)"></div></div></div>
+    </div>
+
+    <div class="op-card accent-red">
+      <div class="op-name"><span class="bd b-ml" style="font-size:11px">2026 abr</span> Mare Liberum <span style="font-family:var(--mono);font-size:9px;color:var(--red);margin-left:4px">NOVA</span></div>
+      <div class="op-row"><span class="op-rl">Alvo central</span><span class="op-rv">25 servidores RFB · 9 despachantes · importadores</span></div>
+      <div class="op-row"><span class="op-rl">Movimentação</span><span class="op-rv">R$ 86,6 bi (mercadorias) · R$ 500M fiscal</span></div>
+      <div class="op-row"><span class="op-rl">Bloqueio</span><span class="op-rv">R$ 102 milhões em bens — via TRF-2</span></div>
+      <div class="op-row"><span class="op-rl">Frentes</span><span class="op-rv">Canal vermelho/cinza · óleo&gás admissão temp. · op. portuários</span></div>
+      <div class="op-row"><span class="op-rl">Padrões ativos</span><span class="op-rv">5,5/7 — perfil de risco máximo no D0</span></div>
+      <div class="op-row"><span class="op-rl">Status</span><span class="op-rv">Deflagrada 28/abr/2026 — investigação em curso</span></div>
+      <div class="bar-wrap"><div class="bar-lbl"><span>Efetividade penal</span><span style="color:var(--red)">indefinida · D+0</span></div><div class="bar-t"><div class="bar-f" style="width:5%;background:var(--red)"></div></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: MATRIZ P×O
+════════════════════════════════════════════ -->
+<div id="panel-matrix" class="panel">
+  <div class="sl">Presença dos 7 padrões nas 7 operações</div>
+  <div class="mx-wrap">
+    <table class="mx">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding-left:14px;width:150px">Padrão</th>
+          <th class="vc ml-h">Mare Liberum</th>
+          <th class="vc">Compliance Zero</th>
+          <th class="vc">Carbono Oculto</th>
+          <th class="vc">Poço de Lobato</th>
+          <th class="vc">Lava Jato</th>
+          <th class="vc">Castelo de Areia</th>
+          <th class="vc">Satiagraha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P01 — Vício processual</td>
+          <td class="c-strong">◑</td>
+          <td class="c-strong">◑</td>
+          <td class="c-part">◔</td>
+          <td class="c-part">◔</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+        </tr>
+        <tr>
+          <td>P02 — Investigador investigado</td>
+          <td class="c-part">◔</td>
+          <td class="c-strong">◑</td>
+          <td class="c-none">—</td>
+          <td class="c-none">—</td>
+          <td class="c-full">●</td>
+          <td class="c-none">—</td>
+          <td class="c-full">●</td>
+        </tr>
+        <tr>
+          <td>P03 — Captura judicial</td>
+          <td class="c-strong">◑</td>
+          <td class="c-full">●</td>
+          <td class="c-part">◔</td>
+          <td class="c-part">◔</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+        </tr>
+        <tr>
+          <td>P04 — Weaponização mídia</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-strong">◑</td>
+          <td class="c-part">◔</td>
+          <td class="c-full">●</td>
+          <td class="c-none">—</td>
+          <td class="c-full">●</td>
+        </tr>
+        <tr>
+          <td>P05 — Cofres públicos</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-strong">◑</td>
+        </tr>
+        <tr>
+          <td>P06 — Prescrição estratégica</td>
+          <td class="c-strong">◑</td>
+          <td class="c-strong">◑</td>
+          <td class="c-none">—</td>
+          <td class="c-none">—</td>
+          <td class="c-full">●</td>
+          <td class="c-full">●</td>
+          <td class="c-none">—</td>
+        </tr>
+        <tr>
+          <td>P07 — Infra advisória</td>
+          <td class="c-part">◔</td>
+          <td class="c-full">●</td>
+          <td class="c-strong">◑</td>
+          <td class="c-strong">◑</td>
+          <td class="c-none">—</td>
+          <td class="c-none">—</td>
+          <td class="c-none">—</td>
+        </tr>
+        <tr style="border-top:.5px solid var(--b2)">
+          <td style="font-family:var(--mono);font-size:10px;color:var(--text3)">Padrões ativos</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--red);font-weight:600">5,5/7</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--cor);font-weight:600">7/7</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--teal);font-weight:600">3,5/7</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--amb);font-weight:600">3/7</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--blue);font-weight:600">6/7</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--text2);font-weight:600">4/7</td>
+          <td style="font-family:var(--mono);font-size:12px;color:var(--pur);font-weight:600">4/7</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="legend" style="margin-top:10px">
+    <span class="leg-i"><span style="color:var(--red);font-size:14px">●</span> Documentado</span>
+    <span class="leg-i"><span style="color:var(--amb);font-size:13px">◑</span> Forte evidência</span>
+    <span class="leg-i"><span style="color:var(--teal);font-size:12px">◔</span> Parcial / latente</span>
+    <span class="leg-i"><span style="color:var(--text3);font-size:11px">—</span> Ausente</span>
+  </div>
+  <div class="callout" style="margin-top:12px">
+    <strong>Mare Liberum em perspectiva:</strong> 5,5/7 padrões no dia da deflagração é o segundo maior perfil de risco do corpus — apenas o Banco Master (em andamento há mais de um ano) acumula os 7/7. A diferença: BM acumulou padrões ao longo do tempo; ML entrou com 5,5 no D+0, o que é inédito no corpus.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: HEATMAP
+════════════════════════════════════════════ -->
+<div id="panel-heatmap" class="panel">
+  <div class="sl">Intensidade de ativação dos padrões por operação</div>
+  <div style="overflow-x:auto">
+    <div style="min-width:560px">
+      <!-- header -->
+      <div style="display:flex;gap:6px;margin-bottom:8px;padding-left:150px">
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">ML</div>
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">BM</div>
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">CO</div>
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">PL</div>
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">LJ</div>
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">CA</div>
+        <div style="width:34px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--text3)">SA</div>
+        <div style="min-width:60px;font-family:var(--mono);font-size:9px;color:var(--text3);padding-left:8px">Score</div>
+      </div>
+      <!-- rows: value 0-4: 4=documentado,3=forte,2=parcial,1=vago,0=ausente -->
+      <script>
+      const hdata = [
+        {label:'P01 — Vício processual', vals:[3,3,2,2,4,4,4]},
+        {label:'P02 — Investigador investigado', vals:[2,3,0,0,4,0,4]},
+        {label:'P03 — Captura judicial', vals:[3,4,2,2,4,4,4]},
+        {label:'P04 — Weaponização mídia', vals:[4,4,3,2,4,0,4]},
+        {label:'P05 — Cofres públicos', vals:[4,4,4,4,4,4,3]},
+        {label:'P06 — Prescrição estratégica', vals:[3,3,0,0,4,4,0]},
+        {label:'P07 — Infra advisória', vals:[2,4,3,3,0,0,0]},
+      ];
+      const cls = ['h0','h1','h2','h3','h4'];
+      const lbl = ['—','○','◔','◑','●'];
+      document.addEventListener('DOMContentLoaded',()=>{
+        const wrap = document.getElementById('hmap-rows');
+        hdata.forEach(row=>{
+          const total = row.vals.reduce((a,b)=>a+b,0);
+          const max = row.vals.length*4;
+          const pct = Math.round(total/max*100);
+          let html=`<div style="display:flex;gap:6px;margin-bottom:5px;align-items:center">`;
+          html+=`<div style="width:150px;font-family:var(--mono);font-size:10px;color:var(--text2);padding-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${row.label}</div>`;
+          row.vals.forEach(v=>{
+            html+=`<div class="hcell ${cls[v]}" title="Intensidade ${v}/4">${lbl[v]}</div>`;
+          });
+          const color = pct>=70?'var(--red)':pct>=40?'var(--amb)':'var(--teal)';
+          html+=`<div style="min-width:60px;font-family:var(--mono);font-size:11px;color:${color};padding-left:8px;font-weight:500">${pct}%</div>`;
+          html+='</div>';
+          wrap.innerHTML+=html;
+        });
+      });
+      </script>
+      <div id="hmap-rows"></div>
+    </div>
+  </div>
+
+  <div class="legend" style="margin-top:12px">
+    <span class="leg-i"><span class="hcell h4" style="width:20px;height:20px;font-size:9px">●</span> Documentado (4)</span>
+    <span class="leg-i"><span class="hcell h3" style="width:20px;height:20px;font-size:9px">◑</span> Forte (3)</span>
+    <span class="leg-i"><span class="hcell h2" style="width:20px;height:20px;font-size:9px">◔</span> Parcial (2)</span>
+    <span class="leg-i"><span class="hcell h1" style="width:20px;height:20px;font-size:9px">○</span> Vago (1)</span>
+    <span class="leg-i"><span class="hcell h0" style="width:20px;height:20px;font-size:9px">—</span> Ausente (0)</span>
+    <span>Score = % da intensidade máxima por padrão</span>
+  </div>
+
+  <div class="sl" style="margin-top:1.5rem">Score de captura institucional por operação (índice composto)</div>
+  <div class="card" style="padding:16px">
+    <div style="font-size:11px;color:var(--text3);margin-bottom:12px;font-family:var(--mono)">Base: magistrado superior suspeito · anulação atípica · investigador punido · ator político · prescrição induzida · lavagem sofisticada</div>
+    <div id="scores"></div>
+    <script>
+    const scores=[
+      {op:'Banco Master',v:92,c:'var(--red)'},
+      {op:'Mare Liberum',v:78,c:'var(--red)',note:'* D+0 — projetado'},
+      {op:'Satiagraha',v:85,c:'var(--red)'},
+      {op:'Castelo de Areia',v:72,c:'var(--amb)'},
+      {op:'Lava Jato',v:68,c:'var(--amb)'},
+      {op:'Carbono Oculto',v:55,c:'var(--teal)'},
+      {op:'Poço de Lobato',v:48,c:'var(--teal)'},
+    ];
+    document.addEventListener('DOMContentLoaded',()=>{
+      const w=document.getElementById('scores');
+      scores.forEach(s=>{
+        w.innerHTML+=`<div class="prog-row">
+          <div class="prog-op">${s.op}</div>
+          <div class="prog-bar"><div class="bar-t"><div class="bar-f" style="width:${s.v}%;background:${s.c}"></div></div></div>
+          <div class="prog-pct" style="color:${s.c}">${s.v}/100${s.note?'*':''}</div>
+        </div>`;
+      });
+      w.innerHTML+='<div style="font-size:10px;color:var(--text3);margin-top:8px;font-family:var(--mono)">* Mare Liberum: projeção baseada em padrões do D+0. Revisável conforme desdobramentos.</div>';
+    });
+    </script>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: CONEXÕES
+════════════════════════════════════════════ -->
+<div id="panel-conexoes" class="panel">
+  <div class="sl">Conexões documentadas entre operações</div>
+  <div class="conn-grid">
+
+    <div class="cconn hot">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-ml">ML</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-co">CO</span></div>
+      <div class="conn-title">Porto do RJ · setor combustíveis · sobreposição temporal</div>
+      <div class="conn-body">Carbono Oculto atuou no RJ com importação fraudulenta de combustíveis (2021–2025). ML cobre Jul/2021–Mar/2026 no mesmo porto. Mecânica diferente (admissão temporária vs. interposição fraudulenta), mesmo setor, mesma janela. Conexão operacional não confirmada em fontes públicas.</div>
+    </div>
+
+    <div class="cconn hot">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-ml">ML</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-pl">PL</span></div>
+      <div class="conn-title">Corredor portuário RJ · Grupo Refit · diesel russo</div>
+      <div class="conn-body">Poço de Lobato documentou uso de portos do RJ pelo Grupo Refit para importação de diesel russo. Sobreposição temporal direta (2021–2026). Pergunta aberta: alguma das 17.000 DIs da ML coincide com operações Refit já mapeadas pela RFB?</div>
+    </div>
+
+    <div class="cconn warm">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-ml">ML</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-lj">LJ</span></div>
+      <div class="conn-title">Servidor como nó central · setor de O&G</div>
+      <div class="conn-body">Lava Jato: diretores Petrobras corrompidos por empreiteiras. ML: auditores fiscais corrompidos diretamente por importadores. Modelo estrutural idêntico — diferença: na ML o servidor é o próprio mecanismo de verificação, não apenas um intermediário. Setor de O&G como vetor comum.</div>
+    </div>
+
+    <div class="cconn warm">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-ml">ML</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-bm">BM</span></div>
+      <div class="conn-title">P07 — infraestrutura advisória · fundos fechados</div>
+      <div class="conn-body">Banco Master: fundos fechados como veículo central de lavagem. CO: 40 fundos para blindar R$ 30B. Se as "dezenas de milhões" em propinas da ML usaram estrutura similar, confirma P07. Hipótese a confirmar via estrutura patrimonial dos 25 servidores afastados.</div>
+    </div>
+
+    <div class="cconn warm">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-ml">ML</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-sa">SA</span></div>
+      <div class="conn-title">Corregedoria interna — força e vulnerabilidade</div>
+      <div class="conn-body">Satiagraha: participação informal da ABIN como calcanhar de Aquiles. ML: Corregedoria da RFB co-lidera, o que elimina o risco da ABIN — mas 4 anos de monitoramento interno sem mandado declarado cria risco análogo. Estrutura do P01 se reproduz em nova configuração.</div>
+    </div>
+
+    <div class="cconn cool">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-ml">ML</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-ca">CA</span></div>
+      <div class="conn-title">Prescrição via redistribuição · Porto como locus histórico</div>
+      <div class="conn-body">CA: anulada 2011, recomeçou, prescreveu na redistribuição. ML: se houver questão de competência Porto do Rio vs. Galeão (alfândegas distintas) ou RJ vs. Brasília, a janela prescricional se abre pelo mesmo mecanismo. O Porto do Rio tem histórico de investigações nunca concluídas.</div>
+    </div>
+
+    <div class="cconn cool">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-co">CO</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-pl">PL</span></div>
+      <div class="conn-title">Grupo Refit · combustível russo · cadeia PCC</div>
+      <div class="conn-body">CO e PL são operações explicitamente vinculadas: nota oficial da RFB sobre Poço de Lobato a classifica como "ligada à Operação Carbono Oculto". Grupo Refit (PL) fornecia combustível para a rede PCC desarticulada na CO. Uso de "fintechs banco-bolsão" e fundos REAG como padrão comum.</div>
+    </div>
+
+    <div class="cconn cool">
+      <div style="display:flex;gap:4px;margin-bottom:5px"><span class="bd b-bm">BM</span><span style="color:var(--text3);font-size:12px;padding:2px 6px">↔</span><span class="bd b-co">CO</span></div>
+      <div class="conn-title">Fintechs conta-bolsão · créditos de carbono fictícios</div>
+      <div class="conn-body">CO documentou fintechs conta-bolsão para transitar R$ 46B em transações. BM usou modelo similar de fundos fechados e instrumentos de captação irregular. Família Vorcaro (BM) também tinha projeto de créditos de carbono em terras públicas da Amazônia — investigado em Greenwashing.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: ATORES RECORRENTES
+════════════════════════════════════════════ -->
+<div id="panel-atores" class="panel">
+  <div class="sl">Atores presentes em 2+ operações (clique para expandir)</div>
+  <div class="actor-grid">
+
+    <div class="acard">
+      <div class="aname">Gilmar Mendes</div>
+      <div class="arole">Ministro STF — Decano desde 2021</div>
+      <div class="aops"><span class="bd b-sa">SA</span><span class="bd b-lj">LJ</span><span class="bd b-ca">CA</span></div>
+      <div class="adesc">SA: concedeu 2 HC a Daniel Dantas em menos de 48h — Dantas entrou preso segunda-feira, saiu quarta. LJ: presidiu 2ª Turma que anulou condenações de Lula por incompetência territorial. CA: votou pela manutenção da decisão do STJ que anulou a operação. Múltiplos pedidos de suspeição indeferidos ao longo da carreira.</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">Dias Toffoli</div>
+      <div class="arole">Ministro STF — ex-relator Banco Master</div>
+      <div class="aops"><span class="bd b-bm">BM</span><span class="bd b-lj">LJ</span></div>
+      <div class="adesc">BM: assumiu relatoria no STF, decretou sigilo máximo ao pedido da defesa de Vorcaro. Revelado: cunhado de Vorcaro investiu em resort da família Toffoli. Removido da relatoria — redistribuída para André Mendonça. LJ: participou de votos que reduziram o escopo das investigações. Padrão P03 em duas operações distintas.</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">Receita Federal — Corregedoria</div>
+      <div class="arole">Órgão investigador interno</div>
+      <div class="aops"><span class="bd b-ml">ML</span><span class="bd b-co">CO</span><span class="bd b-pl">PL</span></div>
+      <div class="adesc">Mare Liberum: Corregedoria co-lidera operação desde fev/2022. Carbono Oculto: Receita liderou e identificou 40 fundos, 1.000+ postos irregulares. Poço de Lobato: Receita reteve 180M litros de diesel russo e documentou LLCs em Delaware. A Corregedoria se torna um ator investigativo sistêmico no corpus a partir de 2025.</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">GAECO/MPF</div>
+      <div class="arole">Grupo de Combate ao Crime Organizado — MPF</div>
+      <div class="aops"><span class="bd b-ml">ML</span><span class="bd b-co">CO</span><span class="bd b-bm">BM</span></div>
+      <div class="adesc">Presente como co-executor nas três operações mais recentes do corpus. Na ML: co-assina a operação com PF e RFB, criando proteção institucional adicional contra o padrão P02 (investigador investigado). A presença do GAECO como parceiro sistemático é uma evolução em relação às operações anteriores (SA, CA, LJ), onde havia mais agentes isolados.</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">Ricardo Magro</div>
+      <div class="arole">Controlador Grupo Refit — Miami (EUA)</div>
+      <div class="aops"><span class="bd b-pl">PL</span><span class="bd b-co">CO</span></div>
+      <div class="adesc">Poço de Lobato: alvo central, residente em Miami com green card americano. Controla 50+ empresas incluindo J. Global Holding (Houston). Citado nominalmente por Lula em conversas com Trump. CO: distribuidoras do Grupo Refit forneciam combustível para rede PCC. Portador de green card americano cria exposição OFAC e potencial FCPA para qualquer banco que transacionou com o grupo.</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">Daniel Vorcaro</div>
+      <div class="arole">Controlador Banco Master — 2 prisões em 2025</div>
+      <div class="aops"><span class="bd b-bm">BM</span></div>
+      <div class="adesc">Banco Master: 2 prisões em 4 meses, ambas seguidas de soltura. Conexão com Toffoli via cunhado que investiu em resort da família do ministro. Acessou ilegalmente sistemas da PF e usou site para "esquentar" informação sigilosa. Família Vorcaro também investigada em Greenwashing (créditos de carbono fictícios em terras públicas da Amazônia).</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">Protógenes Queiroz</div>
+      <div class="arole">Ex-delegado PF — asilado político Suíça desde 2016</div>
+      <div class="aops"><span class="bd b-sa">SA</span></div>
+      <div class="adesc">Satiagraha: conduziu a operação, foi condenado pelo STF a 2,5 anos e expulso da PF pela participação da ABIN. Caso paradigmático do P02: o único condenado pela Satiagraha foi o delegado que investigou, não o banqueiro que foi preso. Hoje asilado político na Suíça. Seu destino é citado como efeito dissuasório sobre investigadores que considerem avançar contra o poder.</div>
+    </div>
+
+    <div class="acard">
+      <div class="aname">Sérgio Moro</div>
+      <div class="arole">Ex-juiz LJ — declarado parcial pelo STF em 2021</div>
+      <div class="aops"><span class="bd b-lj">LJ</span></div>
+      <div class="adesc">Lava Jato: juiz da 13ª Vara de Curitiba por 7 anos. Declarado parcial pelo STF em 2021 — condenações de Lula anuladas. Tornou-se ministro da Justiça no governo Bolsonaro imediatamente após deixar a magistratura. Dallagnol (procurador-chefe da LJ) teve o mandato de deputado cassado. O padrão P02 os atingiu com intensidades diferentes mas pelo mesmo mecanismo sistêmico.</div>
+    </div>
+
+  </div>
+
+  <div class="callout" style="margin-top:16px">
+    <strong>Padrão estatístico:</strong> A presença dos mesmos mecanismos (HC atípico, anulação processual, investigador punido) em operações com investigadores, juízes e empresas completamente diferentes — em anos distintos — é consistente com uma arquitetura de proteção que se adapta a cada nova operação sem depender dos mesmos atores individuais.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: KPIs
+════════════════════════════════════════════ -->
+<div id="panel-kpis" class="panel">
+  <div class="sl">KPIs de impunidade — corpus completo</div>
+  <div class="g3">
+    <div class="kpi"><div class="kpi-v" style="color:var(--red)">0%</div><div class="kpi-l">Efetividade CA e SA</div><div class="kpi-s">0 condenações mantidas em 2 operações</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--amb)">~30%</div><div class="kpi-l">Efetividade LJ residual</div><div class="kpi-s">Somente condenações não-Lula mantidas</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--amb)">~4%</div><div class="kpi-l">Valor recuperado / investigado</div><div class="kpi-s">R$ 12B recuperados / R$ 310B corpus</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--blue)">2,4 anos</div><div class="kpi-l">Tempo médio até anulação</div><div class="kpi-s">CA: 2a · SA: 3a · LJ: 7a</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--pur)">3–4</div><div class="kpi-l">Escritórios de defesa recorrentes</div><div class="kpi-s">Toron, Vilardi, Mendonça — múltiplas ops</div></div>
+    <div class="kpi"><div class="kpi-v" style="color:var(--cor)">6+</div><div class="kpi-l">Atores em 2+ operações</div><div class="kpi-s">Juízes STF, advogados, empresas</div></div>
+  </div>
+
+  <div class="sl" style="margin-top:1.5rem">Taxa de efetividade penal por operação</div>
+  <div class="card">
+    <div id="efet-bars"></div>
+    <script>
+    const efet=[
+      {op:'Castelo de Areia (2009)',v:0,c:'var(--red)',lbl:'0% — anulada'},
+      {op:'Satiagraha (2008)',v:0,c:'var(--red)',lbl:'0% — anulada'},
+      {op:'Lava Jato (2014–2021)',v:30,c:'var(--amb)',lbl:'~30% — parcial'},
+      {op:'Carbono Oculto (2025)',v:20,c:'var(--teal)',lbl:'em curso'},
+      {op:'Poço de Lobato (2025)',v:15,c:'var(--teal)',lbl:'em curso'},
+      {op:'Compliance Zero (2025)',v:12,c:'var(--pur)',lbl:'em curso'},
+      {op:'Mare Liberum (2026)',v:5,c:'var(--red)',lbl:'D+0 — indefinida'},
+    ];
+    document.addEventListener('DOMContentLoaded',()=>{
+      const w=document.getElementById('efet-bars');
+      efet.forEach(e=>{
+        w.innerHTML+=`<div class="prog-row">
+          <div class="prog-op">${e.op}</div>
+          <div class="prog-bar"><div class="bar-t"><div class="bar-f" style="width:${Math.max(e.v,1)}%;background:${e.c}"></div></div></div>
+          <div class="prog-pct" style="color:${e.c}">${e.lbl}</div>
+        </div>`;
+      });
+    });
+    </script>
+  </div>
+
+  <div class="callout amb" style="margin-top:12px">
+    <strong>A aritmética da impunidade:</strong> das 7 operações do corpus, 2 têm efetividade 0%, 1 tem ~30% residual, e 4 estão em andamento com desfecho indefinido. A probabilidade estatística de que 4 operações simultâneas em andamento todas resultem em condenação integral — contrariando o padrão histórico de 83% de extinção ou redução severa — é sistematicamente baixa enquanto os mesmos mecanismos estruturais (P01–P07) permanecerem ativos.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: CORPUS COMPLETO
+════════════════════════════════════════════ -->
+<div id="panel-links" class="panel">
+  <div class="sl">Artefatos do corpus — gosurf.site</div>
+  <div class="link-grid">
+    <a class="llink hl" href="https://gosurf.site/mare-liberum" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Operação Mare Liberum — Análise Transversal</div><div class="llink-m">NOVA · 28 abr 2026 · 7 padrões · 5 lacunas</div></a>
+    <a class="llink hl" href="https://gosurf.site/paralelos" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Paralelos — 4 Operações Anticorrupção</div><div class="llink-m">BASE DO CORPUS · Padrões sistêmicos P01–P06</div></a>
+    <a class="llink hl" href="https://gosurf.site/padroes-sistemicos-dashboard" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Mestre: Padrões × Operações — Dossiê 2026</div><div class="llink-m">DASHBOARD CENTRAL · Análise transversal</div></a>
+    <a class="llink" href="https://gosurf.site/carbono-oculto" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Operação Carbono Oculto — Mapa Forense</div><div class="llink-m">OPERAÇÃO · PCC · Combustíveis · 40 fundos</div></a>
+    <a class="llink" href="https://gosurf.site/operacao-poco-de-lobato" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Operação Poço de Lobato — Dashboard</div><div class="llink-m">OPERAÇÃO · Diesel russo · OFAC · Delaware</div></a>
+    <a class="llink" href="https://gosurf.site/banco-master-compliance-zero" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Banco Master — Operação Compliance Zero</div><div class="llink-m">OPERAÇÃO · FGC R$ 56B · Toffoli · STF</div></a>
+    <a class="llink" href="https://gosurf.site/operacao-lava-jato" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Lava Jato — Dashboard Analítico</div><div class="llink-m">OPERAÇÃO · Petrobras · 278 condenações</div></a>
+    <a class="llink" href="https://gosurf.site/satiagraha" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Operação Satiagraha</div><div class="llink-m">OPERAÇÃO · Dantas · ABIN · Gilmar</div></a>
+    <a class="llink" href="https://gosurf.site/operacao-castelo-de-areia" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Operação Castelo de Areia</div><div class="llink-m">OPERAÇÃO · Camargo Corrêa · Asfor Rocha</div></a>
+    <a class="llink" href="https://gosurf.site/republica-capturada" target="_blank"><span class="llink-a">↗</span><div class="llink-t">República Capturada — Dashboard</div><div class="llink-m">ANÁLISE SISTÊMICA · Perguntas sem resposta</div></a>
+    <a class="llink" href="https://gosurf.site/polvorcaro-registro" target="_blank"><span class="llink-a">↗</span><div class="llink-t">O Polvorcaro — Registro Documental</div><div class="llink-m">BANCO MASTER · Toffoli · Conexões</div></a>
+    <a class="llink" href="https://gosurf.site/rede-master-conexoes" target="_blank"><span class="llink-a">↗</span><div class="llink-t">TEIA MASTER — Rede de Conexões</div><div class="llink-m">MAPA MENTAL · Master · STF · PCC</div></a>
+    <a class="llink" href="https://gosurf.site/jbs-leviata-batista" target="_blank"><span class="llink-a">↗</span><div class="llink-t">O Leviatã dos Batistas — JBS/J&F</div><div class="llink-m">IMPUNIDADE SISTÊMICA · Delação J&F</div></a>
+    <a class="llink" href="https://gosurf.site/mapa-erosao-institucional-1990-2026" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Mapa de Erosão Institucional 1990–2026</div><div class="llink-m">TIMELINE · Contexto histórico</div></a>
+    <a class="llink" href="https://gosurf.site/duplo-padrao-judicial" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Duplo Padrão Judicial — Dossiê 2026</div><div class="llink-m">LAWFARE · Assimetria judicial documentada</div></a>
+    <a class="llink" href="https://gosurf.site/operacao-sem-desconto" target="_blank"><span class="llink-a">↗</span><div class="llink-t">Operação Sem Desconto — Dossiê</div><div class="llink-m">PRÓXIMA NO CORPUS · Em análise</div></a>
+  </div>
+
+  <div class="sl" style="margin-top:1.5rem">Repositório</div>
+  <div class="card" style="font-size:13px;color:var(--text2);line-height:1.7">
+    <span style="font-family:var(--mono);font-size:11px;color:var(--teal)">CC0 1.0 Universal — domínio público total.</span> Código, dados e JSONs disponíveis para fork, adaptação e redistribuição sem restrições.<br><br>
+    <strong style="color:var(--text)">lawfare-timeline.vercel.app</strong> · IDs 1–165 · Curadoria: Araguaci / AI Nativo Brasil · Artes do Sul
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  <span>Matriz de Emaranhamento · <a href="https://gosurf.site/emaranhamento-operacoes" target="_blank">gosurf.site</a></span>
+  <span>Atualizado 28 abr 2026 · Mare Liberum integrada</span>
+  <span>CC0 1.0 Universal — domínio público</span>
+  <span>7 operações · IDs 1–165</span>
+</div>
+
+<a href="#" class="gotop" id="gotop" title="Voltar ao topo">
+  <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>
+</a>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.tb');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-100px 0px -50% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('on'));
+        const activeTab = document.querySelector(`.tb[href="#${entry.target.id}"]`);
+        if (activeTab) {
+          activeTab.classList.add('on');
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.panel').forEach(sec => observer.observe(sec));
+
+  // GoTop button
+  const gotop = document.getElementById('gotop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      gotop.classList.add('show');
+    } else {
+      gotop.classList.remove('show');
+    }
+  });
+  gotop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

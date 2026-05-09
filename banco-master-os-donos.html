@@ -585,7 +585,7 @@
     .hero-sub { font-size: .9rem; max-width: 560px; }
     .map-wrapper { padding: 2rem 1.5rem; }
     .center-card { padding: 1.5rem 2.5rem; }
-    .branches { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .branches { display: flex; flex-direction: column; gap: 2rem; }
     .legend { display: block; }
     .detail-panel { width: 360px; }
     .disclaimer { margin: 3rem auto; padding: 1.25rem 1.5rem; }
@@ -632,7 +632,70 @@
     .disclaimer strong { color: #a63d2e !important; }
     a[href]::after { content: none !important; }
   }
+
+  /* Scroll Spy Nav */
+  .nav-tabs {
+    display: flex;
+    background: rgba(10,11,14,.95);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 52px;
+    z-index: 99;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  @media (min-width: 640px) {
+    .nav-tabs { top: 64px; padding: 0 1.5rem; }
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 14px;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Expanded Node Body */
+  .node-body-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,.05);
+    display: block;
+  }
+  .node-body-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .6rem;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .4rem;
+  }
+  .node-body-text {
+    font-size: .85rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .node-body-text strong { color: var(--text); font-weight: 600; }
+  
+  /* Make node item static */
+  .node-item { cursor: text; border-left-color: transparent !important; }
+  .node-item:hover, .node-item:focus { transform: none; background: rgba(255,255,255,.02); box-shadow: none; outline: none; }
 </style>
+
 </head>
 <body>
 
@@ -644,8 +707,9 @@
   <nav class="toolbar" aria-label="Controles de acessibilidade">
     <span class="toolbar-title" aria-hidden="true">⬡ Mapa Mental</span>
     <div class="toolbar-controls" role="group" aria-label="Opções de acessibilidade">
-      <button class="ctrl-btn" id="btn-expand-all" aria-label="Expandir todos os grupos">Expandir tudo</button>
-      <button class="ctrl-btn" id="btn-collapse-all" aria-label="Recolher todos os grupos">Recolher tudo</button>
+      <!-- Botões expandir/recolher removidos pois layout é expandido por padrão -->
+      
+      
       <button class="ctrl-btn" id="btn-contrast" aria-label="Alternar alto contraste" aria-pressed="false">Alto Contraste</button>
       <div class="font-size-group" role="group" aria-label="Tamanho da fonte">
         <button class="ctrl-btn" id="btn-font-down" aria-label="Diminuir tamanho da fonte" title="Diminuir (Ctrl+-)">A−</button>
@@ -658,6 +722,15 @@
     </div>
   </nav>
 </header>
+
+<!-- Nav Scroll Spy -->
+<nav class="nav-tabs" id="scroll-spy-nav" aria-label="Navegação das sessões">
+  <button class="nav-tab active" data-target="branch-vorcaro">Daniel Vorcaro</button>
+  <button class="nav-tab" data-target="branch-moraes">Alexandre de Moraes</button>
+  <button class="nav-tab" data-target="branch-dubai">Conexões Dubai / EAU</button>
+  <button class="nav-tab" data-target="branch-politica">Contexto Político</button>
+</nav>
+
 
 <!-- Overlay -->
 <div class="overlay" id="overlay" aria-hidden="true" role="presentation"></div>
@@ -698,6 +771,7 @@
 
       <!-- 1. Vorcaro -->
       <div class="branch branch-amarelo" role="listitem">
+        <a id="branch-vorcaro" style="position:relative;top:-120px;display:block;"></a>
         <button class="branch-header" id="header-1" aria-expanded="true" aria-controls="body-1"
           aria-describedby="count-1">
           <div class="branch-icon" aria-hidden="true">🏦</div>
@@ -707,45 +781,65 @@
         </button>
         <div class="branch-body open" id="body-1" role="region" aria-labelledby="header-1">
           <ul class="node-list" aria-label="Tópicos sobre Daniel Vorcaro">
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Origem e ascensão — clique para detalhes"
-              data-title="Origem e Ascensão" data-cat="Vorcaro"
-              data-body="Segundo o artigo, Vorcaro teria se tornado bilionário graças a articulações políticas de <strong>Rui Costa</strong> e <strong>Jaques Wagner</strong> na Bahia. Descrito como ambicioso e sem escrúpulos, teria construído fortuna em negócios com envolvimento político.">
+              data-title="Origem e Ascensão" data-cat="Vorcaro">
               <div class="node-title">Origem e Ascensão</div>
               <div class="node-desc">Articulações com Rui Costa e Jaques Wagner na Bahia.</div>
               <span class="node-tag">Bahia</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">Segundo o artigo, Vorcaro teria se tornado bilionário graças a articulações políticas de <strong>Rui Costa</strong> e <strong>Jaques Wagner</strong> na Bahia. Descrito como ambicioso e sem escrúpulos, teria construído fortuna em negócios com envolvimento político.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Mansão em Trancoso — clique para detalhes"
-              data-title="Mansão em Trancoso" data-cat="Vorcaro"
-              data-body="O autor alega que Vorcaro comprou uma <strong>mansão em Trancoso</strong> (BA), instalou câmeras em vários cômodos e gravou conversas e encontros com figuras de poder. A tese é que esse material seria usado como <em>kompromat</em> — material comprometedor para chantagem ou proteção.">
+              data-title="Mansão em Trancoso" data-cat="Vorcaro">
               <div class="node-title">Mansão em Trancoso</div>
               <div class="node-desc">Câmeras escondidas, gravações de reuniões e "bacanais".</div>
               <span class="node-tag">Kompromat</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O autor alega que Vorcaro comprou uma <strong>mansão em Trancoso</strong> (BA), instalou câmeras em vários cômodos e gravou conversas e encontros com figuras de poder. A tese é que esse material seria usado como <em>kompromat</em> — material comprometedor para chantagem ou proteção.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Investigação de R$ 12 bilhões — clique para detalhes"
-              data-title="Investigação R$ 12 bi" data-cat="Vorcaro"
-              data-body="Vorcaro está envolvido em investigações por suspeita de <strong>fraude de R$ 12 bilhões</strong>. O banco foi submetido a processo de liquidação extrajudicial. A defesa alega que as movimentações financeiras tinham finalidade legítima.">
+              data-title="Investigação R$ 12 bi" data-cat="Vorcaro">
               <div class="node-title">Suspeita de Fraude</div>
               <div class="node-desc">Investigação de R$ 12 bilhões e liquidação extrajudicial.</div>
               <span class="node-tag">Fraude</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">Vorcaro está envolvido em investigações por suspeita de <strong>fraude de R$ 12 bilhões</strong>. O banco foi submetido a processo de liquidação extrajudicial. A defesa alega que as movimentações financeiras tinham finalidade legítima.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Prisão em Guarulhos — clique para detalhes"
-              data-title="Prisão no Aeroporto" data-cat="Vorcaro"
-              data-body="Em <strong>17 de novembro de 2025</strong>, Vorcaro foi preso pela Polícia Federal no Aeroporto de Guarulhos ao tentar embarcar em jato particular com destino a Malta (parada técnica antes de Dubai). A defesa alegou que a viagem tinha fins legais — assinar a venda do banco à Fictor Holding — e que o BC havia sido notificado.">
+              data-title="Prisão no Aeroporto" data-cat="Vorcaro">
               <div class="node-title">Prisão em Guarulhos</div>
               <div class="node-desc">17/11/2025 — detido antes de embarcar para Malta/Dubai.</div>
               <span class="node-tag">PF</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">Em <strong>17 de novembro de 2025</strong>, Vorcaro foi preso pela Polícia Federal no Aeroporto de Guarulhos ao tentar embarcar em jato particular com destino a Malta (parada técnica antes de Dubai). A defesa alegou que a viagem tinha fins legais — assinar a venda do banco à Fictor Holding — e que o BC havia sido notificado.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Patrocínio de políticos — clique para detalhes"
-              data-title="Rede Política" data-cat="Vorcaro"
-              data-body="O artigo afirma que Vorcaro patrocinou políticos em diferentes espectros — <strong>esquerda</strong> e <strong>centrão</strong> — como estratégia de blindagem para suas operações. A tese é que favores e privilégios a políticos não seriam suficientes para os objetivos mais ambiciosos.">
+              data-title="Rede Política" data-cat="Vorcaro">
               <div class="node-title">Rede Política</div>
               <div class="node-desc">Patrocínio a políticos da esquerda ao centrão.</div>
               <span class="node-tag">Influência</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O artigo afirma que Vorcaro patrocinou políticos em diferentes espectros — <strong>esquerda</strong> e <strong>centrão</strong> — como estratégia de blindagem para suas operações. A tese é que favores e privilégios a políticos não seriam suficientes para os objetivos mais ambiciosos.</div>
+              </div>
             </li>
           </ul>
         </div>
@@ -753,6 +847,7 @@
 
       <!-- 2. Alexandre de Moraes -->
       <div class="branch branch-vermelho" role="listitem">
+        <a id="branch-moraes" style="position:relative;top:-120px;display:block;"></a>
         <button class="branch-header" id="header-2" aria-expanded="true" aria-controls="body-2"
           aria-describedby="count-2">
           <div class="branch-icon" aria-hidden="true">⚖️</div>
@@ -762,45 +857,65 @@
         </button>
         <div class="branch-body open" id="body-2" role="region" aria-labelledby="header-2">
           <ul class="node-list" aria-label="Tópicos sobre Alexandre de Moraes">
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Tese do sócio oculto — clique para detalhes"
-              data-title="Tese: Sócio Oculto" data-cat="Moraes"
-              data-body="A tese central do artigo — sem provas apresentadas — é que Moraes seria o <strong>'sócio oculto'</strong> de Vorcaro no Banco Master. O autor alega que Moraes reúne as características necessárias: ambição, poder, ausência de escrúpulos. Trata-se de uma alegação especulativa.">
+              data-title="Tese: Sócio Oculto" data-cat="Moraes">
               <div class="node-title">Tese: "Sócio Oculto"</div>
               <div class="node-desc">Alegação especulativa do autor — sem provas documentais.</div>
               <span class="node-tag">Especulação</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">A tese central do artigo — sem provas apresentadas — é que Moraes seria o <strong>'sócio oculto'</strong> de Vorcaro no Banco Master. O autor alega que Moraes reúne as características necessárias: ambição, poder, ausência de escrúpulos. Trata-se de uma alegação especulativa.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Contrato de R$ 129 milhões — clique para detalhes"
-              data-title="Contrato R$ 129 mi" data-cat="Moraes"
-              data-body="O artigo menciona um <strong>contrato vazado</strong> envolvendo o escritório jurídico da família de Moraes no valor de <strong>R$ 129 milhões</strong>. O autor questiona se esse valor seria um 'pró-labore' pela participação societária no banco ou lavagem de dinheiro. Não há documentos apresentados no texto para confirmar essa tese.">
+              data-title="Contrato R$ 129 mi" data-cat="Moraes">
               <div class="node-title">Contrato R$ 129 mi</div>
               <div class="node-desc">Escritório da família — suposto pró-labore ou lavagem?</div>
               <span class="node-tag">Financeiro</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O artigo menciona um <strong>contrato vazado</strong> envolvendo o escritório jurídico da família de Moraes no valor de <strong>R$ 129 milhões</strong>. O autor questiona se esse valor seria um 'pró-labore' pela participação societária no banco ou lavagem de dinheiro. Não há documentos apresentados no texto para confirmar essa tese.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Viagem a Dubai — clique para detalhes"
-              data-title="Viagem a Dubai" data-cat="Moraes"
-              data-body="O casal Moraes foi <strong>filmado e fotografado em Dubai</strong> durante o Réveillon 2025-2026 (final de dezembro de 2025 / início de janeiro de 2026). As imagens mostram-os caminhando em áreas comerciais. O autor faz uma correlação com as viagens de Vorcaro a Dubai e os investidores árabes, mas não apresenta evidência de ligação direta.">
+              data-title="Viagem a Dubai" data-cat="Moraes">
               <div class="node-title">Viagem a Dubai</div>
               <div class="node-desc">Réveillon 2025-2026 — correlacionado com conexões de Vorcaro.</div>
               <span class="node-tag">Dubai</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O casal Moraes foi <strong>filmado e fotografado em Dubai</strong> durante o Réveillon 2025-2026 (final de dezembro de 2025 / início de janeiro de 2026). As imagens mostram-os caminhando em áreas comerciais. O autor faz uma correlação com as viagens de Vorcaro a Dubai e os investidores árabes, mas não apresenta evidência de ligação direta.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Aspiração à presidência — clique para detalhes"
-              data-title="Aspiração Presidencial" data-cat="Moraes"
-              data-body="O autor afirma que pessoas próximas a Moraes saberiam de seu desejo de <strong>tornar-se presidente do Brasil</strong>. Essa ambição seria, na tese do artigo, o vetor que o tornaria receptivo à parceria com Vorcaro. Não há fontes identificadas citadas.">
+              data-title="Aspiração Presidencial" data-cat="Moraes">
               <div class="node-title">Ambição Presidencial</div>
               <div class="node-desc">Alegação de aspiração de Moraes à presidência.</div>
               <span class="node-tag">Política</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O autor afirma que pessoas próximas a Moraes saberiam de seu desejo de <strong>tornar-se presidente do Brasil</strong>. Essa ambição seria, na tese do artigo, o vetor que o tornaria receptivo à parceria com Vorcaro. Não há fontes identificadas citadas.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Cenário de queda — clique para detalhes"
-              data-title="Cenário de Queda" data-cat="Moraes"
-              data-body="O artigo afirma que <strong>Lula, PT, Globo, família Setúbal e JSB</strong> estariam articulados para derrubar Moraes. A tese é que o PT enxerga Moraes como ameaça ao seu projeto de poder. O autor conclui que sua queda seria 'apenas uma questão de tempo'.">
+              data-title="Cenário de Queda" data-cat="Moraes">
               <div class="node-title">Cenário de Queda</div>
               <div class="node-desc">Articulação PT + Globo + Setúbal contra Moraes.</div>
               <span class="node-tag">Queda</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O artigo afirma que <strong>Lula, PT, Globo, família Setúbal e JSB</strong> estariam articulados para derrubar Moraes. A tese é que o PT enxerga Moraes como ameaça ao seu projeto de poder. O autor conclui que sua queda seria 'apenas uma questão de tempo'.</div>
+              </div>
             </li>
           </ul>
         </div>
@@ -808,6 +923,7 @@
 
       <!-- 3. Conexões Dubai/Árabes -->
       <div class="branch branch-azul" role="listitem">
+        <a id="branch-dubai" style="position:relative;top:-120px;display:block;"></a>
         <button class="branch-header" id="header-3" aria-expanded="true" aria-controls="body-3"
           aria-describedby="count-3">
           <div class="branch-icon" aria-hidden="true">🌍</div>
@@ -817,37 +933,53 @@
         </button>
         <div class="branch-body open" id="body-3" role="region" aria-labelledby="header-3">
           <ul class="node-list" aria-label="Conexões com Dubai e Emirados Árabes">
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Fundos árabes — clique para detalhes"
-              data-title="Fundos Árabes" data-cat="Dubai"
-              data-body="Segundo documentos citados no artigo, Vorcaro teria prometido injeções de capital provenientes de fundos dos <strong>Emirados Árabes Unidos</strong>:<br><br>• <strong>Patronus Wealth Privé Limited</strong> — US$ 200 milhões<br>• <strong>Royal Capital PSC</strong> — US$ 100–400 milhões<br><br>As promessas fariam parte de uma proposta de venda do banco ao grupo Fictor.">
+              data-title="Fundos Árabes" data-cat="Dubai">
               <div class="node-title">Fundos Árabes</div>
               <div class="node-desc">Patronus Wealth (US$200mi) e Royal Capital PSC (US$100-400mi).</div>
               <span class="node-tag">EAU</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">Segundo documentos citados no artigo, Vorcaro teria prometido injeções de capital provenientes de fundos dos <strong>Emirados Árabes Unidos</strong>:<br><br>• <strong>Patronus Wealth Privé Limited</strong> — US$ 200 milhões<br>• <strong>Royal Capital PSC</strong> — US$ 100–400 milhões<br><br>As promessas fariam parte de uma proposta de venda do banco ao grupo Fictor.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Venda para Fictor — clique para detalhes"
-              data-title="Venda para Fictor Holding" data-cat="Dubai"
-              data-body="A proposta de venda do Banco Master ao <strong>grupo Fictor</strong>, coordenada com investidores árabes, foi questionada pelas autoridades como possível simulação para evitar falência. A viagem de Vorcaro a Dubai em novembro de 2025 seria para finalizar essa negociação, segundo a defesa.">
+              data-title="Venda para Fictor Holding" data-cat="Dubai">
               <div class="node-title">Venda para Fictor Holding</div>
               <div class="node-desc">Transação questionada como possível simulação de falência.</div>
               <span class="node-tag">M&A</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">A proposta de venda do Banco Master ao <strong>grupo Fictor</strong>, coordenada com investidores árabes, foi questionada pelas autoridades como possível simulação para evitar falência. A viagem de Vorcaro a Dubai em novembro de 2025 seria para finalizar essa negociação, segundo a defesa.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Suite presidencial Four Seasons — clique para detalhes"
-              data-title="Four Seasons Dubai" data-cat="Dubai"
-              data-body="Vorcaro havia reservado a <strong>suíte presidencial do Four Seasons Resort Dubai at Jumeirah Beach</strong> por cinco dias (18 a 22 de novembro de 2025) no valor de aproximadamente <strong>R$ 524 mil</strong>, para supostas reuniões de negócios — antes de ser preso no dia 17.">
+              data-title="Four Seasons Dubai" data-cat="Dubai">
               <div class="node-title">Four Seasons Dubai</div>
               <div class="node-desc">Suíte presidencial: R$ 524 mil / 5 dias (18–22 nov 2025).</div>
               <span class="node-tag">Luxo</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">Vorcaro havia reservado a <strong>suíte presidencial do Four Seasons Resort Dubai at Jumeirah Beach</strong> por cinco dias (18 a 22 de novembro de 2025) no valor de aproximadamente <strong>R$ 524 mil</strong>, para supostas reuniões de negócios — antes de ser preso no dia 17.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Familiar preso em fevereiro — clique para detalhes"
-              data-title="Familiar Preso (Fev 2026)" data-cat="Dubai"
-              data-body="Em <strong>fevereiro de 2026</strong>, um familiar de Vorcaro foi preso tentando embarcar para Dubai, reforçando, segundo o artigo, as suspeitas de que o local seja um ponto central de conexões financeiras do grupo. Dubai é citado como paraíso fiscal no texto.">
+              data-title="Familiar Preso (Fev 2026)" data-cat="Dubai">
               <div class="node-title">Familiar Preso (Fev 2026)</div>
               <div class="node-desc">Tentativa de embarque para Dubai — suspeitas de lavagem.</div>
               <span class="node-tag">PF</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">Em <strong>fevereiro de 2026</strong>, um familiar de Vorcaro foi preso tentando embarcar para Dubai, reforçando, segundo o artigo, as suspeitas de que o local seja um ponto central de conexões financeiras do grupo. Dubai é citado como paraíso fiscal no texto.</div>
+              </div>
             </li>
           </ul>
         </div>
@@ -855,6 +987,7 @@
 
       <!-- 4. Contexto político -->
       <div class="branch branch-verde" role="listitem">
+        <a id="branch-politica" style="position:relative;top:-120px;display:block;"></a>
         <button class="branch-header" id="header-4" aria-expanded="true" aria-controls="body-4"
           aria-describedby="count-4">
           <div class="branch-icon" aria-hidden="true">🏛️</div>
@@ -864,37 +997,53 @@
         </button>
         <div class="branch-body open" id="body-4" role="region" aria-labelledby="header-4">
           <ul class="node-list" aria-label="Tópicos do contexto político">
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Paralelo com Epstein — clique para detalhes"
-              data-title="Paralelo com Epstein" data-cat="Política"
-              data-body="O autor traça um paralelo entre <strong>Jeffrey Epstein</strong> e Vorcaro, comparando métodos: uso de material comprometedor (<em>kompromat</em>), lavagem de dinheiro e blindagem via figuras de poder. Epstein é descrito como 'operador financeiro dos Rothschilds', e Vorcaro como seu equivalente brasileiro. O paralelo é retórico e não apresenta evidências documentais.">
+              data-title="Paralelo com Epstein" data-cat="Política">
               <div class="node-title">Paralelo com Epstein</div>
               <div class="node-desc">Métodos de kompromat e rede de proteção via poder.</div>
               <span class="node-tag">Analogia</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O autor traça um paralelo entre <strong>Jeffrey Epstein</strong> e Vorcaro, comparando métodos: uso de material comprometedor (<em>kompromat</em>), lavagem de dinheiro e blindagem via figuras de poder. Epstein é descrito como 'operador financeiro dos Rothschilds', e Vorcaro como seu equivalente brasileiro. O paralelo é retórico e não apresenta evidências documentais.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Temer e o centrão — clique para detalhes"
-              data-title="Temer e o Centrão" data-cat="Política"
-              data-body="O artigo menciona <strong>Michel Temer</strong> como figura operando 'nas sombras' de um sistema paralelo (denominado 'parte B') que incluiria Moraes. O centrão é descrito como parte da rede de proteção de Vorcaro, recebendo favores e privilégios em troca de blindagem política.">
+              data-title="Temer e o Centrão" data-cat="Política">
               <div class="node-title">Temer e o Centrão</div>
               <div class="node-desc">Temer operando "nas sombras" — parte de sistema com Moraes.</div>
               <span class="node-tag">Centrão</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O artigo menciona <strong>Michel Temer</strong> como figura operando 'nas sombras' de um sistema paralelo (denominado 'parte B') que incluiria Moraes. O centrão é descrito como parte da rede de proteção de Vorcaro, recebendo favores e privilégios em troca de blindagem política.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Lula e PT versus Moraes — clique para detalhes"
-              data-title="PT vs Moraes" data-cat="Política"
-              data-body="O artigo sustenta que <strong>Lula e o PT</strong> veem Moraes como ameaça ao projeto de poder e estariam mobilizando a <strong>Globo, família Setúbal e JSB</strong> para desgastá-lo. A tese é que o desgaste de Moraes atende aos interesses do PT, que controlaria a 'parte A' do sistema político brasileiro descrito no artigo.">
+              data-title="PT vs Moraes" data-cat="Política">
               <div class="node-title">PT vs Moraes</div>
               <div class="node-desc">Lula articulando queda de Moraes com Globo e Setúbal.</div>
               <span class="node-tag">Disputa</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">O artigo sustenta que <strong>Lula e o PT</strong> veem Moraes como ameaça ao projeto de poder e estariam mobilizando a <strong>Globo, família Setúbal e JSB</strong> para desgastá-lo. A tese é que o desgaste de Moraes atende aos interesses do PT, que controlaria a 'parte A' do sistema político brasileiro descrito no artigo.</div>
+              </div>
             </li>
-            <li class="node-item" tabindex="0" role="button"
+            <li class="node-item"  
               aria-label="Origem baiana de Vorcaro — clique para detalhes"
-              data-title="Origem Baiana" data-cat="Política"
-              data-body="A ascensão de Vorcaro teria raízes na Bahia, com articulações de <strong>Rui Costa</strong> (ex-ministro da Casa Civil) e <strong>Jaques Wagner</strong> (ex-governador e ministro). Esses nomes são apresentados como patrocinadores políticos que viabilizaram a ascensão de Vorcaro, sem que o artigo apresente evidências documentais específicas.">
+              data-title="Origem Baiana" data-cat="Política">
               <div class="node-title">Origem Baiana</div>
               <div class="node-desc">Rui Costa e Jaques Wagner como articuladores da ascensão.</div>
               <span class="node-tag">Bahia</span>
+            
+              <div class="node-body-content">
+                <div class="node-body-label">Conteúdo do Artigo</div>
+                <div class="node-body-text">A ascensão de Vorcaro teria raízes na Bahia, com articulações de <strong>Rui Costa</strong> (ex-ministro da Casa Civil) e <strong>Jaques Wagner</strong> (ex-governador e ministro). Esses nomes são apresentados como patrocinadores políticos que viabilizaram a ascensão de Vorcaro, sem que o artigo apresente evidências documentais específicas.</div>
+              </div>
             </li>
           </ul>
         </div>
@@ -1115,7 +1264,44 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   btnMotion.setAttribute('aria-pressed', 'true');
   btnMotion.classList.add('active');
 }
+
+// ScrollSpy Observer
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.nav-tab');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-target');
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-120px 0px -50% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const activeTab = document.querySelector(`.nav-tab[data-target="${entry.target.id}"]`);
+        if (activeTab) {
+          activeTab.classList.add('active');
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.branch > a[id^="branch-"]').forEach(sec => observer.observe(sec));
+});
 </script>
+
 <script src="https://gosurf.site/share-bar.js"></script>
 <script src="https://gosurf.site/counter.js"></script>
 </body>

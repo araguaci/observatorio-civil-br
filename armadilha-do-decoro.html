@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armadilha do Decoro — Duplo Padrão, Gatilhos e Mecanismos de Defesa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080810;
+  --surface: #0f0f1a;
+  --surface2: #15152a;
+  --surface3: #1c1c33;
+  --border: #252540;
+  --border2: #30304a;
+  --red: #c0392b;
+  --red2: #e74c3c;
+  --red-glow: rgba(231,76,60,0.15);
+  --amber: #c8930a;
+  --amber2: #f0b429;
+  --amber-glow: rgba(240,180,41,0.12);
+  --blue: #1a6fa8;
+  --blue2: #3498db;
+  --blue-glow: rgba(52,152,219,0.12);
+  --green: #1a7a4a;
+  --green2: #27ae60;
+  --purple: #7c3aed;
+  --purple2: #a78bfa;
+  --text: #dce1f0;
+  --text-dim: #7a849a;
+  --text-faint: #3a4460;
+  --danger: #ff4444;
+  --warning: #ffaa00;
+  --safe: #00cc88;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SCANLINES */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(8,8,16,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 52px;
+  overflow-x: auto;
+}
+
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red2);
+  margin-right: 32px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav a {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.nav a:hover { color: var(--text); border-bottom-color: var(--red2); }
+
+/* HEADER */
+.header {
+  position: relative;
+  z-index: 10;
+  padding: 100px 48px 60px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(192,57,43,0.07) 0%, transparent 100%);
+  overflow: hidden;
+}
+
+.header-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 20vw, 280px);
+  letter-spacing: 20px;
+  color: rgba(192,57,43,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.header-eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red2);
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 8vw, 96px);
+  letter-spacing: 4px;
+  line-height: 0.92;
+  margin-bottom: 12px;
+}
+
+.header-title em {
+  color: var(--red2);
+  text-shadow: 0 0 40px rgba(231,76,60,0.35);
+  font-style: normal;
+}
+
+.header-subtitle {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(13px, 2vw, 18px);
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.header-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.header-meta-item {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.header-meta-item span {
+  color: var(--amber2);
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 4px;
+}
+
+/* CONTENT WRAPPER */
+.content {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* SECTION */
+.section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  line-height: 1;
+}
+
+.section-title .accent-red { color: var(--red2); }
+.section-title .accent-amber { color: var(--amber2); }
+.section-title .accent-blue { color: var(--blue2); }
+.section-title .accent-green { color: var(--green2); }
+.section-title .accent-purple { color: var(--purple2); }
+
+/* ALERT BOXES */
+.alert {
+  border-left: 3px solid;
+  padding: 16px 20px;
+  margin: 24px 0;
+  background: var(--surface);
+  border-radius: 0 4px 4px 0;
+}
+
+.alert-red { border-color: var(--red2); background: rgba(192,57,43,0.06); }
+.alert-amber { border-color: var(--amber2); background: rgba(240,180,41,0.06); }
+.alert-blue { border-color: var(--blue2); background: rgba(52,152,219,0.06); }
+.alert-green { border-color: var(--green2); background: rgba(39,174,96,0.06); }
+.alert-purple { border-color: var(--purple2); background: rgba(167,139,250,0.06); }
+
+.alert-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+.alert-red .alert-label { color: var(--red2); }
+.alert-amber .alert-label { color: var(--amber2); }
+.alert-blue .alert-label { color: var(--blue2); }
+.alert-green .alert-label { color: var(--green2); }
+.alert-purple .alert-label { color: var(--purple2); }
+
+.alert p { font-size: 13px; line-height: 1.7; color: var(--text-dim); }
+.alert strong { color: var(--text); }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+@media (max-width: 720px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .header { padding: 88px 24px 48px; }
+  .content { padding: 0 20px 60px; }
+  .nav { padding: 0 16px; }
+}
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 2px;
+}
+
+.card-header {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.card p { font-size: 12px; line-height: 1.7; color: var(--text-dim); }
+.card strong { color: var(--text); }
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border2);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 32px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -26px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border2);
+  border: 1px solid var(--border);
+}
+
+.timeline-item.punished::before { background: var(--red2); box-shadow: 0 0 8px rgba(231,76,60,0.4); }
+.timeline-item.unpunished::before { background: var(--green2); box-shadow: 0 0 8px rgba(39,174,96,0.4); }
+.timeline-item.partial::before { background: var(--amber2); box-shadow: 0 0 8px rgba(240,180,41,0.3); }
+
+.timeline-date {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+
+.timeline-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.timeline-body { font-size: 12px; line-height: 1.7; color: var(--text-dim); }
+.timeline-body strong { color: var(--text); }
+
+.verdict {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+
+.verdict-none { background: rgba(39,174,96,0.15); color: var(--green2); border: 1px solid rgba(39,174,96,0.3); }
+.verdict-punished { background: rgba(231,76,60,0.15); color: var(--red2); border: 1px solid rgba(231,76,60,0.3); }
+.verdict-partial { background: rgba(240,180,41,0.15); color: var(--amber2); border: 1px solid rgba(240,180,41,0.3); }
+.verdict-archived { background: rgba(52,152,219,0.15); color: var(--blue2); border: 1px solid rgba(52,152,219,0.3); }
+
+/* COMPARISON TABLE */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 24px 0;
+}
+
+.compare-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.compare-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.compare-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+.badge {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-red { background: rgba(192,57,43,0.2); color: var(--red2); }
+.badge-green { background: rgba(39,174,96,0.15); color: var(--green2); }
+.badge-amber { background: rgba(240,180,41,0.15); color: var(--amber2); }
+.badge-blue { background: rgba(52,152,219,0.15); color: var(--blue2); }
+
+/* TRAP CARDS */
+.trap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.trap-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.trap-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.trap-card.psych::before { background: var(--purple2); }
+.trap-card.legal::before { background: var(--red2); }
+.trap-card.strategy::before { background: var(--amber2); }
+.trap-card.defense::before { background: var(--green2); }
+
+.trap-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--text-faint);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.trap-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.trap-card.psych .trap-title { color: var(--purple2); }
+.trap-card.legal .trap-title { color: var(--red2); }
+.trap-card.strategy .trap-title { color: var(--amber2); }
+.trap-card.defense .trap-title { color: var(--green2); }
+
+.trap-body { font-size: 12px; line-height: 1.7; color: var(--text-dim); }
+.trap-body strong { color: var(--text); }
+
+/* LEGAL ITEMS */
+.legal-item {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 20px;
+  margin: 12px 0;
+}
+
+.legal-item-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.legal-code {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  background: rgba(192,57,43,0.15);
+  color: var(--red2);
+  border: 1px solid rgba(192,57,43,0.3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.legal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.legal-body { font-size: 12px; line-height: 1.7; color: var(--text-dim); }
+.legal-body strong { color: var(--text); }
+
+/* DEFENSE PROTOCOL */
+.protocol-step {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  margin: 10px 0;
+}
+
+.protocol-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--green2);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 32px;
+  text-align: center;
+}
+
+.protocol-content {}
+
+.protocol-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green2);
+  margin-bottom: 6px;
+}
+
+.protocol-body { font-size: 12px; line-height: 1.7; color: var(--text-dim); }
+.protocol-body strong { color: var(--text); }
+
+/* HISTORICAL PARALLELS */
+.parallel-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+@media(max-width: 600px) { .parallel-block { grid-template-columns: 1fr; } }
+
+.parallel-side {
+  padding: 20px;
+}
+
+.parallel-side:first-child {
+  border-right: 1px solid var(--border);
+}
+
+.parallel-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.parallel-side.past .parallel-label { color: var(--blue2); }
+.parallel-side.present .parallel-label { color: var(--red2); }
+
+.parallel-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.parallel-body { font-size: 12px; line-height: 1.7; color: var(--text-dim); }
+
+/* RISK METER */
+.risk-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.risk-label {
+  font-size: 12px;
+  flex: 1;
+  color: var(--text-dim);
+}
+
+.risk-bar-wrap {
+  width: 160px;
+  height: 6px;
+  background: var(--surface3);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.risk-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s;
+}
+
+.risk-bar.high { background: var(--red2); }
+.risk-bar.med { background: var(--amber2); }
+.risk-bar.low { background: var(--green2); }
+
+.risk-pct {
+  font-size: 11px;
+  color: var(--text-faint);
+  width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* DIVIDER */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider-text {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* PULL QUOTE */
+.pullquote {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(16px, 2.5vw, 22px);
+  line-height: 1.5;
+  color: var(--text);
+  border-left: 3px solid var(--red2);
+  padding: 16px 24px;
+  margin: 32px 0;
+  background: rgba(192,57,43,0.04);
+}
+
+.pullquote cite {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-top: 12px;
+  font-style: normal;
+}
+
+/* PILL ROW */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.pill {
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+
+.pill-red { background: rgba(192,57,43,0.15); color: var(--red2); border: 1px solid rgba(192,57,43,0.25); }
+.pill-amber { background: rgba(240,180,41,0.12); color: var(--amber2); border: 1px solid rgba(240,180,41,0.22); }
+.pill-green { background: rgba(39,174,96,0.12); color: var(--green2); border: 1px solid rgba(39,174,96,0.22); }
+.pill-blue { background: rgba(52,152,219,0.12); color: var(--blue2); border: 1px solid rgba(52,152,219,0.22); }
+.pill-purple { background: rgba(167,139,250,0.12); color: var(--purple2); border: 1px solid rgba(167,139,250,0.22); }
+
+/* FOOTER */
+.footer {
+  position: relative;
+  z-index: 10;
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer p { font-size: 11px; color: var(--text-faint); }
+.footer a { color: var(--text-dim); text-decoration: none; }
+.footer a:hover { color: var(--red2); }
+
+/* PROSE */
+.prose {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--text-dim);
+  max-width: 800px;
+}
+
+.prose p { margin-bottom: 14px; }
+.prose strong { color: var(--text); }
+.prose em { color: var(--amber2); font-style: normal; }
+
+/* TICK LIST */
+.tick-list { list-style: none; }
+.tick-list li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.tick-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--red2);
+}
+.tick-list li strong { color: var(--text); }
+
+.tick-list.green li::before { color: var(--green2); }
+.tick-list.amber li::before { color: var(--amber2); }
+
+/* ANIMATE ON LOAD */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-eyebrow { animation: fadeUp 0.4s ease both; }
+.header-title { animation: fadeUp 0.5s 0.1s ease both; }
+.header-subtitle { animation: fadeUp 0.5s 0.2s ease both; }
+.header-meta { animation: fadeUp 0.5s 0.3s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">Lawfare Timeline</div>
+  <a href="#fatos">Fatos</a>
+  <a href="#historico">Histórico</a>
+  <a href="#duplo-padrao">Duplo Padrão</a>
+  <a href="#gatilhos">Gatilhos Psicológicos</a>
+  <a href="#armadilhas">Armadilhas</a>
+  <a href="#ilegalidades">Ilegalidades</a>
+  <a href="#defesa">Defesa</a>
+</nav>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-bg-text">DECORO</div>
+  <div class="header-eyebrow">Análise Estrutural · Maio 2026</div>
+  <h1 class="header-title">
+    <em>ARMADILHA</em><br>DO DECORO
+  </h1>
+  <p class="header-subtitle">
+    Suspensão seletiva de mandatos, duplo padrão histórico, gatilhos psicológicos como instrumentos de controle político e mecanismos de defesa institucionais.
+  </p>
+  <div class="header-meta">
+    <div class="header-meta-item">Deflagração<span>5 Mai 2026</span></div>
+    <div class="header-meta-item">Alvos<span>Pollon · Van Hattem · Zé Trovão</span></div>
+    <div class="header-meta-item">Punição<span>60 dias (Conselho de Ética)</span></div>
+    <div class="header-meta-item">Status<span>Pendente CCJ + Plenário</span></div>
+    <div class="header-meta-item">Ocupações históricas sem punição<span>5+ episódios documentados</span></div>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- SEÇÃO 1: FATOS -->
+<section id="fatos" class="section">
+  <div class="section-label">Seção 01</div>
+  <h2 class="section-title">O QUE <em class="accent-red">ACONTECEU</em></h2>
+
+  <div class="prose">
+    <p>Em agosto de 2025, no retorno do recesso parlamentar, mais de 100 parlamentares da oposição bolsonarista ocuparam os plenários da Câmara e do Senado por mais de 30 horas. O motivo declarado: protestar contra a prisão domiciliar do ex-presidente Jair Bolsonaro e exigir a votação do PL da Anistia. A ocupação da Mesa Diretora da Câmara impediu fisicamente Hugo Motta de sentar na cadeira da presidência.</p>
+    <p>Em 5 de maio de 2026 — <strong>nove meses depois</strong> — o Conselho de Ética votou pela suspensão dos mandatos de três parlamentares que estiveram na linha de frente: Marcos Pollon (PL-MS), Marcel Van Hattem (Novo-RS) e Zé Trovão (PL-SC).</p>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-label">Dado Relevante</div>
+    <p><strong>Por que apenas três?</strong> Mais de 100 parlamentares participaram do mesmo evento. A escolha dos três alvos não é técnica — é política. Pollon sentou na cadeira da presidência. Van Hattem ocupou outra cadeira. Zé Trovão usou o corpo como barreira. Todos têm visibilidade eleitoral própria em 2026. Nenhum dos demais participantes foi representado.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header" style="color:var(--red2)">O acordo descumprido</div>
+      <p>Pollon declarou em defesa que havia um acordo com Hugo Motta para pautar o PL da Anistia — e que o presidente descumpriu. A ocupação foi descrita como "ato de desespero" após o descumprimento. Motta negou. O que foi entregue em dezembro de 2025: não a anistia, mas a Lei de Dosimetria (redução de penas), produto substituto de menor valor político.</p>
+    </div>
+    <div class="card">
+      <div class="card-header" style="color:var(--amber2)">O sequenciamento calculado</div>
+      <p>A punição foi anunciada por Motta na véspera da aprovação da Dosimetria — em 9 de dezembro de 2025. Punição de Glauber Braga + Dosimetria = pacote único de barganha. A punição dos três bolsonaristas veio em seguida, fechando o segundo ciclo. O timing não é coincidência — é operação de balanceamento político com pré-eleição em vista.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <div class="alert-label">Ponto Estrutural</div>
+    <p>A suspensão ainda <strong>não é definitiva</strong>. Precisa passar pela CCJ e ser confirmada no plenário por pelo menos 257 votos. Van Hattem declarou estar confiante na reversão: <strong>"Esses votos serão revertidos no plenário. Partidos do centrão que votaram contra estiveram naquele movimento."</strong> Se isso se confirmar, o episódio inteiro funcionou como teatro punitivo sem consequência real — maximizando dano simbólico sem custo político definitivo.</p>
+  </div>
+</section>
+
+<!-- SEÇÃO 2: HISTÓRICO -->
+<section id="historico" class="section">
+  <div class="section-label">Seção 02</div>
+  <h2 class="section-title">HISTÓRICO DE <em class="accent-blue">OCUPAÇÕES</em></h2>
+
+  <div class="prose">
+    <p>A tática de ocupar mesas diretoras para obstruir votações não é novidade nem monopólio de qualquer campo político. O que é novo é a punição. Antes de 2025, nenhum parlamentar havia sido suspenso por esta conduta específica.</p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">1947 — Câmara dos Deputados</div>
+      <div class="timeline-title">Deputados do PCB — Cassação coletiva</div>
+      <div class="timeline-body">14 deputados comunistas, incluindo Jorge Amado e Carlos Marighella, usaram obstrução regimental intensa tentando barrar a cassação de seus próprios mandatos. O processo foi aprovado por 179×74. Décadas depois, em 2013, a Câmara devolveu simbolicamente os mandatos como reparação.</div>
+      <span class="verdict verdict-none">Sem punição por decoro</span>
+    </div>
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">Março 1984 — Câmara dos Deputados</div>
+      <div class="timeline-title">Tancredo Neves e Ulysses Guimarães — Diretas Já</div>
+      <div class="timeline-body">Líderes da oposição ao regime militar utilizaram obstrução regimental massiva — requerimentos e discursos longos — para pressionar pela aprovação da Emenda Dante de Oliveira. Sem ocupação física, mas com paralisação de horas. Considerado ato heroico pela historiografia dominante.</div>
+      <span class="verdict verdict-none">Sem punição</span>
+    </div>
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">Abril 2016 — Câmara dos Deputados</div>
+      <div class="timeline-title">PT, PCdoB, PSOL — Contra o Impeachment de Dilma</div>
+      <div class="timeline-body">Na semana da votação do impeachment, parlamentares do campo governista ocuparam a Mesa Diretora da Câmara com cartazes e palavras de ordem. Luiza Erundina (PSOL-SP) sentou na cadeira do presidente Eduardo Cunha, interrompendo a leitura do relatório. A sessão foi atrasada por horas.</div>
+      <span class="verdict verdict-none">Nenhum parlamentar punido</span>
+    </div>
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">Julho 2017 — Senado Federal</div>
+      <div class="timeline-title">Gleisi Hoffmann, Fátima Bezerra e outras — Contra a Reforma Trabalhista</div>
+      <div class="timeline-body">Senadoras de oposição ocuparam a Mesa do Senado para impedir Eunício Oliveira de presidir a votação da reforma trabalhista. O presidente da Casa mandou cortar as luzes e os microfones. As parlamentares pediram quentinhas e permaneceram por mais de 6 horas. Foram representadas no Conselho de Ética.</div>
+      <span class="verdict verdict-archived">Arquivado 12×2 no Conselho de Ética do Senado</span>
+    </div>
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">Novembro 2017 — Câmara dos Deputados</div>
+      <div class="timeline-title">Oposição a Temer — Contra a Reforma da Previdência</div>
+      <div class="timeline-body">Deputados da oposição ao governo Temer ocuparam a tribuna e a Mesa da Câmara para impedir a votação da Reforma da Previdência. Episódio sem punições.</div>
+      <span class="verdict verdict-none">Nenhum parlamentar punido</span>
+    </div>
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">2018 — Câmara dos Deputados</div>
+      <div class="timeline-title">PT, PSOL, PCdoB, PDT, PSB — "Lula Livre"</div>
+      <div class="timeline-body">Após a prisão de Lula em Curitiba, parlamentares de vários partidos entraram no plenário com cartazes e prometeram obstruir todos os trabalhos. Gritos e discursos prolongados.</div>
+      <span class="verdict verdict-none">Nenhuma punição</span>
+    </div>
+
+    <div class="timeline-item unpunished">
+      <div class="timeline-date">2019 — Senado Federal</div>
+      <div class="timeline-title">Kátia Abreu — Eleição de Davi Alcolumbre</div>
+      <div class="timeline-body">A senadora subiu à mesa, tomou de Alcolumbre uma pasta com respostas a questões de ordem e a levou consigo, interrompendo fisicamente os trabalhos da sessão presidida pelo candidato.</div>
+      <span class="verdict verdict-none">Sem punição</span>
+    </div>
+
+    <div class="timeline-item punished">
+      <div class="timeline-date">Agosto 2025 → Maio 2026 — Câmara dos Deputados</div>
+      <div class="timeline-title">Pollon, Van Hattem, Zé Trovão — Contra prisão de Bolsonaro / Pela Anistia</div>
+      <div class="timeline-body">Mais de 100 parlamentares ocuparam os plenários da Câmara e do Senado por mais de 30 horas. Os três foram fisicamente os mais expostos na Mesa Diretora da Câmara. Representação aberta pela própria Mesa Diretora — o próprio Motta como autor da denúncia.</div>
+      <span class="verdict verdict-punished">60 dias — Conselho de Ética (aguarda CCJ + plenário)</span>
+    </div>
+
+    <div class="timeline-item partial">
+      <div class="timeline-date">Dezembro 2025 — Câmara dos Deputados</div>
+      <div class="timeline-title">Glauber Braga (PSOL) — Ocupação durante processo de cassação</div>
+      <div class="timeline-body">Glauber se recusou a deixar a cadeira da presidência durante sessão de debates. Mas o processo principal foi por agressão física a ativista do MBL em 2024 — não por ocupação de mesa. A punição foi negociada como contrapartida pela aprovação da Dosimetria no mesmo pacote.</div>
+      <span class="verdict verdict-partial">6 meses — mas causa-raiz: agressão + barganha política, não ocupação</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEÇÃO 3: DUPLO PADRÃO -->
+<section id="duplo-padrao" class="section">
+  <div class="section-label">Seção 03</div>
+  <h2 class="section-title">MAPA DO <em class="accent-amber">DUPLO PADRÃO</em></h2>
+
+  <div class="prose">
+    <p>O duplo padrão alegado pela oposição é <em>factualmente correto na premissa histórica</em>, mas <strong>incorreto na análise da causa</strong>. O problema não é que "a esquerda faz e não é punida." O problema é que a norma nunca existiu como norma — apenas como instrumento disponível quando politicamente conveniente.</p>
+  </div>
+
+  <div class="pullquote">
+    "A norma não existe como norma. Existe como arma disponível para ser usada quando o timing for útil."
+    <cite>— Análise estrutural, Lawfare Timeline 2026</cite>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Evento</th>
+        <th>Campo</th>
+        <th>Conduta</th>
+        <th>Governo da vez</th>
+        <th>Resultado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Abr 2016 — Câmara (Dilma)</td>
+        <td><span class="badge badge-blue">Esquerda</span></td>
+        <td>Erundina na cadeira de Cunha</td>
+        <td>Dilma (PT)</td>
+        <td><span class="badge badge-green">Sem punição</span></td>
+      </tr>
+      <tr>
+        <td>Jul 2017 — Senado (Trabalhista)</td>
+        <td><span class="badge badge-blue">Esquerda</span></td>
+        <td>Gleisi + 6 senadoras, 6h, luz cortada</td>
+        <td>Temer (PMDB)</td>
+        <td><span class="badge badge-green">Arquivado 12×2</span></td>
+      </tr>
+      <tr>
+        <td>Nov 2017 — Câmara (Previdência)</td>
+        <td><span class="badge badge-blue">Esquerda</span></td>
+        <td>Ocupação mesa e tribuna</td>
+        <td>Temer (PMDB)</td>
+        <td><span class="badge badge-green">Sem punição</span></td>
+      </tr>
+      <tr>
+        <td>2018 — Câmara ("Lula Livre")</td>
+        <td><span class="badge badge-blue">Esquerda</span></td>
+        <td>Obstrução total, cartazes, gritos</td>
+        <td>Temer (PMDB)</td>
+        <td><span class="badge badge-green">Sem punição</span></td>
+      </tr>
+      <tr>
+        <td>2019 — Senado (Alcolumbre)</td>
+        <td><span class="badge badge-amber">Centro</span></td>
+        <td>Kátia Abreu subtrai pasta</td>
+        <td>Bolsonaro (PL)</td>
+        <td><span class="badge badge-green">Sem punição</span></td>
+      </tr>
+      <tr>
+        <td>Ago 2025 → Mai 2026 — Câmara</td>
+        <td><span class="badge badge-red">Direita</span></td>
+        <td>Pollon/Van Hattem/Zé Trovão, 30h+</td>
+        <td>Lula (PT)</td>
+        <td><span class="badge badge-red">60 dias (pendente)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-blue">
+    <div class="alert-label">Leitura Estrutural</div>
+    <p><strong>A variável preditiva não é ideologia — é utilidade da punição para o controlador do processo.</strong> Em 2017, Temer não tinha interesse em acirrar o campo punindo senadoras durante a reforma trabalhista. Em 2025-26, Motta tem interesse em demonstrar autoridade, reduzir capacidade eleitoral de parlamentares com alta visibilidade em 2026, e liquidar o passivo do pacote Dosimetria. O duplo padrão é real, mas a causa não é bias ideológico — é <em>racionalidade instrumental do Centrão</em>.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header" style="color:var(--amber2)">O que o duplo padrão prova</div>
+      <p>1. A tática de ocupação foi legitimada por décadas de prática sem punição — inclusive pelos que agora punem. 2. O Conselho de Ética opera como instrumento de controle político discricionário, não como guardião institucional de decoro. 3. A norma só existe quando há vontade política de aplicá-la.</p>
+    </div>
+    <div class="card">
+      <div class="card-header" style="color:var(--red2)">O que o duplo padrão não prova</div>
+      <p>1. Que a conduta de agosto de 2025 foi legítima ou imune a consequências. 2. Que a esquerda "nunca é punida" — Glauber foi punido no mesmo ciclo, como moeda de troca. 3. Que a punição é necessariamente fruto de perseguição ideológica — pode ser perseguição pragmática de interesses eleitorais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 4: PARALELOS HISTÓRICOS -->
+<section class="section">
+  <div class="section-label">Seção 03b</div>
+  <h2 class="section-title">PARALELOS NA <em class="accent-blue">HISTÓRIA</em></h2>
+
+  <div class="prose">
+    <p>O padrão de usar instrumentos disciplinares do Legislativo para silenciar oposição em períodos pré-eleitorais tem precedentes em outras democracias fragilizadas. O que varia é o pretexto — o mecanismo é estruturalmente análogo.</p>
+  </div>
+
+  <div class="parallel-block">
+    <div class="parallel-side past">
+      <div class="parallel-label">Hungria — 2013</div>
+      <div class="parallel-title">Modificação das regras de decoro parlamentar</div>
+      <div class="parallel-body">O governo Orbán aprovou novas regras de "ordem parlamentar" em 2013 que permitiam multas pesadas e restrição de tempo de fala para parlamentares da oposição que "perturbassem os trabalhos". O mecanismo foi usado sistematicamente contra deputados do MSZP e LMP. A justificativa: preservar "a dignidade da Casa". A prática anterior de obstrução pelos próprios parlamentares do Fidesz jamais foi punida.</div>
+    </div>
+    <div class="parallel-side present">
+      <div class="parallel-label">Brasil — 2025-2026</div>
+      <div class="parallel-title">Ativação do Conselho de Ética como arma eleitoral</div>
+      <div class="parallel-body">Norma existente desde 1989 (Regimento Interno da Câmara), nunca aplicada para ocupação de mesa. Ativada em 2025 seletivamente contra 3 de 100+ participantes do mesmo ato, com prazo de 9 meses entre o fato e a punição, coincidindo com a janela pré-eleitoral de 2026. O mecanismo é o mesmo: instrumento de decoro como ferramenta de controle, não de proteção institucional.</div>
+    </div>
+  </div>
+
+  <div class="parallel-block">
+    <div class="parallel-side past">
+      <div class="parallel-label">Venezuela — 2016</div>
+      <div class="parallel-title">Suspensão de deputados da Assembleia Nacional</div>
+      <div class="parallel-body">Após a oposição ganhar maioria na Assembleia Nacional, o TSJ venezuelano declarou "desacato" e suspendeu os poderes legislativos com base em processos contra três deputados por suposta fraude eleitoral. A decisão era claramente extrapolação jurisdicional, mas usou instrumentos processuais existentes para esvaziar o poder legislativo da oposição. O STF brasileiro em 2022-2025 usou lógica análoga com o INQ 4781.</div>
+    </div>
+    <div class="parallel-side present">
+      <div class="parallel-label">Brasil — 2022-2026</div>
+      <div class="parallel-title">Cassação seletiva, inelegibilidade e suspensão acumulada</div>
+      <div class="parallel-body">Bolsonaro: condenado pelo TSE + inelegível. Carla Zambelli: condenada pelo STF + presa na Itália. Eduardo Bolsonaro: sob pressão processual. Ramagem: cassação tentada. Alexandre Ramagem, Eduardo Bolsonaro e agora Pollon/Van Hattem/Zé Trovão: punições simultâneas em múltiplas frentes na janela eleitoral. A dispersão dos ataques impede mobilização focada da defesa.</div>
+    </div>
+  </div>
+
+  <div class="parallel-block">
+    <div class="parallel-side past">
+      <div class="parallel-label">Peru — 2017-2022</div>
+      <div class="parallel-title">Impeachment como instrumento de alternância de poder</div>
+      <div class="parallel-body">O Congresso peruano usou o mecanismo de "incapacidade moral permanente" para remover presidentes em exercício (Kuczynski 2018, Vizcarra 2020, Merino 2020, Castillo 2022). A norma existia desde 1993 mas nunca havia sido aplicada com essa frequência. Quando o mecanismo é descoberto como eficaz, prolifera. No Brasil, a descoberta é que o Conselho de Ética funciona como ferramenta de controle individual de parlamentares.</div>
+    </div>
+    <div class="parallel-side present">
+      <div class="parallel-label">Brasil — 2025-2026</div>
+      <div class="parallel-title">Proliferação do uso punitivo do Conselho de Ética</div>
+      <div class="parallel-body">Glauber Braga (dez 2025): 6 meses. Pollon/Van Hattem/Zé Trovão (mai 2026): 60 dias cada. Pollon ainda responde a um segundo processo (90 dias por ofensas a Motta). Carla Zambelli: cassação tentada (rejeitada). O mecanismo foi ativado múltiplas vezes no mesmo ciclo, contra parlamentares de <em>ambos</em> os campos, criando falsa aparência de imparcialidade enquanto opera como chip de barganha.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 5: GATILHOS PSICOLÓGICOS -->
+<section id="gatilhos" class="section">
+  <div class="section-label">Seção 04</div>
+  <h2 class="section-title">GATILHOS <em class="accent-purple">PSICOLÓGICOS</em></h2>
+
+  <div class="prose">
+    <p>A operação de punição seletiva não é apenas política — é psicologicamente engenhada. Cada elemento do processo ativa mecanismos cognitivos específicos nos alvos, nos aliados e na opinião pública, produzindo respostas previsíveis que beneficiam o operador.</p>
+  </div>
+
+  <div class="trap-grid">
+
+    <div class="trap-card psych">
+      <div class="trap-number">01</div>
+      <div class="trap-title">Isolamento Seletivo — Bode Expiatório</div>
+      <div class="trap-body">De 100+ participantes, apenas 3 são punidos. O efeito psicológico é duplo: <strong>os alvos sentem injustiça amplificada</strong> ("por que eu?"), o que gera reações emocionais que enfraquecem a defesa técnica; <strong>os demais participantes são paralisados</strong> pelo medo de serem os próximos, inibindo solidariedade ativa. O isolamento transforma um ato coletivo em responsabilidade individual.</div>
+    </div>
+
+    <div class="trap-card psych">
+      <div class="trap-number">02</div>
+      <div class="trap-title">Delay Estratégico — Ansiedade Crônica</div>
+      <div class="trap-body">9 meses entre o fato e a punição. O delay não é burocrático — é funcional. Manter parlamentares em estado de incerteza crônica (<em>will they or won't they?</em>) consome energia cognitiva, distorce tomada de decisão e força capital político a ser gasto em defesa em vez de ofensiva legislativa. A Espada de Dâmocles é mais paralisante pendurada do que caída.</div>
+    </div>
+
+    <div class="trap-card psych">
+      <div class="trap-number">03</div>
+      <div class="trap-title">Armadilha da Reciprocidade — A Promessa</div>
+      <div class="trap-body">O alegado acordo sobre a Anistia criou uma dívida psicológica percebida. Quando a promessa não foi honrada, a raiva moral foi ativada — levando a uma resposta impulsiva (ocupação da mesa) que proveu o pretexto legal para a punição. O operador prometeu, não cumpriu, aguardou a reação emocional, e então usou a reação como fundamento do processo. <strong>A provocação produziu o crime.</strong></div>
+    </div>
+
+    <div class="trap-card psych">
+      <div class="trap-number">04</div>
+      <div class="trap-title">Efeito de Contágio — A Falsa Simetria</div>
+      <div class="trap-body">A punição de Glauber Braga (esquerda) junto com a tentativa de cassação de Zambelli e Ramagem (direita) cria uma aparência de imparcialidade que contamina a narrativa de "perseguição política". A opinião pública moderada conclui: "puniram dos dois lados, então é justo." Mas as causas são distintas, as severidades são distintas, e o timing é idêntico — tudo no mesmo pacote de barganha.</div>
+    </div>
+
+    <div class="trap-card psych">
+      <div class="trap-number">05</div>
+      <div class="trap-title">Gatilho de Martírio — A Resposta Emocional dos Alvos</div>
+      <div class="trap-body">Zé Trovão chorou e declarou que repetiria a ocupação. Van Hattem comparou sua situação à dos presos do 8J. Pollon disse que a suspensão seria uma "medalha." Essas respostas — compreensíveis humanamente — <strong>reforçam a narrativa de que são golpistas irredimíveis</strong> junto ao eleitorado moderado, e afastam aliados do Centrão que precisariam apoiar a reversão no plenário. A reação emocional serviu ao adversário.</div>
+    </div>
+
+    <div class="trap-card psych">
+      <div class="trap-number">06</div>
+      <div class="trap-title">Flooding — Sobrecarga Cognitiva da Oposição</div>
+      <div class="trap-body">Múltiplos processos simultâneos: Bolsonaro (inelegível + prisão domiciliar), Zambelli (cassação + Itália), Ramagem (processo), Eduardo Bolsonaro (pressão), Pollon/Van Hattem/Zé Trovão (suspensão). A dispersão simultânea de ataques em múltiplas frentes impede mobilização focada. Cada nova frente consome recursos de defesa que seriam necessários nas outras.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEÇÃO 6: ARMADILHAS ESTRATÉGICAS -->
+<section id="armadilhas" class="section">
+  <div class="section-label">Seção 05</div>
+  <h2 class="section-title">ARMADILHAS <em class="accent-amber">ESTRATÉGICAS</em></h2>
+
+  <div class="prose">
+    <p>Além dos gatilhos psicológicos sobre os alvos diretos, a operação inclui armadilhas narrativas e estratégicas que comprometem a capacidade de defesa coletiva.</p>
+  </div>
+
+  <div class="trap-grid">
+
+    <div class="trap-card strategy">
+      <div class="trap-number">01</div>
+      <div class="trap-title">A Armadilha do "Duplo Padrão"</div>
+      <div class="trap-body">A oposição gasta energia argumentando equivalência histórica em vez de questionar a legitimidade da punição seletiva. O debate sobre "a esquerda também fez" é tecnicamente verdadeiro, mas estrategicamente ineficaz — porque o Centrão não vota por princípio de consistência, vota por conveniência. Mostrar que a conduta tem precedentes <strong>não muda os votos</strong>. Pior: ocupa o espaço da defesa com conteúdo que soa como justificativa de repetição.</div>
+    </div>
+
+    <div class="trap-card strategy">
+      <div class="trap-number">02</div>
+      <div class="trap-title">A Armadilha da Narrativa de Mártir</div>
+      <div class="trap-body">Ao se apresentar como mártires ("medalha", "perseguição política"), os três parlamentares consolidam sua base, mas perdem o eleitorado moderado que precisariam para construir uma bancada de 257 votos contrários no plenário. A narrativa de martírio mobiliza quem já está convencido e aliena quem ainda pode ser convencido. É eleitoralmente rentável no curto prazo e estrategicamente custoso no médio.</div>
+    </div>
+
+    <div class="trap-card strategy">
+      <div class="trap-number">03</div>
+      <div class="trap-title">A Armadilha do Precedente Invertido</div>
+      <div class="trap-body">Ao exigir que o Centrão vote pela reversão no plenário, a oposição coloca parlamentares do centrão em posição de votar publicamente em favor de quem literalmente impediu o presidente da Casa de sentar em sua cadeira. Mesmo os que "estiveram no movimento" (argumento de Van Hattem) têm incentivo para não aparecer defendendo a conduta. O precedente da punição física ao presidente da Casa é difícil de desfazer publicamente.</div>
+    </div>
+
+    <div class="trap-card strategy">
+      <div class="trap-number">04</div>
+      <div class="trap-title">A Armadilha Eleitoral de 2026</div>
+      <div class="trap-body">Van Hattem é pré-candidato à presidência. Zé Trovão é nome forte no sul. Uma suspensão de 60 dias em 2026 — caso confirmada — afeta financiamento de campanha, visibilidade, articulação de coligações. Mesmo que revertida, o processo em si produz dano: consultores fogem de candidatos "sob processo", doadores hesitam, imprensa pauta o processo em vez da plataforma. O processo é o dano, independente do resultado.</div>
+    </div>
+
+    <div class="trap-card strategy">
+      <div class="trap-number">05</div>
+      <div class="trap-title">A Armadilha da Obstrução Interna</div>
+      <div class="trap-body">A oposição tentou obstruir o Conselho de Ética com requerimentos e pedidos de adiamento ao longo de 9 horas. O presidente do conselho manteve a votação mesmo assim. O resultado: a tática de obstrução — que funcionou em agosto de 2025 — não funcionou em maio de 2026, demonstrando publicamente a erosão da capacidade operacional da bancada oposicionista. A derrota na obstrução foi mais visível do que a derrota na votação.</div>
+    </div>
+
+    <div class="trap-card strategy">
+      <div class="trap-number">06</div>
+      <div class="trap-title">A Armadilha do Advogado Exaltado</div>
+      <div class="trap-body">O advogado de Van Hattem, Jeffrey Chiquini, chamou Chico Alencar de "velhaco" e ameaçou o deputado octogenário com "sua sorte é ser idoso." O episódio roubou o centro do noticiário, substituindo a discussão sobre o mérito do duplo padrão por cenas de violência verbal. A defesa perdeu o controle da narrativa exatamente no momento em que precisava do centro da atenção.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEÇÃO 7: IMPLICAÇÕES JURÍDICAS -->
+<section id="ilegalidades" class="section">
+  <div class="section-label">Seção 06</div>
+  <h2 class="section-title">IMPLICAÇÕES <em class="accent-red">JURÍDICAS E IRREGULARIDADES</em></h2>
+
+  <div class="prose">
+    <p>O processo disciplinar apresenta fragilidades jurídicas reais que fundamentam recursos e contestações. Algumas configuram potencialmente nulidade processual; outras são argumentos de direito constitucional de difícil resolução.</p>
+  </div>
+
+  <div class="legal-item">
+    <div class="legal-item-header">
+      <span class="legal-code">CF/88 Art. 53</span>
+      <div class="legal-title">Imunidade Parlamentar Material — Latitude do Mandato</div>
+    </div>
+    <div class="legal-body">
+      <p>A imunidade parlamentar protege opiniões, palavras e votos. A questão jurídica não resolvida: <strong>a ocupação física de um espaço do plenário configura exercício do mandato ou ato extramandato?</strong> O relator Moses Rodrigues argumentou que o "direito de manifestação política" não pode inviabilizar o funcionamento da Casa — mas a fronteira entre exercício do mandato e quebra de decoro não tem definição legal precisa, abrindo espaço para contestação no STF via mandado de segurança.</p>
+    </div>
+  </div>
+
+  <div class="legal-item">
+    <div class="legal-item-header">
+      <span class="legal-code">CF/88 Art. 55 §2</span>
+      <div class="legal-title">Procedimento de Cassação — Aplicação Analógica Questionável</div>
+    </div>
+    <div class="legal-body">
+      <p>O Art. 55 prevê cassação por quebra de decoro. A suspensão temporária de mandato não está explicitamente prevista na Constituição — o fundamento vem do Regimento Interno da Câmara (resolução infraconstitucional). <strong>A legalidade de suspender mandato por via regimental, sem previsão constitucional expressa, é argumento sólido de nulidade.</strong> O STF já se manifestou sobre a supremacia do Regimento em matéria interna corporis, mas a extensividade da punição aqui é inédita.</p>
+    </div>
+  </div>
+
+  <div class="legal-item">
+    <div class="legal-item-header">
+      <span class="legal-code">RISCA Art. 240</span>
+      <div class="legal-title">Seletividade na Instauração — Violação de Isonomia</div>
+    </div>
+    <div class="legal-body">
+      <p>O Regimento Interno obriga a Mesa a abrir representação quando há indício de quebra de decoro. A Mesa abriu representação contra 14 parlamentares mas apenas 3 foram processados até o fim. <strong>A seletividade no processamento de coautores do mesmo ato pode configurar violação do princípio da isonomia processual</strong> (CF Art. 5º caput) e tratamento discriminatório dentro do mesmo procedimento disciplinar.</p>
+    </div>
+  </div>
+
+  <div class="legal-item">
+    <div class="legal-item-header">
+      <span class="legal-code">CF/88 Art. 5º LV</span>
+      <div class="legal-title">Ampla Defesa e Conflito de Instâncias Simultâneas</div>
+    </div>
+    <div class="legal-body">
+      <p>Durante a sessão do Conselho de Ética, Motta abriu e encerrou rapidamente a sessão do plenário — manobra interpretada como pressão para não travar a votação do conselho (as duas não podem funcionar simultaneamente). <strong>A abertura e encerramento expedido do plenário para garantir o funcionamento do Conselho de Ética que julgava adversários políticos do presidente da Casa é conflito de interesse estrutural</strong> do operador do processo. O juiz-parte não pode também controlar o calendário do tribunal.</p>
+    </div>
+  </div>
+
+  <div class="legal-item">
+    <div class="legal-item-header">
+      <span class="legal-code">CF/88 Art. 5º XXXVII</span>
+      <div class="legal-title">Tribunal de Exceção — Retroatividade de Norma Punitiva</div>
+    </div>
+    <div class="legal-body">
+      <p>A conduta de ocupar a Mesa Diretora nunca havia sido punida antes. A aplicação da mesma norma preexistente com intensidade punitiva inédita, a um ato que por décadas foi tolerado sem consequências, pode ser questionada como <strong>retroatividade de interpretação mais gravosa</strong> — análoga à retroatividade de norma penal. O argumento: se a conduta era tolerada há décadas, o parlamentar não tinha expectativa legítima de que resultaria em suspensão.</p>
+    </div>
+  </div>
+
+  <div class="legal-item">
+    <div class="legal-item-header">
+      <span class="legal-code">Regimento Interno</span>
+      <div class="legal-title">Autoria da Representação — Mesa como Parte e Julgador</div>
+    </div>
+    <div class="legal-body">
+      <p>A representação foi aberta pela própria Mesa Diretora, cujo presidente era Hugo Motta — a mesma pessoa que foi impedida de sentar em sua cadeira. <strong>Motta é simultaneamente vítima alegada, autor da representação e presidente da Casa que controla o calendário do processo.</strong> A concentração de papéis incompatíveis (acusador + controlador do processo) é arguição válida de parcialidade estrutural, não apenas conflito de interesse pessoal.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-label">Aviso Metodológico</div>
+    <p>Esta análise documenta fragilidades jurídicas para fins de registro histórico e civic accountability. <strong>Não constitui parecer jurídico.</strong> A viabilidade de cada argumento em sede judicial depende de jurisprudência específica do STF em matéria de interna corporis legislativa — área onde o tribunal historicamente demonstra deferência ao Congresso, reduzindo a eficácia prática dos argumentos aqui descritos mesmo quando tecnicamente sólidos.</p>
+  </div>
+</section>
+
+<!-- SEÇÃO 8: MECANISMOS DE DEFESA -->
+<section id="defesa" class="section">
+  <div class="section-label">Seção 07</div>
+  <h2 class="section-title">MECANISMOS DE <em class="accent-green">DEFESA E CONTENÇÃO</em></h2>
+
+  <div class="prose">
+    <p>Os mecanismos abaixo operam em três planos: defesa processual imediata dos parlamentares alvo, defesa estratégica da oposição como bloco, e defesa estrutural da sociedade civil contra instrumentalização de mecanismos disciplinares.</p>
+  </div>
+
+  <div class="divider"><span class="divider-text">Plano I — Defesa Processual Imediata</span></div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">1</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Recurso à CCJ — Foco em Seletividade e Isonomia</div>
+      <div class="protocol-body">O argumento mais sólido não é "a esquerda também fez" — é <strong>violação de isonomia interna ao mesmo processo</strong>. Se 100+ participaram do mesmo ato e apenas 3 foram processados, a seletividade é vício processual arguível. O recurso deve documentar os demais participantes, demonstrar identidade de conduta, e requerer ou o arquivamento por vício de isonomia ou a extensão do processo a todos os participantes (o que tornaria o processo impraticável). O segundo resultado é tão útil quanto o primeiro.</div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">2</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Mandado de Segurança no STF — Competência e Retroatividade</div>
+      <div class="protocol-body">O STF tipicamente não entra em matéria de interna corporis, mas <strong>viola de direitos individuais com base em norma regimental infraconstitucional</strong> é exceção reconhecida. O MS deve arguir: (a) ausência de previsão constitucional para suspensão de mandato via regimento; (b) retroatividade gravosa de interpretação inédita; (c) conflito de interesse estrutural do presidente da Casa como autor da representação. Deve ser impetrado simultaneamente ao recurso na CCJ, não sequencialmente.</div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">3</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Documentação do Precedente — Construção do Acervo</div>
+      <div class="protocol-body">Todo episódio histórico de ocupação sem punição deve ser documentado em peça formal: data, condutores, câmara, duração, resultado disciplinar. Esta documentação, submetida ao processo como evidência, cumpre dois fins: (a) fortalece o argumento de retroatividade gravosa; (b) cria registro público permanente que constrange futuras aplicações seletivas. <strong>O constrangimento institucional é a única sanção disponível contra o duplo padrão.</strong></div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-text">Plano II — Defesa Estratégica do Bloco Oposicionista</span></div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">4</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Disciplina Narrativa — Abandonar o Argumento de Equivalência</div>
+      <div class="protocol-body">O argumento "a esquerda também fez" é tecnicamente correto mas estrategicamente ineficaz. Ele posiciona a oposição como defensora de uma prática ruim em vez de vítima de uma aplicação injusta. A narrativa eficaz é outra: <strong>"A norma foi inventada agora, para ser usada agora, contra nós, por quem ela beneficia."</strong> Esse enquadramento ataca a seletividade sem defender a conduta, o que permite recuperar o eleitorado moderado sem abandono da base.</div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">5</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Gestão do Timing — Não Reagir no Tempo do Adversário</div>
+      <div class="protocol-body">A tentação de responder emocionalmente e imediatamente a cada decisão adversa é o mecanismo que mais serve ao operador. <strong>Cada reação emocional amplificada (choro, ameaças de repetição, comparação com presos do 8J) produz conteúdo que substitui o debate de mérito no noticiário.</strong> A resposta institucional deve ser fria, técnica e documentada. A resposta política deve ter timing próprio — não o timing da provocação.</div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">6</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Controle do Advogado e da Equipe de Defesa</div>
+      <div class="protocol-body">O episódio do advogado Chiquini ameaçando Chico Alencar ("sua sorte é ser idoso") é manual do como não fazer. <strong>A equipe de defesa deve ter briefing explícito: qualquer comportamento que produza manchete substitui a cobertura do mérito e beneficia o adversário.</strong> A defesa eficaz em processos politicamente motivados requer mais disciplina comunicacional do que capacidade jurídica — porque o julgamento real é no plenário de 257 votos, não no Conselho de Ética.</div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-text">Plano III — Defesa Estrutural da Sociedade Civil</span></div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">7</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Observatório de Simetria Processual — Registro Contínuo</div>
+      <div class="protocol-body">A resposta estrutural ao uso instrumental do Conselho de Ética é a criação de um registro público de consistência processual: toda representação aberta, toda arquivada, os tempos de processamento, os resultados por partido e campo político. Quando esse banco de dados existe e é público, a seletividade se torna demonstrável em números — o que muda a qualidade do argumento de "perseguição" para "assimetria documentada." <strong>Evidência quantitativa é imune ao enquadramento ideológico.</strong></div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">8</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Pressão por Codificação da Norma — Transformar Costume em Lei</div>
+      <div class="protocol-body">A situação atual — onde a norma existe como regimento interpretável, sem definição precisa de condutas puníveis — é o ambiente ideal para instrumentalização. <strong>A defesa estrutural é a codificação legislativa clara: quais condutas específicas constituem quebra de decoro, com escala de penas proporcional, sem discricionariedade no processamento.</strong> Uma PEC ou PRC definindo isso remove o instrumento das mãos do operador político e o transforma em norma aplicável por igual. A oposição deveria propô-la — e expor quem vota contra.</div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">9</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Aliança com Precedentes Internacionais — Corte Interamericana</div>
+      <div class="protocol-body">A suspensão de mandato parlamentar por conduta política em contexto de assimetria processual documentada é arguível perante a CIDH (Comissão Interamericana de Direitos Humanos) como violação do direito de participação política (Convenção Americana Art. 23). A CIDH não tem poder coercitivo sobre o Brasil, mas <strong>o acesso ao sistema interamericano produz dois resultados úteis: constrangimento internacional e documentação em jurisdição externa</strong> — o único vetor de accountability que historicamente funciona no corpus brasileiro.</div>
+    </div>
+  </div>
+
+  <div class="protocol-step">
+    <div class="protocol-num">10</div>
+    <div class="protocol-content">
+      <div class="protocol-title">Não Repetir a Conduta — Remover o Pretexto</div>
+      <div class="protocol-body">Zé Trovão declarou que "se for preciso tomar a Mesa novamente, assim o farei." Esta postura é compreensível psicologicamente e catastrófica estrategicamente. <strong>Qualquer repetição da conduta sob processo ativo elimina todos os argumentos jurídicos disponíveis</strong> e entrega ao adversário exatamente o que ele precisa para confirmar a punição no plenário. A disciplina de não repetir a conduta que originou o processo é a medida de contenção mais simples e mais ignorada.</div>
+    </div>
+  </div>
+
+  <!-- RISK ASSESSMENT -->
+  <div class="divider"><span class="divider-text">Avaliação de Risco — Confirmação no Plenário</span></div>
+
+  <div class="prose">
+    <p style="margin-bottom: 20px;">Os 257 votos necessários para confirmar a suspensão dependem da posição do Centrão. Van Hattem declarou que "esses votos serão revertidos" — mas os fatores abaixo indicam um ambiente adverso para a reversão:</p>
+  </div>
+
+  <div class="risk-row">
+    <span class="risk-label">Centrão acompanha Motta por disciplina de base</span>
+    <div class="risk-bar-wrap"><div class="risk-bar high" style="width:82%"></div></div>
+    <span class="risk-pct">82%</span>
+  </div>
+  <div class="risk-row">
+    <span class="risk-label">Centrão teme precedente de impunidade para ocupação</span>
+    <div class="risk-bar-wrap"><div class="risk-bar high" style="width:70%"></div></div>
+    <span class="risk-pct">70%</span>
+  </div>
+  <div class="risk-row">
+    <span class="risk-label">Argumento de isonomia processual tem tração no plenário</span>
+    <div class="risk-bar-wrap"><div class="risk-bar med" style="width:35%"></div></div>
+    <span class="risk-pct">35%</span>
+  </div>
+  <div class="risk-row">
+    <span class="risk-label">Van Hattem constrói 257 votos contrários à suspensão</span>
+    <div class="risk-bar-wrap"><div class="risk-bar low" style="width:28%"></div></div>
+    <span class="risk-pct">28%</span>
+  </div>
+  <div class="risk-row">
+    <span class="risk-label">STF admite MS e suspende processo</span>
+    <div class="risk-bar-wrap"><div class="risk-bar low" style="width:20%"></div></div>
+    <span class="risk-pct">20%</span>
+  </div>
+  <div class="risk-row">
+    <span class="risk-label">Punição confirmada, suspensão entra em vigor até Out/2026</span>
+    <div class="risk-bar-wrap"><div class="risk-bar high" style="width:65%"></div></div>
+    <span class="risk-pct">65%</span>
+  </div>
+
+</section>
+
+<!-- SÍNTESE FINAL -->
+<section class="section">
+  <div class="section-label">Síntese</div>
+  <h2 class="section-title">O QUE <em class="accent-red">ESTE EPISÓDIO</em> REVELA</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header" style="color:var(--red2)">O que é demonstrável</div>
+      <ul class="tick-list">
+        <li><strong>Conduta idêntica, punição inédita:</strong> 5+ episódios históricos sem punição, primeiro caso em 2025-26</li>
+        <li><strong>Seletividade intra-evento:</strong> 3 de 100+ participantes processados</li>
+        <li><strong>Punição como moeda de troca:</strong> Dosimetria + Glauber + Pollon/Van Hattem/Zé Trovão = pacote único</li>
+        <li><strong>Conflito de interesse estrutural:</strong> Motta como vítima alegada, autor da representação e controlador do processo</li>
+        <li><strong>Delay estratégico:</strong> 9 meses, com punição na janela pré-eleitoral de 2026</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-header" style="color:var(--amber2)">O que não é conclusivo</div>
+      <ul class="tick-list amber">
+        <li><strong>Perseguição ideológica:</strong> o mecanismo é instrumental, não ideológico — punição distribuída em ambos os campos como chips de barganha</li>
+        <li><strong>Ilegalidade formal:</strong> o processo segue o rito regimental; as fragilidades são arguíveis, não determinantes</li>
+        <li><strong>Reversão no plenário:</strong> Van Hattem afirma que o Centrão reverterá — a probabilidade é baixa, mas existe</li>
+        <li><strong>Resultado eleitoral:</strong> suspensão de 60 dias pode amplificar popularidade dos alvos junto à base, compensando o dano operacional</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pullquote">
+    "O Conselho de Ética não foi reformado — foi descoberto. O mecanismo sempre esteve disponível. O que mudou foi o interesse em usá-lo. Quando um instrumento disciplinar opera por oportunidade e não por norma, ele não é proteção institucional — é arma política com registro legal."
+    <cite>— Análise Lawfare Timeline, Maio 2026</cite>
+  </div>
+
+  <div class="pill-row">
+    <span class="pill pill-red">P03 — Captura Judicial/Disciplinar</span>
+    <span class="pill pill-amber">P07 — Timing Eleitoral</span>
+    <span class="pill pill-blue">P04 — Acordo como Armadilha</span>
+    <span class="pill pill-purple">Gatilho Psicológico — Isolamento Seletivo</span>
+    <span class="pill pill-green">Mecanismo de Defesa — Codificação da Norma</span>
+  </div>
+
+  <div class="alert alert-blue">
+    <div class="alert-label">Nota Metodológica CC0</div>
+    <p>Este documento integra o corpus documental do projeto Lawfare Timeline. Todo o conteúdo é publicado sob licença <strong>CC0 1.0 Domínio Público</strong> — livre reprodução, distribuição e adaptação sem restrições. Fontes primárias: Agência Câmara, CNN Brasil, Agência Brasil, Poder360, Metrópoles, ND Mais. Análise: Lawfare Timeline / Artes do Sul Desenvolvimento Web.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Lawfare Timeline · <a href="https://gosurf.site" target="_blank">gosurf.site</a> · CC0 1.0 Domínio Público</p>
+  <p>Gerado em Maio 2026 · armadilha-do-decoro.html</p>
+</footer>
+
+<script>
+// Animate risk bars on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.risk-bar').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = w; }, 100);
+      });
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.risk-row').forEach(row => observer.observe(row));
+
+// Active nav highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+
+const secObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.style.borderBottomColor = 'transparent');
+      const activeLink = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.style.borderBottomColor = 'var(--red2)';
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => secObserver.observe(s));
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

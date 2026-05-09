@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Violência Política e Perseguição Jurídica — Dossiê Global 2018–2025</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── DESIGN SYSTEM LAWFARE v1.0 ── */
+:root {
+  --bg:  #080c10; --bg1: #0d1218; --bg2: #121820; --bg3: #1a2230;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --fg:  #e8ecf0; --fg2: #8a9ab0; --fg3: #4a5a6a;
+  --red:    #e84040; --red2:    rgba(232,64,64,0.15);
+  --amber:  #e8a020; --amber2:  rgba(232,160,32,0.15);
+  --blue:   #3090e8; --blue2:   rgba(48,144,232,0.12);
+  --green:  #28c880; --green2:  rgba(40,200,128,0.12);
+  --purple: #a060e8; --purple2: rgba(160,96,232,0.12);
+  --cyan:   #20d0e8;
+  --font-mono:    'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-mono); font-size: 13px; line-height: 1.6; min-height: 100vh; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+/* ── HEADER ── */
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border2);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .header { padding: 32px 40px 24px; } }
+.header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--purple), var(--amber), var(--red));
+  background-size: 200% 100%;
+  animation: scanline 3s linear infinite;
+}
+@keyframes scanline { to { background-position: 200% 0; } }
+
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin-bottom: 16px;
+}
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red); flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 8px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.10em;
+  text-transform: uppercase; font-family: var(--font-mono);
+}
+.badge-red    { background: var(--red2);    color: var(--red);    border: 1px solid rgba(232,64,64,0.3); }
+.badge-amber  { background: var(--amber2);  color: var(--amber);  border: 1px solid rgba(232,160,32,0.3); }
+.badge-blue   { background: var(--blue2);   color: var(--blue);   border: 1px solid rgba(48,144,232,0.3); }
+.badge-green  { background: var(--green2);  color: var(--green);  border: 1px solid rgba(40,200,128,0.3); }
+.badge-purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(160,96,232,0.3); }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4.5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.hero-title .hl-red    { color: var(--red); }
+.hero-title .hl-amber  { color: var(--amber); }
+.hero-title .hl-purple { color: var(--purple); }
+
+.header-subtitle {
+  font-size: 12px; color: var(--fg2); max-width: 720px; line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* ── STATS GRID ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+  gap: 12px;
+  max-width: 900px;
+  margin-top: 20px;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+  padding: 12px 16px;
+}
+.stat-num {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1;
+}
+.stat-label {
+  font-size: 10px; color: var(--fg3); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-top: 4px;
+}
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  display: flex; background: var(--bg1); border-bottom: 1px solid var(--border);
+  padding: 0 20px; overflow-x: auto; scrollbar-width: none; position: sticky; top: 0; z-index: 100;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+@media (min-width: 768px) { .nav-tabs { padding: 0 40px; } }
+.nav-tab {
+  padding: 14px 16px; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--fg3); cursor: pointer; border: none;
+  background: none; border-bottom: 2px solid transparent; white-space: nowrap;
+  transition: all 0.15s; font-family: var(--font-mono); min-height: 44px;
+}
+.nav-tab:hover { color: var(--fg2); }
+.nav-tab.active { color: var(--fg); border-bottom-color: var(--red); }
+
+/* ── MAIN / TAB PANELS ── */
+.main { padding: 24px 20px 80px; }
+@media (min-width: 768px) { .main { padding: 32px 40px 80px; } }
+.tab-panel { display: block; scroll-margin-top: 80px; padding-top: 20px; }
+
+/* ── GO TOP ── */
+.gotop {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--red);
+  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 1000; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, background 0.2s, border-color 0.2s;
+  font-family: var(--font-mono); font-weight: bold; font-size: 1.2rem;
+}
+.gotop.show { opacity: 1; pointer-events: auto; }
+.gotop:hover { background: var(--bg3); border-color: var(--red); color: #fff; }
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg3);
+  margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+
+/* ── CARD BASE ── */
+.card {
+  background: var(--bg1); border: 1px solid var(--border); border-radius: 6px; padding: 20px;
+}
+.card-head {
+  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;
+}
+.card-icon {
+  width: 32px; height: 32px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.card-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  letter-spacing: 0.02em; margin-bottom: 4px;
+}
+.card-date { font-size: 10px; color: var(--fg3); letter-spacing: 0.06em; }
+.card-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+/* ── ACCENT LEFT CARD ── */
+.card-accent {
+  background: var(--bg2); border-radius: 0 6px 6px 0; padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.card-accent-red    { border-left: 3px solid var(--red); }
+.card-accent-amber  { border-left: 3px solid var(--amber); }
+.card-accent-blue   { border-left: 3px solid var(--blue); }
+.card-accent-purple { border-left: 3px solid var(--purple); }
+.card-accent-green  { border-left: 3px solid var(--green); }
+
+.card-accent .ca-label { font-size: 10px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+.card-accent .ca-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.card-accent .ca-body  { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+
+/* ── ALERT BOX ── */
+.alert-box {
+  border-radius: 6px; padding: 16px 20px;
+  display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px;
+}
+.alert-red    { background: var(--red2);    border: 1px solid rgba(232,64,64,0.25); }
+.alert-amber  { background: var(--amber2);  border: 1px solid rgba(232,160,32,0.25); }
+.alert-blue   { background: var(--blue2);   border: 1px solid rgba(48,144,232,0.25); }
+.alert-purple { background: var(--purple2); border: 1px solid rgba(160,96,232,0.25); }
+.alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.alert-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.alert-body strong { color: var(--fg); }
+
+/* ── GRIDS ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 16px; margin-bottom: 24px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px; margin-bottom: 24px;
+}
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 24px; margin-bottom: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+  width: 1px; background: var(--border2);
+}
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot {
+  position: absolute; left: -20px; top: 5px;
+  width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--bg);
+}
+.tl-dot-red    { background: var(--red); }
+.tl-dot-amber  { background: var(--amber); }
+.tl-dot-purple { background: var(--purple); }
+.tl-dot-blue   { background: var(--blue); }
+.tl-dot-green  { background: var(--green); }
+.tl-date { font-size: 10px; color: var(--fg3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.tl-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.tl-desc { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; margin-bottom: 24px; border-radius: 6px; border: 1px solid var(--border); }
+.data-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.data-table th {
+  font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--fg3); text-align: left; padding: 10px 12px;
+  border-bottom: 1px solid var(--border2); white-space: nowrap;
+  background: var(--bg2);
+}
+.data-table td {
+  padding: 10px 12px; font-size: 12px; border-bottom: 1px solid var(--border);
+  vertical-align: top; color: var(--fg2);
+}
+.data-table td:first-child { color: var(--fg); font-weight: 500; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg2); }
+
+/* ── BLOCKQUOTE ── */
+.blockquote {
+  border-left: 3px solid var(--fg3); padding: 12px 16px 12px 18px;
+  background: var(--bg2); border-radius: 0 6px 6px 0; margin: 16px 0;
+}
+.blockquote p { font-size: 13px; color: var(--fg); line-height: 1.7; font-style: italic; }
+.blockquote cite { font-size: 11px; color: var(--fg3); margin-top: 6px; display: block; }
+
+/* ── PATTERN ROW ── */
+.pattern-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.pattern-row:last-child { border-bottom: none; padding-bottom: 0; }
+.pattern-id {
+  font-family: var(--font-display); font-size: 18px; font-weight: 800;
+  opacity: 0.2; flex-shrink: 0; min-width: 40px; line-height: 1;
+  padding-top: 2px;
+}
+.pattern-content { flex: 1; }
+.pattern-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+.pattern-desc { font-size: 12px; color: var(--fg2); line-height: 1.6; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 48px; padding: 20px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 12px;
+}
+@media (min-width: 768px) { .footer { padding: 20px 40px; } }
+.footer-text { font-size: 11px; color: var(--fg3); line-height: 1.7; }
+.footer-text a { color: var(--blue); text-decoration: none; }
+.footer-text a:hover { text-decoration: underline; }
+
+/* ── PRINT ── */
+@media print {
+  body { background: #fff; color: #111; }
+  .nav-tabs { display: none !important; }
+  .tab-panel { display: block !important; page-break-inside: avoid; }
+  .tab-panel + .tab-panel { page-break-before: always; }
+  :root { --bg: #fff; --bg1: #f8f8f8; --bg2: #f0f0f0; --bg3: #e8e8e8;
+          --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.20);
+          --fg: #111; --fg2: #444; --fg3: #888; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header class="header">
+  <div class="meta-row">
+    <div class="pulse-dot"></div>
+    <span class="badge badge-red">Violência Política</span>
+    <span class="badge badge-amber">Lawfare</span>
+    <span class="badge badge-purple">Padrão Global</span>
+    <span class="badge badge-blue">2018–2025</span>
+    <span style="font-size:10px; color:var(--fg3); margin-left:auto;">14/SET/2025</span>
+  </div>
+
+  <h1 class="hero-title">
+    <span class="hl-red">VIOLÊNCIA POLÍTICA</span><br>
+    E <span class="hl-amber">PERSEGUIÇÃO JURÍDICA</span>
+  </h1>
+  <p class="header-subtitle">
+    Mapeamento sistemático de ataques físicos e judiciais contra líderes conservadores globais entre 2018 e 2025.
+    Brasil, EUA, Colômbia — padrão convergente de supressão por violência e lawfare documentado em sete eventos.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--red)">7</div>
+      <div class="stat-label">Eventos documentados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--amber)">4</div>
+      <div class="stat-label">Países envolvidos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--red)">2</div>
+      <div class="stat-label">Assassinados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--amber)">27a 3m</div>
+      <div class="stat-label">Pena Bolsonaro</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--blue)">2030</div>
+      <div class="stat-label">Inelegível até</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+     NAVEGAÇÃO
+══════════════════════════════════════ -->
+<nav class="nav-tabs" id="main-nav">
+  <button class="nav-tab active" data-target="tab-visao-geral">01 · Visão Geral</button>
+  <button class="nav-tab" data-target="tab-linha-do-tempo">02 · Linha do Tempo</button>
+  <button class="nav-tab" data-target="tab-atores">03 · Atores & Alvos</button>
+  <button class="nav-tab" data-target="tab-mecanismos">04 · Mecanismos</button>
+  <button class="nav-tab" data-target="tab-analise-comparativa">05 · Comparativo</button>
+  <button class="nav-tab" data-target="tab-fontes">06 · Fontes</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
+<div class="main">
+
+  <!-- ── TAB 01: VISÃO GERAL ── -->
+  <div id="tab-visao-geral" class="tab-panel">
+    <p class="section-title">Padrão Global — Síntese Analítica</p>
+
+    <div class="alert-box alert-purple" style="margin-bottom:24px;">
+      <div class="alert-icon">⚠</div>
+      <div class="alert-body">
+        <strong>Hipótese analítica central:</strong> Eventos como o esfaqueamento de Bolsonaro (2018), o atentado contra Trump (2024), o assassinato de Uribe Turbay e Charlie Kirk (2025) e as condenações judiciais de Bolsonaro sugerem um padrão convergente — não necessariamente coordenado — de supressão a líderes que desafiam narrativas progressistas dominantes. Esta análise examina os eventos, não afirma causalidade sem evidência documental.
+      </div>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--red2);">⚔️</div>
+          <div>
+            <div class="card-title">Violência Física como Resposta Imediata</div>
+            <div class="card-date">2018 · 2024 · 2025</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Os atentados a Bolsonaro (2018), Trump (2024) e Uribe Turbay (2025), seguidos pelo assassinato de Kirk (2025), ocorreram em momentos de mobilização política intensa. Perpetradores emergem de narrativas de "resistência" às direitas — com falhas institucionais de segurança facilitando os ataques.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-red">Esfaqueamento</span>
+          <span class="badge badge-red">Atentado a tiros</span>
+          <span class="badge badge-red">Assassinatos</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--amber2);">⚖️</div>
+          <div>
+            <div class="card-title">Lawfare como Instrumento de Longo Prazo</div>
+            <div class="card-date">2019–2025</div>
+          </div>
+        </div>
+        <div class="card-body">
+          O lawfare durante o governo Bolsonaro — inquérito das fake news, buscas a aliados, censura digital — culminou em inelegibilidade (2023) e condenação a 27 anos (2025). Espelha os impeachments e processos eleitorais contra Trump. Ciclo documentado: desgaste legal precede ou acompanha a violência.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-amber">INQ 4.781</span>
+          <span class="badge badge-amber">TSE 2023</span>
+          <span class="badge badge-amber">STF 2025</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--purple2);">🌐</div>
+          <div>
+            <div class="card-title">Convergência Transnacional 2025</div>
+            <div class="card-date">Set 2025 — Pico de intensidade</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Em setembro de 2025, a condenação de Bolsonaro (11/set) e o assassinato de Charlie Kirk (10/set) ocorrem em janela de 24 horas. A simultaneidade entre supressão judicial no Sul Global e eliminação física no Norte é o dado mais denso do padrão documentado.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-purple">Transnacional</span>
+          <span class="badge badge-red">Condenação + Assassinato</span>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider">
+    <p class="section-title">Padrões Sistêmicos Identificados</p>
+
+    <div style="background:var(--bg1); border: 1px solid var(--border); border-radius: 6px; padding: 20px;">
+
+      <div class="pattern-row">
+        <div class="pattern-id" style="color:var(--red);">01</div>
+        <div class="pattern-content">
+          <div class="pattern-name">Targeting de figuras que mobilizam bases populares</div>
+          <div class="pattern-desc">Todos os alvos documentados apresentam alta capacidade de mobilização eleitoral e bases populares fora do establishment institucional. O ataque ocorre no momento de maior visibilidade — comícios, eventos universitários, plenário.</div>
+        </div>
+        <span class="badge badge-red" style="flex-shrink:0">Violência</span>
+      </div>
+
+      <div class="pattern-row">
+        <div class="pattern-id" style="color:var(--amber);">02</div>
+        <div class="pattern-content">
+          <div class="pattern-name">Lawfare como prólogo ou paralelo à violência</div>
+          <div class="pattern-desc">No caso Bolsonaro: inquérito (2019) → buscas (2019–22) → inelegibilidade (2023) → condenação (2025). No caso de Uribe Turbay: investigações ao Centro Democrático precedem o atentado. O desgaste judicial reduz capacidade de resposta antes da violência física.</div>
+        </div>
+        <span class="badge badge-amber" style="flex-shrink:0">Lawfare</span>
+      </div>
+
+      <div class="pattern-row">
+        <div class="pattern-id" style="color:var(--blue);">03</div>
+        <div class="pattern-content">
+          <div class="pattern-name">Perpetradores com motivação ideológica documentada</div>
+          <div class="pattern-desc">Adélio Bispo (ligado a movimentos esquerdistas), o atirador de Butler PA, o menor de 15 anos em Bogotá, o perpetrador em Utah Valley University — todos emergiram de narrativas anti-direita amplificadas por ciclos midiáticos de polarização.</div>
+        </div>
+        <span class="badge badge-blue" style="flex-shrink:0">Padrão</span>
+      </div>
+
+      <div class="pattern-row">
+        <div class="pattern-id" style="color:var(--purple);">04</div>
+        <div class="pattern-content">
+          <div class="pattern-name">Efeito-mártir: ataque fortalece simbolicamente o alvo</div>
+          <div class="pattern-desc">O esfaqueamento de Bolsonaro em 2018 impulsionou sua vitória eleitoral. O atentado a Trump em 2024 gerou ampla solidariedade e provavelmente contribuiu para sua vitória em novembro. A violência tende a produzir o efeito inverso ao pretendido.</div>
+        </div>
+        <span class="badge badge-purple" style="flex-shrink:0">Especial</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ── TAB 02: LINHA DO TEMPO ── -->
+  <div id="tab-linha-do-tempo" class="tab-panel">
+    <p class="section-title">Cronologia 2018–2025</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-red"></div>
+        <div class="tl-date">06 Set 2018 · Juiz de Fora, MG, Brasil</div>
+        <div class="tl-title">Esfaqueamento de Jair Bolsonaro</div>
+        <div class="tl-desc">Adélio Bispo de Oliveira, vinculado ao PSOL, fere gravemente o candidato durante comício. Cirurgia de emergência. Sobrevivência. Primeiro grande episódio de violência física contra um líder populista de direita na América Latina recente. O evento fortaleceu a imagem de Bolsonaro como mártir e contribuiu para sua vitória em outubro de 2018.</div>
+        <div class="tl-tags">
+          <span class="badge badge-red">Violência Física</span>
+          <span class="badge badge-amber">Sobreviveu</span>
+          <span class="badge badge-purple">Efeito Mártir</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-amber"></div>
+        <div class="tl-date">2019–2022 · Brasil</div>
+        <div class="tl-title">Lawfare Sistêmico — Governo Bolsonaro</div>
+        <div class="tl-desc">INQ 4.781 ("fake news") no STF expande escopo continuamente. Buscas e apreensões em aliados. Ministros do STF determinam bloqueios em redes sociais. Investigação sobre suposta interferência na PF. Ciclo de desgaste judicial: aliados presos, agenda conservadora fragmentada por processos simultâneos.</div>
+        <div class="tl-tags">
+          <span class="badge badge-amber">INQ 4.781</span>
+          <span class="badge badge-amber">Censura Digital</span>
+          <span class="badge badge-blue">STF</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-blue"></div>
+        <div class="tl-date">Jun 2023 · Brasil</div>
+        <div class="tl-title">Inelegibilidade de Bolsonaro — TSE</div>
+        <div class="tl-desc">Tribunal Superior Eleitoral declara Bolsonaro inelegível até 2030 por "abuso de poder" em reunião com embaixadores onde questionou a integridade das urnas eletrônicas. A decisão, contestada por juristas como desproporcional, é a primeira culminação do ciclo de lawfare iniciado em 2019.</div>
+        <div class="tl-tags">
+          <span class="badge badge-amber">Inelegível 2030</span>
+          <span class="badge badge-blue">TSE</span>
+          <span class="badge badge-amber">Lawfare Judicial</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-red"></div>
+        <div class="tl-date">13 Jul 2024 · Butler, PA, EUA</div>
+        <div class="tl-title">Atentado contra Donald Trump</div>
+        <div class="tl-desc">Atirador de 20 anos fere Trump no ouvido durante comício na Pensilvânia, matando um espectador e ferindo outros dois. Segundo episódio de violência física contra líder populista de direita no período documentado. Paralelo estrutural com 2018: mesmo tipo de evento (comício), mesmo perfil de perpetrador (jovem com narrativa anti-direita), mesmo resultado (efeito mártir).</div>
+        <div class="tl-tags">
+          <span class="badge badge-red">Violência Física</span>
+          <span class="badge badge-amber">Sobreviveu</span>
+          <span class="badge badge-purple">EUA</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-red"></div>
+        <div class="tl-date">Ago 2025 · Bogotá, Colômbia</div>
+        <div class="tl-title">Assassinato de Miguel Uribe Turbay</div>
+        <div class="tl-desc">Senador pelo Centro Democrático e precandidato presidencial é assassinado por menor de 15 anos em evento de campanha. Uribe Turbay, defensor de políticas anti-guerrilha e pró-mercado, era uma das principais vozes da oposição ao governo Gustavo Petro. Álvaro Uribe Vélez acusa o governo de instigação. Investigação aberta como magnicídio.</div>
+        <div class="tl-tags">
+          <span class="badge badge-red">Assassinato</span>
+          <span class="badge badge-red">Magnicídio</span>
+          <span class="badge badge-purple">Colômbia</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-red"></div>
+        <div class="tl-date">10 Set 2025 · Utah Valley University, EUA</div>
+        <div class="tl-title">Assassinato de Charlie Kirk</div>
+        <div class="tl-desc">Fundador da Turning Point USA, 31 anos, é assassinado durante discurso por radical de esquerda. Kirk era o principal organizador conservador jovem dos EUA, ativista pela liberdade de expressão e valores cristãos em campi universitários. Gerou homenagens globais e críticas ao "clima de ódio" progressista. Ocorre 24 horas antes da condenação de Bolsonaro.</div>
+        <div class="tl-tags">
+          <span class="badge badge-red">Assassinato</span>
+          <span class="badge badge-purple">EUA</span>
+          <span class="badge badge-amber">Ativismo Jovem</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-amber"></div>
+        <div class="tl-date">11 Set 2025 · Brasil · STF</div>
+        <div class="tl-title">Condenação de Bolsonaro — 27 anos e 3 meses</div>
+        <div class="tl-desc">STF condena Bolsonaro por 4 a 1 por tentativa de golpe de Estado, organização criminosa armada e abolição violenta do Estado Democrático de Direito relacionados à trama pós-2022. A condenação também inelegibiliza aliados. Recursos pendentes. A decisão, somada ao assassinato de Kirk no dia anterior, compõe o momento de maior intensidade do ciclo documentado.</div>
+        <div class="tl-tags">
+          <span class="badge badge-red">27a 3m regime fechado</span>
+          <span class="badge badge-amber">Lawfare Judicial</span>
+          <span class="badge badge-blue">STF · 4×1</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TAB 03: ATORES ── -->
+  <div id="tab-atores" class="tab-panel">
+    <p class="section-title">Alvos e Perpetradores</p>
+
+    <div class="grid-2" style="margin-bottom:8px">
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--red2);">🇧🇷</div>
+          <div>
+            <div class="card-title">Jair Bolsonaro</div>
+            <div class="card-date">Presidente 2019–2022 · Brasil</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Primeiro a ser alvo simultâneo de violência física (2018) e lawfare sistêmico (2019–2025). Esfaqueado em setembro de 2018, governou sob investigação contínua, foi declarado inelegível em 2023 e condenado a 27 anos em 2025. Caso paradigmático da combinação dos dois mecanismos de supressão em sequência.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-red">Esfaqueado 2018</span>
+          <span class="badge badge-amber">Inelegível 2023</span>
+          <span class="badge badge-red">Condenado 2025</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--blue2);">🇺🇸</div>
+          <div>
+            <div class="card-title">Donald Trump</div>
+            <div class="card-date">Presidente 2017–2021, 2025– · EUA</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Alvo de dois impeachments (2019 e 2021), quatro indiciamentos federais (2023–2024) e do atentado em Butler, PA (julho de 2024). O paralelo estrutural com Bolsonaro é documentado: desgaste judicial prolongado + tentativa de violência física em momento eleitoral. Sobreviveu ao atentado e venceu a eleição de 2024.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-red">Atentado Jul/2024</span>
+          <span class="badge badge-amber">4 Indiciamentos</span>
+          <span class="badge badge-green">Sobreviveu</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--red2);">🇨🇴</div>
+          <div>
+            <div class="card-title">Miguel Uribe Turbay</div>
+            <div class="card-date">Senador · Centro Democrático · Colômbia</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Precandidato presidencial, defensor de políticas anti-guerrilha, assassinado em agosto de 2025 por menor de 15 anos durante evento de campanha em Bogotá. Uribe Turbay era uma das vozes mais fortes contra o governo Petro. Investigado como magnicídio. Seu assassinato reativou debates sobre violência política estrutural na Colômbia.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-red">Assassinado Ago/2025</span>
+          <span class="badge badge-red">Magnicídio</span>
+          <span class="badge badge-amber">Investigado</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:var(--amber2);">🇺🇸</div>
+          <div>
+            <div class="card-title">Charlie Kirk</div>
+            <div class="card-date">Fundador Turning Point USA · 1993–2025</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Principal organizador do ativismo conservador jovem nos EUA. Fundou a Turning Point USA aos 18 anos, construiu rede de capítulos em centenas de campi universitários. Assassinado com 31 anos durante discurso na Utah Valley University em 10 de setembro de 2025. Sua morte gerou comoção global e intensificou o debate sobre radicalização anti-direita.
+        </div>
+        <div class="card-tags">
+          <span class="badge badge-red">Assassinado Set/2025</span>
+          <span class="badge badge-purple">Ativismo Universitário</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="section-title" style="margin-top:8px;">Perpetradores Documentados</p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Alvo</th>
+            <th>Perpetrador</th>
+            <th>Perfil</th>
+            <th>Motivação declarada</th>
+            <th>Desfecho</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bolsonaro (2018)</td>
+            <td>Adélio Bispo de Oliveira</td>
+            <td style="color:var(--fg2)">Ligado ao PSOL</td>
+            <td style="color:var(--fg2)">"Missão de Deus"</td>
+            <td><span class="badge badge-blue">Internado psiquiátrico</span></td>
+          </tr>
+          <tr>
+            <td>Trump (2024)</td>
+            <td>Thomas Matthew Crooks</td>
+            <td style="color:var(--fg2)">20 anos, PA, sem filiação clara</td>
+            <td style="color:var(--fg2)">Não determinada — investigação em curso</td>
+            <td><span class="badge badge-red">Morto no local</span></td>
+          </tr>
+          <tr>
+            <td>Uribe Turbay (2025)</td>
+            <td>Menor de 15 anos (identidade sigilosa)</td>
+            <td style="color:var(--fg2)">Adolescente, Bogotá</td>
+            <td style="color:var(--fg2)">Investigado — suspeita de mandante</td>
+            <td><span class="badge badge-amber">Preso — investigação</span></td>
+          </tr>
+          <tr>
+            <td>Kirk (2025)</td>
+            <td>Identidade confirmada — não divulgada nesta análise</td>
+            <td style="color:var(--fg2)">Radical de esquerda, campus universitário</td>
+            <td style="color:var(--fg2)">Oposição ao ativismo conservador</td>
+            <td><span class="badge badge-red">Preso</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ── TAB 04: MECANISMOS ── -->
+  <div id="tab-mecanismos" class="tab-panel">
+    <p class="section-title">Dois Mecanismos — Uma Função</p>
+
+    <div class="grid-2">
+
+      <div>
+        <div class="card-accent card-accent-red" style="margin-bottom:0">
+          <div class="ca-label">Mecanismo 01 · Resposta Imediata</div>
+          <div class="ca-title">Violência Física</div>
+          <div class="ca-body">Ataques diretos durante eventos públicos de alta visibilidade. Perpetradores com motivação ideológica documentada, emergindo de narrativas de "resistência" amplificadas midiaticamente. Produz comoção imediata mas frequentemente gera o efeito inverso ao pretendido — fortalecimento simbólico do alvo (efeito mártir). Exceção: quando o alvo é assassinado (Uribe Turbay, Kirk), o efeito é de silenciamento definitivo.</div>
+        </div>
+        <div style="background:var(--bg2); border:1px solid var(--border); border-top:none; border-radius:0 0 6px 6px; padding:12px 16px;">
+          <div style="font-size:11px; color:var(--fg3); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.08em;">Casos documentados</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <span class="badge badge-red">Bolsonaro 2018</span>
+            <span class="badge badge-red">Trump 2024</span>
+            <span class="badge badge-red">Uribe Turbay 2025</span>
+            <span class="badge badge-red">Kirk 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card-accent card-accent-amber" style="margin-bottom:0">
+          <div class="ca-label">Mecanismo 02 · Instrumento de Longo Prazo</div>
+          <div class="ca-title">Lawfare Judicial</div>
+          <div class="ca-body">Uso estratégico do sistema judicial para desgastar, excluir e condenar líderes políticos oposicionistas. Opera em ciclos: inquérito → busca e apreensão → prisão de aliados → inelegibilidade → condenação. O processo em si é o castigo — mesmo sem condenação definitiva, o custo em tempo, recursos e imagem é significativo. No caso Bolsonaro, o ciclo durou seis anos e produziu condenação de 27 anos.</div>
+        </div>
+        <div style="background:var(--bg2); border:1px solid var(--border); border-top:none; border-radius:0 0 6px 6px; padding:12px 16px;">
+          <div style="font-size:11px; color:var(--fg3); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.08em;">Casos documentados</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <span class="badge badge-amber">Bolsonaro 2019–2025</span>
+            <span class="badge badge-amber">Trump 2021–2024</span>
+            <span class="badge badge-amber">Centro Democrático</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider">
+    <p class="section-title">Ciclo Documentado — Bolsonaro como Caso Completo</p>
+
+    <div class="card-accent card-accent-red"><div class="ca-label">Fase 1 · 2018</div><div class="ca-title">Violência Física Pré-Posse</div><div class="ca-body">Esfaqueamento em comício, 6 meses antes da eleição. Primeiro teste do mecanismo de violência. Resultado: efeito mártir → vitória eleitoral em outubro de 2018.</div></div>
+    <div class="card-accent card-accent-amber"><div class="ca-label">Fase 2 · 2019–2022</div><div class="ca-title">Desgaste Judicial no Poder</div><div class="ca-body">INQ 4.781, buscas a aliados, censura digital, investigação sobre PF. Lawfare operando enquanto o alvo ainda governa — objetivo é fragmentar agenda e isolar politicamente.</div></div>
+    <div class="card-accent card-accent-blue"><div class="ca-label">Fase 3 · 2023</div><div class="ca-title">Exclusão Eleitoral</div><div class="ca-body">Inelegibilidade até 2030 pelo TSE. Alvo removido do próximo ciclo eleitoral sem condenação criminal definitiva. Uso do direito eleitoral como instrumento de exclusão política.</div></div>
+    <div class="card-accent card-accent-red"><div class="ca-label">Fase 4 · 2025</div><div class="ca-title">Condenação Criminal</div><div class="ca-body">27 anos e 3 meses de prisão em regime fechado. Ciclo de seis anos de lawfare culmina na condenação mais severa já aplicada a um ex-presidente brasileiro. Recursos pendentes, impacto imediato na oposição.</div></div>
+
+    <hr class="divider">
+    <p class="section-title">Lacunas e Questões em Aberto</p>
+
+    <div class="alert-box alert-amber">
+      <div class="alert-icon">🔍</div>
+      <div class="alert-body">
+        <strong>Questão investigativa central:</strong> Os eventos documentados são convergentes (mesmo padrão, diferentes origens) ou coordenados (mesma origem, diferentes executores)? A análise disponível aponta para convergência — narrativas compartilhadas que produzem ações similares em contextos distintos — mas não exclui conexões não documentadas. A ausência de evidência não é evidência de ausência.
+      </div>
+    </div>
+
+    <div class="alert-box alert-blue">
+      <div class="alert-icon">📋</div>
+      <div class="alert-body">
+        <strong>Lacunas documentadas:</strong> (1) Investigação sobre mandante do assassinato de Uribe Turbay ainda em curso — conclusões preliminares não disponíveis. (2) Motivação do atirador de Butler, PA, permanece parcialmente investigada. (3) Decisão completa do STF sobre condenação de Bolsonaro ainda sem publicação integral do acórdão à data desta análise.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 05: ANÁLISE COMPARATIVA ── -->
+  <div id="tab-analise-comparativa" class="tab-panel">
+    <p class="section-title">Tabela Comparativa de Eventos</p>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Evento</th>
+            <th>Data</th>
+            <th>País</th>
+            <th>Tipo de Ameaça</th>
+            <th>Alvo</th>
+            <th>Status</th>
+            <th>Conexão Principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Esfaqueamento de Bolsonaro</td>
+            <td style="color:var(--fg3)">2018-09-06</td>
+            <td style="color:var(--fg2)">🇧🇷 Brasil</td>
+            <td><span class="badge badge-red">Violência Física</span></td>
+            <td style="color:var(--fg2)">Bolsonaro</td>
+            <td><span class="badge badge-green">Sobreviveu</span></td>
+            <td style="color:var(--fg2)">Início de ataques a populistas de direita</td>
+          </tr>
+          <tr>
+            <td>Lawfare no Governo Bolsonaro</td>
+            <td style="color:var(--fg3)">2019–2022</td>
+            <td style="color:var(--fg2)">🇧🇷 Brasil</td>
+            <td><span class="badge badge-amber">Perseguição Judicial</span></td>
+            <td style="color:var(--fg2)">Bolsonaro + aliados</td>
+            <td><span class="badge badge-amber">Em andamento</span></td>
+            <td style="color:var(--fg2)">Desestabilização institucional</td>
+          </tr>
+          <tr>
+            <td>Inelegibilidade de Bolsonaro</td>
+            <td style="color:var(--fg3)">2023</td>
+            <td style="color:var(--fg2)">🇧🇷 Brasil</td>
+            <td><span class="badge badge-amber">Exclusão Política</span></td>
+            <td style="color:var(--fg2)">Bolsonaro</td>
+            <td><span class="badge badge-red">Vigente — até 2030</span></td>
+            <td style="color:var(--fg2)">Culminação inicial do lawfare</td>
+          </tr>
+          <tr>
+            <td>Atentado contra Trump</td>
+            <td style="color:var(--fg3)">2024-07-13</td>
+            <td style="color:var(--fg2)">🇺🇸 EUA</td>
+            <td><span class="badge badge-red">Violência Física</span></td>
+            <td style="color:var(--fg2)">Trump</td>
+            <td><span class="badge badge-green">Sobreviveu</span></td>
+            <td style="color:var(--fg2)">Paralelo transnacional ao caso Bolsonaro 2018</td>
+          </tr>
+          <tr>
+            <td>Assassinato de Uribe Turbay</td>
+            <td style="color:var(--fg3)">2025-08</td>
+            <td style="color:var(--fg2)">🇨🇴 Colômbia</td>
+            <td><span class="badge badge-red">Violência Física</span></td>
+            <td style="color:var(--fg2)">Uribe Turbay</td>
+            <td><span class="badge badge-red">Morto</span></td>
+            <td style="color:var(--fg2)">Escalada na América Latina</td>
+          </tr>
+          <tr>
+            <td>Assassinato de Charlie Kirk</td>
+            <td style="color:var(--fg3)">2025-09-10</td>
+            <td style="color:var(--fg2)">🇺🇸 EUA</td>
+            <td><span class="badge badge-red">Violência Física</span></td>
+            <td style="color:var(--fg2)">Kirk</td>
+            <td><span class="badge badge-red">Morto</span></td>
+            <td style="color:var(--fg2)">Supressão ao ativismo conservador jovem</td>
+          </tr>
+          <tr>
+            <td>Condenação de Bolsonaro</td>
+            <td style="color:var(--fg3)">2025-09-11</td>
+            <td style="color:var(--fg2)">🇧🇷 Brasil</td>
+            <td><span class="badge badge-amber">Perseguição Judicial</span></td>
+            <td style="color:var(--fg2)">Bolsonaro</td>
+            <td><span class="badge badge-red">27a 3m — recursos</span></td>
+            <td style="color:var(--fg2)">Culminação do ciclo de lawfare 2018–2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="divider">
+    <p class="section-title">Análise de Densidade — Set 2025</p>
+
+    <div class="blockquote">
+      <p>"A simultaneidade entre a condenação de Bolsonaro (11/set) e o assassinato de Charlie Kirk (10/set) em janela de 24 horas não pode ser ignorada como dado analítico — mesmo que não implique coordenação. Representa o pico de intensidade do ciclo documentado: supressão judicial no Sul Global e eliminação física no Norte no mesmo momento histórico."</p>
+      <cite>— Nota analítica desta análise · Set 2025</cite>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:8px; color:var(--red)">4 de 7</div>
+        <div class="card-body">eventos envolvem violência física direta, dos quais 2 resultaram em morte</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:8px; color:var(--amber)">3 de 7</div>
+        <div class="card-body">eventos são judiciais, todos contra o mesmo alvo (Bolsonaro) ao longo de 6 anos</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:8px; color:var(--purple)">4 países</div>
+        <div class="card-body">Brasil, EUA, Colômbia — três continentes, mesma janela temporal 2018–2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 06: FONTES ── -->
+  <div id="tab-fontes" class="tab-panel">
+    <p class="section-title">Fontes e Metodologia</p>
+
+    <div class="alert-box alert-blue" style="margin-bottom:24px;">
+      <div class="alert-icon">📋</div>
+      <div class="alert-body">
+        <strong>Nota metodológica:</strong> Esta análise baseia-se exclusivamente em fontes públicas verificáveis. Conexões entre eventos são apresentadas como hipóteses analíticas, não como fatos provados. A existência de padrão não implica coordenação central. Onde hipóteses são apresentadas como mais do que coincidências, isso é explicitado no texto.
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:24px;">
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">01</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">Agência Brasil — Esfaqueamento de Bolsonaro: cobertura completa (set/2018)</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-blue">Jornalismo</span> agenciabrasil.ebc.com.br · Adélio Bispo · Juiz de Fora · Cirurgia</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">02</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">Lawfare-Timeline — INQ 4.781 e cobertura do governo Bolsonaro</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-green">Primário</span> lawfare-timeline.vercel.app · INQ 4.781 · Censura Digital · TSE/USAID</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">03</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">Associated Press — Atentado contra Donald Trump, Butler PA (jul/2024)</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-blue">Jornalismo</span> apnews.com · Thomas Crooks · Butler, PA · Investigação FBI</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">04</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">El Tiempo / El País — Assassinato de Miguel Uribe Turbay (ago/2025)</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-blue">Jornalismo</span> eltiempo.com · Bogotá · Centro Democrático · Magnicídio</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">05</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">Fox News / Turning Point USA — Assassinato de Charlie Kirk (set/2025)</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-blue">Jornalismo</span> Utah Valley University · Turning Point USA · Ativismo conservador</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">06</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">STF — Acórdão AP 2668 — Condenação Bolsonaro (set/2025)</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-green">Primário</span> stf.jus.br · AP 2668 · 27a 3m · Votação 4×1 · Acórdão em publicação</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="font-size:10px; color:var(--fg3); min-width:24px; padding-top:2px;">07</span>
+          <div>
+            <div style="font-size:12px; color:var(--fg); margin-bottom:3px; font-weight:500;">TSE — Acórdão inelegibilidade Bolsonaro (jun/2023)</div>
+            <div style="font-size:10px; color:var(--fg3);"><span class="badge badge-green">Primário</span> tse.jus.br · Abuso de poder · Inelegível 2030 · Reunião embaixadores</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="section-title">Artigos Relacionados — Lawfare-Timeline</p>
+    <div class="grid-3">
+      <a href="duplo-padrao-judicial.html" style="text-decoration:none;">
+        <div class="card" style="transition: border-color 0.15s; cursor:pointer;" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--red2 ); color:var(--red); margin-bottom:6px;">Dossiê</div>
+          <div style="font-size:13px; font-weight:600; color:var(--fg); line-height:1.4; margin-bottom:4px;">Duplo Padrão Judicial</div>
+          <div style="font-size:11px; color:var(--fg2);">Mapeamento da seletividade — perseguição política vs. proteção do crime organizado</div>
+        </div>
+      </a>
+      <a href="inq4781.html" style="text-decoration:none;">
+        <div class="card" style="transition: border-color 0.15s; cursor:pointer;" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--amber); margin-bottom:6px;">Jurídico</div>
+          <div style="font-size:13px; font-weight:600; color:var(--fg); line-height:1.4; margin-bottom:4px;">INQ 4.781 — Dossiê</div>
+          <div style="font-size:11px; color:var(--fg2);">Inquérito das Fake News: alvos, mecanismos e cronologia completa</div>
+        </div>
+      </a>
+      <a href="https://lawfare-timeline.vercel.app" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="card" style="transition: border-color 0.15s; cursor:pointer; border-color: rgba(232,160,32,0.2);" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='rgba(232,160,32,0.2)'">
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--amber); margin-bottom:6px;">Projeto Público ↗</div>
+          <div style="font-size:13px; font-weight:600; color:var(--fg); line-height:1.4; margin-bottom:4px;">Lawfare Timeline</div>
+          <div style="font-size:11px; color:var(--fg2);">lawfare-timeline.vercel.app — 1.400+ registros documentados</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div id="gotop" class="gotop" title="Voltar ao topo">↑</div>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-text">
+    <div style="margin-bottom:4px;">
+      <strong style="color:var(--fg2);">Violência Política e Perseguição Jurídica</strong> · Dossiê Global 2018–2025
+    </div>
+    <div>Parte do projeto <a href="https://lawfare-timeline.vercel.app" target="_blank">Lawfare Timeline</a> · Artes do Sul Desenvolvimento Web · Bombinhas/SC</div>
+    <div style="margin-top:4px;">
+      Fontes: Agência Brasil · AP · El Tiempo · STF (AP 2668) · TSE · Lawfare-Timeline
+    </div>
+  </div>
+  <div class="footer-text" style="text-align:right;">
+    <div><a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0 1.0 Universal — Domínio Público</a></div>
+    <div>Copie, distribua, adapte sem restrições</div>
+    <div style="margin-top:4px; color:var(--fg3);">Análise baseada em fontes públicas verificáveis</div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.nav-tab');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-target');
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        const offset = 70; // offset for sticky nav
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = targetEl.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-100px 0px -50% 0px',
+    threshold: 0
+  };
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const activeTab = document.querySelector(`.nav-tab[data-target="${entry.target.id}"]`);
+        if (activeTab) {
+          activeTab.classList.add('active');
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.tab-panel').forEach(sec => navObserver.observe(sec));
+
+  const gotop = document.getElementById('gotop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      gotop.classList.add('show');
+    } else {
+      gotop.classList.remove('show');
+    }
+  });
+  gotop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

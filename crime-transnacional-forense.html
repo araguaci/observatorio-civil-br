@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossiê Forense — Crime Organizado Transnacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0a0b0e;
+  --bg2:      #0f1115;
+  --bg3:      #14161c;
+  --surface:  #1a1d26;
+  --surface2: #21252f;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.12);
+  --text:     #e8e6df;
+  --muted:    #7a7870;
+  --dim:      #4a4844;
+  --red:      #e05252;
+  --red-bg:   rgba(224,82,82,0.08);
+  --red-b:    rgba(224,82,82,0.2);
+  --amber:    #d4893a;
+  --amber-bg: rgba(212,137,58,0.08);
+  --amber-b:  rgba(212,137,58,0.2);
+  --teal:     #3da882;
+  --teal-bg:  rgba(61,168,130,0.08);
+  --teal-b:   rgba(61,168,130,0.2);
+  --blue:     #4d8fd4;
+  --blue-bg:  rgba(77,143,212,0.08);
+  --blue-b:   rgba(77,143,212,0.2);
+  --purple:   #8b6fd4;
+  --purple-bg:rgba(139,111,212,0.08);
+  --purple-b: rgba(139,111,212,0.2);
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --data: 'DM Mono', monospace;
+  --nav-h: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,11,14,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 32px;
+}
+.nav-brand {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--red);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-brand span { color: var(--muted); font-weight: 400; }
+.nav-links {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.nav-link:hover { color: var(--text); border-color: var(--border2); background: var(--surface); }
+.nav-link.active { color: var(--red); border-color: var(--red-b); background: var(--red-bg); }
+
+.nav-badge {
+  font-family: var(--data);
+  font-size: 10px;
+  padding: 3px 8px;
+  background: var(--red-bg);
+  border: 1px solid var(--red-b);
+  color: var(--red);
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 48px 32px 32px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(224,82,82,0.03) 0%, transparent 100%);
+}
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--red);
+}
+.hero h1 {
+  font-family: var(--sans);
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--red);
+}
+.hero-sub {
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+.hm {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.hm-val {
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hm-label { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.hm-val.red { color: var(--red); }
+.hm-val.amber { color: var(--amber); }
+.hm-val.teal { color: var(--teal); }
+.hm-val.blue { color: var(--blue); }
+.hm-val.purple { color: var(--purple); }
+
+/* ── SECTIONS ── */
+.section {
+  padding: 40px 32px;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-child { border-bottom: none; }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.section-header h2 {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.section-header .s-count {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.section-header .s-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── CARD GRID ── */
+.card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 900px) {
+  .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+  .card-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── EVENT CARD ── */
+.ev-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s, background 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.ev-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  border-radius: 8px 0 0 8px;
+}
+.ev-card.sev-critica::before { background: var(--red); }
+.ev-card.sev-alta::before { background: var(--amber); }
+.ev-card.sev-media::before { background: var(--blue); }
+.ev-card.sev-institucional::before { background: var(--purple); }
+.ev-card:hover { border-color: var(--border2); background: var(--surface); }
+
+.ev-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ev-id {
+  font-family: var(--data);
+  font-size: 10px;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+.ev-badges { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.badge {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-family: var(--data);
+}
+.badge-red    { background: var(--red-bg);    border: 1px solid var(--red-b);    color: var(--red); }
+.badge-amber  { background: var(--amber-bg);  border: 1px solid var(--amber-b);  color: var(--amber); }
+.badge-teal   { background: var(--teal-bg);   border: 1px solid var(--teal-b);   color: var(--teal); }
+.badge-blue   { background: var(--blue-bg);   border: 1px solid var(--blue-b);   color: var(--blue); }
+.badge-purple { background: var(--purple-bg); border: 1px solid var(--purple-b); color: var(--purple); }
+.badge-dim    { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted); }
+
+.ev-date {
+  font-family: var(--data);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.ev-title {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+.ev-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.ev-desc.collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.ev-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.ev-meta-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.ev-meta-key {
+  font-size: 9px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 64px;
+  padding-top: 1px;
+  flex-shrink: 0;
+}
+.ev-meta-val {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.ev-meta-val.highlight { color: var(--text); }
+
+.ev-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+.ev-tag {
+  font-size: 9px;
+  padding: 1px 5px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--dim);
+  letter-spacing: 0.04em;
+  font-family: var(--data);
+}
+
+.ev-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+}
+.ev-expand {
+  font-size: 10px;
+  color: var(--muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  padding: 0;
+  transition: color 0.15s;
+}
+.ev-expand:hover { color: var(--text); }
+.ev-src a {
+  font-size: 9px;
+  color: var(--dim);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+.ev-src a:hover { color: var(--blue); }
+
+/* ── GRAVIDADE BAR ── */
+.grav-section { display: flex; flex-direction: column; gap: 8px; }
+.grav-row { display: flex; align-items: center; gap: 10px; }
+.grav-label { font-size: 10px; color: var(--muted); width: 100px; flex-shrink: 0; letter-spacing: 0.04em; }
+.grav-track { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+.grav-fill { height: 100%; border-radius: 2px; }
+.grav-val { font-family: var(--data); font-size: 10px; color: var(--text); width: 40px; text-align: right; }
+
+/* ── REDE TABLE ── */
+.rede-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.rede-table th {
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dim); text-align: left; padding: 6px 12px;
+  border-bottom: 1px solid var(--border); font-weight: 400;
+  font-family: var(--data);
+}
+.rede-table td {
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  color: var(--muted); vertical-align: top; line-height: 1.4;
+}
+.rede-table tr:last-child td { border-bottom: none; }
+.rede-table tr:hover td { background: var(--surface); }
+.rede-table .actor-name { color: var(--text); font-weight: 500; }
+.rede-table .country-flag { font-size: 14px; margin-right: 4px; }
+
+/* ── STATUS OPERAÇÃO ── */
+.ops-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.op-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.op-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.op-name { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--text); }
+.op-status {
+  font-size: 9px; padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: var(--data); white-space: nowrap; flex-shrink: 0;
+}
+.st-ativo     { background: var(--teal-bg);   border: 1px solid var(--teal-b);   color: var(--teal); }
+.st-concluido { background: var(--blue-bg);   border: 1px solid var(--blue-b);   color: var(--blue); }
+.st-andamento { background: var(--amber-bg);  border: 1px solid var(--amber-b);  color: var(--amber); }
+.st-vigente   { background: var(--purple-bg); border: 1px solid var(--purple-b); color: var(--purple); }
+.op-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.op-footer { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.op-countries { font-size: 12px; }
+.op-date { font-family: var(--data); font-size: 10px; color: var(--dim); }
+.op-result { font-size: 10px; color: var(--amber); font-family: var(--data); }
+
+/* ── ALERTA BANNER ── */
+.alert-strip {
+  display: flex;
+  gap: 12px;
+  padding: 14px 32px;
+  background: linear-gradient(90deg, rgba(224,82,82,0.06) 0%, transparent 100%);
+  border-bottom: 1px solid var(--red-b);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.alert-strip::-webkit-scrollbar { display: none; }
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.alert-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+.alert-text { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; }
+.alert-text strong { color: var(--red); font-weight: 500; }
+.alert-sep { color: var(--dim); font-size: 10px; }
+
+/* ── PUNIÇÃO TABLE ── */
+.pun-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.pun-table th {
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dim); text-align: left; padding: 6px 12px;
+  border-bottom: 1px solid var(--border); font-weight: 400;
+  font-family: var(--data); background: var(--surface);
+}
+.pun-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: middle; }
+.pun-table tr:last-child td { border-bottom: none; }
+.pun-table tr:hover td { background: rgba(255,255,255,0.02); }
+.pun-nome { color: var(--text); font-weight: 500; }
+.pun-pena { color: var(--amber); font-family: var(--data); }
+.pun-pena-none { color: var(--dim); font-family: var(--data); font-style: italic; }
+.pun-status-ok  { color: var(--teal);   font-size: 10px; }
+.pun-status-wip { color: var(--amber);  font-size: 10px; }
+.pun-status-no  { color: var(--red);    font-size: 10px; }
+.pun-status-int { color: var(--purple); font-size: 10px; }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px;
+  width: 1px; background: var(--border);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 16px;
+}
+.tl-item::before {
+  content: ''; position: absolute;
+  left: -18px; top: 7px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+}
+.tl-item.crit::before { background: var(--red); border-color: var(--red); }
+.tl-item.alt::before  { background: var(--amber); border-color: var(--amber); }
+.tl-item.inst::before { background: var(--purple); border-color: var(--purple); }
+.tl-year { font-family: var(--data); font-size: 10px; color: var(--dim); margin-bottom: 3px; }
+.tl-title { font-size: 12px; color: var(--text); font-weight: 500; line-height: 1.4; margin-bottom: 3px; }
+.tl-note { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ── ARTEFATOS RELACIONADOS ── */
+.related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.rel-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+}
+.rel-card:hover { border-color: var(--border2); background: var(--surface); }
+.rel-type { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); font-family: var(--data); }
+.rel-title { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.rel-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.rel-meta { font-size: 10px; color: var(--dim); font-family: var(--data); margin-top: auto; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-copy { font-size: 10px; color: var(--dim); line-height: 1.6; }
+.footer-ids { font-family: var(--data); font-size: 10px; color: var(--dim); letter-spacing: 0.04em; }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-brand">Lawfare<span>Timeline</span></div>
+  <div class="nav-links">
+    <a href="#alertas" class="nav-link active">Alertas</a>
+    <a href="#cronologia" class="nav-link">Cronologia</a>
+    <a href="#rede" class="nav-link">Rede</a>
+    <a href="#operacoes" class="nav-link">Operações</a>
+    <a href="#punicoes" class="nav-link">Punições</a>
+    <a href="#evidencias" class="nav-link">Evidências</a>
+    <a href="#relacionados" class="nav-link">Relacionados</a>
+  </div>
+  <div class="nav-badge">IDs 1481–1496 · 16 entradas</div>
+</nav>
+
+<!-- ALERTA STRIP -->
+<div class="alert-strip" id="alertas">
+  <div class="alert-item"><div class="alert-dot"></div><span class="alert-text"><strong>CRÍTICO</strong> — PCC opera em 30+ países, 40.000 membros. WSJ abr/2026</span></div>
+  <span class="alert-sep">·</span>
+  <div class="alert-item"><div class="alert-dot"></div><span class="alert-text"><strong>ATIVO</strong> — Acordo PGR-Itália: equipes conjuntas permanentes. jun/2025</span></div>
+  <span class="alert-sep">·</span>
+  <div class="alert-item"><div class="alert-dot"></div><span class="alert-text"><strong>R$30bi</strong> em fundos bloqueados — Op. Carbono Oculto ago/2025</span></div>
+  <span class="alert-sep">·</span>
+  <div class="alert-item"><div class="alert-dot"></div><span class="alert-text"><strong>87 membros PCC</strong> identificados em Portugal. 1 cabecilha confirmado</span></div>
+  <span class="alert-sep">·</span>
+  <div class="alert-item"><div class="alert-dot"></div><span class="alert-text"><strong>US$240mi</strong> lavados — OFAC sanciona Diego Carmo. mar/2024</span></div>
+  <span class="alert-sep">·</span>
+  <div class="alert-item"><div class="alert-dot"></div><span class="alert-text"><strong>13,7t</strong> apreendidas no MS em 2025 — corredor BR-262/Corumbá</span></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Dossiê Forense · Crime Organizado Transnacional</div>
+  <h1>PCC × <em>ʼNdrangheta</em><br>Arquitetura do Crime Global</h1>
+  <p class="hero-sub">Análise forense multinacional documentando a aliança entre o Primeiro Comando da Capital e a máfia calabresa — estrutura organizacional, rotas logísticas, lavagem financeira, cooperação internacional e impacto institucional em seis jurisdições. Todos os dados são verificados em fontes primárias governamentais, judiciárias e investigativas.</p>
+  <div class="hero-metrics">
+    <div class="hm"><div class="hm-val red">40k</div><div class="hm-label">Membros estimados</div></div>
+    <div class="hm"><div class="hm-val amber">30+</div><div class="hm-label">Países de atuação</div></div>
+    <div class="hm"><div class="hm-val purple">R$30bi</div><div class="hm-label">Fundos bloqueados</div></div>
+    <div class="hm"><div class="hm-val teal">419t</div><div class="hm-label">Cocaína apreendida UE/2023</div></div>
+    <div class="hm"><div class="hm-val blue">23t</div><div class="hm-label">Cocaína em Portugal/2024</div></div>
+    <div class="hm"><div class="hm-val red">16</div><div class="hm-label">Entradas documentadas</div></div>
+  </div>
+</div>
+
+<!-- CRONOLOGIA -->
+<section class="section" id="cronologia">
+  <div class="section-header">
+    <h2>Cronologia Forense</h2>
+    <span class="s-count">16 eventos · 1989–2026</span>
+    <div class="s-line"></div>
+  </div>
+
+  <!-- ROW 1: Origens -->
+  <div style="margin-bottom:8px"><span class="badge badge-dim">Origem &amp; Estrutura · 1989–2021</span></div>
+  <div class="card-grid-2 reveal" style="margin-bottom:16px">
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1481</span>
+        <div class="ev-badges">
+          <span class="badge badge-red">Crítico</span>
+          <span class="badge badge-amber">🌐 Transnacional</span>
+        </div>
+      </div>
+      <div class="ev-date">1989 · Itália → Brasil</div>
+      <div class="ev-title">Irmãos Torsi (ʼNdrangheta) moldam a estrutura organizacional do PCC nas prisões paulistas</div>
+      <div class="ev-desc collapsed" id="desc-1481">Investigações brasileiras e italianas documentam que os irmãos Torsi, da ʼNdrangheta, presos no Brasil entre os anos 1980–1990, ensinaram aos detentos paulistas os fundamentos da organização mafiosa: estatuto escrito, códigos de conduta, sintonias e gestão financeira sustentável. A origem do PCC tem DNA mafioso italiano documentado — não é coincidência, é transferência direta de conhecimento.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Atores</span><span class="ev-meta-val">Renato Torsi · Irmão Torsi · Mizael (PCC)</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Gravidade</span><span class="ev-meta-val highlight">Estrutural — fundante</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Ator Global</span><span class="ev-meta-val">ʼNdrangheta (Calábria, Itália)</span></div>
+        <div class="ev-tags"><span class="ev-tag">pcc</span><span class="ev-tag">ndrangheta</span><span class="ev-tag">origem</span><span class="ev-tag">estrutura</span><span class="ev-tag">torsi</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1481', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.brasilparalelo.com.br/noticias/descubra-como-a-mafia-italiana-ajudou-a-criar-o-pcc" target="_blank">↗ brasil paralelo</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1482</span>
+        <div class="ev-badges">
+          <span class="badge badge-red">Crítico</span>
+          <span class="badge badge-amber">🌐 Transnacional</span>
+        </div>
+      </div>
+      <div class="ev-date">08 abr 2021 · João Pessoa, PB</div>
+      <div class="ev-title">Rocco Morabito e Vincenzo Pasquino (ʼNdrangheta) presos em hotel de luxo no Brasil</div>
+      <div class="ev-desc collapsed" id="desc-1482">Operação conjunta PF + Interpol + polícia italiana prendeu Morabito (um dos mais procurados da Interpol) e Pasquino em João Pessoa. Pasquino foi intermediário de 15 remessas documentadas — 1,2t de cocaína ao porto de Gioia Tauro, Calábria. Ambos extraditados. Pasquino condenado a 14 anos na Itália. A prisão no nordeste — longe de SP — revela logística descentralizada e rotas alternativas.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Atores</span><span class="ev-meta-val">Rocco Morabito · Vincenzo Pasquino</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Remessas</span><span class="ev-meta-val highlight">15 carregamentos · 1,2t documentadas</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Ator Global</span><span class="ev-meta-val">ʼNdrangheta / Interpol</span></div>
+        <div class="ev-tags"><span class="ev-tag">morabito</span><span class="ev-tag">pasquino</span><span class="ev-tag">interpol</span><span class="ev-tag">gioia-tauro</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1482', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.diariodocentrodomundo.com.br/acordos-portos-e-rotas-entenda-a-ligacao-entre-o-pcc-e-a-mafia-calabresa/" target="_blank">↗ dcm</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Delações e acordos -->
+  <div style="margin-bottom:8px"><span class="badge badge-dim">Delações &amp; Acordos Internacionais · 2024–2025</span></div>
+  <div class="card-grid-3 reveal" style="margin-bottom:16px">
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1483</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">2024 · Itália</div>
+      <div class="ev-title">Pasquino firma delação premiada — 1ª vez que mafioso italiano revela conexão ʼNdrangheta–PCC</div>
+      <div class="ev-desc collapsed" id="desc-1483">Primeira vez na história que membro da ʼNdrangheta revela formalmente conexões com organizações criminosas brasileiras. Detalhou rotas de tráfico, interesse da máfia em portos seguros no Brasil e tentativas de envio de armas para paramilitares brasileiros. Viabilizou o Acordo PGR-Itália de jun/2025.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Atores</span><span class="ev-meta-val">Pasquino · G. Bombardieri · G. Melillo</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Impacto</span><span class="ev-meta-val highlight">Criou base para acordo PGR-Itália</span></div>
+        <div class="ev-tags"><span class="ev-tag">delação</span><span class="ev-tag">ndrangheta</span><span class="ev-tag">pcc</span><span class="ev-tag">armas</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1483', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.portaltela.com/politica/justica/2025/05/31/colaboracao-de-traficante-italiano-revela-lacos-entre-pcc-e-mafia-ndrangheta" target="_blank">↗ portaltela</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1484</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">jun 2024 · Bogotá, Colômbia</div>
+      <div class="ev-title">Giuseppe "Peppe" Palermo preso — rede ʼNdrangheta–Clã do Golfo desmantelada</div>
+      <div class="ev-desc collapsed" id="desc-1484">Europol + polícia britânica prenderam Palermo em Bogotá. Coordenava compras de cocaína da Colômbia, Equador e Peru para múltiplos portos europeus. Interpol. 22 presos, maioria no sul da Itália. Documenta que a ʼNdrangheta opera em múltiplos nós simultâneos na América do Sul.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Atores</span><span class="ev-meta-val">Giuseppe Palermo ("Peppe")</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Rede</span><span class="ev-meta-val highlight">ʼNdrangheta + Clã do Golfo + PCC</span></div>
+        <div class="ev-tags"><span class="ev-tag">palermo</span><span class="ev-tag">europol</span><span class="ev-tag">clan-golfo</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1484', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.band.com.br/noticias/brasil-urgente/ultimas/mafia-italiana-e-pcc-veja-os-lacos-entre-as-faccoes-no-trafico-de-cocaina-202509051720" target="_blank">↗ band</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-institucional">
+      <div class="ev-top">
+        <span class="ev-id">#1485</span>
+        <div class="ev-badges"><span class="badge badge-purple">Institucional</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">24 jun 2025 · São Paulo</div>
+      <div class="ev-title">Acordo PGR-Itália: equipes conjuntas de investigação permanente — inédito</div>
+      <div class="ev-desc collapsed" id="desc-1485">Giovanni Melillo (procurador-geral antimáfia italiano) veio a SP para assinar acordo inédito. Equipes conjuntas permanentes sem prazo de encerramento. Primeira cooperação contínua entre as promotorias dos dois países. Viabilizado pelas revelações de Pasquino (2024) e auxílio da PGR às investigações italianas.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Atores</span><span class="ev-meta-val">Giovanni Melillo · G. Bombardieri</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Status</span><span class="ev-meta-val highlight">ATIVO — sem prazo de encerramento</span></div>
+        <div class="ev-tags"><span class="ev-tag">acordo</span><span class="ev-tag">pgr</span><span class="ev-tag">italia</span><span class="ev-tag">cooperacao</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1485', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.diariodocentrodomundo.com.br/acordos-portos-e-rotas-entenda-a-ligacao-entre-o-pcc-e-a-mafia-calabresa/" target="_blank">↗ dcm</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Operações Brasil -->
+  <div style="margin-bottom:8px"><span class="badge badge-dim">Operações Domésticas · Brasil 2025</span></div>
+  <div class="card-grid-2 reveal" style="margin-bottom:16px">
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1486</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span></div>
+      </div>
+      <div class="ev-date">28 ago 2025 · São Paulo + 8 estados</div>
+      <div class="ev-title">Op. Carbono Oculto: PCC infiltra Faria Lima — R$30bi em fundos, 1 terminal portuário, 40 fintechs</div>
+      <div class="ev-desc collapsed" id="desc-1486">1.400+ agentes, 350+ mandados, 8 estados. 40 fundos fechados com R$30bi: frota de 1.600 caminhões, 100 imóveis, 6 fazendas, 1 terminal portuário. Fintech criada em 2021 movimentou R$46bi como "banco paralelo". Receita: R$47bi ficaram fora do radar após revogação da instrução normativa do PIX (fake news jan/2025). R$23bi investigados, R$1,4bi em tributos federais sonegados, R$7,6bi em SP.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Volume</span><span class="ev-meta-val highlight">R$23bi lavagem · R$30bi patrimônio</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Alvos</span><span class="ev-meta-val">Reag Investimentos (REAG3) · BK Bank · fintechs Faria Lima</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Brechas</span><span class="ev-meta-val">Revogação instrução PIX jan/2025 — R$47bi fora do radar</span></div>
+        <div class="ev-tags"><span class="ev-tag">carbono-oculto</span><span class="ev-tag">faria-lima</span><span class="ev-tag">fintech</span><span class="ev-tag">lavagem</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1486', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.seudinheiro.com/2025/empresas/fintechs-invisiveis-e-o-banco-paralelo-do-pcc-como-criminosos-se-aproveitaram-da-faria-lima-para-desviar-bilhoes-miql/" target="_blank">↗ seudinheiro</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-alta">
+      <div class="ev-top">
+        <span class="ev-id">#1487</span>
+        <div class="ev-badges"><span class="badge badge-amber">Alta</span></div>
+      </div>
+      <div class="ev-date">28 ago 2025 · Curitiba, PR</div>
+      <div class="ev-title">Op. Tank: rede de postos lava R$600mi — 12.000 depósitos em espécie em um único dia</div>
+      <div class="ev-desc collapsed" id="desc-1487">Distribuidora passou de R$0 a R$6mi/ano em 12 meses após ex-detento assumir controle. Dezenas de postos em Curitiba recebiam média de 2.000 depósitos/dia em espécie, chegando a 12.000 em um dia. Fintech criada em 2021 como "contas inteligentes". R$23bi movimentados, R$600mi lavados. Principais suspeitos fugiram antes da operação — PF investiga possível vazamento interno.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Volume</span><span class="ev-meta-val highlight">R$23bi movimentados · R$600mi lavados</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Atores</span><span class="ev-meta-val">Daniel Dias Lopes · Mohamad Hussein Mourad (foragidos)</span></div>
+        <div class="ev-tags"><span class="ev-tag">op-tank</span><span class="ev-tag">postos</span><span class="ev-tag">parana</span><span class="ev-tag">lavagem</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1487', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/pcc-e-postos-inquerito-comecou-com-distribuidora-e-abertura-de-fintech/" target="_blank">↗ cnn brasil</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Internacional -->
+  <div style="margin-bottom:8px"><span class="badge badge-dim">Expansão Internacional · EUA · Europa · 2024–2026</span></div>
+  <div class="card-grid-3 reveal" style="margin-bottom:16px">
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1488</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">14 mar 2024 · Washington, EUA</div>
+      <div class="ev-title">OFAC sanciona Diego Gonçalves — lavagem de R$1,2bi (US$240mi) para o PCC</div>
+      <div class="ev-desc collapsed" id="desc-1488">OFAC/Tesouro EUA congelou ativos americanos de Diego Macedo Gonçalves do Carmo. Condenado em SP a 7 anos e 11 meses. Lavou R$1,2bi operando de dentro da cadeia. Viabilizou identificação de afiliados em 5 estados americanos: FL, NY, NJ, CT, TN.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Sanção</span><span class="ev-meta-val highlight">US$240mi identificados · ativos congelados</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">EUA</span><span class="ev-meta-val">5 estados com afiliados PCC identificados</span></div>
+        <div class="ev-tags"><span class="ev-tag">ofac</span><span class="ev-tag">sancao</span><span class="ev-tag">diego-carmo</span><span class="ev-tag">eua</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1488', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://static.poder360.com.br/2025/07/Sancoes-ao-Tesouro-Operativo-do-Primeiro-Comando-da-Capital-PCC-_-Departamento-do-Tesouro-dos-EUA.pdf" target="_blank">↗ ofac pdf</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1489</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">11 mar 2025 · Portugal</div>
+      <div class="ev-title">PCC em Portugal: 87 membros, 1 cabecilha — operações portuárias, futebol, imobiliário</div>
+      <div class="ev-desc collapsed" id="desc-1489">PJ portuguesa identificou 87 membros do PCC. Membro preso no Montijo coordenava extração de cocaína dos cascos de navios com motos subaquáticas e armas automáticas. "Zago" detido em Cascais (mansão R$10k/mês). 101 apreensões na rota Brasil-Portugal em 2024. 23t apreendidas em 2024. FPF abriu investigação sobre lavagem via clube Fafe.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Presença</span><span class="ev-meta-val highlight">87 membros · logística discreta</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Portos</span><span class="ev-meta-val">Sines · Lisboa · Leixões</span></div>
+        <div class="ev-tags"><span class="ev-tag">portugal</span><span class="ev-tag">pj</span><span class="ev-tag">portos</span><span class="ev-tag">futebol</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1489', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.jn.pt/justica/artigo/gangue-brasileiro-pcc-ja-tem-87-elementos-infiltrados-em-portugal/17752386" target="_blank">↗ jn.pt</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-alta">
+      <div class="ev-top">
+        <span class="ev-id">#1491</span>
+        <div class="ev-badges"><span class="badge badge-amber">Alta</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">2025 · Parlamento Europeu</div>
+      <div class="ev-title">PE pergunta P-002759/2025: infiltração do PCC na UE e uso do Acordo UE-Brasil/Europol</div>
+      <div class="ev-desc collapsed" id="desc-1491">Pergunta formal à Comissão Europeia questionando reforço de cooperação policial, inteligência portuária e uso do Acordo UE-Brasil com Europol para travar o PCC. Reconhece que "o PCC infiltra-se em prisões, explora falhas nas cadeias logísticas e constrói redes de narcotráfico e branqueamento de capitais."</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Âmbito</span><span class="ev-meta-val">Comissão Europeia · Europol</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Status</span><span class="ev-meta-val highlight">Aguardando resposta formal</span></div>
+        <div class="ev-tags"><span class="ev-tag">parlamento-europeu</span><span class="ev-tag">europol</span><span class="ev-tag">ue-brasil</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1491', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.europarl.europa.eu/doceo/document/P-10-2025-002759_PT.html" target="_blank">↗ europarl.eu</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Corredor + Logística + Eleições + EUA -->
+  <div style="margin-bottom:8px"><span class="badge badge-dim">Rotas, Tecnologia &amp; Captura Política · 2024–2026</span></div>
+  <div class="card-grid-2 reveal" style="margin-bottom:16px">
+
+    <div class="ev-card sev-alta">
+      <div class="ev-top">
+        <span class="ev-id">#1492</span>
+        <div class="ev-badges"><span class="badge badge-amber">Alta</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">nov 2025 · BR-262, Mato Grosso do Sul</div>
+      <div class="ev-title">Corumbá e BR-262: corredor pantaneiro — 13,7t apreendidas em MS em 2025, rota Santos-Europa</div>
+      <div class="ev-desc collapsed" id="desc-1492">BR-262 é a principal estrada de apreensão de cocaína do país. Nov/2025: 629kg em Terenos e 420kg em Uberlândia. Fev/2026: 100kg + 69kg em Campo Grande e Terenos. Todos em caminhões de minério de ferro (Morro do Urucum, Corumbá). MS: 13,7t em 2025 (PRF) — quase o dobro de MT (2º). Rota converge para Porto de Santos e exportação à Europa. Três lideranças presas: "Tuta" (Bolívia), "Chalega" (Bolívia → PF Corumbá), "Alê/Colt" (Pedro Juan Caballero/PY).</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Volume</span><span class="ev-meta-val highlight">13,7t em MS em 2025 — recorde estadual</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Presos</span><span class="ev-meta-val">"Tuta" · "Chalega" · "Alê/Colt"</span></div>
+        <div class="ev-tags"><span class="ev-tag">br-262</span><span class="ev-tag">corumba</span><span class="ev-tag">bolivia</span><span class="ev-tag">paraguay</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1492', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.perfilnews.com.br/2026/02/13/br-262-e-corumba-consolidam-rota-da-cocaina-no-coracao-do-pantanal/" target="_blank">↗ perfilnews</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1493</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">2024 · Brasil / Portugal</div>
+      <div class="ev-title">PCC contrata hackers para invadir sistemas portuários e mergulhadores para inserir cocaína em cascos de navios</div>
+      <div class="ev-desc collapsed" id="desc-1493">WSJ e PJ portuguesa documentam logística sofisticada: (1) Hackers invadem sistemas de controle portuário — acesso a manifesto de carga, facilitação do rip-on/rip-off. (2) Mergulhadores inserem pacotes nos cascos ou caixas de leme antes do embarque no Brasil. No destino (Lisboa), membros locais recuperam a droga à noite com motos subaquáticas antes da fiscalização. Equipamentos apreendidos em Alcochete (mar/2025). Nível de profissionalização equivalente a forças paramilitares.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Técnica</span><span class="ev-meta-val highlight">Hackers + mergulhadores + motos subaquáticas</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Rota</span><span class="ev-meta-val">Santos → casco → Lisboa/Leixões → Europa</span></div>
+        <div class="ev-tags"><span class="ev-tag">hackers</span><span class="ev-tag">mergulhadores</span><span class="ev-tag">rip-on</span><span class="ev-tag">logistica</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1493', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://francesnews.com.br/post/2026/04/26/21857-pcc-se-consolida-como-faccao-global-e-amplia-rotas-do-trafico-internacional-de-cocaina" target="_blank">↗ francesnews</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Reconhecimento + Eleições + EUA -->
+  <div class="card-grid-3 reveal">
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1494</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">20 abr 2026 · Wall Street Journal</div>
+      <div class="ev-title">WSJ: PCC tem "dimensão da máfia italiana e eficiência de multinacional" — 30 países, guerras portuárias</div>
+      <div class="ev-desc collapsed" id="desc-1494">Reportagem extensa compara PCC à máfia italiana. 40.000 membros, 30 países. Guerras com granadas e tiroteios em Antuérpia, Roterdã e Hamburgo. Alianças com ʼNdrangheta, Yakuza e gangues albanesas/sérvias. Lincoln Gakiya: "organização que cresce mais rápido no mundo." Opera como "agência reguladora de mercado". Trump pressiona por classificação como FTO. PF rejeita formalmente.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Alianças</span><span class="ev-meta-val highlight">ʼNdrangheta · Yakuza · Albânia · Sérvia</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Trump</span><span class="ev-meta-val">Pressão por FTO — PF Brasil se opõe</span></div>
+        <div class="ev-tags"><span class="ev-tag">wsj</span><span class="ev-tag">fto</span><span class="ev-tag">trump</span><span class="ev-tag">mafia</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1494', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.cnnbrasil.com.br/internacional/wsj-compara-pcc-a-dimensao-da-mafia-italiana-e-eficiencia-de-multinacionais/" target="_blank">↗ cnn brasil</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1495</span>
+        <div class="ev-badges"><span class="badge badge-red">Crítico</span></div>
+      </div>
+      <div class="ev-date">fev 2026 · São Paulo</div>
+      <div class="ev-title">Infiltração eleitoral: operador de fintech do PCC preso por financiar campanhas municipais 2024</div>
+      <div class="ev-desc collapsed" id="desc-1495">Operador de fintech milionária preso por financiar campanhas municipais de 2024 para garantir contratos de lixo, transporte e combustível para empresas do PCC. Coronel Pedro Lopes (inteligência PM-SP): "infiltração do PCC na política de SP surpreendeu até os investigadores mais experientes." Salto qualitativo: da captura operacional para a captura política direta.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Alvo</span><span class="ev-meta-val highlight">Contratos municipais · eleições 2024</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Setores</span><span class="ev-meta-val">Coleta de lixo · transporte · combustível</span></div>
+        <div class="ev-tags"><span class="ev-tag">eleicoes-2024</span><span class="ev-tag">fintech</span><span class="ev-tag">corrupcao</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1495', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://timesbrasil.com.br/brasil/reportagem-do-wall-street-journal-mostra-como-pcc-virou-potencia-global-na-venda-de-drogas/" target="_blank">↗ timesbrasil</a></div>
+      </div>
+    </div>
+
+    <div class="ev-card sev-alta">
+      <div class="ev-top">
+        <span class="ev-id">#1496</span>
+        <div class="ev-badges"><span class="badge badge-amber">Alta</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">2025 · Massachusetts, EUA</div>
+      <div class="ev-title">MPF EUA indicia 18 brasileiros ligados ao PCC por tráfico de armas e fentanil</div>
+      <div class="ev-desc collapsed" id="desc-1496">Ministério Público Federal dos EUA (Massachusetts) indiciou 18 brasileiros por tráfico de fuzis, espingardas e fentanil. Divisão americana do PCC identificada em 6 estados. Primeira vez que o PCC é processado domesticamente nos EUA — não apenas como exportador de cocaína. Trump contexto: pressão por FTO. Brasil resiste.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Indiciados</span><span class="ev-meta-val highlight">18 brasileiros em Massachusetts</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Presença</span><span class="ev-meta-val">6 estados americanos confirmados</span></div>
+        <div class="ev-tags"><span class="ev-tag">eua</span><span class="ev-tag">armas</span><span class="ev-tag">fentanil</span><span class="ev-tag">massachusetts</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1496', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://www.metropoles.com/sao-paulo/jornal-eua-compara-pcc-mafia-italiana" target="_blank">↗ metrópoles</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cimeiras -->
+  <div class="card-grid-2 reveal" style="margin-top:16px">
+    <div class="ev-card sev-institucional">
+      <div class="ev-top">
+        <span class="ev-id">#1490</span>
+        <div class="ev-badges"><span class="badge badge-purple">Institucional</span><span class="badge badge-amber">🌐</span></div>
+      </div>
+      <div class="ev-date">fev 2025 · XIV Cimeira Luso-Brasileira</div>
+      <div class="ev-title">XIV Cimeira Luso-Brasileira: acordos formais de investigação conjunta contra PCC</div>
+      <div class="ev-desc collapsed" id="desc-1490">Acordos para compartilhamento de informações e investigações conjuntas sobre PCC. Portugal reconhecido como porta de entrada estratégica para a Europa. Guilherme Derrite (secretário de segurança SP) alertou que PCC usa empresas portuguesas para "regularizar verbas do crime" com foco em euro.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Partes</span><span class="ev-meta-val">Brasil · Portugal</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Foco</span><span class="ev-meta-val highlight">Portos Sines · Lisboa · Leixões</span></div>
+        <div class="ev-tags"><span class="ev-tag">cimeira</span><span class="ev-tag">portugal</span><span class="ev-tag">cooperacao</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1490', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://diplomatique.org.br/a-expansao-transnacional-do-pcc-em-portugal-e-na-europa-desafios-para-a-seguranca-publica-e-a-economia-criminal/" target="_blank">↗ diplomatique</a></div>
+      </div>
+    </div>
+    <div class="ev-card sev-critica">
+      <div class="ev-top">
+        <span class="ev-id">#1481b</span>
+        <div class="ev-badges"><span class="badge badge-red">Gravidade Sistêmica</span></div>
+      </div>
+      <div class="ev-date">1993 → hoje · Brasil</div>
+      <div class="ev-title">Escala global do PCC: 40k membros, 30 países, operação descentralizada pós-Marcola</div>
+      <div class="ev-desc collapsed" id="desc-1481b">WSJ (abr/2026) e MPSP documentam que o PCC opera como "agência reguladora de mercado" — estrutura horizontal descentralizada. Marcola preso desde 1999, mas a facção cresceu. Afiliados: de 3.000 (2014) para 40.000 (2026). Opera em 30 países. Alianças: ʼNdrangheta, Yakuza, Albânia, Sérvia. Setores: cocaína, mineração de ouro, madeira, tráfico de pessoas, pesca ilegal, escravidão de comunidades amazônicas.</div>
+      <div class="ev-meta">
+        <div class="ev-meta-row"><span class="ev-meta-key">Membros</span><span class="ev-meta-val highlight">~40.000 em 30+ países · todos os continentes</span></div>
+        <div class="ev-meta-row"><span class="ev-meta-key">Modelo</span><span class="ev-meta-val">Estrutura horizontal · franquia criminosa</span></div>
+        <div class="ev-tags"><span class="ev-tag">escala-global</span><span class="ev-tag">descentralizado</span><span class="ev-tag">amazonia</span></div>
+      </div>
+      <div class="ev-footer">
+        <button class="ev-expand" onclick="toggleDesc('1481b', this)">+ expandir</button>
+        <div class="ev-src"><a href="https://primeirojornal.com.br/2026/04/22/wall-street-journal-compara-pcc-a-mafia-italiana-eficiencia-de-multinacional/" target="_blank">↗ primeirojornal</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REDE DE ATUAÇÃO -->
+<section class="section" id="rede">
+  <div class="section-header">
+    <h2>Rede de Atuação por País</h2>
+    <span class="s-count">6 jurisdições documentadas</span>
+    <div class="s-line"></div>
+  </div>
+
+  <div class="card-grid-2 reveal" style="margin-bottom:16px">
+    <div>
+      <table class="rede-table">
+        <thead>
+          <tr>
+            <th>País / Ator</th>
+            <th>Função na rede</th>
+            <th>Evidência</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="country-flag">🇧🇷</span><span class="actor-name">PCC (Brasil)</span></td><td>Origem, consolidação logística, lavagem financeira, captura política</td><td>Op. Carbono Oculto · Op. Tank · Narco Fluxo</td></tr>
+          <tr><td><span class="country-flag">🇮🇹</span><span class="actor-name">ʼNdrangheta (Calábria)</span></td><td>Parceiro histórico, distribuição europeia, porto Gioia Tauro</td><td>Prisão Morabito/Pasquino · Delação 2024</td></tr>
+          <tr><td><span class="country-flag">🇵🇹</span><span class="actor-name">PCC (Portugal)</span></td><td>Gateway europeu, portos Sines/Lisboa/Leixões, lavagem via imobiliário e futebol</td><td>PJ: 87 membros, prisão Alcochete mar/2025</td></tr>
+          <tr><td><span class="country-flag">🇨🇴</span><span class="actor-name">Clã do Golfo</span></td><td>Fornecedor de cocaína, conexão ʼNdrangheta via "Peppe" Palermo</td><td>Prisão Palermo em Bogotá · Europol 2024</td></tr>
+          <tr><td><span class="country-flag">🇺🇸</span><span class="actor-name">PCC (divisão americana)</span></td><td>Lavagem, tráfico de armas, fentanil — FL, NY, NJ, CT, TN, MA</td><td>OFAC mar/2024 · MPF Massachusetts 2025</td></tr>
+          <tr><td><span class="country-flag">🇧🇪🇳🇱🇩🇪</span><span class="actor-name">Portos Antuérpia/Roterdã/Hamburgo</span></td><td>Destino final — recepção de cocaína, guerras territoriais documentadas</td><td>Europol · Polícia portuária · EMCDDA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="grav-section">
+        <p style="font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Escala de presença verificada por jurisdição</p>
+        <div class="grav-row"><span class="grav-label">Brasil (origem)</span><div class="grav-track"><div class="grav-fill" style="width:100%;background:var(--red)"></div></div><span class="grav-val">100%</span></div>
+        <div class="grav-row"><span class="grav-label">Itália (parceiro)</span><div class="grav-track"><div class="grav-fill" style="width:90%;background:var(--red)"></div></div><span class="grav-val">90%</span></div>
+        <div class="grav-row"><span class="grav-label">Portugal (gateway)</span><div class="grav-track"><div class="grav-fill" style="width:75%;background:var(--amber)"></div></div><span class="grav-val">75%</span></div>
+        <div class="grav-row"><span class="grav-label">Colômbia (fonte)</span><div class="grav-track"><div class="grav-fill" style="width:65%;background:var(--amber)"></div></div><span class="grav-val">65%</span></div>
+        <div class="grav-row"><span class="grav-label">Portos UE (destino)</span><div class="grav-track"><div class="grav-fill" style="width:80%;background:var(--amber)"></div></div><span class="grav-val">80%</span></div>
+        <div class="grav-row"><span class="grav-label">EUA (expansão)</span><div class="grav-track"><div class="grav-fill" style="width:45%;background:var(--blue)"></div></div><span class="grav-val">45%</span></div>
+        <div class="grav-row"><span class="grav-label">Paraguai/Bolívia</span><div class="grav-track"><div class="grav-fill" style="width:55%;background:var(--teal)"></div></div><span class="grav-val">55%</span></div>
+      </div>
+      <div style="margin-top:20px">
+        <p style="font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">Volume de apreensões — rotas verificadas 2023–2026</p>
+        <div class="grav-row"><span class="grav-label">UE 2023 (total)</span><div class="grav-track"><div class="grav-fill" style="width:100%;background:var(--red)"></div></div><span class="grav-val">419t</span></div>
+        <div class="grav-row"><span class="grav-label">Pacífico 2024</span><div class="grav-track"><div class="grav-fill" style="width:84%;background:var(--amber)"></div></div><span class="grav-val">351t</span></div>
+        <div class="grav-row"><span class="grav-label">PF Brasil 2025</span><div class="grav-track"><div class="grav-fill" style="width:17%;background:var(--purple)"></div></div><span class="grav-val">73t</span></div>
+        <div class="grav-row"><span class="grav-label">Portugal 2024</span><div class="grav-track"><div class="grav-fill" style="width:6%;background:var(--blue)"></div></div><span class="grav-val">23t</span></div>
+        <div class="grav-row"><span class="grav-label">MS/BR-262 2025</span><div class="grav-track"><div class="grav-fill" style="width:3%;background:var(--teal)"></div></div><span class="grav-val">13,7t</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS OPERAÇÕES -->
+<section class="section" id="operacoes">
+  <div class="section-header">
+    <h2>Status das Operações</h2>
+    <span class="s-count">9 operações documentadas</span>
+    <div class="s-line"></div>
+  </div>
+  <div class="ops-grid reveal">
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Carbono Oculto</span><span class="op-status st-andamento">Em andamento</span></div>
+      <div class="op-desc">PF + Receita Federal. Faria Lima, fintechs, fundos fechados, terminal portuário. Alvos principais não encontrados.</div>
+      <div class="op-footer"><span class="op-countries">🇧🇷</span><span class="op-date">28 ago 2025</span><span class="op-result">R$23bi investigados · R$1bi bloqueado</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Operação Tank</span><span class="op-status st-andamento">Em andamento</span></div>
+      <div class="op-desc">Rede de postos Curitiba/PR. Fintech "contas inteligentes". 2 suspeitos principais fugiram — PF investiga vazamento.</div>
+      <div class="op-footer"><span class="op-countries">🇧🇷</span><span class="op-date">28 ago 2025</span><span class="op-result">R$600mi lavados · R$1bi bloqueado</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Narco Fluxo</span><span class="op-status st-andamento">Em andamento</span></div>
+      <div class="op-desc">Lavagem via indústria fonográfica. MC Ryan SP preso em abr/2025.</div>
+      <div class="op-footer"><span class="op-countries">🇧🇷</span><span class="op-date">abr 2025</span><span class="op-result">1 preso confirmado</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Prisão Morabito+Pasquino</span><span class="op-status st-concluido">Concluída</span></div>
+      <div class="op-desc">PF + Interpol + polícia italiana. João Pessoa, PB. Viabilizou Acordo PGR-Itália.</div>
+      <div class="op-footer"><span class="op-countries">🇧🇷🇮🇹</span><span class="op-date">abr 2021</span><span class="op-result">2 presos · ambos extraditados</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Alcochete (PJ Portugal)</span><span class="op-status st-concluido">Concluída</span></div>
+      <div class="op-desc">Membro PCC preso com 3 armas automáticas + motos subaquáticas. Coordenava extração de cocaína de cascos de navios.</div>
+      <div class="op-footer"><span class="op-countries">🇵🇹🇧🇷</span><span class="op-date">mar 2025</span><span class="op-result">1 preso · equipamentos apreendidos</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">"Peppe" Palermo / Europol</span><span class="op-status st-concluido">Concluída</span></div>
+      <div class="op-desc">Europol + polícia britânica. Bogotá, Colômbia. ʼNdrangheta–Clã do Golfo desmantelada.</div>
+      <div class="op-footer"><span class="op-countries">🇨🇴🇬🇧🇮🇹</span><span class="op-date">2024</span><span class="op-result">22 presos · Palermo capturado</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Acordo PGR-Itália</span><span class="op-status st-ativo">Ativo</span></div>
+      <div class="op-desc">Equipes conjuntas permanentes. Inédito — sem prazo de encerramento. Investigação contínua PCC × ʼNdrangheta.</div>
+      <div class="op-footer"><span class="op-countries">🇧🇷🇮🇹</span><span class="op-date">jun 2025</span><span class="op-result">Vigente · sem prazo</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">Sanção OFAC Diego Carmo</span><span class="op-status st-vigente">Vigente</span></div>
+      <div class="op-desc">Ativos americanos congelados. Cooperação Tesouro EUA + MPSP desde 2022. Base para identificação de divisão americana do PCC.</div>
+      <div class="op-footer"><span class="op-countries">🇺🇸🇧🇷</span><span class="op-date">mar 2024</span><span class="op-result">US$240mi identificados · 6 estados EUA</span></div>
+    </div>
+    <div class="op-card">
+      <div class="op-header"><span class="op-name">MPF EUA — Massachusetts</span><span class="op-status st-andamento">Em andamento</span></div>
+      <div class="op-desc">18 brasileiros indiciados por tráfico de armas (fuzis, espingardas) e fentanil. Primeira ação doméstica americana contra PCC.</div>
+      <div class="op-footer"><span class="op-countries">🇺🇸</span><span class="op-date">2025</span><span class="op-result">18 indiciados</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PUNIÇÕES -->
+<section class="section" id="punicoes">
+  <div class="section-header">
+    <h2>Aplicação de Punições</h2>
+    <span class="s-count">Atores identificados · status de responsabilização</span>
+    <div class="s-line"></div>
+  </div>
+  <div class="reveal" style="overflow-x:auto">
+    <table class="pun-table">
+      <thead>
+        <tr>
+          <th>Ator</th>
+          <th>País</th>
+          <th>Crime documentado</th>
+          <th>Punição aplicada</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pun-nome">Vincenzo Pasquino</td>
+          <td>🇮🇹</td>
+          <td>Tráfico internacional · 15 remessas · 1,2t</td>
+          <td class="pun-pena">14 anos (IT) · condenado</td>
+          <td class="pun-status-ok">✓ Condenado e preso</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Rocco Morabito</td>
+          <td>🇮🇹</td>
+          <td>Chefe ʼNdrangheta · décadas de tráfico</td>
+          <td class="pun-pena">Extraditado → IT</td>
+          <td class="pun-status-ok">✓ Extraditado · processo ativo</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Diego Gonçalves do Carmo</td>
+          <td>🇧🇷🇺🇸</td>
+          <td>Lavagem de R$1,2bi para PCC</td>
+          <td class="pun-pena">7a 11m (BR) · OFAC sanção EUA</td>
+          <td class="pun-status-ok">✓ Condenado + sancionado OFAC</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Giuseppe "Peppe" Palermo</td>
+          <td>🇮🇹🇨🇴</td>
+          <td>Coordenação rede ʼNdrangheta–Clã do Golfo</td>
+          <td class="pun-pena">Preso em Bogotá · Interpol</td>
+          <td class="pun-status-wip">⟳ Preso · processo em curso</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Marcos Roberto de Almeida ("Tuta")</td>
+          <td>🇧🇴🇧🇷</td>
+          <td>Liderança PCC eixo Bolívia</td>
+          <td class="pun-pena">Preso em Santa Cruz de la Sierra</td>
+          <td class="pun-status-wip">⟳ Preso maio 2025 · entregue PF</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Sidney "Alê/Colt" Magalhães</td>
+          <td>🇵🇾🇧🇷</td>
+          <td>Liderança PCC eixo fronteiriço PY</td>
+          <td class="pun-pena">Prisão preventiva BR</td>
+          <td class="pun-status-wip">⟳ Preventiva · neg. soltura</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Membro PCC ("Zago") Portugal</td>
+          <td>🇵🇹</td>
+          <td>Logística tráfico · lavagem milhões €</td>
+          <td class="pun-pena">Detido em Cascais</td>
+          <td class="pun-status-wip">⟳ Detido · processo PJ Portugal</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">7 arguidos (cocaína em café → Europa do Leste)</td>
+          <td>🇵🇹</td>
+          <td>Associação criminosa · tráfico transnacional</td>
+          <td class="pun-pena">8–13 anos (Lisboa, abr/2024)</td>
+          <td class="pun-status-ok">✓ Condenados · Tribunal Lisboa</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Daniel Dias Lopes</td>
+          <td>🇧🇷</td>
+          <td>Lavagem R$23bi via rede de postos (Op. Tank)</td>
+          <td class="pun-pena-none">Mandado expedido</td>
+          <td class="pun-status-no">✗ Foragido · PF investiga vazamento</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Mohamad Hussein Mourad</td>
+          <td>🇧🇷</td>
+          <td>Lavagem R$23bi · Op. Tank</td>
+          <td class="pun-pena-none">Mandado expedido</td>
+          <td class="pun-status-no">✗ Foragido</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">18 brasileiros Massachusetts</td>
+          <td>🇺🇸</td>
+          <td>Tráfico de armas + fentanil · PCC EUA</td>
+          <td class="pun-pena">Indiciados pelo MPF EUA</td>
+          <td class="pun-status-int">▶ Processo federal EUA em curso</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Operador de fintech (infiltração eleitoral)</td>
+          <td>🇧🇷</td>
+          <td>Financiamento ilegal campanhas municipais 2024</td>
+          <td class="pun-pena">Preso fev 2026</td>
+          <td class="pun-status-wip">⟳ Preso · processo em curso</td>
+        </tr>
+        <tr>
+          <td class="pun-nome">Irmãos Torsi</td>
+          <td>🇮🇹</td>
+          <td>Formação estrutura PCC · tráfico decades</td>
+          <td class="pun-pena">Extraditados 1994/1995</td>
+          <td class="pun-status-ok">✓ Extraditados e condenados (IT)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- EVIDÊNCIAS / TIMELINE -->
+<section class="section" id="evidencias">
+  <div class="section-header">
+    <h2>Linha do Tempo Institucional</h2>
+    <span class="s-count">Marcos forenses · 1989–2026</span>
+    <div class="s-line"></div>
+  </div>
+  <div class="card-grid-2 reveal">
+    <div class="timeline">
+      <div class="tl-item crit">
+        <div class="tl-year">1989–1994</div>
+        <div class="tl-title">Irmãos Torsi ensinam estrutura mafiosa ao PCC nas prisões paulistas</div>
+        <div class="tl-note">Estatuto, sintonias, disciplina financeira — DNA italiano do PCC documentado. Extradição Renato Torsi: out/1994.</div>
+      </div>
+      <div class="tl-item crit">
+        <div class="tl-year">1993</div>
+        <div class="tl-title">Fundação do PCC em Taubaté, SP</div>
+        <div class="tl-note">Estrutura diretamente inspirada na organização mafiosa italiana.</div>
+      </div>
+      <div class="tl-item alt">
+        <div class="tl-year">2018</div>
+        <div class="tl-title">Documentos apreendidos revelam renda anual PCC de US$200mi</div>
+        <div class="tl-note">Afiliados: de 3.000 (2014) para +20.000. Crescimento exponencial documentado.</div>
+      </div>
+      <div class="tl-item crit">
+        <div class="tl-year">abr 2021</div>
+        <div class="tl-title">Morabito + Pasquino presos em João Pessoa</div>
+        <div class="tl-note">Op. conjunta PF + Interpol + polícia italiana. Trigger para cooperação bilateral.</div>
+      </div>
+      <div class="tl-item inst">
+        <div class="tl-year">2022</div>
+        <div class="tl-title">Tesouro EUA + MPSP: cooperação antidrogas transnacional</div>
+        <div class="tl-note">Fluxo de informações → sanções OFAC. Primeira designação PCC.</div>
+      </div>
+      <div class="tl-item crit">
+        <div class="tl-year">2023</div>
+        <div class="tl-title">419t cocaína apreendidas na UE — recorde histórico EMCDDA</div>
+        <div class="tl-note">Europol documenta guerras portuárias em Antuérpia e Roterdã com ligação ao PCC.</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item crit">
+        <div class="tl-year">mar 2024</div>
+        <div class="tl-title">OFAC sanciona Diego Carmo (US$240mi lavados)</div>
+        <div class="tl-note">Ativos congelados. Divisão americana: 5 estados identificados pós-sanção.</div>
+      </div>
+      <div class="tl-item alt">
+        <div class="tl-year">jun 2024</div>
+        <div class="tl-title">Pasquino firma delação premiada — inédito histórico</div>
+        <div class="tl-note">Primeira vez que mafioso italiano revela conexão formal com PCC.</div>
+      </div>
+      <div class="tl-item inst">
+        <div class="tl-year">fev 2025</div>
+        <div class="tl-title">XIV Cimeira Luso-Brasileira — acordos anti-PCC em Portugal</div>
+        <div class="tl-note">Portos Sines/Lisboa/Leixões reconhecidos como vulnerabilidades estratégicas.</div>
+      </div>
+      <div class="tl-item inst">
+        <div class="tl-year">mar 2025</div>
+        <div class="tl-title">Prisão em Alcochete (PJ Portugal) — motos subaquáticas, 3 armas</div>
+        <div class="tl-note">Coordenador de extração de cocaína de cascos de navios preso.</div>
+      </div>
+      <div class="tl-item crit">
+        <div class="tl-year">jun 2025</div>
+        <div class="tl-title">Acordo PGR-Itália — equipes conjuntas permanentes assinadas</div>
+        <div class="tl-note">Inédito nas relações Brasil-Itália. Sem prazo definido.</div>
+      </div>
+      <div class="tl-item crit">
+        <div class="tl-year">ago 2025</div>
+        <div class="tl-title">Op. Carbono Oculto — Faria Lima, R$30bi bloqueados</div>
+        <div class="tl-note">Maior operação da história contra PCC. Fintechs + fundos + terminal portuário.</div>
+      </div>
+      <div class="tl-item alt">
+        <div class="tl-year">abr 2026</div>
+        <div class="tl-title">WSJ compara PCC à máfia italiana — Trump pressiona por FTO</div>
+        <div class="tl-note">40.000 membros, 30 países. PF Brasil rejeita classificação terrorista.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTEFATOS RELACIONADOS -->
+<section class="section" id="relacionados">
+  <div class="section-header">
+    <h2>Artefatos Relacionados</h2>
+    <span class="s-count">Dossiês, análises e redes do lawfare-timeline</span>
+    <div class="s-line"></div>
+  </div>
+  <div class="related-grid reveal">
+    <div class="rel-card">
+      <div class="rel-type">Dossiê Forense</div>
+      <div class="rel-title">Operação Sem Desconto — Análise Completa</div>
+      <div class="rel-desc">Atores transversais identificados nas operações anti-corrupção brasileiras pós-2003. Padrão de recorrência: Castelo de Areia, Satiagraha, Lava Jato, Compliance Zero.</div>
+      <div class="rel-meta">IDs 1350–1424 · categorias: lawfare, operacoes-policiais</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-type">Mapa Mental</div>
+      <div class="rel-title">Carbono Oculto — Arquitetura Financeira PCC</div>
+      <div class="rel-desc">Três camadas documentadas: espécie via postos → fintech contas-bolsão → fundos fechados Faria Lima. R$46bi movimentados (2020–2024).</div>
+      <div class="rel-meta">IDs 1486–1487 · categorias: crime-organizado, lavagem</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-type">Dashboard</div>
+      <div class="rel-title">MAPA ORCRIM — Crime Organizado Brasileiro</div>
+      <div class="rel-desc">Mapeamento das principais organizações criminosas no Brasil, rotas, territórios e estrutura de poder. PCC, CV, Milícias, BDM.</div>
+      <div class="rel-meta">Análise geopolítica · mapa de poder</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-type">Análise Investigativa</div>
+      <div class="rel-title">ʼNdrangheta — Perfil Psicológico e Organizacional</div>
+      <div class="rel-desc">Estrutura, história e modelo de negócios da máfia calabresa. Comparação com modelo PCC pós-transferência dos Torsi.</div>
+      <div class="rel-meta">Análise comparativa · crime organizado italiano</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-type">Cronologia</div>
+      <div class="rel-title">Lava Jato — Atores Transversais</div>
+      <div class="rel-desc">Hipótese central do projeto: os mesmos atores aparecem transversalmente em Castelo de Areia, Satiagraha, Lava Jato e Compliance Zero. Análise de padrão.</div>
+      <div class="rel-meta">IDs 800–1350 · categorias: lawfare, operacoes-policiais</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-type">Dossiê</div>
+      <div class="rel-title">Gilmar Mendes — 82 Episódios Documentados (2002–2026)</div>
+      <div class="rel-desc">Conduta judicial e política documentada. 82+ episódios, fontes primárias, categorias: lawfare, interferência institucional, captura judicial.</div>
+      <div class="rel-meta">82 entradas · 2002–2026 · STF</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">
+    Dossiê Forense — Crime Organizado Transnacional · PCC × ʼNdrangheta<br>
+    Todos os dados verificados em fontes primárias governamentais, judiciárias e investigativas.<br>
+    PF · PRF · Receita Federal · MPSP · PGR · OFAC/Tesouro EUA · Europol · PJ Portugal · PE · EMCDDA · WSJ abr/2026
+  </div>
+  <div class="footer-ids">
+    lawfare-timeline · IDs 1481–1496<br>
+    categoria: crime-organizado-transnacional<br>
+    próximo ID disponível: 1497
+  </div>
+</footer>
+
+<script>
+// Expand/collapse descriptions
+function toggleDesc(id, btn) {
+  const el = document.getElementById('desc-' + id);
+  if (!el) return;
+  const collapsed = el.classList.contains('collapsed');
+  el.classList.toggle('collapsed', !collapsed);
+  btn.textContent = collapsed ? '− colapsar' : '+ expandir';
+}
+
+// Navbar active section tracking
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+function updateNav() {
+  let current = '';
+  sections.forEach(s => {
+    const top = s.getBoundingClientRect().top;
+    if (top <= 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    const href = a.getAttribute('href').slice(1);
+    a.classList.toggle('active', href === current);
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Stagger hero metrics
+document.querySelectorAll('.hm').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(12px)';
+  el.style.transition = `opacity 0.4s ${i * 0.06}s ease, transform 0.4s ${i * 0.06}s ease`;
+  setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, 100 + i * 60);
+});
+</script>
+</body>
+</html>

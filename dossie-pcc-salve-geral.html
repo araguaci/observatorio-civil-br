@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSSIÊ — PCC: O Salve Geral</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --surface: #111114;
+    --surface2: #18181c;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --fg: #e8e6e0;
+    --fg2: #9e9b93;
+    --fg3: #5a5852;
+    --red: #c0392b;
+    --red-dim: rgba(192,57,43,0.15);
+    --red-bright: #e74c3c;
+    --amber: #d4a017;
+    --amber-dim: rgba(212,160,23,0.12);
+    --teal: #1a7a6e;
+    --teal-dim: rgba(26,122,110,0.12);
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --display: 'Playfair Display', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,11,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 48px;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    text-decoration: none;
+    padding: 0 16px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  nav a:first-child { border-left: 1px solid var(--border); }
+  nav a:hover { color: var(--fg); }
+  nav a.active { color: var(--red-bright); }
+
+  /* HERO */
+  .hero {
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--red);
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--red-bright);
+  }
+
+  .hero-sub {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--fg2);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg3);
+    letter-spacing: 0.05em;
+  }
+
+  .meta-item span {
+    color: var(--fg2);
+    display: block;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  .stats-inner {
+    display: flex;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .stat-box {
+    flex: 1;
+    min-width: 140px;
+    padding: 1.5rem 1.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .stat-box:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--red-bright);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+
+  /* LAYOUT */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+
+  /* BODY TEXT */
+  .body-text {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+  }
+
+  .body-text strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* EVIDENCE CARD */
+  .evidence {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .evidence-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+  }
+
+  .evidence p {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg2);
+    font-style: italic;
+  }
+
+  .evidence-source {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg3);
+    margin-top: 0.75rem;
+  }
+
+  /* VERDICT CARD */
+  .verdict {
+    background: var(--red-dim);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .verdict-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .verdict p {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--fg);
+  }
+
+  /* AMBER CARD */
+  .note {
+    background: var(--amber-dim);
+    border: 1px solid rgba(212,160,23,0.25);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .note-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.6rem;
+  }
+
+  .note p {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg2);
+  }
+
+  /* TEAL CARD */
+  .teal-card {
+    background: var(--teal-dim);
+    border: 1px solid rgba(26,122,110,0.3);
+    border-left: 3px solid var(--teal);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .teal-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #2ecc71;
+    margin-bottom: 0.6rem;
+  }
+
+  .teal-card p {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg2);
+  }
+
+  /* TIMELINE */
+  .timeline {
+    margin: 2rem 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 80px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border2);
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .tl-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg3);
+    width: 80px;
+    flex-shrink: 0;
+    padding-top: 3px;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: 75px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--bg);
+    flex-shrink: 0;
+  }
+
+  .tl-dot.amber { background: var(--amber); }
+  .tl-dot.teal { background: #2ecc71; }
+
+  .tl-content {
+    padding-left: 30px;
+    flex: 1;
+  }
+
+  .tl-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .tl-text {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--fg2);
+    line-height: 1.6;
+  }
+
+  /* DATA GRID */
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .data-cell {
+    background: var(--surface);
+    padding: 1.25rem;
+  }
+
+  .data-cell-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    margin-bottom: 6px;
+  }
+
+  .data-cell-value {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1;
+  }
+
+  .data-cell-value.red { color: var(--red-bright); }
+  .data-cell-value.amber { color: var(--amber); }
+
+  .data-cell-desc {
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--fg3);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* LACUNA STATUS */
+  .lacuna-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .lacuna-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--surface);
+    padding: 1rem 1.25rem;
+  }
+
+  .lacuna-status {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .lacuna-status.resolved {
+    background: rgba(46,204,113,0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46,204,113,0.3);
+  }
+
+  .lacuna-status.partial {
+    background: var(--amber-dim);
+    color: var(--amber);
+    border: 1px solid rgba(212,160,23,0.3);
+  }
+
+  .lacuna-status.open {
+    background: var(--red-dim);
+    color: var(--red-bright);
+    border: 1px solid rgba(192,57,43,0.3);
+  }
+
+  .lacuna-text {
+    flex: 1;
+  }
+
+  .lacuna-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  .lacuna-desc {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.5;
+  }
+
+  /* QUOTE */
+  blockquote {
+    border-left: 3px solid var(--fg3);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--fg2);
+  }
+
+  blockquote cite {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg3);
+    margin-top: 0.5rem;
+    font-style: normal;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 1rem;
+  }
+
+  footer .footer-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg3);
+    letter-spacing: 0.1em;
+  }
+
+  .sources-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sources-list li {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg3);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .sources-list li::before {
+    content: attr(data-n);
+    color: var(--red);
+    flex-shrink: 0;
+  }
+
+  .sources-list a {
+    color: var(--fg3);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .sources-list a:hover { color: var(--fg2); }
+
+  /* INLINE HIGHLIGHT */
+  .hl { color: var(--red-bright); font-weight: 600; }
+  .hl-amber { color: var(--amber); font-weight: 600; }
+
+  /* SEPARATOR */
+  .sep {
+    width: 48px;
+    height: 1px;
+    background: var(--red);
+    margin: 2rem 0;
+  }
+
+  /* SCROLL REVEAL */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section { animation: fadeUp 0.4s ease both; }
+  .section:nth-child(2) { animation-delay: 0.05s; }
+  .section:nth-child(3) { animation-delay: 0.1s; }
+  .section:nth-child(4) { animation-delay: 0.15s; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .content { padding: 0 1.25rem; }
+    .stats-inner { flex-wrap: wrap; }
+    .stat-box { min-width: 100px; }
+    .timeline::before { left: 60px; }
+    .tl-date { width: 60px; }
+    .tl-dot { left: 55px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#fatos" class="active">Fatos</a>
+  <a href="#camada-oculta">Camada Oculta</a>
+  <a href="#acordo">O Acordo</a>
+  <a href="#banco-central">Banco Central</a>
+  <a href="#expansao">Expansão Global</a>
+  <a href="#politica">Infiltração Política</a>
+  <a href="#terrorismo">Lei Antiterror</a>
+  <a href="#sintese">Síntese</a>
+  <a href="#fontes">Fontes</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Dossiê Investigativo — Segurança Pública Brasileira</div>
+  <h1>PCC: <em>O Salve Geral</em></h1>
+  <div class="hero-sub">De facção prisional a máfia transnacional em 28 países — e o Estado que permitiu</div>
+  <div class="hero-meta">
+    <div class="meta-item">PERÍODO<span>Maio 2006 — Maio 2026</span></div>
+    <div class="meta-item">FONTES<span>Harvard Law, UERJ-LAV, GAECO, PF, TRE-SP, Conectas</span></div>
+    <div class="meta-item">STATUS<span>Investigação em aberto</span></div>
+    <div class="meta-item">CLASSIFICAÇÃO<span>Crimes não terrorismo (BR) / Possível FTO (EUA)</span></div>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-box">
+      <span class="stat-num">564</span>
+      <div class="stat-label">mortos em maio/2006</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">505</span>
+      <div class="stat-label">vítimas civis</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">122</span>
+      <div class="stat-label">indícios de execução policial</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">28</span>
+      <div class="stat-label">países com presença do PCC</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">40k+</span>
+      <div class="stat-label">membros registrados</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">2</span>
+      <div class="stat-label">policiais condenados em 10 anos</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SEÇÃO 1: OS FATOS -->
+  <div class="section" id="fatos">
+    <div class="section-header">
+      <div class="section-num">01 —</div>
+      <h2 class="section-title">Os Fatos de Maio de 2006</h2>
+    </div>
+
+    <p class="body-text">Em 11 de maio de 2006, a Secretaria de Administração Penitenciária do Estado de São Paulo transferiu 765 presos — incluindo o líder do PCC, Marcos Willians Herbas Camacho, o Marcola — para a Penitenciária 2 de Presidente Venceslau, unidade de segurança máxima, após escutas revelarem planos de rebelião. A resposta foi devastadora e sem precedentes na história brasileira.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">11 mai</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">TRANSFERÊNCIA</div>
+          <div class="tl-text">765 presos transferidos, incluindo Marcola. O PCC interpreta como declaração de guerra.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">12 mai</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">INÍCIO DOS ATAQUES — 74 PRESÍDIOS SIMULTANEAMENTE</div>
+          <div class="tl-text">Rebeliões em 74 penitenciárias. Ataques a delegacias, viaturas, ônibus e prédios públicos. São Paulo esvazia. Toque de recolher não oficial imposto pela facção.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">12–13 mai</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">PRIMEIROS DOIS DIAS — 84 MORTOS</div>
+          <div class="tl-text">33 agentes públicos e 51 civis. Fase de ataque direto do PCC.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">14 mai</div>
+        <div class="tl-dot amber"></div>
+        <div class="tl-content">
+          <div class="tl-title">O ACORDO — PRESÍDIO DE PRESIDENTE BERNARDES</div>
+          <div class="tl-text">Governo envia delegado e advogada Iracema Vasciaveo de jato da PM para negociar com Marcola. Bloqueador de celular é desligado. Os ataques param no dia seguinte.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">14–21 mai</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">"ONDA DE RESPOSTA" — 480 MORTOS</div>
+          <div class="tl-text">26 agentes públicos e 454 civis. Execuções extrajudiciais em massa por policiais e grupos de extermínio em favelas e periferias. 60% das vítimas baleadas na cabeça.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2011</div>
+        <div class="tl-dot amber"></div>
+        <div class="tl-content">
+          <div class="tl-title">HARVARD + JUSTIÇA GLOBAL — RELATÓRIO "SÃO PAULO SOB ACHAQUE"</div>
+          <div class="tl-text">5 anos de investigação. 122 mortes com indícios de execução policial. Corrupção policial identificada como estopim real dos ataques.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2016</div>
+        <div class="tl-dot amber"></div>
+        <div class="tl-content">
+          <div class="tl-title">10 ANOS — APENAS 2 POLICIAIS CONDENADOS</div>
+          <div class="tl-text">505 civis mortos. 2 condenações. Taxa de esclarecimento de mortes civis: menor que 5%. Mortes de agentes públicos: 85% esclarecidas.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026</div>
+        <div class="tl-dot teal"></div>
+        <div class="tl-content">
+          <div class="tl-title">20 ANOS — SITUAÇÃO MUITO PIOR</div>
+          <div class="tl-text">PCC em 28 países, 40.000+ membros, infiltrado em fintechs, prefeituras e eleições. Promotor Gakiya sob escolta permanente. Classificação terrorista ainda negada.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Relatório UERJ-LAV / Conectas — Dados Forenses</div>
+      <p>De 564 mortos, 505 eram civis e apenas 59 agentes públicos. Oito em cada dez vítimas tinham até 35 anos. 96% eram homens. Mais da metade negros e pardos. Apenas 6% tinham antecedentes criminais. Em 60% dos casos, as vítimas foram baleadas na cabeça — indicando execução sumária, sem confronto. O Cremesp registrou 2.359 tiros disparados contra 493 vítimas.</p>
+      <div class="evidence-source">FONTE: LAV-UERJ / Conectas Direitos Humanos, 2009</div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: CAMADA OCULTA -->
+  <div class="section" id="camada-oculta">
+    <div class="section-header">
+      <div class="section-num">02 —</div>
+      <h2 class="section-title">A Camada que a Mídia não Contou</h2>
+    </div>
+
+    <p class="body-text">O Salve Geral não nasceu do nada. A investigação de Harvard revelou uma cadeia causal que contradiz a narrativa oficial de "ataque criminoso espontâneo". A corrupção policial foi o estopim. O governo sabia. E a resposta do Estado foi um massacre não investigado.</p>
+
+    <div class="evidence">
+      <div class="evidence-label">Harvard Law / Justiça Global — Causa Real</div>
+      <p>Em 2005, policiais de Suzano, comandados pelo investigador Augusto Peña, sequestraram e extorquiram o enteado de Marcola, exigindo R$ 300 mil pelo resgate. Em 12 de maio de 2006, Marcola esteve no DEIC e comentou sobre o sequestro: "Não vai ficar barato." Horas depois, São Paulo parava.</p>
+      <div class="evidence-source">FONTE: Relatório "São Paulo sob Achaque", Harvard Law / Justiça Global, 2011</div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Omissão Criminal do Estado</div>
+      <p>O governo paulista sabia dos planos do PCC — a Superintendência da Polícia Federal de São Paulo tinha escutas que alertavam sobre possíveis rebeliões nos presídios. Não alertou os agentes públicos. Dezenas foram mortos desprevenidos.</p>
+      <div class="evidence-source">FONTE: Relatório São Paulo sob Achaque, 2011 / Agência Brasil</div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-label">Execuções Documentadas — Grupos de Extermínio</div>
+      <p>A pesquisadora Aline Lúcia Rocco Gomes (UNIFESP) documentou padrão de execução sumária: vítimas baleadas com a mão no rosto, tiros na cabeça, agachadas ou de costas. Em 90% dos casos, familiares identificaram policiais como executores. Evidência comum: chegada rápida de viaturas antes de serem acionadas, remoção de corpos e destruição de cenas do crime imediatamente após.</p>
+    </div>
+
+    <p class="body-text">O caso de <strong>Bianca</strong> resume a barbárie: um bebê baleado ainda no útero da mãe Ana Paula, grávida de 9 meses, com cesárea marcada para o dia seguinte. Ela havia saído para comprar leite numa padaria próxima em Santos na noite de 15 de maio. Nenhum responsável foi identificado. Nenhuma condenação.</p>
+  </div>
+
+  <!-- SEÇÃO 3: O ACORDO -->
+  <div class="section" id="acordo">
+    <div class="section-header">
+      <div class="section-num">03 —</div>
+      <h2 class="section-title">O Acordo — A Lacuna Mais Explosiva</h2>
+    </div>
+
+    <p class="body-text">Durante anos, o governo de São Paulo negou qualquer acordo com o PCC. Em 2015, o depoimento do delegado José Luiz Ramos Cavalcanti, obtido pelo Estadão em processo judicial, revelou o que realmente aconteceu no Presídio de Presidente Bernardes em 14 de maio de 2006.</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Quem autorizou</div>
+        <div class="data-cell-value" style="font-size:1rem;">Gov. Cláudio Lembo</div>
+        <div class="data-cell-desc">PFL, no cargo há 45 dias</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Intermediária</div>
+        <div class="data-cell-value" style="font-size:1rem;">Iracema Vasciaveo</div>
+        <div class="data-cell-desc">Advogada, presidia ONG Nova Ordem — representava o PCC</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Transporte</div>
+        <div class="data-cell-value" style="font-size:1rem;">Jato da PM</div>
+        <div class="data-cell-desc">Campo de Marte → Presidente Prudente</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Detalhe técnico</div>
+        <div class="data-cell-value" style="font-size:1rem;">Bloqueador desligado</div>
+        <div class="data-cell-desc">Celulares funcionaram dentro do presídio de segurança máxima</div>
+      </div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Depoimento Oficial — Delegado Cavalcanti</div>
+      <p>"No fim daquele dia e no dia seguinte os ataques definitivamente pararam." O delegado negou formalmente "acordo", mas confirmou que Marcola pediu respeito aos direitos dos presos, que o comando da PM garantiu. A advogada confirmou todos os fatos. O processo criminal nº 1352/06 está disponível.</p>
+      <div class="evidence-source">FONTE: Estadão / Exame / Gazeta do Povo — Julho 2015</div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">Lacuna Residual — Não Investigada</div>
+      <p>Os termos exatos do que o PCC recebeu em troca nunca foram formalmente apurados. A CPI estadual que investigou o caso foi arquivada sem conclusão sobre o acordo. Nagashi Furukawa, secretário de Administração Penitenciária, negou acordos em depoimento — contradizendo o delegado participante.</p>
+    </div>
+
+    <blockquote>
+      "A situação estava fora de controle. Recebi a ordem: que eu fosse para o Campo de Marte, porque de lá seguiria para Presidente Bernardes."
+      <cite>— Iracema Vasciaveo, advogada intermediária, em declaração ao Estadão</cite>
+    </blockquote>
+  </div>
+
+  <!-- SEÇÃO 4: BANCO CENTRAL -->
+  <div class="section" id="banco-central">
+    <div class="section-header">
+      <div class="section-num">04 —</div>
+      <h2 class="section-title">O Dinheiro do Banco Central</h2>
+    </div>
+
+    <p class="body-text">Em agosto de 2005, três meses antes do Salve Geral, uma quadrilha com ramificações no PCC escavou um túnel de 80 metros sob o Banco Central de Fortaleza e levou <strong class="hl">R$ 164 milhões</strong> — o maior furto da história do Brasil. A Polícia Federal documentou a conexão com a facção. O dinheiro financiou armas, drogas e possivelmente os próprios ataques de maio de 2006.</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Valor furtado</div>
+        <div class="data-cell-value red">R$ 164mi</div>
+        <div class="data-cell-desc">Em cédulas de R$50 destinadas à incineração</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Recuperado</div>
+        <div class="data-cell-value amber">~R$ 40mi</div>
+        <div class="data-cell-desc">Cerca de 24% do total. R$ 124mi nunca encontrados</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Presos</div>
+        <div class="data-cell-value">122</div>
+        <div class="data-cell-desc">119 condenações em 28 ações penais</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Foragidos ativos</div>
+        <div class="data-cell-value red">4+</div>
+        <div class="data-cell-desc">Presos ainda em 2024-2025</div>
+      </div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">PF — Ligação Documentada com o PCC</div>
+      <p>"Neto", preso no Piauí, era apontado como líder da operação e integrante da cúpula do PCC. A investigação revelou que quadrilha era composta por três grupos — dois de São Paulo e um do Ceará. Conforme o delegado responsável: "Muito desse dinheiro foi usado para o tráfico de drogas, compra de armas e financiamento de outros crimes do mesmo modelo."</p>
+      <div class="evidence-source">FONTE: Conjur / Agência Brasil / Delegado Antônio Celso, PF</div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">Conexão com o Salve Geral — Evidência Indireta</div>
+      <p>O livro Toupeira (Roger Franchini, Editora Planeta, 2011) documenta a tese de que o dinheiro do Banco Central foi uma das causas dos ataques de 2006. A conexão direta nunca foi objeto de investigação formal. R$ 124 milhões permanecem sem localização oficial.</p>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 5: EXPANSÃO GLOBAL -->
+  <div class="section" id="expansao">
+    <div class="section-header">
+      <div class="section-num">05 —</div>
+      <h2 class="section-title">Expansão Global — De Facção a Máfia Transnacional</h2>
+    </div>
+
+    <p class="body-text">Vinte anos depois do Salve Geral, o PCC é irreconhecível para quem o conhecia como facção prisional paulista. O promotor Lincoln Gakiya, que investiga a organização há mais de 20 anos e vive sob escolta permanente, traçou o diagnóstico mais completo disponível em depoimento à CPI do Crime Organizado.</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Países com presença</div>
+        <div class="data-cell-value red">28</div>
+        <div class="data-cell-desc">América do Sul, Europa, África</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Membros registrados</div>
+        <div class="data-cell-value">40.000+</div>
+        <div class="data-cell-desc">+ 60.000 "contratados" estimados</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Presença em Portugal</div>
+        <div class="data-cell-value" style="font-size:1rem;">Chefe local</div>
+        <div class="data-cell-desc">Sintonia do Progresso — controle do tráfico, armas e presos</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Argentina (2023)</div>
+        <div class="data-cell-value amber">56</div>
+        <div class="data-cell-desc">+100% de crescimento em 1 ano</div>
+      </div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Promotor Lincoln Gakiya — CPI do Crime Organizado, Nov/2025</div>
+      <p>"O PCC já pode ser classificado como uma organização mafiosa. Não precisa mais da ostensividade da violência, exibindo fuzis. Está ganhando muito dinheiro, principalmente com o tráfico internacional de cocaína para a Europa. Se nada for feito, nós nos tornaremos, sim, um narcoestado."</p>
+      <div class="evidence-source">FONTE: Congresso em Foco / Revista Oeste / RED — Novembro 2025</div>
+    </div>
+
+    <p class="body-text">A economia formal foi o próximo alvo. Gakiya documentou presença do PCC em <strong>combustíveis, fintechs, usinas de cana-de-açúcar e comércio de veículos</strong>. O retorno do dinheiro do tráfico internacional exige inserção em empresas legítimas — o que torna o rastreamento exponencialmente mais difícil.</p>
+
+    <div class="teal-card">
+      <div class="teal-label">Alianças Internacionais Documentadas</div>
+      <p>'Ndrangheta (Itália) · Camorra (Itália) · Organizações do Leste Europeu · Grupos africanos · Tren de Aragua (Venezuela) · Facções sul-americanas. O PCC é, nas palavras de Gakiya, "a organização criminosa que mais cresce no mundo".</p>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-label">Diagnóstico — Brookings Institution, 2024</div>
+      <p>O PCC transformou-se de facção prisional em "leviatã transnacional" com presença na América do Sul, África e Europa. Em 2021, o governo americano já o classificava como "o grupo do crime organizado mais poderoso do Brasil e um dos mais poderosos do mundo".</p>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 6: INFILTRAÇÃO POLÍTICA -->
+  <div class="section" id="politica">
+    <div class="section-header">
+      <div class="section-num">06 —</div>
+      <h2 class="section-title">Infiltração Política e Eleitoral</h2>
+    </div>
+
+    <p class="body-text">A fase mais recente e mais perturbadora da expansão do PCC é a captura institucional. O que era coerção territorial evoluiu para financiamento de campanhas, eleição de quadros próprios e controle de sistemas financeiros municipais.</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Eleitos ligados ao PCC — SP/2024</div>
+        <div class="data-cell-value red">12</div>
+        <div class="data-cell-desc">2 prefeitos e 10 vereadores (TRE-SP)</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Candidatos investigados — SP/2024</div>
+        <div class="data-cell-value amber">70</div>
+        <div class="data-cell-desc">Lista do TRE-SP com envolvimento com crime</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Cidades interferidas — BR/2024</div>
+        <div class="data-cell-value">42+</div>
+        <div class="data-cell-desc">Relatório da Polícia Federal (Fantástico)</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Investimento eleitoral PCC — SP/2024</div>
+        <div class="data-cell-value red">R$ 8mi</div>
+        <div class="data-cell-desc">Estimativa PF em apoio a candidaturas</div>
+      </div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Operação Contaminatio — Polícia Civil SP, Abril 2025</div>
+      <p>O PCC criou a fintech 4TBank com objetivo de gerir o recebimento de tributos municipais — IPTU, taxas — em cidades do interior paulista. O dinheiro dos impostos passaria pelo sistema bancário controlado pela facção antes de chegar ao Tesouro Municipal. Lavagem em escala industrial dentro das prefeituras. Bloqueio de R$ 513,7 milhões em ativos.</p>
+      <div class="evidence-source">FONTE: CNN Brasil / Revista Fórum — Abril/Maio 2025</div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Operação Fim da Linha</div>
+      <p>Empresas de ônibus de São Paulo com diretores suspeitos de usar a frota para ocultar cerca de R$ 600 milhões da facção. Controle do transporte público é estratégico para mobilidade e logística do crime organizado.</p>
+      <div class="evidence-source">FONTE: Revista Fórum — 2025</div>
+    </div>
+
+    <blockquote>
+      "PCC já financia campanhas. O crime organizado agora busca controlar o 'sistema operacional' financeiro das cidades."
+      <cite>— Promotor Lincoln Gakiya, alerta sobre eleições de 2026</cite>
+    </blockquote>
+  </div>
+
+  <!-- SEÇÃO 7: LEI ANTITERRORISMO -->
+  <div class="section" id="terrorismo">
+    <div class="section-header">
+      <div class="section-num">07 —</div>
+      <h2 class="section-title">A Lei Antiterrorismo — Blindagem Deliberada</h2>
+    </div>
+
+    <p class="body-text">A Lei 13.260/2016 foi aprovada às vésperas das Olimpíadas, sob pressão do GAFI e do Conselho de Segurança da ONU. Foi deliberadamente redigida com uma condicionante que exclui o crime organizado doméstico: exige motivação de "xenofobia, discriminação ou preconceito de raça, cor, etnia e religião". PCC e CV ficam de fora por construção legislativa — não por ausência de elementos fáticos.</p>
+
+    <div class="verdict">
+      <div class="verdict-label">A Perversão Sistêmica — Documentada</div>
+      <p>O STF classificou participantes do 8 de janeiro como terroristas. O mesmo sistema recusa classificar o PCC — que executa agentes públicos, paralisa cidades inteiras, opera em 28 países e infiltra prefeituras — com o mesmo enquadramento. Não é inconsistência jurídica: é seletividade política.</p>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-label">Emissários Trump — Ministério da Justiça, 2025</div>
+      <p>Representantes do governo Trump propuseram classificar PCC e CV como Organizações Terroristas Estrangeiras (FTO). O Brasil recusou, alegando que a lei não sustenta a classificação. O Ministério da Justiça prepara um Projeto de Lei Antimáfia — mas sem prazo definido para votação.</p>
+      <div class="evidence-source">FONTE: CartaCapital — Maio 2025</div>
+    </div>
+
+    <div class="teal-card">
+      <div class="teal-label">O que foi tentado no Legislativo</div>
+      <p>O Senado aprovou em maio de 2023 projeto (Sen. Styvenson Valentim) que equipara ações do crime organizado ao terrorismo, com penas de 12 a 30 anos. O projeto foi para a Câmara dos Deputados — e travou. Nenhuma votação em plenário até maio de 2026.</p>
+    </div>
+
+    <div class="note">
+      <div class="note-label">Professor Gerson Rosa — UniCuritiba</div>
+      <p>"A legislação brasileira que deveria punir o terrorismo acaba por, estranhamente, blindar as organizações terroristas de responsabilizações penais. O critério de xenofobia e preconceito está relacionado ao conceito de genocídio — não de terrorismo."</p>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 8: STATUS DAS LACUNAS -->
+  <div class="section" id="sintese">
+    <div class="section-header">
+      <div class="section-num">08 —</div>
+      <h2 class="section-title">Status das Lacunas Investigativas</h2>
+    </div>
+
+    <div class="lacuna-grid">
+      <div class="lacuna-row">
+        <div class="lacuna-status resolved">RESOLVIDA</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">O Acordo de Maio 2006</div>
+          <div class="lacuna-desc">Confirmado por depoimento judicial do delegado Cavalcanti e pela própria advogada intermediária. Governador Lembo autorizou. Processo criminal nº 1352/06.</div>
+        </div>
+      </div>
+      <div class="lacuna-row">
+        <div class="lacuna-status resolved">RESOLVIDA</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">PCC + Banco Central de Fortaleza</div>
+          <div class="lacuna-desc">PF ligou membros da cúpula do PCC ao assalto de R$164mi. R$124mi não recuperados. Dinheiro usado para tráfico, armas e crimes correlatos.</div>
+        </div>
+      </div>
+      <div class="lacuna-row">
+        <div class="lacuna-status resolved">RESOLVIDA</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">Infiltração Política Eleitoral</div>
+          <div class="lacuna-desc">TRE-SP: 12 eleitos ligados ao PCC em 2024. PF: interferência em 42+ municípios. R$ 8mi investidos em campanhas. Fintech 4TBank para lavagem em prefeituras.</div>
+        </div>
+      </div>
+      <div class="lacuna-row">
+        <div class="lacuna-status resolved">RESOLVIDA</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">Bloqueio da Lei Antiterrorismo</div>
+          <div class="lacuna-desc">Condicionante de xenofobia/preconceito foi design deliberado. Projeto do Senado (2023) aprovado na CSP, travado na Câmara. Governo Lula recusou proposta Trump em 2025.</div>
+        </div>
+      </div>
+      <div class="lacuna-row">
+        <div class="lacuna-status partial">PARCIAL</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">Termos Exatos do Acordo de 2006</div>
+          <div class="lacuna-desc">O que o PCC recebeu em troca do cessar-fogo nunca foi formalmente apurado. CPI arquivada sem conclusão. Furukawa contradiz Cavalcanti.</div>
+        </div>
+      </div>
+      <div class="lacuna-row">
+        <div class="lacuna-status open">ABERTA</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">Bebê Bianca — Sem Responsabilização</div>
+          <div class="lacuna-desc">Executada no útero da mãe em Santos, 15/mai/2006. Nenhum responsável identificado. Nenhuma condenação. 20 anos de impunidade total.</div>
+        </div>
+      </div>
+      <div class="lacuna-row">
+        <div class="lacuna-status open">ABERTA</div>
+        <div class="lacuna-text">
+          <div class="lacuna-title">Agência Antimáfia — Por Que Não Foi Criada</div>
+          <div class="lacuna-desc">Gakiya defende modelo italiano (DIA) desde 2018. Nenhum projeto específico. Trilha legislativa de bloqueio não mapeada publicamente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <h3 style="font-family: var(--display); font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--fg);">Síntese Analítica</h3>
+
+    <p class="body-text">O Salve Geral de 2006 não foi um evento isolado. Foi a convergência de quatro falhas estruturais simultâneas — e vinte anos depois todas persistem, ampliadas:</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Falha 01</div>
+        <div class="data-cell-value" style="font-size:0.9rem; color: var(--red-bright);">Estado como Cúmplice</div>
+        <div class="data-cell-desc">Corrupção policial foi o estopim. Governo sabia e não agiu. Acordo secreto encerrou os ataques. Investigações arquivadas seletivamente.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Falha 02</div>
+        <div class="data-cell-value" style="font-size:0.9rem; color: var(--red-bright);">Impunidade Seletiva</div>
+        <div class="data-cell-desc">2 policiais condenados em 10 anos por 505 civis mortos. Mortes de agentes: 85% esclarecidas. Civis: menor que 5%.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Falha 03</div>
+        <div class="data-cell-value" style="font-size:0.9rem; color: var(--red-bright);">Blindagem Legislativa</div>
+        <div class="data-cell-desc">Lei Antiterrorismo redigida para não alcançar PCC e CV. Projeto de correção aprovado no Senado — travado na Câmara por 3 anos.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Falha 04</div>
+        <div class="data-cell-value" style="font-size:0.9rem; color: var(--red-bright);">Captura Institucional</div>
+        <div class="data-cell-desc">PCC em prefeituras, fintechs e eleições. 12 eleitos em 2024. Juízes que soltam líderes. Promotor sob escolta.</div>
+      </div>
+    </div>
+
+    <div class="verdict" style="margin-top: 2rem;">
+      <div class="verdict-label">Conclusão — O Sistema Funciona Como Projetado</div>
+      <p>Se um bebê no útero não gera condenação, se R$ 164 milhões desaparecem, se a lei antiterrorismo foi escrita para blindar terroristas, se 12 eleitos ligados ao crime seguem no cargo — o sistema não falhou. Ele funcionou exatamente como foi arquitetado para funcionar. A questão não é corrigir falhas. É reconhecer que há interesses ativos na manutenção do arranjo.</p>
+    </div>
+  </div>
+
+  <!-- FONTES -->
+  <div class="section" id="fontes">
+    <div class="section-header">
+      <div class="section-num">09 —</div>
+      <h2 class="section-title">Fontes e Referências</h2>
+    </div>
+
+    <ul class="sources-list">
+      <li data-n="01">Harvard Law School / Justiça Global — "São Paulo sob Achaque" (2011) · hls.harvard.edu</li>
+      <li data-n="02">LAV-UERJ / Conectas — "Análise dos Impactos dos Ataques do PCC em SP em Maio de 2006" (2009) · conectas.org</li>
+      <li data-n="03">Agência Brasil — "Crimes de Maio causaram 564 mortes em 2006" · agenciabrasil.ebc.com.br</li>
+      <li data-n="04">Gazeta do Povo — "Governo de SP teria feito acordo com PCC" (2015) · gazetadopovo.com.br</li>
+      <li data-n="05">Exame — "Estado acordou com PCC em fim de ataques, diz delegado" (2015) · exame.com</li>
+      <li data-n="06">Conjur — "PF liga PCC a assalto do Banco Central de Fortaleza" (2006) · conjur.com.br</li>
+      <li data-n="07">Infomoney — "O maior roubo a banco da história" (2025) · infomoney.com.br</li>
+      <li data-n="08">Congresso em Foco — "Brasil pode virar narcoestado, diz promotor que investiga o PCC" (Nov/2025) · congressoemfoco.com.br</li>
+      <li data-n="09">Revista Oeste — "Brasil está em processo de formação de um narcoestado" (Ago/2025) · revistaoeste.com</li>
+      <li data-n="10">Blog Gustavo Negreiros — "PCC expande atuação no exterior, 28 países" (2025) · gustavonegreiros.com.br</li>
+      <li data-n="11">Brookings Institution — "The Internationalization of Organized Crime in Brazil" (2024) · brookings.edu</li>
+      <li data-n="12">CNN Brasil — "Polícia faz operação contra infiltração do PCC em prefeituras" (2025) · cnnbrasil.com.br</li>
+      <li data-n="13">Gazeta do Povo — "Justiça tem desafio de barrar crime organizado nas eleições" (2026) · gazetadopovo.com.br</li>
+      <li data-n="14">CartaCapital — "Por que Brasil não classifica facções como terroristas?" (2025) · cartacapital.com.br</li>
+      <li data-n="15">Senado Federal — "Aprovado projeto que tipifica como terroristas atos do crime organizado" (2023) · senado.leg.br</li>
+      <li data-n="16">CBN Podcast — "PCC: O Salve Geral" (2026) · cbn.globo.com</li>
+      <li data-n="17">Ponte Jornalismo — "Crimes de Maio de 2006: o massacre que o Brasil ignora" · ponte.org</li>
+      <li data-n="18">MercoPress — "Brazilian drug gang goes global, The Economist reports" (2023) · mercopress.com</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-label">DOSSIÊ PCC — O SALVE GERAL · COMPILADO MAIO 2026</div>
+  <div class="footer-label">DOCUMENTO PARA FINS INFORMATIVOS E DE PESQUISA</div>
+</footer>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('.section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
