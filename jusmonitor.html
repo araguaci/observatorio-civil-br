@@ -733,6 +733,191 @@ footer {
 }
 .detail-ref a:hover { color: var(--fg-2); }
 
+/* CONTRIBUTE */
+.contrib-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.contrib-card {
+  background: var(--surface);
+  padding: 20px;
+}
+
+.contrib-step {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.contrib-title {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.contrib-text {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--fg-2);
+  line-height: 1.6;
+}
+
+.json-block {
+  background: #0d0d10;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.json-header {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.json-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-3);
+  letter-spacing: 0.06em;
+}
+
+.copy-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--fg-3);
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.copy-btn:hover { color: var(--fg); border-color: var(--fg-3); }
+.copy-btn.copied { color: var(--green); border-color: rgba(34,197,94,0.4); }
+
+pre.json-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--fg-2);
+  padding: 20px;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre;
+}
+
+.json-key { color: #7dd3fc; }
+.json-str { color: #86efac; }
+.json-num { color: #f9a8d4; }
+.json-comment { color: var(--fg-3); font-style: italic; }
+
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.check-item {
+  background: var(--surface);
+  padding: 14px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.check-icon {
+  font-family: var(--mono);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  width: 20px;
+  text-align: center;
+}
+
+.check-required .check-icon { color: var(--accent); }
+.check-optional .check-icon { color: var(--fg-3); }
+.check-warn .check-icon { color: var(--accent-3); }
+
+.check-body { flex: 1; }
+
+.check-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+
+.check-desc {
+  font-family: var(--serif);
+  font-size: 12px;
+  color: var(--fg-2);
+}
+
+.check-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+  align-self: flex-start;
+}
+
+.badge-req { color: var(--accent); border-color: rgba(232,55,42,0.3); background: rgba(232,55,42,0.08); }
+.badge-opt { color: var(--fg-3); border-color: var(--border-strong); }
+.badge-warn { color: var(--accent-3); border-color: rgba(234,179,8,0.3); background: rgba(234,179,8,0.06); }
+
+.gh-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg);
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 10px 18px;
+  text-decoration: none;
+  transition: all 0.15s;
+  margin-bottom: 8px;
+}
+.gh-link-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.contrib-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
 /* RESPONSIVE */
 @media (max-width: 640px) {
   .case-row { grid-template-columns: 56px 1fr; }
@@ -745,6 +930,10 @@ footer {
   .method-grid { grid-template-columns: 1fr; }
   .legend-grid { grid-template-columns: repeat(2, 1fr); }
   .alert-card { flex: 0 1 100%; min-width: unset; }
+  .contrib-grid { grid-template-columns: 1fr; }
+  pre.json-code { font-size: 11px; padding: 14px; }
+  .contrib-actions { flex-direction: column; }
+  .gh-link-btn { width: 100%; justify-content: center; }
 }
 @media (max-width: 900px) and (min-width: 641px) {
   .method-grid { grid-template-columns: repeat(2, 1fr); }
@@ -816,6 +1005,7 @@ footer {
     <button class="tab-btn" onclick="showTab('tab-legenda', this)">🏷 Legenda</button>
     <button class="tab-btn" onclick="showTab('tab-fontes', this)" id="fontes">🔗 Fontes Públicas</button>
     <button class="tab-btn" onclick="showTab('tab-metodologia', this)" id="metodologia">📐 Metodologia</button>
+    <button class="tab-btn" onclick="showTab('tab-contribuir', this)" id="contribuir">✚ Contribuir</button>
   </div>
 
   <!-- TAB: CASOS -->
@@ -1537,6 +1727,196 @@ footer {
 
   </div><!-- /tab-metodologia -->
 
+  <!-- TAB: CONTRIBUIR -->
+  <div class="tab-panel" id="tab-contribuir">
+
+    <div class="section-title">Como contribuir com novos casos verificáveis</div>
+
+    <div class="contrib-grid">
+      <div class="contrib-card">
+        <div class="contrib-step">PASSO 01</div>
+        <div class="contrib-title">Verifique a fonte primária</div>
+        <div class="contrib-text">Antes de enviar, confirme que o caso tem número de processo público consultável em portal oficial (STF, STJ, TJ, TRF, CNJ/BNMP). Sem número de processo rastreável, o caso não será incluído.</div>
+      </div>
+      <div class="contrib-card">
+        <div class="contrib-step">PASSO 02</div>
+        <div class="contrib-title">Preencha o modelo JSON</div>
+        <div class="contrib-text">Use o template abaixo para estruturar os dados do caso. Copie, preencha todos os campos obrigatórios e cole no corpo da issue do GitHub. Campos opcionais melhoram a qualidade da entrada.</div>
+      </div>
+      <div class="contrib-card">
+        <div class="contrib-step">PASSO 03</div>
+        <div class="contrib-title">Abra uma Issue no repositório</div>
+        <div class="contrib-text">Acesse o repositório público, use o template "Novo Caso" e cole o JSON preenchido. Adicione links para fontes primárias nos comentários. Erros e correções de dados existentes seguem o mesmo fluxo.</div>
+      </div>
+      <div class="contrib-card">
+        <div class="contrib-step">PASSO 04</div>
+        <div class="contrib-title">Aguarde revisão editorial</div>
+        <div class="contrib-text">Cada submissão é revisada manualmente para verificar fontes e conformidade com os critérios de inclusão. Casos confirmados são incorporados na próxima atualização. Prazo médio: 7–14 dias.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Modelo JSON para submissão de caso</div>
+
+    <div class="json-block">
+      <div class="json-header">
+        <span class="json-title">CASO_MODELO.json — copie, preencha e cole na issue</span>
+        <button class="copy-btn" id="copy-json-btn" onclick="copyJson()">⎘ Copiar</button>
+      </div>
+      <pre class="json-code" id="json-template">{
+  <span class="json-comment">// ── IDENTIFICAÇÃO ──────────────────────────────────────────</span>
+  <span class="json-key">"ano"</span>: <span class="json-num">2024</span>,                          <span class="json-comment">// OBRIGATÓRIO — ano da decisão</span>
+  <span class="json-key">"tribunal"</span>: <span class="json-str">"STF"</span>,                    <span class="json-comment">// OBRIGATÓRIO — STF | STJ | TJ-XX | TRF-X | CNJ</span>
+  <span class="json-key">"numero_processo"</span>: <span class="json-str">"HC 000.000/UF"</span>, <span class="json-comment">// OBRIGATÓRIO — número público do processo</span>
+  <span class="json-key">"relator"</span>: <span class="json-str">"Min. Nome Sobrenome"</span>,    <span class="json-comment">// OBRIGATÓRIO — nome do relator</span>
+  <span class="json-key">"tipo_decisao"</span>: <span class="json-str">"HC monocrático"</span>,    <span class="json-comment">// OBRIGATÓRIO — veja tipos válidos abaixo</span>
+
+  <span class="json-comment">// ── CONTEÚDO ───────────────────────────────────────────────</span>
+  <span class="json-key">"titulo"</span>: <span class="json-str">"Título curto descritivo do caso"</span>,
+  <span class="json-key">"descricao"</span>: <span class="json-str">"Resumo factual em 2-3 frases. Quem, o quê, impacto direto."</span>,
+  <span class="json-key">"detalhe"</span>: <span class="json-str">"Contexto adicional, nuances jurídicas, impacto sistêmico estimado."</span>,
+  <span class="json-key">"crimes"</span>: [<span class="json-str">"trafico"</span>, <span class="json-str">"homicidio"</span>],  <span class="json-comment">// veja tags válidas abaixo</span>
+  <span class="json-key">"status_reu"</span>: <span class="json-str">"foragido"</span>,              <span class="json-comment">// OPCIONAL — foragido | preso | solto | falecido</span>
+
+  <span class="json-comment">// ── FONTES PRIMÁRIAS (mínimo 1 obrigatório) ────────────────</span>
+  <span class="json-key">"fontes"</span>: [
+    {
+      <span class="json-key">"tipo"</span>: <span class="json-str">"oficial"</span>,               <span class="json-comment">// oficial | jornalismo | pesquisa | parlamentar</span>
+      <span class="json-key">"nome"</span>: <span class="json-str">"Portal STF — Processo"</span>,
+      <span class="json-key">"url"</span>: <span class="json-str">"https://portal.stf.jus.br/processos/detalhe.asp?incidente=XXXXXX"</span>,
+      <span class="json-key">"acessado_em"</span>: <span class="json-str">"2026-05-09"</span>
+    },
+    {
+      <span class="json-key">"tipo"</span>: <span class="json-str">"jornalismo"</span>,
+      <span class="json-key">"nome"</span>: <span class="json-str">"Veículo — Título da reportagem"</span>,
+      <span class="json-key">"url"</span>: <span class="json-str">"https://..."</span>,
+      <span class="json-key">"acessado_em"</span>: <span class="json-str">"2026-05-09"</span>
+    }
+  ],
+
+  <span class="json-comment">// ── METADADOS ──────────────────────────────────────────────</span>
+  <span class="json-key">"contribuidor"</span>: <span class="json-str">"@usuario_github"</span>,   <span class="json-comment">// OPCIONAL — para crédito público</span>
+  <span class="json-key">"observacoes"</span>: <span class="json-str">"Qualquer nota relevante sobre limitações ou contexto do dado."</span>
+}</pre>
+    </div>
+
+    <div class="section-title">Tags e tipos válidos</div>
+
+    <div class="contrib-grid" style="margin-bottom: 32px;">
+      <div class="contrib-card">
+        <div class="contrib-step">CRIMES — campo "crimes"</div>
+        <div class="contrib-title">Tags aceitas</div>
+        <div class="contrib-text" style="font-family: var(--mono); font-size: 11px; line-height: 2;">
+          <span style="color: #f97316;">trafico</span> · <span style="color: #e8372a;">homicidio</span> · <span style="color: #a78bfa;">corrupcao</span> · <span style="color: #ec4899;">estupro</span> · <span style="color: #fb923c;">latrocinio</span> · <span style="color: #94a3b8;">milicia</span> · <span style="color: #ef4444;">pcc</span> · <span style="color: #fbbf24;">foragido</span>
+        </div>
+      </div>
+      <div class="contrib-card">
+        <div class="contrib-step">TIPO DE DECISÃO — campo "tipo_decisao"</div>
+        <div class="contrib-title">Valores aceitos</div>
+        <div class="contrib-text" style="font-family: var(--mono); font-size: 11px; line-height: 2;">
+          HC monocrático · HC coletivo · ADC plenário · Progressão de regime · Nulidade processual · Mudança jurisprudencial · Liberdade provisória · Tráfico privilegiado · Distinguishing
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Checklist de validação antes de enviar</div>
+
+    <ul class="checklist">
+      <li class="check-item check-required">
+        <span class="check-icon">✕</span>
+        <div class="check-body">
+          <div class="check-label">Número de processo público e rastreável</div>
+          <div class="check-desc">O número deve ser verificável diretamente no portal oficial do tribunal (STF, STJ, CNJ, TJ, TRF). Processos em segredo de justiça não são aceitos.</div>
+        </div>
+        <span class="check-badge badge-req">OBRIGATÓRIO</span>
+      </li>
+      <li class="check-item check-required">
+        <span class="check-icon">✕</span>
+        <div class="check-body">
+          <div class="check-label">Ao menos uma fonte primária oficial com URL funcional</div>
+          <div class="check-desc">Portal do tribunal, CNJ/BNMP, INFOPEN, ou portal de governo federal/estadual. URL deve estar acessível no momento do envio.</div>
+        </div>
+        <span class="check-badge badge-req">OBRIGATÓRIO</span>
+      </li>
+      <li class="check-item check-required">
+        <span class="check-icon">✕</span>
+        <div class="check-body">
+          <div class="check-label">O caso envolve soltura, progressão, anulação ou arquivamento</div>
+          <div class="check-desc">A base documenta impacto de decisões — não condenações. O resultado da decisão deve implicar liberação ou benefício ao réu condenado/investigado por crime violento ou hediondo.</div>
+        </div>
+        <span class="check-badge badge-req">OBRIGATÓRIO</span>
+      </li>
+      <li class="check-item check-required">
+        <span class="check-icon">✕</span>
+        <div class="check-body">
+          <div class="check-label">Réu condenado ou investigado por crime violento, hediondo ou tráfico</div>
+          <div class="check-desc">Crimes de menor potencial ofensivo, crimes culposos sem agravantes ou contravenções não se enquadram nos critérios de inclusão desta base.</div>
+        </div>
+        <span class="check-badge badge-req">OBRIGATÓRIO</span>
+      </li>
+      <li class="check-item check-optional">
+        <span class="check-icon">○</span>
+        <div class="check-body">
+          <div class="check-label">Fonte jornalística de veículo verificável</div>
+          <div class="check-desc">Jornal, agência de notícias ou portal com CNPJ identificável. Fortalece a entrada, mas não substitui a fonte primária oficial. Blogs, redes sociais e sites anônimos não são aceitos.</div>
+        </div>
+        <span class="check-badge badge-opt">RECOMENDADO</span>
+      </li>
+      <li class="check-item check-optional">
+        <span class="check-icon">○</span>
+        <div class="check-body">
+          <div class="check-label">Estimativa de impacto sistêmico documentada</div>
+          <div class="check-desc">Número de beneficiados, reincidência do réu, ou referência a dados de série histórica que contextualizam o caso além do individual.</div>
+        </div>
+        <span class="check-badge badge-opt">RECOMENDADO</span>
+      </li>
+      <li class="check-item check-warn">
+        <span class="check-icon">⚠</span>
+        <div class="check-body">
+          <div class="check-label">Não incluir dados pessoais protegidos por sigilo</div>
+          <div class="check-desc">Vítimas de crimes sexuais são identificadas apenas pelo tipo de crime. Menores de idade nunca são nominados. Endereços residenciais, dados de saúde e informações sigilosas por determinação judicial são proibidos.</div>
+        </div>
+        <span class="check-badge badge-warn">ATENÇÃO</span>
+      </li>
+      <li class="check-item check-warn">
+        <span class="check-icon">⚠</span>
+        <div class="check-body">
+          <div class="check-label">Linguagem factual — sem adjetivação política ou moral</div>
+          <div class="check-desc">Descreva o que aconteceu (fatos, números, datas, crimes) sem julgamento sobre o magistrado, partido, ou ideologia. Edições com adjetivação política serão rejeitadas ou reescritas.</div>
+        </div>
+        <span class="check-badge badge-warn">ATENÇÃO</span>
+      </li>
+    </ul>
+
+    <div class="section-title">Enviar contribuição</div>
+
+    <div class="contrib-actions">
+      <a class="gh-link-btn" href="https://github.com/araguaci/observatorio-civil-br/issues/new?template=novo_caso.md&title=%5BCASO%5D+Tribunal+-+Ano+-+Resumo&labels=novo-caso%2Cpendente-revisao" target="_blank" rel="noopener">
+        ✚ Abrir Issue — Novo Caso
+      </a>
+      <a class="gh-link-btn" href="https://github.com/araguaci/observatorio-civil-br/issues/new?template=correcao.md&title=%5BCORREC%C3%83O%5D+Caso+-+Campo&labels=correcao" target="_blank" rel="noopener">
+        ✎ Abrir Issue — Correção de Dado
+      </a>
+      <a class="gh-link-btn" href="https://github.com/araguaci/observatorio-civil-br/issues" target="_blank" rel="noopener">
+        ⊞ Ver todas as Issues abertas
+      </a>
+    </div>
+
+    <div class="notice-bar" style="margin: 0 0 32px 0; border-color: rgba(34,197,94,0.2); background: rgba(34,197,94,0.05); color: #86efac;">
+      <span>✓</span>
+      <span>
+        <strong>Contribuições são anônimas por padrão.</strong> O campo <code style="font-family: var(--mono); font-size: 11px; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 3px;">"contribuidor"</code> é opcional. Crédito público só é concedido com consentimento explícito. Dados pessoais do contribuidor não são coletados nem exibidos sem autorização.
+      </span>
+    </div>
+
+    <div class="notice-bar" style="margin: 0 0 32px 0;">
+      <span>ℹ</span>
+      <span>
+        <strong>Por que GitHub Issues?</strong> Issues são públicas, auditáveis, versionadas e permitem discussão aberta sobre cada caso. Qualquer pessoa pode comentar, questionar fontes ou apontar erros — garantindo revisão coletiva antes da inclusão. O histórico de decisões editoriais fica registrado permanentemente.
+      </span>
+    </div>
+
+  </div><!-- /tab-contribuir -->
+
 </div><!-- /tabs-wrapper -->
 
 <footer>
@@ -1581,6 +1961,17 @@ function filterCases(cat, btn) {
       const tags = row.getAttribute('data-tags') || '';
       row.style.display = tags.includes(cat) ? '' : 'none';
     }
+  });
+}
+
+function copyJson() {
+  const pre = document.getElementById('json-template');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-json-btn');
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '⎘ Copiar'; btn.classList.remove('copied'); }, 2000);
   });
 }
 
