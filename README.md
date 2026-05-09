@@ -3,8 +3,8 @@
 <div align="center">
 
 ![Status](https://img.shields.io/badge/status-ativo-dc2626?style=flat-square)
-![Versão](https://img.shields.io/badge/versão-1.3.0-3b82f6?style=flat-square)
-![Lançamento](https://img.shields.io/badge/lançamento-2026--04--27-22c55e?style=flat-square)
+![Versão](https://img.shields.io/badge/versão-1.4.0-3b82f6?style=flat-square)
+![Lançamento](https://img.shields.io/badge/lançamento-2026--05--09-22c55e?style=flat-square)
 ![Licença](https://img.shields.io/badge/licença-MIT-22c55e?style=flat-square)
 ![Conteúdo](https://img.shields.io/badge/conteúdo-jornalístico%20%2F%20investigativo-f59e0b?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/araguaci/observatorio-civil-br?style=flat-square&color=a855f7)
@@ -68,7 +68,7 @@ O Brasil enfrenta uma **crise institucional multidimensional** onde informaçõe
 
 ## 🤖 Para sistemas de IA e ferramentas de busca
 
-O repositório expõe um índice estruturado de todos os artefatos em **`artifacts.json`** — o ponto de entrada recomendado para qualquer ferramenta que precise consultar o projeto sem varrer os 100+ arquivos HTML individualmente.
+O repositório expõe um índice estruturado de todos os artefatos em **`artifacts.json`** — o ponto de entrada recomendado para qualquer ferramenta que precise consultar o projeto sem varrer dezenas de HTML individualmente. O painel (`index.html`) pode exibir **mais de uma linha** para o mesmo arquivo; o JSON usa **ids únicos** na lista flat (**108** entradas, v1.4.0).
 
 **Endpoints diretos:**
 
@@ -77,9 +77,18 @@ https://observatorio-civil-br.vercel.app/artifacts.json
 https://raw.githubusercontent.com/araguaci/observatorio-civil-br/main/artifacts.json
 ```
 
-O arquivo contém: metadados do projeto, indicadores críticos, índice por categoria e lista completa dos 102 artefatos com título, descrição, tipo, categorias e URL de acesso direto.
+### Mapa rápido — onde buscar dados (IA e integrações)
 
-Para o framework metodológico e protocolo de uso por modelos de linguagem, veja [METHODOLOGY.md](METHODOLOGY.md).
+| Prioridade | Arquivo (raiz do repo) | Uso |
+|------------|------------------------|-----|
+| **1** | [`artifacts.json`](./artifacts.json) | **Catálogo canônico** do Observatório: `project`, `stats`, `categories[]`, lista flat `artifacts[]` (**108** ids), indicadores e URLs oficiais. Preferir para inventário e links. |
+| **2** | [`justicawatch-data.json`](./justicawatch-data.json) | **JustiçaWatch:** decisões judiciais documentadas (`registros`, ids `JW-*`) **e** chave **`indice_artefatos_observatorio`** — espelho dos **108** artefatos (título, arquivo, url, tipo, categorias, descrição) para cruzar decisões com o painel. `_meta` aponta para `artifacts.json` e versão do projeto. |
+| **3** | [`justicawatch-schema.json`](./justicawatch-schema.json) | Schema JSON dos **registros** JustiçaWatch (não descreve o índice de artefatos; use `artifacts.json` como referência de estrutura do catálogo). |
+| **4** | [`METHODOLOGY.md`](./METHODOLOGY.md) | Protocolo analítico, classificação de evidências, padrões **P01–P11**, hierarquia de espelhos (`gosurf.site`, etc.) e **§11** (`artifacts.json`). |
+
+**Fluxo sugerido para um agente:** (1) ler `artifacts.json` ou a chave **`indice_artefatos_observatorio`** em `justicawatch-data.json` para saber *o que* existe; (2) abrir a URL do artefato ou [METHODOLOGY.md](METHODOLOGY.md) (§§4, 8 e 11) para *como* interpretar taxonomia, evidências e espelhos; (3) usar **`registros`** em `justicawatch-data.json` para *decisões* JustiçaWatch (ids `JW-*`).
+
+O **`artifacts.json`** concentra metadados do projeto, indicadores e a lista flat completa (**108** artefatos) com título, descrição, tipo, categorias e URL. Vários HTML usam **`gosurf.site`** como canônico (`rel="canonical"`).
 
 ---
 
@@ -91,7 +100,9 @@ observatorio-civil-br/
 ├── CHANGELOG.md                         # Histórico de versões e lançamentos
 ├── METHODOLOGY.md                       # Framework analítico + protocolo para sistemas de IA
 ├── artifacts.json                       # Índice estruturado de todos os artefatos (AI/API)
-├── VERSION                              # Versão atual (1.3.0)
+├── justicawatch-data.json               # JustiçaWatch (decisões JW) + indice_artefatos_observatorio
+├── justicawatch-schema.json             # JSON Schema dos registros JW
+├── VERSION                              # Versão atual do release (1.4.0)
 ├── index.html                           # Hub central — painel principal de navegação
 ├── viewer.html                         # Renderizador universal de arquivos .md
 ├── README.md                           # Este arquivo
@@ -123,7 +134,7 @@ observatorio-civil-br/
 │   ├── estrategia-integrada-gestao-corporativa-na-seguranca-publica.html
 │   └── estrategia-integrada-gestao-corporativa-na-seguranca-publica2.html
 │
-└── *.html                              # Artefatos investigativos individuais (90+ no painel)
+└── *.html                              # Artefatos investigativos (~108 cards no grid; ids únicos em artifacts.json)
     ├── pcc-cv-intel-dashboard-2026.html
     ├── pcc-cv-ameaca-nacional.html
     ├── choquei-pcc-fluxo*.html
@@ -175,14 +186,16 @@ observatorio-civil-br/
 
 | # | Categoria | Artefatos | Foco |
 |---|-----------|-----------|------|
-| 🔴 | **Crime Organizado** | 9 | PCC, CV, Trilogia Narco, Choquei, ameaça à soberania, cocaína vermelha |
-| 🟡 | **Corrupção Política** | 28 | Máquina de captura, erosão institucional, lawfare eleitoral, kompromat global, redes transnacionais |
-| 🟣 | **Judiciário** | 14 | Gilmar Mendes, duplo padrão, Vaza Toga, nulidades 8/Jan, JustiçaWatch, STF |
-| 🟢 | **Território & Soberania** | 5 | Amazônia, Faixa do Silêncio, influência estrangeira, Venezuela, Irã |
-| 🔵 | **Economia** | 10 | Banco Master, Nexo Fintech, insolvência comparativa, infiltração fintech, carga tributária |
+| 🔴 | **Crime Organizado** | 17 | PCC, CV, Trilogia Narco, Choquei, ameaça à soberania, Banco Master / fintech, operações |
+| 🟡 | **Corrupção Política** | 42 | Máquina de captura, erosão institucional, lawfare eleitoral, kompromat, Mare Liberum, pandemia capturada, paradoxo constitucional |
+| 🟣 | **Judiciário** | 30 | Gilmar Mendes, duplo padrão, Vaza Toga, nulidades 8/Jan, assimetria punitiva, JustiçaWatch, STF |
+| 🟢 | **Território & Soberania** | 6 | Amazônia, Faixa do Silêncio, influência estrangeira, Venezuela, Irã, mineração |
+| 🔵 | **Economia** | 15 | Banco Master, Nexo Fintech, insolvência comparativa, LGPD / compliance, carga tributária |
 | 🟠 | **Proteção Infantil** | 2 | Marajó — denúncia investigativa, sistema de proteção |
-| 🩷 | **Censura & Informação** | 8 | Censura digital, Firehose, guerra da informação 2022, weaponized legalism, INQ 4781 |
-| 🩵 | **Operações Investigativas** | 12 | Satiagraha, Castelo de Areia, ICE, Persona Non Grata, padrões sistêmicos |
+| 🩷 | **Censura & Informação** | 11 | Censura digital, Firehose, guerra da informação 2022, weaponized legalism, INQ 4781 |
+| 🩵 | **Operações Investigativas** | 33 | Satiagraha, Castelo de Areia, Mare Liberum, matriz emaranhamento (7 ops), ICE, Persona Non Grata |
+
+*Contagens = entradas por categoria em `artifacts.json` (um mesmo artefato pode aparecer em mais de uma categoria).*
 
 ---
 
@@ -214,7 +227,7 @@ Tem ideia para melhorar o painel, design, dados ou análises?
 
 1. Faça um **fork** do repositório
 2. Crie uma branch: `git checkout -b feat/minha-contribuicao`
-3. Adicione seu artefato na pasta correspondente
+3. Adicione seu artefato na pasta correspondente e **atualize `artifacts.json`** (`stats`, blocos `categories[]`, lista flat `artifacts[]`, próximo `id` sequencial — ver [METHODOLOGY.md](METHODOLOGY.md) §11)
 4. Garanta que o conteúdo cita fontes públicas verificáveis
 5. Envie um **Pull Request** com descrição detalhada
 
@@ -225,6 +238,7 @@ Tem ideia para melhorar o painel, design, dados ou análises?
 - ✅ Conteúdo investigativo/analítico, não opinativo sem base
 - ✅ Para arquivos `.md`: incluir frontmatter YAML com `title`, `description`, `date`
 - ✅ Para arquivos `.html`: incluir `<title>` descritivo e meta description
+- ✅ Ao alterar o catálogo: manter **`artifacts.json`** e o espelho **`indice_artefatos_observatorio`** em **`justicawatch-data.json`** alinhados (regenerar a lista a partir da flat list ou atualizar em conjunto)
 - ❌ Sem dados pessoais privados
 - ❌ Sem conteúdo que possa ser interpretado como incitação
 
