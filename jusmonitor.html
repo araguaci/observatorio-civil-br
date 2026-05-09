@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Base pública de decisões judiciais brasileiras (soltura, progressão de regime, arquivamento) em casos violentos — dados verificáveis em portais oficiais.">
+<link rel="canonical" href="https://gosurf.site/jusmonitor">
 <title>JustiçaWatch Brasil — Conheça as decisões. Exija prestação de contas.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0a0a0b;
+  --bg-mid: #0e0e12;
   --surface: #111114;
   --surface-2: #18181d;
   --border: rgba(255,255,255,0.07);
@@ -20,6 +23,8 @@
   --accent-dim: rgba(232,55,42,0.15);
   --accent-2: #f97316;
   --accent-3: #eab308;
+  --accent-calm: #2dd4bf;
+  --accent-calm-dim: rgba(45,212,191,0.12);
   --green: #22c55e;
   --green-dim: rgba(34,197,94,0.1);
   --mono: 'IBM Plex Mono', monospace;
@@ -32,12 +37,43 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 600px at 12% -8%, rgba(232,55,42,0.07), transparent 55%),
+    radial-gradient(900px 500px at 88% 0%, rgba(45,212,191,0.06), transparent 50%),
+    linear-gradient(180deg, var(--bg-mid) 0%, var(--bg) 32%);
   color: var(--fg);
   font-family: var(--sans);
   font-size: 14px;
   line-height: 1.6;
   min-height: 100vh;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  display: inline-block;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+  opacity: 0.92;
+}
+.icon-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* NAV */
@@ -68,8 +104,9 @@ nav {
 }
 
 .nav-brand .dot {
-  width: 8px; height: 8px;
-  background: var(--accent);
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-calm));
   border-radius: 50%;
   animation: pulse-dot 2s infinite;
 }
@@ -210,7 +247,7 @@ nav {
   align-items: flex-start;
 }
 
-/* TABS */
+/* DOC — índice + seções sempre visíveis */
 .tabs-wrapper {
   max-width: 960px;
   margin: 0 auto;
@@ -221,34 +258,53 @@ nav {
   position: sticky;
   top: 52px;
   z-index: 90;
-  background: var(--bg);
+  background: rgba(10,10,11,0.88);
+  backdrop-filter: blur(10px);
   display: flex;
-  gap: 0;
+  flex-wrap: wrap;
+  gap: 6px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 32px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  margin-bottom: 28px;
+  padding: 8px 0 12px;
 }
-.tabs-nav::-webkit-scrollbar { display: none; }
 
 .tab-btn {
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--fg-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--fg-2);
   font-family: var(--mono);
-  font-size: 12px;
-  padding: 12px 16px;
+  font-size: 11px;
+  padding: 8px 12px;
   cursor: pointer;
   transition: all 0.15s;
   white-space: nowrap;
-  margin-bottom: -1px;
+  text-decoration: none;
 }
-.tab-btn:hover { color: var(--fg-2); }
-.tab-btn.active { color: var(--fg); border-bottom-color: var(--accent); }
+.tab-btn:hover {
+  color: var(--fg);
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+.tab-btn:focus-visible {
+  outline: 2px solid var(--accent-calm);
+  outline-offset: 2px;
+}
 
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
+.tab-panel {
+  display: block;
+  scroll-margin-top: 96px;
+  padding-bottom: 8px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.tab-panel:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
 
 /* SECTION TITLE */
 .section-title {
@@ -274,13 +330,25 @@ nav {
   margin-bottom: 32px;
 }
 
+/* CASE DETAIL — sempre visível (cópia total / ferramentas de leitura) */
+.case-detail {
+  display: block;
+  background: rgba(255,255,255,0.03);
+  border-top: 1px dashed var(--border-strong);
+  padding: 14px 20px 16px 92px;
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--fg-2);
+  line-height: 1.65;
+  grid-column: 1 / -1;
+}
+
 .case-row {
   background: var(--surface);
   display: grid;
   grid-template-columns: 72px 1fr auto;
   gap: 0;
   transition: background 0.1s;
-  cursor: pointer;
 }
 .case-row:hover { background: var(--surface-2); }
 
@@ -664,6 +732,184 @@ nav {
   background: var(--accent-dim);
 }
 
+/* ECOSISTEMA — fontes correlatas (públicas) */
+.ecosystem-strip {
+  max-width: 960px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+}
+.ecosystem-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .ecosystem-grid { grid-template-columns: 1fr; }
+}
+.eco-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.eco-card:hover {
+  border-color: rgba(45,212,191,0.35);
+  background: var(--accent-calm-dim);
+}
+.eco-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent-calm);
+}
+.eco-card h3 {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.eco-card p {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--fg-2);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.eco-card .eco-url {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent-calm);
+  word-break: break-all;
+}
+.eco-disclaimer {
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--fg-3);
+  line-height: 1.5;
+}
+
+/* ARTEFATOS RELACIONADOS */
+.related-corpus {
+  max-width: 960px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) {
+  .related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .related-grid { grid-template-columns: 1fr; }
+}
+.related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 16px;
+  min-height: 112px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--fg);
+  transition: transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+}
+.related-card:hover {
+  border-color: rgba(232,55,42,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+.related-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.related-card-icon {
+  color: var(--accent-2);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.related-card-title {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.related-card-desc {
+  font-family: var(--serif);
+  font-size: 12px;
+  color: var(--fg-2);
+  line-height: 1.5;
+  flex: 1;
+}
+.related-card-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--fg-3);
+  margin-top: auto;
+}
+
+/* VOLTAR AO TOPO */
+.btn-gotop {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: rgba(17,17,20,0.92);
+  backdrop-filter: blur(10px);
+  color: var(--fg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+  transition: transform 0.15s, border-color 0.15s, color 0.15s;
+}
+.btn-gotop:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-calm);
+  color: var(--accent-calm);
+}
+.btn-gotop:focus-visible {
+  outline: 2px solid var(--accent-calm);
+  outline-offset: 2px;
+}
+.btn-gotop[hidden] { display: none; }
+
 /* FOOTER */
 footer {
   border-top: 1px solid var(--border);
@@ -704,20 +950,7 @@ footer {
   padding-top: 16px;
 }
 
-/* EXPAND DETAIL */
-.case-detail {
-  display: none;
-  background: rgba(255,255,255,0.02);
-  border-top: 1px solid var(--border);
-  padding: 16px 20px 16px 92px;
-  font-family: var(--serif);
-  font-size: 13px;
-  color: var(--fg-2);
-  line-height: 1.6;
-  grid-column: 1 / -1;
-}
-
-.case-row.expanded .case-detail { display: block; }
+/* EXPAND DETAIL — legado: detalhe já expandido por padrão */
 
 .detail-ref {
   margin-top: 8px;
@@ -754,10 +987,12 @@ footer {
 </style>
 </head>
 <body>
+<a href="#conteudo-principal" class="visually-hidden">Pular para o conteúdo principal</a>
 
 <nav>
   <a href="../index.html" class="nav-brand">
     <span class="dot"></span>
+    <svg class="icon icon-stroke" style="width:18px;height:18px;color:var(--accent-calm)" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L4 9v12h5v-7h6v7h5V9l-8-6z"/><path d="M9 21V12h6v9"/></svg>
     JustiçaWatch Brasil
   </a>
   <ul class="nav-links">
@@ -767,11 +1002,17 @@ footer {
     <li><a href="dossie-juridico-nulidades-8jan.html">Nulidades 8jan</a></li>
     <li><a href="carbono_oculto.html">Carbono Oculto</a></li>
   </ul>
-  <div class="nav-badge">⚠ DADOS PÚBLICOS</div>
+  <div class="nav-badge" title="Fontes primárias verificáveis">
+    <svg class="icon icon-stroke" style="width:14px;height:14px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    DADOS PÚBLICOS
+  </div>
 </nav>
 
 <section class="hero">
-  <div class="hero-label">Base de dados pública · 2005–2025</div>
+  <div class="hero-label">
+    <svg class="icon icon-stroke" style="width:16px;height:16px;color:var(--accent)" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>
+    Base de dados pública · 2005–2025
+  </div>
   <h1>Conheça as decisões.<br><em>Exija prestação de contas.</em></h1>
   <p class="hero-sub">
     Banco de dados de decisões judiciais brasileiras que resultaram em soltura, progressão de regime ou arquivamento de processos contra réus condenados ou investigados por crimes violentos. Todos os dados são públicos e verificáveis em portais oficiais.
@@ -801,27 +1042,49 @@ footer {
 </section>
 
 <div class="notice-bar" style="padding: 12px 24px; max-width: 960px; margin: 16px auto;">
-  <span>⚠</span>
+  <svg class="icon icon-stroke" style="width:18px;height:18px;color:var(--accent-3);flex-shrink:0" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
   <span>
     <strong>AVISO DE DADOS:</strong> Esta base apresenta apenas registros verificáveis em fontes primárias públicas (STF, STJ, CNJ, BNMP, portais de tribunais). A apresentação de casos <em>não implica culpa ou erro</em> do magistrado — registra o impacto público de decisões judiciais. Alguns casos resultaram em soltura de inocentes, o que está devidamente anotado. Erros ou correções: abra issue no repositório público.
   </span>
 </div>
 
-<div class="tabs-wrapper" style="padding-top: 24px;" id="casos">
+<div class="tabs-wrapper" style="padding-top: 24px;" id="conteudo-principal">
 
-  <div class="tabs-nav">
-    <button class="tab-btn active" onclick="showTab('tab-casos', this)">📋 Casos Emblemáticos</button>
-    <button class="tab-btn" onclick="showTab('tab-alertas', this)" id="alertas">🔴 Alertas de Risco</button>
-    <button class="tab-btn" onclick="showTab('tab-dados', this)" id="dados">📊 Dados Agregados</button>
-    <button class="tab-btn" onclick="showTab('tab-legenda', this)">🏷 Legenda</button>
-    <button class="tab-btn" onclick="showTab('tab-fontes', this)" id="fontes">🔗 Fontes Públicas</button>
-    <button class="tab-btn" onclick="showTab('tab-metodologia', this)" id="metodologia">📐 Metodologia</button>
+  <p class="doc-hint" style="font-family:var(--serif);font-size:13px;color:var(--fg-2);margin-bottom:16px;line-height:1.6;max-width:720px;">
+    <strong style="color:var(--fg)">Leitura linear:</strong> todas as seções abaixo estão expandidas no mesmo documento (incluindo detalhes de cada caso), para cópia com Ctrl+C, impressão e ingestão por ferramentas de IA — sem alternar abas.
+  </p>
+
+  <div class="tabs-nav" role="navigation" aria-label="Índice da página">
+    <a class="tab-btn" href="#section-casos">
+      <svg class="icon icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+      Casos
+    </a>
+    <a class="tab-btn" href="#section-alertas">
+      <svg class="icon icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      Alertas
+    </a>
+    <a class="tab-btn" href="#section-dados">
+      <svg class="icon icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+      Dados
+    </a>
+    <a class="tab-btn" href="#section-legenda">
+      <svg class="icon icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Legenda
+    </a>
+    <a class="tab-btn" href="#section-fontes">
+      <svg class="icon icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Fontes
+    </a>
+    <a class="tab-btn" href="#section-metodologia">
+      <svg class="icon icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      Metodologia
+    </a>
   </div>
 
-  <!-- TAB: CASOS -->
-  <div class="tab-panel active" id="tab-casos">
+  <!-- SEÇÃO: CASOS -->
+  <section class="tab-panel" id="section-casos" aria-labelledby="heading-casos">
 
-    <div class="section-title">Linha do tempo — Decisões de alto impacto (2005–2025)</div>
+    <h2 class="section-title" id="heading-casos">Linha do tempo — Decisões de alto impacto (2005–2025)</h2>
 
     <div class="filter-bar">
       <span class="filter-label">Filtrar:</span>
@@ -837,7 +1100,7 @@ footer {
     <div class="cases-grid" id="cases-grid">
 
       <!-- 2006 -->
-      <div class="case-row" data-tags="homicidio estupro latrocinio" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="homicidio estupro latrocinio">
         <div class="case-year">
           <span class="case-year-num">2006</span>
           <span class="case-year-tri">STF</span>
@@ -863,7 +1126,7 @@ footer {
       </div>
 
       <!-- 2009 -->
-      <div class="case-row" data-tags="corrupcao" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="corrupcao">
         <div class="case-year">
           <span class="case-year-num">2009</span>
           <span class="case-year-tri">STF</span>
@@ -887,7 +1150,7 @@ footer {
       </div>
 
       <!-- 2019 -->
-      <div class="case-row" data-tags="corrupcao" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="corrupcao">
         <div class="case-year">
           <span class="case-year-num">2019</span>
           <span class="case-year-tri">STF</span>
@@ -912,7 +1175,7 @@ footer {
       </div>
 
       <!-- 2020 André do Rap -->
-      <div class="case-row" data-tags="trafico pcc foragido" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="trafico pcc foragido">
         <div class="case-year">
           <span class="case-year-num">2020</span>
           <span class="case-year-tri">STF</span>
@@ -938,7 +1201,7 @@ footer {
       </div>
 
       <!-- 2020 — 21 foragidos Marco Aurélio -->
-      <div class="case-row" data-tags="trafico homicidio milicia foragido" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="trafico homicidio milicia foragido">
         <div class="case-year">
           <span class="case-year-num">2020</span>
           <span class="case-year-tri">STF</span>
@@ -965,7 +1228,7 @@ footer {
       </div>
 
       <!-- 2020 — HC coletivo COVID -->
-      <div class="case-row" data-tags="trafico homicidio" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="trafico homicidio">
         <div class="case-year">
           <span class="case-year-num">2020</span>
           <span class="case-year-tri">STJ</span>
@@ -990,7 +1253,7 @@ footer {
       </div>
 
       <!-- 2021 — Lázaro Barbosa -->
-      <div class="case-row" data-tags="homicidio estupro" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="homicidio estupro">
         <div class="case-year">
           <span class="case-year-num">2021</span>
           <span class="case-year-tri">TJ-GO</span>
@@ -1015,7 +1278,7 @@ footer {
       </div>
 
       <!-- 2022 — STJ busca pessoal -->
-      <div class="case-row" data-tags="trafico" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="trafico">
         <div class="case-year">
           <span class="case-year-num">2022</span>
           <span class="case-year-tri">STJ</span>
@@ -1039,7 +1302,7 @@ footer {
       </div>
 
       <!-- 2023 — Anulação 695kg cocaína -->
-      <div class="case-row" data-tags="trafico" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="trafico">
         <div class="case-year">
           <span class="case-year-num">2023</span>
           <span class="case-year-tri">STF</span>
@@ -1063,7 +1326,7 @@ footer {
       </div>
 
       <!-- 2024 — HC tráfico STJ -->
-      <div class="case-row" data-tags="trafico" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="trafico">
         <div class="case-year">
           <span class="case-year-num">2024</span>
           <span class="case-year-tri">STJ</span>
@@ -1088,7 +1351,7 @@ footer {
       </div>
 
       <!-- 2025 — STJ estupro erro de proibição -->
-      <div class="case-row" data-tags="estupro" onclick="toggleCase(this)">
+      <div class="case-row" data-tags="estupro">
         <div class="case-year">
           <span class="case-year-num">2025</span>
           <span class="case-year-tri">STJ</span>
@@ -1114,16 +1377,16 @@ footer {
     </div><!-- /cases-grid -->
 
     <div class="notice-bar" style="margin: 0 0 32px 0;">
-      <span>ℹ</span>
-      <span>Clique em qualquer caso para expandir detalhes, referências e links de fontes primárias. Esta lista não é exaustiva — representa casos com documentação pública verificável. Contribuições: repositório público.</span>
+      <svg class="icon icon-stroke" style="width:16px;height:16px;color:var(--accent-calm);flex-shrink:0" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>Detalhes expandidos em cada caso abaixo (referências e links). Lista não exaustiva — apenas registros com documentação pública verificável.</span>
     </div>
 
-  </div><!-- /tab-casos -->
+  </section>
 
-  <!-- TAB: ALERTAS -->
-  <div class="tab-panel" id="tab-alertas">
+  <!-- SEÇÃO: ALERTAS -->
+  <section class="tab-panel" id="section-alertas" aria-labelledby="heading-alertas">
 
-    <div class="section-title">Alertas de risco sistêmico identificados</div>
+    <h2 class="section-title" id="heading-alertas">Alertas de risco sistêmico identificados</h2>
 
     <div class="alerts-grid">
 
@@ -1177,12 +1440,12 @@ footer {
 
     </div>
 
-  </div><!-- /tab-alertas -->
+  </section>
 
-  <!-- TAB: DADOS -->
-  <div class="tab-panel" id="tab-dados">
+  <!-- SEÇÃO: DADOS -->
+  <section class="tab-panel" id="section-dados" aria-labelledby="heading-dados">
 
-    <div class="section-title">Dados agregados — fontes oficiais</div>
+    <h2 class="section-title" id="heading-dados">Dados agregados — fontes oficiais</h2>
 
     <div class="data-table-wrap">
       <table class="data-table">
@@ -1311,12 +1574,12 @@ footer {
       </div>
     </div>
 
-  </div><!-- /tab-dados -->
+  </section>
 
-  <!-- TAB: LEGENDA -->
-  <div class="tab-panel" id="tab-legenda">
+  <!-- SEÇÃO: LEGENDA -->
+  <section class="tab-panel" id="section-legenda" aria-labelledby="heading-legenda">
 
-    <div class="section-title">Legenda — Categorias de crimes e alertas</div>
+    <h2 class="section-title" id="heading-legenda">Legenda — Categorias de crimes e alertas</h2>
 
     <div class="legend-grid">
       <div class="legend-item">
@@ -1353,7 +1616,7 @@ footer {
       </div>
     </div>
 
-    <div class="section-title" style="margin-top: 32px;">Tipos de decisão monitorados</div>
+    <h2 class="section-title" style="margin-top: 32px;" id="heading-tipos-decisao">Tipos de decisão monitorados</h2>
 
     <div class="method-grid">
       <div class="method-card">
@@ -1388,12 +1651,12 @@ footer {
       </div>
     </div>
 
-  </div><!-- /tab-legenda -->
+  </section>
 
-  <!-- TAB: FONTES -->
-  <div class="tab-panel" id="tab-fontes">
+  <!-- SEÇÃO: FONTES -->
+  <section class="tab-panel" id="section-fontes" aria-labelledby="heading-fontes">
 
-    <div class="section-title">Fontes primárias e secundárias verificáveis</div>
+    <h2 class="section-title" id="heading-fontes">Fontes primárias e secundárias verificáveis</h2>
 
     <ul class="sources-list">
       <li class="source-item">
@@ -1486,14 +1749,32 @@ footer {
         </div>
         <span class="source-badge">AGREGADOR</span>
       </li>
+      <li class="source-item">
+        <span class="source-num">11</span>
+        <div class="source-body">
+          <div class="source-name">Lawfare Timeline (independente)</div>
+          <div class="source-desc">Site em <strong>lawfare-timeline.vercel.app</strong> com linha do tempo e artigos sobre lawfare e instituições. Conteúdo de terceiros; usar como contexto e cruzar com fontes primárias dos tribunais.</div>
+          <div class="source-link"><a href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener noreferrer">https://lawfare-timeline.vercel.app/</a></div>
+        </div>
+        <span class="source-badge">CORRELATO</span>
+      </li>
+      <li class="source-item">
+        <span class="source-num">12</span>
+        <div class="source-body">
+          <div class="source-name">Observatório Civil BR (independente)</div>
+          <div class="source-desc">Painel em <strong>observatorio-civil-br.vercel.app</strong> com indicadores e textos atribuídos a dados públicos (violência, transparência, crime organizado etc.). Não é órgão estatal; verificar cada afirmação nas fontes originais citadas.</div>
+          <div class="source-link"><a href="https://observatorio-civil-br.vercel.app/" target="_blank" rel="noopener noreferrer">https://observatorio-civil-br.vercel.app/</a></div>
+        </div>
+        <span class="source-badge">CORRELATO</span>
+      </li>
     </ul>
 
-  </div><!-- /tab-fontes -->
+  </section>
 
-  <!-- TAB: METODOLOGIA -->
-  <div class="tab-panel" id="tab-metodologia">
+  <!-- SEÇÃO: METODOLOGIA -->
+  <section class="tab-panel" id="section-metodologia" aria-labelledby="heading-metodologia">
 
-    <div class="section-title">Como esta base de dados é construída</div>
+    <h2 class="section-title" id="heading-metodologia">Como esta base de dados é construída</h2>
 
     <div class="method-grid">
       <div class="method-card">
@@ -1529,15 +1810,106 @@ footer {
     </div>
 
     <div class="notice-bar" style="margin: 0 0 32px 0; border-color: rgba(34,197,94,0.2); background: rgba(34,197,94,0.05); color: #86efac;">
-      <span>✓</span>
+      <svg class="icon icon-stroke" style="width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
       <span>
         <strong>Garantia de neutralidade:</strong> Esta base cobre todos os tribunais, todos os perfis de réu e todos os espectros políticos. O objetivo é transparência sobre o impacto de decisões judiciais — não julgamento político de magistrados ou partidos.
       </span>
     </div>
 
-  </div><!-- /tab-metodologia -->
+  </section>
 
 </div><!-- /tabs-wrapper -->
+
+<section class="ecosystem-strip" aria-label="Projetos correlatos com dados públicos">
+  <div class="ecosystem-head">
+    <svg class="icon icon-stroke" style="width:16px;height:16px;color:var(--accent-calm)" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/><path d="M2 12h20"/></svg>
+    Ecossistema público (correlatos)
+  </div>
+  <div class="ecosystem-grid">
+    <a class="eco-card" href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener noreferrer">
+      <div class="eco-card-icon" aria-hidden="true">
+        <svg class="icon icon-stroke" width="22" height="22" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+      </div>
+      <div>
+        <h3>Lawfare Timeline</h3>
+        <p>Linha do tempo e estudos sobre lawfare, instituições e operações — organização independente do conteúdo exibido em <strong>lawfare-timeline.vercel.app</strong>. Use como vitrine complementar de contexto; cruze sempre com fontes primárias dos tribunais.</p>
+        <span class="eco-url">https://lawfare-timeline.vercel.app/</span>
+      </div>
+    </a>
+    <a class="eco-card" href="https://observatorio-civil-br.vercel.app/" target="_blank" rel="noopener noreferrer">
+      <div class="eco-card-icon" aria-hidden="true">
+        <svg class="icon icon-stroke" width="22" height="22" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div>
+        <h3>Observatório Civil BR</h3>
+        <p>Painel civil com indicadores e diagnóstico reunidos a partir de <strong>referências públicas</strong> (violência, transparência, crime organizado etc.) em <strong>observatorio-civil-br.vercel.app</strong>. Não substitui portais oficiais; serve de quadro analítico paralelo.</p>
+        <span class="eco-url">https://observatorio-civil-br.vercel.app/</span>
+      </div>
+    </a>
+  </div>
+  <p class="eco-disclaimer">Transparência: JustiçaWatch não controla esses sites. Integração aqui é meramente informativa; a titularidade e a metodologia de cada projeto são dos respectivos autores. Sempre verifique decisões em STF, STJ, CNJ e na imprensa com processo identificável.</p>
+</section>
+
+<section class="related-corpus" aria-label="Artefatos relacionados">
+  <h2 class="section-title" style="margin-bottom:18px;">
+    <svg class="icon icon-stroke" style="width:15px;height:15px;vertical-align:-2px;color:var(--accent-2)" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+    Artefatos relacionados no corpus
+  </h2>
+  <div class="related-grid">
+    <a class="related-card" href="padroes-sistemicos-dashboard.html">
+      <div class="related-card-top">
+        <svg class="icon icon-stroke related-card-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span class="related-card-title">Padrões sistêmicos P1–P10</span>
+      </div>
+      <p class="related-card-desc">Dashboard mestre da matriz de indulgência e nexos entre operações anticorrupção.</p>
+      <span class="related-card-meta">padroes-sistemicos-dashboard</span>
+    </a>
+    <a class="related-card" href="duplo-padrao-judicial.html">
+      <div class="related-card-top">
+        <svg class="icon icon-stroke related-card-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8"/><path d="m3 3 7 7"/><path d="m21 3-7 7"/></svg>
+        <span class="related-card-title">Duplo padrão judicial</span>
+      </div>
+      <p class="related-card-desc">Assimetria documentada na aplicação da justiça e do decoro parlamentar.</p>
+      <span class="related-card-meta">duplo-padrao-judicial</span>
+    </a>
+    <a class="related-card" href="pcc-cv-ameaca-nacional-dashboard.html">
+      <div class="related-card-top">
+        <svg class="icon icon-stroke related-card-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="related-card-title">PCC-CV · Intel dashboard</span>
+      </div>
+      <p class="related-card-desc">crime organizado, governança criminal e dados com âncoras acadêmicas públicas.</p>
+      <span class="related-card-meta">pcc-cv-ameaca-nacional-dashboard</span>
+    </a>
+    <a class="related-card" href="operacao-sem-desconto.html">
+      <div class="related-card-top">
+        <svg class="icon icon-stroke related-card-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><path d="M14 2v6h6"/></svg>
+        <span class="related-card-title">Operação Sem Desconto</span>
+      </div>
+      <p class="related-card-desc">Timeline lawfare e entradas corpus com mirroring e resiliência documental.</p>
+      <span class="related-card-meta">operacao-sem-desconto</span>
+    </a>
+    <a class="related-card" href="assimetria-punitiva.html">
+      <div class="related-card-top">
+        <svg class="icon icon-stroke related-card-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 00-6 6v7a2 2 0 002 2h2"/><path d="M16 21v-2a4 4 0 00-4-4H8"/><circle cx="12" cy="9" r="2"/></svg>
+        <span class="related-card-title">Assimetria punitiva pandêmica</span>
+      </div>
+      <p class="related-card-desc">P3 invertido — seletividade entre corrupção e desvios de políticas públicas.</p>
+      <span class="related-card-meta">assimetria-punitiva</span>
+    </a>
+    <a class="related-card" href="exploracao_vulnerabilidade_brasil.html">
+      <div class="related-card-top">
+        <svg class="icon icon-stroke related-card-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+        <span class="related-card-title">Exploração &amp; tráfico de pessoas</span>
+      </div>
+      <p class="related-card-desc">Mapa integrado de vulnerabilidade, rotas e resposta estatal — dados públicos.</p>
+      <span class="related-card-meta">exploracao-vulnerabilidade-brasil</span>
+    </a>
+  </div>
+</section>
+
+<button type="button" class="btn-gotop" id="btn-gotop" hidden aria-label="Voltar ao topo da página">
+  <svg class="icon icon-stroke" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+</button>
 
 <footer>
   <div class="footer-row">
@@ -1552,23 +1924,18 @@ footer {
       Fontes: STF · STJ · CNJ · BNMP · SENAPPEN · IPEA · Lei 12.527/2011
     </span>
   </div>
+  <div class="footer-row">
+    <span class="footer-brand" style="font-size: 10px; color: var(--fg-3);">
+      Correlatos (público): <a href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-calm); text-decoration: none; border-bottom: 1px dotted rgba(45,212,191,0.4);">Lawfare Timeline</a>
+      · <a href="https://observatorio-civil-br.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-calm); text-decoration: none; border-bottom: 1px dotted rgba(45,212,191,0.4);">Observatório Civil BR</a>
+    </span>
+  </div>
   <div class="footer-disclaimer">
     <strong>Aviso legal:</strong> Esta base de dados apresenta informações factuais de registros públicos e não constitui aconselhamento jurídico, imputação de culpa a qualquer magistrado ou pessoa, nem julgamento editorial sobre decisões judiciais. Todos os dados são verificáveis nas fontes primárias indicadas. A presença de um caso nesta base não implica qualquer avaliação sobre a legalidade ou mérito da decisão — apenas documenta seu impacto público registrado. Erros e correções: repositório público.
   </div>
 </footer>
 
 <script>
-function showTab(id, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-function toggleCase(row) {
-  row.classList.toggle('expanded');
-}
-
 function filterCases(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1584,8 +1951,18 @@ function filterCases(cat, btn) {
   });
 }
 
-// Animate stats on load
 document.addEventListener('DOMContentLoaded', () => {
+  const gotop = document.getElementById('btn-gotop');
+  const toggleGotop = () => {
+    if (!gotop) return;
+    gotop.hidden = window.scrollY < 400;
+  };
+  toggleGotop();
+  window.addEventListener('scroll', toggleGotop, { passive: true });
+  gotop?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   const nums = document.querySelectorAll('.stat-num');
   nums.forEach(el => {
     el.style.opacity = '0';
