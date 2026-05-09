@@ -1,9 +1,9 @@
 # METHODOLOGY.md
 ## lawfare-timeline — Metodologia de Pesquisa e Produção Documental
 
-> Versão: 2.2 · Atualizado: 09/05/2026  
+> Versão: 2.3 · Atualizado: 09/05/2026  
 > Licença: CC0 1.0 Universal — Domínio Público  
-> Repositório: lawfare-timeline.vercel.app / observobservatorio-civil-br.vercel.app
+> Repositório: lawfare-timeline.vercel.app · painel / índice: observatorio-civil-br.vercel.app
 
 ---
 
@@ -149,11 +149,12 @@ Práticas que reduzem a qualidade analítica e a credibilidade do corpus:
 Conteúdo investigativo é sistematicamente removido. O padrão de publicação-em-múltiplas-plataformas é a resposta direta:
 
 **Hierarquia de publicação:**
-1. `observatorio-civil-br.vercel.app` — primário (servidor próprio)
-2. `lawfare-timeline.vercel.app` — espelho Vercel
-3. GitHub Pages — espelho estático
-4. IPFS via Pinata — espelho descentralizado (**pendente**)
-5. archive.org — espelho permanente (**pendente**)
+1. `observatorio-civil-br.vercel.app` — primário (deploy Vercel do repositório Observatório Civil BR)
+2. `lawfare-timeline.vercel.app` — linha do tempo e derivados no mesmo ecossistema
+3. `gosurf.site` — espelho com **URL canônica** (`rel="canonical"`) em parte dos HTML; reduz dependência de um único host e atenua descarte por metadados de domínio em fluxos automáticos
+4. GitHub Pages — espelho estático (quando ativo no repo)
+5. IPFS via Pinata — espelho descentralizado (**pendente**)
+6. archive.org — espelho permanente (**pendente**)
 
 **Regra:** Toda versão publicada deve ter pelo menos 2 espelhos ativos antes de ser considerada "mirrored". O deploy checklist é item obrigatório ao final de cada sessão de produção.
 
@@ -222,8 +223,8 @@ O lawfare-timeline testa sistematicamente modelos de IA com o corpus para identi
 O lawfare-timeline é a resposta ao apagamento sistemático. A persistência do registro é a função, não o produto colateral.
 
 **Formulação operacional:** Cada sessão de produção deve terminar com:
-1. Deploy checklist (observatorio-civil-br.vercel.app + Vercel + espelhos)
-2. Próximo ID disponível registrado
+1. Deploy checklist (observatorio-civil-br.vercel.app + Vercel + espelhos, incluindo **gosurf.site** onde houver `canonical`)
+2. Próximo ID disponível registrado (lista flat de artefatos: **109** após sync mai/2026 — ver **§11**)
 3. Questão analítica aberta para a próxima sessão
 4. Lacunas investigativas identificadas e não resolvidas
 
@@ -236,7 +237,31 @@ O lawfare-timeline é a resposta ao apagamento sistemático. A persistência do 
 
 ---
 
-## 11. Licença e Uso
+## 11. Observatório Civil BR — `artifacts.json` e painel
+
+O arquivo **`artifacts.json`** (raiz do repositório, servido em `https://observatorio-civil-br.vercel.app/artifacts.json`) é o **inventário máquina-legível** do painel `index.html`: metadados do projeto, indicadores, categorias e lista flat de artefatos com URL de acesso.
+
+| Campo (raiz) | Conteúdo |
+|---------|----------|
+| `project` | Nome, tagline, GitHub, URL, **versão** (p.ex. 1.4.0), **updated** (ISO), licença, `methodology` → este ficheiro |
+| `stats.totalArtifacts` | **108** — total de entradas **únicas** na lista flat (ids 1–108), alinhado ao último sync (mai/2026) |
+| `stats.categories` | Contagem por rótulo: Crime Organizado **17**, Corrupção Política **42**, Judiciário **30**, Território & Soberania **6**, Economia **15**, Proteção Infantil **2**, Censura & Informação **11**, Operações Investigativas **33** |
+| `stats.criticalIndicators` | Indicadores de crise (território sob facções, CNJ, PIB, IPEA/FBSP, CPI, WJP etc.) — atualizar quando as fontes oficiais mudarem |
+| `categories[]` | Por `key` (`crime`, `corrupcao`, …): listas com `id`, `title`, `file`, `url` (mesmo artefato pode repetir-se em mais de uma categoria) |
+| `artifacts[]` | Lista flat: `id`, `title`, `description`, `type`, `categories[]`, `categoryLabel`, `file`, `url` (sempre host `observatorio-civil-br.vercel.app`; o espelho **gosurf** está no HTML via `link rel="canonical"`, não substitui o URL do JSON) |
+
+**Protocolo de manutenção**
+
+1. Novo HTML no painel → novo `{ id }` sequencial na lista flat, entradas nas categorias aplicáveis, `stats.totalArtifacts` e contadores por categoria corrigidos.
+2. `project.updated` e `project.version` em `artifacts.json` devem refletir o release relevante.
+3. O painel pode listar **mais linhas que o número de artefatos únicos** (o mesmo ficheiro aparece mais de uma vez em `index.html`); o **108** em `totalArtifacts` contabiliza **ids únicos** na lista flat, não linhas duplicadas no grid.
+4. **Próximo id disponível:** **109** (após sync mai/2026).
+
+A **§4** deste documento descreve o schema de **entradas da linha do tempo** (eventos); o **`artifacts.json`** é um **índice de documentos** — propósitos diferentes, ambos parte do ecossistema.
+
+---
+
+## 12. Licença e Uso
 
 Este documento e todo o corpus do lawfare-timeline são publicados sob **CC0 1.0 Universal — Domínio Público Total**.
 
