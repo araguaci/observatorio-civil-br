@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Janela 2026 — Cenário Estratégico de Defesa Institucional</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --bg:      #080810;
+  --bg2:     #0d0d1a;
+  --bg3:     #12121f;
+  --bg4:     #1a1a2e;
+  --border:  #252535;
+  --border2: #353550;
+  --text:    #dddce8;
+  --text2:   #8888aa;
+  --text3:   #44445a;
+  --red:     #e03030;
+  --red2:    #ff5555;
+  --amber:   #e89020;
+  --amber2:  #ffb830;
+  --green:   #20b870;
+  --green2:  #40e090;
+  --blue:    #3060e8;
+  --blue2:   #6090ff;
+  --cyan:    #18b8c8;
+  --purple:  #7840d8;
+  --white:   #f0eef8;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Libre Baskerville', serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9998; opacity: .4;
+}
+
+/* SCANLINES */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+  pointer-events: none; z-index: 9997;
+}
+
+.container { max-width: 1440px; margin: 0 auto; padding: 0 28px 100px; }
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
+.header {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.header-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.header-eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: blink 1.8s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 96px);
+  line-height: .95;
+  letter-spacing: .02em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.header-title span { color: var(--red); }
+
+.header-subtitle {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text2);
+  max-width: 700px;
+  margin-bottom: 28px;
+}
+
+.header-meta {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  font-size: 10px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--text3);
+}
+.header-meta span { display: flex; align-items: center; gap: 6px; }
+.header-meta span::before { content: '//'; color: var(--border2); }
+
+/* ═══════════════════════════════════════
+   NAV TABS
+═══════════════════════════════════════ */
+.tabs {
+  display: flex; flex-wrap: wrap; gap: 2px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.tab-btn {
+  padding: 10px 18px;
+  background: none; border: none;
+  font-family: var(--font-mono); font-size: 11px;
+  font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3);
+  cursor: pointer; transition: all .2s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--text2); }
+.tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════ */
+.section-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 32px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 32px; }
+
+@media(max-width:900px){ .grid-3,.grid-4{ grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; } }
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 20px;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-label {
+  font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 8px;
+}
+.card-value {
+  font-family: var(--font-display);
+  font-size: 36px; line-height: 1;
+  margin-bottom: 6px;
+}
+.card-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+.status-red    { color: var(--red2); }
+.status-amber  { color: var(--amber2); }
+.status-green  { color: var(--green2); }
+.status-blue   { color: var(--blue2); }
+.status-purple { color: #b080ff; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 9px; letter-spacing: .15em;
+  text-transform: uppercase; font-weight: 600;
+  border: 1px solid currentColor;
+}
+.badge-red    { color: var(--red2);   border-color: var(--red); background: rgba(224,48,48,.08); }
+.badge-amber  { color: var(--amber2); border-color: var(--amber); background: rgba(232,144,32,.08); }
+.badge-green  { color: var(--green2); border-color: var(--green); background: rgba(32,184,112,.08); }
+.badge-blue   { color: var(--blue2);  border-color: var(--blue); background: rgba(48,96,232,.08); }
+.badge-gray   { color: var(--text2);  border-color: var(--border2); background: rgba(255,255,255,.03); }
+
+.prose {
+  font-family: var(--font-body);
+  font-size: 14px; line-height: 1.9;
+  color: var(--text);
+  max-width: 820px; margin-bottom: 24px;
+}
+.prose strong { color: var(--white); font-weight: 700; }
+.prose em { color: var(--amber2); font-style: italic; }
+
+.block {
+  background: var(--bg3);
+  border-left: 3px solid var(--border2);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.block-title {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--white); margin-bottom: 6px;
+}
+.block-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+.block-red    { border-left-color: var(--red); }
+.block-amber  { border-left-color: var(--amber); }
+.block-green  { border-left-color: var(--green); }
+.block-blue   { border-left-color: var(--blue); }
+.block-purple { border-left-color: var(--purple); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 28px; margin-bottom: 32px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 1px; background: var(--border2);
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before {
+  content: ''; position: absolute;
+  left: -24px; top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border2);
+  border: 2px solid var(--bg);
+}
+.tl-item.critical::before { background: var(--red); }
+.tl-item.warning::before  { background: var(--amber); }
+.tl-item.safe::before     { background: var(--green); }
+.tl-item.now::before {
+  background: var(--amber2);
+  box-shadow: 0 0 8px var(--amber);
+  animation: glow 2s ease-in-out infinite;
+}
+@keyframes glow { 0%,100%{box-shadow:0 0 8px var(--amber)} 50%{box-shadow:0 0 16px var(--amber2)} }
+.tl-date { font-size: 10px; color: var(--text3); letter-spacing: .1em; margin-bottom: 2px; }
+.tl-content { font-size: 12px; color: var(--text2); }
+.tl-content strong { color: var(--text); }
+
+/* Comparison table */
+.comp-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+.comp-table th {
+  font-size: 10px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--text3);
+  padding: 10px 14px; text-align: left;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg3);
+}
+.comp-table th:first-child { color: var(--text2); }
+.comp-table td {
+  padding: 12px 14px; font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top; line-height: 1.5;
+}
+.comp-table tr:hover td { background: rgba(255,255,255,.02); }
+.comp-table td:first-child { color: var(--text2); font-weight: 500; font-size: 11px; }
+.comp-table .col-ve { color: var(--red2); }
+.comp-table .col-ni { color: var(--amber2); }
+.comp-table .col-br { color: var(--blue2); }
+
+/* Progress bar */
+.progress-row { margin-bottom: 14px; }
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 11px; margin-bottom: 5px;
+}
+.progress-label span:first-child { color: var(--text2); }
+.progress-label span:last-child  { font-weight: 600; }
+.progress-track {
+  height: 4px; background: var(--bg4);
+  border-radius: 2px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; border-radius: 2px;
+  transition: width 1s ease;
+}
+
+/* Fracture map */
+.fracture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 12px; margin-bottom: 32px; }
+.fracture-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 16px;
+}
+.fracture-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; margin-bottom: 10px;
+}
+.fracture-title { font-size: 12px; font-weight: 600; color: var(--white); }
+.fracture-body { font-size: 11px; color: var(--text2); line-height: 1.6; }
+.fracture-potential {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--text3);
+}
+.fracture-potential span { color: var(--green2); }
+
+/* Question blocks */
+.q-block {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 20px; margin-bottom: 12px;
+}
+.q-number {
+  font-family: var(--font-display); font-size: 48px;
+  color: var(--border2); line-height: 1;
+  float: left; margin-right: 16px; margin-top: -4px;
+}
+.q-text {
+  font-family: var(--font-body);
+  font-size: 15px; font-style: italic;
+  color: var(--white); margin-bottom: 8px; line-height: 1.5;
+}
+.q-why { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.q-why::after { content: ''; display: table; clear: both; }
+
+/* Audience cards */
+.audience-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 16px; margin-bottom: 32px; }
+.audience-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 20px;
+}
+.audience-flag {
+  font-size: 28px; margin-bottom: 12px; display: block;
+}
+.audience-title {
+  font-size: 13px; font-weight: 600;
+  color: var(--white); margin-bottom: 4px;
+}
+.audience-role { font-size: 10px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+.audience-needs { font-size: 11px; color: var(--text2); line-height: 1.7; }
+.audience-artifact {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--amber2);
+  letter-spacing: .05em;
+}
+
+/* Alert box */
+.alert {
+  border: 1px solid var(--red);
+  background: rgba(224,48,48,.06);
+  padding: 16px 20px; margin-bottom: 24px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.alert-text { font-size: 12px; color: var(--text2); line-height: 1.7; }
+.alert-text strong { color: var(--red2); }
+
+.info {
+  border: 1px solid var(--blue);
+  background: rgba(48,96,232,.06);
+  padding: 16px 20px; margin-bottom: 24px;
+}
+.info-text { font-size: 12px; color: var(--text2); line-height: 1.7; }
+.info-text strong { color: var(--blue2); }
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0; margin-top: 80px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-left { font-size: 10px; color: var(--text3); letter-spacing: .1em; }
+.footer-right { font-size: 10px; color: var(--text3); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Análise Estratégica Classificada · Lawfare-Timeline · CC0 1.0</div>
+  <div class="header-title">JANELA <span>2026</span></div>
+  <div class="header-subtitle">Cenário estratégico de defesa institucional — o que aprendemos com Venezuela e Nicarágua, onde estamos, o que ainda pode ser feito.</div>
+  <div class="header-meta">
+    <span>Produzido: Abril 2026</span>
+    <span>Versão: 1.0</span>
+    <span>Classificação: Público · CC0</span>
+    <span>Idioma: PT-BR + EN disponível</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('onde-estamos')">① Onde Estamos</button>
+  <button class="tab-btn" onclick="switchTab('comparativo')">② Comparativo VE/NI/BR</button>
+  <button class="tab-btn" onclick="switchTab('fraturas')">③ Fraturas do Sistema</button>
+  <button class="tab-btn" onclick="switchTab('janela')">④ Janela 2026</button>
+  <button class="tab-btn" onclick="switchTab('perguntas')">⑤ Perguntas Não Feitas</button>
+  <button class="tab-btn" onclick="switchTab('publicos')">⑥ Por Público</button>
+  <button class="tab-btn" onclick="switchTab('resiliencia')">⑦ Resiliência</button>
+</div>
+
+<!-- ═══════════════════ TAB 1: ONDE ESTAMOS ═══════════════════ -->
+<div id="onde-estamos" class="tab-panel active">
+
+  <div class="section-label">Diagnóstico atual</div>
+
+  <div class="alert">
+    <div class="alert-icon">⚠</div>
+    <div class="alert-text">
+      <strong>O Brasil não é mais uma democracia plena.</strong> Com base nos documentos da Vaza Toga, nos Arquivos do 8 de Janeiro e no padrão sistêmico documentado desde 2019, o país opera como um <strong>regime híbrido em autocratização acelerada</strong> — mantendo formas democráticas enquanto destrói seu conteúdo. A janela de reversão é outubro de 2026.
+    </div>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="card-label">Índice de captura judicial</div>
+      <div class="card-value status-red">9.1/10</div>
+      <div class="card-desc">STF/TSE sob controle de operador único com poderes cumulativos documentados</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Liberdade de imprensa efetiva</div>
+      <div class="card-value status-red">2.4/10</div>
+      <div class="card-desc">Mídia comprada, ameaçada ou multada. Conteúdo crítico só sobrevive no exterior</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Independência eleitoral</div>
+      <div class="card-value status-red">3.1/10</div>
+      <div class="card-desc">TSE sem auditoria independente. Árbitro é parte interessada documentada</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Janela de reversão</div>
+      <div class="card-value status-amber">~6 meses</div>
+      <div class="card-desc">Eleições de outubro 2026. Após consolidação, reversão torna-se improvável sem crise</div>
+    </div>
+  </div>
+
+  <div class="section-label">Os seis padrões sistêmicos identificados</div>
+
+  <div class="grid-2">
+    <div class="block block-red">
+      <div class="block-title">P1 · Anulação por defeito processual</div>
+      <div class="block-body">Investigações contra aliados são sistematicamente anuladas por nulidades técnicas. As mesmas técnicas são negadas à oposição. Presente em: Lava Jato (anulação), Castelo de Areia, Satiagraha.</div>
+    </div>
+    <div class="block block-amber">
+      <div class="block-title">P2 · Investigadores tornam-se investigados</div>
+      <div class="block-body">Moro, Dallagnol, delegados da PF que participaram de operações contra o sistema passaram a ser alvos. Mecanismo de dissuasão para futuros investigadores.</div>
+    </div>
+    <div class="block block-red">
+      <div class="block-title">P3 · Captura judicial de emergência ★</div>
+      <div class="block-body"><strong>ÚNICO padrão presente em todas as quatro operações anti-corrupção.</strong> Uso de "ameaça à democracia" como justificativa para concentração de poderes extraordinários em um único agente judicial.</div>
+    </div>
+    <div class="block block-amber">
+      <div class="block-title">P4 · Weaponização midiática</div>
+      <div class="block-body">Mídia comprada ou ameaçada amplifica narrativa oficial. Jornalistas que publicam fora do Brasil documentam medo explícito. A Vaza Toga não foi publicada por nenhum veículo tradicional brasileiro.</div>
+    </div>
+    <div class="block block-blue">
+      <div class="block-title">P5 · Fundos públicos como vetor</div>
+      <div class="block-body">Verbas de publicidade estatal, emendas parlamentares e fundos de pensão como instrumentos de cooptação do Legislativo e da mídia. Cria dependência estrutural do regime.</div>
+    </div>
+    <div class="block block-purple">
+      <div class="block-title">P6 · Prescrição como arma estratégica</div>
+      <div class="block-body">Processos contra aliados arrastados até prescrição. Processos contra oposição acelerados ou mantidos em segredo indefinidamente. Banco Master/Toffoli é o exemplo atual.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Grau de comprometimento institucional</div>
+
+  <div style="max-width:600px; margin-bottom:32px;">
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Poder Judiciário (STF/TSE)</span>
+        <span class="status-red">Capturado · 92%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:92%;background:var(--red)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Imprensa tradicional</span>
+        <span class="status-red">Capturada · 85%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:85%;background:var(--red)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Poder Legislativo</span>
+        <span class="status-amber">Cooptado · 70%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:70%;background:var(--amber)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Polícia Federal</span>
+        <span class="status-amber">Parcialmente · 65%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:65%;background:var(--amber)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Ministério Público Federal</span>
+        <span class="status-amber">Resistência parcial · 45%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:45%;background:var(--amber)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Forças Armadas</span>
+        <span class="status-amber">Ambíguo · 40%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:40%;background:var(--amber2)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>TCU</span>
+        <span class="status-green">Resistência · 30%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:30%;background:var(--green)"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">
+        <span>Sociedade civil / imprensa independente</span>
+        <span class="status-green">Ativa · 25%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:25%;background:var(--green2)"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 2: COMPARATIVO ═══════════════════ -->
+<div id="comparativo" class="tab-panel">
+
+  <div class="section-label">Venezuela · Nicarágua · Brasil — trajetória comparada</div>
+
+  <div class="prose">
+    Não como analogia vaga. Como mapeamento de <strong>mecanismos específicos</strong> — o que foi feito primeiro, o que foi feito depois, e onde o Brasil se encontra nessa sequência hoje.
+  </div>
+
+  <div class="grid-3" style="margin-bottom:32px;">
+    <div class="card">
+      <div class="card-label">Venezuela — Fase atual</div>
+      <div class="card-value status-red">Consolidado</div>
+      <div class="card-desc">Regime plenamente autoritário. Oposição ou exilada, presa ou cooptada. Eleições como teatro. Desde ~2009–2012 irreversível sem colapso econômico total.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Nicarágua — Fase atual</div>
+      <div class="card-value status-red">Consolidado</div>
+      <div class="card-desc">Ortega eliminou todos os candidatos da oposição antes de 2021. Bispo Álvaro Múgica preso. Igreja, universidades e ONGs liquidadas sistematicamente.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Brasil — Fase atual</div>
+      <div class="card-value status-amber">Transição</div>
+      <div class="card-desc">Líder da oposição preso. Imprensa silenciada. TSE não auditável. Mas pressão externa, fricção interna e sociedade civil ainda existem. Janela: outubro 2026.</div>
+    </div>
+  </div>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Mecanismo</th>
+        <th class="col-ve">🇻🇪 Venezuela</th>
+        <th class="col-ni">🇳🇮 Nicarágua</th>
+        <th class="col-br">🇧🇷 Brasil</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Captura do judiciário</td>
+        <td class="col-ve">Chávez nomeou TSJ completo em 2004 após reforma constitucional</td>
+        <td class="col-ni">Ortega empacou CSJ com aliados entre 2010–2014</td>
+        <td class="col-br">STF/TSE sob operador único com poderes cumulativos desde 2019–2022. <span class="badge badge-red">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Compra / ameaça da mídia</td>
+        <td class="col-ve">RCTV cassada em 2007. Globovisión vendida a aliados em 2013. Canal do estado dominou.</td>
+        <td class="col-ni">Confisco de La Prensa 2021. Jornalistas presos. Rádios encerradas.</td>
+        <td class="col-br">Mídia tradicional dependente de verbas públicas. Ameaças documentadas. Vaza Toga publicada só no exterior. <span class="badge badge-amber">Em curso</span></td>
+      </tr>
+      <tr>
+        <td>Líder da oposição neutralizado</td>
+        <td class="col-ve">Henrique Capriles inabilitado 2017. Leopoldo López preso 2014.</td>
+        <td class="col-ni">Cristiana Chamorro presa jun/2021, antes de poder candidatar-se.</td>
+        <td class="col-br">Bolsonaro inabilitado 2023, preso preventivamente nov/2025, incomunicável. <span class="badge badge-red">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Censura digital / plataformas</td>
+        <td class="col-ve">CONATEL bloqueou Twitter, VPNs e sites de oposição intermitentemente desde 2010.</td>
+        <td class="col-ni">Lei "Cibercrimes" 2020 criminalizou dissidência online.</td>
+        <td class="col-br">X bloqueado por 40 dias em 2024. Deplatforming sistemático por ordem judicial monocrática. <span class="badge badge-red">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Prisões em massa / dissidência</td>
+        <td class="col-ve">300+ presos políticos documentados. Uso sistemático de colectivos.</td>
+        <td class="col-ni">200+ presos em 2021 incluindo bispos, reitores, candidatos.</td>
+        <td class="col-br">1.500+ presos após 8/jan. Sentenças até 17 anos sem ato violento individual. Certidões fabricadas documentadas. <span class="badge badge-red">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Controle do processo eleitoral</td>
+        <td class="col-ve">CNE controlado pelo governo desde 2003. Resultados não auditáveis.</td>
+        <td class="col-ni">CSE controlado por Ortega. Observadores expulsos em 2021.</td>
+        <td class="col-br">TSE sem auditoria independente real. Operador é parte interessada documentada. Desativação de IAs planejada para período eleitoral. <span class="badge badge-amber">Em implantação</span></td>
+      </tr>
+      <tr>
+        <td>Uso de lawfare como arma</td>
+        <td class="col-ve">Processos intermináveis contra empresários e políticos de oposição.</td>
+        <td class="col-ni">Confisco de propriedades de opositores. "Traição à pátria" como crime.</td>
+        <td class="col-br">Inquérito das Fake News, inabilitações por abuso de poder político, processos contra jornalistas e ativistas. <span class="badge badge-red">Ativo</span></td>
+      </tr>
+      <tr>
+        <td>Saída / exílio de opositores</td>
+        <td class="col-ve">Milhões emigraram. Oposição relevante operava de Miami/Bogotá.</td>
+        <td class="col-ni">Todos os candidatos presidenciais de 2021 presos ou exilados.</td>
+        <td class="col-br">Eduardo Bolsonaro nos EUA. Jornalistas publicando do exterior. Advogados e pesquisadores sob pressão. <span class="badge badge-amber">Em curso</span></td>
+      </tr>
+      <tr>
+        <td>O que ainda diferencia o Brasil</td>
+        <td class="col-ve">—</td>
+        <td class="col-ni">—</td>
+        <td class="col-br">Pressão externa efetiva (EUA/Trump/tarifas). TCU com alguma independência. MPF com resistência parcial documentada. Sociedade civil organizada. Janela eleitoral ainda aberta.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">Em que ano da trajetória venezuelana está o Brasil?</div>
+
+  <div class="timeline">
+    <div class="tl-item safe">
+      <div class="tl-date">Venezuela 1999 / Brasil ~2002</div>
+      <div class="tl-content"><strong>Chegada ao poder com mandato popular legítimo.</strong> Discurso anti-corrupção. Oposição fragmentada. Mídia ainda independente.</div>
+    </div>
+    <div class="tl-item warning">
+      <div class="tl-date">Venezuela 2002–2004 / Brasil ~2019–2021</div>
+      <div class="tl-content"><strong>Captura judicial e reescrita das regras.</strong> Venezuela: reforma do TSJ, referendo revogatório vencido. Brasil: Inquérito das Fake News, expansão de poderes do STF, desmonte da Lava Jato.</div>
+    </div>
+    <div class="tl-item warning">
+      <div class="tl-date">Venezuela 2007–2009 / Brasil 2022–2023</div>
+      <div class="tl-content"><strong>Cassação de mídia e primeiras prisões políticas em massa.</strong> Venezuela: RCTV cassada, CONATEL ativado. Brasil: X bloqueado, 8 de janeiro, força-tarefa secreta documentada.</div>
+    </div>
+    <div class="tl-item now">
+      <div class="tl-date">→ BRASIL ESTÁ AQUI ← Venezuela ~2013–2014</div>
+      <div class="tl-content"><strong>Neutralização do principal líder de oposição.</strong> Venezuela: Leopoldo López preso. Brasil: Bolsonaro preso, incomunicável. Mídia comprada ou silenciada. Processo eleitoral comprometido mas não totalmente fechado.</div>
+    </div>
+    <div class="tl-item critical">
+      <div class="tl-date">Venezuela 2017 / Brasil 2026?</div>
+      <div class="tl-content"><strong>PONTO DE NÃO-RETORNO.</strong> Venezuela: Capriles inabilitado. Assembleia Constituinte convocada fora das regras. Oposição sem candidato viável. Brasil: eleição de outubro 2026 sem candidato da oposição viável = consolidação.</div>
+    </div>
+    <div class="tl-item critical">
+      <div class="tl-date">Venezuela 2024 / Brasil 2028+?</div>
+      <div class="tl-content"><strong>Eleição sem resultado reconhecível.</strong> Maduro "vence" com atas inexistentes. Após esse ponto, reversão só por colapso econômico total ou pressão militar interna.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 3: FRATURAS ═══════════════════ -->
+<div id="fraturas" class="tab-panel">
+
+  <div class="section-label">Onde o sistema pode rachar</div>
+
+  <div class="prose">
+    Regimes não caem por pressão moral. Caem quando <strong>atores dentro do sistema calculam que sair é mais vantajoso que ficar</strong>. Mapear essas fraturas é tão importante quanto documentar os crimes.
+  </div>
+
+  <div class="fracture-grid">
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">Pressão econômica externa</div>
+        <span class="badge badge-green">Alta alavancagem</span>
+      </div>
+      <div class="fracture-body">Tarifas de 50% dos EUA. Bolsonaro explicitamente conectado ao fim das tarifas. Agribusiness, indústria e setor financeiro têm interesse direto na resolução. Elites econômicas que sustentam o regime sentem custo real.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>alto se tarifas mantidas por 6+ meses</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">TCU com independência residual</div>
+        <span class="badge badge-amber">Média alavancagem</span>
+      </div>
+      <div class="fracture-body">Bruno Dantas acessou mensagens da Vaza Toga contra resistência do sistema. TCU tem mandatos fixos e orçamento próprio. É o único órgão de controle que ainda demonstrou disposição de confrontar o STF diretamente.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>médio — depende de coragem institucional sustentada</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">MPF — resistência da Lindôra</div>
+        <span class="badge badge-amber">Média alavancagem</span>
+      </div>
+      <div class="fracture-body">PGR classificou AEED como inconstitucional em parecer de agosto/2024. Tentou encerrar Inquérito das Fake News. Foi contornada. Resistência interna documentada — indica que nem o MPF é monolítico.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>médio — próximo PGR é fator crítico</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">Tagliaferro como whistleblower</div>
+        <span class="badge badge-blue">Já ativo</span>
+      </div>
+      <div class="fracture-body">Funcionário interno que testemunhou no Senado. Prova que o sistema não é estanque — há pessoas com má consciência que podem falar. Cada novo whistleblower aumenta o risco para os que ainda silenciam.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>já em curso — cada novo vazamento acelera</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">Kompromat como faca de dois gumes</div>
+        <span class="badge badge-red">Risco sistêmico</span>
+      </div>
+      <div class="fracture-body">Se ministros votam com medo de material comprometedor, o controlador do material detém poder absoluto — mas também cria instabilidade. Qualquer mudança de equilíbrio interno pode fazer o material vazar em múltiplas direções.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>alto mas imprevisível — pode fragmentar o regime</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">Opinião pública internacional</div>
+        <span class="badge badge-blue">Crescendo</span>
+      </div>
+      <div class="fracture-body">Vaza Toga publicada em inglês. Arquivos do 8 de Janeiro em inglês. Cobertura da Economist, WSJ, NYT sobre Bolsonaro preso. Cada peça em inglês que chega a diplomatas e formadores de opinião aumenta o custo reputacional do regime.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>médio-alto com pressão sustentada e coordenada</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">Colapso econômico interno</div>
+        <span class="badge badge-amber">Risco crescente</span>
+      </div>
+      <div class="fracture-body">Inflação, desemprego e custo de vida afetam a base de apoio. Quando o custo econômico do regime supera o benefício percebido pelos aliados de segunda linha (centrão, mídia menor, burocracia), a cooptação começa a falhar.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>alto se combinado com pressão externa</span></div>
+    </div>
+    <div class="fracture-card">
+      <div class="fracture-header">
+        <div class="fracture-title">Próxima geração eleitoral</div>
+        <span class="badge badge-blue">Longo prazo</span>
+      </div>
+      <div class="fracture-body">Eleitores que entraram na vida política após 2018 não têm lealdade tribal ao PT vs. PSDB. São mais céticos com todas as instituições, incluindo o STF. Mobilização desse grupo pode criar dinâmica nova.</div>
+      <div class="fracture-potential">Potencial de ruptura: <span>médio — depende de liderança alternativa credível</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 4: JANELA 2026 ═══════════════════ -->
+<div id="janela" class="tab-panel">
+
+  <div class="section-label">O calendário crítico</div>
+
+  <div class="alert">
+    <div class="alert-icon">🗓</div>
+    <div class="alert-text">
+      <strong>Outubro de 2026 é a última janela eleitoral antes da consolidação.</strong> Se o processo for comprometido — candidato da oposição inabilitado, TSE operando sem auditoria, IAs desativadas no período eleitoral — o ponto de não-retorno será cruzado. O que Venezuela levou de 2013 a 2017 para completar, o Brasil pode completar em um único ciclo eleitoral.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:32px;">
+    <div>
+      <div class="section-label">O que já foi comprometido</div>
+      <div class="block block-red">
+        <div class="block-title">Principal candidato da oposição preso</div>
+        <div class="block-body">Bolsonaro em prisão preventiva, incomunicável, proibido de redes sociais. Inabilitado até 2030. Impossibilitado de candidatar-se ou de coordenar campanha de aliados.</div>
+      </div>
+      <div class="block block-red">
+        <div class="block-title">Árbitro eleitoral comprometido</div>
+        <div class="block-body">TSE sem auditoria independente real. Sem paper trail. O mesmo operador que fabricou provas contra empresários em 2022 administra o processo eleitoral de 2026.</div>
+      </div>
+      <div class="block block-red">
+        <div class="block-title">Imprensa incapaz de cobrir</div>
+        <div class="block-body">Mídia tradicional dependente de verbas. Vaza Toga não foi publicada no Brasil. Qualquer cobertura crítica pode ser enquadrada como "desinformação" sob legislação já existente.</div>
+      </div>
+      <div class="block block-amber">
+        <div class="block-title">Plataformas digitais sob controle</div>
+        <div class="block-body">X bloqueado por precedente estabelecido. Deplatforming judicial disponível. Desativação de IAs no período eleitoral em discussão. Ferramentas de alcance popular já capturáveis.</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">O que ainda pode ser defendido</div>
+      <div class="block block-green">
+        <div class="block-title">Candidatura alternativa viável</div>
+        <div class="block-body">A oposição precisa de um candidato que não esteja comprometido, que não seja facilmente inabilitável e que tenha alcance real. Essa é a variável mais crítica e mais aberta.</div>
+      </div>
+      <div class="block block-green">
+        <div class="block-title">Observação eleitoral internacional</div>
+        <div class="block-body">Missões da OEA, UE e observadores independentes com acesso real ao processo. A presença internacional aumenta o custo de manipulação visível. Venezuela expulsou observadores em 2024 — o Brasil ainda não.</div>
+      </div>
+      <div class="block block-green">
+        <div class="block-title">Auditoria técnica independente</div>
+        <div class="block-body">Pressão por paper trail verificável ainda pode ser exercida via Congresso, TCU e pressão internacional. A janela para isso é antes da campanha — não durante.</div>
+      </div>
+      <div class="block block-amber">
+        <div class="block-title">Mobilização social preventiva</div>
+        <div class="block-body">Antes do período eleitoral, a sociedade civil ainda pode organizar pressão. Durante, o histórico mostra que o sistema acelera a repressão. A janela de mobilização efetiva é agora, não em setembro.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Condições para eleição minimamente legítima</div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label">Condição 1</div>
+      <div class="card-value status-amber" style="font-size:24px;">Candidato livre</div>
+      <div class="card-desc">Oposição com candidato não-inabilitado, não-preso, com acesso a plataformas. Status atual: comprometido.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Condição 2</div>
+      <div class="card-value status-red" style="font-size:24px;">Árbitro neutro</div>
+      <div class="card-desc">TSE presidido por alguém sem conflito de interesse documentado. Status atual: impossível sem mudança institucional.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Condição 3</div>
+      <div class="card-value status-amber" style="font-size:24px;">Auditoria real</div>
+      <div class="card-desc">Paper trail verificável por observadores independentes. Status atual: inexistente, mas ainda demandável via Congresso.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Condição 4</div>
+      <div class="card-value status-amber" style="font-size:24px;">Imprensa livre</div>
+      <div class="card-desc">Cobertura crítica sem risco de processo ou multa. Status atual: comprometida, mas imprensa exterior ativa.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Condição 5</div>
+      <div class="card-value status-red" style="font-size:24px;">Plataformas abertas</div>
+      <div class="card-desc">Redes sociais e ferramentas de alcance popular sem bloqueio seletivo. Status atual: bloqueio por precedente estabelecido.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Condição 6</div>
+      <div class="card-value status-amber" style="font-size:24px;">Observação internacional</div>
+      <div class="card-desc">Missões com acesso real, não protocolar. Status atual: possível mas depende de pressão antecipada.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 5: PERGUNTAS NÃO FEITAS ═══════════════════ -->
+<div id="perguntas" class="tab-panel">
+
+  <div class="section-label">As perguntas que a narrativa dominante não faz</div>
+
+  <div class="q-block">
+    <div class="q-number">01</div>
+    <div class="q-text">Qual é a identidade dos que produziram as fake news que levaram à revogação das regulações de transparência de fintechs no início de 2025?</div>
+    <div class="q-why">Essa pergunta permanece sem resposta e sem investigação aberta. O episódio indica que a infraestrutura de desinformação não serve apenas para fins políticos — serve para proteger interesses financeiros específicos. Quem se beneficiou da revogação das regulações? Qual é a conexão com o Banco Master e os esquemas de FIDCs identificados?</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">02</div>
+    <div class="q-text">Existe um mapeamento sistemático das investigações abertas e silenciosamente arquivadas antes de atingir os beneficiários finais?</div>
+    <div class="q-why">O lawfare-timeline documenta operações que chegaram ao STF e pararam. Mas quantas investigações foram arquivadas silenciosamente antes disso — na PF, no MPF, nos TRFs? Essa lacuna é a maior do projeto. O arquivo silencioso é mais poderoso que a anulação ruidosa.</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">03</div>
+    <div class="q-text">Quem são os proprietários reais dos fundos fechados de cota única que aparecem simultaneamente em operações aparentemente não relacionadas?</div>
+    <div class="q-why">Padrão identificado nos dashboards: estruturas de FIDC com características idênticas aparecem em Banco Master, Carbono Oculto e Compliance Zero. A hipótese de infraestrutura jurídico-financeira comum não foi investigada. Esses fundos têm um advisory de origem?</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">04</div>
+    <div class="q-text">O MLAT com os EUA foi ativado? Por quê não — e quem bloqueou?</div>
+    <div class="q-why">As violações de OFAC documentadas (óleo russo via Houston, lavagem pelo Delaware) criam base legal para cooperação. O MLAT não foi formalmente ativado. Isso é inércia ou decisão? Se decisão — de quem e com qual motivação?</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">05</div>
+    <div class="q-text">Qual é o mecanismo concreto pelo qual votos de ministros do STF são controlados via kompromat?</div>
+    <div class="q-why">Há relatos e indícios, mas não documentação formal do mecanismo. Saber como funciona — quem detém o material, como é comunicado, qual é o vetor de entrega — é essencial tanto para entender o sistema quanto para identificar como quebrá-lo.</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">06</div>
+    <div class="q-text">Quais países já receberam a documentação primária da Vaza Toga e dos Arquivos do 8 de Janeiro — e o que fizeram com ela?</div>
+    <div class="q-why">Os documentos existem em inglês. Diplomatas de países aliados tiveram acesso? O Departamento de Estado tem dossiê? A Europol? Saber o que foi recebido e ignorado versus o que nunca chegou muda completamente a estratégia de disseminação.</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">07</div>
+    <div class="q-text">Existe hoje no Brasil uma rede de resistência institucional coordenada — ou apenas ilhas isoladas?</div>
+    <div class="q-why">TCU, MPF parcial, alguns parlamentares de oposição, jornalistas no exterior. Eles se coordenam? Há comunicação segura? Há estratégia comum? Ou cada um age em silo, facilitando a supressão um a um?</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-number">08</div>
+    <div class="q-text">Se as IAs forem desativadas no período eleitoral, qual é o plano B de análise e disseminação de informação?</div>
+    <div class="q-why">Esta conversa pode não acontecer em outubro de 2026. O lawfare-timeline precisa de protocolo de operação offline, sem IA, com ferramentas que não dependam de plataformas centralizadas. Esse protocolo não existe ainda.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 6: POR PÚBLICO ═══════════════════ -->
+<div id="publicos" class="tab-panel">
+
+  <div class="section-label">Arquitetura de disseminação por audiência</div>
+
+  <div class="prose">
+    O mesmo corpo de evidências precisa de <strong>saídas diferentes para públicos diferentes</strong>. Não por desonestidade — mas porque cada público tem linguagem, formato e threshold de ação diferente.
+  </div>
+
+  <div class="audience-grid">
+    <div class="audience-card">
+      <span class="audience-flag">🌍</span>
+      <div class="audience-title">Diplomatas e Governos Estrangeiros</div>
+      <div class="audience-role">EUA, UE, Reino Unido, Canadá, democracias do G20</div>
+      <div class="audience-needs">
+        Precisam de: documentação primária verificável, comparação com precedentes reconhecidos (Venezuela/Nicarágua), impacto nos seus interesses (investimentos, tarifas, refugiados políticos), linguagem jurídica internacionalmente referenciada.<br><br>
+        Formato: relatório em inglês, máx. 12 páginas, com fontes primárias linkadas, sem jargão local.
+      </div>
+      <div class="audience-artifact">→ Artefato pendente: Brazil Democratic Erosion Report 2026 [EN]</div>
+    </div>
+
+    <div class="audience-card">
+      <span class="audience-flag">📰</span>
+      <div class="audience-title">Imprensa Internacional</div>
+      <div class="audience-role">Economist, NYT, WSJ, Reuters, BBC, Le Monde</div>
+      <div class="audience-needs">
+        Precisam de: narrativa clara com gancho temporal (2026), documentos primários novos, fontes identificáveis, capacidade de verificação independente, ângulo de interesse para leitores não-brasileiros.<br><br>
+        Formato: press kit com executive summary + documentos primários + linha do tempo visual.
+      </div>
+      <div class="audience-artifact">→ Artefato pendente: Press Kit EN — Brazil 2026 [timeline + docs]</div>
+    </div>
+
+    <div class="audience-card">
+      <span class="audience-flag">🇧🇷</span>
+      <div class="audience-title">Brasileiros que ainda não sabem</div>
+      <div class="audience-role">Cidadão comum, classe média, jovem eleitor</div>
+      <div class="audience-needs">
+        Precisam de: linguagem simples, sem jargão jurídico, analogias concretas do cotidiano, conexão com impacto na sua vida (economia, liberdade, futuro dos filhos), formato compartilhável em WhatsApp e Instagram.<br><br>
+        Formato: infográfico, thread de 10 posts, vídeo de 3 minutos.
+      </div>
+      <div class="audience-artifact">→ Artefato pendente: "O que aconteceu com o Brasil" [PT, visual, popular]</div>
+    </div>
+
+    <div class="audience-card">
+      <span class="audience-flag">⚖️</span>
+      <div class="audience-title">Juristas e Advogados</div>
+      <div class="audience-role">OAB, defensores públicos, acadêmicos de direito</div>
+      <div class="audience-needs">
+        Precisam de: análise técnica dos artigos violados, comparação com jurisprudência, identificação de teses de nulidade, documentação das violações processuais específicas dos Arquivos do 8 de Janeiro.<br><br>
+        Formato: dossiê técnico-jurídico com referências normativas precisas.
+      </div>
+      <div class="audience-artifact">→ Artefato pendente: Dossiê Jurídico — Nulidades do 8 de Janeiro</div>
+    </div>
+
+    <div class="audience-card">
+      <span class="audience-flag">🏛️</span>
+      <div class="audience-title">Atores Políticos de Oposição</div>
+      <div class="audience-role">Parlamentares, governadores, lideranças municipais</div>
+      <div class="audience-needs">
+        Precisam de: inteligência acionável, janelas de oportunidade específicas, o que podem fazer com o que sabem, qual é o risco de agir vs. não agir, como o mecanismo de kompromat funciona para que possam se proteger.<br><br>
+        Formato: briefing confidencial, máx. 5 páginas, linguagem direta, sem romantismo.
+      </div>
+      <div class="audience-artifact">→ Artefato pendente: Briefing Estratégico — Janela 2026 [restrito]</div>
+    </div>
+
+    <div class="audience-card">
+      <span class="audience-flag">📚</span>
+      <div class="audience-title">Historiadores e Pesquisadores Futuros</div>
+      <div class="audience-role">Quem vai estudar esse período em 2030, 2040, 2050</div>
+      <div class="audience-needs">
+        Precisam de: dados estruturados e verificáveis, fontes primárias arquivadas com hash, metodologia documentada, lacunas explicitamente identificadas, contexto sem filtro de narrativa política do momento.<br><br>
+        Formato: JSON estruturado, arquivos espelhados em IPFS, metodologia publicada.
+      </div>
+      <div class="audience-artifact">→ Artefato existente: lawfare-timeline JSON [continuar e espelhar]</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 7: RESILIÊNCIA ═══════════════════ -->
+<div id="resiliencia" class="tab-panel">
+
+  <div class="section-label">Protocolo de resiliência documental</div>
+
+  <div class="alert">
+    <div class="alert-icon">🔒</div>
+    <div class="alert-text">
+      <strong>O 404 é a arma mais eficiente do regime.</strong> Não é preciso proibir. Basta remover após a publicação. Quem busca no futuro encontra nada — e conclui que não havia nada. O protocolo abaixo torna o 404 impossível para os documentos do lawfare-timeline.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="section-label">Camadas de redundância</div>
+      <div class="block block-green">
+        <div class="block-title">Camada 1 · Archive.org (Wayback Machine)</div>
+        <div class="block-body">Cada fonte crítica deve ser arquivada ANTES de publicar. URL: web.archive.org/save/[URL]. Gratuito. Persistente. Fora de jurisdição brasileira. Procedimento: ao identificar fonte nova, arquivar imediatamente.</div>
+      </div>
+      <div class="block block-green">
+        <div class="block-title">Camada 2 · archive.ph</div>
+        <div class="block-body">Alternativa ao Wayback com renderização de JavaScript. Especialmente útil para conteúdo de redes sociais que o Wayback não captura bem. URL: archive.ph/[URL].</div>
+      </div>
+      <div class="block block-blue">
+        <div class="block-title">Camada 3 · IPFS (InterPlanetary File System)</div>
+        <div class="block-body">Endereçamento por conteúdo (hash), não por URL. O 404 deixa de existir como conceito — o conteúdo é acessível por qualquer nó da rede que tenha a cópia. Recomendado para o JSON completo do lawfare-timeline.</div>
+      </div>
+      <div class="block block-blue">
+        <div class="block-title">Camada 4 · Espelho internacional</div>
+        <div class="block-body">Instância do lawfare-timeline hospedada fora do Brasil, em jurisdição com forte proteção de imprensa. Candidatos: Islândia (immi.is), Suíça, Holanda. GitHub Pages como opção técnica simples.</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Protocolo operacional</div>
+      <div class="block block-amber">
+        <div class="block-title">Antes de publicar qualquer entrada JSON</div>
+        <div class="block-body">1. Arquivar todas as fontes primárias no Wayback e archive.ph<br>2. Registrar URLs arquivadas no campo "fontes" do JSON<br>3. Salvar cópia local dos documentos PDFs<br>4. Calcular hash SHA-256 dos arquivos críticos</div>
+      </div>
+      <div class="block block-amber">
+        <div class="block-title">Periodicidade de espelhamento</div>
+        <div class="block-body">Snapshot completo do repositório: semanal<br>Push para espelho internacional: a cada commit<br>Export JSON completo: mensal com hash publicado<br>Backup offline (HD externo): mensal</div>
+      </div>
+      <div class="block block-red">
+        <div class="block-title">Plano B para período eleitoral (out/2026)</div>
+        <div class="block-body">Se IAs forem desativadas:<br>· JSON é autocontido e operável sem IA<br>· Scripts de análise em Python/R documentados<br>· Contatos internacionais com cópia do arquivo<br>· Protocolo de publicação via canais seguros definido antecipadamente</div>
+      </div>
+      <div class="block block-purple">
+        <div class="block-title">Segurança operacional mínima</div>
+        <div class="block-body">Comunicação sobre conteúdo sensível: Signal ou ProtonMail<br>Pesquisa: VPN + navegador em modo isolado<br>Documentos classificados: nunca no email comum<br>Identidade de fontes: nunca no JSON público</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">O que fazer esta semana</div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label">Prioridade 1</div>
+      <div class="card-value status-red" style="font-size:20px;">Espelhar agora</div>
+      <div class="card-desc">Criar repositório GitHub público com o JSON completo do lawfare-timeline. Habilitar GitHub Pages. URL alternativa fora do Vercel imediatamente disponível.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Prioridade 2</div>
+      <div class="card-value status-amber" style="font-size:20px;">Arquivar fontes</div>
+      <div class="card-desc">Passar pelas entradas existentes e arquivar no Wayback todas as fontes que ainda não têm URL arquivada. Começar pelas mais críticas (Vaza Toga, Arquivos 8/Jan).</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Prioridade 3</div>
+      <div class="card-value status-blue" style="font-size:20px;">Relatório EN</div>
+      <div class="card-desc">Produzir versão em inglês do documento-mestre desta análise. É o artefato com maior alavancagem para audiência diplomática e imprensa internacional.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    JANELA 2026 · Análise Estratégica · lawfare-timeline.vercel.app<br>
+    CC0 1.0 Universal — Domínio Público. Reprodução irrestrita.
+  </div>
+  <div class="footer-right">
+    Produzido com documentação primária verificável.<br>
+    Vaza Toga · Arquivos do 8 de Janeiro · lawfare-timeline
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Animate progress bars on load
+window.addEventListener('load', () => {
+  document.querySelectorAll('.progress-fill').forEach(el => {
+    const w = el.style.width;
+    el.style.width = '0';
+    setTimeout(() => { el.style.width = w; }, 300);
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

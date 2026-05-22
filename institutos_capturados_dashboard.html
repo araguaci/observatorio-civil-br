@@ -1,0 +1,355 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--ink:#1a1814;--ink2:#3d3a35;--ink3:#6b6760;--ink4:#a09d99;
+--paper:#faf8f4;--paper2:#f2efe9;--paper3:#e8e4dc;
+--red:#8b1a1a;--red2:#c0392b;--amber:#7a4f00;--amber2:#d4870a;
+--green:#1a4731;--green2:#2d6a4f;
+--rule:rgba(26,24,20,0.15);
+}
+body{background:var(--paper);color:var(--ink);font-family:'Source Serif 4',serif;font-size:15px;line-height:1.65}
+.masthead{border-bottom:3px solid var(--ink);padding:28px 0 18px;margin-bottom:0}
+.masthead-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.masthead-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;line-height:1.1;letter-spacing:-0.02em;color:var(--ink)}
+.masthead-sub{font-family:'Source Serif 4',serif;font-style:italic;font-size:14px;color:var(--ink2);margin-top:8px;line-height:1.5}
+.masthead-meta{display:flex;gap:24px;margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:0.1em}
+.masthead-meta span{border-left:1px solid var(--rule);padding-left:10px}
+.masthead-meta span:first-child{border-left:none;padding-left:0}
+.section-rule{border:none;border-top:1px solid var(--rule);margin:0}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink3);padding:10px 0 6px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:var(--paper2);border:0.5px solid var(--rule);border-radius:4px;padding:16px}
+.card-dark{background:var(--ink);color:var(--paper);border-radius:4px;padding:16px}
+.metric-card{background:var(--paper2);border:0.5px solid var(--rule);border-radius:4px;padding:14px 16px;text-align:center}
+.metric-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--ink);line-height:1}
+.metric-num.red{color:var(--red2)}
+.metric-num.amber{color:var(--amber2)}
+.metric-num.green{color:var(--green2)}
+.metric-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+.alert-box{border-left:3px solid var(--red2);background:#fdf5f5;padding:12px 14px;margin:10px 0;border-radius:0 3px 3px 0}
+.alert-box.amber{border-color:var(--amber2);background:#fdf8f0}
+.alert-box.green{border-color:var(--green2);background:#f0f7f4}
+.alert-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;color:var(--red);margin-bottom:5px}
+.alert-title.amber{color:var(--amber)}
+.alert-title.green{color:var(--green)}
+.alert-text{font-size:13px;color:var(--ink2);line-height:1.55}
+.compare-header{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.compare-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:0.1em}
+.bar-row{margin:8px 0}
+.bar-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2);margin-bottom:3px;display:flex;justify-content:space-between}
+.bar-track{height:6px;background:var(--paper3);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
+.risk-pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:500;margin-right:4px;margin-bottom:4px}
+.risk-high{background:#f5e5e5;color:var(--red)}
+.risk-med{background:#fdf0e0;color:var(--amber)}
+.risk-low{background:#e8f4ee;color:var(--green)}
+.flow-step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--rule)}
+.flow-step:last-child{border-bottom:none}
+.flow-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--paper);background:var(--ink3);border-radius:2px;padding:2px 7px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.flow-num.contaminated{background:var(--red2)}
+.flow-num.video{background:var(--ink)}
+.flow-content{font-size:13px;color:var(--ink2);line-height:1.5}
+.flow-content strong{color:var(--ink);font-weight:600}
+.verdict-band{background:var(--ink);color:var(--paper);padding:20px;border-radius:4px;margin:16px 0}
+.verdict-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1.2;margin-bottom:10px}
+.verdict-body{font-size:13px;line-height:1.65;color:#d4d0ca}
+.three-verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border-radius:4px;overflow:hidden;margin:16px 0}
+.verdict-cell{background:var(--paper2);padding:14px;text-align:center}
+.verdict-cell-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px}
+.verdict-cell-title.aproveitavel{color:var(--green)}
+.verdict-cell-title.ressalva{color:var(--amber)}
+.verdict-cell-title.comprometido{color:var(--red)}
+.verdict-cell-body{font-size:12px;color:var(--ink2);line-height:1.5}
+.omit-table{width:100%;border-collapse:collapse;font-size:12px}
+.omit-table th{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+.omit-table td{padding:7px 8px;border-bottom:0.5px solid var(--rule);vertical-align:top;color:var(--ink2);line-height:1.4}
+.omit-table tr:last-child td{border-bottom:none}
+.status-omit{color:var(--red);font-weight:500}
+.status-pub{color:var(--green);font-weight:500}
+.status-partial{color:var(--amber);font-weight:500}
+.conclusion-pull{font-family:'Playfair Display',serif;font-style:italic;font-size:19px;line-height:1.45;color:var(--ink);border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:18px 0;margin:20px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--rule);font-size:13px;color:var(--ink2);line-height:1.5}
+.checklist-item:last-child{border-bottom:none}
+.check-icon{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:1px 6px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.check-icon.ask{background:#f5e5e5;color:var(--red)}
+.check-icon.compare{background:#fdf0e0;color:var(--amber)}
+.check-icon.distrust{background:#e8f4ee;color:var(--green)}
+.footnote{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink4);padding:16px 0;border-top:1px solid var(--rule);line-height:1.6}
+.w{padding:0 2px}
+</style>
+
+<div class="w">
+<div class="masthead">
+  <div class="masthead-label">Dossiê editorial — metodologia & manipulação eleitoral</div>
+  <div class="masthead-title">Os institutos ainda informam?<br>O que sobrou para o povo.</div>
+  <div class="masthead-sub">Análise cruzada das pesquisas Atlas/Bloomberg (BR-06939/2026) e Datafolha (BR-00290/2026) — maio de 2026. Riscos, alertas, gatilhos e o que ainda é aproveitável.</div>
+  <div class="masthead-meta">
+    <span>Atlas: n=5.032 · 13–18/mai</span>
+    <span>Datafolha: n=2.004 · 12–14/mai</span>
+    <span>Fonte: PesqEle/TSE · Arvor Intelligence · Thread @leonardodias</span>
+    <span>Artes do Sul / AI Nativo Brasil</span>
+  </div>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">Painel de alerta rápido</div>
+
+<div class="grid-4" style="margin-bottom:20px">
+  <div class="metric-card">
+    <div class="metric-num red">48</div>
+    <div class="metric-label">Perguntas aplicadas<br>pela Atlas</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num amber">18</div>
+    <div class="metric-label">Publicadas como<br>resultado oficial</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num red">20+</div>
+    <div class="metric-label">Blocos sem<br>top-line publicado</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-num amber">42%</div>
+    <div class="metric-label">Margem líquida<br>AtlasIntel 2025</div>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-bottom:20px">
+  <div>
+    <div class="alert-box">
+      <div class="alert-title">⚠ Risco crítico — Atlas/Bloomberg</div>
+      <div class="alert-text">Rejeição de Flávio (Q25) vem <strong>depois</strong> de 9 perguntas sobre fraude, áudio e "envolvimento direto" (Q11–Q19). O respondente chega à pergunta de rejeição já enquadrado pelo escândalo. Este número não mede rejeição basal — mede rejeição pós-estímulo.</div>
+    </div>
+    <div class="alert-box">
+      <div class="alert-title">⚠ Risco crítico — experimento disfarçado</div>
+      <div class="alert-text">Q48 expõe respondentes a peça audiovisual (áudio Flávio–Vorcaro, imagens, legenda) com avaliação contínua. Isso não é pesquisa eleitoral — é experimento de persuasão sem protocolo, sem taxa de abandono publicada, sem pesos separados.</div>
+    </div>
+    <div class="alert-box amber">
+      <div class="alert-title amber">⚡ Gatilho — formulação acusatória</div>
+      <div class="alert-text">Q15 oferece ao respondente a categoria "Evidências de envolvimento direto de Flávio Bolsonaro com o escândalo do Banco Master" como fato estabelecido. Sem documento padronizado, sem protocolo. Acusa antes de medir.</div>
+    </div>
+  </div>
+  <div>
+    <div class="alert-box">
+      <div class="alert-title">⚠ Risco crítico — Datafolha</div>
+      <div class="alert-text">Amostragem de renda com sobre-representação de famílias até 2 SM e sub-representação acima de 5 SM — viés provável pró-Lula. Estimativa Arvor: Lula com até –1,6 p.p. e Flávio com +2,8 a +3,3 p.p. na correção.</div>
+    </div>
+    <div class="alert-box amber">
+      <div class="alert-title amber">⚡ Gatilho — escolaridade inflada Atlas</div>
+      <div class="alert-text">Atlas: ensino superior = 25,7%. PNAD adultos 16+: 18,9%. Diferença de +6,8 pontos. Fundamental some 11 pontos. Voto correlaciona com escolaridade. A amostra Atlas é mais escolarizada que o Brasil real.</div>
+    </div>
+    <div class="alert-box amber">
+      <div class="alert-title amber">⚡ Gatilho — renda sem "não sei"</div>
+      <div class="alert-text">Q42 (Atlas) e Datafolha: nenhuma das duas apresenta opção "prefiro não responder" ou "não sei" para renda. Forçar chute em variável de pós-estratificação distorce os pesos finais de toda a pesquisa.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">Fluxo do questionário Atlas — onde a ordem contamina</div>
+
+<div class="card" style="margin-bottom:20px">
+  <div class="flow-step">
+    <div class="flow-num">Q1–Q2</div>
+    <div class="flow-content"><strong>Aprovação de Lula, governador, prefeito.</strong> Ponto de partida neutro. Ainda limpo. <span class="risk-pill risk-low">aproveitável</span></div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-num">Q3–Q8</div>
+    <div class="flow-content"><strong>Cenários 1º e 2º turno.</strong> Bloco mais defensável — voto antes do estímulo Banco Master. <span class="risk-pill risk-low">aproveitável</span></div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-num">Q9–Q10</div>
+    <div class="flow-content"><strong>Confiança por áreas e medo eleitoral.</strong> Já formulado como Lula vs. Flávio — enquadramento comparativo, não diagnóstico neutro. <span class="risk-pill risk-med">ressalva</span></div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-num contaminated">Q11–Q19</div>
+    <div class="flow-content"><strong>Banco Master, áudio, vazamento, "envolvimento direto", efeito na candidatura.</strong> Bateria de 9 perguntas com carga acusatória crescente. Tudo que vem depois está sob influência deste bloco. <span class="risk-pill risk-high">contaminação alta</span></div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-num contaminated">Q25</div>
+    <div class="flow-content"><strong>Rejeição de líderes.</strong> Vem DEPOIS do bloco Banco Master. Flávio, Michelle, Jair e Lula são avaliados por respondentes já expostos a 9 perguntas sobre escândalo. <span class="risk-pill risk-high">comprometido</span></div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-num">Q20–Q47</div>
+    <div class="flow-content"><strong>Problemas do Brasil, medidas de Lula, imagem de 15 líderes, direitos sociais, partido, ideologia, economia, demografia.</strong> Aplicados, mas sem top-line publicado. Blocos explicativos enormes omitidos do relatório. <span class="risk-pill risk-high">omitidos</span></div>
+  </div>
+  <div class="flow-step">
+    <div class="flow-num video">Q48</div>
+    <div class="flow-content"><strong>Peça audiovisual: áudio Flávio–Vorcaro com avaliação contínua.</strong> Experimento de reação embutido no fim. Sem protocolo completo, sem taxa de abandono, sem pesos separados publicados. <span class="risk-pill risk-high">experimento não declarado</span></div>
+  </div>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">O que a Atlas coletou e não publicou</div>
+
+<div style="margin-bottom:20px;overflow-x:auto">
+<table class="omit-table">
+  <thead>
+    <tr>
+      <th>Bloco</th>
+      <th>Conteúdo medido</th>
+      <th>Status</th>
+      <th>Por que importa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q20</td><td>Maiores problemas do Brasil (até 3)</td><td class="status-omit">Omitido</td><td>Define o frame mental do respondente antes das perguntas finais</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q21</td><td>Aprovação de decisões de Lula (arcabouço, IR até R$5k, Pix, Maduro…)</td><td class="status-omit">Omitido</td><td>Bateria enorme de aprovação programática — omitir tira contexto do governo</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q22</td><td>Imagem de 15 líderes (Alcolumbre, Haddad, Flávio, Nikolas, Tarcísio…)</td><td class="status-omit">Omitido como bloco</td><td>Medido, mas o relatório só destaca rejeição — não imagem completa</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q23</td><td>Aborto, maconha, cotas raciais, cotas trans, autodeclaração de gênero</td><td class="status-omit">Omitido</td><td>Variáveis de guerra cultural que explicariam voto e rejeição — sumiram</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q24</td><td>Partido de preferência</td><td class="status-omit">Omitido</td><td>Sem isso, impossível auditar partidarização da amostra</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q26–Q27</td><td>Ideologia e identidade política</td><td class="status-omit">Omitido</td><td>Variáveis-chave para validar composição política da amostra</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q28–Q30</td><td>Situação econômica, emprego, expectativas</td><td class="status-omit">Omitido</td><td>Termômetro econômico detalhado inexplicavelmente ausente</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q31–Q34</td><td>Inflação percebida e esperada em 6 e 12 meses</td><td class="status-omit">Omitido</td><td>Parceria com Bloomberg — omitir inflação subjetiva é especialmente estranho</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q40 / Q44</td><td>Cor/raça e orientação sexual</td><td class="status-omit">Omitido</td><td>Variáveis sensíveis coletadas sem transparência de finalidade ou distribuição</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q46–Q47</td><td>Voto no 1º e 2º turno de 2022</td><td class="status-partial">Parcial</td><td>Usado como pós-estratificação — omitir distribuição e pesos é grave</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q3–Q8</td><td>Cenários eleitorais</td><td class="status-pub">Publicado</td><td>Bloco mais defensável — vem antes do Banco Master</td></tr>
+    <tr><td style="font-family:'IBM Plex Mono',monospace;font-size:10px">Q11–Q19</td><td>Banco Master</td><td class="status-pub">Publicado</td><td>Centro do relatório — carregado politicamente</td></tr>
+  </tbody>
+</table>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">Comparativo amostral — o que os números escondem</div>
+
+<div class="grid-2" style="margin-bottom:20px">
+  <div class="card">
+    <div class="compare-label" style="margin-bottom:12px">Atlas vs PNAD — escolaridade (adultos 16+)</div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Ensino fundamental</span><span style="color:var(--red)">Atlas –11,0 p.p.</span></div>
+      <div class="bar-label" style="margin-top:2px"><span style="font-size:10px;color:var(--ink3)">Atlas 33,6%</span><span style="font-size:10px;color:var(--ink3)">PNAD 44,6%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:75%;background:#e8f4ee"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Ensino médio</span><span style="color:var(--amber)">Atlas +4,2 p.p.</span></div>
+      <div class="bar-label" style="margin-top:2px"><span style="font-size:10px;color:var(--ink3)">Atlas 40,7%</span><span style="font-size:10px;color:var(--ink3)">PNAD 36,5%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:55%;background:#fdf0e0"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Ensino superior</span><span style="color:var(--red)">Atlas +6,8 p.p.</span></div>
+      <div class="bar-label" style="margin-top:2px"><span style="font-size:10px;color:var(--ink3)">Atlas 25,7%</span><span style="font-size:10px;color:var(--ink3)">PNAD 18,9%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:90%;background:#f5e5e5"></div></div>
+    </div>
+    <div class="alert-box" style="margin-top:12px">
+      <div class="alert-title">Impacto real</div>
+      <div class="alert-text">Voto correlaciona com escolaridade. Amostra mais escolarizada tende a subrepresentar o eleitor médio brasileiro — particularmente relevante em disputa polarizada como Lula vs. Flávio.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="compare-label" style="margin-bottom:12px">Margem de erro — o que a Atlas não mostra</div>
+    <div style="font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:12px">
+      Com n=5.032, a margem AAS a 95% no pior caso é <strong style="color:var(--red2)">±1,38 p.p.</strong> — não ±1 p.p. como o relatório sugere implicitamente.
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2);margin-bottom:8px">Para margem real de ±1 p.p. seriam necessários</div>
+    <div style="font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--red2);margin-bottom:4px">9.604</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink3)">casos efetivos — quase o dobro</div>
+    <div class="alert-box amber" style="margin-top:12px">
+      <div class="alert-title amber">Consequência direta</div>
+      <div class="alert-text">Diferenças de 1 a 2 pontos entre candidatos estão dentro do ruído estatístico. Lula 47% e Flávio 34% no 1º turno são tendências. Lula 48,9% vs. Flávio 41,8% no 2º turno pode ser só ruído — não é certeza matemática.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">A arquitetura da captura — não é conspiração, é mercado</div>
+
+<div class="grid-2" style="margin-bottom:20px">
+  <div>
+    <div class="alert-box" style="margin-bottom:10px">
+      <div class="alert-title">Atlas/Bloomberg — captura comercial</div>
+      <div class="alert-text">DRE 2025: receita bruta R$15,8 mi, lucro líquido R$6,7 mi, margem 42%. A Atlas é operação comercial madura. Publica o que vende, não tudo o que mede. Parceria com Bloomberg num momento politicamente sensível não é acidente editorial.</div>
+    </div>
+    <div class="alert-box amber">
+      <div class="alert-title amber">Atlas — o mínimo aceitável que falta</div>
+      <div class="alert-text">Matriz completa pergunta-a-pergunta · n por célula · pesos e targets de pós-estratificação · efeito de desenho · protocolo separado para Q48 · top-line de inflação, partido, ideologia, imagem completa de líderes.</div>
+    </div>
+  </div>
+  <div>
+    <div class="alert-box" style="margin-bottom:10px">
+      <div class="alert-title">Datafolha — captura editorial</div>
+      <div class="alert-text">Contratada pela Empresa Folha da Manhã S.A. (R$307.641,60). Linha editorial da Folha de S.Paulo é definida. Escolha de bairros em SP (Pinheiros, Perdizes) e distribuição de renda com sobre-representação dos mais pobres criam viés estrutural favorável ao campo petista.</div>
+    </div>
+    <div class="alert-box green">
+      <div class="alert-title green">O que salva ambas</div>
+      <div class="alert-text">Registro compulsório no TSE é auditável por qualquer cidadão. Foi exatamente isso que permitiu esta análise. A transparência mínima obrigatória ainda funciona — e é a única ferramenta pública disponível.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">Veredito por bloco — o que ainda informa</div>
+
+<div class="three-verdict" style="margin-bottom:20px">
+  <div class="verdict-cell">
+    <div class="verdict-cell-title aproveitavel">✓ Aproveitável</div>
+    <div class="verdict-cell-body"><strong>Q3–Q8 Atlas (voto antes do escândalo)</strong><br>Lula lidera, Flávio é competitivo, direita sem Bolsonaro fragmenta. Números chegam antes do Banco Master — são os mais defensáveis da pesquisa.</div>
+  </div>
+  <div class="verdict-cell">
+    <div class="verdict-cell-title ressalva">⚡ Com ressalva</div>
+    <div class="verdict-cell-body"><strong>Q9–Q10 Atlas (medo e confiança)</strong><br>Vêm antes do Banco Master, mas já formulados como Lula vs. Flávio. Medem comparação política, não diagnóstico neutro. Usar com cautela.</div>
+  </div>
+  <div class="verdict-cell">
+    <div class="verdict-cell-title comprometido">✗ Comprometido</div>
+    <div class="verdict-cell-body"><strong>Rejeição, imagem, reações (Q11+)</strong><br>Qualquer coisa depois de Q11 está sob efeito de contexto Banco Master. O relatório não deixa isso explícito. Não use esses números como verdade isolada.</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+<div class="section-label">O que sobrou para o povo — kit de higiene cognitiva</div>
+
+<div class="card" style="margin-bottom:20px">
+  <div class="checklist-item">
+    <div class="check-icon ask">Pergunte sempre</div>
+    <div><strong>Quem pagou?</strong> Pesquisa tem contratante. Contratante tem interesse. Interesse molda o enquadramento editorial do resultado — mesmo sem alterar os dados brutos.</div>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon ask">Pergunte sempre</div>
+    <div><strong>Em que ordem vieram as perguntas?</strong> A ordem é método. Rejeição depois de escândalo não é rejeição basal. Voto antes do estímulo é diferente de voto depois. O TSE obriga a publicar o questionário — leia.</div>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon ask">Pergunte sempre</div>
+    <div><strong>O que não foi publicado?</strong> Relatório de 60 páginas que omite inflação, partido, ideologia e imagem completa de líderes não é análise — é recorte editorial com aparência científica.</div>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon compare">Compare</div>
+    <div><strong>Pesquisas divergentes são informação, não caos.</strong> Atlas e Datafolha discordam → a realidade eleitoral está genuinamente disputada, não há instituto com precisão cirúrgica para 215 milhões de pessoas.</div>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon compare">Compare</div>
+    <div><strong>Desconfie de precisão excessiva.</strong> ±1 p.p. com n=5.032 é impossível. A margem real é ±1,38 p.p. Diferenças pequenas entre candidatos podem ser estatisticamente irrelevantes — mesmo quando o relatório as trata como fato.</div>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon distrust">Acesse a fonte</div>
+    <div><strong>PesqEle/TSE é público e gratuito.</strong> Qualquer brasileiro pode acessar o questionário completo registrado, a ficha técnica, o contratante e o valor pago. Isso não elimina o problema, mas expõe o método.</div>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon distrust">Acesse a fonte</div>
+    <div><strong>Valorize quem abre o questionário completo.</strong> Pesquisa que publica só o top-line conveniente está escondendo contexto. Quem lê o questionário do TSE e aponta a sequência está fazendo o mínimo de jornalismo metodológico honesto.</div>
+  </div>
+</div>
+
+<div class="conclusion-pull">
+"O povo brasileiro está sendo bombardeado por pesquisas que medem opinião e simultaneamente a produzem. Não é conspiração centralizada — é mercado: cada instituto vende para quem paga, enquadra para quem distribui, publica o que repercute."
+</div>
+
+<div class="verdict-band">
+  <div class="verdict-title">Veredito final</div>
+  <div class="verdict-body">
+    A pesquisa Atlas ainda informa algo real sobre a corrida presidencial — especialmente os cenários eleitorais de Q3–Q8, que chegam antes do estímulo do Banco Master. Mas o relatório não merece confiança plena como documento analítico: aplica 48 itens, publica 18, omite blocos explicativos enormes, contamina rejeição com contexto acusatório e coloca uma peça audiovisual política no final sem protocolo declarado.
+    <br><br>
+    O Datafolha tem problema diferente: amostra de renda enviesada e escolha geográfica historicamente favorável ao campo petista. Pode ser erro, pode ser escolha. Sem microdados abertos, não há como provar.
+    <br><br>
+    O que sobrou não é nada. É a auditoria possível: o TSE obriga registro público, o questionário está disponível, a DRE da AtlasIntel está no dossiê. Atenção, comparação e desconfiança ativa não são cinismo — são o único antídoto real disponível para quem não tem acesso aos microdados.
+    <br><br>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#a09d99">A pesquisa perfeita não existe. A análise crítica, sim — e está ao alcance de qualquer pessoa com atenção suficiente para ler a ordem das perguntas.</span>
+  </div>
+</div>
+
+<div class="footnote">
+  Fontes: Dossiê AtlasIntel Arvor Intelligence 180526 · Thread @leonardodias · PesqEle/TSE BR-06939/2026 e BR-00290/2026 · DRE AtlasIntel 2025 · PNAD Contínua microdados anuais visita 5 2024 · TSE Eleitorado Atual 01/05/2026<br>
+  Produzido por Artes do Sul / AI Nativo Brasil · Araguaci · Maio 2026 · Todos os dados são de fontes públicas
+</div>
+</div>

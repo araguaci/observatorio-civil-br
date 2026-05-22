@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://gosurf.site/8j-cui-bono">
+<meta property="og:title" content="8J — Cui Bono? Arquitetura de uma Orquestração de Omissões">
+<meta property="og:description" content="Premissa estrutural, cinco lados, arquitetura de omissões, paralelo Brasil/EUA — dossiê completo para leitura e cópia (CC0).">
+<meta property="og:image" content="https://gosurf.site/og-8j-cui-bono.png">
+<meta property="og:url" content="https://gosurf.site/8j-cui-bono">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gosurf.site/og-8j-cui-bono.png">
+<title>8J — Cui Bono? Arquitetura de uma Orquestração de Omissões</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060a0e;
+  --bg1: #0a0f16;
+  --bg2: #0f1720;
+  --bg3: #1a2330;
+  --border: rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.10);
+  --fg: #dde4ec;
+  --fg2: #7a8fa8;
+  --fg3: #3a4a5a;
+  --red: #e84040;
+  --red2: rgba(232,64,64,0.12);
+  --amber: #e8a020;
+  --amber2: rgba(232,160,32,0.12);
+  --blue: #3090e8;
+  --blue2: rgba(48,144,232,0.10);
+  --green: #28c880;
+  --green2: rgba(40,200,128,0.10);
+  --purple: #a060e8;
+  --purple2: rgba(160,96,232,0.10);
+  --cyan: #20d0e8;
+  --cyan2: rgba(32,208,232,0.10);
+  --pink: #e84090;
+  --pink2: rgba(232,64,144,0.10);
+  --gold: #c8a040;
+  --gold2: rgba(200,160,64,0.12);
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); }
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px 100px; }
+
+/* HEADER */
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border2);
+  padding: 40px 24px 32px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--gold), var(--red));
+  background-size: 300% 100%;
+  animation: scanline 5s linear infinite;
+}
+@keyframes scanline { to { background-position: 300% 0; } }
+
+.header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.header-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; font-family: var(--font-mono);
+}
+.badge-red { background: var(--red2); color: var(--red); border: 1px solid rgba(232,64,64,0.25); }
+.badge-amber { background: var(--amber2); color: var(--amber); border: 1px solid rgba(232,160,32,0.25); }
+.badge-gold { background: var(--gold2); color: var(--gold); border: 1px solid rgba(200,160,64,0.25); }
+.badge-gray { background: rgba(255,255,255,0.04); color: var(--fg3); border: 1px solid var(--border); }
+.badge-green { background: var(--green2); color: var(--green); border: 1px solid rgba(40,200,128,0.25); }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  color: var(--fg);
+}
+.hero-title .accent { color: var(--red); }
+.hero-title .sub { color: var(--amber); }
+.hero-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg2);
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.hero-question {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border-left: 3px solid var(--gold);
+  background: var(--gold2);
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+/* SECTIONS */
+.section { margin-top: 48px; }
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border2);
+}
+.section-num {
+  font-family: var(--font-display);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--fg3);
+  text-transform: uppercase;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.section-title .c-red { color: var(--red); }
+.section-title .c-amber { color: var(--amber); }
+.section-title .c-gold { color: var(--gold); }
+.section-title .c-green { color: var(--green); }
+.section-title .c-purple { color: var(--purple); }
+.section-title .c-cyan { color: var(--cyan); }
+
+/* CARDS GRID */
+.cards { display: grid; gap: 16px; }
+.cards-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.cards-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.cards-4 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.card-red::before { background: var(--red); }
+.card-amber::before { background: var(--amber); }
+.card-blue::before { background: var(--blue); }
+.card-green::before { background: var(--green); }
+.card-purple::before { background: var(--purple); }
+.card-cyan::before { background: var(--cyan); }
+.card-gold::before { background: var(--gold); }
+.card-pink::before { background: var(--pink); }
+
+.card-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-label .dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-red { background: var(--red); }
+.dot-amber { background: var(--amber); }
+.dot-blue { background: var(--blue); }
+.dot-green { background: var(--green); }
+.dot-purple { background: var(--purple); }
+.dot-cyan { background: var(--cyan); }
+.dot-gold { background: var(--gold); }
+.dot-pink { background: var(--pink); }
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 10px; line-height: 1.3;
+  color: var(--fg);
+}
+.card-body { color: var(--fg2); font-size: 12px; line-height: 1.7; }
+.card-body strong { color: var(--fg); font-weight: 600; }
+
+.card-gain {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.card-gain-label {
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--fg3);
+  margin-bottom: 6px;
+}
+.gain-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-bottom: 5px; font-size: 12px; color: var(--fg2);
+}
+.gain-plus { color: var(--green); font-weight: 700; flex-shrink: 0; }
+.gain-minus { color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--red), var(--amber), var(--gold), transparent);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 28px;
+  padding-left: 20px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -28px; top: 7px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--red);
+  background: var(--bg);
+}
+.tl-date {
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--fg3);
+  margin-bottom: 4px;
+}
+.tl-title {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 700;
+  color: var(--fg); margin-bottom: 6px;
+}
+.tl-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.tl-body strong { color: var(--amber); font-weight: 600; }
+
+/* MATRIX TABLE */
+.matrix {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+}
+.matrix th {
+  background: var(--bg2);
+  padding: 10px 14px;
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--fg3);
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+.matrix td {
+  padding: 12px 14px;
+  font-size: 12px; color: var(--fg2);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+.matrix tr:last-child td { border-bottom: none; }
+.matrix tr:hover td { background: rgba(255,255,255,0.02); }
+.matrix td:first-child { color: var(--fg); font-weight: 600; white-space: nowrap; }
+.tag-sim { color: var(--green); font-weight: 700; }
+.tag-nao { color: var(--red); font-weight: 700; }
+.tag-par { color: var(--amber); font-weight: 700; }
+
+/* FORMULA BOX */
+.formula-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--red);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.formula-label {
+  font-size: 10px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--red);
+  margin-bottom: 10px; font-weight: 600;
+}
+.formula-text {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.4;
+}
+.formula-text .eq { color: var(--amber); }
+.formula-text .var { color: var(--cyan); }
+
+/* QUOTE */
+.quote-block {
+  border-left: 2px solid var(--gold);
+  padding: 16px 20px;
+  background: var(--gold2);
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+.quote-text {
+  font-size: 13px; color: var(--fg);
+  line-height: 1.7; font-style: italic;
+  margin-bottom: 8px;
+}
+.quote-source {
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 600;
+}
+
+/* CONCLUSION */
+.conclusion {
+  background: linear-gradient(135deg, rgba(232,64,64,0.06), rgba(232,160,32,0.06));
+  border: 1px solid rgba(232,64,64,0.2);
+  border-radius: 4px;
+  padding: 32px;
+  margin-top: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.conclusion::before {
+  content: 'CUI BONO?';
+  position: absolute;
+  right: -10px; top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-display);
+  font-size: 80px; font-weight: 800;
+  color: rgba(232,64,64,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: -0.04em;
+}
+.conclusion-title {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 800;
+  color: var(--red);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.conclusion-text {
+  color: var(--fg2); font-size: 13px;
+  line-height: 1.8; max-width: 800px;
+}
+.conclusion-text strong { color: var(--fg); }
+.conclusion-text .highlight { color: var(--amber); font-weight: 600; }
+
+/* NETWORK DIAGRAM */
+.network {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.network-center {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.node-center {
+  display: inline-block;
+  background: rgba(232,64,64,0.15);
+  border: 2px solid var(--red);
+  border-radius: 4px;
+  padding: 14px 24px;
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 800;
+  color: var(--red);
+  letter-spacing: 0.05em;
+  position: relative;
+}
+.node-center::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: -32px;
+  width: 1px; height: 32px;
+  background: var(--red);
+  transform: translateX(-50%);
+}
+.nodes-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  position: relative;
+}
+.nodes-row::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), var(--amber), var(--gold), transparent);
+}
+.node {
+  border-radius: 4px;
+  padding: 14px 16px;
+  text-align: center;
+  position: relative;
+}
+.node::before {
+  content: '';
+  position: absolute;
+  top: -16px; left: 50%;
+  width: 1px; height: 16px;
+  transform: translateX(-50%);
+}
+.node-red { background: var(--red2); border: 1px solid rgba(232,64,64,0.3); }
+.node-red::before { background: var(--red); }
+.node-amber { background: var(--amber2); border: 1px solid rgba(232,160,32,0.3); }
+.node-amber::before { background: var(--amber); }
+.node-blue { background: var(--blue2); border: 1px solid rgba(48,144,232,0.3); }
+.node-blue::before { background: var(--blue); }
+.node-gold { background: var(--gold2); border: 1px solid rgba(200,160,64,0.3); }
+.node-gold::before { background: var(--gold); }
+.node-purple { background: var(--purple2); border: 1px solid rgba(160,96,232,0.3); }
+.node-purple::before { background: var(--purple); }
+.node-title {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 700;
+  margin-bottom: 6px; color: var(--fg);
+}
+.node-desc { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+/* STAT ROW */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+.stat-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label { font-size: 11px; color: var(--fg2); letter-spacing: 0.05em; line-height: 1.4; }
+.c-red { color: var(--red); }
+.c-amber { color: var(--amber); }
+.c-green { color: var(--green); }
+.c-gold { color: var(--gold); }
+.c-fg2 { color: var(--fg2); }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+/* FOOTER */
+.footer {
+  margin-top: 60px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-text { font-size: 11px; color: var(--fg3); }
+.footer-cc { font-size: 10px; letter-spacing: 0.12em; color: var(--fg3); text-transform: uppercase; }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px 80px; }
+  .header { padding: 32px 16px 24px; }
+  .header-inner { padding: 0 16px; }
+  .network { padding: 20px 16px; }
+  .nav-scroll { padding: 0 16px !important; }
+}
+
+/* —— Navegação por tópico (sticky + destaque ao rolar) —— */
+.nav.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(10, 15, 22, 0.92);
+  border-bottom: 1px solid var(--border2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.nav.doc-nav .nav-scroll {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav.doc-nav .nav-scroll::-webkit-scrollbar { display: none; }
+.nav-tab {
+  padding: 14px 14px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: var(--font-mono);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-tab:hover { color: var(--fg2); }
+.nav-tab.active { color: var(--fg); border-bottom-color: var(--red); }
+a.nav-tab:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+}
+
+.topic-panel { scroll-margin-top: 76px; }
+.article-selectable {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* OPS GRID — 3 cartões por linha (tablet 2 · mobile 1) */
+.cards.ops-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1024px) {
+  .cards.ops-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .cards.ops-grid { grid-template-columns: 1fr; }
+}
+
+.hero-visual {
+  margin-top: 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+}
+.hero-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.article-ai-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 24px 0 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+.article-ai-tools-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  font-weight: 600;
+}
+.btn-copy-ai {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  color: var(--amber);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-copy-ai:hover {
+  border-color: var(--amber);
+  background: var(--amber2);
+  color: var(--fg);
+}
+.btn-copy-ai:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.gotop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  color: var(--red);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s, background 0.2s, border-color 0.2s, color 0.2s;
+  font-family: var(--font-mono);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+.gotop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.gotop:hover {
+  background: var(--bg3);
+  border-color: var(--red);
+  color: #fff;
+}
+.gotop:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .gotop { right: 16px; bottom: 20px; width: 42px; height: 42px; }
+}
+
+/* ANIMATION */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.section { animation: fadeIn 0.4s ease both; }
+.section:nth-child(2) { animation-delay: 0.05s; }
+.section:nth-child(3) { animation-delay: 0.10s; }
+.section:nth-child(4) { animation-delay: 0.15s; }
+.section:nth-child(5) { animation-delay: 0.20s; }
+.section:nth-child(6) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="badge badge-red">● Análise Estrutural</span>
+      <span class="badge badge-amber">8 de Janeiro 2023</span>
+      <span class="badge badge-gold">Cui Bono</span>
+      <span class="badge badge-gray">lawfare-timeline · CC0 1.0</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="accent">8J</span> — <span class="sub">Orquestração</span><br>de Omissões
+    </h1>
+    <p class="hero-sub">Arquitetura de utilidade de um evento que ninguém tinha interesse em prevenir. Cinco lados, uma equação, zero investigação independente sobre o que o Estado sabia antes.</p>
+    <div class="hero-question">Cui Bono? — A quem aproveitou?</div>
+    <div class="hero-visual" role="img" aria-label="Dossiê visual: Cui Bono, omissões e convergências em torno do 8 de janeiro">
+      <img src="../assets/img/8j-cui-bono-hero.png" alt="Infográfico dossiê: CUI BONO — rede institucional, linha do tempo e omissões (tema 8 de janeiro)" width="1200" height="630" loading="eager" decoding="async">
+    </div>
+  </div>
+</div>
+
+<nav class="nav doc-nav" aria-label="Índice do dossiê">
+  <div class="nav-scroll">
+    <a class="nav-tab active" href="#sec-premissa" aria-current="page">01 · Premissa</a>
+    <a class="nav-tab" href="#sec-lados">02 · Cinco lados</a>
+    <a class="nav-tab" href="#sec-arquitetura">03 · Arquitetura</a>
+    <a class="nav-tab" href="#sec-entregou">04 · Infraestrutura</a>
+    <a class="nav-tab" href="#sec-rede">05 · Rede</a>
+    <a class="nav-tab" href="#sec-paralelo">06 · EUA/BR</a>
+    <a class="nav-tab" href="#sec-conclusao">07 · Conclusão</a>
+  </div>
+</nav>
+
+<div class="wrap">
+<main id="article-main" class="article-selectable" tabindex="-1">
+
+  <!-- SEÇÃO 1: A PREMISSA -->
+  <div id="sec-premissa" class="topic-panel">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">A <span class="c-red">Premissa</span> que ninguém formula</h2>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">70 dias de acampamento espontâneo, sem violência, sem dispersão, com milhões de pessoas — é a maior demonstração de deslegitimação popular de um resultado eleitoral na história da República. O sistema funcionou perfeitamente para produzir um resultado. E mesmo assim o resultado não foi aceito.</p>
+      <span class="quote-source">Diagnóstico estrutural · lawfare-timeline 2026</span>
+    </div>
+
+    <div class="cards cards-2">
+      <div class="card card-amber">
+        <div class="card-label"><span class="dot dot-amber"></span>O Problema dos 70 Dias</div>
+        <div class="card-title">Falha de legitimação, não de engenharia eleitoral</div>
+        <div class="card-body">
+          Os acampamentos provavam que o mecanismo havia <strong>êxito em vencer mas fracassado em convencer</strong>. Essa distinção é fundamental. A mobilização de TSE, STF, grande mídia, plataformas, institutos de pesquisa e capital financeiro organizado — tudo contra um candidato que mesmo assim quase ganhou — era uma exposição pública e contínua.
+        </div>
+      </div>
+      <div class="card card-red">
+        <div class="card-label"><span class="dot dot-red"></span>A Solução Necessária</div>
+        <div class="card-title">Converter inconformados em criminosos</div>
+        <div class="card-body">
+          A única saída para transformar <strong>exposição em vitória</strong> era converter os inconformados em criminosos. Para isso era necessário um evento suficientemente grave para justificar persecução em massa — persecução ampla o suficiente para incluir quem estava documentando as irregularidades.
+          <br><br>
+          <strong>Os 70 dias foram o problema. O 8J foi a solução.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Hipótese Estrutural</div>
+      <div class="formula-text">
+        <span class="var">Vergonha Institucional</span> <span class="eq">+</span>
+        <span class="var">Equilíbrio de Não-Intervenção</span> <span class="eq">=</span>
+        Infraestrutura de Controle com Prazo de Validade de 1 Ciclo Eleitoral
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- SEÇÃO 2: OS CINCO LADOS -->
+  <div id="sec-lados" class="topic-panel">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Os <span class="c-amber">Cinco Lados</span> — Ganhos e Perdas</h2>
+    </div>
+
+    <div class="cards ops-grid">
+      <!-- Lado 1 -->
+      <div class="card card-red">
+        <div class="card-label"><span class="dot dot-red"></span>Lado 1</div>
+        <div class="card-title">O Manifestante</div>
+        <div class="card-body">Chegou de ônibus. Muitas vezes sem clareza do que estava fazendo. <strong>Instrumento descartável.</strong> O que mais sofreu proporcionalmente.</div>
+        <div class="card-gain">
+          <div class="card-gain-label">Balanço</div>
+          <div class="gain-item"><span class="gain-minus">−</span> Processo, pena, multa, ficha criminal</div>
+          <div class="gain-item"><span class="gain-minus">−</span> Nenhum ganho documentado</div>
+          <div class="gain-item"><span class="gain-minus">−</span> Figurante que pagou a conta do cenário</div>
+        </div>
+      </div>
+      <!-- Lado 2 -->
+      <div class="card card-amber">
+        <div class="card-label"><span class="dot dot-amber"></span>Lado 2</div>
+        <div class="card-title">Campo Bolsonarista Institucional</div>
+        <div class="card-body">Precisava legitimação retroativa do questionamento eleitoral. O 8J <strong>entregou o segundo e destruiu o primeiro.</strong> Resultado líquido negativo — exceto para quem queria encerrar Bolsonaro como liderança sem parecer responsável.</div>
+        <div class="card-gain">
+          <div class="card-gain-label">Balanço</div>
+          <div class="gain-item"><span class="gain-minus">−</span> Capital político devastado</div>
+          <div class="gain-item"><span class="gain-minus">−</span> Capacidade de reação eliminada</div>
+          <div class="gain-item"><span class="gain-plus">+</span> (Para sabotadores internos: vácuo de liderança)</div>
+        </div>
+      </div>
+      <!-- Lado 3 -->
+      <div class="card card-blue">
+        <div class="card-label"><span class="dot dot-blue"></span>Lado 3</div>
+        <div class="card-title">Governo Eleito</div>
+        <div class="card-body">Vitória por margem mínima (&lt;2%), governo que <strong>"não conseguia governar"</strong> (Etchegoyen). Precisava de crise de fundação para unificar base heterogênea e deslocar debate sobre 2022.</div>
+        <div class="card-gain">
+          <div class="card-gain-label">Balanço</div>
+          <div class="gain-item"><span class="gain-plus">+</span> 3 anos de pauta garantida</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Narrativa de vítima e legitimação</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Substituto perfeito para entrega de resultados</div>
+        </div>
+      </div>
+      <!-- Lado 4 -->
+      <div class="card card-purple">
+        <div class="card-label"><span class="dot dot-purple"></span>Lado 4</div>
+        <div class="card-title">Sistema Judicial / STF</div>
+        <div class="card-body">Converteu status de <strong>"alvo de críticas populares"</strong> (Vaza Toga, INQ 4781) para <strong>"salvador da democracia"</strong>. Ganho mais estrutural e menos discutido. A Vaza Toga sumiu do debate.</div>
+        <div class="card-gain">
+          <div class="card-gain-label">Balanço</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Poder monocrático sem freio do due process</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Investigações sobre o STF sepultadas</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Concentração: investigador + acusador + juiz</div>
+        </div>
+      </div>
+      <!-- Lado 5 -->
+      <div class="card card-gold">
+        <div class="card-label"><span class="dot dot-gold"></span>Lado 5</div>
+        <div class="card-title">Sabotadores Internos</div>
+        <div class="card-body">"Sucessão por canibalização". O líder era obstáculo para a normalização da direita e acesso ao orçamento. Omissão de alertas críticos. <strong>Se um aliado sabe e não age, não é negligente — é beneficiário da queda.</strong></div>
+        <div class="card-gain">
+          <div class="card-gain-label">Balanço</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Herança do espólio (votos) sem ônus das polêmicas</div>
+          <div class="gain-item"><span class="gain-plus">+</span> "Saída moral" perfeita pós-8J</div>
+          <div class="gain-item"><span class="gain-plus">+</span> Passe valorizado, líder a zero</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- SEÇÃO 3: ARQUITETURA DE OMISSÕES -->
+  <div id="sec-arquitetura" class="topic-panel">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">A <span class="c-red">Arquitetura</span> de Omissões — Linha do Tempo</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">Out 2022 — Jan 2023</div>
+        <div class="tl-title">70 dias de acampamentos</div>
+        <div class="tl-body">Brasília, SP, Rio: instalações permanentes com cartazes pedindo intervenção. <strong>ABIN existia. GSI existia. PMDF existia. Inteligência do Exército existia.</strong> Nenhuma estrutura alega não ter lido os cartazes.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">8 Jan 2023 — Manhã</div>
+        <div class="tl-title">Anderson Torres: ausência geograficamente precisa</div>
+        <div class="tl-body">Secretário de Segurança Pública do DF e ex-Ministro da Justiça de Bolsonaro estava na Flórida. <strong>A explicação oficial foi negligência.</strong> A negligência coincidiu com ausência precisa e resultado politicamente conveniente.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">8 Jan 2023 — Tarde</div>
+        <div class="tl-title">Sem resistência operacional convincente</div>
+        <div class="tl-body">Multidão penetra nas três sedes dos Poderes. General Freire Gomes disse ter sabido do 8J mais de 40 dias antes — <strong>tirou férias em Fortaleza por todo o período.</strong> Aparato de prevenção: ausente. Aparato de persecução: pronto.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jan 2023 — Dias seguintes</div>
+        <div class="tl-title">Persecução em massa: velocidade record</div>
+        <div class="tl-body">Início das &gt;1.500 condenações em menos de dois anos. Réus com envolvimento mínimo processados em velocidade inversamente proporcional à investigação dos <strong>mandantes da logística</strong> — financiadores dos ônibus, até hoje sem resposta.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2023 — 2026</div>
+        <div class="tl-title">CPI do 8J: nunca autorizada</div>
+        <div class="tl-body">A investigação sobre o que o Estado sabia antes do 8J está concentrada nas mesmas instituições que teriam interesse em que a resposta não circulasse. <strong>Paralelo com EUA: lá os memorandos do FBI existem. Aqui, a investigação simplesmente não ocorreu.</strong></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- SEÇÃO 4: O QUE O 8J ENTREGOU -->
+  <div id="sec-entregou" class="topic-panel">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">O que o <span class="c-amber">8J Entregou</span> — Infraestrutura completa</h2>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num c-red">+1.500</div>
+        <div class="stat-label">condenações em &lt;2 anos contra manifestantes</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num c-amber">0</div>
+        <div class="stat-label">condenações definitivas de mandantes pandêmicos (R$2,27B+)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num c-gold">3</div>
+        <div class="stat-label">anos de pauta midiática garantida</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num c-fg2">0</div>
+        <div class="stat-label">CPIs independentes sobre o que o Estado sabia antes</div>
+      </div>
+    </div>
+
+    <div class="cards ops-grid" style="margin-top:16px">
+      <div class="card card-red">
+        <div class="card-label"><span class="dot dot-red"></span>Produtos Políticos</div>
+        <div class="card-title">O que o evento entregou</div>
+        <div class="card-body">
+          <strong>Inelegibilidade</strong> sem julgamento de mérito eleitoral real.<br><br>
+          <strong>Silêncio por processo</strong> — réu permanente não faz campanha. A preventiva sem prazo é a campanha do sistema.<br><br>
+          <strong>Eliminação da Lava Jato</strong> como narrativa concorrente. Com o campo opositor em posição defensiva, a reabilitação dos réus do campo contrário ocorreu sem resistência organizada.
+        </div>
+      </div>
+      <div class="card card-amber">
+        <div class="card-label"><span class="dot dot-amber"></span>Produtos Jurídicos e Financeiros</div>
+        <div class="card-title">O que o processo entregou</div>
+        <div class="card-body">
+          <strong>Multas sem teto, sem proporcionalidade documentada.</strong> Destrói patrimônio sem condenação criminal. Instrumento novo, sem revisão, sem limite.<br><br>
+          <strong>Censura normalizada como precedente.</strong> O bloqueio do X foi o teste de quanto o sistema aguenta. Resposta: muito mais do que se imaginava.<br><br>
+          <strong>Monocrático como rotina.</strong> O que era exceção em 2019 virou protocolo.
+        </div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-label"><span class="dot dot-purple"></span>Produto Cognitivo</div>
+        <div class="card-title">Saturação deliberada</div>
+        <div class="card-body">
+          Cada nova condenação, cada nova multa, cada novo depoimento consome atenção que não sobra para perguntar: <strong>e a pandemia? e o INSS? e os mandantes?</strong><br><br>
+          Não é possível acompanhar tudo. <strong>Esse é o design.</strong> A guerra cultural perpétua substitui a cobrança por resultados de gestão.
+        </div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-label"><span class="dot dot-gold"></span>Produto Institucional</div>
+        <div class="card-title">Função de laboratório</div>
+        <div class="card-body">
+          O 8J testou em escala real: qual o limite de reação internacional, do Congresso, da imprensa. <strong>Todos os limites revelaram mais espaço do que se supunha.</strong><br><br>
+          A Lei da Dosimetria (535×1 suspensa em 24h) foi possível <em>porque o 8J já havia calibrado os limites do sistema.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- SEÇÃO 5: REDE DE CONVERGÊNCIA -->
+  <div id="sec-rede" class="topic-panel">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Rede de <span class="c-cyan">Convergência</span> — Deep State à Brasileira</h2>
+    </div>
+
+    <div class="network">
+      <div class="network-center">
+        <div class="node-center">8 DE JANEIRO</div>
+      </div>
+      <div class="nodes-row">
+        <div class="node node-red">
+          <div class="node-title">Sistema Judicial</div>
+          <div class="node-desc">De investigado a vítima. Carta branca para monocrático. Vaza Toga sepultada.</div>
+        </div>
+        <div class="node node-amber">
+          <div class="node-title">Governo / PT</div>
+          <div class="node-desc">Crise de fundação. Narrativa de 3 anos. Substituto para gestão.</div>
+        </div>
+        <div class="node node-gold">
+          <div class="node-title">IREE / Deep State</div>
+          <div class="node-desc">Etchegoyen + Jungmann. Gestores que sobrevivem a governos. Aparelhamento técnico.</div>
+        </div>
+        <div class="node node-blue">
+          <div class="node-title">Sabotadores Internos</div>
+          <div class="node-desc">Herança do espólio. Normalização da direita. Acesso à máquina sem o CPF.</div>
+        </div>
+        <div class="node node-purple">
+          <div class="node-title">Capital Financeiro</div>
+          <div class="node-desc">Estabilidade garantida. Expurgo do elemento caótico. "Adultos na sala".</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block" style="margin-top:20px">
+      <p class="quote-text">"O IREE funciona como ponto de convergência. Ter Etchegoyen (ex-GSI), Raul Jungmann (ex-Defesa) e figuras do alto escalão jurídico no mesmo guarda-chuva de um instituto financiado com dezenas de milhões sugere a criação de um Estado Profundo à brasileira — os gestores do Estado que sobrevivem a qualquer governo."</p>
+      <span class="quote-source">Análise estrutural · sessão de 14/05/2026</span>
+    </div>
+  </div>
+  </div>
+
+  <!-- SEÇÃO 6: PARALELO USA/BRASIL -->
+  <div id="sec-paralelo" class="topic-panel">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Paralelo <span class="c-red">EUA / Brasil</span> — O mesmo roteiro</h2>
+    </div>
+
+    <div style="overflow-x:auto">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Dimensão</th>
+          <th>6 de Janeiro (EUA)</th>
+          <th>8 de Janeiro (Brasil)</th>
+          <th>Padrão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conhecimento prévio</td>
+          <td>FBI simulou evento em ago/2020. Informantes infiltrados.</td>
+          <td>ABIN, GSI, Exército: acampamentos há 70 dias nas portas dos quartéis.</td>
+          <td><span class="tag-sim">IGUAL</span></td>
+        </tr>
+        <tr>
+          <td>Falha de prevenção</td>
+          <td>Alertas de inteligência não transmitidos à Polícia do Capitólio.</td>
+          <td>Secretário de Segurança na Flórida. General em férias em Fortaleza.</td>
+          <td><span class="tag-sim">IGUAL</span></td>
+        </tr>
+        <tr>
+          <td>Eficiência da persecução</td>
+          <td>Estratégia de persecução em massa pré-construída antes do crime.</td>
+          <td>&gt;1.500 condenações em &lt;2 anos. Velocidade record.</td>
+          <td><span class="tag-sim">IGUAL</span></td>
+        </tr>
+        <tr>
+          <td>Assimetria punitiva</td>
+          <td>Aplicada a um único lado do espectro político.</td>
+          <td>Acampamentos PT/INCRA 2023: zero investigações equivalentes.</td>
+          <td><span class="tag-sim">IGUAL</span></td>
+        </tr>
+        <tr>
+          <td>Documentação</td>
+          <td>Memorandos do FBI entregues ao Congresso por Kash Patel. Trilha em formação.</td>
+          <td>CPI do 8J nunca autorizada. Investigação concentrada nas instituições interessadas.</td>
+          <td><span class="tag-par">DIVERGE</span></td>
+        </tr>
+        <tr>
+          <td>Mandantes da logística</td>
+          <td>Em investigação.</td>
+          <td>"Quem financiou os ônibus?" — sem resposta até 2026.</td>
+          <td><span class="tag-nao">PIOR no BR</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  </div>
+
+  <!-- CONCLUSÃO -->
+  <div id="sec-conclusao" class="topic-panel">
+  <div class="conclusion">
+    <div class="conclusion-title">A Equação Final</div>
+    <div class="conclusion-text">
+      O 8J não foi um evento. Foi uma <strong>infraestrutura de controle</strong> com prazo de validade de pelo menos um ciclo eleitoral.<br><br>
+      Não é teoria. É a observação de que o único lado com <span class="highlight">capacidade operacional de permitir o evento</span>, ganho imediato em todas as dimensões (narrativa, judicial, eleitoral, cobertura), e interesse direto em que a investigação sobre o que sabia antes não ocorresse — é o mesmo lado que concentrou investigação, acusação e julgamento em função única.<br><br>
+      <strong>Ninguém precisou planejar o 8J.</strong> Precisaram apenas calcular que não evitá-lo resolvia o problema que os 70 dias de acampamento havia criado: a prova pública de que o mecanismo havia sido visível demais.<br><br>
+      A prevenção ficou por fazer. A persecução foi recorde. A pergunta sobre quem financiou os ônibus continua sem resposta. E a CPI que testaria a hipótese <span class="highlight">foi a única que não aconteceu.</span>
+    </div>
+  </div>
+  </div>
+
+</main>
+
+<div class="article-ai-tools">
+  <span class="article-ai-tools-label">Cópia para IA</span>
+  <button type="button" class="btn-copy-ai" id="copy-article-ai" title="Seleciona o texto útil do artigo na área de transferência para colar em chat ou documentos">Copiar texto do artigo (Ctrl+V depois)</button>
+</div>
+
+  <div class="footer">
+    <span class="footer-text">lawfare-timeline · gosurf.site · Dossiê 8J · Maio 2026</span>
+    <span class="footer-cc">CC0 1.0 — Domínio Público</span>
+  </div>
+
+</div>
+
+<button type="button" id="gotop" class="gotop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+(function () {
+  var nav = document.querySelector('nav.doc-nav');
+  if (!nav) return;
+  var sections = document.querySelectorAll('.topic-panel[id^="sec-"]');
+  var links = nav.querySelectorAll('a.nav-tab');
+  if (!sections.length || !links.length) return;
+
+  function navOffset() {
+    return nav.getBoundingClientRect().height + 6;
+  }
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if (on) {
+        a.setAttribute('aria-current', 'page');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function syncFromScroll() {
+    var yCut = navOffset();
+    var activeId = sections[0].id;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= yCut) activeId = sections[i].id;
+    }
+    setActive(activeId);
+  }
+
+  window.addEventListener('scroll', syncFromScroll, { passive: true });
+  window.addEventListener('resize', syncFromScroll, { passive: true });
+  syncFromScroll();
+
+  if (location.hash && document.querySelector(location.hash)) {
+    requestAnimationFrame(syncFromScroll);
+  }
+
+  window.addEventListener('hashchange', function () {
+    requestAnimationFrame(syncFromScroll);
+  });
+
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var href = a.getAttribute('href');
+      if (href.indexOf('#') !== 0) return;
+      var el = document.querySelector(href);
+      if (!el) return;
+      e.preventDefault();
+      var top = el.getBoundingClientRect().top + window.scrollY - navOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+      setActive(el.id);
+    });
+  });
+})();
+
+(function () {
+  var btn = document.getElementById('gotop');
+  if (!btn) return;
+  function toggle() {
+    if (window.scrollY > 320) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+(function () {
+  var copyBtn = document.getElementById('copy-article-ai');
+  if (!copyBtn) return;
+  copyBtn.addEventListener('click', function () {
+    var main = document.getElementById('article-main');
+    if (!main) return;
+    var t = main.innerText.replace(/\n{3,}/g, '\n\n').trim();
+    navigator.clipboard.writeText(t).then(function () {
+      var o = copyBtn.textContent;
+      copyBtn.textContent = 'Copiado.';
+      setTimeout(function () { copyBtn.textContent = o; }, 2000);
+    }).catch(function () {
+      window.alert('Não foi possível copiar automaticamente. Selecione o texto do artigo com o mouse ou use Ctrl+A em seguida Ctrl+C.');
+    });
+  });
+})();
+</script>
+<script src="https://gosurf.site/share-bar.js"></script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

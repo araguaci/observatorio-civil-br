@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interferência dos EUA no Brasil — Mapa Mental Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060a0f;
+    --bg2: #0c1118;
+    --bg3: #111820;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.04);
+    --fg: #e8edf2;
+    --fg2: #8a9ab0;
+    --fg3: #4a5a6e;
+    --amber: #f0a500;
+    --amber2: #ffd060;
+    --red: #e05050;
+    --red2: #ff7070;
+    --blue: #3a8fd4;
+    --blue2: #70c0ff;
+    --green: #3ab87a;
+    --green2: #70e0a0;
+    --purple: #8a60e0;
+    --purple2: #b090ff;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(240,165,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,165,0,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* HEADER */
+  .header {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--amber), var(--red));
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-left { display: flex; flex-direction: column; gap: 4px; }
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .header-tag::before {
+    content: '●';
+    animation: blink 1.4s ease infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 12px;
+    color: var(--fg2);
+    font-family: var(--mono);
+  }
+  .stamp {
+    font-family: var(--mono);
+    font-size: 11px;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    padding: 6px 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    transform: rotate(-2deg);
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .tab {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: var(--fg3);
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: transparent;
+    border: none;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+  }
+  .tab:hover { color: var(--fg2); }
+  .tab.active {
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+  }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* MIND MAP CANVAS */
+  #mindmap-canvas { width: 100%; height: 700px; display: block; }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+  }
+  .card.amber::before { background: var(--amber); }
+  .card.red::before { background: var(--red); }
+  .card.blue::before { background: var(--blue); }
+  .card.green::before { background: var(--green); }
+  .card.purple::before { background: var(--purple); }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+  }
+  .card.amber .card-label { color: var(--amber); }
+  .card.red .card-label { color: var(--red); }
+  .card.blue .card-label { color: var(--blue); }
+  .card.green .card-label { color: var(--green); }
+  .card.purple .card-label { color: var(--purple); }
+
+  .card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .card p { font-size: 12px; color: var(--fg2); line-height: 1.6; }
+  .card ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+  .card li {
+    font-size: 11px;
+    color: var(--fg2);
+    padding-left: 12px;
+    position: relative;
+  }
+  .card li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--fg3);
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin: 2px 2px 0 0;
+    letter-spacing: 0.05em;
+  }
+  .tag.amber { background: rgba(240,165,0,0.12); color: var(--amber); }
+  .tag.red { background: rgba(224,80,80,0.12); color: var(--red2); }
+  .tag.blue { background: rgba(58,143,212,0.12); color: var(--blue2); }
+  .tag.green { background: rgba(58,184,122,0.12); color: var(--green2); }
+  .tag.purple { background: rgba(138,96,224,0.12); color: var(--purple2); }
+  .tag.gray { background: rgba(255,255,255,0.06); color: var(--fg2); }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 120px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border2);
+    position: relative;
+  }
+  .tl-item::after {
+    content: '';
+    position: absolute;
+    left: 116px;
+    top: 24px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 2px solid var(--fg3);
+    z-index: 2;
+  }
+  .tl-item.highlight::after { border-color: var(--amber); background: rgba(240,165,0,0.2); }
+  .tl-item.critical::after { border-color: var(--red); background: rgba(224,80,80,0.2); }
+  .tl-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg3);
+    text-align: right;
+    padding-right: 4px;
+    margin-top: 2px;
+  }
+  .tl-content h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .tl-content p { font-size: 11px; color: var(--fg2); }
+
+  /* ACTOR MAP */
+  #actor-canvas { width: 100%; height: 680px; display: block; }
+
+  /* FINANCIAMENTO TABLE */
+  .fin-table { width: 100%; border-collapse: collapse; }
+  .fin-table th {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg3);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    background: var(--bg2);
+  }
+  .fin-table td {
+    font-size: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border2);
+    color: var(--fg2);
+  }
+  .fin-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .fin-table .num {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--amber);
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--fg2);
+  }
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-line {
+    width: 20px; height: 2px;
+    flex-shrink: 0;
+  }
+
+  /* REFERENCES */
+  .ref-list { display: flex; flex-direction: column; gap: 6px; }
+  .ref-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+  }
+  .ref-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
+    min-width: 24px;
+    margin-top: 2px;
+  }
+  .ref-title { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+  .ref-meta { font-size: 11px; color: var(--fg3); font-family: var(--mono); }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .section-header .badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 8px;
+    background: rgba(240,165,0,0.1);
+    color: var(--amber);
+    letter-spacing: 0.08em;
+  }
+
+  /* CANVAS TOOLTIP */
+  .canvas-tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--fg);
+    max-width: 240px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.1s;
+    font-family: var(--mono);
+  }
+
+  .canvas-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 4px;
+    position: relative;
+  }
+
+  .footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg3);
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-row">
+      <div class="header-left">
+        <div class="header-tag">Projeto Lawfare Timeline — Dossiê Estratégico</div>
+        <h1>Interferência dos EUA no Brasil<br><span style="color:var(--amber)">2019–2025</span></h1>
+        <div class="header-sub">USAID · NED · Departamento de Estado · Parceiros Brasileiros · Eleições 2022</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+        <div class="stamp">Pesquisa Pública</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--fg3)">Elaborado: 09/03/2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('mindmap')">Mapa Mental</button>
+    <button class="tab" onclick="switchTab('atores')">Mapa de Atores</button>
+    <button class="tab" onclick="switchTab('cronologia')">Cronologia</button>
+    <button class="tab" onclick="switchTab('financiamento')">Financiamentos</button>
+    <button class="tab" onclick="switchTab('agencias')">Agências & ONGs</button>
+    <button class="tab" onclick="switchTab('referencias')">Referências</button>
+  </div>
+
+  <!-- PANEL: MIND MAP -->
+  <div class="panel active" id="panel-mindmap">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>USAID / Financiamento</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Eleições / Interferência</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>NED / Soft Power</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>ONGs / Fact-checking</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Resposta Institucional</div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:rgba(255,255,255,0.3)"></div>Conexão direta
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:var(--amber);opacity:0.4"></div>Fluxo financeiro
+      </div>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="mindmap-canvas"></canvas>
+    </div>
+    <div style="margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--fg3);text-align:center;">
+      Passe o cursor sobre os nós para detalhes · Clique para fixar
+    </div>
+  </div>
+
+  <!-- PANEL: ATORES -->
+  <div class="panel" id="panel-atores">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Agência Americana</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Pessoa Física</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Instituição Brasileira</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>ONG / Mídia</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Internacional</div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:var(--amber);height:1px"></div>Financiamento
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:var(--red);height:1px;border-top:1px dashed var(--red)"></div>Alegado / Não comprovado
+      </div>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="actor-canvas"></canvas>
+    </div>
+    <div style="margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--fg3);text-align:center;">
+      Mapa de relações entre atores — linhas contínuas = documentado · tracejadas = alegado
+    </div>
+  </div>
+
+  <!-- PANEL: CRONOLOGIA -->
+  <div class="panel" id="panel-cronologia">
+    <div class="section-header">
+      <h2>Cronologia de Eventos</h2>
+      <span class="badge">2019–2025</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2019</div>
+        <div class="tl-content">
+          <h4>Início do Governo Bolsonaro e relações EUA–Brasil</h4>
+          <p>Aproximação diplomática com governo Trump. USAID mantém presença histórica no Brasil, com foco em meio ambiente, saúde e educação. NED financia organizações da sociedade civil.</p>
+          <div style="margin-top:6px"><span class="tag gray">Contexto</span><span class="tag blue">Diplomacia</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2020</div>
+        <div class="tl-content">
+          <h4>NED no Brasil — US$ 1,49 milhão</h4>
+          <p>National Endowment for Democracy repassa recursos a organizações brasileiras. Solidarity Center recebe US$ 850 mil. Fundação FHC recebe US$ 77,3 mil. Instituto Tecnologia e Equidade realiza treinamentos de jornalistas e autoridades eleitorais.</p>
+          <div style="margin-top:6px"><span class="tag amber">Financiamento</span><span class="tag blue">NED</span><span class="tag green">ONGs</span></div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-date">Abr/2021</div>
+        <div class="tl-content">
+          <h4>Parceria TSE–USAID: Guia de Combate à Desinformação</h4>
+          <p>TSE e USAID elaboram guia destinado a ser replicado em outros países. Parceria executada pelo CEPPS (Consórcio para Eleições e Fortalecimento do Processo Político), supervisionado pela USAID.</p>
+          <div style="margin-top:6px"><span class="tag red">Eleições</span><span class="tag amber">USAID</span><span class="tag blue">TSE</span></div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-date">Dez/2021</div>
+        <div class="tl-content">
+          <h4>Evento "Eleições e Transformação Digital"</h4>
+          <p>Organizado pelo CEPPS/USAID com participação do ministro Luís Roberto Barroso. Parlamentares questionam adequação da parceria em véspera de ano eleitoral.</p>
+          <div style="margin-top:6px"><span class="tag red">Interferência</span><span class="tag amber">USAID</span></div>
+        </div>
+      </div>
+      <div class="tl-item critical">
+        <div class="tl-date">2022</div>
+        <div class="tl-content">
+          <h4>Eleições Presidenciais — USAID investe US$ 29,2 milhões no Brasil</h4>
+          <p>Ano eleitoral. Lula (PT) derrota Bolsonaro (PL) em outubro. USAID registra investimento de US$ 29,2 milhões (~R$ 175 mi) no Brasil. Alegações de financiamento de fact-checkers e ONGs pró-"combate à desinformação".</p>
+          <div style="margin-top:6px"><span class="tag red">Crítico</span><span class="tag amber">US$ 29,2 mi</span><span class="tag green">Fact-checking</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2023</div>
+        <div class="tl-content">
+          <h4>Continuidade dos financiamentos — US$ 20 milhões</h4>
+          <p>Governo Lula assume. USAID mantém operações com US$ 20 milhões destinados ao Brasil, com foco em meio ambiente (Amazônia), saúde e assistência social. CGIAR, CIFOR-ICRAF e WWF-Brasil entre beneficiários.</p>
+          <div style="margin-top:6px"><span class="tag amber">US$ 20 mi</span><span class="tag green">Ambiental</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2024</div>
+        <div class="tl-content">
+          <h4>US$ 24,7 milhões — Maior detalhamento público</h4>
+          <p>Dados consolidados de ForeignAssistance.gov: US$ 24,7 milhões. 55,56% para empresas/agências estrangeiras, 15,33% para organizações brasileiras. Total 2023–2024: US$ 44,8 milhões.</p>
+          <div style="margin-top:6px"><span class="tag amber">US$ 24,7 mi</span><span class="tag gray">ForeignAssistance.gov</span></div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-date">Fev/2025</div>
+        <div class="tl-content">
+          <h4>Denúncias de Benz e Bolsonaro ganham repercussão</h4>
+          <p>Eduardo Bolsonaro e Mike Benz fazem declarações sobre interferência da USAID. Pedido de CPI atinge 100+ assinaturas (necessário: 171). Trump suspende operações da USAID em janeiro.</p>
+          <div style="margin-top:6px"><span class="tag red">CPI</span><span class="tag purple">Congresso</span></div>
+        </div>
+      </div>
+      <div class="tl-item critical">
+        <div class="tl-date">Jan/2025</div>
+        <div class="tl-content">
+          <h4>Trump suspende operações da USAID</h4>
+          <p>Governo Trump congela novos repasses. Trump classifica a USAID como instrumento de "manipulação política" e "tomada por radicais de esquerda". Projetos ambientais no Brasil (R$ 84 mi) em risco.</p>
+          <div style="margin-top:6px"><span class="tag red">Extinção</span><span class="tag amber">Trump</span></div>
+        </div>
+      </div>
+      <div class="tl-item critical">
+        <div class="tl-date">Jul/2025</div>
+        <div class="tl-content">
+          <h4>USAID formalmente extinta</h4>
+          <p>Agência encerra atividades após 64 anos. Iniciativa Tapajós for Life (WWF) e Cáritas Brasileira com repasses suspensos. Cenário de financiamento internacional no Brasil alterado.</p>
+          <div style="margin-top:6px"><span class="tag red">Extinção USAID</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Ago/2025</div>
+        <div class="tl-content">
+          <h4>Mike Benz depõe na CREDN + Audiência no Senado</h4>
+          <p>Ex-funcionário do Departamento de Estado depõe perante Comissão de Relações Exteriores. Afirma que 11 agências americanas coordenaram ações; mais de US$ 90 mi teriam sido gastos no Brasil. Senado realiza audiência sobre atuação da USAID.</p>
+          <div style="margin-top:6px"><span class="tag purple">CREDN</span><span class="tag red">Depoimento</span><span class="tag purple">Senado</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: FINANCIAMENTO -->
+  <div class="panel" id="panel-financiamento">
+    <div class="section-header">
+      <h2>Mapa de Financiamentos</h2>
+      <span class="badge">Dados: ForeignAssistance.gov</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div class="card amber">
+        <div class="card-label">Total Documentado</div>
+        <h3 style="font-size:26px;font-family:var(--mono);color:var(--amber2)">US$ 73,9 mi</h3>
+        <p>Período 2022–2024 conforme ForeignAssistance.gov e fontes jornalísticas</p>
+      </div>
+      <div class="card red">
+        <div class="card-label">Alegado (Período Bolsonaro)</div>
+        <h3 style="font-size:26px;font-family:var(--mono);color:var(--red2)">US$ 90+ mi</h3>
+        <p>Conforme depoimento de Mike Benz à CREDN — não verificado em bases públicas</p>
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <h3 style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--fg2)">Volumes por Ano Fiscal</h3>
+      <table class="fin-table">
+        <thead>
+          <tr><th>Período</th><th>Valor (USD)</th><th>Valor (BRL aprox.)</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2022 (ano fiscal)</td><td class="num">US$ 29,2 mi</td><td class="num">~R$ 175 mi</td><td><span class="tag red">Ano eleitoral</span></td></tr>
+          <tr><td>2023</td><td class="num">US$ 20 mi</td><td class="num">~R$ 120 mi</td><td><span class="tag gray">Gov Lula</span></td></tr>
+          <tr><td>2024</td><td class="num">US$ 24,7 mi</td><td class="num">~R$ 148 mi</td><td><span class="tag gray">Dados consolidados</span></td></tr>
+          <tr style="font-weight:600;"><td><b>Total 2023–2024</b></td><td class="num"><b>US$ 44,8 mi</b></td><td class="num"><b>~R$ 267 mi</b></td><td><span class="tag amber">Confirmado</span></td></tr>
+          <tr><td>NED (2020)</td><td class="num">US$ 1,49 mi</td><td class="num">~R$ 8 mi</td><td><span class="tag blue">NED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-bottom:16px;">
+      <h3 style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--fg2)">Principais Beneficiários (2024)</h3>
+      <table class="fin-table">
+        <thead>
+          <tr><th>Organização</th><th>Valor (USD)</th><th>Área</th><th>Tipo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CGIAR</td><td class="num">US$ 6,4 mi</td><td>Pesquisa agrícola</td><td><span class="tag purple">Internacional</span></td></tr>
+          <tr><td>CIFOR-ICRAF</td><td class="num">US$ 2,7 mi</td><td>Gestão florestal</td><td><span class="tag purple">Internacional</span></td></tr>
+          <tr><td>Adra (Agência Adventista)</td><td class="num">US$ 2,2 mi</td><td>Humanitária</td><td><span class="tag purple">Internacional</span></td></tr>
+          <tr><td>WWF-Brasil (Tapajós for Life)</td><td class="num">US$ 1,3 mi</td><td>Ambiental</td><td><span class="tag green">ONG BR</span></td></tr>
+          <tr><td>Cáritas Brasileira</td><td class="num">US$ 1,5 mi</td><td>Nutrição / Emergência</td><td><span class="tag green">ONG BR</span></td></tr>
+          <tr><td>IEB (Instituto Int. de Educação do Brasil)</td><td class="num">US$ 977 mi</td><td>Terras indígenas</td><td><span class="tag green">ONG BR</span></td></tr>
+          <tr><td>Centro de Trabalho Indigenista</td><td class="num">US$ 603 mi</td><td>Povos indígenas</td><td><span class="tag green">ONG BR</span></td></tr>
+          <tr><td>Instituto Centro de Vida</td><td class="num">US$ 33,4 mi</td><td>Ambiental</td><td><span class="tag green">ONG BR</span></td></tr>
+          <tr><td>Instituto Vero (Felipe Neto)</td><td class="num">US$ 30 mi</td><td>Mídia / Digital</td><td><span class="tag red">Alegado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--fg2)">Distribuição por Tipo de Entidade (2024)</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:180px;background:var(--bg2);border:1px solid var(--border);padding:12px;">
+          <div style="font-family:var(--mono);font-size:18px;color:var(--amber)">55,56%</div>
+          <div style="font-size:11px;color:var(--fg2);margin-top:2px">Empresas, instituições e agências estrangeiras</div>
+        </div>
+        <div style="flex:1;min-width:180px;background:var(--bg2);border:1px solid var(--border);padding:12px;">
+          <div style="font-family:var(--mono);font-size:18px;color:var(--green)">17,44%</div>
+          <div style="font-size:11px;color:var(--fg2);margin-top:2px">ONGs internacionais</div>
+        </div>
+        <div style="flex:1;min-width:180px;background:var(--bg2);border:1px solid var(--border);padding:12px;">
+          <div style="font-family:var(--mono);font-size:18px;color:var(--blue)">15,33%</div>
+          <div style="font-size:11px;color:var(--fg2);margin-top:2px">Organizações brasileiras</div>
+        </div>
+        <div style="flex:1;min-width:180px;background:var(--bg2);border:1px solid var(--border);padding:12px;">
+          <div style="font-family:var(--mono);font-size:18px;color:var(--fg3)">11,67%</div>
+          <div style="font-size:11px;color:var(--fg2);margin-top:2px">Entidades não especificadas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: AGÊNCIAS -->
+  <div class="panel" id="panel-agencias">
+    <div class="cards-grid">
+      <div class="card amber">
+        <div class="card-label">Agência Americana</div>
+        <h3>USAID</h3>
+        <p>United States Agency for International Development. Criada em 1961. Vinculada ao Departamento de Estado. Extinta pelo governo Trump em julho de 2025.</p>
+        <ul>
+          <li>Atuação: saúde, educação, meio ambiente, "fortalecimento democrático"</li>
+          <li>Brasil: centenas de parceiros locais e internacionais</li>
+          <li>Parceria documentada com TSE em 2021</li>
+          <li>Suspenção: jan/2025 · Extinção: jul/2025</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag amber">Documentado</span><span class="tag gray">Extinta 2025</span></div>
+      </div>
+      <div class="card blue">
+        <div class="card-label">Agência Americana</div>
+        <h3>NED — National Endowment for Democracy</h3>
+        <p>Entidade privada financiada pelo Congresso americano. Atua em "promoção da democracia" em países ao redor do mundo.</p>
+        <ul>
+          <li>Orçamento no Brasil (2020): US$ 1.496.800</li>
+          <li>Solidarity Center: US$ 850 mil</li>
+          <li>Fundação FHC: US$ 77,3 mil</li>
+          <li>Instituto Tecnologia e Equidade: treinamento jornalistas / autoridades eleitorais</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag blue">Documentado</span></div>
+      </div>
+      <div class="card blue">
+        <div class="card-label">Consórcio USAID</div>
+        <h3>CEPPS</h3>
+        <p>Consórcio para Eleições e Fortalecimento do Processo Político. Supervisionado pela USAID. Organizou evento com Barroso em dezembro de 2021.</p>
+        <ul>
+          <li>Executou parceria TSE–USAID</li>
+          <li>Evento "Eleições e Transformação Digital" (dez/2021)</li>
+          <li>Participação de ministros do TSE</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag blue">Documentado</span><span class="tag red">Questionado</span></div>
+      </div>
+      <div class="card red">
+        <div class="card-label">Whistleblower</div>
+        <h3>Mike Benz</h3>
+        <p>Ex-funcionário do Departamento de Estado dos EUA. Depôs na CREDN em agosto de 2025. Fez declarações sobre coordenação entre agências para influenciar eleições no Brasil.</p>
+        <ul>
+          <li>Alegou: 11 agências coordenadas para controlar informação</li>
+          <li>Alegou: mais de US$ 90 mi no Brasil (período Bolsonaro)</li>
+          <li>Alegou: contato direto Barroso–USAID para "alinhar ações"</li>
+          <li>Alegações NÃO comprovadas judicialmente</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag red">Alegado</span><span class="tag gray">Não comprovado</span></div>
+      </div>
+      <div class="card purple">
+        <div class="card-label">Organização Internacional</div>
+        <h3>Atlantic Council</h3>
+        <p>Think tank americano. Citado por Mike Benz como oferecendo "treinamentos em censura" sob pretexto de combate à desinformação.</p>
+        <div style="margin-top:8px"><span class="tag red">Alegado</span></div>
+      </div>
+      <div class="card purple">
+        <div class="card-label">Organização Internacional</div>
+        <h3>ICFJ — International Center for Journalists</h3>
+        <p>Citado como canal de repasses adicionais para organizações de fact-checking brasileiras. Alegação de Mike Benz.</p>
+        <div style="margin-top:8px"><span class="tag red">Alegado</span></div>
+      </div>
+      <div class="card green">
+        <div class="card-label">Fact-checking / Mídia</div>
+        <h3>Agência Lupa</h3>
+        <p>Agência de fact-checking brasileira. Citada por Mike Benz como beneficiária de financiamento americano. Negou ter recebido recursos da USAID.</p>
+        <ul>
+          <li>Projeto Comprova e Estadão Verifica: ausência de registro direto em ForeignAssistance.gov</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag red">Alegado</span><span class="tag green">Negado</span></div>
+      </div>
+      <div class="card green">
+        <div class="card-label">Fact-checking / Mídia</div>
+        <h3>Abraji / Aos Fatos</h3>
+        <p>Citadas por Benz como beneficiárias de financiamento americano para controle de narrativa. Sem confirmação em bases públicas.</p>
+        <div style="margin-top:8px"><span class="tag red">Alegado</span></div>
+      </div>
+      <div class="card purple">
+        <div class="card-label">Resposta Institucional</div>
+        <h3>CPI da USAID</h3>
+        <p>Articulada por Eduardo Bolsonaro (PL-SP) e Gustavo Gayer (PL-GO). Busca investigar financiamentos e possível interferência nas eleições de 2022.</p>
+        <ul>
+          <li>100+ assinaturas (necessário: 171)</li>
+          <li>Status: em articulação (2025)</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag purple">Em curso</span></div>
+      </div>
+      <div class="card blue">
+        <div class="card-label">Instituição Brasileira</div>
+        <h3>TSE — Tribunal Superior Eleitoral</h3>
+        <p>Parceria documentada com USAID/CEPPS em 2021. Questão central no debate sobre ingerência estrangeira no processo eleitoral de 2022.</p>
+        <ul>
+          <li>Ministro Barroso participou de eventos CEPPS</li>
+          <li>Resolução 23.607/2019 proíbe doações estrangeiras a campanhas</li>
+        </ul>
+        <div style="margin-top:8px"><span class="tag blue">Documentado</span><span class="tag red">Questionado</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: REFERÊNCIAS -->
+  <div class="panel" id="panel-referencias">
+    <div class="section-header">
+      <h2>Referências e Fontes</h2>
+      <span class="badge">Verificação de Fontes</span>
+    </div>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-num">[01]</div>
+        <div>
+          <div class="ref-title">ForeignAssistance.gov — Brazil</div>
+          <div class="ref-meta">foreignassistance.gov/cd/brazil/ · Fonte primária oficial · Dados públicos do governo EUA</div>
+          <span class="tag green">Primária</span><span class="tag amber">Dados oficiais</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[02]</div>
+        <div>
+          <div class="ref-title">Depoimento Mike Benz — CREDN, Câmara dos Deputados</div>
+          <div class="ref-meta">6 de agosto de 2025 · Comissão de Relações Exteriores e Defesa Nacional</div>
+          <span class="tag red">Alegação</span><span class="tag gray">Não comprovado</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[03]</div>
+        <div>
+          <div class="ref-title">Sensus Notícias — USAID destinou US$ 44,8 mi ao Brasil em 2023–2024</div>
+          <div class="ref-meta">Veículo jornalístico · Baseado em ForeignAssistance.gov</div>
+          <span class="tag blue">Jornalismo</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[04]</div>
+        <div>
+          <div class="ref-title">Projeto Comprova — Verificação: Agência Lupa e USAID</div>
+          <div class="ref-meta">Consórcio de fact-checking · Ausência de registro direto da Lupa em ForeignAssistance.gov</div>
+          <span class="tag green">Fact-check</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[05]</div>
+        <div>
+          <div class="ref-title">Estadão Verifica — USAID e imprensa brasileira</div>
+          <div class="ref-meta">Estadão · Verificação de alegações sobre financiamento de veículos de mídia</div>
+          <span class="tag green">Fact-check</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[06]</div>
+        <div>
+          <div class="ref-title">GAO — Government Accountability Office</div>
+          <div class="ref-meta">Relatório sobre coordenação entre USAID, Departamento de Estado e NED em programas de democracia</div>
+          <span class="tag amber">Primária</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[07]</div>
+        <div>
+          <div class="ref-title">Portal da Câmara dos Deputados</div>
+          <div class="ref-meta">Pedido de CPI da USAID · Comissão de Relações Exteriores e Defesa Nacional</div>
+          <span class="tag blue">Legislativo</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[08]</div>
+        <div>
+          <div class="ref-title">Instituto IDL — Parceria USAID–TSE</div>
+          <div class="ref-meta">Análise da colaboração entre TSE e USAID em 2021</div>
+          <span class="tag blue">Análise</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[09]</div>
+        <div>
+          <div class="ref-title">O Poder — ONGs brasileiras e USAID</div>
+          <div class="ref-meta">Mapeamento de organizações beneficiárias</div>
+          <span class="tag blue">Jornalismo</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[10]</div>
+        <div>
+          <div class="ref-title">NED — National Endowment for Democracy: Annual Report 2020</div>
+          <div class="ref-meta">Dados de financiamentos no Brasil: Solidarity Center, Fundação FHC, Instituto Tecnologia e Equidade</div>
+          <span class="tag amber">Primária</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-num">[11]</div>
+        <div>
+          <div class="ref-title">Senado Notícias — Audiência sobre atuação da USAID no Brasil</div>
+          <div class="ref-meta">CSP — Comissão de Serviços de Infraestrutura · 28 de agosto de 2025</div>
+          <span class="tag blue">Legislativo</span>
+        </div>
+      </div>
+      <div style="padding:12px 16px;background:rgba(240,165,0,0.05);border:1px solid rgba(240,165,0,0.15);margin-top:12px;">
+        <p style="font-size:11px;color:var(--fg2);font-family:var(--mono);">
+          ⚠ NOTA METODOLÓGICA: Parte das informações provém de alegações não comprovadas judicialmente (especialmente depoimento Benz). Dados de ForeignAssistance.gov podem omitir detalhes por sigilo. Há controvérsia entre fontes sobre valores e beneficiários específicos. Recomenda-se consulta às fontes primárias antes de uso em contextos formais.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>PROJETO LAWFARE TIMELINE · Pesquisa pública · Não constitui posicionamento oficial</span>
+    <span>Elaborado: 09/03/2025 · v1.0</span>
+  </div>
+</div>
+
+<div class="canvas-tooltip" id="tooltip"></div>
+
+<script>
+// ===================== TAB SWITCHING =====================
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const tabs = document.querySelectorAll('.tab');
+  const tabOrder = ['mindmap','atores','cronologia','financiamento','agencias','referencias'];
+  tabs[tabOrder.indexOf(id)].classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  if (id === 'mindmap') drawMindMap();
+  if (id === 'atores') drawActorMap();
+}
+
+// ===================== COLORS =====================
+const C = {
+  amber: '#f0a500',
+  amber2: '#ffd060',
+  red: '#e05050',
+  blue: '#3a8fd4',
+  green: '#3ab87a',
+  purple: '#8a60e0',
+  fg: '#e8edf2',
+  fg2: '#8a9ab0',
+  fg3: '#4a5a6e',
+  bg2: '#0c1118',
+  bg3: '#111820',
+  border: 'rgba(255,255,255,0.08)',
+};
+
+// ===================== MIND MAP =====================
+function drawMindMap() {
+  const canvas = document.getElementById('mindmap-canvas');
+  const wrap = canvas.parentElement;
+  canvas.width = wrap.clientWidth - 8;
+  canvas.height = 700;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const nodes = [];
+  const edges = [];
+
+  // Central node
+  const center = { x: cx, y: cy, r: 52, label: 'Interferência\nEUA–Brasil', sublabel: '2019–2025', color: C.amber, textColor: '#000', id: 'center' };
+  nodes.push(center);
+
+  // Branch definitions
+  const branches = [
+    {
+      angle: -90, dist: 170, color: C.amber, label: 'USAID', sublabel: 'Agência Principal',
+      children: [
+        { angle: -130, dist: 120, label: 'US$ 29,2 mi\n(2022)', sublabel: 'Ano eleitoral', color: C.amber },
+        { angle: -90, dist: 120, label: 'US$ 44,8 mi\n(2023–24)', sublabel: 'Consolidado', color: C.amber },
+        { angle: -50, dist: 120, label: 'CEPPS\nConsórcio', sublabel: 'Parceiro eleitoral', color: C.amber },
+      ]
+    },
+    {
+      angle: -10, dist: 180, color: C.red, label: 'Eleições 2022', sublabel: 'Interferência alegada',
+      children: [
+        { angle: 20, dist: 130, label: 'TSE\nParceria 2021', sublabel: 'Fact-checking', color: C.red },
+        { angle: -10, dist: 130, label: 'Barroso\n& USAID', sublabel: 'Evento CEPPS', color: C.red },
+        { angle: -40, dist: 130, label: 'Guia\nDesinformação', sublabel: 'Abr/2021', color: C.red },
+      ]
+    },
+    {
+      angle: 60, dist: 175, color: C.green, label: 'ONGs & Mídia', sublabel: 'Beneficiários',
+      children: [
+        { angle: 80, dist: 120, label: 'WWF-Brasil\nUS$ 1,3 mi', sublabel: 'Ambiental', color: C.green },
+        { angle: 55, dist: 120, label: 'Cáritas\nUS$ 1,5 mi', sublabel: 'Social', color: C.green },
+        { angle: 30, dist: 120, label: 'Lupa / Abraji\nAos Fatos', sublabel: '⚠ Alegado', color: C.red },
+      ]
+    },
+    {
+      angle: 130, dist: 175, color: C.blue, label: 'NED', sublabel: 'Soft Power',
+      children: [
+        { angle: 155, dist: 120, label: 'Solidarity\nCenter US$850k', sublabel: 'Trabalhistas', color: C.blue },
+        { angle: 130, dist: 120, label: 'Fundação\nFHC US$77k', sublabel: 'Política', color: C.blue },
+        { angle: 105, dist: 120, label: 'Atlantic\nCouncil', sublabel: '⚠ Alegado', color: C.red },
+      ]
+    },
+    {
+      angle: 180, dist: 180, color: C.purple, label: 'Resposta\nInstitucional', sublabel: 'Brasil 2025',
+      children: [
+        { angle: 200, dist: 130, label: 'CPI\nUSAID', sublabel: '100+ assin.', color: C.purple },
+        { angle: 175, dist: 130, label: 'CREDN\nBenz 2025', sublabel: 'Depoimento', color: C.purple },
+        { angle: 150, dist: 130, label: 'Audiência\nSenado', sublabel: 'Ago/2025', color: C.purple },
+      ]
+    },
+    {
+      angle: 230, dist: 170, color: '#e07020', label: 'Extinção\nUSAID 2025', sublabel: 'Trump',
+      children: [
+        { angle: 250, dist: 120, label: 'Jan/2025\nSuspensão', sublabel: 'Trump', color: '#e07020' },
+        { angle: 225, dist: 120, label: 'Jul/2025\nExtinção', sublabel: 'Formal', color: '#e07020' },
+        { angle: 200, dist: 120, label: 'R$84mi\nCompromissos', sublabel: 'Em risco', color: '#e07020' },
+      ]
+    },
+  ];
+
+  // Build all nodes/edges
+  branches.forEach(b => {
+    const rad = b.angle * Math.PI / 180;
+    const bx = cx + Math.cos(rad) * b.dist;
+    const by = cy + Math.sin(rad) * b.dist;
+    const bn = { x: bx, y: by, r: 36, label: b.label, sublabel: b.sublabel, color: b.color, id: 'b_'+b.angle };
+    nodes.push(bn);
+    edges.push({ from: center, to: bn, color: b.color, dash: false, width: 2 });
+
+    b.children.forEach(ch => {
+      const crad = ch.angle * Math.PI / 180;
+      const chx = bx + Math.cos(crad) * ch.dist;
+      const chy = by + Math.sin(crad) * ch.dist;
+      const chAllegation = ch.sublabel && ch.sublabel.includes('⚠');
+      const cn = { x: chx, y: chy, r: 26, label: ch.label, sublabel: ch.sublabel, color: ch.color, small: true, id: 'c_'+ch.angle };
+      nodes.push(cn);
+      edges.push({ from: bn, to: cn, color: ch.color, dash: chAllegation, width: 1.5 });
+    });
+  });
+
+  function drawAll() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw edges first
+    edges.forEach(e => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(e.from.x, e.from.y);
+      ctx.lineTo(e.to.x, e.to.y);
+      ctx.strokeStyle = e.color + '60';
+      ctx.lineWidth = e.width;
+      if (e.dash) ctx.setLineDash([4, 4]);
+      else ctx.setLineDash([]);
+      ctx.stroke();
+      ctx.restore();
+    });
+
+    // Draw nodes
+    nodes.forEach(n => {
+      ctx.save();
+      // Glow
+      const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 1.8);
+      grd.addColorStop(0, n.color + '20');
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * 1.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Circle
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = C.bg3;
+      ctx.fill();
+      ctx.strokeStyle = n.color;
+      ctx.lineWidth = n.small ? 1.5 : 2.5;
+      ctx.stroke();
+
+      // Text
+      const lines = n.label.split('\n');
+      const fontSize = n === center ? 13 : n.small ? 9 : 11;
+      ctx.font = `600 ${fontSize}px 'IBM Plex Mono'`;
+      ctx.fillStyle = n === center ? C.amber2 : C.fg;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const lineH = fontSize + 3;
+      const startY = n.y - (lines.length - 1) * lineH / 2;
+      lines.forEach((l, i) => {
+        ctx.fillText(l, n.x, startY + i * lineH);
+      });
+
+      if (n.sublabel) {
+        ctx.font = `400 8px 'IBM Plex Mono'`;
+        ctx.fillStyle = n.color + 'cc';
+        ctx.fillText(n.sublabel, n.x, n.y + n.r + 10);
+      }
+      ctx.restore();
+    });
+  }
+
+  drawAll();
+
+  // Tooltip
+  const tooltip = document.getElementById('tooltip');
+  canvas.onmousemove = function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    let found = null;
+    nodes.forEach(n => {
+      const dist = Math.sqrt((mx-n.x)**2 + (my-n.y)**2);
+      if (dist < n.r + 10) found = n;
+    });
+    if (found) {
+      tooltip.style.opacity = '1';
+      tooltip.style.left = (e.clientX + 12) + 'px';
+      tooltip.style.top = (e.clientY - 10) + 'px';
+      tooltip.innerHTML = `<span style="color:${found.color}">${found.label.replace('\n',' ')}</span>${found.sublabel ? '<br>'+found.sublabel : ''}`;
+    } else {
+      tooltip.style.opacity = '0';
+    }
+  };
+  canvas.onmouseleave = () => { tooltip.style.opacity = '0'; };
+}
+
+// ===================== ACTOR MAP =====================
+function drawActorMap() {
+  const canvas = document.getElementById('actor-canvas');
+  const wrap = canvas.parentElement;
+  canvas.width = wrap.clientWidth - 8;
+  canvas.height = 680;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  ctx.clearRect(0,0,W,H);
+
+  const actors = [
+    // US Gov
+    { id: 'dos', x: W*0.12, y: H*0.2, label: 'Depto.\nEstado EUA', color: C.amber, type: 'us-gov', size: 44 },
+    { id: 'usaid', x: W*0.22, y: H*0.4, label: 'USAID', color: C.amber, type: 'us-gov', size: 50 },
+    { id: 'ned', x: W*0.1, y: H*0.6, label: 'NED', color: C.amber, type: 'us-gov', size: 40 },
+    { id: 'benz', x: W*0.05, y: H*0.82, label: 'Mike\nBenz', color: C.red, type: 'person', size: 32 },
+    { id: 'embaixada', x: W*0.28, y: H*0.18, label: 'Embaixada\nEUA', color: C.amber, type: 'us-gov', size: 34 },
+    // International
+    { id: 'cepps', x: W*0.42, y: H*0.28, label: 'CEPPS', color: '#8a60e0', type: 'intl', size: 36 },
+    { id: 'icfj', x: W*0.38, y: H*0.62, label: 'ICFJ', color: '#8a60e0', type: 'intl', size: 32 },
+    { id: 'atlantic', x: W*0.22, y: H*0.76, label: 'Atlantic\nCouncil', color: '#8a60e0', type: 'intl', size: 32 },
+    { id: 'solidarity', x: W*0.18, y: H*0.92, label: 'Solidarity\nCenter', color: C.blue, type: 'ong', size: 28 },
+    // Brazilian institutions
+    { id: 'tse', x: W*0.62, y: H*0.22, label: 'TSE', color: C.blue, type: 'br-inst', size: 48 },
+    { id: 'barroso', x: W*0.75, y: H*0.12, label: 'Min.\nBarroso', color: C.blue, type: 'person', size: 34 },
+    { id: 'congresso', x: W*0.88, y: H*0.32, label: 'Congresso\nBrasil', color: C.purple, type: 'br-inst', size: 40 },
+    { id: 'cpi', x: W*0.92, y: H*0.52, label: 'CPI\nUSAID', color: C.purple, type: 'br-inst', size: 32 },
+    // ONGs / media
+    { id: 'lupa', x: W*0.55, y: H*0.62, label: 'Ag.\nLupa', color: C.green, type: 'media', size: 30 },
+    { id: 'abraji', x: W*0.68, y: H*0.72, label: 'Abraji', color: C.green, type: 'media', size: 30 },
+    { id: 'wwf', x: W*0.44, y: H*0.82, label: 'WWF\nBrasil', color: C.green, type: 'ong', size: 30 },
+    { id: 'caritas', x: W*0.58, y: H*0.9, label: 'Cáritas\nBrasileira', color: C.green, type: 'ong', size: 30 },
+    { id: 'fundFHC', x: W*0.32, y: H*0.9, label: 'Fund.\nFHC', color: C.green, type: 'ong', size: 28 },
+    { id: 'vero', x: W*0.78, y: H*0.86, label: 'Instituto\nVero', color: C.red, type: 'media', size: 28 },
+    // Key people BR
+    { id: 'ebolsonaro', x: W*0.88, y: H*0.72, label: 'E.\nBolsonaro', color: C.purple, type: 'person', size: 30 },
+  ];
+
+  const actorMap = {};
+  actors.forEach(a => { actorMap[a.id] = a; });
+
+  const connections = [
+    { from: 'dos', to: 'usaid', color: C.amber, dash: false, label: 'supervisão' },
+    { from: 'dos', to: 'ned', color: C.amber, dash: false, label: 'financiamento' },
+    { from: 'dos', to: 'embaixada', color: C.amber, dash: false, label: '' },
+    { from: 'usaid', to: 'cepps', color: C.amber, dash: false, label: 'supervisão' },
+    { from: 'usaid', to: 'icfj', color: C.amber, dash: false, label: 'repasse' },
+    { from: 'usaid', to: 'wwf', color: C.amber, dash: false, label: 'US$1,3mi' },
+    { from: 'usaid', to: 'caritas', color: C.amber, dash: false, label: 'US$1,5mi' },
+    { from: 'cepps', to: 'tse', color: C.red, dash: false, label: 'parceria 2021' },
+    { from: 'barroso', to: 'tse', color: C.blue, dash: false, label: '' },
+    { from: 'cepps', to: 'barroso', color: C.red, dash: true, label: 'evento dez/21' },
+    { from: 'usaid', to: 'lupa', color: C.red, dash: true, label: '⚠alegado' },
+    { from: 'icfj', to: 'lupa', color: C.red, dash: true, label: '⚠alegado' },
+    { from: 'usaid', to: 'abraji', color: C.red, dash: true, label: '⚠alegado' },
+    { from: 'ned', to: 'solidarity', color: C.blue, dash: false, label: 'US$850k' },
+    { from: 'ned', to: 'fundFHC', color: C.blue, dash: false, label: 'US$77k' },
+    { from: 'ned', to: 'atlantic', color: C.blue, dash: false, label: '' },
+    { from: 'embaixada', to: 'vero', color: C.red, dash: true, label: '⚠US$30k' },
+    { from: 'benz', to: 'congresso', color: C.purple, dash: false, label: 'depoimento' },
+    { from: 'ebolsonaro', to: 'cpi', color: C.purple, dash: false, label: 'lidera CPI' },
+    { from: 'congresso', to: 'cpi', color: C.purple, dash: false, label: '' },
+    { from: 'tse', to: 'congresso', color: C.fg3, dash: true, label: 'investigado' },
+  ];
+
+  // Draw edges
+  connections.forEach(c => {
+    const from = actorMap[c.from];
+    const to = actorMap[c.to];
+    if (!from || !to) return;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.strokeStyle = c.color + '70';
+    ctx.lineWidth = c.dash ? 1 : 1.5;
+    if (c.dash) ctx.setLineDash([4,4]);
+    else ctx.setLineDash([]);
+    ctx.stroke();
+
+    // Label
+    if (c.label) {
+      const mx = (from.x + to.x)/2;
+      const my = (from.y + to.y)/2;
+      ctx.font = '7px IBM Plex Mono';
+      ctx.fillStyle = c.color + 'aa';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(c.label, mx, my-6);
+    }
+    ctx.restore();
+  });
+
+  // Draw nodes
+  actors.forEach(n => {
+    ctx.save();
+
+    // Glow
+    const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.size*2);
+    grd.addColorStop(0, n.color+'25');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.size*2, 0, Math.PI*2);
+    ctx.fill();
+
+    // Shape based on type
+    ctx.beginPath();
+    if (n.type === 'person') {
+      // Diamond
+      ctx.moveTo(n.x, n.y - n.size);
+      ctx.lineTo(n.x + n.size*0.7, n.y);
+      ctx.lineTo(n.x, n.y + n.size);
+      ctx.lineTo(n.x - n.size*0.7, n.y);
+      ctx.closePath();
+    } else if (n.type === 'br-inst') {
+      // Square
+      const s = n.size * 0.85;
+      ctx.rect(n.x - s, n.y - s, s*2, s*2);
+    } else {
+      ctx.arc(n.x, n.y, n.size, 0, Math.PI*2);
+    }
+    ctx.fillStyle = C.bg3;
+    ctx.fill();
+    ctx.strokeStyle = n.color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Label
+    const lines = n.label.split('\n');
+    const fs = n.size > 40 ? 11 : n.size > 30 ? 9 : 8;
+    ctx.font = `600 ${fs}px IBM Plex Mono`;
+    ctx.fillStyle = C.fg;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lh = fs + 2;
+    const sy = n.y - (lines.length-1)*lh/2;
+    lines.forEach((l,i) => ctx.fillText(l, n.x, sy + i*lh));
+    ctx.restore();
+  });
+
+  // Legend for shapes
+  const legItems = [
+    { shape: 'circle', color: C.amber, label: 'Agência/Org. Americana' },
+    { shape: 'circle', color: C.purple, label: 'Inst. Brasileira' },
+    { shape: 'circle', color: C.green, label: 'ONG / Mídia' },
+    { shape: 'diamond', color: C.red, label: 'Pessoa física' },
+    { shape: 'square', color: C.blue, label: 'TSE / Congresso' },
+  ];
+
+  ctx.save();
+  let lx = 14, ly = H - 80;
+  ctx.font = '9px IBM Plex Mono';
+  legItems.forEach((li, i) => {
+    const x = lx + Math.floor(i/3)*160;
+    const y = ly + (i%3)*18;
+    ctx.fillStyle = li.color;
+    ctx.beginPath();
+    if (li.shape === 'diamond') {
+      ctx.moveTo(x, y-5); ctx.lineTo(x+7,y); ctx.lineTo(x,y+5); ctx.lineTo(x-7,y); ctx.closePath();
+    } else if (li.shape === 'square') {
+      ctx.rect(x-6,y-5,12,10);
+    } else {
+      ctx.arc(x, y, 6, 0, Math.PI*2);
+    }
+    ctx.fill();
+    ctx.fillStyle = C.fg2;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(li.label, x+12, y);
+  });
+  ctx.restore();
+}
+
+// Init first draw
+window.addEventListener('load', () => {
+  drawMindMap();
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.panel.active').id;
+    if (active === 'panel-mindmap') drawMindMap();
+    if (active === 'panel-atores') drawActorMap();
+  });
+});
+</script>
+</body>
+</html>

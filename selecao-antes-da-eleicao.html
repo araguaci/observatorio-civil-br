@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Seleção Acontece Antes da Eleição</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080810;
+  --bg2: #0d0d1a;
+  --bg3: #111122;
+  --bg4: #161630;
+  --border: rgba(120,120,200,0.12);
+  --border2: rgba(120,120,200,0.22);
+  --text: #e8e8f0;
+  --text2: #8888aa;
+  --text3: #5555770;
+  --red: #ff3344;
+  --red2: #cc2233;
+  --amber: #ffaa22;
+  --amber2: #cc8800;
+  --teal: #22ddcc;
+  --teal2: #11aa99;
+  --blue: #4499ff;
+  --blue2: #2266cc;
+  --purple: #aa66ff;
+  --green: #44dd88;
+  --mono: 'IBM Plex Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --body: 'Crimson Pro', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  padding-bottom: 72px;
+}
+
+/* NOISE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* HERO */
+.hero {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--red);
+}
+.hero-sub {
+  font-family: var(--body);
+  font-size: 20px;
+  color: var(--text2);
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 32px;
+  max-width: 720px;
+}
+.hero-stat:nth-child(4) {
+  grid-column: 2;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hero-stat-n {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--amber);
+}
+.hero-stat-l {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ALERT BANNER */
+.alert {
+  background: rgba(255,51,68,0.06);
+  border: 1px solid rgba(255,51,68,0.25);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 32px 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--red);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.alert-icon { flex-shrink: 0; margin-top: 1px; }
+.alert.amber {
+  background: rgba(255,170,34,0.06);
+  border-color: rgba(255,170,34,0.25);
+  color: var(--amber);
+}
+.alert.teal {
+  background: rgba(34,221,204,0.06);
+  border-color: rgba(34,221,204,0.25);
+  color: var(--teal);
+}
+
+/* SECTION */
+.section {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--border);
+}
+.section-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 12px;
+}
+.section h2 {
+  font-family: var(--display);
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 24px;
+  line-height: 1.15;
+}
+.section h3 {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 32px 0 12px;
+}
+.section p { margin-bottom: 16px; color: var(--text2); }
+.section p strong { color: var(--text); font-weight: 600; }
+
+/* MECHANISM FLOW */
+.mflow {
+  display: grid;
+  gap: 0;
+  margin: 32px 0;
+}
+.mstep {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0;
+}
+.mstep-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mstep-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.mstep-connector {
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(var(--red2), transparent);
+  min-height: 24px;
+}
+.mstep:last-child .mstep-connector { display: none; }
+.mstep-body {
+  padding-bottom: 28px;
+  padding-left: 12px;
+}
+.mstep-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.mstep-title {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.mstep-desc { font-size: 15px; color: var(--text2); }
+
+/* KPI TABLE */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+.kpi-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(120, 120, 200, 0.08);
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.kpi-icon svg {
+  width: 22px;
+  height: 22px;
+  opacity: 0.95;
+}
+.kpi-card.amber .kpi-icon { color: var(--amber); border-color: rgba(255, 170, 34, 0.28); background: rgba(255, 170, 34, 0.08); }
+.kpi-card.red .kpi-icon { color: var(--red); border-color: rgba(255, 51, 68, 0.28); background: rgba(255, 51, 68, 0.08); }
+.kpi-card.teal .kpi-icon { color: var(--teal); border-color: rgba(34, 221, 204, 0.28); background: rgba(34, 221, 204, 0.08); }
+.kpi-card.blue .kpi-icon { color: var(--blue); border-color: rgba(68, 153, 255, 0.28); background: rgba(68, 153, 255, 0.08); }
+.kpi-card.purple .kpi-icon { color: var(--purple); border-color: rgba(170, 102, 255, 0.28); background: rgba(170, 102, 255, 0.08); }
+.kpi-card.green .kpi-icon { color: var(--green); border-color: rgba(68, 221, 136, 0.28); background: rgba(68, 221, 136, 0.08); }
+.kpi-n {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.kpi-l {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.kpi-src {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+}
+.kpi-src a { color: var(--blue); text-decoration: none; }
+.kpi-src a:hover { text-decoration: underline; }
+.kpi-card.red .kpi-n { color: var(--red); }
+.kpi-card.amber .kpi-n { color: var(--amber); }
+.kpi-card.teal .kpi-n { color: var(--teal); }
+.kpi-card.blue .kpi-n { color: var(--blue); }
+.kpi-card.purple .kpi-n { color: var(--purple); }
+.kpi-card.green .kpi-n { color: var(--green); }
+
+/* CASO HISTORICO */
+.caso-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.caso {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.caso-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 170, 34, 0.1);
+  border: 1px solid rgba(255, 170, 34, 0.25);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.caso-icon svg { width: 22px; height: 22px; }
+.caso-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.caso-titulo {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.caso-ano {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  background: rgba(255,170,34,0.1);
+  border: 1px solid rgba(255,170,34,0.25);
+  border-radius: 4px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+.caso-body { font-size: 15px; color: var(--text2); }
+.caso-body strong { color: var(--text); }
+.caso-mecanismo {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--teal);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.caso-fonte {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 6px;
+}
+.caso-fonte a { color: var(--blue); text-decoration: none; }
+.caso-fonte a:hover { text-decoration: underline; }
+
+/* QUOTE */
+.quote {
+  border-left: 2px solid var(--purple);
+  padding: 16px 24px;
+  margin: 24px 0;
+  background: rgba(170,102,255,0.04);
+}
+.quote-text {
+  font-family: var(--body);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.quote-attr {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+}
+
+/* LACUNA */
+.lacuna-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+.lacuna {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 14px;
+  align-items: start;
+  min-height: 100%;
+}
+.lacuna-num-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.lacuna-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 51, 68, 0.1);
+  border: 1px solid rgba(255, 51, 68, 0.22);
+  flex-shrink: 0;
+}
+.lacuna-icon svg { width: 20px; height: 20px; }
+.lacuna-num {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--red);
+  opacity: 0.55;
+  line-height: 1;
+}
+.lacuna-title {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.lacuna-body { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.lacuna-body strong { color: var(--text); }
+.lacuna-status {
+  font-family: var(--mono);
+  font-size: 10px;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.lacuna-status.confirmada { background: rgba(255,51,68,0.1); color: var(--red); border: 1px solid rgba(255,51,68,0.25); }
+.lacuna-status.parcial { background: rgba(255,170,34,0.1); color: var(--amber); border: 1px solid rgba(255,170,34,0.25); }
+.lacuna-status.pendente { background: rgba(34,221,204,0.1); color: var(--teal); border: 1px solid rgba(34,221,204,0.25); }
+
+/* SOLUCAO */
+.solucao-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.solucao {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--teal);
+  border-radius: 0 0 8px 8px;
+  padding: 20px 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.solucao-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34, 221, 204, 0.1);
+  border: 1px solid rgba(34, 221, 204, 0.25);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.solucao-icon svg { width: 22px; height: 22px; }
+.solucao-titulo {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+.solucao-body { font-size: 15px; color: var(--text2); }
+.solucao-body strong { color: var(--text); }
+
+/* MATRIX TABLE */
+.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 24px 0;
+}
+.matrix th {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text2);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.matrix td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+  font-size: 14px;
+}
+.matrix td:first-child { color: var(--text); font-weight: 500; }
+.matrix tr:hover td { background: rgba(120,120,200,0.04); }
+.pill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 1px 2px;
+}
+.pill-r { background: rgba(255,51,68,0.1); color: var(--red); border: 1px solid rgba(255,51,68,0.2); }
+.pill-a { background: rgba(255,170,34,0.1); color: var(--amber); border: 1px solid rgba(255,170,34,0.2); }
+.pill-t { background: rgba(34,221,204,0.1); color: var(--teal); border: 1px solid rgba(34,221,204,0.2); }
+.pill-b { background: rgba(68,153,255,0.1); color: var(--blue); border: 1px solid rgba(68,153,255,0.2); }
+.pill-g { background: rgba(68,221,136,0.1); color: var(--green); border: 1px solid rgba(68,221,136,0.2); }
+
+/* FUNIL VISUAL */
+.funil {
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.funil-etapa {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.funil-etapa:last-child { border-bottom: none; }
+.funil-n {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 600;
+  text-align: right;
+}
+.funil-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  min-width: 180px;
+}
+.funil-desc {
+  font-size: 13px;
+  color: var(--text2);
+}
+.funil-arrow {
+  text-align: center;
+  color: var(--text2);
+  font-size: 20px;
+}
+
+/* REF LIST */
+.ref-list {
+  list-style: none;
+  margin: 20px 0;
+  display: grid;
+  gap: 8px;
+}
+.ref-list li {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text2);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.ref-list li::before {
+  content: '→';
+  font-family: var(--mono);
+  color: var(--teal2);
+  flex-shrink: 0;
+}
+.ref-list a { color: var(--blue); text-decoration: none; }
+.ref-list a:hover { text-decoration: underline; }
+
+/* FOOTER */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-l {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+}
+.footer-r {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+}
+
+/* COMPARTILHAR */
+.share-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 14px 18px;
+  margin: 0 0 28px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.share-bar-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-right: 4px;
+}
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.share-btn,
+.share-link {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg4);
+  color: var(--text2);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.share-btn:hover,
+.share-link:hover {
+  color: var(--text);
+  border-color: var(--border2);
+  background: var(--bg3);
+}
+.share-link.wa:hover { border-color: #25d366; color: #6fe49a; }
+.share-link.tw:hover { border-color: #8899aa; color: #e7eef3; }
+.share-link.li:hover { border-color: #0a66c2; color: #6bb3ff; }
+.share-btn.copy.ok {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* VOLTAR AO TOPO */
+.go-top {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: rgba(22, 22, 48, 0.92);
+  backdrop-filter: blur(8px);
+  color: var(--text2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s, border-color 0.15s, color 0.15s;
+}
+.go-top svg { width: 22px; height: 22px; }
+.go-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.go-top:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.go-top:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* NAV */
+.toc {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 32px 0 48px;
+}
+.toc-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text2);
+  margin-bottom: 12px;
+}
+.toc-list {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+.toc-list li a {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text2);
+  text-decoration: none;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.toc-list li a:hover { color: var(--text); }
+.toc-list li a span {
+  font-size: 10px;
+  color: var(--text2);
+  opacity: 0.4;
+}
+
+@media (max-width: 640px) {
+  .caso-grid,
+  .lacuna-grid,
+  .solucao-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .funil-etapa { grid-template-columns: 1fr; }
+  .funil-n { text-align: left; }
+  .hero-meta {
+    grid-template-columns: 1fr 1fr;
+    max-width: none;
+  }
+  .hero-stat:nth-child(4) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body id="top">
+
+<div class="wrap">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">▸ CORPUS LAWFARE-TIMELINE · ANÁLISE ESTRUTURAL · 2026</div>
+  <h1>A seleção<br>acontece antes<br><em>da eleição</em></h1>
+  <p class="hero-sub">Como o capital define o cardápio eleitoral antes que o eleitor chegue à urna. Mecanismos documentados, exemplos históricos verificáveis, KPIs mensuráveis.</p>
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <span class="hero-stat-n">R$ 4,9bi</span>
+      <span class="hero-stat-l">fundão 2026 · público</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">R$ 19mi</span>
+      <span class="hero-stat-l">Ometto 2024 · 1 pessoa</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">163</span>
+      <span class="hero-stat-l">candidatos · 15 partidos</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">43%</span>
+      <span class="hero-stat-l">taxa de eleição dos financiados</span>
+    </div>
+  </div>
+</section>
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-title">Índice</div>
+  <ul class="toc-list">
+    <li><a href="#funil">01 — O funil pré-eleitoral <span>→ quem decide o cardápio</span></a></li>
+    <li><a href="#mecanismos">02 — Mecanismos acionados <span>→ 6 camadas documentadas</span></a></li>
+    <li><a href="#historico">03 — Casos históricos <span>→ Brasil 1822–2026</span></a></li>
+    <li><a href="#lacunas">04 — Lacunas do discurso popular <span>→ o que o vídeo omitiu</span></a></li>
+    <li><a href="#kpis">05 — KPIs verificáveis <span>→ dados com fontes primárias</span></a></li>
+    <li><a href="#solucao">06 — Base sólida de contestação <span>→ o que pode ser feito</span></a></li>
+    <li><a href="#referencias">07 — Referências e fontes <span>→ links primários</span></a></li>
+  </ul>
+</nav>
+
+<div class="share-bar" aria-label="Compartilhar esta página">
+  <span class="share-bar-label">Compartilhar</span>
+  <div class="share-actions">
+    <button type="button" class="share-btn" id="share-native" hidden>Nativo</button>
+    <a class="share-link wa" id="share-whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
+    <a class="share-link tw" id="share-x" href="#" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">X</a>
+    <a class="share-link li" id="share-linkedin" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+    <a class="share-link" id="share-email" href="#" aria-label="Enviar por e-mail">E-mail</a>
+    <button type="button" class="share-btn copy" id="share-copy" aria-label="Copiar link">Copiar link</button>
+  </div>
+</div>
+
+<div class="alert">
+  <span class="alert-icon">⚡</span>
+  <span>TESE CENTRAL — O eleitor analfabeto não escolhe mal. Ele escolhe dentro de um cardápio curado pelo capital antes da abertura das urnas. O problema não é cognitivo. É estrutural e opera em 6 camadas simultâneas.</span>
+</div>
+
+<!-- SEÇÃO 1: FUNIL -->
+<section class="section" id="funil">
+  <div class="section-tag">01 · Mecanismo principal</div>
+  <h2>O funil pré-eleitoral</h2>
+  <p>Das <strong>~27 milhões de brasileiros</strong> em potencial para qualquer cargo eletivo, apenas uma fração chega à urna com viabilidade real. Cada etapa do funil é controlada por um filtro diferente — e o eleitor só é convocado na última etapa.</p>
+
+  <div class="funil">
+    <div class="funil-etapa">
+      <div class="funil-n" style="color:var(--text2)">215M</div>
+      <div class="funil-label">POPULAÇÃO TOTAL</div>
+      <div class="funil-desc">Universo teórico. Maioria sem acesso à arena política formal.</div>
+    </div>
+    <div class="funil-arrow">▼ filtro 1: filiação &amp; janela partidária</div>
+    <div class="funil-etapa">
+      <div class="funil-n" style="color:var(--amber)">~22M</div>
+      <div class="funil-label">FILIADOS A PARTIDOS</div>
+      <div class="funil-desc">Apenas filiados podem se candidatar. Filiação antecede eleição em 6 meses. Janela partidária controla migrações.</div>
+    </div>
+    <div class="funil-arrow">▼ filtro 2: seleção interna do partido</div>
+    <div class="funil-etapa">
+      <div class="funil-n" style="color:var(--amber)">~550k</div>
+      <div class="funil-label">CANDIDATURAS REGISTRADAS</div>
+      <div class="funil-desc">Convenções partidárias e comitês definem quem recebe apoio interno. Financiador já intervém aqui.</div>
+    </div>
+    <div class="funil-arrow">▼ filtro 3: acesso ao financiamento</div>
+    <div class="funil-etapa">
+      <div class="funil-n" style="color:var(--red)">~50k</div>
+      <div class="funil-label">COM CAMPANHA VIÁVEL</div>
+      <div class="funil-desc">Somente candidatos com fundo eleitoral, horário de TV e estrutura de campanha têm alcance real. Os demais são figurantes estatísticos.</div>
+    </div>
+    <div class="funil-arrow">▼ filtro 4: horário eleitoral proporcional à bancada</div>
+    <div class="funil-etapa">
+      <div class="funil-n" style="color:var(--red)">~3-5k</div>
+      <div class="funil-label">COM TV/RÁDIO SIGNIFICATIVOS</div>
+      <div class="funil-desc">Tempo de TV distribudo proporcionalmente à bancada atual. Quem já está, manda. Quem não está, fica invisível.</div>
+    </div>
+    <div class="funil-arrow">▼ filtro 5: o eleitor escolhe</div>
+    <div class="funil-etapa">
+      <div class="funil-n" style="color:var(--blue)">147M</div>
+      <div class="funil-label">ELEITORES CONVOCADOS</div>
+      <div class="funil-desc">O eleitor chega aqui. O cardápio real já foi definido nas 4 etapas anteriores — sem sua participação.</div>
+    </div>
+  </div>
+
+  <div class="alert amber">
+    <span class="alert-icon">▲</span>
+    <span>O voto é real. A escolha é limitada. A diferença entre fraude e captura sistêmica é que na captura o eleitor escolhe livremente — dentro de uma gaiola que não consegue ver.</span>
+  </div>
+</section>
+
+<!-- SEÇÃO 2: MECANISMOS -->
+<section class="section" id="mecanismos">
+  <div class="section-tag">02 · Engenharia do sistema</div>
+  <h2>6 mecanismos de captura pré-eleitoral</h2>
+
+  <div class="mflow">
+
+    <div class="mstep">
+      <div class="mstep-line">
+        <div class="mstep-dot" style="background:var(--red)"></div>
+        <div class="mstep-connector"></div>
+      </div>
+      <div class="mstep-body">
+        <div class="mstep-label">Mecanismo 01</div>
+        <div class="mstep-title">Financiamento privado suprapartidário</div>
+        <div class="mstep-desc">Um único financiador — Rubens Ometto, Cosan — doou R$ 19 milhões a 163 candidatos de 15 partidos em 2024. Taxa de eleição dos financiados: 43% (vs ~15% da média geral). O financiador não vota — mas tem 43% de chance de ter seu candidato eleito em cada candidatura apoiada.</div>
+      </div>
+    </div>
+
+    <div class="mstep">
+      <div class="mstep-line">
+        <div class="mstep-dot" style="background:var(--amber)"></div>
+        <div class="mstep-connector"></div>
+      </div>
+      <div class="mstep-body">
+        <div class="mstep-label">Mecanismo 02</div>
+        <div class="mstep-title">Fundo eleitoral público distribuído pela bancada atual</div>
+        <div class="mstep-desc">R$ 4,96 bilhões de dinheiro público (Tesouro Nacional) distribuídos proporcionalmente à bancada existente na Câmara. Quem já está no poder recebe mais. O mecanismo retroalimenta quem já chegou: União+PP prevê R$ 953M, PL R$ 887M, PT R$ 681M. Partidos novos ou desafiantes: migalhas.</div>
+      </div>
+    </div>
+
+    <div class="mstep">
+      <div class="mstep-line">
+        <div class="mstep-dot" style="background:var(--amber)"></div>
+        <div class="mstep-connector"></div>
+      </div>
+      <div class="mstep-body">
+        <div class="mstep-label">Mecanismo 03</div>
+        <div class="mstep-title">Tempo de TV/rádio proporcional à bancada</div>
+        <div class="mstep-desc">A distribuição do Horário Eleitoral Gratuito (HEG) segue a mesma lógica: proporcional ao tamanho das bancadas. Candidato de partido pequeno = segundos por dia. Candidato de grande partido = minutos por dia. No analfabetismo funcional de 70M de brasileiros, quem aparece na TV existe. Quem não aparece, não existe.</div>
+      </div>
+    </div>
+
+    <div class="mstep">
+      <div class="mstep-line">
+        <div class="mstep-dot" style="background:var(--purple)"></div>
+        <div class="mstep-connector"></div>
+      </div>
+      <div class="mstep-body">
+        <div class="mstep-label">Mecanismo 04</div>
+        <div class="mstep-title">Cláusula de barreira e fusão forçada</div>
+        <div class="mstep-desc">Partidos que não atingem 2% dos votos nacionais (com distribuição mínima por estados) perdem acesso ao fundo partidário e ao horário eleitoral. A regra parece técnica. O efeito é concentração: força fusões onde o menor se dissolve no maior, cedendo sua base eleitoral. Em 2026: 10 partidos ineptos ao fundo.</div>
+      </div>
+    </div>
+
+    <div class="mstep">
+      <div class="mstep-line">
+        <div class="mstep-dot" style="background:var(--teal)"></div>
+        <div class="mstep-connector"></div>
+      </div>
+      <div class="mstep-body">
+        <div class="mstep-label">Mecanismo 05</div>
+        <div class="mstep-title">Voto de cabresto atualizado: dependência de programas sociais</div>
+        <div class="mstep-desc">O coronelismo físico (voto obrigatório público, 1889–1932) foi substituído por dependência estrutural de programas condicionais. O gestor local que distribui Bolsa Família, CRAS, INSS, convênios de saúde controla a percepção de "quem faz o bem". Não é suborno direto — é construção de gratidão estrutural via Estado capturado.</div>
+      </div>
+    </div>
+
+    <div class="mstep">
+      <div class="mstep-line">
+        <div class="mstep-dot" style="background:var(--blue)"></div>
+        <div class="mstep-connector"></div>
+      </div>
+      <div class="mstep-body">
+        <div class="mstep-label">Mecanismo 06</div>
+        <div class="mstep-title">Desinformação e fragmentação da memória institucional</div>
+        <div class="mstep-desc">O analfabeto funcional processa narrativa, não dado. O ecossistema de desinformação (grupos WhatsApp, canais YouTube, influenciadores pagos) é amplificador gratuito de narrativa do financiador. O eleitor que não lembra o golpe de 64 como estrutura, lembra como episódio — e pode ser convencido a revivê-lo com outro nome.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEÇÃO 3: HISTÓRICO -->
+<section class="section" id="historico">
+  <div class="section-tag">03 · Registro histórico</div>
+  <h2>Casos históricos: o cardápio controlado desde 1822</h2>
+
+  <div class="caso-grid">
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Voto censitário — só ricos votam e se candidatam</div>
+      <div class="caso-ano">1824–1881</div>
+    </div>
+    <div class="caso-body">Constituição de 1824: votar exigia <strong>renda mínima de 100 mil réis</strong>. Candidatar-se exigia 300 mil réis. O Brasil tinha 4 milhões de pessoas livres — apenas a fração com renda participava. A funil era formal e explícito: o cardápio era feito literalmente por lei, antes da "eleição".</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: renda como critério de acesso ao cardápio</div>
+    <div class="caso-fonte">Fonte: <a href="https://www.senado.leg.br/publicacoes/anais/constituinte/Paulo_Brossard.pdf" target="_blank">Constituição Imperial 1824 · Senado Federal</a></div>
+  </div>
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Política dos Governadores e voto de cabresto</div>
+      <div class="caso-ano">1894–1930</div>
+    </div>
+    <div class="caso-body">Acordo entre presidente e governadores estaduais: cada estado elege quem o governador indicar. Coronéis controlavam o voto público das populações rurais. <strong>Resultado: apenas 5% da população votava</strong>. As "eleições" ratificavam um cardápio definido nas casas-grandes. A urna era protocolo, não escolha.</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: coação + voto público + analfabeto excluído por lei</div>
+    <div class="caso-fonte">Fonte: <a href="http://www.fgv.br/cpdoc/acervo/dicionarios/verbete-tematico/politica-dos-governadores" target="_blank">CPDOC/FGV — Política dos Governadores</a></div>
+  </div>
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Golpe de 1964: eleições previstas para 1965 anuladas</div>
+      <div class="caso-ano">1964</div>
+    </div>
+    <div class="caso-body">Jango propunha reforma agrária, reforma urbana, reforma tributária e aumento de salário mínimo. O capital não aceitou o resultado previsível das eleições de 1965. <strong>Solução: eliminar a eleição inteira</strong>. O AI-2 (1965) cassou mandatos, extinguiu partidos e criou eleições indiretas. O cardápio foi eliminado e substituído por escolha da cúpula militar.</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: eliminação do processo eleitoral quando o resultado ameaça o capital</div>
+    <div class="caso-fonte">Fonte: <a href="http://www.fgv.br/cpdoc/acervo/dicionarios/verbete-tematico/ato-institucional-n-2-ai-2" target="_blank">CPDOC/FGV — AI-2</a> · <a href="https://www.gov.br/cgu/pt-br/assuntos/noticias/2014/09/Relatoriofinaldacnv.pdf" target="_blank">Relatório CNV</a></div>
+  </div>
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Diretas Já e eleição indireta: Tancredo sem voto popular</div>
+      <div class="caso-ano">1985</div>
+    </div>
+    <div class="caso-body">Após 21 anos de ditadura, a Emenda Dante de Oliveira (Diretas Já) foi derrubada pelo Congresso em 1984. Tancredo Neves foi eleito pelo Colégio Eleitoral — órgão composto por políticos, não pela população. <strong>A redemocratização retornou com o cardápio controlado pelo Congresso</strong>, não pela urna direta. O eleitor aguardou até 1989 para votar em presidente.</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: intermediação institucional eliminando voto direto na transição</div>
+    <div class="caso-fonte">Fonte: <a href="http://www.fgv.br/cpdoc/acervo/dicionarios/verbete-tematico/diretas-ja" target="_blank">CPDOC/FGV — Diretas Já</a></div>
+  </div>
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Collor: mídia como curador do cardápio presidencial</div>
+      <div class="caso-ano">1989</div>
+    </div>
+    <div class="caso-body">Primeira eleição direta para presidente em 29 anos. O Jornal Nacional (Rede Globo) editou o debate final entre Collor e Lula de forma favorável a Collor — exibindo o trecho mais favorável de Collor e o menos favorável de Lula. <strong>Sem regulação de mídia, a editoração jornalística de um debate pode alterar uma eleição</strong>. Collor venceu por 6 pontos percentuais.</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: curadoria midiática do cardápio em democracia formal</div>
+    <div class="caso-fonte">Fonte: <a href="https://www.brasildefato.com.br/2020/12/14/ha-31-anos-o-debate-decisivo-entre-lula-e-collor-foi-editado-pela-globo" target="_blank">Brasil de Fato — Debate editado</a> · <a href="https://www.observatoriodaimprensa.com.br/codigo-aberto/o-debate-que-a-globo-editou/" target="_blank">Observatório da Imprensa</a></div>
+  </div>
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Lava Jato: caixa dois como sistema de financiamento do sistema político</div>
+      <div class="caso-ano">2014–2018</div>
+    </div>
+    <div class="caso-body">A Lava Jato revelou que o caixa dois das empreiteiras (Odebrecht, OAS, Andrade Gutierrez) <strong>não era exceção — era o sistema</strong>. PT, PMDB, PP, PSDB: todos recebiam. Isso não é corrupção marginal. É o mecanismo de financiamento da seleção pré-eleitoral via caixa não declarado — financiador decide quem tem estrutura de campanha real, quem não tem.</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: caixa dois como filtro informal do cardápio eleitoral</div>
+    <div class="caso-fonte">Fonte: <a href="https://www.mpf.mp.br/grandes-casos/lava-jato" target="_blank">MPF — Operação Lava Jato</a> · <a href="https://www.tse.jus.br/jurisprudencia/decisoes/jurisprudencia" target="_blank">TSE — jurisprudência eleitoral</a></div>
+  </div>
+
+  <div class="caso">
+    <div class="caso-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg></div>
+    <div class="caso-header">
+      <div class="caso-titulo">Ometto 2024: suprapartidário declarado, 4ª eleição consecutiva</div>
+      <div class="caso-ano">2024</div>
+    </div>
+    <div class="caso-body">Rubens Ometto (Cosan): <strong>R$ 19 milhões, 189 candidatos, 15 partidos, 10 estados</strong>. Incluiu PT, PL, PSD, MDB, PP, Republicanos, PSB, PSDB, Podemos, Novo, PMB, Avante, União Brasil. 43% de eleitos. Em 2025 (sem eleição): R$ 2M ao PT + R$ 1,74M ao Republicanos. A estratégia não é vencer — é garantir que quem quer que vença, tenha recebido recurso do financiador e saiba disso.</div>
+    <div class="caso-mecanismo">MECANISMO ATIVO: pulverização transideológica = cardápio controlado independente do resultado</div>
+    <div class="caso-fonte">Fonte: <a href="https://www.brasildefato.com.br/2024/10/04/bancada-ometto-maior-doador-de-2024-deu-dinheiro-para-163-candidatos-de-15-partidos-diferentes/" target="_blank">Brasil de Fato — Bancada Ometto</a> · <a href="https://www.cartacapital.com.br/blogs/daniel-camargos/nem-centrao-nem-bolsonaro-o-verdadeiro-vencedor-das-eleicoes-e-um-bilionario/" target="_blank">CartaCapital</a> · <a href="https://platobr.com.br/ometto-o-bilionario-suprapartidario-doou-r-22-milhoes-ao-pt-em-2025" target="_blank">PlatôBR 2025</a></div>
+  </div>
+
+  </div>
+
+  <div class="quote">
+    <div class="quote-text">"Os proprietários não precisam comprar cada eleição. Precisam apenas garantir que as opções disponíveis não ameacem o sistema de propriedade que os criou."</div>
+    <div class="quote-attr">— Noam Chomsky &amp; Edward Herman, "Manufacturing Consent" (1988) · adaptação analítica ao contexto brasileiro</div>
+  </div>
+</section>
+
+<!-- SEÇÃO 4: LACUNAS -->
+<section class="section" id="lacunas">
+  <div class="section-tag">04 · Auditoria do argumento</div>
+  <h2>Lacunas do discurso popular analisado</h2>
+  <p>O vídeo tem tese estrutural correta. Mas cinco omissões enfraquecem precisamente onde o argumento mais precisaria de blindagem.</p>
+
+  <div class="lacuna-grid">
+
+    <div class="lacuna">
+      <div class="lacuna-num-wrap">
+        <div class="lacuna-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg></div>
+        <div class="lacuna-num">01</div>
+      </div>
+      <div>
+        <div class="lacuna-title">O voto é real — a escolha é pré-selecionada</div>
+        <div class="lacuna-body">O texto trata o voto como ilusão total ("o voto nada mais é que uma ilusão"). Isso é impreciso. <strong>O voto é real e conta</strong>. O que é limitado é o cardápio. A distinção importa: afirmar que "o voto não existe" desmobiliza. Afirmar que "o voto é real mas o cardápio é controlado" mobiliza para disputar as etapas pré-eleitorais onde o jogo de fato acontece.</div>
+        <span class="lacuna-status parcial">TESE PARCIALMENTE CORRETA</span>
+      </div>
+    </div>
+
+    <div class="lacuna">
+      <div class="lacuna-num-wrap">
+        <div class="lacuna-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+        <div class="lacuna-num">02</div>
+      </div>
+      <div>
+        <div class="lacuna-title">Cronologia do voto secreto omitida</div>
+        <div class="lacuna-body">O texto salta de 1889 (Proclamação) para Getúlio. Omite: <strong>voto secreto só em 1932</strong> (Código Eleitoral Assis Brasil), mulher só vota em <strong>1932</strong>, analfabeto só vota em <strong>1985</strong> (CF 1988 formaliza), urna eletrônica eliminando fraude massiva na contagem só em <strong>1996</strong>. São 104 anos de transição, não salto direto.</div>
+        <span class="lacuna-status confirmada">LACUNA HISTÓRICA</span>
+      </div>
+    </div>
+
+    <div class="lacuna">
+      <div class="lacuna-num-wrap">
+        <div class="lacuna-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
+        <div class="lacuna-num">03</div>
+      </div>
+      <div>
+        <div class="lacuna-title">O loop ativo de reprodução — não é só herança colonial</div>
+        <div class="lacuna-body">O texto apresenta o subdesenvolvimento como consequência histórica estática da colonização. Isso está correto mas incompleto. <strong>Existe um loop ativo em operação hoje</strong>: Selic estruturalmente alta → desindustrialização → concentração no rentismo → pressão por Selic alta. O Brasil não é pobre por inércia colonial — é mantido pobre por mecanismos que produzem rentabilidade para quem controla o loop.</div>
+        <span class="lacuna-status confirmada">LACUNA ANALÍTICA CRÍTICA</span>
+      </div>
+    </div>
+
+    <div class="lacuna">
+      <div class="lacuna-num-wrap">
+        <div class="lacuna-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+        <div class="lacuna-num">04</div>
+      </div>
+      <div>
+        <div class="lacuna-title">Darcy Ribeiro citado, mas tese central omitida</div>
+        <div class="lacuna-body">O texto cita Darcy para "a crise da educação é um projeto". Mas a tese mais devastadora de Darcy é outra: <strong>ausência de memória institucional coletiva</strong>. O povo novo mestiço não tem civilização de origem intacta como referência. Cada geração começa o diagnóstico do zero. É isso que permite reciclar as mesmas estruturas de captura com novos nomes — golpe de 64, impeachment de 2016, crise de 2026.</div>
+        <span class="lacuna-status parcial">CITAÇÃO INCOMPLETA</span>
+      </div>
+    </div>
+
+    <div class="lacuna">
+      <div class="lacuna-num-wrap">
+        <div class="lacuna-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <div class="lacuna-num">05</div>
+      </div>
+      <div>
+        <div class="lacuna-title">Solução: disputar as etapas pré-eleitorais, não só votar</div>
+        <div class="lacuna-body">O texto diagnostica o problema mas não indica o campo de batalha correto. <strong>Se o cardápio é definido antes da eleição, a resistência efetiva é pré-eleitoral</strong>: filiação partidária, participação em convenções, pressão sobre financiamento, transparência de doadores, alfabetização midiática. Votar bem no que está no cardápio é necessário mas insuficiente.</div>
+        <span class="lacuna-status pendente">LACUNA DE SAÍDA</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEÇÃO 5: KPIs -->
+<section class="section" id="kpis">
+  <div class="section-tag">05 · Dados verificáveis</div>
+  <h2>KPIs — indicadores com fontes primárias</h2>
+
+  <h3>Financiamento eleitoral 2026</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card amber">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div class="kpi-n">R$ 4,96bi</div>
+      <div class="kpi-l">FEFC 2026 · fundão público</div>
+      <div class="kpi-src">TSE · Lei 15.346/2025 · <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Fevereiro/fundo-especial-de-financiamento-de-campanha-o-que-e-e-para-que-serve" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg></div>
+      <div class="kpi-n">R$ 953M</div>
+      <div class="kpi-l">União+PP · maior fatia</div>
+      <div class="kpi-src">Fundação 1° de Maio · <a href="https://www.fundacao1demaio.org.br/artigo/fundo-especial-de-financiamento-de-campanha-projecao-de-distribuicao-aos-partidos-politicos-eleicoes-2026/" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg></div>
+      <div class="kpi-n">R$ 887M</div>
+      <div class="kpi-l">PL · 2ª maior fatia</div>
+      <div class="kpi-src">NSC Total · <a href="https://www.nsctotal.com.br/noticias/fundo-eleitoral-2026-partidos-valores" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 11a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+      <div class="kpi-n">R$ 681M</div>
+      <div class="kpi-l">PT · 3ª maior fatia</div>
+      <div class="kpi-src">NSC Total · <a href="https://www.nsctotal.com.br/noticias/fundo-eleitoral-2026-partidos-valores" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+      <div class="kpi-n">R$ 1,2bi</div>
+      <div class="kpi-l">Fundo Partidário 2025 · anual</div>
+      <div class="kpi-src">TSE · <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Janeiro/fundo-partidario-19-partidos-receberam-mais-de-r-1-bilhao-em-2025" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
+      <div class="kpi-n">10</div>
+      <div class="kpi-l">partidos sem acesso ao fundo 2025</div>
+      <div class="kpi-src">TSE · cláusula de barreira · <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Janeiro/fundo-partidario-19-partidos-receberam-mais-de-r-1-bilhao-em-2025" target="_blank">↗ fonte</a></div>
+    </div>
+  </div>
+
+  <h3>Caso Ometto — financiador suprapartidário</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card red">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+      <div class="kpi-n">R$ 19M</div>
+      <div class="kpi-l">total doado em 2024</div>
+      <div class="kpi-src">Metrópoles · <a href="https://www.metropoles.com/colunas/guilherme-amado/maior-doador-das-eleicoes-bilionario-ajudou-a-eleger-71-candidatos" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></div>
+      <div class="kpi-n">163</div>
+      <div class="kpi-l">candidatos financiados · 15 partidos</div>
+      <div class="kpi-src">Brasil de Fato · <a href="https://www.brasildefato.com.br/2024/10/04/bancada-ometto-maior-doador-de-2024-deu-dinheiro-para-163-candidatos-de-15-partidos-diferentes/" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div class="kpi-n">43%</div>
+      <div class="kpi-l">taxa de eleição dos financiados</div>
+      <div class="kpi-src">Revista Oeste · <a href="https://www.revistaoeste.com/politica/rubens-ometto-e-o-maior-financiador-eleitoral-com-mais-de-r-19-milhoes-doados/" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg></div>
+      <div class="kpi-n">R$ 2,2M</div>
+      <div class="kpi-l">ao PT em 2025 · sem eleição</div>
+      <div class="kpi-src">PlatôBR · <a href="https://platobr.com.br/ometto-o-bilionario-suprapartidario-doou-r-22-milhoes-ao-pt-em-2025" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg></div>
+      <div class="kpi-n">4ª</div>
+      <div class="kpi-l">eleição consecutiva como maior doador</div>
+      <div class="kpi-src">CartaCapital · <a href="https://www.cartacapital.com.br/blogs/daniel-camargos/nem-centrao-nem-bolsonaro-o-verdadeiro-vencedor-das-eleicoes-e-um-bilionario/" target="_blank">↗ fonte</a></div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+      <div class="kpi-n">+129%</div>
+      <div class="kpi-l">aumento de doações 2022→2024</div>
+      <div class="kpi-src">Brasil de Fato · <a href="https://www.brasildefato.com.br/2024/10/04/bancada-ometto-maior-doador-de-2024-deu-dinheiro-para-163-candidatos-de-15-partidos-diferentes/" target="_blank">↗ fonte</a></div>
+    </div>
+  </div>
+
+  <h3>Exclusão histórica do eleitorado</h3>
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>% população que votava</th>
+        <th>Filtro ativo</th>
+        <th>Base legal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1824–1881</td>
+        <td><span class="pill pill-r">~2–3%</span></td>
+        <td>Renda mínima + escravizados excluídos</td>
+        <td>Constituição Imperial 1824</td>
+      </tr>
+      <tr>
+        <td>1889–1930</td>
+        <td><span class="pill pill-r">~5%</span></td>
+        <td>Analfabeto excluído + voto público + coronelismo</td>
+        <td>Constituição 1891</td>
+      </tr>
+      <tr>
+        <td>1932–1964</td>
+        <td><span class="pill pill-a">~15–25%</span></td>
+        <td>Voto secreto mas mulher inclusa só em 1932, analfabeto ainda excluído</td>
+        <td>Código Eleitoral 1932</td>
+      </tr>
+      <tr>
+        <td>1964–1985</td>
+        <td><span class="pill pill-r">eleições indiretas</span></td>
+        <td>Militares controlam cardápio; presidência sem voto popular</td>
+        <td>AI-2, AI-5 · ARENA/MDB bipartidário</td>
+      </tr>
+      <tr>
+        <td>1985–1996</td>
+        <td><span class="pill pill-a">~70%</span></td>
+        <td>Analfabeto incluído em 1985; fraude na apuração ainda possível</td>
+        <td>CF 1988 · Art. 14</td>
+      </tr>
+      <tr>
+        <td>1996–hoje</td>
+        <td><span class="pill pill-g">~75%</span></td>
+        <td>Urna eletrônica; captura pré-eleitoral via financiamento e mídia</td>
+        <td>Lei 9.504/1997</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SEÇÃO 6: SOLUÇÃO -->
+<section class="section" id="solucao">
+  <div class="section-tag">06 · Campo de batalha correto</div>
+  <h2>O que pode ser feito: base sólida de contestação</h2>
+
+  <div class="alert teal">
+    <span class="alert-icon">◉</span>
+    <span>Se o cardápio é definido antes da eleição, a resistência efetiva é pré-eleitoral. Votar "certo" no que está no cardápio é necessário mas insuficiente. O campo de batalha real está nas 4 etapas anteriores ao voto.</span>
+  </div>
+
+  <div class="solucao-grid">
+
+  <div class="solucao">
+    <div class="solucao-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div>
+    <div class="solucao-titulo">► Transparência radical de financiamento</div>
+    <div class="solucao-body">O TSE publica dados de financiamento em tempo real no <a href="https://www.tse.jus.br/eleicoes/prestacao-de-contas" target="_blank" style="color:var(--blue)">portal de prestação de contas</a>. <strong>Monitorar e publicizar quem financia quem</strong> — cruzando candidato × financiador × setor econômico × votações parlamentares posteriores — é metodologia verificável e replicável. O <a href="https://www.cruzagrafos.com.br" target="_blank" style="color:var(--blue)">CruzaGrafos</a> e o <a href="https://www.opensecrets.org" target="_blank" style="color:var(--blue)">modelo OpenSecrets</a> americano são referências. O corpus lawfare-timeline pode incorporar essa camada analítica.</div>
+  </div>
+
+  <div class="solucao">
+    <div class="solucao-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div>
+    <div class="solucao-titulo">► Filiação como ato político</div>
+    <div class="solucao-body">Convenções partidárias que definem candidaturas são abertas a filiados. <strong>Filiação em massa muda o cardápio antes da eleição</strong>. O Movimento dos Trabalhadores Rurais Sem Terra (MST) compreendeu isso décadas atrás. Eleitor não filiado não participa da curadoria do cardápio — só da escolha final no menu restante.</div>
+  </div>
+
+  <div class="solucao">
+    <div class="solucao-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+    <div class="solucao-titulo">► Limitação de doações individuais e proibição de pessoa jurídica</div>
+    <div class="solucao-body">O STF proibiu doações de pessoas jurídicas em 2015 (ADI 4650). O Ometto opera via pessoa física — legal, mas com limite de 10% da renda bruta declarada no ano anterior. <strong>Reduzir o teto de doação individual e criar teto absoluto em valores nominais</strong> (ex: R$ 500k máximo por ciclo eleitoral) é política verificável com precedentes internacionais. Alemanha: limite de €1.000 para doações privadas com publicidade imediata acima de €500.</div>
+  </div>
+
+  <div class="solucao">
+    <div class="solucao-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg></div>
+    <div class="solucao-titulo">► Redistribuição do fundão por critério de desempenho prospectivo, não bancada atual</div>
+    <div class="solucao-body">Distribuir o FEFC proporcionalmente à bancada atual é uma tautologia que congela o poder: quem já está, fica. <strong>Modelo alternativo</strong>: parcela fixa igualitária entre todos os partidos elegíveis + parcela variável por desempenho na eleição anterior + parcela reservada para candidaturas de minorias sub-representadas (mulheres, negros, pessoas com deficiência). Proposta circula no TSE mas sem votação ainda.</div>
+  </div>
+
+  <div class="solucao">
+    <div class="solucao-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+    <div class="solucao-titulo">► Alfabetização midiática como política de segurança democrática</div>
+    <div class="solucao-body">70 milhões de analfabetos funcionais processam narrativa, não dado. <strong>Curricularização da mídia crítica</strong> — leitura de fonte, verificação de dado, identificação de financiador de veículo — é ferramenta de blindagem da urna. Finlândia implementou em 2014 como resposta à desinformação russa. Taxa de analfabetismo funcional finlandês: &lt;3% vs 38% brasileira (INAF 2023).</div>
+  </div>
+
+  </div>
+
+  <div class="quote">
+    <div class="quote-text">"A democracia não morre de repente. Ela se esvazia lentamente quando os procedimentos formais continuam existindo mas a substância — a capacidade de escolha real — é removida por dentro."</div>
+    <div class="quote-attr">— Steven Levitsky &amp; Daniel Ziblatt, "Como as Democracias Morrem" (2018)</div>
+  </div>
+</section>
+
+<!-- SEÇÃO 7: REFERÊNCIAS -->
+<section class="section" id="referencias">
+  <div class="section-tag">07 · Fontes primárias</div>
+  <h2>Referências verificáveis com links</h2>
+
+  <h3>Dados eleitorais — fontes primárias TSE</h3>
+  <ul class="ref-list">
+    <li><a href="https://www.tse.jus.br/comunicacao/noticias/2026/Fevereiro/fundo-especial-de-financiamento-de-campanha-o-que-e-e-para-que-serve" target="_blank">TSE — FEFC 2026: o que é e para que serve</a></li>
+    <li><a href="https://www.tse.jus.br/comunicacao/noticias/2026/Janeiro/fundo-partidario-19-partidos-receberam-mais-de-r-1-bilhao-em-2025" target="_blank">TSE — Fundo Partidário 2025: R$ 1,12 bilhão a 19 partidos</a></li>
+    <li><a href="https://www.tse.jus.br/eleicoes/prestacao-de-contas" target="_blank">TSE — Portal de Prestação de Contas (dados de financiamento em tempo real)</a></li>
+    <li><a href="https://www.fundacao1demaio.org.br/artigo/fundo-especial-de-financiamento-de-campanha-projecao-de-distribuicao-aos-partidos-politicos-eleicoes-2026/" target="_blank">Fundação 1° de Maio — Projeção FEFC por partido 2026</a></li>
+  </ul>
+
+  <h3>Caso Ometto — jornalismo investigativo</h3>
+  <ul class="ref-list">
+    <li><a href="https://www.brasildefato.com.br/2024/10/04/bancada-ometto-maior-doador-de-2024-deu-dinheiro-para-163-candidatos-de-15-partidos-diferentes/" target="_blank">Brasil de Fato — Bancada Ometto: 163 candidatos, 15 partidos (out/2024)</a></li>
+    <li><a href="https://www.cartacapital.com.br/blogs/daniel-camargos/nem-centrao-nem-bolsonaro-o-verdadeiro-vencedor-das-eleicoes-e-um-bilionario/" target="_blank">CartaCapital — O verdadeiro vencedor das eleições é um bilionário</a></li>
+    <li><a href="https://platobr.com.br/ometto-o-bilionario-suprapartidario-doou-r-22-milhoes-ao-pt-em-2025" target="_blank">PlatôBR — Ometto doa R$ 2,2M ao PT em 2025 (sem eleição)</a></li>
+    <li><a href="https://jornalismosp.espm.edu.br/rubens-ometto-o-empresario-bilionario-por-tras-das-eleicoes-municipais-de-2024" target="_blank">ESPM Jornalismo — Análise completa do financiamento de Ometto 2024</a></li>
+    <li><a href="https://www.metropoles.com/colunas/guilherme-amado/maior-doador-das-eleicoes-bilionario-ajudou-a-eleger-71-candidatos" target="_blank">Metrópoles — Ometto ajudou a eleger 71 candidatos</a></li>
+  </ul>
+
+  <h3>História política brasileira</h3>
+  <ul class="ref-list">
+    <li><a href="http://www.fgv.br/cpdoc/acervo/dicionarios/verbete-tematico/politica-dos-governadores" target="_blank">CPDOC/FGV — Política dos Governadores (1894–1930)</a></li>
+    <li><a href="http://www.fgv.br/cpdoc/acervo/dicionarios/verbete-tematico/ato-institucional-n-2-ai-2" target="_blank">CPDOC/FGV — AI-2: extinção de partidos e eleições indiretas (1965)</a></li>
+    <li><a href="http://www.fgv.br/cpdoc/acervo/dicionarios/verbete-tematico/diretas-ja" target="_blank">CPDOC/FGV — Diretas Já e a Emenda Dante de Oliveira (1984)</a></li>
+    <li><a href="https://www.brasildefato.com.br/2020/12/14/ha-31-anos-o-debate-decisivo-entre-lula-e-collor-foi-editado-pela-globo" target="_blank">Brasil de Fato — Debate Collor-Lula editado pelo JN (1989)</a></li>
+  </ul>
+
+  <h3>Referências acadêmicas</h3>
+  <ul class="ref-list">
+    <li>Caio Prado Júnior — "Formação do Brasil Contemporâneo" (1942) · sentido da colonização: latifúndio + exportação + trabalho escravo</li>
+    <li>Darcy Ribeiro — "O Povo Brasileiro" (1995) · povo novo e ausência de memória institucional coletiva</li>
+    <li>Florestan Fernandes — "A Revolução Burguesa no Brasil" (1975) · burguesia que nunca rompeu com o latifúndio</li>
+    <li>Noam Chomsky &amp; Edward Herman — "Manufacturing Consent" (1988) · modelo propaganda de curadoria do cardápio midiático</li>
+    <li>Steven Levitsky &amp; Daniel Ziblatt — "Como as Democracias Morrem" (2018) · erosão por dentro dos procedimentos formais</li>
+    <li>Thomas Ferguson — "Golden Rule: The Investment Theory of Party Competition" (1995) · partidos como investimentos de coalizões de capital</li>
+    <li>Martin Gilens &amp; Benjamin Page — "Testing Theories of American Politics" (2014) · Princeton: políticas refletem preferências de elites, não do eleitor mediano · <a href="https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf" target="_blank">↗ PDF</a></li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-l">
+    lawfare-timeline · AI Nativo Brasil · Bombinhas/SC<br>
+    CC0 1.0 Universal — domínio público total
+  </div>
+  <div class="footer-r">
+    Dados verificáveis · Fontes primárias<br>
+    Gerado em maio/2026
+  </div>
+</footer>
+
+</div>
+
+<button type="button" class="go-top" id="go-top" aria-label="Voltar ao topo" title="Voltar ao topo">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function () {
+  var pageUrl = window.location.href;
+  var pageTitle = document.title;
+  var text = pageTitle + ' — ' + pageUrl;
+  var encUrl = encodeURIComponent(pageUrl);
+  var encTitle = encodeURIComponent(pageTitle);
+  var encText = encodeURIComponent(text);
+
+  var wa = document.getElementById('share-whatsapp');
+  var x = document.getElementById('share-x');
+  var li = document.getElementById('share-linkedin');
+  var em = document.getElementById('share-email');
+  var copyBtn = document.getElementById('share-copy');
+  var nativeBtn = document.getElementById('share-native');
+  if (wa) wa.href = 'https://wa.me/?text=' + encText;
+  if (x) x.href = 'https://twitter.com/intent/tweet?text=' + encTitle + '&url=' + encUrl;
+  if (li) li.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl;
+  if (em) em.href = 'mailto:?subject=' + encTitle + '&body=' + encText;
+
+  if (navigator.share && nativeBtn) {
+    nativeBtn.hidden = false;
+    nativeBtn.textContent = 'Dispositivo';
+    nativeBtn.addEventListener('click', function () {
+      navigator.share({ title: pageTitle, url: pageUrl }).catch(function () {});
+    });
+  }
+
+  if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pageUrl).then(function () {
+          copyBtn.classList.add('ok');
+          var prev = copyBtn.textContent;
+          copyBtn.textContent = 'Copiado';
+          setTimeout(function () {
+            copyBtn.classList.remove('ok');
+            copyBtn.textContent = prev;
+          }, 2000);
+        }).catch(function () {
+          window.prompt('Copie o endereço:', pageUrl);
+        });
+      } else {
+        window.prompt('Copie o endereço:', pageUrl);
+      }
+    });
+  }
+
+  var goTop = document.getElementById('go-top');
+  var onScroll = function () {
+    if (!goTop) return;
+    if (window.scrollY > 380) goTop.classList.add('is-visible');
+    else goTop.classList.remove('is-visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  if (goTop) {
+    goTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+</script>
+</body>
+</html>

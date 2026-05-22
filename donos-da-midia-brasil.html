@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donos da Mídia Brasil — Mapa de Propriedade e Poder</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg: #0a0a0b;
+  --bg2: #111114;
+  --bg3: #18181d;
+  --border: #2a2a32;
+  --border2: #3a3a45;
+  --text: #e8e6e0;
+  --text2: #9a9890;
+  --text3: #5a5858;
+  --red: #e84040;
+  --red2: #ff6b6b;
+  --amber: #e8a020;
+  --amber2: #ffc940;
+  --green: #28c87a;
+  --blue: #4080ff;
+  --blue2: #80b0ff;
+  --purple: #9060e8;
+  --cyan: #20c8d8;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* HEADER */
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 40px 0 28px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.header-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.header h1 span { color: var(--amber); }
+
+.header-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text2);
+  margin-top: 14px;
+  max-width: 800px;
+  line-height: 1.7;
+}
+
+.header-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-tag {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.meta-tag.active { color: var(--amber); border-color: var(--amber); }
+
+/* FILTER BAR */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-label {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(232,160,32,0.06);
+}
+
+/* STAT BAR */
+.stat-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.stat-item {
+  background: var(--bg2);
+  padding: 16px 20px;
+}
+
+.stat-val {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+
+/* CARDS GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 2px;
+  background: var(--border);
+}
+
+.card {
+  background: var(--bg2);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.card:hover { background: var(--bg3); }
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+}
+
+.card.tipo-familia::before { background: var(--amber); }
+.card.tipo-religioso::before { background: var(--red); }
+.card.tipo-empresario::before { background: var(--blue); }
+.card.tipo-digital::before { background: var(--cyan); }
+.card.tipo-estrangeiro::before { background: var(--purple); }
+.card.tipo-politico::before { background: var(--red2); }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card-id {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.15em;
+  font-family: var(--font-mono);
+}
+
+.card-badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badge {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.badge-familia { background: rgba(232,160,32,0.15); color: var(--amber); border: 1px solid rgba(232,160,32,0.3); }
+.badge-religioso { background: rgba(232,64,64,0.15); color: var(--red2); border: 1px solid rgba(232,64,64,0.3); }
+.badge-empresario { background: rgba(64,128,255,0.15); color: var(--blue2); border: 1px solid rgba(64,128,255,0.3); }
+.badge-digital { background: rgba(32,200,216,0.15); color: var(--cyan); border: 1px solid rgba(32,200,216,0.3); }
+.badge-estrangeiro { background: rgba(144,96,232,0.15); color: var(--purple); border: 1px solid rgba(144,96,232,0.3); }
+.badge-politico { background: rgba(255,107,107,0.15); color: var(--red2); border: 1px solid rgba(255,107,107,0.3); }
+.badge-imigrante { background: rgba(40,200,122,0.15); color: var(--green); border: 1px solid rgba(40,200,122,0.3); }
+.badge-condenado { background: rgba(232,64,64,0.3); color: var(--red); border: 1px solid rgba(232,64,64,0.5); }
+
+.card-veiculo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+
+.card-dono {
+  font-size: 12px;
+  color: var(--amber2);
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+
+.card-section {
+  margin-bottom: 14px;
+}
+
+.card-section-title {
+  font-size: 9px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.card-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.card-text strong { color: var(--text); font-weight: 600; }
+
+.timeline-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 5px;
+  align-items: flex-start;
+}
+
+.timeline-year {
+  font-size: 10px;
+  color: var(--amber);
+  min-width: 40px;
+  padding-top: 1px;
+  font-weight: 600;
+}
+
+.timeline-event {
+  font-size: 11px;
+  color: var(--text2);
+  flex: 1;
+  line-height: 1.5;
+}
+
+.alert-box {
+  background: rgba(232,64,64,0.08);
+  border: 1px solid rgba(232,64,64,0.25);
+  padding: 10px 14px;
+  border-radius: 2px;
+  margin-top: 12px;
+}
+
+.alert-box .alert-icon {
+  font-size: 9px;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+
+.alert-box p {
+  font-size: 11px;
+  color: var(--red2);
+  line-height: 1.5;
+}
+
+.info-box {
+  background: rgba(232,160,32,0.06);
+  border: 1px solid rgba(232,160,32,0.2);
+  padding: 10px 14px;
+  border-radius: 2px;
+  margin-top: 12px;
+}
+
+.info-box p {
+  font-size: 11px;
+  color: var(--amber2);
+  line-height: 1.5;
+}
+
+.origem-tag {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 8px;
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  margin: 2px;
+  border-radius: 2px;
+}
+
+/* SECTION HEADER */
+.section-header {
+  margin: 48px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.section-header p {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 6px;
+}
+
+/* CONEXÕES TABLE */
+.conexoes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 11px;
+}
+
+.conexoes-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.conexoes-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text2);
+}
+
+.conexoes-table tr:hover td { background: var(--bg3); }
+
+.conexoes-table .td-veiculo { color: var(--text); font-weight: 600; }
+
+/* PADROES */
+.padroes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  margin-top: 16px;
+}
+
+.padrao-card {
+  background: var(--bg2);
+  padding: 20px;
+}
+
+.padrao-id {
+  font-size: 10px;
+  color: var(--amber);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+.padrao-titulo {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.padrao-desc {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.padrao-exemplos {
+  margin-top: 10px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.padrao-ex {
+  font-size: 9px;
+  padding: 2px 7px;
+  background: rgba(232,160,32,0.08);
+  border: 1px solid rgba(232,160,32,0.2);
+  color: var(--amber);
+  border-radius: 2px;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-left { max-width: 600px; }
+.footer-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.footer-text { font-size: 11px; color: var(--text3); line-height: 1.6; }
+.footer-right { text-align: right; }
+
+.cc0 {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+/* HIDDEN for filter */
+.card.hidden { display: none; }
+
+@media (max-width: 600px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .stat-bar { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-label">▸ Lawfare-Timeline · Dossiê Estrutural · Propriedade de Mídia</div>
+    <h1>Os <span>Donos</span> da Mídia Brasileira</h1>
+    <div class="header-sub">
+      Mapa de propriedade, origens, conexões políticas e padrões estruturais dos controladores 
+      dos principais veículos de comunicação do Brasil. Famílias centenárias, empresários convertidos 
+      ao jornalismo, religiosos, políticos condenados e capital estrangeiro — todos moldando o 
+      campo informacional nacional.
+    </div>
+    <div class="header-meta">
+      <span class="meta-tag active">14 proprietários mapeados</span>
+      <span class="meta-tag">Fontes primárias verificadas</span>
+      <span class="meta-tag">Atualizado: mai/2026</span>
+      <span class="meta-tag">CC0 1.0 — Domínio Público</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-bar">
+    <div class="stat-item">
+      <div class="stat-val">4</div>
+      <div class="stat-lbl">Famílias Centenárias</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">3</div>
+      <div class="stat-lbl">Origens Imigrantes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">2</div>
+      <div class="stat-lbl">Condenados por Crimes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">1</div>
+      <div class="stat-lbl">Capital Estrangeiro</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">3</div>
+      <div class="stat-lbl">Ligações a Golpe/64</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">100+</div>
+      <div class="stat-lbl">Anos, Maior Dynastie</div>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <span class="filter-label">Filtrar por tipo:</span>
+    <button class="filter-btn active" onclick="filterCards('all', this)">Todos</button>
+    <button class="filter-btn" onclick="filterCards('tipo-familia', this)">Família</button>
+    <button class="filter-btn" onclick="filterCards('tipo-religioso', this)">Religioso</button>
+    <button class="filter-btn" onclick="filterCards('tipo-empresario', this)">Empresário</button>
+    <button class="filter-btn" onclick="filterCards('tipo-digital', this)">Digital Nativo</button>
+    <button class="filter-btn" onclick="filterCards('tipo-estrangeiro', this)">Capital Estrangeiro</button>
+    <button class="filter-btn" onclick="filterCards('tipo-politico', this)">Político/Condenado</button>
+  </div>
+
+  <!-- CARDS GRID -->
+  <div class="cards-grid" id="cardsGrid">
+
+    <!-- 01 MESQUITA / ESTADÃO -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#001</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">Família</span>
+          <span class="badge badge-imigrante">4ª Geração</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Mesquita</div>
+      <div class="card-dono">O Estado de S. Paulo (Estadão) · Agência Estado · Rádio Eldorado</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Descendência portuguesa</strong>, com raízes que pesquisadores associam a possível ascendência cristã-nova (judeus convertidos). O fundador Júlio Mesquita era advogado e <strong>genro do cafeicultor</strong> José Alves de Cerqueira César, um dos 16 fundadores do jornal em 1875. A família assumiu o controle pleno em 1902.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1875</span>
+          <span class="timeline-event">Fundação de "A Província de S. Paulo" por 16 republicanos, incluindo o futuro sogro de Júlio Mesquita</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1902</span>
+          <span class="timeline-event">Júlio Mesquita torna-se único proprietário; início da dinastia centenária</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1932</span>
+          <span class="timeline-event">Apoio à Revolução Constitucionalista; Júlio de Mesquita Filho exilado por Getúlio Vargas</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1964</span>
+          <span class="timeline-event">Apoio declarado ao golpe militar; participação em reuniões conspiratórias com o II Exército (Ruy Mesquita)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2012</span>
+          <span class="timeline-event">Francisco de Mesquita Neto assume; 4ª geração no comando do grupo</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Oposição sistemática a governos trabalhistas (Vargas, Goulart, Lula, Dilma). Apoio ao golpe de 1964. Linha editorial liberal-conservadora consistente por quatro gerações. Declarou publicamente apoio ao candidato Serra em 2010.
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p>⟶ Jornal mais antigo de SP em circulação. 150 anos de continuidade familiar sob a mesma ideologia liberal-conservadora pró-mercado.</p>
+      </div>
+    </div>
+
+    <!-- 02 MARINHO / GLOBO -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#002</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">Família</span>
+          <span class="badge badge-imigrante">Luso-Italiano</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Marinho</div>
+      <div class="card-dono">Globo TV · O Globo · Rádio CBN · Rádio Globo · GloboNews · GloboSat · Globo Filmes</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          Roberto Marinho (1904–2003) nasceu no Rio de Janeiro, filho de <strong>Irineu Marinho</strong> (jornalista, de ascendência portuguesa) e <strong>Francisca Pisani</strong> (ascendência italiana). Herdou o jornal O Globo do pai em 1925, aos 21 anos. Construiu o maior conglomerado de mídia da América Latina.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1925</span>
+          <span class="timeline-event">Roberto Marinho herda O Globo do pai Irineu, morto naquele ano</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1944</span>
+          <span class="timeline-event">Expansão para o rádio (Rádio Globo)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1964</span>
+          <span class="timeline-event">Apoio explícito ao golpe militar; parceria com Time-Life (caso controverso) viabiliza a TV Globo</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1965</span>
+          <span class="timeline-event">Criação da TV Globo, canal 4 do Rio — um ano após o golpe</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1985</span>
+          <span class="timeline-event">Indica ministro das Comunicações do governo Sarney (Antônio Carlos Magalhães). Sarney vira sócio-afiliado no Maranhão</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1989</span>
+          <span class="timeline-event">Edição controversa do debate presidencial favorecendo Collor. Episódio mais citado de interferência editorial</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2003</span>
+          <span class="timeline-event">Morte de Roberto Marinho. Filhos Roberto Irineu, João Roberto e José Roberto assumem</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Maior grupo de mídia do Brasil. Os três filhos figuram entre os 10 maiores bilionários brasileiros (Forbes), com patrimônio estimado em ~US$ 4,3 bilhões cada. Relações próximas com todos os governos federais e estaduais. Modelo de <strong>radiodifusão como instrumento de poder político</strong>.
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-icon">▲ Swissleaks</div>
+        <p>Nomes da família Marinho (Roberto Irineu e outros) aparecem na lista de 8.667 brasileiros com contas numeradas no HSBC Suíça, publicada pelo ICIJ em 2015.</p>
+      </div>
+    </div>
+
+    <!-- 03 ABRAVANEL / SBT -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#003</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">Família</span>
+          <span class="badge badge-imigrante">Sefardita Grego</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Abravanel</div>
+      <div class="card-dono">SBT · Grupo Silvio Santos (30+ empresas)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Senor Abravanel</strong> (1930–2024), artístico "Silvio Santos", nasceu no Rio de Janeiro. Filho de <strong>Alberto Abravanel</strong> (de Tessalônica, Grécia) e <strong>Rebecca Caro</strong> (de Esmirna, Turquia) — ambos <strong>judeus sefarditas</strong> que imigraram ao Brasil em 1924. A família Abravanel tem raízes medievais ibéricas; antepassado notável foi <strong>Isaac Abravanel</strong> (1437–1508), tesoureiro dos reis de Portugal e Espanha.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1930</span>
+          <span class="timeline-event">Nascimento de Senor Abravanel (Silvio Santos) no Rio de Janeiro</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1963</span>
+          <span class="timeline-event">Início do Programa Silvio Santos — um dos mais longos da TV brasileira</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1976</span>
+          <span class="timeline-event">Compra 50% da Rede Record; lança TVS no Rio</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1981</span>
+          <span class="timeline-event">Criação do SBT (Sistema Brasileiro de Televisão), com licenças herdadas da extinção da Rede Tupi</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1989</span>
+          <span class="timeline-event">Vende a TV Record para Edir Macedo (US$ 45 mi)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2024</span>
+          <span class="timeline-event">Falecimento de Silvio Santos aos 93 anos. Filhas Daniela Beyruti e Patrícia Abravanel assumem o grupo</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Trajetória de camelô → apresentador → magnata. Fortuna estimada em US$ 1,3 bi (Forbes 2013). Sucesso construído sobre entretenimento popular de massa, com foco em classes C e D. A sucessão pelas filhas é o desafio atual do grupo.
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 FRIAS / FOLHA / UOL -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#004</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">Família</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Frias</div>
+      <div class="card-dono">Folha de S.Paulo · UOL · Datafolha · Publifolha · PagSeguro</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Octávio Frias de Oliveira</strong> (1912–2007), carioca de Copacabana. Bisavô foi o <strong>Barão de Itambi</strong>, político influente no Segundo Reinado. Pai era juiz de direito em Queluz (SP). Octávio comprou a Folha de S. Paulo em 1962 em parceria com Carlos Caldeira Filho.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1921</span>
+          <span class="timeline-event">Fundação da "Folha da Noite" pelos primeiros donos</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1960</span>
+          <span class="timeline-event">Três jornais (Noite, Manhã, Tarde) fundem-se na "Folha de S.Paulo"</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1962</span>
+          <span class="timeline-event">Octávio Frias e Carlos Caldeira Filho compram o grupo</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1991</span>
+          <span class="timeline-event">Dissolução da sociedade Frias-Caldeira. Frias fica com a mídia, Caldeira com os imóveis</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1996</span>
+          <span class="timeline-event">Fundação do UOL (Universo Online), maior portal de internet do Brasil</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2007</span>
+          <span class="timeline-event">Morte de Octávio Frias. Luís Frias (filho) assume a presidência executiva</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2018</span>
+          <span class="timeline-event">Morte de Otávio Frias Filho (diretor de redação) de câncer. Conflito familiar emerge: Maria Cristina Frias acusa Luis Frias de uso de informações privilegiadas</span>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-icon">▲ Swissleaks</div>
+        <p>Nome de Octávio Frias de Oliveira aparece na lista de 8.667 brasileiros com contas no HSBC Suíça (2006–2007), divulgada pelo ICIJ.</p>
+      </div>
+    </div>
+
+    <!-- 05 SAAD / BAND -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#005</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">Família</span>
+          <span class="badge badge-imigrante">Origem Árabe</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Saad</div>
+      <div class="card-dono">Band TV · Rádio Bandeirantes · BandNews FM · Band FM · Nativa FM</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>João Jorge Saad</strong> (1919–1999), nascido em Monte Azul Paulista, filho de <strong>Jorge João Saad</strong> (nascido em Damasco, Síria) e Raquel Amate. Família de <strong>imigrantes sírios da colônia ortodoxa antioquina</strong>. João começou como mascate e caixeiro-viajante. Casou com <strong>Maria Helena de Barros</strong>, filha do governador Adhemar de Barros — conexão política que viabilizou a primeira concessão de rádio.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1948</span>
+          <span class="timeline-event">João Saad assume a Rádio Bandeirantes do sogro Adhemar de Barros — "rouba, mas faz"</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1967</span>
+          <span class="timeline-event">Inauguração da TV Bandeirantes, canal 13 de São Paulo</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1999</span>
+          <span class="timeline-event">Morte de João Saad. Filho Johnny Saad (João Carlos) assume. Dívidas estimadas em R$ 1,2 bilhão</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2014</span>
+          <span class="timeline-event">Crise financeira grave. Irmãs de Johnny entram com ação judicial por má gestão</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2019</span>
+          <span class="timeline-event">Conselho de administração tenta destituir Johnny; mantido por acordo de acionistas até 2026</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          A entrada na mídia ocorreu via <strong>concessão política por parentesco</strong> (sogro governador). A Band enfrenta hoje dívida superior a R$ 1 bilhão. Johnny Saad usou a emissora para pressionar prefeito Fernando Haddad em retaliação a aumento de IPTU (revelado em entrevista de 2017).
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-icon">▲ Swissleaks</div>
+        <p>Nomes de João Jorge Saad, Maria Helena Saad Barros e Ricardo Saad figuram na lista de brasileiros com contas HSBC Suíça (2006–2007), publicada pelo ICIJ.</p>
+      </div>
+    </div>
+
+    <!-- 06 EDIR MACEDO / RECORD -->
+    <div class="card tipo-religioso" data-tipo="tipo-religioso">
+      <div class="card-header">
+        <span class="card-id">#006</span>
+        <div class="card-badges">
+          <span class="badge badge-religioso">Neopentecostal</span>
+          <span class="badge badge-empresario">Bilionário</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Edir Macedo</div>
+      <div class="card-dono">Record TV · RecordNews · Rede Aleluia (64 rádios) · Line Records · Banco Renner (49%)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Edir Macedo Bezerra</strong>, nascido em 18/02/1945 no Rio de Janeiro. Quarto filho de Henrique e Eugenia de Macedo. Fundou em 1977, ao lado de R.R. Soares, a <strong>Igreja Universal do Reino de Deus</strong>. Prosperidade teológica e exorcismo como pilares. Em 1989, comprou a TV Record por US$ 45 milhões.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1977</span>
+          <span class="timeline-event">Fundação da Igreja Universal do Reino de Deus (IURD) no Rio de Janeiro</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1989</span>
+          <span class="timeline-event">Compra da TV Record por US$ 45 mi. PF investiga uso de empréstimos sem juros da IURD para a aquisição — Macedo condenado a multa</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1992</span>
+          <span class="timeline-event">Macedo preso por "charlatanismo, estelionato e lesão à crendice popular". Solto após 11 dias por falta de provas. Incêndio nos estúdios destrói documentos da venda</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1994</span>
+          <span class="timeline-event">Concessão oficializada pelo presidente Itamar Franco após 30 deputados evangélicos votarem pelo Fundo Social de Emergência</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1995</span>
+          <span class="timeline-event">"Chute na Santa" — episódio televisionado pela Record gera crise com a Igreja Católica</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2006</span>
+          <span class="timeline-event">STF arquiva inquérito sobre entrada de US$ 18 mi via Uruguai para compra de emissoras</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Propriedade real obscurecida via pastores de confiança como titulares formais das concessões. Emenda Constitucional nº 36/2002 (que permitiu pessoas jurídicas no capital de radiodifusoras) regularizou a situação ex post facto. <strong>Banco Renner (49%)</strong> expande o portfólio financeiro.
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-icon">▲ Opacidade patrimonial</div>
+        <p>Em 2007, Macedo declarou renda anual de apenas R$ 8.289,60 à Receita Federal, enquanto controlava um império de radiodifusão e um banco.</p>
+      </div>
+    </div>
+
+    <!-- 07 RUBENS MENIN / CNN BRASIL -->
+    <div class="card tipo-empresario" data-tipo="tipo-empresario">
+      <div class="card-header">
+        <span class="card-id">#007</span>
+        <div class="card-badges">
+          <span class="badge badge-empresario">Construção Civil</span>
+          <span class="badge badge-imigrante">Italo-Brasileiro</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Rubens Menin</div>
+      <div class="card-dono">CNN Brasil · Rádio Itatiaia · MRV Engenharia · Banco Inter · Atlético Mineiro (SAF)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Rubens Menin Teixeira de Souza</strong>, nascido em 12/03/1956 em Belo Horizonte. Bisneto de italianos. Formado em engenharia civil pela UFMG (1978). Família de engenheiros: avô paterno construiu 30 pequenas hidrelétricas. Em 1979, fundou a MRV junto com dois primos (iniciais Mário, Rubens e Vega).
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1979</span>
+          <span class="timeline-event">Fundação da MRV Engenharia com foco em habitação popular — "o patinho feio da construção civil"</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1994</span>
+          <span class="timeline-event">Criação do Banco Intermedium (futuro Banco Inter)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2009</span>
+          <span class="timeline-event">Minha Casa Minha Vida: crescimento exponencial da MRV. Programa responsável por +80% das vendas</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2019</span>
+          <span class="timeline-event">Lançamento da CNN Brasil (65% Menin, 35% Tavolaro). Investimento estimado: R$ 700 mi em 10 anos</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2021</span>
+          <span class="timeline-event">Menin compra 100% da CNN Brasil e da Rádio Itatiaia</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2023</span>
+          <span class="timeline-event">Conduz a SAF do Atlético Mineiro</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Fortuna estimada em US$ 2,2 bi (2025). Em 2018 doou R$ 500 mil ao DEM-RJ e apoiou publicamente Bolsonaro. A MRV cresceu majoritariamente via <strong>programa governamental Minha Casa Minha Vida</strong> (governo Lula 2009). Perfil autodeclarado de "bilionário oculto".
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 MACHADO DE CARVALHO / JOVEM PAN -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#008</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">3ª Geração</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Machado de Carvalho</div>
+      <div class="card-dono">Jovem Pan News · Jovem Pan FM · Panflix</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Paulo Machado de Carvalho</strong> (1901–1992), advogado e empresário paulistano. Apelidado "Marechal da Vitória" por liderar as delegações de futebol campeãs mundiais em 1958 e 1962. Em 1928, criou a Rádio Record; em 1944, adquiriu a Rádio Panamericana (embrião da Jovem Pan).
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1928</span>
+          <span class="timeline-event">Fundação da Rádio Record — início do império de comunicação da família</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1944</span>
+          <span class="timeline-event">Aquisição da Rádio Panamericana, futura Jovem Pan</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1953</span>
+          <span class="timeline-event">Fundação da TV Record (1ª emissora de TV de São Paulo, canal 7)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1965</span>
+          <span class="timeline-event">Renomeação da Panamericana para "Jovem Pan" — decisão do fundador, acatada pelo filho Tuta</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1989</span>
+          <span class="timeline-event">Venda da TV Record e da Rádio Record para Edir Macedo por US$ 45 mi</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2014</span>
+          <span class="timeline-event"><strong>Tutinha</strong> (Antônio Augusto Amaral de Carvalho Filho, neto) assume a presidência</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2022</span>
+          <span class="timeline-event">Tutinha deixa o Brasil após derrota de Bolsonaro e pressões políticas. Demissões de comentaristas conservadores e mudança editorial</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          A Jovem Pan transformou-se de rádio FM em plataforma jornalística conservadora sob Tutinha, tornando-se principal veículo de amplificação do bolsonarismo. A mudança de linha editorial pós-2022 foi interpretada como resultado de pressão institucional (STF/TSE).
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 CUNHA PEREIRA / GAZETA DO POVO -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#009</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">3ª Geração</span>
+          <span class="badge badge-imigrante">Elite PR</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Família Cunha Pereira</div>
+      <div class="card-dono">Gazeta do Povo (GRPCom) · RPC TV · 98 FM · Cultura FM</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Francisco da Cunha Pereira Filho</strong> (1926–2009), advogado criminalista. Família com 120+ anos de presença na Assembleia Legislativa do Paraná (12 mandatos). Antepassado notável: médico e vice-governador <strong>Victor Ferreira do Amaral</strong>. Em 1962, abandonou a advocacia para comprar a Gazeta do Povo com o colega Edmundo Lemanski. Membros da família associados ao <strong>Opus Dei</strong>.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1919</span>
+          <span class="timeline-event">Fundação da Gazeta do Povo por Benjamin Lins e Oscar De Plácido e Silva</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1962</span>
+          <span class="timeline-event">Cunha Pereira e Lemanski compram o jornal</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1964</span>
+          <span class="timeline-event">Apoio ao golpe militar. Gazeta torna-se "defensora fanática do regime", recompensada com verbas publicitárias federais</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1969</span>
+          <span class="timeline-event">Aquisição da TV Paranaense (Globo afiliada). Roberto Marinho era sócio na emissora — parceria desfeita apenas em 2002</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2015</span>
+          <span class="timeline-event">Guinada editorial à direita conservadora. Gazeta pioneira no jornalismo digital no Brasil (1ª a migrar totalmente para o digital em 2017)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2019</span>
+          <span class="timeline-event">Guilherme e Ana Amélia Cunha Pereira (3ª geração) consolidam o digital</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Pesquisa acadêmica da UFPR documenta 120 anos de poder político familiar no Paraná e a relação entre apoio à ditadura militar e crescimento do grupo com verbas governamentais.
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 OMIDYAR/FISHMAN / INTERCEPT BRASIL -->
+    <div class="card tipo-estrangeiro" data-tipo="tipo-estrangeiro">
+      <div class="card-header">
+        <span class="card-id">#010</span>
+        <div class="card-badges">
+          <span class="badge badge-estrangeiro">Capital EUA</span>
+          <span class="badge badge-digital">Digital Nativo</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Pierre Omidyar / First Look Media</div>
+      <div class="card-dono">The Intercept Brasil (até 2022) · The Intercept (EUA)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Pierre Omidyar</strong>, co-fundador do eBay e bilionário franco-iraniano-americano, criou a <strong>First Look Media</strong> (organização sem fins lucrativos) em 2013 com US$ 250 mi prometidos para jornalismo independente. Motivação declarada: preocupação com liberdade de imprensa após o caso Snowden. Fundou o Intercept ao lado dos jornalistas <strong>Glenn Greenwald</strong>, Laura Poitras e Jeremy Scahill.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">2013</span>
+          <span class="timeline-event">Omidyar cria a First Look Media e aporta US$ 250 mi; recusa quase comprar o Washington Post (adquirido por Bezos)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2014</span>
+          <span class="timeline-event">Lançamento do The Intercept (EUA) com Greenwald, Poitras e Scahill</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2016</span>
+          <span class="timeline-event">Lançamento do Intercept Brasil, redação editorialmente independente em PT</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2019</span>
+          <span class="timeline-event"><strong>Vaza Jato</strong>: publicação de conversas entre Sérgio Moro e Deltan Dallagnol — maior scoop do veículo</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2020</span>
+          <span class="timeline-event">Greenwald renuncia alegando censura editorial sobre Hunter Biden. Poitras também sai</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2022</span>
+          <span class="timeline-event">Omidyar encerra o financiamento. Intercept Brasil separa-se da redação americana</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2024</span>
+          <span class="timeline-event">Intercept (EUA) perde US$ 300 mil/mês; crise institucional profunda</span>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p>⟶ Caso único na mídia brasileira de veículo com capital inteiramente estrangeiro e sem fins lucrativos. O Intercept Brasil publicou o Vaza Jato, material que revelou irregularidades da Lava Jato e alterou o debate político nacional.</p>
+      </div>
+    </div>
+
+    <!-- 11 LUIZ ESTEVÃO / METRÓPOLES -->
+    <div class="card tipo-politico" data-tipo="tipo-politico">
+      <div class="card-header">
+        <span class="card-id">#011</span>
+        <div class="card-badges">
+          <span class="badge badge-condenado">Condenado 31 anos</span>
+          <span class="badge badge-politico">Ex-Senador Cassado</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Luiz Estevão</div>
+      <div class="card-dono">Portal Metrópoles · Metrópoles FM · Brasiliense FC · Grupo OK (imóveis)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Luís Estêvão de Oliveira Neto</strong>, nascido em 06/07/1949 no Rio de Janeiro. Órfão aos 16 anos. Criado por tio em Uberlândia. Construiu fortuna no setor imobiliário no DF. Amigo pessoal de Fernando Collor desde a juventude (foi avalista na "Operação Uruguai" de US$ 5 mi que justificou fortuna de Collor em 1992).
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1994</span>
+          <span class="timeline-event">Eleito deputado distrital pelo PP com votação recorde (46.205 votos)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1999</span>
+          <span class="timeline-event">Eleito senador pelo DF</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2000</span>
+          <span class="timeline-event"><strong>1º senador cassado da história do Brasil</strong> por quebra de decoro: desvio de ~R$ 468 mi nas obras do Fórum Trabalhista de São Paulo</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2006</span>
+          <span class="timeline-event">Condenado a 31 anos de prisão por peculato, corrupção ativa, estelionato e formação de quadrilha</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2014</span>
+          <span class="timeline-event">Preso pela PF. Apresenta 36 recursos ao STF, tentando prescrição</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2015</span>
+          <span class="timeline-event"><strong>Lança o portal Metrópoles</strong> em regime aberto. Redação montada com ex-profissionais da Veja Brasília, Correio Braziliense e Jornal de Brasília</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2022</span>
+          <span class="timeline-event">Recebe indulto via decreto de Natal de Bolsonaro (critério: +70 anos, 1/3 da pena cumprida). Filiado ao PRTB — partido da chapa Bolsonaro</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2025</span>
+          <span class="timeline-event">Relatório do COAF: Banco Master repassa R$ 27,2 mi ao Metrópoles. Transferências imediatas para empresas da família classificadas como "inusitadas"</span>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-icon">▲ COAF 2025</div>
+        <p>O Metrópoles recebeu R$ 27,2 mi do Banco Master entre 2024–2025, valores transferidos imediatamente a empresas ligadas ao próprio Estevão e familiares. O portal não informou essa relação ao cobrir o caso Master.</p>
+      </div>
+    </div>
+
+    <!-- 12 FERNANDO RODRIGUES / PODER360 -->
+    <div class="card tipo-digital" data-tipo="tipo-digital">
+      <div class="card-header">
+        <span class="card-id">#012</span>
+        <div class="card-badges">
+          <span class="badge badge-digital">Digital Nativo</span>
+          <span class="badge badge-empresario">Jornalista-Dono</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Fernando Rodrigues</div>
+      <div class="card-dono">Poder360 · PoderData · PoderIdeias · Drive (newsletter)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Fernando Rodrigues</strong>, jornalista, ex-repórter da Folha de S.Paulo especializado em política. Em 2000, criou o <strong>Blog do Fernando Rodrigues</strong>, hospedado no UOL — a mais antiga operação digital de cobertura política em atividade contínua no Brasil. Em 2016, tornou-se o Poder360, independente.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">2000</span>
+          <span class="timeline-event">Lançamento do Blog do Fernando Rodrigues no UOL (ainda na Folha de S.Paulo)</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2016</span>
+          <span class="timeline-event">Migração para o Poder360, operação independente. Sócios: Rodrigues e Mariângela Gallucci</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2021</span>
+          <span class="timeline-event"><strong>Frederico Trajano</strong> (CEO do Magazine Luiza, filho de Luiza Trajano) adquire 25% do Poder360 como investimento pessoal. Rodrigues e Gallucci mantêm 75%</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2025</span>
+          <span class="timeline-event">25 anos do veículo. 90 funcionários, 66 jornalistas. Participa do ICIJ (Panama Papers, Pandora Papers)</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Modelo de jornalismo digital independente baseado em assinaturas, eventos e conteúdo patrocinado. A entrada de Frederico Trajano (família controladora do Magazine Luiza, ligada à classe política progressista) foi acompanhada de cláusula de independência editorial.
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 JAIRO LEAL / REVISTA OESTE -->
+    <div class="card tipo-digital" data-tipo="tipo-digital">
+      <div class="card-header">
+        <span class="card-id">#013</span>
+        <div class="card-badges">
+          <span class="badge badge-digital">Digital Nativo</span>
+          <span class="badge badge-empresario">Ex-Abril</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Jairo Leal</div>
+      <div class="card-dono">Revista Oeste · Oeste Sem Filtro (YouTube) · Oeste TV (2026)</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Jairo Leal</strong>, jornalista e publisher, trabalhou por <strong>mais de 40 anos no Grupo Abril</strong> (editora da Veja), incluindo no conselho de administração. Em outubro de 2019, após o artigo de J.R. Guzzo ser rejeitado por um veículo mainstream, Leal, Guzzo e Augusto Nunes decidiram fundar a Oeste. Lançada em 27/03/2020.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">2020</span>
+          <span class="timeline-event">Fundação da Revista Oeste por Jairo Leal, J.R. Guzzo e Augusto Nunes — linha editorial conservadora e liberal</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2022</span>
+          <span class="timeline-event">Wikipedia lusófona classifica a Oeste como "fonte não confiável" por consenso</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2023</span>
+          <span class="timeline-event">YouTube corta monetização do canal da Oeste por "conteúdo nocivo"</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2025</span>
+          <span class="timeline-event">Morte de J.R. Guzzo (agosto). Milton Neves (esportes) contratado. Projeto Oeste TV anunciado</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">2026</span>
+          <span class="timeline-event">Lançamento da Oeste TV (jan/2026) no canal Vivo TV 608. Expansão para emissoras de rádio regionais</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Declara não aceitar publicidade oficial. Sustentada por assinantes e anunciantes privados. Reconhece abertamente não ser imparcial: "A realidade tem um lado." Maior canal de conteúdo político conservador na internet brasileira (top-5 iBest 2024–2025).
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 CHATEAUBRIAND (HISTÓRICO) -->
+    <div class="card tipo-familia" data-tipo="tipo-familia">
+      <div class="card-header">
+        <span class="card-id">#014</span>
+        <div class="card-badges">
+          <span class="badge badge-familia">Histórico</span>
+          <span class="badge badge-imigrante">Paraibano</span>
+        </div>
+      </div>
+      <div class="card-veiculo">Assis Chateaubriand</div>
+      <div class="card-dono">Diários Associados (histórico) — 34 jornais, 36 rádios, 18 TVs no auge</div>
+
+      <div class="card-section">
+        <div class="card-section-title">Origem</div>
+        <div class="card-text">
+          <strong>Francisco de Assis Chateaubriand Bandeira de Mello</strong> (1892–1968), paraibano de Umbuzeiro. Advogado, jornalista, político e colecionador de arte. Criou o maior conglomerado de mídia da América Latina em sua época. Embaixador do Brasil na Inglaterra (1957–1960). Introduziu a televisão no Brasil em 1950 (TV Tupi). Sofreu derrame em 1960, comandando seu império da cadeira de rodas por anos.
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Cronologia</div>
+        <div class="timeline-row">
+          <span class="timeline-year">1924</span>
+          <span class="timeline-event">Compra o Jornal do Brasil. Início da construção dos Diários Associados</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1950</span>
+          <span class="timeline-event">Funda a TV Tupi (São Paulo) — <strong>1ª emissora de TV da América Latina</strong></span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1953</span>
+          <span class="timeline-event">O império atinge o ápice: 34 jornais, 36 emissoras de rádio, 18 emissoras de TV</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1960</span>
+          <span class="timeline-event">Derrame cerebral. Dirige o grupo por 8 anos da cadeira de rodas, via intérprete</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1968</span>
+          <span class="timeline-event">Morte de Chateaubriand. Sem sucessor familiar hábil, o império começa a decair</span>
+        </div>
+        <div class="timeline-row">
+          <span class="timeline-year">1980</span>
+          <span class="timeline-event">Extinção da Rede Tupi por decreto do governo Figueiredo — concessões redistribuídas para Globo, SBT e outros</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-section-title">Padrão Estrutural</div>
+        <div class="card-text">
+          Chateaubriand foi pioneiro no modelo de <strong>mídia como instrumento de poder político pessoal</strong>. Cobrava favores de governos e empresas em troca de cobertura favorável. Sua coleção de arte (hoje o MASP) foi financiada por "doações" compulsórias de empresários sob pressão.
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p>⟶ Nota: Os Diários Associados sobrevivem hoje de forma fragmentada. Silvio Santos herdou parte das concessões da Tupi para fundar o SBT em 1981.</p>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid -->
+
+  <!-- PADRÕES ESTRUTURAIS TRANSVERSAIS -->
+  <div class="section-header">
+    <h2>Padrões Estruturais Transversais</h2>
+    <p>Mecanismos recorrentes identificados na história da propriedade midiática brasileira</p>
+  </div>
+
+  <div class="padroes-grid">
+    <div class="padrao-card">
+      <div class="padrao-id">P-M01</div>
+      <div class="padrao-titulo">Concessão por Parentesco Político</div>
+      <div class="padrao-desc">A primeira concessão de rádio ou TV obtida via laços familiares com detentores de poder político — não por mérito técnico ou concorrência.</div>
+      <div class="padrao-exemplos">
+        <span class="padrao-ex">Band (sogro Adhemar)</span>
+        <span class="padrao-ex">Gazeta (verbas ditadura)</span>
+        <span class="padrao-ex">Record (bancada evangélica)</span>
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P-M02</div>
+      <div class="padrao-titulo">Apoio ao Golpe → Crescimento</div>
+      <div class="padrao-desc">Veículos que apoiaram o golpe de 1964 foram recompensados com verbas governamentais, concessões e não-interferência regulatória.</div>
+      <div class="padrao-exemplos">
+        <span class="padrao-ex">Globo (caso Time-Life)</span>
+        <span class="padrao-ex">Estadão (reuniões II Exército)</span>
+        <span class="padrao-ex">Gazeta (fidelidade fanática)</span>
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P-M03</div>
+      <div class="padrao-titulo">Opacidade de Propriedade Real</div>
+      <div class="padrao-desc">Propriedade real obscurecida via laranjas, pastores, familiares ou estruturas offshore. A regulação formal frequentemente não reflete o controle efetivo.</div>
+      <div class="padrao-exemplos">
+        <span class="padrao-ex">Record (pastores-titulares)</span>
+        <span class="padrao-ex">Macedo (R$ 8.289/ano declarados)</span>
+        <span class="padrao-ex">Swissleaks (Marinho, Saad, Frias)</span>
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P-M04</div>
+      <div class="padrao-titulo">Mídia como Instrumento de Pressão</div>
+      <div class="padrao-desc">Uso declarado ou documentado da plataforma editorial como instrumento de pressão sobre adversários políticos ou entidades regulatórias.</div>
+      <div class="padrao-exemplos">
+        <span class="padrao-ex">Band vs Haddad (IPTU)</span>
+        <span class="padrao-ex">Metrópoles vs STF (vingança Estevão)</span>
+        <span class="padrao-ex">Chateaubriand (doações compulsórias)</span>
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P-M05</div>
+      <div class="padrao-titulo">Capital Estrangeiro / Filantropo</div>
+      <div class="padrao-desc">Financiamento externo de jornalismo investigativo via organizações sem fins lucrativos americanas — única instância verificada no corpus.</div>
+      <div class="padrao-exemplos">
+        <span class="padrao-ex">Intercept (Omidyar US$ 250 mi)</span>
+        <span class="padrao-ex">First Look Media (501c3)</span>
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P-M06</div>
+      <div class="padrao-titulo">Condenado Cria Veículo</div>
+      <div class="padrao-desc">Empresário condenado criminalmente usa mídia própria como plataforma de poder e eventual instrumento de pressão sobre o sistema judicial.</div>
+      <div class="padrao-exemplos">
+        <span class="padrao-ex">Estevão (Metrópoles, 2015)</span>
+        <span class="padrao-ex">Macedo (Record, 1989)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELA DE CONEXÕES -->
+  <div class="section-header" style="margin-top: 48px;">
+    <h2>Mapa de Conexões com o Estado</h2>
+    <p>Principais relações documentadas entre proprietários de mídia e o poder político-estatal</p>
+  </div>
+
+  <table class="conexoes-table">
+    <thead>
+      <tr>
+        <th>Veículo / Dono</th>
+        <th>Tipo de Conexão</th>
+        <th>Período</th>
+        <th>Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-veiculo">Globo / Roberto Marinho</td>
+        <td>Indica ministro das Comunicações de Sarney (ACM)</td>
+        <td>1985</td>
+        <td>Sarney vira afiliado no Maranhão</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">Band / João Saad</td>
+        <td>1ª concessão via sogro governador (Adhemar de Barros)</td>
+        <td>1948</td>
+        <td>Patrimônio midiático fundado em parentesco político</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">Record / Edir Macedo</td>
+        <td>Concessão via votos evangélicos no Congresso</td>
+        <td>1994</td>
+        <td>30 deputados votaram FEE em troca da aprovação</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">Gazeta do Povo / Cunha Pereira</td>
+        <td>Verbas publicitárias federais após apoio ao golpe</td>
+        <td>1964–1985</td>
+        <td>Pesquisa UFPR documenta a relação</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">CNN Brasil / Rubens Menin</td>
+        <td>MRV cresceu 80% via Minha Casa Minha Vida (Lula 2009)</td>
+        <td>2009–2018</td>
+        <td>Mesma fortuna usada para financiar CNN Brasil (2019)</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">Metrópoles / Luiz Estevão</td>
+        <td>Indulto de Bolsonaro (decreto de Natal 2022)</td>
+        <td>2022–2023</td>
+        <td>Critérios do decreto favoreceram corruptos com +70 anos</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">Estadão / Família Mesquita</td>
+        <td>Apoio ao golpe de 1964; reuniões conspirativas com II Exército</td>
+        <td>1964</td>
+        <td>Ruy Mesquita relata participação pessoal</td>
+      </tr>
+      <tr>
+        <td class="td-veiculo">Jovem Pan / Tutinha</td>
+        <td>Principal plataforma de amplificação do bolsonarismo</td>
+        <td>2019–2022</td>
+        <td>Mudança editorial pós-2022 após pressão institucional</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-title">Lawfare-Timeline · Dossiê Estrutural</div>
+      <div class="footer-text">
+        Este documento integra o corpus investigativo do lawfare-timeline, projeto de documentação forense 
+        independente de padrões sistêmicos de captura institucional no Brasil. Fontes primárias: 
+        Media Ownership Monitor Brasil, Wikipedia (verificado), ICIJ/Swissleaks, Revista Fórum, 
+        Wikipedia EN/PT, UFPR/NEP, documentação acadêmica.
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="cc0">CC0 1.0 — DOMÍNIO PÚBLICO</div>
+      <div class="footer-text">gosurf.site · maio/2026</div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+function filterCards(tipo, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    if (tipo === 'all') {
+      card.classList.remove('hidden');
+    } else {
+      if (card.classList.contains(tipo)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    }
+  });
+}
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

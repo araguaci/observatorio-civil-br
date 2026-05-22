@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Justiça Eleitoral no Mundo vs. TSE Brasil — Onde o Modelo Diverge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0a0b0d;
+  --bg2:       #10131a;
+  --bg3:       #161b26;
+  --border:    #1e2535;
+  --border2:   #252d40;
+  --text:      #c8d0e0;
+  --muted:     #5a6478;
+  --accent:    #e8c44a;
+  --accent2:   #f0a030;
+  --red:       #e05050;
+  --red2:      #c03030;
+  --green:     #3db87a;
+  --blue:      #4a90d9;
+  --teal:      #3acfb8;
+  --mono:      'IBM Plex Mono', monospace;
+  --syne:      'Syne', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.hero {
+  background: linear-gradient(160deg, #0d111c 0%, #0a0b0d 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 32px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(ellipse, rgba(232,196,74,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--accent);
+}
+h1 {
+  font-family: var(--syne);
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #e8edf5;
+  margin-bottom: 16px;
+}
+h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.hero-sub {
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.7;
+}
+.hero-meta {
+  margin-top: 20px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.hero-meta-item span {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  background: var(--bg2);
+  overflow-x: auto;
+}
+.tab {
+  padding: 14px 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── CONTENT ── */
+.content { display: none; padding: 28px 32px 48px; max-width: 1100px; }
+.content.active { display: block; }
+
+/* ── SECTION HEADING ── */
+.sec-h {
+  font-family: var(--syne);
+  font-size: 18px;
+  font-weight: 700;
+  color: #e8edf5;
+  margin-bottom: 6px;
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-h:first-child { margin-top: 0; }
+.sec-h .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  background: rgba(232,196,74,0.1);
+  border: 1px solid rgba(232,196,74,0.2);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.sec-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* ── COMPARISON GRID ── */
+.cmp-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  font-size: 11px;
+}
+.cmp-header {
+  background: var(--bg3);
+  padding: 10px 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.cmp-header.brasil { color: var(--accent); }
+.cmp-row-label {
+  background: var(--bg2);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 11px;
+}
+.cmp-row-label:last-of-type { border-bottom: none; }
+.cmp-cell {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  line-height: 1.5;
+  color: var(--muted);
+  font-size: 11px;
+}
+.cmp-cell.brasil {
+  background: rgba(232,196,74,0.04);
+  border-right: none;
+}
+.cmp-cell:last-child { border-right: none; }
+.cmp-grid > *:nth-last-child(-n+5) { border-bottom: none; }
+
+.yes  { color: var(--green); }
+.no   { color: var(--red); }
+.part { color: var(--accent2); }
+.uni  { color: var(--teal); font-weight: 700; }
+
+/* ── POWER CARDS ── */
+.power-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.power-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px;
+}
+.power-card.anomaly {
+  border-color: rgba(224,80,80,0.3);
+  background: rgba(224,80,80,0.04);
+}
+.power-card.shared {
+  border-color: rgba(58,207,184,0.2);
+  background: rgba(58,207,184,0.03);
+}
+.power-title {
+  font-family: var(--syne);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.power-title .badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.badge-anomaly { background: rgba(224,80,80,0.2); color: var(--red); border: 1px solid rgba(224,80,80,0.3); }
+.badge-shared  { background: rgba(58,207,184,0.1); color: var(--teal); border: 1px solid rgba(58,207,184,0.2); }
+.badge-unique  { background: rgba(232,196,74,0.12); color: var(--accent); border: 1px solid rgba(232,196,74,0.25); }
+.power-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.power-evidence {
+  margin-top: 10px;
+  font-size: 10px;
+  color: var(--border2);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  font-style: italic;
+}
+
+/* ── COUNTRY PROFILES ── */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.country-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.country-header {
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.country-flag {
+  font-size: 22px;
+}
+.country-name {
+  font-family: var(--syne);
+  font-size: 15px;
+  font-weight: 700;
+  color: #e8edf5;
+}
+.country-model {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: auto;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.country-body {
+  padding: 14px 18px;
+}
+.country-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.country-item:last-child { margin-bottom: 0; }
+.ci-label {
+  color: var(--muted);
+  min-width: 100px;
+  flex-shrink: 0;
+}
+.ci-val { color: var(--text); }
+.ci-key { color: var(--accent); font-weight: 700; }
+
+/* ── BRASIL CARD (special) ── */
+.brasil-card {
+  border: 1px solid rgba(232,196,74,0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: rgba(232,196,74,0.03);
+}
+.brasil-header {
+  background: rgba(232,196,74,0.08);
+  border-bottom: 1px solid rgba(232,196,74,0.2);
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brasil-header-flag { font-size: 28px; }
+.brasil-header-title {
+  font-family: var(--syne);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.brasil-header-sub {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.brasil-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.brasil-col {
+  padding: 18px 22px;
+}
+.brasil-col:first-child {
+  border-right: 1px solid rgba(232,196,74,0.15);
+}
+.brasil-col-title {
+  font-family: var(--syne);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.brasil-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  align-items: flex-start;
+}
+.brasil-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.dot-red  { background: var(--red); }
+.dot-acc  { background: var(--accent); }
+.dot-blue { background: var(--blue); }
+.dot-teal { background: var(--teal); }
+
+/* ── TIMELINE DIVERGENCIA ── */
+.diverg-list {
+  margin-bottom: 28px;
+}
+.diverg-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.diverg-year {
+  background: var(--bg2);
+  padding: 16px 14px;
+  border-right: 1px solid var(--border);
+  font-family: var(--syne);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.diverg-body {
+  padding: 14px 18px;
+}
+.diverg-title {
+  font-family: var(--syne);
+  font-size: 13px;
+  font-weight: 700;
+  color: #e8edf5;
+  margin-bottom: 5px;
+}
+.diverg-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.diverg-comparado {
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--teal);
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.diverg-comparado::before {
+  content: '↔';
+  flex-shrink: 0;
+}
+
+/* ── VERDICT ── */
+.verdict {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+}
+.verdict-title {
+  font-family: var(--syne);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.verdict-text {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+/* ── SOURCES ── */
+.source-list {
+  margin-top: 8px;
+}
+.source-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+.source-item:last-child { border-bottom: none; }
+.source-num {
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 24px;
+}
+.source-body {}
+.source-title { color: var(--text); }
+.source-url {
+  color: var(--muted);
+  font-size: 10px;
+  word-break: break-all;
+}
+.source-url a { color: var(--blue); text-decoration: none; }
+.source-url a:hover { text-decoration: underline; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hero { padding: 28px 16px 24px; }
+  .tabs { padding: 0 16px; }
+  .content { padding: 20px 16px 40px; }
+  .cmp-grid { grid-template-columns: 1fr; overflow-x: auto; }
+  .brasil-body { grid-template-columns: 1fr; }
+  .brasil-col:first-child { border-right: none; border-bottom: 1px solid rgba(232,196,74,0.15); }
+  .diverg-item { grid-template-columns: 80px 1fr; }
+}
+
+.cc0 {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  padding: 16px 32px;
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Lawfare Timeline · Análise Comparada</div>
+  <h1>Justiça Eleitoral no Mundo<br>vs. <em>TSE Brasil</em></h1>
+  <p class="hero-sub">Onde o modelo brasileiro converge com padrões internacionais e onde ele diverge de forma estruturalmente única — com base em fontes verificáveis de direito comparado, academia e cobertura jornalística.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">Status: <span>Análise Documental</span></div>
+    <div class="hero-meta-item">Atualizado: <span>Mai 2026</span></div>
+    <div class="hero-meta-item">Padrões: <span>P03 · P06</span></div>
+    <div class="hero-meta-item">Licença: <span>CC0 1.0 Universal</span></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('comparativo')">Comparativo Global</button>
+  <button class="tab" onclick="switchTab('poderes')">Poderes do TSE</button>
+  <button class="tab" onclick="switchTab('paises')">Perfis por País</button>
+  <button class="tab" onclick="switchTab('divergencias')">Divergências Chave</button>
+  <button class="tab" onclick="switchTab('veredicto')">Análise Final</button>
+  <button class="tab" onclick="switchTab('fontes')">Fontes</button>
+</div>
+
+<!-- ════ TAB 1 — COMPARATIVO ════ -->
+<div id="tab-comparativo" class="content active">
+  <div class="sec-h"><span class="num">01</span> Matriz Comparativa — Poderes por País</div>
+  <p class="sec-desc">Cada dimensão avalia se o órgão eleitoral daquele país exerce aquela função. O Brasil é destacado para contraste direto. Fontes: Wikipedia / Brazilian Election Justice; ACE Electoral Knowledge Network; Mexican Law Review (Elsevier, 2015); Gazeta do Povo (2025).</p>
+
+  <div style="overflow-x:auto">
+  <div class="cmp-grid" style="min-width:680px">
+    <!-- HEADER -->
+    <div class="cmp-header">Dimensão</div>
+    <div class="cmp-header">🇩🇪 Alemanha</div>
+    <div class="cmp-header">🇲🇽 México</div>
+    <div class="cmp-header">🇨🇷 Costa Rica</div>
+    <div class="cmp-header brasil">🇧🇷 Brasil (TSE)</div>
+
+    <!-- ROW 1 -->
+    <div class="cmp-row-label">Órgão eleitoral especializado</div>
+    <div class="cmp-cell"><span class="part">Parcial</span><br>Bundeswahlleiter + Bundestag</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>INE + TEPJF (separados)</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>TSE como 4º poder formal</div>
+    <div class="cmp-cell brasil"><span class="yes">Sim</span><br>TSE — compõe Judiciário</div>
+
+    <!-- ROW 2 -->
+    <div class="cmp-row-label">Decisões inapeláveis</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Bundestag revisa; BVerfG supervisiona</div>
+    <div class="cmp-cell"><span class="part">Limitado</span><br>SCJN pode rever em casos constitucionais</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>TSE-CR: inapeláveis em matéria eleitoral</div>
+    <div class="cmp-cell brasil"><span class="yes">Sim</span><br>CF/88 art. 121 §3 — exceto STF</div>
+
+    <!-- ROW 3 -->
+    <div class="cmp-row-label">Poder normativo próprio</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Regula via lei parlamentar</div>
+    <div class="cmp-cell"><span class="part">Limitado</span><br>Congresso federal retém regras eleitorais</div>
+    <div class="cmp-cell"><span class="part">Moderado</span><br>Interpreta exclusivamente normas eleitorais</div>
+    <div class="cmp-cell brasil"><span class="uni">AMPLO</span><br>Expede resoluções com força de lei (art. 105, CE)</div>
+
+    <!-- ROW 4 -->
+    <div class="cmp-row-label">Censura / remoção de conteúdo digital</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>NetzDG: aprovado pelo Bundestag, não pelo judiciário</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Sem poder judicial direto sobre plataformas</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Sem competência digital equivalente</div>
+    <div class="cmp-cell brasil"><span class="uni">ÚNICO</span><br>Ordens de remoção, bloqueio, desmonetização por decisão monocrática</div>
+
+    <!-- ROW 5 -->
+    <div class="cmp-row-label">Cassação retroativa de candidatos eleitos</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Inelegibilidade via lei penal; não pós-eleição</div>
+    <div class="cmp-cell"><span class="part">Limitado</span><br>TEPJF pode anular eleições; processo formal extenso</div>
+    <div class="cmp-cell"><span class="part">Previsto</span><br>Mas poucos casos históricos documentados</div>
+    <div class="cmp-cell brasil"><span class="uni">AMPLO</span><br>Cassações por "abuso de poder" com critérios extensivos e discricionários</div>
+
+    <!-- ROW 6 -->
+    <div class="cmp-row-label">Composição por magistrados rotativos de outra corte</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>BVerfG: juízes próprios, mandato 12 anos</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>TEPJF: magistrados próprios, mandato fixo</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Magistrados próprios eleitos</div>
+    <div class="cmp-cell brasil"><span class="uni">ÚNICO</span><br>3/7 do TSE são ministros do STF em rotação bienal</div>
+
+    <!-- ROW 7 -->
+    <div class="cmp-row-label">Registro civil / identificação</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Separado do órgão eleitoral</div>
+    <div class="cmp-cell"><span class="no">Não</span><br>Separado do INE</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>TSE-CR controla registro civil e IDs</div>
+    <div class="cmp-cell brasil"><span class="no">Não</span><br>Separado (Cartórios, Detran)</div>
+
+    <!-- ROW 8 -->
+    <div class="cmp-row-label">Aprovação pelo Legislativo de regras de moderação</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>Bundestag aprova o NetzDG (2018)</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>Congresso federal legisla</div>
+    <div class="cmp-cell"><span class="yes">Sim</span><br>Assembleia Legislativa valida reformas</div>
+    <div class="cmp-cell brasil"><span class="uni">NÃO</span><br>STF/TSE auto-atribuiu controle de discurso sem lei — caso único no mundo</div>
+  </div>
+  </div>
+
+  <div class="verdict" style="margin-top:20px">
+    <div class="verdict-title">⚠ Síntese Estrutural</div>
+    <div class="verdict-text">
+      A premissa "nenhum país tem justiça eleitoral especializada" é factualmente incorreta — México, Costa Rica, Bolívia, Venezuela e outros possuem órgãos análogos. O que é documentavelmente único no Brasil é a <strong>combinação</strong> de quatro atributos simultaneamente: (1) poder normativo autônomo com força de lei, (2) censura digital por ordem judicial monocrática sem aprovação legislativa, (3) composição via juízes do STF em rotação (conflito estrutural), e (4) decisões inapeláveis com extensão discricionária do conceito de "abuso de poder". Nenhum outro país democrático documentado acumula os quatro.
+    </div>
+  </div>
+</div>
+
+<!-- ════ TAB 2 — PODERES ════ -->
+<div id="tab-poderes" class="content">
+  <div class="sec-h"><span class="num">02</span> Anatomia dos Poderes do TSE</div>
+  <p class="sec-desc">Classificação por grau de singularidade no cenário internacional. "Compartilhado" = existe em outras democracias com estrutura similar. "Anomalia" = presente em regimes não-democráticos ou sem equivalente democrático documentado.</p>
+
+  <div class="power-grid">
+
+    <div class="power-card shared">
+      <div class="power-title">
+        Administração Eleitoral
+        <span class="badge badge-shared">Compartilhado</span>
+      </div>
+      <div class="power-desc">Organização, logística e execução de eleições. Função central de qualquer órgão eleitoral. Presente em Brasil, Costa Rica, México, Índia (Election Commission), Canadá (Elections Canada), etc.</div>
+    </div>
+
+    <div class="power-card shared">
+      <div class="power-title">
+        Registro de Partidos e Candidatos
+        <span class="badge badge-shared">Compartilhado</span>
+      </div>
+      <div class="power-desc">Habilitação e controle de elegibilidade formal de candidatos. Comum em sistemas parlamentares e presidencialistas com justiça eleitoral especializada.</div>
+    </div>
+
+    <div class="power-card shared">
+      <div class="power-title">
+        Jurisdição sobre Disputas Eleitorais
+        <span class="badge badge-shared">Compartilhado</span>
+      </div>
+      <div class="power-desc">Arbitragem de conflitos sobre resultados, impugnações e ilegalidades. Presente em México (TEPJF), Costa Rica (TSE-CR), Peru, Bolívia, Equador. Na Alemanha, exercido pelo Bundestag com revisão do BVerfG.</div>
+    </div>
+
+    <div class="power-card">
+      <div class="power-title">
+        Poder Normativo Próprio
+        <span class="badge badge-unique">Diferenciado</span>
+      </div>
+      <div class="power-desc">O TSE expede resoluções com força de lei eleitoral (art. 105, Código Eleitoral). Outros países delimitam poderes normativos por lei parlamentar. No Brasil, o TSE pode criar obrigações novas sem aprovação do Congresso dentro de "fiel execução" — brecha interpretativa crescente.</div>
+      <div class="power-evidence">Fonte: Código Eleitoral (Lei 4.737/65), art. 105 · Brazilian Election Justice, Wikipedia EN</div>
+    </div>
+
+    <div class="power-card anomaly">
+      <div class="power-title">
+        Censura Digital por Decisão Monocrática
+        <span class="badge badge-anomaly">Anomalia</span>
+      </div>
+      <div class="power-desc">Ordens de remoção de conteúdo, bloqueio de plataformas e desmonetização emitidas por um único ministro. Em outubro/2022, TSE suspendeu documentário, desmonetizou canais e censurou matérias da Gazeta do Povo e Jovem Pan durante o 2º turno. O X (Twitter) foi bloqueado por 39 dias em 2024 durante eleições municipais.</div>
+      <div class="power-evidence">Fonte: TSE (comunicado oficial, out/2022) · Gazeta do Povo (set/2025) · Partido Novo (mai/2025) · "Primeiro caso no mundo em que o Judiciário aprovou por si só regras de controle do discurso nas redes" — Gazeta do Povo, 2025</div>
+    </div>
+
+    <div class="power-card anomaly">
+      <div class="power-title">
+        Composição via Juízes Rotativos do STF
+        <span class="badge badge-anomaly">Anomalia</span>
+      </div>
+      <div class="power-desc">3 dos 7 ministros do TSE são ministros do STF em mandatos bienais rotativos. Eles julgam no TSE e depois revisam os mesmos casos no STF. No caso Bolsonaro (2023), Moraes presidia o TSE ao proferir a inelegibilidade e é o relator do caso golpe no STF. Nenhuma democracia estabelecida opera com esse arranjo.</div>
+      <div class="power-evidence">Fonte: CF/88 art. 119 · Metrópoles (jun/2023) · Senado Federal / Estadão (jan/2026)</div>
+    </div>
+
+    <div class="power-card anomaly">
+      <div class="power-title">
+        Inelegibilidade por "Abuso de Poder" Discricionário
+        <span class="badge badge-anomaly">Anomalia</span>
+      </div>
+      <div class="power-desc">Cassação por "uso indevido dos meios de comunicação" e "abuso de poder político" sem definição legal objetiva. No caso Bolsonaro, a reunião com embaixadores em jul/2022 — evento público — foi tipificada como ilícito eleitoral por maioria de 5×2. Critério qualitativo ("grau de reprovabilidade") sem parâmetro legal preciso.</div>
+      <div class="power-evidence">Fonte: TSE (comunicado oficial jun/2023, AIJE 0600814-85) · voto do relator Benedito Gonçalves</div>
+    </div>
+
+    <div class="power-card anomaly">
+      <div class="power-title">
+        Auto-atribuição de Regulação de Discurso Sem Lei
+        <span class="badge badge-anomaly">Anomalia</span>
+      </div>
+      <div class="power-desc">Em jun/2024, o STF declarou parcialmente inconstitucional o art. 19 do Marco Civil da Internet e estabeleceu por conta própria regras de controle de discurso online. O Congresso havia deliberadamente optado por não legislar sobre o tema (debates de 2023). Nem na Venezuela o Judiciário atropelou o Legislativo nessa forma — o chavismo ao menos preservou aparência formal de aprovação parlamentar.</div>
+      <div class="power-evidence">Fonte: Gazeta do Povo (set/2025) · Marco Civil da Internet (Lei 12.965/14), art. 19 · Relator ONU David Kaye sobre NetzDG alemão</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ TAB 3 — PAÍSES ════ -->
+<div id="tab-paises" class="content">
+  <div class="sec-h"><span class="num">03</span> Perfis — Modelos de Justiça Eleitoral no Mundo</div>
+  <p class="sec-desc">Seis perfis documentados por fontes acadêmicas e institucionais. A divergência brasileira emerge não da existência de um órgão eleitoral, mas da combinação de poderes sem equivalente.</p>
+
+  <div class="country-grid">
+
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag">🇩🇪</div>
+        <div class="country-name">Alemanha</div>
+        <div class="country-model">Modelo Parlamentar</div>
+      </div>
+      <div class="country-body">
+        <div class="country-item"><div class="ci-label">Órgão:</div><div class="ci-val">Bundeswahlleiter + Bundestag como árbitro final</div></div>
+        <div class="country-item"><div class="ci-label">Regras digitais:</div><div class="ci-val"><span class="ci-key">NetzDG aprovado pelo Bundestag</span> (lei parlamentar, 2018) — não pelo judiciário</div></div>
+        <div class="country-item"><div class="ci-label">Revisão:</div><div class="ci-val">Bundesverfassungsgericht (BVerfG) pode revisar decisões eleitorais</div></div>
+        <div class="country-item"><div class="ci-label">Composição:</div><div class="ci-val">BVerfG: juízes próprios, 12 anos, sem sobreposição com outras cortes</div></div>
+        <div class="country-item"><div class="ci-label">Diverge do Brasil:</div><div class="ci-val ci-key">Regras de discurso via Legislativo; juízes sem sobreposição; sem poder normativo judicial autônomo</div></div>
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag">🇲🇽</div>
+        <div class="country-name">México</div>
+        <div class="country-model">Modelo Bifurcado</div>
+      </div>
+      <div class="country-body">
+        <div class="country-item"><div class="ci-label">Órgãos:</div><div class="ci-val">INE (administrativo) + TEPJF (jurisdicional) — separados</div></div>
+        <div class="country-item"><div class="ci-label">Normatização:</div><div class="ci-val"><span class="ci-key">Congresso federal retém poder de editar regras eleitorais</span> — TEPJF não auto-legisla</div></div>
+        <div class="country-item"><div class="ci-label">Revisão:</div><div class="ci-val">SCJN pode rever em casos constitucionais</div></div>
+        <div class="country-item"><div class="ci-label">Composição:</div><div class="ci-val">Magistrados próprios do TEPJF — mandato de 9 anos, sem rotação de outra corte</div></div>
+        <div class="country-item"><div class="ci-label">Diverge do Brasil:</div><div class="ci-val ci-key">Separação administrativa-jurisdicional; sem poder digital; sem composição por juízes rotativos de corte superior</div></div>
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag">🇨🇷</div>
+        <div class="country-name">Costa Rica</div>
+        <div class="country-model">Modelo Integrado (4º Poder)</div>
+      </div>
+      <div class="country-body">
+        <div class="country-item"><div class="ci-label">Órgão:</div><div class="ci-val">TSE como 4º poder constitucional (Constituição de 1949)</div></div>
+        <div class="country-item"><div class="ci-label">Poderes:</div><div class="ci-val">Admin. eleitoral + registro civil + jurisdição eleitoral + formação democrática</div></div>
+        <div class="country-item"><div class="ci-label">Decisões:</div><div class="ci-val">Inapeláveis em matéria eleitoral — modelo mais forte da região</div></div>
+        <div class="country-item"><div class="ci-label">Composição:</div><div class="ci-val">3 magistrados próprios + substitutos (1 ano pós-eleição: 5 magistrados)</div></div>
+        <div class="country-item"><div class="ci-label">Diverge do Brasil:</div><div class="ci-val ci-key">Sem poder normativo de censura digital; sem composição via juízes de outra corte; poderes extensos mas dentro de jurisdição eleitoral clássica</div></div>
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag">🇺🇸</div>
+        <div class="country-name">EUA</div>
+        <div class="country-model">Modelo Descentralizado</div>
+      </div>
+      <div class="country-body">
+        <div class="country-item"><div class="ci-label">Estrutura:</div><div class="ci-val">Sem órgão eleitoral federal centralizado — conduzido por estados</div></div>
+        <div class="country-item"><div class="ci-label">Arbitragem:</div><div class="ci-val">FEC (admin. financiamento) + Cortes federais para disputas</div></div>
+        <div class="country-item"><div class="ci-label">1ª Emenda:</div><div class="ci-val"><span class="ci-key">Proteção forte de discurso político</span> — remoção de conteúdo político por ordem judicial é constitucionalmenteccontestável</div></div>
+        <div class="country-item"><div class="ci-label">Diverge do Brasil:</div><div class="ci-val ci-key">Sem órgão centralizado; sem poder de censura digital; liberdade de expressão eleitoral amplamente protegida</div></div>
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag">🇫🇷</div>
+        <div class="country-name">França</div>
+        <div class="country-model">Modelo Constitucional</div>
+      </div>
+      <div class="country-body">
+        <div class="country-item"><div class="ci-label">Órgão:</div><div class="ci-val">Conseil Constitutionnel — valida resultados presidenciais e legislativos</div></div>
+        <div class="country-item"><div class="ci-label">Poderes:</div><div class="ci-val">Controle de constitucionalidade + validação eleitoral — <span class="ci-key">escopo delimitado</span></div></div>
+        <div class="country-item"><div class="ci-label">Digital:</div><div class="ci-val">DSA (Digital Services Act) via Comissão Europeia — aprovado por processo legislativo supranacional</div></div>
+        <div class="country-item"><div class="ci-label">Diverge do Brasil:</div><div class="ci-val ci-key">Sem poder normativo autônomo; sem censura digital judicial; regulação digital via Legislativo/UE</div></div>
+      </div>
+    </div>
+
+    <div class="country-card" style="border-color:rgba(232,196,74,0.3); background:rgba(232,196,74,0.03)">
+      <div class="country-header" style="border-color:rgba(232,196,74,0.2)">
+        <div class="country-flag">🇧🇷</div>
+        <div class="country-name" style="color:var(--accent)">Brasil — TSE</div>
+        <div class="country-model" style="color:var(--accent)">Modelo Híbrido Único</div>
+      </div>
+      <div class="country-body">
+        <div class="country-item"><div class="ci-label">Órgão:</div><div class="ci-val">TSE + TREs (26 estados + DF) — dentro do Poder Judiciário</div></div>
+        <div class="country-item"><div class="ci-label">Composição:</div><div class="ci-val"><span style="color:var(--red)">3 ministros do STF (rotativos) + 2 do STJ + 2 advogados indicados</span></div></div>
+        <div class="country-item"><div class="ci-label">Poder normativo:</div><div class="ci-val"><span style="color:var(--accent)">Art. 105 do CE — resoluções com força de lei, sem aprovação do Congresso</span></div></div>
+        <div class="country-item"><div class="ci-label">Digital:</div><div class="ci-val"><span style="color:var(--red)">Bloqueio de plataformas, remoção de conteúdo, desmonetização — por decisão monocrática de ministro</span></div></div>
+        <div class="country-item"><div class="ci-label">Inapeláveis:</div><div class="ci-val">Exceto STF (onde 3 dos 7 juízes do TSE também sentam)</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ TAB 4 — DIVERGÊNCIAS ════ -->
+<div id="tab-divergencias" class="content">
+  <div class="sec-h"><span class="num">04</span> Divergências Documentadas — Cronologia</div>
+  <p class="sec-desc">Momentos específicos em que a atuação do TSE/STF cruzou fronteiras sem precedente documentado em democracias estabelecidas.</p>
+
+  <div class="diverg-list">
+
+    <div class="diverg-item">
+      <div class="diverg-year">2020</div>
+      <div class="diverg-body">
+        <div class="diverg-title">TSE lança programa de "enfrentamento à desinformação" com parcerias diretas com plataformas</div>
+        <div class="diverg-desc">Modelo de parceria direta TSE-plataformas para remoção de conteúdo, inaugurado sem base legal específica aprovada pelo Congresso. Empresas que não aderiam eram "constrangidas" institucionalmente.</div>
+        <div class="diverg-comparado">No México, o INE não possui poder equivalente. Na Alemanha, a NetzDG havia sido aprovada pelo Bundestag em 2018 — mas a lei é criticada internacionalmente por "censura terceirizada" e foi revisada. No Brasil, o TSE adotou modelo ainda mais informal, sem lei.</div>
+      </div>
+    </div>
+
+    <div class="diverg-item">
+      <div class="diverg-year">Out 2022</div>
+      <div class="diverg-body">
+        <div class="diverg-title">TSE suspende documentário, desmonetiza canais e censura matérias jornalísticas durante 2º turno</div>
+        <div class="diverg-desc">Decisão do min. Benedito Gonçalves suspendeu exibição de documentário sobre atentado a Bolsonaro, adiando-o para após o 2º turno. Simultâneamente, o TSE desmonetizou quatro canais e ordenou remoção de matérias da Gazeta do Povo e Jovem Pan. Ministros chamaram a medida de "excepcionalíssima" mas executaram-na.</div>
+        <div class="diverg-comparado">Nenhum órgão eleitoral de país democrático documentado suspendeu a exibição de conteúdo jornalístico durante uma campanha eleitoral por decisão judicial unilateral, sem processo penal ou civil convencional.</div>
+      </div>
+    </div>
+
+    <div class="diverg-item">
+      <div class="diverg-year">Jun 2023</div>
+      <div class="diverg-body">
+        <div class="diverg-title">TSE declara inelegibilidade de Bolsonaro por 8 anos — relator e presidente são o mesmo ministro que o investiga no STF</div>
+        <div class="diverg-desc">Alexandre de Moraes presidiu o julgamento no TSE e é relator dos Inquéritos 4878 e 4879 no STF. O mesmo magistrado que acumula a relatoria da investigação penal presidiu a corte eleitoral que cassou os direitos políticos do investigado. Votos 5×2 — voto dissidente do min. Raul Araújo questionou a "intensidade" da conduta como suficiente para inelegibilidade.</div>
+        <div class="diverg-comparado">No TEPJF mexicano e no TSE costa-riquenho, magistrados com interesse direto em investigações paralelas do mesmo réu seriam impedidos. Na Alemanha, o BVerfG tem regras estritas de impedimento que exigem ausência de qualquer vínculo com o processo.</div>
+      </div>
+    </div>
+
+    <div class="diverg-item">
+      <div class="diverg-year">Ago–Out 2024</div>
+      <div class="diverg-body">
+        <div class="diverg-title">X (Twitter) bloqueado por 39 dias durante eleições municipais — multa de R$50 mil por uso de VPN</div>
+        <div class="diverg-desc">Decisão do min. Alexandre de Moraes bloqueou o X no Brasil por 39 dias, período que coincidiu integralmente com as eleições municipais de outubro de 2024. Multa de R$50 mil foi imposta a usuários que acessassem a plataforma via VPN. Contas bancárias da Starlink foram bloqueadas para cobrir multas do X — sem base legal específica para essa medida de cobrança indireta.</div>
+        <div class="diverg-comparado">O Partido Novo e analistas internacionais documentaram: "Em 30 de agosto, Moraes suspendeu o X no Brasil, com multas de R$50 mil por uso de VPNs, uma medida sem precedentes em democracias." A Gazeta do Povo registrou que nem mesmo a Venezuela — que aprovou lei de desinformação pelo Congresso — operou com bloqueio judicial direto sem lei aprovada.</div>
+      </div>
+    </div>
+
+    <div class="diverg-item">
+      <div class="diverg-year">Jun 2024</div>
+      <div class="diverg-body">
+        <div class="diverg-title">STF auto-atribui controle de discurso online — primeiro caso mundial de regulação de redes por judiciário sem lei</div>
+        <div class="diverg-desc">STF declarou parcialmente inconstitucional o art. 19 do Marco Civil da Internet e estabeleceu por conta própria as regras de moderação de conteúdo para plataformas digitais. O Congresso havia deliberadamente optado por não avançar no PL 2630/2020 (PL das Fake News) em 2023.</div>
+        <div class="diverg-comparado">Gazeta do Povo (set/2025): "É a primeira vez que o controle de publicações em redes sociais é implementado pelo Judiciário em um país. Outros países já aderiram regulações, mas sempre aprovadas pelo Legislativo." O Relator Especial da ONU para liberdade de expressão havia alertado sobre o modelo alemão (NetzDG) como "precedente perigoso" — o Brasil foi além sem sequer ter lei equivalente.</div>
+      </div>
+    </div>
+
+    <div class="diverg-item">
+      <div class="diverg-year">Set 2025</div>
+      <div class="diverg-body">
+        <div class="diverg-title">STF estende inelegibilidade de Bolsonaro para "8 anos após cumprimento da pena" — potencial de 30+ anos sem disputar cargo</div>
+        <div class="diverg-desc">Após condenação pelo STF por tentativa de golpe, min. Alexandre de Moraes determinou que inelegibilidade vale desde já e se estende por 8 anos após o cumprimento da pena. Bolsonaro condenado também por crimes de organização criminosa, tentativa de abolição violenta do Estado Democrático, golpe de Estado. Cálculo de analistas: poderia chegar a 30+ anos de inelegibilidade.</div>
+        <div class="diverg-comparado">Penas de inelegibilidade de longa duração existem em democracias, mas normalmente decorrem de condenações criminais com sentença transitada em julgado após processo com todos os recursos. No caso brasileiro, parte da inelegibilidade foi decretada antes do trânsito em julgado completo, por corte onde o próprio relator da condenação penal também presidiu a cassação eleitoral.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ TAB 5 — VEREDICTO ════ -->
+<div id="tab-veredicto" class="content">
+  <div class="sec-h"><span class="num">05</span> Análise Final — O Que é Singular, O Que é Compartilhado</div>
+  <p class="sec-desc">Separação analítica entre o que é factualmente incorreto na tese popular e o que é empiricamente defensável.</p>
+
+  <div class="brasil-card">
+    <div class="brasil-header">
+      <div class="brasil-header-flag">🇧🇷</div>
+      <div class="brasil-header-title">TSE — Mapa de Singularidades</div>
+      <div class="brasil-header-sub">Análise Comparada 2026</div>
+    </div>
+    <div class="brasil-body">
+      <div class="brasil-col">
+        <div class="brasil-col-title">❌ Tese Incorreta (factualmente)</div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-teal"></div>
+          <div>"Nenhum outro país tem justiça eleitoral." — Falso. México (INE+TEPJF), Costa Rica (TSE como 4º poder), Peru, Bolívia, Índia (Election Commission) todos têm órgãos equivalentes.</div>
+        </div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-teal"></div>
+          <div>"O TSE deve ser simplesmente extinto." — Sem indicação de qual modelo substituto. Países sem órgão especializado (EUA, Alemanha parcial) têm outros mecanismos robustos de controle eleitoral.</div>
+        </div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-teal"></div>
+          <div>"O resultado" das eleições decorre apenas do TSE. — Simplificação que impede análise das causas estruturais (captura política, financiamento, mídia).</div>
+        </div>
+      </div>
+      <div class="brasil-col">
+        <div class="brasil-col-title">✓ Crítica Defensável (empiricamente)</div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-red"></div>
+          <div>Composição do TSE via juízes rotativos do STF é estruturalmente única e cria conflito documentável — os mesmos ministros julgam casos no TSE que revertem ao STF.</div>
+        </div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-red"></div>
+          <div>Censura digital por ordem monocrática judicial sem lei aprovada é caso único documentado no mundo democrático — incluindo o bloqueio do X durante eleições.</div>
+        </div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-red"></div>
+          <div>Poder normativo autônomo (art. 105 CE) permite ao TSE criar obrigações sem Congresso — expansão interpretativa progressiva sem freio institucional equivalente.</div>
+        </div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-red"></div>
+          <div>Critérios de inelegibilidade por "abuso de poder" sem definição objetiva criam discricionariedade política na cassação de candidatos — risco de seleção arbitrária de alvos.</div>
+        </div>
+        <div class="brasil-item">
+          <div class="brasil-dot dot-acc"></div>
+          <div>O problema não é a existência de uma corte eleitoral — é a acumulação de poderes sem equivalente democrático e a sobreposição de funções com a corte que a fiscaliza.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-title">Diagnóstico Estrutural</div>
+    <div class="verdict-text">
+      O TSE brasileiro não é anômalo por existir — é anômalo pela <strong>arquitetura de poderes que acumulou</strong>. Quatro dimensões combinadas sem paralelo democrático documentado: <strong>(1)</strong> poder normativo autônomo com força de lei; <strong>(2)</strong> censura digital por decisão judicial unilateral sem lei aprovada pelo Legislativo; <strong>(3)</strong> composição via magistrados rotativos da mesma corte que revisa suas decisões; <strong>(4)</strong> inelegibilidade por "abuso de poder" sem critério objetivo, aplicada pelo mesmo ministro que conduz a investigação penal paralela. Cada um isolado tem algum precedente; os quatro juntos, não.
+      <br><br>
+      A conclusão correta da análise comparada não é "extingamos o TSE" — é: <strong>"o TSE precisa de reforma estrutural que separe composição, limite poder normativo, transfira a regulação digital ao Congresso e estabeleça impedimento obrigatório de juízes com dupla função"</strong>. Essa conclusão é mais devastadora que o slogan, e é verificável.
+    </div>
+  </div>
+
+  <div class="verdict" style="border-left-color:var(--red)">
+    <div class="verdict-title" style="color:var(--red)">⚠ Advertência Editorial</div>
+    <div class="verdict-text">
+      Este artefato analisa estruturas e poderes institucionais. Nenhum dos fatos documentados aqui constitui prova de crime individual por nenhum magistrado específico. Presunção de inocência se aplica a pessoas físicas. A análise de design institucional é distinta da imputação de conduta pessoal. Crítica sistêmica não é equivalente a insulto ou acusação criminal.
+    </div>
+  </div>
+</div>
+
+<!-- ════ TAB 6 — FONTES ════ -->
+<div id="tab-fontes" class="content">
+  <div class="sec-h"><span class="num">06</span> Fontes e Referências</div>
+  <p class="sec-desc">Todas as afirmações verificáveis neste artefato têm fonte identificada. Lacunas analíticas são explicitamente indicadas.</p>
+
+  <div class="source-list">
+    <div class="source-item">
+      <div class="source-num">01</div>
+      <div class="source-body">
+        <div class="source-title">Brazilian Election Justice — Wikipedia (EN)</div>
+        <div class="source-url"><a href="https://en.wikipedia.org/wiki/Brazilian_Election_Justice" target="_blank">en.wikipedia.org/wiki/Brazilian_Election_Justice</a> — Atualizado nov/2025. Comparativo internacional de modelos de administração eleitoral.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">02</div>
+      <div class="source-body">
+        <div class="source-title">ACE Electoral Knowledge Network — Costa Rica: The Supreme Tribunal of Elections</div>
+        <div class="source-url"><a href="https://aceproject.org/ace-en/topics/em/electoral-management-case-studies/costa-rica-a-powerful-constitutional-body" target="_blank">aceproject.org</a> — Perfil institucional do TSE Costa Rica como 4º poder constitucional.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">03</div>
+      <div class="source-body">
+        <div class="source-title">Electoral Governance: More Than Just Electoral Administration — Mexican Law Review (Elsevier, 2015)</div>
+        <div class="source-url"><a href="https://www.elsevier.es/en-revista-mexican-law-review-123-articulo-electoral-governance-more-than-just-S1870057815000037" target="_blank">elsevier.es / Mexican Law Review</a> — Análise comparada INE/TEPJF México vs. modelos latino-americanos.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">04</div>
+      <div class="source-body">
+        <div class="source-title">TSE declara Bolsonaro inelegível por 8 anos — TSE.jus.br (comunicado oficial, jun/2023)</div>
+        <div class="source-url"><a href="https://www.tse.jus.br/comunicacao/noticias/2023/Junho/por-maioria-de-votos-tse-declara-bolsonaro-inelegivel-por-8-anos" target="_blank">tse.jus.br</a> — Acórdão AIJE 0600814-85. Fundamentos do voto do relator Benedito Gonçalves.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">05</div>
+      <div class="source-body">
+        <div class="source-title">TSE desmonetiza canais e suspende documentário — TSE.jus.br (out/2022)</div>
+        <div class="source-url"><a href="https://www.tse.jus.br/comunicacao/noticias/2022/Outubro/tse-desmonetiza-quatro-canais-e-suspende-divulgacao-de-documentario" target="_blank">tse.jus.br</a> — Comunicado oficial sobre ações do TSE durante 2º turno de 2022.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">06</div>
+      <div class="source-body">
+        <div class="source-title">Brasil se afasta do mundo democrático com cerco a opiniões nas redes — Gazeta do Povo (set/2025)</div>
+        <div class="source-url"><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/brasil-se-afasta-mundo-democratico-censura-redes-sociais/" target="_blank">gazetadopovo.com.br</a> — Análise comparativa: Brasil como caso único de controle judicial de discurso online.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">07</div>
+      <div class="source-body">
+        <div class="source-title">STF impõe a redes censura automática de "condutas antidemocráticas" — Gazeta do Povo (set/2025)</div>
+        <div class="source-url"><a href="https://www.gazetadopovo.com.br/vida-e-cidadania/stf-impoe-a-redes-censura-automatica-de-condutas-antidemocraticas/" target="_blank">gazetadopovo.com.br</a> — Decisão do STF que declarou parcialmente inconstitucional o art. 19 do Marco Civil da Internet.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">08</div>
+      <div class="source-body">
+        <div class="source-title">Censura do STF e do TSE: Confira os 8 Principais Casos — Partido Novo (mai/2025)</div>
+        <div class="source-url"><a href="https://novo.org.br/noticias/censura-do-stf-tse-principais-casos/" target="_blank">novo.org.br</a> — Cronologia de casos de censura digital, incluindo bloqueio do X por 39 dias e multas por uso de VPN.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">09</div>
+      <div class="source-body">
+        <div class="source-title">Bolsonaro aposta em novo TSE para reverter inelegibilidade — Estadão / Senado Federal (jan/2026)</div>
+        <div class="source-url"><a href="https://www2.senado.leg.br/bdsf/bitstream/handle/id/684676/noticia.html" target="_blank">senado.leg.br</a> — Composição do TSE 2026 e análise de juristas sobre impossibilidade de reversão.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">10</div>
+      <div class="source-body">
+        <div class="source-title">Leis criticadas na Europa são inspirações de Gilmar Mendes para regulação das redes — Gazeta do Povo (jul/2025)</div>
+        <div class="source-url"><a href="https://www.gazetadopovo.com.br/ideias/gilmar-mendes-stf-defende-leis-polemicas-censura-europa-netzdg-dsa-para-rede-social-no-brasil/" target="_blank">gazetadopovo.com.br</a> — Análise do NetzDG alemão e DSA europeu como modelos referenciados pelo STF; distinção: esses são leis aprovadas por parlamentos, não decisões judiciais unilaterais.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">11</div>
+      <div class="source-body">
+        <div class="source-title">STF determina extensão da inelegibilidade de Bolsonaro — Gazeta do Povo (set/2025)</div>
+        <div class="source-url"><a href="https://www.gazetadopovo.com.br/republica/stf-decide-que-bolsonaro-e-aliados-so-poderao-disputar-eleicao-8-anos-apos-cumprir-pena/" target="_blank">gazetadopovo.com.br</a> — Condenação por golpe de Estado e extensão de inelegibilidade calculada em potencial de 30+ anos.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">12</div>
+      <div class="source-body">
+        <div class="source-title">Código Eleitoral Brasileiro, Lei 4.737/1965, art. 105 — poder normativo do TSE</div>
+        <div class="source-url">Legislação federal. Base legal para expedição de resoluções com força de lei pelo TSE sem aprovação do Congresso.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; padding:16px; background:var(--bg2); border:1px solid var(--border); border-radius:6px; font-size:11px; color:var(--muted)">
+    <strong style="color:var(--text)">Lacunas identificadas:</strong> Este artefato não cobre em profundidade modelos da África do Sul (IEC), Índia (Election Commission of India), ou países do Leste Europeu. A comparação com regimes autoritários (Venezuela, Nicarágua) é necessária para o argumento sobre censura digital mas não é exaustiva. Análise jurídica detalhada da jurisprudência do BVerfG alemão vs. STF está fora do escopo deste artefato.
+  </div>
+</div>
+
+<div class="cc0">CC0 1.0 Universal — Domínio Público · lawfare-timeline.vercel.app · gosurf.site</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>

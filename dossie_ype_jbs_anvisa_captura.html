@@ -1,0 +1,295 @@
+
+<h2 class="sr-only">Dossiê comparativo: Ypê vs. JBS — seletividade regulatória, conexões políticas e assimetria de consequências no Brasil</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.root{padding:1.5rem 0;font-family:var(--font-mono,monospace)}
+.nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.25rem}
+.nb{font-size:11px;padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;background:transparent;color:var(--color-text-secondary)}
+.nb.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.ph{display:none}.ph.on{display:block}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.col-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem}
+.col-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:6px}
+.col-title i{font-size:16px}
+.row-item{font-size:12px;color:var(--color-text-secondary);padding:4px 0;border-bottom:0.5px solid var(--color-border-tertiary);line-height:1.5}
+.row-item:last-child{border-bottom:none}
+.row-label{font-size:10px;color:var(--color-text-tertiary);margin-bottom:1px}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:500;padding:2px 7px;border-radius:var(--border-radius-md);margin-left:4px;vertical-align:middle}
+.bd-r{background:var(--color-background-danger);color:var(--color-text-danger)}
+.bd-a{background:var(--color-background-warning);color:var(--color-text-warning)}
+.bd-g{background:var(--color-background-success);color:var(--color-text-success)}
+.bd-b{background:var(--color-background-info);color:var(--color-text-info)}
+.entry{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;margin-bottom:.75rem}
+.e-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:.5rem}
+.e-title{font-size:13px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
+.e-body{font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.e-src{font-size:10px;color:var(--color-text-tertiary);margin-top:.5rem;border-top:0.5px solid var(--color-border-tertiary);padding-top:.4rem}
+.verdict{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:.75rem;background:var(--color-background-secondary)}
+.v-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:.6rem}
+.v-body{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.timeline{padding-left:18px;border-left:0.5px solid var(--color-border-secondary);margin-bottom:1rem}
+.tl{margin-bottom:.85rem;position:relative}
+.tl-dot{position:absolute;left:-22px;top:4px;width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-r{background:#e24b4a}.dot-a{background:#ef9f27}.dot-b{background:#378add}.dot-g{background:#639922}
+.tl-date{font-size:10px;color:var(--color-text-tertiary);margin-bottom:1px}
+.tl-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:1px}
+.tl-body{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.actor{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--color-background-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--color-text-info);flex-shrink:0}
+.actor-name{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.actor-role{font-size:11px;color:var(--color-text-secondary)}
+.section-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:.6rem;margin-top:1rem}
+.warn{border:0.5px solid var(--color-border-warning);border-radius:var(--border-radius-md);padding:.65rem .9rem;background:var(--color-background-warning);margin-bottom:.75rem;font-size:11px;color:var(--color-text-warning);line-height:1.5}
+.info{border:0.5px solid var(--color-border-info);border-radius:var(--border-radius-md);padding:.65rem .9rem;background:var(--color-background-info);margin-bottom:.75rem;font-size:11px;color:var(--color-text-info);line-height:1.5}
+.action-btn{width:100%;text-align:left;font-size:11px;padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;background:transparent;color:var(--color-text-secondary);display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.action-btn:hover{background:var(--color-background-secondary)}
+.metric-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1rem}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.65rem .85rem}
+.metric-label{font-size:10px;color:var(--color-text-tertiary);margin-bottom:.25rem}
+.metric-value{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.metric-sub{font-size:10px;color:var(--color-text-secondary);margin-top:1px}
+</style>
+
+<div class="root">
+<div class="nav">
+  <button class="nb on" onclick="nav('p1',this)">Espelho regulatório</button>
+  <button class="nb" onclick="nav('p2',this)">JBS — o intocável</button>
+  <button class="nb" onclick="nav('p3',this)">Ypê — o perseguido?</button>
+  <button class="nb" onclick="nav('p4',this)">Rede de proteção J&F</button>
+  <button class="nb" onclick="nav('p5',this)">Veredicto analítico</button>
+</div>
+
+<div id="p1" class="ph on">
+  <div class="metric-row">
+    <div class="metric">
+      <div class="metric-label">Propina declarada J&F — políticos</div>
+      <div class="metric-value">R$600mi</div>
+      <div class="metric-sub">~1.900 políticos, confessado em delação</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Multa de leniência J&F</div>
+      <div class="metric-value">R$10,3bi</div>
+      <div class="metric-sub">suspensa por Toffoli dez/2023</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Doação família Beira (Ypê) a Bolsonaro</div>
+      <div class="metric-value">R$1mi</div>
+      <div class="metric-sub">3 membros, TSE 2022</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Status ANVISA Ypê</div>
+      <div class="metric-value">Suspensa</div>
+      <div class="metric-sub">maio 2026 — Pseudomonas aeruginosa</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="col-card">
+      <div class="col-title"><i class="ti ti-building-factory" aria-hidden="true"></i>Ypê — Química Amparo</div>
+      <div class="row-item"><div class="row-label">Setor</div>Saneantes (higiene doméstica)</div>
+      <div class="row-item"><div class="row-label">Regulador</div>ANVISA</div>
+      <div class="row-item"><div class="row-label">Infração sanitária</div>Pseudomonas aeruginosa em lotes — falhas estruturais de produção <span class="badge bd-r">real</span></div>
+      <div class="row-item"><div class="row-label">Consequência</div>Suspensão imediata, recolhimento total dos lotes</div>
+      <div class="row-item"><div class="row-label">Vínculo político</div>Doação de R$1mi a Bolsonaro (oposição) <span class="badge bd-a">confirmado TSE</span></div>
+      <div class="row-item"><div class="row-label">Condeno trabalhista</div>Assédio eleitoral por live pró-Bolsonaro <span class="badge bd-a">confirmado TRT-15</span></div>
+      <div class="row-item"><div class="row-label">Histórico de crime</div>Nenhum registrado</div>
+    </div>
+    <div class="col-card">
+      <div class="col-title"><i class="ti ti-meat" aria-hidden="true"></i>JBS / Seara — J&F</div>
+      <div class="row-item"><div class="row-label">Setor</div>Carnes e alimentos processados</div>
+      <div class="row-item"><div class="row-label">Regulador</div>MAPA/SIF (não ANVISA)</div>
+      <div class="row-item"><div class="row-label">Infração sanitária</div>Carne vencida adulterada, salmonela omitida, propina a fiscais do MAPA <span class="badge bd-r">documentado</span></div>
+      <div class="row-item"><div class="row-label">Consequência</div>Multa de R$14,8mi (Seara) — mantida após recurso</div>
+      <div class="row-item"><div class="row-label">Vínculo político</div>R$600mi em propinas a ~1.900 políticos <span class="badge bd-r">confessado</span></div>
+      <div class="row-item"><div class="row-label">Relação com Lula</div>Reunião no Planalto mai/2024 — entrada no Conselhão</div>
+      <div class="row-item"><div class="row-label">Histórico de crime</div>Lava Jato, Carne Fraca, Operação Greenfield</div>
+    </div>
+  </div>
+
+  <div class="warn">
+    <i class="ti ti-alert-triangle" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>
+    <strong>Atenção metodológica:</strong> A comparação direta é válida politicamente mas exige distinção regulatória. ANVISA regula saneantes, MAPA/SIF regula carnes. São agências diferentes. Isso não invalida a hipótese de seletividade — muda o vetor da análise: a pergunta correta é "o Estado brasileiro pune seletivamente empresas pela filiação política de seus donos?", não "a ANVISA protege a JBS".
+  </div>
+</div>
+
+<div id="p2" class="ph">
+  <div class="section-label">Irregularidades sanitárias documentadas — JBS/Seara</div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">Operação Carne Fraca (2017): Seara pagou propina a fiscais do MAPA para fraudar certificados sanitários</div></div>
+    <div class="e-body">A PF deflagrou a maior operação de sua história revelando que a Seara Alimentos (marca JBS) pagou "vantagens indevidas" a agentes do MAPA no Paraná entre 2015 e 2016. O esquema permitia exportar carne para China e Chile sem fiscalização real. Executivo do grupo JBS Flávio Cassou foi preso. A fraude incluía alterar datas de vencimento, mascarar deterioração com ácido ascórbico, e injetar água em frangos para alterar peso.</div>
+    <div class="e-src">Fonte: PF (2017) · CGU PAR nº 00190.105434/2018-42 · Food Safety News 2024</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">CGU multou Seara em R$14,8mi — mantido após recurso em 2024</div></div>
+    <div class="e-body">A Controladoria-Geral da União indeferiu o pedido de reconsideração da Seara em 2024. A multa se manteve. A JBS recorreu e declarou que "os responsáveis pela Carne Fraca não mencionaram irregularidades sanitárias dos produtos JBS" — tecnicamente correto no mérito da operação, mas ignorando que o ato ilícito era exatamente subornar os que deveriam verificar as irregularidades sanitárias.</div>
+    <div class="e-src">Fonte: CGU 2024 · Dinheirama set/2024 · Food Safety News mar/2023</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-a">indício</span><div class="e-title">CGU instaurou PAR contra JBS por dificultar fiscalização federal em 2021</div></div>
+    <div class="e-body">Documento da CGU (Termo de Indiciação JBS, repositório público) aponta que a empresa teria dificultado atividade de investigação ou fiscalização de órgãos e agentes públicos, tipificado no art. 5º, inciso V, da Lei 12.846/2013 (Lei Anticorrupção). O episódio envolveu carcaças apreendidas cautelarmente em março de 2021 e um termo de condenação em julho de 2021.</div>
+    <div class="e-src">Fonte: CGU — Termo de Indiciação JBS (repositório.cgu.gov.br) · 2021</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">Auditorias do MPF revelam irregularidades sistemáticas de desmatamento no Pará (2023)</div></div>
+    <div class="e-body">Auditorias do Ministério Público Federal mostram que a JBS apresentou 6,1% de inconformidade na verificação de origem do gado no Pará em 2023, historicamente chegando a 32% em ciclos anteriores. Frigoríficos concorrentes como Masterboi, Minerva e Mercúrio alcançaram 100% de conformidade no mesmo período — desmentindo o argumento de que todos do setor operam igual.</div>
+    <div class="e-src">Fonte: MPF-PA via Repórter Brasil · out. 2023</div>
+  </div>
+
+  <div class="section-label">Resultado regulatório: operação em plena expansão</div>
+  <div class="info">
+    <i class="ti ti-trending-up" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>
+    Apesar do histórico acima, a JBS listou ações na Bolsa de Nova York em 2025, opera no Conselhão da Presidência, recebeu benefício via conta de luz dos brasileiros (Âmbar Energia), e teve a multa de R$10,3bi suspensa por Toffoli. A empresa acumula o maior portfólio de marcas alimentícias do Brasil — incluindo Seara, Friboi, Swift, Doriana, Maturatta — sem qualquer suspensão de fabricação em vigor.
+  </div>
+</div>
+
+<div id="p3" class="ph">
+  <div class="section-label">O caso Ypê — cronologia completa</div>
+  <div class="timeline">
+    <div class="tl">
+      <div class="tl-dot dot-b"></div>
+      <div class="tl-date">2022</div>
+      <div class="tl-title">Família Beira doa R$1mi à campanha de Bolsonaro</div>
+      <div class="tl-body">Jorge Eduardo Beira (R$500k), Waldir Beira Jr. (R$250k) e Ana Maria Beira (R$250k) — dados TSE. A empresa vira alvo de boicote por eleitores de Lula e símbolo de empresário bolsonarista.</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot dot-a"></div>
+      <div class="tl-date">2022 — campanha</div>
+      <div class="tl-title">Live pró-Bolsonaro para funcionários — assédio eleitoral</div>
+      <div class="tl-body">A Química Amparo promoveu live interna de apoio a Bolsonaro. O TRT-15 de Campinas condenou a empresa por assédio eleitoral, proibiu propaganda política futura e fixou multa de R$100k em caso de reincidência.</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot dot-a"></div>
+      <div class="tl-date">nov. 2025</div>
+      <div class="tl-title">Ypê detecta Pseudomonas aeruginosa e faz recolhimento voluntário</div>
+      <div class="tl-body">A própria empresa detectou a bactéria em lotes de lava-roupas e anunciou recolhimento voluntário. Ponto importante: a empresa agiu primeiro — não a ANVISA.</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot dot-a"></div>
+      <div class="tl-date">27–30 abr. 2026</div>
+      <div class="tl-title">Inspeção conjunta revela falhas estruturais</div>
+      <div class="tl-body">ANVISA, CVS-SP e Visa-Amparo inspecionam a fábrica. Identificam falhas graves nos sistemas de garantia de qualidade, produção e controle — não apenas um lote contaminado, mas problemas estruturais que justificam medida mais ampla.</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot dot-r"></div>
+      <div class="tl-date">7 mai. 2026 — ontem</div>
+      <div class="tl-title">ANVISA suspende fabricação e ordena recolhimento total (lotes terminados em 1)</div>
+      <div class="tl-body">Resolução RE 1.834/2026. A Ypê contesta com "laudos técnicos independentes" e confia na reversão. Apoiadores de Bolsonaro imediatamente invocam perseguição política.</div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-a">hipótese</span><div class="e-title">A fiscalização foi motivada por retaliação política?</div></div>
+    <div class="e-body">A cadência dos fatos não sustenta a hipótese de perseguição direta via ANVISA: (1) a própria empresa reconheceu a bactéria em novembro de 2025 e fez recolhimento voluntário; (2) a inspeção de abril de 2026 foi conjunta com vigilâncias estaduais, não unilateral; (3) Pseudomonas aeruginosa é um patógeno real com alerta ativo do Ministério da Saúde por resistência bacteriana crescente. O que é plausível é que a ANVISA não tenha dado à Ypê a mesma flexibilidade de prazo que daria a uma empresa alinhada ao governo — mas isso é hipótese, não fato documentado.</div>
+    <div class="e-src">Análise com base nas fontes: ANVISA (RE 1.834/2026) · Agência Brasil mai/2026 · NDmais mai/2026</div>
+  </div>
+</div>
+
+<div id="p4" class="ph">
+  <div class="section-label">A rede de proteção J&F — fatos documentados</div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">Toffoli suspende multa de R$10,3bi da J&F — enquanto sua esposa advoga para a empresa</div></div>
+    <div class="e-body">Em dezembro de 2023, o ministro Dias Toffoli suspendeu por decisão monocrática a multa de R$10,3 bilhões do acordo de leniência da J&F com o MPF. A advogada Roberta Rangel, esposa de Toffoli, presta assessoria jurídica para a J&F em litígio com a Paper Excellence envolvendo a Eldorado Celulose — embora não tenha atuado neste caso específico. O ex-ministro Ricardo Lewandowski, relator anterior do processo, também passou a advogar para a J&F após deixar o STF.</div>
+    <div class="e-src">Fonte: CNN Brasil dez/2023 · Gazeta do Povo fev/2024 · Metrópoles</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">Irmãos Batista no Conselhão de Lula e 17 reuniões no Ministério de Minas e Energia</div></div>
+    <div class="e-body">Após o período fora do poder, Joesley e Wesley voltaram com o terceiro mandato de Lula. Executivos da Âmbar Energia (J&F) tiveram ao menos 17 reuniões no Ministério de Minas e Energia no período em que o governo preparava medida provisória que beneficiou diretamente termoelétricas recém-adquiridas pela empresa. O benefício chegou via conta de luz de todos os brasileiros — o financiamento por 15 anos da distribuidora Amazonas Energia.</div>
+    <div class="e-src">Fonte: Gazeta do Povo jul/2024 · O Estado de S.Paulo (reportagem citada)</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">J&F confessou pagar R$600mi em propinas a ~1.900 políticos de todos os partidos</div></div>
+    <div class="e-body">Nos acordos de delação da Lava Jato, os irmãos Batista admitiram pagamentos sistemáticos para obter financiamentos subsidiados do BNDES, benefícios fiscais e apoio político — a ex-presidentes Lula, Dilma e Temer, além de governadores, ministros e parlamentares. A delação que custou o mandato de Michel Temer foi feita pelos próprios Batistas. Eles saíram da prisão, e voltaram ao Conselhão.</div>
+    <div class="e-src">Fonte: Jusbrasil — Estudo de Caso JBS · ISTOÉ Dinheiro jun/2025 · Gazeta do Povo jul/2024</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">fato</span><div class="e-title">Renan Filho (MDB-AL), filho de Renan Calheiros, é ministro dos Transportes de Lula</div></div>
+    <div class="e-body">O pai, Renan Calheiros, está indiciado pela PF por receber propina da Hypermarcas/Hypera Pharma e por indicar nome à diretoria da ANVISA em benefício da empresa. O processo está na PGR para análise — Paulo Gonet decide sobre eventual denúncia. O filho é ministro do governo que teria sido favorecido pela leniência para a J&F.</div>
+    <div class="e-src">Fonte: Metrópoles set/2024 · CNN Brasil set/2024 — todos os indiciados negam as acusações</div>
+  </div>
+
+  <div class="section-label">Atores da rede de proteção J&F</div>
+  <div class="actor"><div class="avatar">DT</div><div><div class="actor-name">Dias Toffoli</div><div class="actor-role">STF — suspendeu multa de R$10,3bi · esposa advoga para J&F</div></div></div>
+  <div class="actor"><div class="avatar">RL</div><div><div class="actor-name">Ricardo Lewandowski</div><div class="actor-role">Ex-STF, ex-Min. da Justiça — passou a advogar para J&F após deixar os cargos</div></div></div>
+  <div class="actor"><div class="avatar">RC</div><div><div class="actor-name">Renan Calheiros</div><div class="actor-role">MDB-AL — indiciado por propina a Hypermarcas · indicou diretor à ANVISA</div></div></div>
+  <div class="actor"><div class="avatar">RF</div><div><div class="actor-name">Renan Filho</div><div class="actor-role">Ministro dos Transportes (Lula) — filho do indiciado</div></div></div>
+  <div class="actor"><div class="avatar">JB</div><div><div class="actor-name">Joesley & Wesley Batista</div><div class="actor-role">J&F — confessaram ~R$600mi em propinas · hoje no Conselhão de Lula</div></div></div>
+</div>
+
+<div id="p5" class="ph">
+  <div class="verdict">
+    <div class="v-title">Veredicto analítico — 3 planos distintos</div>
+    <div class="v-body">
+      Este caso não é um único fenômeno. São três fenômenos sobrepostos que precisam ser analisados separadamente para não virar narrativa distorcida em nenhuma direção.
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-r">plano 1 — regulatório</span><div class="e-title">A ANVISA agiu corretamente no caso Ypê — mas isso não exclui seletividade no timing</div></div>
+    <div class="e-body">A Pseudomonas aeruginosa nos produtos da Ypê é um risco sanitário real. A empresa ela mesma reconheceu em novembro de 2025. As falhas estruturais encontradas em abril de 2026 justificam tecnicamente a medida da ANVISA. O que é legítimo questionar: a ANVISA teria agido com a mesma velocidade e amplitude se a empresa fosse politicamente alinhada ao governo? Essa pergunta não tem resposta nos dados disponíveis — é hipótese plausível, não fato.</div>
+    <div class="e-src">Fato documentado: ANVISA RE 1.834/2026 · Agência Brasil · NDmais · mai/2026</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-a">plano 2 — assimetria de consequências</span><div class="e-title">A JBS cometeu crimes sanitários documentados e opera sem suspensão de fabricação</div></div>
+    <div class="e-body">A Seara (JBS) subornava fiscais para não serem fiscalizados — fraude sanitária por definição. Pagou multa de R$14,8mi (mantida). Segue operando, crescendo, listando na NYSE, indo ao Conselhão do presidente. A Ypê teve falhas de controle de qualidade — sérias, mas sem crime criminal documentado — e foi suspensa imediatamente. A assimetria de consequências é real e documentada. O argumento de que "são agências diferentes" é tecnicamente correto mas politicamente frágil: o Estado brasileiro, como um todo, pune de forma muito mais severa quem está no campo político errado.</div>
+    <div class="e-src">Fatos: CGU, MPF, PF, JBS via NYSE, Planalto mai/2024</div>
+  </div>
+
+  <div class="entry">
+    <div class="e-head"><span class="badge bd-b">plano 3 — captura sistêmica</span><div class="e-title">O problema não é a ANVISA — é o modelo brasileiro de campeões nacionais comprados com dinheiro público e propina</div></div>
+    <div class="e-body">A questão mais profunda revelada por este caso não é "ANVISA persegue a Ypê". É que o Brasil tem um modelo onde quem paga mais propina a mais políticos acumula mais proteção institucional — de Toffoli suspendendo R$10bi de multa, a Lewandowski advogando para a empresa que deveria ter processado, a Renan indicando diretor à ANVISA, a Renan Filho como ministro. A família Beira doou R$1mi para o lado que perdeu a eleição e está colhendo as consequências institucionais disso. Os Batistas pagaram R$600mi para todos os lados e seguem intocáveis. Isso é o Estado brasileiro funcionando exatamente como foi projetado pelas suas elites — não como falha, mas como característica.</div>
+    <div class="e-src">Síntese analítica — hipótese sistêmica com base em fatos documentados individuais</div>
+  </div>
+
+  <div class="section-label">O que esse dossiê prova vs. o que sugere</div>
+  <div class="two-col">
+    <div class="col-card">
+      <div class="col-title"><i class="ti ti-check" aria-hidden="true"></i>Fatos provados</div>
+      <div class="row-item">JBS/Seara corrompeu fiscais sanitários do MAPA e fraudou certificados</div>
+      <div class="row-item">J&F pagou ~R$600mi em propinas a ~1.900 políticos — confessado</div>
+      <div class="row-item">Toffoli suspendeu R$10,3bi de multa com esposa advogando para a empresa</div>
+      <div class="row-item">Família Beira doou R$1mi a Bolsonaro — dados TSE</div>
+      <div class="row-item">Ypê tinha Pseudomonas aeruginosa e falhas estruturais — reconhecido pela empresa</div>
+      <div class="row-item">Renan indicou nome à ANVISA para beneficiar Hypermarcas — relatório PF</div>
+    </div>
+    <div class="col-card">
+      <div class="col-title"><i class="ti ti-question-mark" aria-hidden="true"></i>Hipóteses plausíveis</div>
+      <div class="row-item">ANVISA agiu com mais velocidade contra Ypê por alinhamento político do governo</div>
+      <div class="row-item">JBS tem tratamento diferenciado por ser financiadora histórica do PT</div>
+      <div class="row-item">A rede Toffoli-Lewandowski-Renan opera como blindagem sistemática da J&F</div>
+      <div class="row-item">Decisões regulatórias específicas foram influenciadas pelo diretor indicado por Renan</div>
+    </div>
+  </div>
+
+  <div class="section-label">Próximos passos investigativos</div>
+  <button class="action-btn" onclick="sendPrompt('Monte um pedido LAI para a ANVISA solicitando o histórico completo de fiscalizações na Química Amparo (Ypê) nos últimos 5 anos: datas, resultados, autuações e prazos dados para regularização em cada caso.')">
+    <i class="ti ti-file-invoice" style="font-size:14px" aria-hidden="true"></i>
+    LAI: histórico completo de fiscalizações da Ypê (comparar com empresas alinhadas ao governo) ↗
+  </button>
+  <button class="action-btn" onclick="sendPrompt('Pesquise outras empresas cujos donos doaram para Bolsonaro e que foram alvo de fiscalização regulatória intensificada após 2023 — mapeie se há padrão sistemático de seletividade estatal por filiação política.')">
+    <i class="ti ti-search" aria-hidden="true"></i>
+    Mapear padrão: outras empresas pró-Bolsonaro vs. fiscalização intensificada pós-2023 ↗
+  </button>
+  <button class="action-btn" onclick="sendPrompt('Faça um dossiê completo sobre Dias Toffoli e J&F: todas as decisões favoráveis ao grupo, o vínculo com a esposa advogada, o ex-ministro Lewandowski, e como isso se relaciona com a suspensão da multa de R$10,3bi.')">
+    <i class="ti ti-scale" aria-hidden="true"></i>
+    Dossiê Toffoli × J&F: mapa completo das decisões e vínculos ↗
+  </button>
+</div>
+
+</div>
+<script>
+function nav(id,btn){
+  document.querySelectorAll('.ph').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
