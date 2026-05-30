@@ -21,7 +21,7 @@
 - [x] **52 HTML** copiados gosurf → painel; 14 já existiam
 - [x] Metadados: `totalArtifacts`, categorias, descrição
 - [x] **Commit** contagens v1.5.0 (30/mai)
-- [ ] **Push** `observatorio-civil-br`
+- [x] **Push** `observatorio-civil-br` (97176a7 — inclui 404.html)
 - Log: `D:\ai-projects\gosurf.site\docs\sync-observatorio-tier-b-log.json`
 
 ---
