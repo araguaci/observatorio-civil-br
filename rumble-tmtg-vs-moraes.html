@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processo 8:25-cv-00411 · Rumble & Trump Media vs. Alexandre de Moraes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#080c12;--surface:#0d1220;--surface2:#111828;--border:#1c2a3e;--border2:#243347;
+  --red:#c93030;--red-dim:#7a1a1a;--gold:#c09020;--gold-dim:#6a4c08;
+  --blue:#2060b8;--blue-bright:#4090e8;--blue-dim:#0c2448;
+  --text:#dde4f0;--text-soft:#94a4bc;--text-dim:#4a5a70;
+  --usa:#3a7fd5;--br:#1a9050;--flag-red:#c0392b;
+  --tag-lawfare:#1a0a3a;--tag-lawfare-t:#c8a0ff;
+  --tag-crise:#0a1a3a;--tag-crise-t:#80c0ff;
+  --tag-censura:#2a1a00;--tag-censura-t:#ffb860;
+  --tag-inconst:#0a2a1a;--tag-inconst-t:#60e0a0;
+}
+html{font-size:18px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Crimson Pro',Georgia,serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.35}
+
+.header{position:relative;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#0a0e18 0%,var(--bg) 100%);overflow:hidden}
+.header-stripe{height:4px;background:linear-gradient(90deg,var(--usa) 0%,var(--usa) 50%,var(--flag-red) 50%,var(--flag-red) 100%)}
+.header-inner{padding:2.5rem 2rem 2rem;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.case-id{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;color:var(--blue-bright);text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.case-id::before{content:'■';color:var(--red);font-size:.5rem}
+.header h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.4rem,3.5vw,2.4rem);letter-spacing:-.01em;line-height:1.1;color:var(--text);margin-bottom:.7rem}
+.header h1 em{font-style:normal;color:var(--blue-bright)}
+.header h1 strong{color:var(--red)}
+.header-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;margin-top:1rem}
+.header-meta span{display:flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:var(--text-soft)}
+
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;padding:.18rem .55rem;border-radius:2px;white-space:nowrap}
+.tag-lawfare{background:var(--tag-lawfare);color:var(--tag-lawfare-t);border:1px solid #5a30aa40}
+.tag-crise{background:var(--tag-crise);color:var(--tag-crise-t);border:1px solid #2060b840}
+.tag-censura{background:var(--tag-censura);color:var(--tag-censura-t);border:1px solid #b0600040}
+.tag-inconst{background:var(--tag-inconst);color:var(--tag-inconst-t);border:1px solid #20a06040}
+.tag-red{background:#200808;color:#ff8080;border:1px solid #ff303040}
+
+.container{max-width:1100px;margin:0 auto;padding:2rem 2rem 4rem;position:relative;z-index:1}
+
+.alert{background:linear-gradient(135deg,#120208 0%,#1a0510 100%);border:1px solid #c9303060;border-left:4px solid var(--red);border-radius:3px;padding:1.2rem 1.6rem;margin-bottom:2.5rem;display:flex;gap:1rem;align-items:flex-start}
+.alert-icon{font-size:1.5rem;flex-shrink:0;margin-top:.1rem}
+.alert-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#ff9090;margin-bottom:.3rem}
+.alert-text{font-size:.95rem;color:var(--text-soft);line-height:1.5}
+
+.section{margin-bottom:2.5rem;animation:fadeSlide .5s ease both}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem}
+.section-label::before{content:'';display:inline-block;width:18px;height:1px;background:var(--gold)}
+
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1.1rem 1.3rem}
+.info-card-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.4rem}
+.info-card-value{font-size:1rem;color:var(--text);line-height:1.45}
+.info-card-value.mono{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--blue-bright)}
+
+.parties-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center}
+.party-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1.3rem 1.5rem}
+.party-role{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem}
+.party-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;line-height:1.2;margin-bottom:.4rem}
+.party-detail{font-size:.85rem;color:var(--text-soft);line-height:1.5}
+.party-plaintiff .party-role{color:var(--usa)}
+.party-plaintiff .party-name{color:#90c8ff}
+.party-plaintiff{border-left:3px solid var(--usa)}
+.party-defendant .party-role{color:var(--red)}
+.party-defendant .party-name{color:#ff9090}
+.party-defendant{border-left:3px solid var(--red)}
+.vs-badge{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--text-dim);text-align:center}
+
+.claims-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.claims-list li{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1rem 1.3rem;font-size:.95rem;color:var(--text-soft);line-height:1.55;display:flex;gap:1rem;align-items:flex-start}
+.claim-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold);border-radius:2px;padding:.1rem .45rem;flex-shrink:0;margin-top:.22rem;opacity:.85}
+
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:.5rem;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--blue) 0%,var(--red-dim) 100%);opacity:.4}
+.tl-item{position:relative;padding:0 0 1.8rem 1rem;animation:fadeSlide .4s ease both}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-1.65rem;top:.35rem;width:10px;height:10px;border-radius:50%;border:2px solid var(--border2);background:var(--bg);z-index:2}
+.tl-dot.key{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px var(--gold-dim)}
+.tl-dot.win{background:var(--br);border-color:var(--br);box-shadow:0 0 8px #0a7030}
+.tl-dot.red{background:var(--red);border-color:var(--red);box-shadow:0 0 8px var(--red-dim)}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.3rem}
+.tl-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;color:var(--text);margin-bottom:.35rem;line-height:1.3}
+.tl-body{font-size:.92rem;color:var(--text-soft);line-height:1.55}
+.tl-tags{margin-top:.45rem;display:flex;flex-wrap:wrap;gap:.35rem}
+
+.summons-card{background:var(--surface);border:1px solid var(--border2);border-radius:3px;padding:1.5rem 1.8rem;position:relative;overflow:hidden}
+.summons-card::before{content:'CITAÇÃO OFICIAL';position:absolute;top:.8rem;right:1rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.15em;color:var(--text-dim);opacity:.5}
+.summons-field{display:grid;grid-template-columns:180px 1fr;gap:.2rem 1rem;margin-bottom:.6rem;font-size:.9rem}
+.summons-field dt{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;padding-top:.12rem}
+.summons-field dd{color:var(--text);line-height:1.5}
+.summons-field dd.mono{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--blue-bright)}
+
+.impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.impact-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1.2rem;text-align:center}
+.impact-icon{font-size:1.6rem;margin-bottom:.6rem}
+.impact-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:.4rem}
+.impact-text{font-size:.85rem;color:var(--text-soft);line-height:1.5}
+
+.json-block{background:#080e18;border:1px solid var(--border);border-radius:3px;padding:1.4rem 1.6rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.7;color:#88a8c8;overflow-x:auto;white-space:pre}
+.json-block .k{color:#7ab8e8}.json-block .s{color:#90d080}.json-block .n{color:#e0a040}.json-block .b{color:#c080ff}
+
+.page-footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);max-width:1100px;margin:0 auto;position:relative;z-index:1}
+
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.tl-item:nth-child(1){animation-delay:.05s}.tl-item:nth-child(2){animation-delay:.12s}.tl-item:nth-child(3){animation-delay:.19s}
+.tl-item:nth-child(4){animation-delay:.26s}.tl-item:nth-child(5){animation-delay:.33s}.tl-item:nth-child(6){animation-delay:.40s}
+.tl-item:nth-child(7){animation-delay:.47s}
+
+@media(max-width:640px){
+  html{font-size:17px}
+  .parties-grid{grid-template-columns:1fr}
+  .info-grid,.impact-grid{grid-template-columns:1fr}
+  .summons-field{grid-template-columns:1fr}
+  .summons-field dt{margin-top:.7rem}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-stripe"></div>
+  <div class="header-inner">
+    <div class="case-id">
+      Processo Civil · 8:25-cv-00411-CEH-AAS &nbsp;|&nbsp;
+      US District Court · Middle District of Florida &nbsp;|&nbsp;
+      <span class="tag tag-crise">Crise Diplomática</span>
+      <span class="tag tag-lawfare">Lawfare</span>
+      <span class="tag tag-censura">Censura</span>
+    </div>
+    <h1>
+      <em>Rumble Inc.</em> &amp; <em>Trump Media &amp; TMTG</em><br>
+      <strong>versus</strong> Alexandre de Moraes
+    </h1>
+    <div class="header-meta">
+      <span>📅 Ajuizado: 19 fev 2025</span>
+      <span>⚖️ Juíza: Mary S. Scriven</span>
+      <span>📋 Citação: 8 jul 2025</span>
+      <span>🌎 Tampa · Florida · EUA</span>
+      <span>🔄 Status: Em Curso</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="alert" style="animation:fadeSlide .4s ease both">
+    <div class="alert-icon">🚨</div>
+    <div class="alert-body">
+      <div class="alert-title">Ministro do STF citado por tribunal federal norte-americano</div>
+      <div class="alert-text">
+        Em 8 de julho de 2025, por ordem do tribunal federal dos EUA (Distrito Central da Flórida), o Ministro Alexandre de Moraes foi citado por email no processo 8:25-cv-00411. Trata-se da <strong>primeira vez na história que um ministro do STF é réu e citado em tribunal federal estrangeiro</strong>, acionado por empresas americanas por censura transfronteiriça e violação da 1ª Emenda da Constituição dos EUA.
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="animation-delay:.1s">
+    <div class="section-label">Partes do Processo</div>
+    <div class="parties-grid">
+      <div class="party-card party-plaintiff">
+        <div class="party-role">🇺🇸 Autoras (Plaintiffs)</div>
+        <div class="party-name">Rumble Inc.</div>
+        <div class="party-detail">NASDAQ: RUM · Plataforma de vídeo e cloud, Longboat Key, FL</div>
+        <div style="margin-top:.8rem">
+          <div class="party-name">Trump Media &amp; Technology Group</div>
+          <div class="party-detail">NASDAQ: DJT · Proprietária do Truth Social, Palm Beach, FL</div>
+        </div>
+        <div style="margin-top:.8rem;font-size:.8rem;color:#5a8ab8;font-family:'JetBrains Mono',monospace;line-height:1.55;">
+          E. Martin De Luca · Boies Schiller Flexner<br>
+          Caryn G. Schechtman · DLA Piper (EUA)
+        </div>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="party-card party-defendant">
+        <div class="party-role">🇧🇷 Réu (Defendant)</div>
+        <div class="party-name">Alexandre de Moraes</div>
+        <div class="party-detail">Ministro do Supremo Tribunal Federal da República Federativa do Brasil</div>
+        <div style="margin-top:.8rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#7a5050;line-height:1.55;">
+          Rua Tucumã, 99 · ap. 71<br>
+          Jardim Europa · CEP 01455-010<br>
+          São Paulo — SP · Brasil
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="animation-delay:.15s">
+    <div class="section-label">Fundamentos da Ação</div>
+    <ul class="claims-list">
+      <li><span class="claim-num">01</span>Moraes ordenou a suspensão de contas norte-americanas de Allan dos Santos (dissidente político radicado nos EUA) hospedadas em servidores americanos, sem respaldo legal nos EUA.</li>
+      <li><span class="claim-num">02</span>Violação da 1ª Emenda da Constituição dos EUA: as ordens de censura de Moraes, quando aplicadas em território americano, violam o direito constitucional à liberdade de expressão.</li>
+      <li><span class="claim-num">03</span>Censura extraterritorial: uso de ordens sigilosas para pressionar empresas americanas — sem operações, empregados, contas ou negócios no Brasil — a banir usuários globalmente.</li>
+      <li><span class="claim-num">04</span>Em dezembro de 2023, Rumble desativou o acesso no Brasil em vez de cumprir as ordens de remoção; Moraes suspendeu a plataforma e exigiu nomeação de representante legal no país.</li>
+      <li><span class="claim-num">05</span>As ordens jamais foram entregues por meios legalmente válidos nos EUA (Convenção de Haia, MLAT EUA-Brasil ou outro mecanismo reconhecido), tornando-as ineficazes em território americano.</li>
+      <li><span class="claim-num">06</span>Pedido de extradição de Allan dos Santos rejeitado pelos EUA em março de 2024; Moraes continuou emitindo ordens de censura para suprimir o conteúdo do dissidente em plataformas americanas.</li>
+    </ul>
+  </div>
+
+  <div class="section" style="animation-delay:.2s">
+    <div class="section-label">Pedidos (Relief Sought)</div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-label">Pedido Principal</div>
+        <div class="info-card-value">Declaração de que as ordens de Moraes são <strong>inaplicáveis e sem força legal nos EUA</strong> (Declaratory Judgment Act)</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Soberania Digital</div>
+        <div class="info-card-value">Reconhecimento de que empresas americanas não podem ser coagidas por juízes estrangeiros a censurar conteúdo em solo americano</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Indenização</div>
+        <div class="info-card-value">Ressarcimento por danos causados pelas ordens ilegais, incluindo perdas operacionais e reputacionais decorrentes do bloqueio no Brasil</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Precedente</div>
+        <div class="info-card-value">Estabelecer precedente legal contra interferência judicial estrangeira na operação de plataformas digitais americanas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="animation-delay:.25s">
+    <div class="section-label">Cronologia do Processo</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">DEZ 2023</div>
+        <div class="tl-title">Rumble desativa acesso no Brasil</div>
+        <div class="tl-body">Recusando-se a cumprir ordens sigilosas de Moraes, Rumble bloqueia o serviço no Brasil. Moraes suspende a plataforma formalmente e exige nomeação de representante legal nacional.</div>
+        <div class="tl-tags"><span class="tag tag-censura">Censura</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot key"></div>
+        <div class="tl-date">19 FEV 2025</div>
+        <div class="tl-title">Ajuizamento da Ação · Processo 8:25-cv-00411</div>
+        <div class="tl-body">Rumble Inc. e Trump Media protocolam ação declaratória contra Alexandre de Moraes no US District Court do Distrito Central da Flórida. Distribuído à Juíza Charlene Edwards Honeywell e Magistrada Amanda Arnold Sansone.</div>
+        <div class="tl-tags"><span class="tag tag-crise">Crise Diplomática</span><span class="tag tag-lawfare">Lawfare</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot win"></div>
+        <div class="tl-date">25 FEV 2025</div>
+        <div class="tl-title">Tribunal: ordens de Moraes sem força legal nos EUA</div>
+        <div class="tl-body">O tribunal confirma que as diretivas de Moraes nunca foram adequadamente entregues nos EUA e que a questão não está madura para tutela de urgência. Rumble declara "vitória total".</div>
+        <div class="tl-tags"><span class="tag tag-inconst">Precedente Legal</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">4 MAR – 28 MAI 2025</div>
+        <div class="tl-title">Pedido de intervenção de Marcel Honda</div>
+        <div class="tl-body">Terceiro não-parte protocola pedido de intervenção. Tribunal defere o desentranhamento em 29 de abril; Honda pede reconsideração em 28 de maio.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot key"></div>
+        <div class="tl-date">7 JUL 2025</div>
+        <div class="tl-title">Tribunal emite mandado de citação formal</div>
+        <div class="tl-body">Summons formalizado a pedido da Rumble. Documento nomeia Moraes como réu, indicando endereço residencial em São Paulo: Rua Tucumã, 99, ap. 71, Jardim Europa.</div>
+        <div class="tl-tags"><span class="tag tag-crise">Crise Diplomática</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-date">8 JUL 2025</div>
+        <div class="tl-title">🚨 Moraes citado por email — por ordem judicial federal americana</div>
+        <div class="tl-body">Por determinação do tribunal dos EUA, Rumble e Trump Media notificam Alexandre de Moraes por email. Primeira vez na história em que um ministro do STF em exercício é réu e citado em tribunal federal estrangeiro.</div>
+        <div class="tl-tags"><span class="tag tag-red">Marco Histórico</span><span class="tag tag-crise">Crise Diplomática</span><span class="tag tag-lawfare">Lawfare</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">14–15 JUL 2025</div>
+        <div class="tl-title">Complementação da petição inicial deferida</div>
+        <div class="tl-body">Autoras obtêm autorização para suplementar a petição inicial (F.R.C.P. 15(d)), com prazo de 14 dias, aprofundando as alegações com novas evidências.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="animation-delay:.3s">
+    <div class="section-label">Dados da Citação Oficial — AO 440 · 8 jul 2025</div>
+    <div class="summons-card">
+      <dl class="summons-field">
+        <dt>Tribunal</dt>
+        <dd>Justiça Federal dos Estados Unidos — Distrito Central da Flórida</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Nº do Processo</dt>
+        <dd class="mono">8:25-cv-00411-CEH-AAS</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Autoras</dt>
+        <dd>Rumble Inc. e Trump Media &amp; Technology Group Corp.</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Réu</dt>
+        <dd>Alexandre de Moraes — Ministro do STF da República Federativa do Brasil</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Endereço do Réu</dt>
+        <dd>Rua Tucumã, 99, ap. 71 · Jardim Europa · CEP 01455-010 · São Paulo-SP · Brasil</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Prazo de Resposta</dt>
+        <dd>21 dias (ou 60 dias se for servidor dos EUA) sob pena de julgamento à revelia</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Escrivã</dt>
+        <dd>Katrina Elliott — Justiça Federal dos EUA · Distrito Central da Flórida</dd>
+      </dl>
+      <dl class="summons-field">
+        <dt>Advogados</dt>
+        <dd>E. Martin De Luca (Boies Schiller Flexner, 55 Hudson Yards, NY) · Caryn G. Schechtman (DLA Piper, 1251 Avenue of the Americas, NY)</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="section" style="animation-delay:.35s">
+    <div class="section-label">Impacto &amp; Relevância Sistêmica</div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-icon">🏛️</div>
+        <div class="impact-title">Precedente Histórico</div>
+        <div class="impact-text">Primeira ação civil federal americana contra ministro do STF em exercício. Cria precedente para responsabilização internacional por censura extraterritorial.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">🌐</div>
+        <div class="impact-title">Soberania Digital</div>
+        <div class="impact-text">Tribunal confirmou que ordens judiciais estrangeiras sem Convenção de Haia ou MLAT são ineficazes nos EUA. Limites da jurisdição brasileira estabelecidos formalmente.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">⚖️</div>
+        <div class="impact-title">Assimetria Invertida</div>
+        <div class="impact-text">Moraes acumula funções de vítima + investigador + juiz no Brasil; torna-se réu sem esse privilégio nos EUA. A geometria do poder judicial inverte-se.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">🚧</div>
+        <div class="impact-title">Crise Diplomática</div>
+        <div class="impact-text">Acumula-se às sanções Magnitsky, investigação Seção 301, suspensão de vistos e pressões comerciais. Vetor de exposição internacional inédito para o STF.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">📡</div>
+        <div class="impact-title">Censura por Proxy</div>
+        <div class="impact-text">Expõe modelo de censura via ordens sigilosas: pressão sobre empresas americanas para silenciar dissidentes globalmente, contornando limites constitucionais dos EUA.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">🔗</div>
+        <div class="impact-title">Padrões P1 · P3 · P4b</div>
+        <div class="impact-text">Instância documentada dos padrões de lawfare como captura institucional (P1), assimetria punitiva (P3) e both-sidesism funcional (P4b) com vetor internacional.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="animation-delay:.4s">
+    <div class="section-label">Registro JSON · Lawfare Timeline — ID 185</div>
+    <div class="json-block"><span class="k">"id"</span>: <span class="n">185</span>,
+<span class="k">"titulo"</span>: <span class="s">"Rumble e Trump Media processam Moraes em tribunal federal dos EUA"</span>,
+<span class="k">"data_evento"</span>: <span class="s">"2025-07-08"</span>,
+<span class="k">"data_iso"</span>: <span class="s">"2025-07-08T12:00:00.000Z"</span>,
+<span class="k">"categoria"</span>: <span class="s">"crise-diplomatica"</span>,
+<span class="k">"padrao_lawfare"</span>: [<span class="s">"P1"</span>, <span class="s">"P3"</span>, <span class="s">"P4b"</span>],
+<span class="k">"tags"</span>: [<span class="s">"crise-diplomatica"</span>, <span class="s">"lawfare"</span>, <span class="s">"censura"</span>, <span class="s">"soberania"</span>,
+         <span class="s">"sancoes"</span>, <span class="s">"relacoes-internacionais"</span>, <span class="s">"big-techs"</span>,
+         <span class="s">"stf"</span>, <span class="s">"alexandre-de-moraes"</span>, <span class="s">"diplomacia"</span>],
+<span class="k">"descricao"</span>: <span class="s">"Moraes citado como réu em tribunal federal americano pela 1ª vez na história do STF."</span>,
+<span class="k">"relevancia"</span>: <span class="s">"alta"</span>,
+<span class="k">"impacto_diplomatico"</span>: <span class="s">"alto"</span>,
+<span class="k">"tipo_escandalo"</span>: <span class="s">"diplomatico"</span>,
+<span class="k">"processo"</span>: <span class="s">"8:25-cv-00411-CEH-AAS"</span>,
+<span class="k">"tribunal"</span>: <span class="s">"US District Court · Middle District of Florida"</span>,
+<span class="k">"juiza"</span>: <span class="s">"Mary S. Scriven"</span>,
+<span class="k">"pessoas_envolvidas"</span>: [<span class="s">"Alexandre de Moraes"</span>, <span class="s">"Allan dos Santos"</span>,
+                           <span class="s">"E. Martin De Luca"</span>, <span class="s">"Caryn G. Schechtman"</span>],
+<span class="k">"instituicoes_envolvidas"</span>: [<span class="s">"STF"</span>, <span class="s">"Rumble Inc."</span>,
+                                <span class="s">"Trump Media &amp; Technology Group"</span>,
+                                <span class="s">"US District Court M.D. Fla."</span>],
+<span class="k">"fontes"</span>: [
+  <span class="s">"https://www.globenewswire.com/news-release/2025/02/19/3028755/"</span>,
+  <span class="s">"https://corp.rumble.com/blog/a-total-win-for-rumble-and-trump-media/"</span>,
+  <span class="s">"https://clearinghouse.net/case/46178/"</span>,
+  <span class="s">"https://www.courtlistener.com/docket/69650977/"</span>
+],
+<span class="k">"pais"</span>: <span class="s">"Global"</span>,
+<span class="k">"valor_envolvido"</span>: <span class="s">"N/A"</span>,
+<span class="k">"prioridade"</span>: <span class="n">1</span>,
+<span class="k">"lacunas"</span>: <span class="s">"Valor de indenização pleiteado não divulgado. Desfecho final pendente."</span>,
+<span class="k">"ref_ids"</span>: [<span class="n">142</span>, <span class="n">158</span>, <span class="n">167</span>, <span class="n">173</span>]</div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <span>Lawfare Timeline · gosurf.site · CC0 1.0</span>
+  <span>Processo 8:25-cv-00411-CEH-AAS · Jul 2025</span>
+  <span>Fontes: CourtListener · GlobeNewswire · Clearinghouse · PACER</span>
+</div>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

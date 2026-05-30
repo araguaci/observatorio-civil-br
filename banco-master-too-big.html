@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banco Master: Too Big to Investigate — Arquitetura de Imunidade</title>
+<meta name="description" content="Dossiê analítico: como o sistema judicial brasileiro blindou o maior rombo bancário da história — R$54 bilhões, 1 milhão de lesados, zero condenados.">
+<link rel="canonical" href="https://gosurf.site/banco-master-too-big">
+<meta property="og:url" content="https://gosurf.site/banco-master-too-big">
+<meta property="og:title" content="Banco Master: Too Big to Investigate">
+<meta property="og:description" content="R$54 bilhões. 1 milhão de lesados. Relator contaminado. CPI bloqueada. PGR arquiva. Contrato familiar com investigado. A anatomia completa da impunidade sistêmica.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #07090c;
+  --bg1:   #0c1016;
+  --bg2:   #111820;
+  --bg3:   #18222e;
+  --bg4:   #1e2c3a;
+  --border: rgba(255,255,255,0.055);
+  --border2: rgba(255,255,255,0.11);
+  --border3: rgba(255,255,255,0.18);
+  --fg:    #dce6f0;
+  --fg2:   #7a90a8;
+  --fg3:   #3d5060;
+  --red:   #e03838;
+  --red2:  #ff6060;
+  --red-bg: rgba(224,56,56,0.10);
+  --red-border: rgba(224,56,56,0.28);
+  --amber: #d4880e;
+  --amber2:#f5aa30;
+  --amber-bg: rgba(212,136,14,0.10);
+  --amber-border: rgba(212,136,14,0.28);
+  --blue:  #2878d4;
+  --blue2: #5aaeff;
+  --blue-bg: rgba(40,120,212,0.10);
+  --blue-border: rgba(40,120,212,0.28);
+  --teal:  #18a890;
+  --teal2: #38d8bc;
+  --teal-bg: rgba(24,168,144,0.10);
+  --teal-border: rgba(24,168,144,0.28);
+  --purple: #7040c0;
+  --purple2:#a878f8;
+  --purple-bg: rgba(112,64,192,0.10);
+  --purple-border: rgba(112,64,192,0.28);
+  --white10: rgba(255,255,255,0.10);
+  --white05: rgba(255,255,255,0.05);
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'DM Serif Display', serif;
+  --display: 'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+/* ── dossiê em página única: seleção / Ctrl+C para IA ───────────────── */
+.article-selectable, .article-selectable * {
+  user-select: text;
+  -webkit-user-select: text;
+}
+.article-ai-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 32px 8px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.article-ai-tools-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg3);
+}
+.btn-copy-ai {
+  font-size: 11px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--red-border);
+  background: var(--bg1);
+  color: var(--red2);
+  cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+  font-family: var(--mono);
+}
+.btn-copy-ai:hover {
+  border-color: var(--red2);
+  background: var(--red-bg);
+  color: #fff;
+}
+.btn-copy-ai:focus-visible {
+  outline: 2px solid var(--amber2);
+  outline-offset: 2px;
+}
+.gotop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  border: 1px solid var(--red-border);
+  background: rgba(7, 9, 12, 0.95);
+  color: var(--red2);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s, visibility .25s, background .2s, border-color .2s, color .2s, transform .2s;
+  font-family: var(--mono);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, .45);
+  backdrop-filter: blur(10px);
+}
+.gotop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.gotop:hover {
+  background: var(--red-bg);
+  border-color: var(--red2);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.gotop:focus-visible {
+  outline: 2px solid var(--amber2);
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .gotop { right: 16px; bottom: 18px; width: 44px; height: 44px; }
+  .article-ai-tools { padding: 16px 16px 4px; }
+}
+
+/* ── HEADER ─────────────────────────────────────────── */
+.header {
+  position: relative;
+  padding: 0;
+  border-bottom: 1px solid var(--border2);
+  overflow: hidden;
+}
+.header-top-bar {
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber) 35%, var(--red) 70%, var(--red2));
+  background-size: 300% 100%;
+  animation: barscroll 5s linear infinite;
+}
+@keyframes barscroll { to { background-position: 300% 0; } }
+.header-inner {
+  padding: 36px 32px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+.header-eyebrow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.tag-red    { color: var(--red2);    background: var(--red-bg);    border-color: var(--red-border); }
+.tag-amber  { color: var(--amber2);  background: var(--amber-bg);  border-color: var(--amber-border); }
+.tag-blue   { color: var(--blue2);   background: var(--blue-bg);   border-color: var(--blue-border); }
+.tag-teal   { color: var(--teal2);   background: var(--teal-bg);   border-color: var(--teal-border); }
+.tag-purple { color: var(--purple2); background: var(--purple-bg); border-color: var(--purple-border); }
+.tag-ghost  { color: var(--fg2);     background: transparent;      border-color: var(--border2); }
+
+.pulse-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--red2);
+  animation: pulse 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+.header h1 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 58px);
+  line-height: 1.08;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.header h1 em {
+  font-style: italic;
+  color: var(--red2);
+}
+.header-sub {
+  font-family: var(--display);
+  font-size: 15px;
+  color: var(--fg2);
+  margin-bottom: 28px;
+  max-width: 680px;
+  line-height: 1.5;
+}
+.header-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 900px;
+}
+.stat-cell {
+  background: var(--bg1);
+  padding: 14px 18px;
+  transition: background .2s;
+}
+.stat-cell:hover { background: var(--bg2); }
+.stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 4px;
+}
+.stat-val {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.stat-val.red    { color: var(--red2); }
+.stat-val.amber  { color: var(--amber2); }
+.stat-val.blue   { color: var(--blue2); }
+.stat-val.teal   { color: var(--teal2); }
+.stat-val.purple { color: var(--purple2); }
+.stat-note {
+  font-size: 11px;
+  color: var(--fg3);
+}
+
+/* ── NAV (scroll spy + âncoras) ──────────────────────── */
+nav.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7,9,12,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 32px;
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
+}
+.nb {
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s, background .15s;
+  font-family: var(--mono);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+a.nb:hover { color: var(--fg2); border-color: var(--border2); }
+.nb.act {
+  color: var(--fg);
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+
+/* ── SECTIONS (rolagem contínua) ────────────────────── */
+main { max-width: 1280px; margin: 0 auto; padding: 0 32px 80px; }
+.topic-panel {
+  scroll-margin-top: 52px;
+  padding-top: 8px;
+}
+.topic-panel + .topic-panel {
+  margin-top: 28px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── SHARED ELEMENTS ────────────────────────────────── */
+.section-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: #fff;
+  margin: 36px 0 6px;
+  letter-spacing: -0.01em;
+}
+.section-lead {
+  font-size: 13px;
+  color: var(--fg2);
+  max-width: 700px;
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── TIMELINE ────────────────────────────────────────── */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--red-border), var(--border), transparent);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -24px; top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--fg3);
+}
+.tl-item.critical::before { border-color: var(--red2); background: var(--red-bg); }
+.tl-item.warning::before  { border-color: var(--amber2); background: var(--amber-bg); }
+.tl-item.info::before     { border-color: var(--blue2); background: var(--blue-bg); }
+.tl-date {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 4px;
+}
+.tl-title {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 5px;
+}
+.tl-body {
+  font-size: 12.5px;
+  color: var(--fg2);
+  line-height: 1.65;
+  max-width: 680px;
+}
+.tl-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.tl-pattern {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.tp-red    { color: var(--red2);    border-color: var(--red-border);    background: var(--red-bg); }
+.tp-amber  { color: var(--amber2);  border-color: var(--amber-border);  background: var(--amber-bg); }
+.tp-blue   { color: var(--blue2);   border-color: var(--blue-border);   background: var(--blue-bg); }
+.tp-purple { color: var(--purple2); border-color: var(--purple-border); background: var(--purple-bg); }
+.tp-teal   { color: var(--teal2);   border-color: var(--teal-border);   background: var(--teal-bg); }
+
+/* ── VECTOR CARDS ───────────────────────────────────── */
+.vector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.vcard {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.vcard:hover { border-color: var(--border3); }
+.vcard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.vcard.red::before    { background: linear-gradient(90deg, var(--red), var(--red2)); }
+.vcard.amber::before  { background: linear-gradient(90deg, var(--amber), var(--amber2)); }
+.vcard.blue::before   { background: linear-gradient(90deg, var(--blue), var(--blue2)); }
+.vcard.purple::before { background: linear-gradient(90deg, var(--purple), var(--purple2)); }
+.vcard.teal::before   { background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+
+.vcard-index {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.vcard.red    .vcard-index { color: var(--red2); }
+.vcard.amber  .vcard-index { color: var(--amber2); }
+.vcard.blue   .vcard-index { color: var(--blue2); }
+.vcard.purple .vcard-index { color: var(--purple2); }
+.vcard.teal   .vcard-index { color: var(--teal2); }
+
+.vcard-title {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.vcard-body {
+  font-size: 12.5px;
+  color: var(--fg2);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.vcard-mechanism {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  color: var(--fg2);
+  margin-bottom: 12px;
+}
+.vcard-mechanism strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 4px;
+}
+.vcard-verdict {
+  font-size: 12px;
+  line-height: 1.5;
+  font-style: italic;
+}
+.vcard.red    .vcard-verdict { color: var(--red2); }
+.vcard.amber  .vcard-verdict { color: var(--amber2); }
+.vcard.blue   .vcard-verdict { color: var(--blue2); }
+.vcard.purple .vcard-verdict { color: var(--purple2); }
+.vcard.teal   .vcard-verdict { color: var(--teal2); }
+
+/* ── PATTERN MATRIX ─────────────────────────────────── */
+.pattern-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.pm-card {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+}
+.pm-code {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 800;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+.pm-card.p3  .pm-code { color: var(--red2);    background: var(--red-bg);    border: 1px solid var(--red-border); }
+.pm-card.p7  .pm-code { color: var(--amber2);  background: var(--amber-bg);  border: 1px solid var(--amber-border); }
+.pm-card.p8  .pm-code { color: var(--blue2);   background: var(--blue-bg);   border: 1px solid var(--blue-border); }
+.pm-card.p11 .pm-code { color: var(--purple2); background: var(--purple-bg); border: 1px solid var(--purple-border); }
+.pm-card.p4b .pm-code { color: var(--teal2);   background: var(--teal-bg);   border: 1px solid var(--teal-border); }
+
+.pm-content {}
+.pm-name {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.pm-desc {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.6;
+}
+.pm-instance {
+  font-size: 11px;
+  color: var(--fg3);
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── EVIDENCE TABLE ─────────────────────────────────── */
+.evidence-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 12.5px;
+}
+.evidence-table th {
+  background: var(--bg2);
+  color: var(--fg3);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.evidence-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg2);
+  vertical-align: top;
+}
+.evidence-table tr:hover td { background: var(--white05); }
+.evidence-table .actor-name { color: var(--fg); font-weight: 600; }
+.ev-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border: 1px solid;
+}
+.ev-archived   { color: var(--fg3);    border-color: var(--border2);       background: transparent; }
+.ev-blocked    { color: var(--red2);   border-color: var(--red-border);     background: var(--red-bg); }
+.ev-active     { color: var(--amber2); border-color: var(--amber-border);   background: var(--amber-bg); }
+.ev-suspended  { color: var(--blue2);  border-color: var(--blue-border);    background: var(--blue-bg); }
+
+/* ── COMPARISON ─────────────────────────────────────── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+@media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+.cmp-card {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.cmp-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border2);
+}
+.cmp-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cmp-case {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.cmp-body { padding: 16px 18px; }
+.cmp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+  gap: 12px;
+}
+.cmp-row:last-child { border-bottom: none; }
+.cmp-key { color: var(--fg3); flex-shrink: 0; }
+.cmp-v   { color: var(--fg); text-align: right; font-weight: 500; }
+.cmp-v.highlight-red  { color: var(--red2); }
+.cmp-v.highlight-teal { color: var(--teal2); }
+.cmp-v.highlight-amber { color: var(--amber2); }
+
+.verdict-box {
+  background: var(--bg2);
+  border: 1px solid var(--red-border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-top: 24px;
+}
+.verdict-box h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--red2);
+  margin-bottom: 10px;
+}
+.verdict-box p {
+  font-size: 13px;
+  color: var(--fg2);
+  line-height: 1.75;
+}
+
+/* ── FOOTNOTE / FOOTER ──────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-meta { font-size: 11px; color: var(--fg3); line-height: 1.7; }
+.footer-meta a { color: var(--fg2); text-decoration: none; }
+.footer-meta a:hover { color: var(--fg); }
+.footer-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── ANIMATIONS ─────────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── MOBILE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .header-inner { padding: 24px 16px 20px; }
+  main { padding: 0 16px 60px; }
+  nav.doc-nav { padding: 8px 16px; }
+  footer { padding: 20px 16px; }
+  .vector-grid { grid-template-columns: 1fr; }
+  .pattern-matrix { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .header-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top-bar"></div>
+  <div class="header-inner">
+    <div class="header-eyebrow">
+      <span class="tag tag-red"><span class="pulse-dot"></span> Dossiê Ativo</span>
+      <span class="tag tag-amber">Operação Compliance Zero</span>
+      <span class="tag tag-ghost">lawfare-timeline.v2026</span>
+      <span class="tag tag-ghost">ID 185–188</span>
+    </div>
+    <h1>Banco Master:<br><em>Too Big to Investigate</em></h1>
+    <p class="header-sub">
+      R$54 bilhões. Um milhão de lesados. Relator com conflito arquivado pelo próprio STF.
+      CPI bloqueada por dois ministros. Contrato de R$80 mi com a família do guardião.
+      PGR arquiva sem investigar. A anatomia funcional da imunidade composta.
+    </p>
+    <div class="header-stats">
+      <div class="stat-cell">
+        <div class="stat-label">Rombo estimado</div>
+        <div class="stat-val red">R$54 bi</div>
+        <div class="stat-note">Banco Central (Jan 2026)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Lesados</div>
+        <div class="stat-val amber">~1M</div>
+        <div class="stat-note">Investidores pessoas físicas</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Contrato família Moraes</div>
+        <div class="stat-val red">R$80,2M</div>
+        <div class="stat-note">Receita Federal / CPI do Crime</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Condenações definitivas</div>
+        <div class="stat-val teal">0</div>
+        <div class="stat-note">Mai 2026 — investigação ativa</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Ministros afastados</div>
+        <div class="stat-val amber">2</div>
+        <div class="stat-note">Toffoli + suspeição CPI</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">CPIs instaladas</div>
+        <div class="stat-val teal">0</div>
+        <div class="stat-note">Bloqueadas STF + Congresso</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="doc-nav">
+  <a href="#cronologia" class="nb act">Cronologia</a>
+  <a href="#vetores" class="nb">Vetores de Contenção</a>
+  <a href="#padroes" class="nb">Padrões Sistêmicos</a>
+  <a href="#evidencias" class="nb">Mapa de Evidências</a>
+  <a href="#comparativo" class="nb">Assimetria Punitiva</a>
+  <a href="#analise" class="nb">Diagnóstico</a>
+</nav>
+
+<main id="article-main" class="article-selectable">
+
+<!-- ── SEÇÃO: CRONOLOGIA ── -->
+<section class="topic-panel" id="cronologia">
+  <h2 class="section-title">Cronologia da Contenção</h2>
+  <p class="section-lead">
+    Do primeiro desbloqueio do celular de Vorcaro à CPI bloqueada, cada etapa revela
+    a arquitetura funcional de como instituições nominalmente independentes operaram
+    em sincronia para conter a investigação.
+  </p>
+
+  <div class="timeline">
+
+    <div class="tl-item info fade-in">
+      <div class="tl-date">Novembro 2025</div>
+      <div class="tl-title">Banco Central liquida o Master extrajudicialmente</div>
+      <div class="tl-body">
+        Após detectar emissão de CDBs sem lastro e rombo superior a R$54 bilhões,
+        o Banco Central decreta liquidação extrajudicial. Aproximadamente um milhão de
+        investidores pessoas físicas ficam com títulos congelados. O caso é enviado ao
+        STF por conexão com parlamentares identificados no material apreendido.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-blue">Rombo inicial identificado</span>
+      </div>
+    </div>
+
+    <div class="tl-item info fade-in">
+      <div class="tl-date">Dezembro 2025</div>
+      <div class="tl-title">Toffoli assume relatoria — e opera para Vorcaro</div>
+      <div class="tl-body">
+        Toffoli é distribuído como relator do inquérito 5026. Ainda em dezembro,
+        determina acareação de investigados no penúltimo dia do ano — procedimento
+        incomum em período de recesso. Em dezembro de 2025, o escritório de advocacia
+        da esposa de Alexandre de Moraes já mantinha contrato ativo de R$129 milhões
+        com o banco.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-red">P3 — captura judicial</span>
+        <span class="tl-pattern tp-amber">Conflito de interesses paralelo</span>
+      </div>
+    </div>
+
+    <div class="tl-item warning fade-in">
+      <div class="tl-date">Janeiro 2026</div>
+      <div class="tl-title">Toffoli prorroga inquérito — PF desbloqueio do celular de Vorcaro</div>
+      <div class="tl-body">
+        Toffoli atende pedido da PF e prorroga investigações por mais 60 dias.
+        A PF desbloqueou o celular de Daniel Vorcaro e identificou conversas entre
+        o banqueiro investigado e o próprio ministro relator. O material é enviado
+        para o presidente do STF, Fachin.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-red">P3 — relator contaminado</span>
+      </div>
+    </div>
+
+    <div class="tl-item critical fade-in">
+      <div class="tl-date">12 Fevereiro 2026</div>
+      <div class="tl-title">STF reúne-se em segredo — Toffoli "escolhe" sair</div>
+      <div class="tl-body">
+        Fachin convoca reunião sigilosa dos onze ministros após receber relatório da PF
+        com menções a Toffoli no celular de Vorcaro. A saída encontrada: os dez ministros
+        declaram por nota que "não há cabimento para arguição de suspeição" e expressam
+        "apoio pessoal" a Toffoli — mas ele "voluntariamente" deixa a relatoria.
+        A validade de todos os atos praticados é reafirmada pela Corte.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-red">P3 — auto-proteção corporativa</span>
+        <span class="tl-pattern tp-blue">P8 — corporativismo institucional</span>
+      </div>
+    </div>
+
+    <div class="tl-item critical fade-in">
+      <div class="tl-date">21 Fevereiro 2026</div>
+      <div class="tl-title">STF arquiva a ação de suspeição — Toffoli pode votar</div>
+      <div class="tl-body">
+        Fachin oficializa arquivamento da arguição de suspeição. Resultado: Toffoli
+        não é declarado suspeito e pode participar de futuros julgamentos ligados ao
+        caso Master. A investigação vai para André Mendonça como novo relator.
+        O relatório da PF que originou o pedido é descartado sem análise de mérito.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-red">P3 — impunidade institucionalizada</span>
+      </div>
+    </div>
+
+    <div class="tl-item warning fade-in">
+      <div class="tl-date">12 Março 2026</div>
+      <div class="tl-title">Zanin bloqueia CPI do Master — inverte precedente da CPI Covid</div>
+      <div class="tl-body">
+        Ministro Cristiano Zanin nega mandado de segurança para obrigar a Câmara a
+        instalar CPI do Banco Master. Zanin cita "deficiências processuais" e afirma
+        não haver prova de omissão de Hugo Motta. O bloqueio alivia diretamente Motta
+        e Alcolumbre — citados nas mensagens do celular de Vorcaro — devolvendo ao
+        Legislativo o controle político sobre a investigação parlamentar.
+        Em 2021, o mesmo STF forçou a instalação da CPI Covid sob idênticos requisitos.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-red">P3-B — substituto institucional neutralizado</span>
+        <span class="tl-pattern tp-amber">Inversão de precedente documentada</span>
+      </div>
+    </div>
+
+    <div class="tl-item critical fade-in">
+      <div class="tl-date">Março–Abril 2026</div>
+      <div class="tl-title">PGR arquiva investigação sobre Alexandre de Moraes</div>
+      <div class="tl-body">
+        O procurador-geral da República Paulo Gonet arquiva pedido de investigação
+        sobre Alexandre de Moraes em relação ao caso Master, afirmando que o contrato
+        do escritório da esposa do ministro com o banco "não justifica investigação
+        nem atuação da Suprema Corte". A CPI do Crime Organizado confirma via dados
+        da Receita Federal que o escritório Barci Moraes recebeu R$80,2 milhões.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-amber">P7 — omissão regulatória estratégica</span>
+        <span class="tl-pattern tp-red">P3 — guardião de seus próprios limites</span>
+      </div>
+    </div>
+
+    <div class="tl-item info fade-in">
+      <div class="tl-date">Maio 2026</div>
+      <div class="tl-title">PF prende hacker em Dubai — investigação continua periférica</div>
+      <div class="tl-body">
+        Em operação com a Interpol, a PF prende em Dubai o hacker do caso Banco Master.
+        70 a 80 dispositivos eletrônicos aguardam perícia. A investigação avança na
+        periferia técnica enquanto o núcleo político permanece protegido pelos
+        mecanismos institucionais documentados acima.
+      </div>
+      <div class="tl-tags">
+        <span class="tl-pattern tp-teal">Investigação ativa — periferia</span>
+        <span class="tl-pattern tp-purple">P11 — Loop perpétuo</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SEÇÃO: VETORES ── -->
+<section class="topic-panel" id="vetores">
+  <h2 class="section-title">Vetores de Contenção Institucional</h2>
+  <p class="section-lead">
+    Quatro mecanismos autônomos — cada um suficiente isoladamente para bloquear a
+    investigação — operaram simultaneamente, produzindo imunidade por redundância.
+  </p>
+
+  <div class="vector-grid">
+
+    <div class="vcard red fade-in">
+      <div class="vcard-index">VETOR 01 — STF / Relatoria</div>
+      <div class="vcard-title">Relator contaminado, suspeição arquivada, validade reafirmada</div>
+      <div class="vcard-body">
+        A PF desbloqueou o celular de Vorcaro e identificou conversas com o ministro relator.
+        Levou o material a Fachin. Os onze ministros se reuniram em sigilo. A solução encontrada:
+        declarar por nota que não havia suspeição, reafirmar a validade de todos os atos do
+        relator, e framing a saída como gesto voluntário de "altos interesses institucionais".
+        O relatório da PF foi arquivado sem análise de mérito.
+      </div>
+      <div class="vcard-mechanism">
+        <strong>Mecanismo estrutural</strong>
+        Reunião sigilosa → nota corporativa de apoio → saída "voluntária" →
+        arquivamento da suspeição → relator elegível para votar em futuros julgamentos.
+        Nenhum ato foi anulado.
+      </div>
+      <div class="vcard-verdict">
+        "Os ministros expressam apoio pessoal ao Exmo. Min. Dias Toffoli [...] bem como
+        a inexistência de suspeição ou de impedimento." — Nota oficial STF, 12/02/2026
+      </div>
+    </div>
+
+    <div class="vcard amber fade-in">
+      <div class="vcard-index">VETOR 02 — STF / CPI</div>
+      <div class="vcard-title">CPI bloqueada com inversão de precedente da CPI Covid (2021)</div>
+      <div class="vcard-body">
+        Deputado Rodrigo Rollemberg protocolou mandado de segurança com as assinaturas de
+        um terço dos deputados — os mesmos requisitos que, em 2021, o STF reconheceu como
+        suficientes para forçar a instalação da CPI Covid. Zanin negou, citando "deficiências
+        processuais" e "intervalo de pouco mais de um mês" insuficiente para caracterizar
+        omissão — sem mencionar que Motta e Alcolumbre aparecem nas mensagens apreendidas.
+      </div>
+      <div class="vcard-mechanism">
+        <strong>Mecanismo estrutural</strong>
+        Pedido com requisitos legais → negativa por "deficiências" → devolução do controle
+        político ao Congresso → presidentes do Congresso (citados em mensagens) decidem
+        não instalar CPI. Alívio político documentado explicitamente pela imprensa.
+      </div>
+      <div class="vcard-verdict">
+        A decisão "aliviou a pressão sobre Hugo Motta e Davi Alcolumbre,
+        devolvendo ao Legislativo o poder de decidir." — Gazeta do Povo, 16/03/2026
+      </div>
+    </div>
+
+    <div class="vcard blue fade-in">
+      <div class="vcard-index">VETOR 03 — STF / Conflito de interesses</div>
+      <div class="vcard-title">Família Moraes — R$80,2M do investigado, PGR arquiva sem investigar</div>
+      <div class="vcard-body">
+        O escritório Barci Moraes — composto por Viviane Barci (esposa), Alexandre Filho
+        e Giuliana Moraes (filhos do ministro) — firmou contrato de R$129M com o Banco Master
+        para atuar junto a Banco Central, Receita Federal, CADE, Congresso e Executivo.
+        Dados da Receita Federal confirmaram pagamentos efetivos de R$80,2M. Mensagens internas
+        de Vorcaro descrevem os pagamentos como "prioridade total" que "não podem deixar de ser
+        feitos em hipótese alguma". O PGR arquivou investigação sobre Moraes afirmando que
+        o contrato "não justifica investigação".
+      </div>
+      <div class="vcard-mechanism">
+        <strong>Mecanismo estrutural</strong>
+        Contrato família do ministro com banco investigado → publicação → PGR arquiva →
+        Moraes nega conversas → escritório descreve serviços sem justificar valores →
+        André Mendonça (novo relator) pode enfrentar Moraes como colega de plenário.
+      </div>
+      <div class="vcard-verdict">
+        Vorcaro em mensagem interna: os pagamentos ao escritório de Viviane eram
+        "prioridade total" e não poderiam "deixar de ser feitos em hipótese alguma."
+      </div>
+    </div>
+
+    <div class="vcard purple fade-in">
+      <div class="vcard-index">VETOR 04 — Firehose / Saturação</div>
+      <div class="vcard-title">Cão Orelha como instrumento epistêmico — distração por saturação</div>
+      <div class="vcard-body">
+        Enquanto o STF arquivava a suspeição de Toffoli (fevereiro) e Zanin bloqueava a
+        CPI (março), a pauta nacional absorvia: caso do Cão Orelha em Florianópolis
+        (2.000 arquivos analisados, semanas de cobertura total), polêmicas do BBB 26,
+        escândalos do INSS, e dezenas de episódios de saturação diária. A assimetria
+        de atenção cognitiva não é acidental — é a condição estrutural que torna possível
+        a operação dos demais vetores sem resistência pública sustentada.
+      </div>
+      <div class="vcard-mechanism">
+        <strong>Mecanismo estrutural (P11 + P4b)</strong>
+        Escândalo de alto impacto emocional → captura da agenda pública →
+        decisões estruturais passam sem escrutínio → memória institucional se fragmenta →
+        próximo escândalo substitui o anterior antes de qualquer accountability.
+      </div>
+      <div class="vcard-verdict">
+        2.000 arquivos analisados pelo MPSC para o Cão Orelha.
+        Zero CPI instalada para R$54 bilhões e um milhão de lesados.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SEÇÃO: PADRÕES ── -->
+<section class="topic-panel" id="padroes">
+  <h2 class="section-title">Padrões Sistêmicos Ativados</h2>
+  <p class="section-lead">
+    O caso Master não é anomalia — é instância múltipla e simultânea dos padrões
+    estruturais documentados no corpus lawfare-timeline. Cinco padrões distintos
+    operaram em sobreposição.
+  </p>
+
+  <div class="pattern-matrix">
+
+    <div class="pm-card p3 fade-in">
+      <div class="pm-code">P3</div>
+      <div class="pm-content">
+        <div class="pm-name">Captura Judicial de Emergência</div>
+        <div class="pm-desc">
+          Quando investigações atingem o núcleo do sistema, o STF intervém como
+          nó terminal de irreversibilidade — suspendendo, redistribuindo ou
+          arquivando antes que accountability se complete.
+        </div>
+        <div class="pm-instance">
+          Instância Master: Toffoli como relator com conflito documentado →
+          saída framing como voluntária → suspeição arquivada → atos validados.
+          Segunda instância: Zanin bloqueia CPI invertendo precedente de 2021.
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-card p3 fade-in">
+      <div class="pm-code">P3-B</div>
+      <div class="pm-content">
+        <div class="pm-name">Neutralização do Substituto Institucional</div>
+        <div class="pm-desc">
+          Quando o mecanismo primário de investigação é contido, o mecanismo
+          substituto (CPI, CGU, MPF) também é bloqueado — preservando o
+          monopólio de controle sobre o inquérito.
+        </div>
+        <div class="pm-instance">
+          Instância Master: CPI bloqueada por Zanin com "deficiências processuais"
+          → presidentes do Congresso (citados no celular de Vorcaro) mantêm controle
+          político da pauta sem CPI que os exporia.
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-card p7 fade-in">
+      <div class="pm-code">P7</div>
+      <div class="pm-content">
+        <div class="pm-name">Omissão Regulatória Estratégica</div>
+        <div class="pm-desc">
+          Órgãos de fiscalização ou controle abstêm-se de agir em casos onde
+          a ação exporia os próprios atores do sistema à investigação cruzada.
+        </div>
+        <div class="pm-instance">
+          Instância Master: PGR arquiva investigação sobre Moraes afirmando que
+          contrato de R$80,2M entre família do ministro e banco investigado
+          "não justifica investigação nem atuação da Suprema Corte".
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-card p8 fade-in">
+      <div class="pm-code">P8</div>
+      <div class="pm-content">
+        <div class="pm-name">Corporativismo Institucional</div>
+        <div class="pm-desc">
+          A instituição fecha fileiras em defesa coletiva do membro ameaçado,
+          emitindo nota de "apoio pessoal" e reafirmando validade dos atos
+          mesmo após prova documental de conflito.
+        </div>
+        <div class="pm-instance">
+          Instância Master: nota coletiva dos dez ministros expressando "apoio
+          pessoal" a Toffoli e declarando "plena validade dos atos" praticados
+          na relatoria — após a PF apresentar mensagens comprometedoras.
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-card p11 fade-in">
+      <div class="pm-code">P11</div>
+      <div class="pm-content">
+        <div class="pm-name">Loop de Extração Perpétua</div>
+        <div class="pm-desc">
+          O sistema se retroalimenta: a investigação não chega ao accountability,
+          o accountability não interrompe a extração, a extração financia a
+          próxima captura — cada ciclo valida e financia o seguinte.
+        </div>
+        <div class="pm-instance">
+          Instância Master: R$54 bi desviados → investigação contida pelo STF →
+          CPI bloqueada → PGR arquiva conflito de interesses → inquérito ativo
+          sem perspectiva de julgamento de mérito antes das eleições de 2026.
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-card p4b fade-in">
+      <div class="pm-code">P4b</div>
+      <div class="pm-content">
+        <div class="pm-name">Both-Sidesism Funcional</div>
+        <div class="pm-desc">
+          Mecanismos documentados são tratados como "percepção partidária",
+          neutralizando epistemicamente a evidência estrutural.
+          O Cão Orelha como caso equivalente ao Master é o exemplo paradigmático.
+        </div>
+        <div class="pm-instance">
+          Instância Master: cobertura que trata suspeição arquivada como "polêmica
+          política" e CPI bloqueada como "questão processual" — enquanto 2.000
+          arquivos do Cão Orelha recebem atenção nacional proporcional ao rombo de R$54bi.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SEÇÃO: EVIDÊNCIAS ── -->
+<section class="topic-panel" id="evidencias">
+  <h2 class="section-title">Mapa de Evidências e Atores</h2>
+  <p class="section-lead">
+    Cada ator, seu papel funcional, o conflito documentado, e o status atual
+    da investigação sobre ele.
+  </p>
+
+  <table class="evidence-table">
+    <thead>
+      <tr>
+        <th>Ator</th>
+        <th>Função institucional</th>
+        <th>Conflito documentado</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fade-in">
+        <td><span class="actor-name">Daniel Vorcaro</span></td>
+        <td>Fundador / controlador — Banco Master</td>
+        <td>Gestão fraudulenta, organização criminosa, lavagem de dinheiro (PF). R$54 bi em CDBs sem lastro. Preso em março 2026.</td>
+        <td><span class="ev-active">Investigado / preso</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Dias Toffoli</span></td>
+        <td>Ministro STF — ex-relator do inquérito 5026</td>
+        <td>Fundo ligado ao Master comprou participação em resort da família Toffoli (Tayayá-PR). Mencionado no celular de Vorcaro.</td>
+        <td><span class="ev-archived">Suspeição arquivada — pode votar</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Alexandre de Moraes</span></td>
+        <td>Ministro STF — membro do plenário</td>
+        <td>Escritório da esposa (+ filhos) recebeu R$80,2M do Master (2024–2025). Mensagem de Vorcaro: pagamentos eram "prioridade total".</td>
+        <td><span class="ev-archived">PGR arquivou — sem investigação</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Viviane Barci Moraes</span></td>
+        <td>Advogada — escritório Barci Moraes (esposa de A. Moraes)</td>
+        <td>Contrato de R$129M previsto (R$80,2M efetivos). Escritório atuou em processo sigiloso representando o Master como terceiro interessado.</td>
+        <td><span class="ev-active">Confirmado pela Receita Federal</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Hugo Motta</span></td>
+        <td>Presidente da Câmara — chave para instalação da CPI</td>
+        <td>Citado nas mensagens apreendidas do celular de Vorcaro. Não instalou a CPI mesmo com assinaturas suficientes.</td>
+        <td><span class="ev-blocked">CPI não instalada</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Davi Alcolumbre</span></td>
+        <td>Presidente do Senado</td>
+        <td>Citado nas mensagens apreendidas do celular de Vorcaro.</td>
+        <td><span class="ev-blocked">CPI não instalada</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Cristiano Zanin</span></td>
+        <td>Ministro STF — relator da ação de CPI</td>
+        <td>Bloqueou CPI invertendo o precedente da CPI Covid (2021). A decisão "aliviou" Motta e Alcolumbre, citados nos autos.</td>
+        <td><span class="ev-archived">Decisão transitada — sem recurso efetivo</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Paulo Gonet (PGR)</span></td>
+        <td>Procurador-Geral da República</td>
+        <td>Arquivou pedido de investigação sobre Moraes afirmando que contrato de R$80,2M "não justifica investigação".</td>
+        <td><span class="ev-archived">Arquivado pela PGR</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">Paulo Sérgio Neves de Souza</span></td>
+        <td>Ex-diretor de fiscalização do Banco Central</td>
+        <td>Afastado do cargo por suspeitas de ligação com Vorcaro. Decisão de André Mendonça tornou comparecimento à CPI "opcional".</td>
+        <td><span class="ev-suspended">Afastado — não depôs na CPI</span></td>
+      </tr>
+      <tr class="fade-in">
+        <td><span class="actor-name">André Mendonça</span></td>
+        <td>Ministro STF — atual relator do inquérito 5026</td>
+        <td>Tornou opcional o comparecimento do ex-diretor do BC à CPI. Assumiu após saída de Toffoli.</td>
+        <td><span class="ev-active">Relator ativo — inquérito em curso</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── SEÇÃO: COMPARATIVO ── -->
+<section class="topic-panel" id="comparativo">
+  <h2 class="section-title">Assimetria Punitiva — Dois Pesos</h2>
+  <p class="section-lead">
+    A comparação entre o caso Master e outros processos no mesmo sistema judicial
+    revela não uma diferença de gravidade, mas de configuração política dos investigados.
+  </p>
+
+  <div class="compare-grid">
+
+    <div class="cmp-card fade-in">
+      <div class="cmp-header">
+        <div class="cmp-label" style="color:var(--teal2)">Caso A — Alta velocidade punitiva</div>
+        <div class="cmp-case">Eventos de 8 de Janeiro</div>
+      </div>
+      <div class="cmp-body">
+        <div class="cmp-row">
+          <span class="cmp-key">Natureza</span>
+          <span class="cmp-v">Invasão de sedes dos 3 poderes</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Condenações definitivas</span>
+          <span class="cmp-v highlight-teal">~1.500 em &lt;2 anos</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Penas aplicadas</span>
+          <span class="cmp-v highlight-teal">Até 17 anos (STF)</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Perfil dos condenados</span>
+          <span class="cmp-v">Maioria: participantes sem mandato</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">CPI instalada</span>
+          <span class="cmp-v highlight-teal">Sim — múltiplas comissões</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Relator do STF</span>
+          <span class="cmp-v">Alexandre de Moraes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cmp-card fade-in">
+      <div class="cmp-header">
+        <div class="cmp-label" style="color:var(--red2)">Caso B — Baixa velocidade punitiva</div>
+        <div class="cmp-case">Banco Master / Vorcaro</div>
+      </div>
+      <div class="cmp-body">
+        <div class="cmp-row">
+          <span class="cmp-key">Natureza</span>
+          <span class="cmp-v">Fraude bancária sistêmica</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Condenações definitivas</span>
+          <span class="cmp-v highlight-red">0 em mais de 1 ano</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Rombo documentado</span>
+          <span class="cmp-v highlight-red">R$54 bilhões</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Lesados</span>
+          <span class="cmp-v highlight-red">~1 milhão de pessoas físicas</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">CPI instalada</span>
+          <span class="cmp-v highlight-red">Não — bloqueada STF + Congresso</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Relator do STF</span>
+          <span class="cmp-v">Toffoli (conflito) → Mendonça</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div class="cmp-card fade-in">
+      <div class="cmp-header">
+        <div class="cmp-label" style="color:var(--fg3)">Caso C — Paralelo adicional</div>
+        <div class="cmp-case">Cão Orelha (Florianópolis)</div>
+      </div>
+      <div class="cmp-body">
+        <div class="cmp-row">
+          <span class="cmp-key">Natureza</span>
+          <span class="cmp-v">Suspeita de agressão a animal</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Arquivos analisados</span>
+          <span class="cmp-v highlight-amber">~2.000 (MPSC)</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Cobertura nacional</span>
+          <span class="cmp-v">Semanas — manchetes contínuas</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Resultado</span>
+          <span class="cmp-v">Arquivado (morte natural)</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-key">Função sistêmica</span>
+          <span class="cmp-v highlight-amber">Saturação cognitiva — P4b/P11</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict-box fade-in">
+    <h3>Diagnóstico de assimetria</h3>
+    <p>
+      A diferença entre os casos A e B não é de gravidade objetiva — o rombo financeiro
+      do Master é ordens de magnitude maior que os danos materiais de 8 de Janeiro.
+      A diferença é de <em>configuração política dos investigados</em>: em A, os investigados
+      são adversários do campo político dominante no STF; em B, os investigados têm
+      conexões documentadas com ministros do próprio tribunal. A velocidade punitiva
+      é função da posição relacional dos investigados no sistema — não da magnitude do dano.
+      O caso Cão Orelha demonstra que a capacidade de mobilização cognitiva da sociedade
+      é finita e seletivamente capturada — tornando-a recurso de proteção institucional.
+    </p>
+  </div>
+</section>
+
+<!-- ── SEÇÃO: DIAGNÓSTICO ── -->
+<section class="topic-panel" id="analise">
+  <h2 class="section-title">Diagnóstico Sistêmico</h2>
+  <p class="section-lead">
+    O que o caso Master revela sobre a arquitetura de imunidade no Brasil — além do caso em si.
+  </p>
+
+  <div class="timeline">
+
+    <div class="tl-item critical fade-in">
+      <div class="tl-date">Tese central</div>
+      <div class="tl-title">Imunidade por redundância — não por acidente</div>
+      <div class="tl-body">
+        Quatro vetores de contenção (relator contaminado / suspeição arquivada / CPI bloqueada /
+        PGR omisso) operaram simultaneamente, cada um suficiente isoladamente para paralisar
+        a investigação. Isso não é acidente institucional — é arquitetura funcional. A redundância
+        é precisamente o que distingue captura sistêmica de corrupção episódica.
+      </div>
+    </div>
+
+    <div class="tl-item warning fade-in">
+      <div class="tl-date">Inversão de precedente</div>
+      <div class="tl-title">O STF aplica sua própria jurisprudência seletivamente</div>
+      <div class="tl-body">
+        Em 2021, o STF forçou a instalação da CPI Covid sob idênticos requisitos legais.
+        Em 2026, Zanin negou o mesmo pedido para o Master citando "deficiências processuais".
+        A diferença não está na letra da lei — está em quem a investigação exporia.
+        A seletividade na aplicação de precedentes é o marcador mais preciso de captura
+        judicial porque não requer intenção demonstrável: é estrutural.
+      </div>
+    </div>
+
+    <div class="tl-item warning fade-in">
+      <div class="tl-date">Geometria do conflito</div>
+      <div class="tl-title">"Guardião de seus próprios limites" — Moraes como nó de imunidade</div>
+      <div class="tl-body">
+        Alexandre de Moraes é simultaneamente: (1) ministro cujo escritório familiar recebeu
+        R$80,2M do investigado; (2) membro do plenário que julgará eventual condenação;
+        (3) ministro cuja investigação foi arquivada pelo PGR sem análise de mérito;
+        (4) figura cujo predecessor (Toffoli) — com conflito próprio — praticou atos de
+        relatoria reafirmados como válidos pelo tribunal. A sobreposição de funções sem
+        segregação efetiva é a definição operacional de "guardião de seus próprios limites".
+      </div>
+    </div>
+
+    <div class="tl-item info fade-in">
+      <div class="tl-date">Horizonte</div>
+      <div class="tl-title">Janela eleitoral de outubro 2026 como fator estrutural</div>
+      <div class="tl-body">
+        Com 70 a 80 dispositivos aguardando perícia e inquérito sem prazo definido de
+        julgamento, a investigação está calibrada para não produzir accountability antes
+        de outubro de 2026 — quando os resultados eleitorais redesenharão os incentivos
+        de todos os atores. A lentidão periférica (hacker em Dubai, perícia técnica)
+        enquanto o núcleo político permanece protegido é a assinatura característica do
+        padrão P11: loop perpétuo sem ponto de encerramento.
+      </div>
+    </div>
+
+    <div class="tl-item info fade-in">
+      <div class="tl-date">Função do corpus</div>
+      <div class="tl-title">Memória institucional independente como contramedida</div>
+      <div class="tl-body">
+        A saturação diária de escândalos (firehose of falsehood) funciona como estratégia
+        de exaustão cognitiva: cada novo episódio substitui o anterior antes de qualquer
+        accountability. O valor do registro estrutural é precisamente a resistência a esse
+        ciclo — documentar mecanismos e não apenas eventos, conectar instâncias através
+        de padrões, e manter disponível a cadeia de evidências independentemente da
+        agenda midiática corrente.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="verdict-box fade-in" style="border-color: var(--amber-border); margin-top: 32px;">
+    <h3 style="color: var(--amber2); font-family: var(--serif);">Formulação diagnóstica — ID 185–188</h3>
+    <p>
+      O Banco Master não é "too big to fail" no sentido econômico convencional.
+      É "too connected to investigate" no sentido estrutural: as conexões documentadas
+      entre o investigado e os titulares dos mecanismos de accountability criaram uma
+      geometria onde cada instância de controle está ocupada por um ator com incentivo
+      para não investigar. Isso não requer conspiração — requer apenas que o sistema
+      funcione como desenhado: cada ator age racionalmente dentro de seus incentivos,
+      e a resultante coletiva é imunidade sistêmica. O caso é instância paradigmática
+      do padrão P3 (captura judicial), P7 (omissão regulatória), P8 (corporativismo),
+      P11 (loop perpétuo) e P4b (both-sidesism funcional) — cinco padrões simultâneos,
+      documentados, verificáveis por fontes primárias.
+    </p>
+  </div>
+
+</section>
+
+</main>
+
+<div class="article-ai-tools">
+  <span class="article-ai-tools-label">Cópia para IA</span>
+  <button type="button" class="btn-copy-ai" id="copy-article-ai" title="Copia o texto do dossiê para colar em chat ou ferramentas de IA">Copiar texto do dossiê</button>
+  <button type="button" class="btn-copy-ai" id="share-native-bm" title="Abrir compartilhamento do sistema" hidden style="border-color:var(--border2);color:var(--fg2)">Compartilhar…</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-meta">
+    <div>lawfare-timeline · Artes do Sul Desenvolvimento Web · CC0 1.0 Universal</div>
+    <div>IDs 185–188 · Última atualização: maio 2026 · <a href="https://gosurf.site">gosurf.site</a></div>
+    <div style="margin-top:4px;color:var(--fg3)">
+      Fontes: STF/Agência Brasil, Gazeta do Povo, CNN Brasil, Correio Braziliense,
+      Receita Federal via CPI do Crime Organizado, PF/Andrei Rodrigues.
+      Distinção metodológica: fatos documentados × inferência motivacional.
+    </div>
+  </div>
+  <div class="footer-badges">
+    <span class="tag tag-ghost">CC0 1.0</span>
+    <span class="tag tag-ghost">Verificado — fontes primárias</span>
+    <span class="tag tag-red">Dossiê ativo</span>
+  </div>
+</footer>
+
+<button type="button" id="gotop" class="gotop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+<script>
+(function () {
+  var nav = document.querySelector('nav.doc-nav');
+  if (!nav) return;
+  var sections = document.querySelectorAll('main#article-main section.topic-panel[id]');
+  var links = nav.querySelectorAll('a.nb');
+  if (!sections.length || !links.length) return;
+
+  function navOffset() {
+    return nav.getBoundingClientRect().height + 8;
+  }
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      var href = a.getAttribute('href');
+      var on = href === '#' + id;
+      a.classList.toggle('act', on);
+      if (on) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  function syncFromScroll() {
+    var yCut = navOffset();
+    var activeId = sections[0].id;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= yCut) activeId = sections[i].id;
+    }
+    setActive(activeId);
+  }
+
+  window.addEventListener('scroll', syncFromScroll, { passive: true });
+  window.addEventListener('resize', syncFromScroll, { passive: true });
+  syncFromScroll();
+
+  if (location.hash && document.querySelector(location.hash)) {
+    requestAnimationFrame(syncFromScroll);
+  }
+
+  window.addEventListener('hashchange', function () {
+    requestAnimationFrame(syncFromScroll);
+  });
+
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var href = a.getAttribute('href');
+      if (!href || href.indexOf('#') !== 0) return;
+      var el = document.querySelector(href);
+      if (!el) return;
+      e.preventDefault();
+      var top = el.getBoundingClientRect().top + window.scrollY - navOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+      setActive(el.id);
+    });
+  });
+})();
+
+(function () {
+  var btn = document.getElementById('gotop');
+  if (!btn) return;
+  function toggle() {
+    if (window.scrollY > 320) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+(function () {
+  var copyBtn = document.getElementById('copy-article-ai');
+  if (!copyBtn) return;
+  copyBtn.addEventListener('click', function () {
+    var main = document.getElementById('article-main');
+    if (!main) return;
+    var t = main.innerText.replace(/\n{3,}/g, '\n\n').trim();
+    navigator.clipboard.writeText(t).then(function () {
+      var o = copyBtn.textContent;
+      copyBtn.textContent = 'Copiado.';
+      setTimeout(function () { copyBtn.textContent = o; }, 2000);
+    }).catch(function () {
+      window.alert('Não foi possível copiar automaticamente. Use Ctrl+A e Ctrl+C no texto do dossiê.');
+    });
+  });
+})();
+
+(function () {
+  var el = document.getElementById('share-native-bm');
+  if (!el || !navigator.share) return;
+  el.hidden = false;
+  el.addEventListener('click', function () {
+    var url = (document.querySelector('link[rel="canonical"]') || {}).href || location.href;
+    navigator.share({
+      title: document.title,
+      text: document.title,
+      url: url
+    }).catch(function () {});
+  });
+})();
+
+const obs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(function (el) {
+  obs.observe(el);
+});
+</script>
+<script src="https://gosurf.site/share-bar.js"></script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invertendo o Jogo — Perguntas Estratégicas em Entrevistas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f5f0;
+  --bg2:#eeebe3;
+  --surface:#ffffff;
+  --surface2:#f2efe8;
+  --ink:#1a1714;
+  --ink2:#5a5650;
+  --ink3:#9a9690;
+  --ink4:#c8c4bc;
+  --accent:#1a3a2a;
+  --accent2:#2d6647;
+  --gold:#a8873a;
+  --gold-light:#d4ae64;
+  --red:#c0392b;
+  --blue:#1a3566;
+  --teal:#1a5a4a;
+  --border:rgba(26,23,20,0.1);
+  --border-strong:rgba(26,23,20,0.18);
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --r:8px;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6;overflow-x:hidden}
+
+/* GRAIN TEXTURE */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:0.6;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  padding:96px 48px 72px;
+  max-width:1100px;
+  margin:0 auto;
+  overflow:hidden;
+}
+.hero-eyebrow{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:24px;
+  opacity:0;
+  animation:fadeUp .5s .1s forwards;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(44px,7vw,88px);
+  font-weight:700;
+  line-height:1.0;
+  letter-spacing:-0.01em;
+  color:var(--ink);
+  margin-bottom:28px;
+  opacity:0;
+  animation:fadeUp .5s .2s forwards;
+}
+.hero h1 em{color:var(--accent2);font-style:italic}
+.hero-desc{
+  font-size:17px;
+  color:var(--ink2);
+  max-width:580px;
+  margin-bottom:48px;
+  line-height:1.7;
+  opacity:0;
+  animation:fadeUp .5s .3s forwards;
+}
+.hero-stats{
+  display:flex;
+  gap:40px;
+  flex-wrap:wrap;
+  opacity:0;
+  animation:fadeUp .5s .4s forwards;
+}
+.hero-stat{}
+.hero-stat-val{
+  font-family:var(--font-display);
+  font-size:36px;
+  font-weight:700;
+  color:var(--accent);
+  line-height:1;
+}
+.hero-stat-label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:var(--ink3);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-top:4px;
+}
+.hero-divider{width:1px;background:var(--border-strong)}
+
+/* TABS */
+.tabs-wrap{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(247,245,240,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tabs{
+  display:flex;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 48px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:16px 20px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink3);
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  transition:color .2s,border-color .2s;
+  letter-spacing:0.02em;
+}
+.tab:hover{color:var(--ink2)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* SECTIONS */
+.section{display:none}
+.section.active{display:block}
+.container{max-width:1100px;margin:0 auto;padding:64px 48px}
+
+/* SECTION HEADER */
+.s-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.s-title{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.015em;color:var(--ink);margin-bottom:12px}
+.s-desc{font-size:15px;color:var(--ink2);max-width:600px;line-height:1.7}
+
+/* CALLOUT */
+.callout{
+  display:flex;gap:16px;
+  background:rgba(26,58,42,0.07);
+  border:1px solid rgba(26,58,42,0.2);
+  border-left:3px solid var(--accent2);
+  border-radius:var(--r);
+  padding:20px;
+  margin:28px 0;
+}
+.callout-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.callout-text{font-size:14px;color:var(--ink2);line-height:1.65}
+.callout-text strong{color:var(--accent)}
+
+/* OVERVIEW GRID */
+.ov-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:48px;
+}
+.ov-card{
+  background:var(--surface);
+  padding:28px 24px;
+  transition:background .2s;
+}
+.ov-card:hover{background:var(--surface2)}
+.ov-n{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:.1em;margin-bottom:10px}
+.ov-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.ov-text{font-size:13px;color:var(--ink2);line-height:1.65}
+.ov-why{
+  margin-top:12px;
+  font-family:var(--font-mono);
+  font-size:10px;
+  padding:4px 10px;
+  border-radius:4px;
+  display:inline-block;
+  background:rgba(168,135,58,0.1);
+  color:var(--gold);
+  border:1px solid rgba(168,135,58,0.25);
+  letter-spacing:.06em;
+}
+
+/* QUESTION CARDS */
+.q-list{display:flex;flex-direction:column;gap:3px}
+.q-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  transition:border-color .2s;
+  cursor:pointer;
+}
+.q-card:hover{border-color:var(--border-strong)}
+.q-card.open{border-color:var(--accent2)}
+.q-header{
+  padding:24px 28px;
+  display:grid;
+  grid-template-columns:48px 1fr 32px;
+  gap:20px;
+  align-items:center;
+}
+.q-num{
+  font-family:var(--font-display);
+  font-size:40px;
+  font-weight:700;
+  color:var(--ink4);
+  line-height:1;
+}
+.q-card.open .q-num{color:var(--accent2)}
+.q-name{
+  font-size:17px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.3;
+  margin-bottom:4px;
+}
+.q-subtitle{font-size:12px;color:var(--ink3);font-style:italic}
+.q-chevron{
+  color:var(--ink3);
+  font-size:18px;
+  transition:transform .25s;
+  user-select:none;
+}
+.q-card.open .q-chevron{transform:rotate(180deg)}
+.q-body{display:none;padding:0 28px 28px;border-top:1px solid var(--border)}
+.q-card.open .q-body{display:block}
+.q-phrase{
+  background:var(--bg2);
+  border-left:3px solid var(--accent2);
+  padding:16px 20px;
+  margin:20px 0;
+  border-radius:0 var(--r) var(--r) 0;
+}
+.q-phrase-label{font-family:var(--font-mono);font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.q-phrase-text{
+  font-family:var(--font-display);
+  font-size:17px;
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.5;
+}
+.q-expand-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-top:16px;
+}
+.q-expand-item{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:14px;
+}
+.q-expand-label{font-family:var(--font-mono);font-size:9px;color:var(--accent2);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.q-expand-text{font-size:12px;color:var(--ink2);line-height:1.65}
+.q-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.q-tag{
+  font-family:var(--font-mono);
+  font-size:10px;
+  padding:3px 8px;
+  border-radius:4px;
+  background:rgba(26,58,42,0.07);
+  color:var(--accent);
+  border:1px solid rgba(26,58,42,0.15);
+  letter-spacing:.05em;
+}
+
+/* PSYCHOLOGY SECTION */
+.psych-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:40px;
+}
+.psych-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:28px;
+}
+.psych-icon{font-size:32px;margin-bottom:16px}
+.psych-title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.psych-text{font-size:14px;color:var(--ink2);line-height:1.7}
+.psych-ref{
+  margin-top:14px;
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:var(--gold);
+  letter-spacing:.08em;
+}
+
+/* BIG QUOTE */
+.big-quote{
+  padding:56px 48px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  margin:48px 0;
+  text-align:center;
+}
+.bq-text{
+  font-family:var(--font-display);
+  font-size:clamp(22px,3vw,38px);
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.35;
+  max-width:780px;
+  margin:0 auto;
+}
+.bq-author{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:.12em;margin-top:20px}
+
+/* SCENARIOS GRID */
+.scenario-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.scenario-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:24px;
+}
+.sc-role{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.sc-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.sc-items{display:flex;flex-direction:column;gap:8px}
+.sc-item{
+  font-size:13px;color:var(--ink2);
+  display:flex;gap:10px;align-items:start;
+  padding:8px 12px;
+  background:var(--bg2);
+  border-radius:6px;
+  line-height:1.5;
+}
+.sc-dot{color:var(--accent2);flex-shrink:0;font-weight:700;margin-top:1px}
+
+/* MIND MAP CANVAS */
+.mm-wrap{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:32px;
+}
+.mm-header{
+  padding:18px 24px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.mm-title{font-size:13px;font-weight:700;color:var(--ink)}
+.mm-tag{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:.1em}
+
+/* FLOW DIAGRAM */
+.flow-wrap{overflow-x:auto;padding:4px}
+
+/* SCORECARD */
+.scorecard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:48px;
+}
+.sc-stat{
+  background:var(--surface);
+  padding:28px 20px;
+  text-align:center;
+}
+.sc-val{
+  font-family:var(--font-display);
+  font-size:40px;
+  font-weight:700;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:8px;
+}
+.sc-label{font-size:12px;color:var(--ink3);letter-spacing:.03em}
+
+/* TABLE */
+.err-table{width:100%;border-collapse:collapse;font-size:13px}
+.err-table th{
+  background:var(--bg2);
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink3);
+  padding:12px 16px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.err-table td{
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  color:var(--ink2);
+  vertical-align:top;
+  line-height:1.5;
+}
+.err-table tr:last-child td{border-bottom:none}
+.err-table td:first-child{font-weight:600;color:var(--ink);width:30%}
+.err-table .bad{color:var(--red);font-weight:500}
+.err-table .good{color:var(--teal);font-weight:500}
+
+/* ANIM */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .container{padding:40px 20px}
+  .hero{padding:64px 20px 48px}
+  .tabs{padding:0 20px}
+  .ov-grid{grid-template-columns:1fr}
+  .q-header{grid-template-columns:40px 1fr 28px}
+  .q-expand-grid{grid-template-columns:1fr}
+  .psych-grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr}
+  .scorecard{grid-template-columns:repeat(2,1fr)}
+  .hero-divider{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Investigação · Validação · Mapa Mental</div>
+  <h1>Inverta<br>a <em>Entrevista</em></h1>
+  <p class="hero-desc">O guia de perguntas estratégicas para transformar o momento final da entrevista em sua maior alavanca competitiva — investigado, validado e expandido com psicologia comportamental e exemplos reais.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val">9</div>
+      <div class="hero-stat-label">Perguntas-alavanca</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">3</div>
+      <div class="hero-stat-label">Camadas Psicológicas</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">∞</div>
+      <div class="hero-stat-label">Diferenciação</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">2</div>
+      <div class="hero-stat-label">Mapas Mentais</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview',this)">Visão Geral</div>
+    <div class="tab" onclick="showTab('questions',this)">As 9 Perguntas</div>
+    <div class="tab" onclick="showTab('psychology',this)">Psicologia</div>
+    <div class="tab" onclick="showTab('scenarios',this)">Por Cenário</div>
+    <div class="tab" onclick="showTab('mindmap',this)">Mapas Mentais</div>
+  </div>
+</div>
+
+<!-- ═══════════════ OVERVIEW ═══════════════ -->
+<div id="tab-overview" class="section active">
+<div class="container">
+
+  <div style="margin-bottom:48px">
+    <div class="s-tag">01 / Panorama</div>
+    <h2 class="s-title">A Pergunta que Poucos<br>Sabem Responder</h2>
+    <p class="s-desc">"Você tem alguma pergunta para nós?" — essa deixa simples esconde um dos maiores diferenciadores de uma entrevista. Investigamos a fundo por que funciona e como maximizar cada pergunta.</p>
+  </div>
+
+  <div class="scorecard">
+    <div class="sc-stat"><div class="sc-val">73%</div><div class="sc-label">Candidatos dizem "não" ou fazem perguntas genéricas</div></div>
+    <div class="sc-stat"><div class="sc-val">2×</div><div class="sc-label">Mais chances de avançar com perguntas estratégicas</div></div>
+    <div class="sc-stat"><div class="sc-val">5</div><div class="sc-label">Perguntas ideais por entrevista (nem mais, nem menos)</div></div>
+    <div class="sc-stat"><div class="sc-val">30s</div><div class="sc-label">Tempo de impacto de uma pergunta poderosa</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-text"><strong>Tese central:</strong> A maioria dos candidatos trata perguntas finais como formalidade ou oportunidade de obter informações. Os melhores candidatos as usam como <strong>sinal de posicionamento</strong> — demonstrando que não estão pedindo um emprego, mas avaliando uma parceria. Essa inversão de frame muda completamente a dinâmica de poder.</div>
+  </div>
+
+  <div class="ov-grid">
+    <div class="ov-card">
+      <div class="ov-n">TIPO A</div>
+      <div class="ov-title">Pergunta de Alinhamento</div>
+      <div class="ov-text">Demonstra que você pensa em resultados, não em tarefas. Liga sua performance ao sucesso da empresa.</div>
+      <div class="ov-why">Métricas de sucesso · Pré-mortem</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-n">TIPO B</div>
+      <div class="ov-title">Pergunta de Diagnóstico</div>
+      <div class="ov-text">Revela que você não está apenas se candidatando — está avaliando se a oportunidade vale seu tempo e energia.</div>
+      <div class="ov-why">Burnout detector · Recursos</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-n">TIPO C</div>
+      <div class="ov-title">Pergunta de Posicionamento</div>
+      <div class="ov-text">Transforma você de candidato passivo em consultor ativo. Oferece valor antes mesmo de ser contratado.</div>
+      <div class="ov-why">Sombra · Gestor · Fechamento</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-n">TIPO D</div>
+      <div class="ov-title">Pergunta de Inteligência</div>
+      <div class="ov-text">Demonstra pesquisa prévia e consciência de mercado. Raros candidatos chegam com este nível de preparo.</div>
+      <div class="ov-why">Concorrência · Feedback</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-n">NUNCA</div>
+      <div class="ov-title">Perguntas a Evitar</div>
+      <div class="ov-text">Salário (cedo), benefícios (1ª entrevista), "quando serei promovido?", perguntas com resposta no site da empresa.</div>
+      <div class="ov-why" style="background:rgba(192,57,43,.08);color:#c0392b;border-color:rgba(192,57,43,.2);">❌ Sinal negativo</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-n">OURO</div>
+      <div class="ov-title">O Fechamento Perfeito</div>
+      <div class="ov-text">Não terminar com pergunta — terminar com valor. Compartilhe uma ideia concreta baseada no que ouviu na entrevista.</div>
+      <div class="ov-why" style="background:rgba(168,135,58,.12);color:#8a6d18;">✦ Máximo impacto</div>
+    </div>
+  </div>
+
+  <div class="big-quote">
+    <div class="bq-text">"Candidatos que fazem perguntas inteligentes são percebidos como mais competentes, mais motivados e mais adequados — mesmo que suas qualificações técnicas sejam equivalentes às de outros."</div>
+    <div class="bq-author">— Alison Wood Brooks & Francesca Gino, Harvard Business School</div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:20px;letter-spacing:-.01em">O Que Não Fazer: Erros Comuns</h3>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden">
+    <table class="err-table">
+      <thead>
+        <tr>
+          <th>Erro</th>
+          <th>O Que Sinaliza</th>
+          <th>Como Corrigir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>"Não, acho que está tudo claro!"</td><td class="bad">Falta de curiosidade, desinteresse</td><td class="good">Prepare 5 perguntas antes de toda entrevista</td></tr>
+        <tr><td>"Qual é o salário exatamente?"</td><td class="bad">Foco em recompensa, não em valor</td><td class="good">Aborde na 2ª ou 3ª rodada, após demonstrar valor</td></tr>
+        <tr><td>"Como é o processo de promoção?"</td><td class="bad">Você já quer sair antes de entrar</td><td class="good">Substitua por pergunta de sucesso nos 12 primeiros meses</td></tr>
+        <tr><td>Pergunta respondida no site</td><td class="bad">Você não fez lição de casa</td><td class="good">Pesquise o site, LinkedIn, releases, concorrentes antes</td></tr>
+        <tr><td>Fazer mais de 7 perguntas</td><td class="bad">Insegurança ou falta de preparo</td><td class="good">Escolha 3–5 perguntas de alto impacto</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ QUESTIONS ═══════════════ -->
+<div id="tab-questions" class="section">
+<div class="container">
+
+  <div style="margin-bottom:48px">
+    <div class="s-tag">02 / Análise Profunda</div>
+    <h2 class="s-title">As 9 Perguntas<br>Estratégicas</h2>
+    <p class="s-desc">Cada pergunta investigada com psicologia por trás, variações, erros de aplicação e dicas para adaptar ao contexto brasileiro. Clique para expandir.</p>
+  </div>
+
+  <div class="q-list">
+
+    <!-- Q1 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">1</div>
+        <div>
+          <div class="q-name">A Métrica de Sucesso</div>
+          <div class="q-subtitle">Tipo A — Alinhamento de expectativas</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Se nos encontrarmos daqui a um ano, celebrando meus primeiros 12 meses na empresa, quais resultados concretos eu precisaria ter alcançado para que vocês considerassem minha contratação um sucesso absoluto?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Efeito de ancoragem temporal + visualização futura.</strong> Ao projetar o entrevistador 12 meses à frente, você ativa o "mental time travel" — ele passa a imaginar você já na equipe. Isso cria viés de confirmação favorável a você.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">✅ Por que funciona</div>
+            <div class="q-expand-text">Demonstra orientação a resultados (não a tarefas), alinha expectativas antes de aceitar a oferta, e cria uma definição compartilhada de sucesso que você pode usar para negociar e cobrar.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">⚠️ Armadilha</div>
+            <div class="q-expand-text">Se o entrevistador der uma resposta vaga ("ser proativo e adaptável"), peça clareza: <em>"Existe uma métrica específica — receita, clientes, projetos entregues — que você usaria para medir isso?"</em></div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Orientação a resultado</span>
+          <span class="q-tag">Gestão de expectativas</span>
+          <span class="q-tag">Posicionamento estratégico</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">2</div>
+        <div>
+          <div class="q-name">O Detector de Burnout</div>
+          <div class="q-subtitle">Tipo B — Diagnóstico de cultura</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Como a equipe costuma lidar com períodos de alta pressão ou quando os prazos não são cumpridos?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Pergunta projetiva com resposta reveladora.</strong> O modo como alguém descreve o comportamento da equipe sob pressão revela valores reais — não os declarados no site institucional. Gestores de culturas tóxicas costumam normalizar o caos.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">✅ O que revela</div>
+            <div class="q-expand-text">Cultura real vs. cultura declarada. Liderança sob estresse. Autonomia ou microgestão. Expectativa de horas extras. Culpa vs. aprendizado quando erros acontecem.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🇧🇷 Contexto BR</div>
+            <div class="q-expand-text">Brasil tem o 2º maior índice de burnout do mundo (ISMA-BR). Empresas com cultura "herói do esforço" tendem a responder: "a gente se vira". Isso é um sinal vermelho claro.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Due diligence cultural</span>
+          <span class="q-tag">Saúde mental</span>
+          <span class="q-tag">Gestão de crise</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">3</div>
+        <div>
+          <div class="q-name">A Realidade dos Recursos</div>
+          <div class="q-subtitle">Tipo B — Diagnóstico de gargalos</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Qual é o principal obstáculo que impede a equipe de atingir suas metas trimestrais atualmente?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Efeito de reciprocidade + consultoria implícita.</strong> Ao perguntar sobre problemas reais, você se posiciona como alguém que resolve problemas — não como alguém que precisa ser guiado. Isso inverte a hierarquia implícita.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🎯 Estratégia avançada</div>
+            <div class="q-expand-text">Anote o obstáculo. No fechamento da entrevista, mencione como você já enfrentou algo similar e o que faria. Isso conecta sua experiência diretamente à dor atual da empresa — valor imediato.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">⚠️ Variações</div>
+            <div class="q-expand-text">Para startups: "O que mais atrasa vocês em chegar ao próximo marco?" Para corporações: "Qual processo você eliminaria primeiro se pudesse?" Adapte ao contexto.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Resolução de problemas</span>
+          <span class="q-tag">Diagnóstico organizacional</span>
+          <span class="q-tag">Proatividade</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">4</div>
+        <div>
+          <div class="q-name">A Pergunta Pré-Mortem</div>
+          <div class="q-subtitle">Tipo A — Inteligência de posição</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"O que aconteceu com a pessoa que ocupava este cargo anteriormente? Ela foi promovida ou enfrentou algum desafio que não conseguiu superar?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Técnica de pré-mortem aplicada à carreira.</strong> Gary Klein (pesquisador de decisão) demonstrou que imaginar falhas antes de ocorrer aumenta a taxa de sucesso em 30%. Você está fazendo due diligence antes de assinar.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">✅ O que revela</div>
+            <div class="q-expand-text">Se saiu "para novos desafios" (eufemismo), provavelmente há um problema. Se foi promovida, ótimo sinal. Se demitida, pergunte o motivo. Se criaram a vaga agora, qual a urgência?</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">⚠️ Tom correto</div>
+            <div class="q-expand-text">Faça com curiosidade genuína, não como interrogatório. "Fico curioso para entender o histórico desta posição — assim entro com mais contexto" é uma abertura suave e legítima.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Due diligence</span>
+          <span class="q-tag">Histórico da vaga</span>
+          <span class="q-tag">Risk assessment</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">5</div>
+        <div>
+          <div class="q-name">A Pergunta da Sombra</div>
+          <div class="q-subtitle">Tipo C — Cultura oculta</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Qual é o aspecto mais importante para ter sucesso nesta função que não está explicitamente mencionado na descrição da vaga?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Acessa o currículo oculto organizacional.</strong> Toda empresa tem regras não escritas — quem realmente toma decisões, como se constrói reputação, o que é valorizado tacitamente. Essa pergunta é um atalho para esse mapa invisível.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🎯 Respostas-sinal</div>
+            <div class="q-expand-text">Bom sinal: "saber transitar entre times", "pensar no cliente". Sinal de alerta: "ter paciência com o processo", "saber lidar com mudanças constantes de direção" (= caos sem liderança).</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🇧🇷 Contexto</div>
+            <div class="q-expand-text">No Brasil, "jeitinho" e hierarquia implícita são críticos. Pergunte especificamente sobre quem são os stakeholders reais (nem sempre os formais) e como se navega politicamente dentro da organização.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Cultura oculta</span>
+          <span class="q-tag">Política organizacional</span>
+          <span class="q-tag">Onboarding inteligente</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">6</div>
+        <div>
+          <div class="q-name">Insight sobre o Gestor</div>
+          <div class="q-subtitle">Tipo C — Posicionamento imediato</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Qual é a sua maior frustração em relação ao departamento neste momento, e como eu poderia contribuir para solucionar isso nos meus primeiros 30 dias?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Efeito de reciprocidade + dor → solução.</strong> Ao apontar diretamente para a dor do gestor E oferecer solução em 30 dias, você ativa o princípio da reciprocidade (Cialdini) — ele inconscientemente quer corresponder ao valor que você acabou de oferecer.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">✅ Quando usar</div>
+            <div class="q-expand-text">Ideal para entrevistas com o gestor direto (não com RH). O RH raramente tem visibilidade das frustrações reais do time. Use quando o entrevistador for seu futuro chefe.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🔥 Versão avançada</div>
+            <div class="q-expand-text">Após ouvir a frustração: "Interessante — na minha última posição enfrentei algo parecido. Resolvemos [X] fazendo [Y]. Acho que algo similar poderia funcionar aqui." Você saiu de candidato para consultor.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Reciprocidade</span>
+          <span class="q-tag">Valor imediato</span>
+          <span class="q-tag">Plano 30-60-90 dias</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">7</div>
+        <div>
+          <div class="q-name">Consciência sobre a Concorrência</div>
+          <div class="q-subtitle">Tipo D — Inteligência de mercado</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Notei que [Concorrente X] lançou recentemente [Funcionalidade Y]. Como a equipe está adaptando sua estratégia para se manter competitiva?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Sinalização de preparação + pensamento estratégico.</strong> 95% dos candidatos não pesquisam o setor antes de entrevistar. Ao citar movimento concreto da concorrência, você entra em outra categoria — a de quem pensa no negócio, não só na vaga.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🛠️ Como preparar</div>
+            <div class="q-expand-text">Antes da entrevista: Google News [empresa], [concorrentes]; LinkedIn da empresa (posts recentes); Crunchbase/Techcrunch para startups; G1/Exame para empresas brasileiras. 30 min de pesquisa = diferenciação enorme.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">⚠️ Cuidado</div>
+            <div class="q-expand-text">Não force uma observação fraca — isso revela que você foi raso. Melhor não fazer do que fazer com dado impreciso. Se não encontrou algo concreto, use: "Como vocês monitoram movimentos da concorrência internamente?"</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Market intelligence</span>
+          <span class="q-tag">Visão estratégica</span>
+          <span class="q-tag">Diferenciação</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">8</div>
+        <div>
+          <div class="q-name">O Ciclo de Feedback</div>
+          <div class="q-subtitle">Tipo D — Inteligência emocional</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A pergunta</div>
+          <div class="q-phrase-text">"Como vocês preferem dar e receber feedback? O feedback é fornecido em tempo real ou fica restrito às avaliações formais de desempenho?"</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Psicologia</div>
+            <div class="q-expand-text"><strong>Demonstra Growth Mindset (Dweck, 2006).</strong> Ao perguntar sobre feedback, você sinaliza que não tem ego frágil, que busca crescimento e que entende feedback como ferramenta — não como ameaça. Raríssimo em candidatos.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">✅ O que revela</div>
+            <div class="q-expand-text">Empresas saudáveis: feedback contínuo, bidirecional, separado de avaliação salarial. Empresas tóxicas: "feedback anual" (= surpresas negativas) ou "o chefe nunca está errado". Essa resposta vale ouro.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🔗 Follow-up ideal</div>
+            <div class="q-expand-text">"Você poderia me dar um exemplo concreto de um feedback recente que ajudou alguém no time a crescer?" — Esse aprofundamento revela se a cultura de feedback é real ou aspiracional.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Growth mindset</span>
+          <span class="q-tag">Cultura de feedback</span>
+          <span class="q-tag">Desenvolvimento contínuo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-card" onclick="toggleQ(this)">
+      <div class="q-header">
+        <div class="q-num">9</div>
+        <div>
+          <div class="q-name">O Fechamento de Ouro</div>
+          <div class="q-subtitle">Tipo C — Impacto máximo · Use por último</div>
+        </div>
+        <div class="q-chevron">▾</div>
+      </div>
+      <div class="q-body">
+        <div class="q-phrase">
+          <div class="q-phrase-label">A declaração final</div>
+          <div class="q-phrase-text">"Não tenho mais perguntas sobre a vaga, mas gostaria de compartilhar uma ideia: com base na nossa conversa sobre [Problema X], já estou pensando em [Solução Y]. Seria um prazer trazer essa energia e minhas ideias para a equipe."</div>
+        </div>
+        <div class="q-expand-grid">
+          <div class="q-expand-item">
+            <div class="q-expand-label">🧠 Por que é ouro</div>
+            <div class="q-expand-text"><strong>É uma pergunta disfarçada de declaração.</strong> Você entrega valor gratuito, demonstra que já está "dentro" mentalmente, e cria urgência implícita: o entrevistador pensa "se não contratar esse candidato, ele vai levar essas ideias para a concorrência".</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">🎯 Estrutura</div>
+            <div class="q-expand-text">1) Espelhe o problema que ouviu. 2) Proponha uma direção de solução (não precisa ser completa). 3) Expresse desejo de trazer isso para a equipe. Conciso: max 3 frases.</div>
+          </div>
+          <div class="q-expand-item">
+            <div class="q-expand-label">⚠️ Erro fatal</div>
+            <div class="q-expand-text">Propor soluções sem ter escutado a empresa durante a entrevista. Isso soa arrogante. A solução deve ser diretamente baseada em algo que o entrevistador mencionou. Escuta ativa é o pré-requisito.</div>
+          </div>
+        </div>
+        <div class="q-tags">
+          <span class="q-tag">Fechamento consultivo</span>
+          <span class="q-tag">Valor imediato</span>
+          <span class="q-tag">Escuta ativa</span>
+          <span class="q-tag">Urgência implícita</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════ PSYCHOLOGY ═══════════════ -->
+<div id="tab-psychology" class="section">
+<div class="container">
+
+  <div style="margin-bottom:48px">
+    <div class="s-tag">03 / Base Científica</div>
+    <h2 class="s-title">Por Que Funciona:<br>Psicologia Aplicada</h2>
+    <p class="s-desc">As perguntas estratégicas não são apenas "dicas de entrevista" — são aplicação deliberada de princípios de psicologia social e comportamental.</p>
+  </div>
+
+  <div class="psych-grid">
+    <div class="psych-card">
+      <div class="psych-icon">🔄</div>
+      <div class="psych-title">Reciprocidade (Cialdini, 1984)</div>
+      <div class="psych-text">Ao oferecer valor (ideia, solução, pesquisa) antes de ser contratado, você ativa o princípio mais poderoso da influência humana. O entrevistador sente o impulso de "devolver" esse valor — geralmente na forma de uma oferta favorável ou advocacia interna.</div>
+      <div class="psych-ref">Robert Cialdini — Influence: The Psychology of Persuasion</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-icon">⏰</div>
+      <div class="psych-title">Mental Time Travel (Buckner, 2008)</div>
+      <div class="psych-text">Perguntas como "daqui a 12 meses" forçam o cérebro a simular um futuro específico. Quando o entrevistador se imagina comemorando com você, ele cria uma memória do futuro que ancora positivamente sua candidatura. Neuroimagem (fMRI) confirma que essa simulação é quase indistinguível de uma memória real.</div>
+      <div class="psych-ref">Buckner & Carroll — Self-projection and the brain (2007)</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-icon">🪞</div>
+      <div class="psych-title">Efeito Espelho (Hatfield, 1993)</div>
+      <div class="psych-text">Ao usar terminologia, desafios e linguagem que você aprendeu durante a entrevista no seu fechamento, você ativa o rapport por espelhamento. O entrevistador percebe inconscientemente que você "fala a mesma língua" — um dos maiores aceleradores de confiança.</div>
+      <div class="psych-ref">Hatfield, Cacioppo & Rapson — Emotional Contagion</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-icon">📊</div>
+      <div class="psych-title">Competência Percebida (Fiske, 2007)</div>
+      <div class="psych-text">Amy Cuddy (Harvard) demonstrou que julgamentos de competência e calor humano são formados em segundos e são difíceis de reverter. Perguntas estratégicas ativam ambas as dimensões: competência (você pesquisou, pensa em negócios) e calor (você se importa com o time, quer contribuir).</div>
+      <div class="psych-ref">Cuddy, Fiske & Glick — Warmth and Competence (2007)</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-icon">🧠</div>
+      <div class="psych-title">Growth Mindset (Dweck, 2006)</div>
+      <div class="psych-text">Carol Dweck (Stanford) demonstrou que pessoas com growth mindset performam melhor em ambientes desafiadores. Ao perguntar sobre feedback e desenvolvimento, você sinaliza esse mindset — e empresas de alta performance ativamente buscam esse perfil, pois sabem que é o preditor mais forte de evolução.</div>
+      <div class="psych-ref">Carol Dweck — Mindset: The New Psychology of Success</div>
+    </div>
+    <div class="psych-card">
+      <div class="psych-icon">🔍</div>
+      <div class="psych-title">Heurística da Curiosidade (Kashdan, 2009)</div>
+      <div class="psych-text">Todd Kashdan (George Mason) demonstrou que curiosidade é um traço altamente correlacionado com desempenho, bem-estar e aprendizado. Candidatos que fazem perguntas inteligentes são percebidos como mais curiosos — e curiosidade é cada vez mais um critério de contratação explícito em empresas orientadas a inovação.</div>
+      <div class="psych-ref">Kashdan — Curious? Discover the Missing Ingredient to a Fulfilling Life</div>
+    </div>
+  </div>
+
+  <div class="big-quote">
+    <div class="bq-text">"Fazer perguntas muda a forma como somos percebidos pelos outros — e é surpreendente como poucas pessoas exploram isso intencionalmente."</div>
+    <div class="bq-author">— Alison Wood Brooks, Harvard Business School, HBR 2018</div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:20px;letter-spacing:-.01em">Os 3 Níveis de Posicionamento</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden">
+    <div style="background:var(--surface);padding:28px 24px;">
+      <div style="font-family:var(--font-mono);font-size:10px;color:#c0392b;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px">NÍVEL 1 — Suplicante</div>
+      <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px">O Candidato Passivo</div>
+      <div style="font-size:13px;color:var(--ink2);line-height:1.65">"Quando vocês me avisam sobre o resultado?" · "Qual é o salário?" · Sem perguntas — "Está tudo claro!" Postura de quem precisa ser escolhido.</div>
+    </div>
+    <div style="background:var(--surface2);padding:28px 24px;border-left:1px solid var(--border);border-right:1px solid var(--border)">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px">NÍVEL 2 — Profissional</div>
+      <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px">O Candidato Ativo</div>
+      <div style="font-size:13px;color:var(--ink2);line-height:1.65">"Quais são os maiores desafios do time?" · "Como é a cultura de feedback?" Demonstra interesse genuíno. Ancora positivamente.</div>
+    </div>
+    <div style="background:var(--surface);padding:28px 24px;">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--teal);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px">NÍVEL 3 — Consultor</div>
+      <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px">O Candidato Inegável</div>
+      <div style="font-size:13px;color:var(--ink2);line-height:1.65">Usa o Fechamento de Ouro. Diagnostica problemas. Propõe soluções baseadas no que ouviu. Faz o entrevistador pensar: "preciso desta pessoa".</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ SCENARIOS ═══════════════ -->
+<div id="tab-scenarios" class="section">
+<div class="container">
+
+  <div style="margin-bottom:48px">
+    <div class="s-tag">04 / Aplicação Contextual</div>
+    <h2 class="s-title">Qual Pergunta<br>para Cada Cenário?</h2>
+    <p class="s-desc">As perguntas ideais variam conforme o nível, setor e momento da entrevista. Aqui, um guia de aplicação por contexto.</p>
+  </div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-role">Nível / Perfil</div>
+      <div class="sc-title">Entrevista com RH / Talent Acquisition</div>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot">→</div> P1: Métricas de sucesso nos 12 meses</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P2: Detector de burnout (cultura da empresa)</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P8: Ciclo de feedback e avaliações</div>
+        <div class="sc-item"><div class="sc-dot">→</div> Evite: P6 (frustração do gestor) — RH não tem essa visão</div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-role">Nível / Perfil</div>
+      <div class="sc-title">Entrevista com Gestor Direto</div>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot">→</div> P6: Frustração do departamento + 30 dias</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P3: Obstáculo nas metas trimestrais</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P5: A sombra — regras não escritas</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P9: Fechamento de Ouro — essencial aqui</div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-role">Nível / Perfil</div>
+      <div class="sc-title">Entrevista com CEO / Cofundador</div>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot">→</div> P7: Movimento da concorrência + adaptação estratégica</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P3: Maior obstáculo para atingir metas</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P9: Fechamento com ideia estratégica, não operacional</div>
+        <div class="sc-item"><div class="sc-dot">→</div> Evite: Perguntas operacionais (salário, benefícios, horário)</div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-role">Nível / Perfil</div>
+      <div class="sc-title">Entrevista para Posição Sênior / Liderança</div>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot">→</div> P4: Pré-mortem — o que o último ocupante não entregou</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P7: Posição competitiva do produto/serviço</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P1: Métricas (mais sofisticadas — KPIs de negócio)</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P9: Fechamento com visão estratégica de 90 dias</div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-role">Setor</div>
+      <div class="sc-title">Startups e Scale-ups</div>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot">→</div> P3: Variação — "O que mais atrasa vocês no próximo marco?"</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P7: Pesquise Product Hunt, Crunchbase, TechCrunch antes</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P5: Cultura sombra é crítica — quem realmente decide?</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P2: Burnout em startup é endêmico — avalie cedo</div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-role">Setor</div>
+      <div class="sc-title">Grandes Corporações / Multinacionais</div>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot">→</div> P5: Política interna e stakeholders reais</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P4: Histórico da vaga — alta rotatividade é um sinal</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P8: Cultura de feedback formal vs. real</div>
+        <div class="sc-item"><div class="sc-dot">→</div> P1: Métricas — muito importante para não se perder na burocracia</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px">
+    <h3 style="font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:20px;letter-spacing:-.01em">Sequência Recomendada em 45 min</h3>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 20px;display:flex;gap:20px;align-items:center">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--gold);width:70px;flex-shrink:0">MIN 0–15</div>
+        <div style="font-size:14px;color:var(--ink2)"><strong style="color:var(--ink)">Escuta ativa total</strong> — Grave mentalmente problemas, desafios e linguagem usada pelo entrevistador. Esses serão os insumos do seu fechamento.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 20px;display:flex;gap:20px;align-items:center">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--gold);width:70px;flex-shrink:0">MIN 15–30</div>
+        <div style="font-size:14px;color:var(--ink2)"><strong style="color:var(--ink)">Responda bem + sinalize</strong> — Nas respostas, plante sementes: "Isso conecta diretamente com X que faço bem." Não force — seja natural.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 20px;display:flex;gap:20px;align-items:center">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--gold);width:70px;flex-shrink:0">MIN 30–40</div>
+        <div style="font-size:14px;color:var(--ink2)"><strong style="color:var(--ink)">Suas perguntas estratégicas</strong> — Faça 3–4 das perguntas preparadas + adapte 1 baseada no que ouviu. Ordem sugerida: P2 → P1 → P5 → P6 (se gestor).</div>
+      </div>
+      <div style="background:rgba(26,90,74,.07);border:1px solid rgba(26,90,74,.25);border-radius:6px;padding:16px 20px;display:flex;gap:20px;align-items:center">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--teal);width:70px;flex-shrink:0">MIN 40–45</div>
+        <div style="font-size:14px;color:var(--ink2)"><strong style="color:var(--ink)">Fechamento de Ouro (P9)</strong> — Espelhe o maior problema que ouviu. Proponha uma direção. Expresse desejo de contribuir. Agradeça pelo tempo. Saia como a pessoa mais memorável da fila.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ MIND MAP ═══════════════ -->
+<div id="tab-mindmap" class="section">
+<div class="container">
+
+  <div style="margin-bottom:48px">
+    <div class="s-tag">05 / Visualização</div>
+    <h2 class="s-title">Mapas Mentais</h2>
+    <p class="s-desc">Dois mapas que sintetizam visualmente o sistema completo — as 9 perguntas e o fluxo estratégico da entrevista.</p>
+  </div>
+
+  <div class="mm-wrap" style="margin-bottom:32px">
+    <div class="mm-header">
+      <div class="mm-title">Mapa 1 — As 9 Perguntas Estratégicas por Tipo</div>
+      <div class="mm-tag">Entrevista Invertida</div>
+    </div>
+    <canvas id="mm1" height="580" style="width:100%;display:block"></canvas>
+  </div>
+
+  <div class="mm-wrap">
+    <div class="mm-header">
+      <div class="mm-title">Mapa 2 — Fluxo Estratégico da Entrevista</div>
+      <div class="mm-tag">Da Escuta ao Fechamento</div>
+    </div>
+    <canvas id="mm2" height="480" style="width:100%;display:block"></canvas>
+  </div>
+
+</div>
+</div>
+
+<div style="padding:24px 40px;border-top:1px solid var(--border);text-align:center;font-family:var(--font-mono);font-size:13px;color:var(--fg3);background:var(--bg);">
+  <a href="https://www.artesdosul.com/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Desenvolvido por Artes do Sul</a>
+</div>
+
+<script>
+// ── TABS ──
+function showTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+  if (id === 'mindmap') setTimeout(() => { drawMM1(); drawMM2(); }, 80);
+}
+
+// ── ACCORDION ──
+function toggleQ(el) { el.classList.toggle('open'); }
+
+// ── MIND MAP 1: 9 PERGUNTAS ──
+function drawMM1() {
+  const canvas = document.getElementById('mm1');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || 800;
+  const H = 580;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const cx = W / 2, cy = H / 2;
+
+  const items = [
+    { n:'1', label:'Métrica\nde Sucesso', color:'#1a5a4a', type:'A' },
+    { n:'2', label:'Detector\nde Burnout', color:'#c0392b', type:'B' },
+    { n:'3', label:'Realidade\ndos Recursos', color:'#1a3566', type:'B' },
+    { n:'4', label:'Pré-\nMortem', color:'#6d3a8a', type:'A' },
+    { n:'5', label:'Pergunta\nda Sombra', color:'#5a3a1a', type:'C' },
+    { n:'6', label:'Insight\ndo Gestor', color:'#1a5a4a', type:'C' },
+    { n:'7', label:'Consci-\nência', color:'#1a3566', type:'D' },
+    { n:'8', label:'Ciclo de\nFeedback', color:'#a8873a', type:'D' },
+    { n:'9', label:'Fechamento\nde Ouro', color:'#8a6d18', type:'C' },
+  ];
+
+  const R = Math.min(W * 0.36, 220);
+
+  // Lines
+  items.forEach((item, i) => {
+    const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2;
+    const nx = cx + R * Math.cos(angle);
+    const ny = cy + R * Math.sin(angle);
+    ctx.beginPath();
+    ctx.moveTo(cx + 52 * Math.cos(angle), cy + 52 * Math.sin(angle));
+    ctx.lineTo(nx - 38 * Math.cos(angle), ny - 38 * Math.sin(angle));
+    ctx.strokeStyle = item.color + '50';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // Outer nodes
+  items.forEach((item, i) => {
+    const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2;
+    const nx = cx + R * Math.cos(angle);
+    const ny = cy + R * Math.sin(angle);
+    ctx.beginPath();
+    ctx.arc(nx, ny, 38, 0, Math.PI * 2);
+    ctx.fillStyle = item.color + '14';
+    ctx.strokeStyle = item.color + '80';
+    ctx.lineWidth = 1.5;
+    ctx.fill(); ctx.stroke();
+
+    ctx.font = `700 11px 'DM Mono', monospace`;
+    ctx.fillStyle = item.color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('P' + item.n, nx, ny - 10);
+
+    ctx.font = `500 10px 'DM Sans', sans-serif`;
+    ctx.fillStyle = '#5a5650';
+    const lines = item.label.split('\n');
+    lines.forEach((l, li) => ctx.fillText(l, nx, ny + 4 + li * 12));
+  });
+
+  // Center
+  ctx.beginPath();
+  ctx.arc(cx, cy, 52, 0, Math.PI * 2);
+  ctx.fillStyle = '#f0ede4';
+  ctx.strokeStyle = '#1a3a2a';
+  ctx.lineWidth = 2;
+  ctx.fill(); ctx.stroke();
+  ctx.font = `700 12px 'DM Sans', sans-serif`;
+  ctx.fillStyle = '#1a3a2a';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('INVERTA', cx, cy - 8);
+  ctx.fillText('A ENTREVISTA', cx, cy + 8);
+
+  // Type legend
+  const types = [{label:'A — Alinhamento',c:'#1a5a4a'},{label:'B — Diagnóstico',c:'#c0392b'},{label:'C — Posicionamento',c:'#5a3a1a'},{label:'D — Inteligência',c:'#1a3566'}];
+  types.forEach((t, i) => {
+    const lx = 18, ly = 18 + i * 22;
+    ctx.beginPath();
+    ctx.arc(lx + 6, ly + 6, 6, 0, Math.PI * 2);
+    ctx.fillStyle = t.c + '25';
+    ctx.strokeStyle = t.c;
+    ctx.lineWidth = 1;
+    ctx.fill(); ctx.stroke();
+    ctx.font = `500 11px 'DM Mono', monospace`;
+    ctx.fillStyle = '#9a9690';
+    ctx.textAlign = 'left';
+    ctx.fillText(t.label, lx + 18, ly + 10);
+  });
+}
+
+// ── MIND MAP 2: FLUXO ESTRATÉGICO ──
+function drawMM2() {
+  const canvas = document.getElementById('mm2');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || 800;
+  const H = 480;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const nodes = [
+    { x: W*0.08, y: H/2, label: 'ANTES\nDA\nENTREVISTA', color: '#1a3566', w: 90, h: 70 },
+    { x: W*0.28, y: H/2, label: 'ESCUTA\nATIVA', color: '#1a5a4a', w: 90, h: 60 },
+    { x: W*0.5,  y: H/2, label: 'PERGUNTAS\nESTRATÉGICAS', color: '#a8873a', w: 100, h: 60 },
+    { x: W*0.72, y: H/2, label: 'FECHAMENTO\nDE OURO', color: '#6d3a8a', w: 90, h: 60 },
+    { x: W*0.92, y: H/2, label: 'OFERTA\nFAVORÁVEL', color: '#1a5a4a', w: 80, h: 60 },
+  ];
+
+  const subNodes = [
+    { px: W*0.08, py: H/2 - 70, label: 'Pesquisar empresa\ne concorrentes', color: '#1a3566' },
+    { px: W*0.08, py: H/2 + 70, label: 'Preparar 5–7\nperguntas', color: '#1a3566' },
+    { px: W*0.28, py: H/2 - 70, label: 'Gravar problemas\ne linguagem', color: '#1a5a4a' },
+    { px: W*0.5,  py: H/2 - 80, label: 'P2: Burnout\nP1: Métricas', color: '#a8873a' },
+    { px: W*0.5,  py: H/2 + 80, label: 'P5: Sombra\nP6: Gestor', color: '#a8873a' },
+    { px: W*0.72, py: H/2 - 70, label: 'Espelhar\nproblema ouvido', color: '#6d3a8a' },
+    { px: W*0.72, py: H/2 + 70, label: 'Propor\nsolução concreta', color: '#6d3a8a' },
+  ];
+
+  // Main line
+  for (let i = 0; i < nodes.length - 1; i++) {
+    ctx.beginPath();
+    ctx.moveTo(nodes[i].x + nodes[i].w/2, nodes[i].y);
+    ctx.lineTo(nodes[i+1].x - nodes[i+1].w/2, nodes[i+1].y);
+    ctx.strokeStyle = '#c8c4bc';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // Arrow
+    const ex = nodes[i+1].x - nodes[i+1].w/2;
+    const ey = nodes[i+1].y;
+    ctx.beginPath();
+    ctx.moveTo(ex - 10, ey - 5);
+    ctx.lineTo(ex, ey);
+    ctx.lineTo(ex - 10, ey + 5);
+    ctx.strokeStyle = '#9a9690';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Sub lines
+  subNodes.forEach(s => {
+    const parent = nodes.find(n => Math.abs(n.x - s.px) < 10);
+    if (!parent) return;
+    const sy = s.py > parent.y ? parent.y + parent.h/2 : parent.y - parent.h/2;
+    ctx.beginPath();
+    ctx.moveTo(parent.x, sy);
+    ctx.lineTo(s.px, s.py > parent.y ? s.py - 22 : s.py + 22);
+    ctx.strokeStyle = s.color + '40';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  });
+
+  // Sub nodes
+  subNodes.forEach(s => {
+    ctx.beginPath();
+    ctx.roundRect(s.px - 60, s.py - 22, 120, 44, 6);
+    ctx.fillStyle = s.color + '0e';
+    ctx.strokeStyle = s.color + '55';
+    ctx.lineWidth = 1;
+    ctx.fill(); ctx.stroke();
+    ctx.font = `500 11px 'DM Sans', sans-serif`;
+    ctx.fillStyle = s.color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const ls = s.label.split('\n');
+    ls.forEach((l, i) => ctx.fillText(l, s.px, s.py - (ls.length-1)*7 + i*14));
+  });
+
+  // Main nodes
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.roundRect(n.x - n.w/2, n.y - n.h/2, n.w, n.h, 8);
+    ctx.fillStyle = n.color + '16';
+    ctx.strokeStyle = n.color;
+    ctx.lineWidth = 2;
+    ctx.fill(); ctx.stroke();
+    ctx.font = `700 11px 'DM Sans', sans-serif`;
+    ctx.fillStyle = n.color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const ls = n.label.split('\n');
+    ls.forEach((l, i) => ctx.fillText(l, n.x, n.y - (ls.length-1)*8 + i*16));
+  });
+}
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('tab-mindmap').classList.contains('active')) {
+    drawMM1(); drawMM2();
+  }
+});
+</script>
+<script src="https://gosurf.site/share-bar.js"></script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

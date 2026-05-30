@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dona Leopoldina — Imperatriz do Brasil · Mãe da Independência</title>
+<meta name="description" content="A mulher que assinou a independência do Brasil. Imperatriz Leopoldina — estadista, naturalista, políglota. A causa é justa e nela todos confiam.">
+<link rel="canonical" href="https://gosurf.site/leopoldina-imperial">
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gosurf.site/leopoldina-imperial">
+<meta property="og:title" content="Dona Leopoldina — Imperatriz do Brasil · Mãe da Independência">
+<meta property="og:description" content="A mulher que assinou a independência do Brasil. Imperatriz Leopoldina — estadista, naturalista, políglota. A causa é justa e nela todos confiam.">
+<meta property="og:image" content="https://gosurf.site/leopoldina-imperial-og.png">
+<meta property="og:image:secure_url" content="https://gosurf.site/leopoldina-imperial-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dona Leopoldina — Imperatriz do Brasil, Mãe da Independência">
+<meta property="og:site_name" content="gosurf.site">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dona Leopoldina — Imperatriz do Brasil · Mãe da Independência">
+<meta name="twitter:description" content="A mulher que assinou a independência do Brasil. Imperatriz Leopoldina — estadista, naturalista, políglota.">
+<meta name="twitter:image" content="https://gosurf.site/leopoldina-imperial-og.png">
+<meta name="twitter:image:alt" content="Dona Leopoldina — Imperatriz do Brasil, Mãe da Independência">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --imperial-green: #0c2d1a;
+  --deep-green: #071a0e;
+  --forest: #1a4d2e;
+  --gold: #c9943a;
+  --gold-bright: #e8c060;
+  --gold-pale: #f2d98a;
+  --gold-dim: #7a5a1c;
+  --gold-ghost: rgba(201,148,58,0.06);
+  --cream: #f8f0dc;
+  --parchment: #ede0c0;
+  --ink: #1a1208;
+  --burgundy: #4a1020;
+  --white-gold: #faf3e0;
+  /* Variáveis para share-bar */
+  --border: rgba(201,148,58,0.12);
+  --fg3: var(--gold-dim);
+  --surface: rgba(12,45,26,0.6);
+  --fg2: rgba(248,240,220,0.5);
+  --accent: var(--gold);
+  --font-mono: 'Cinzel', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep-green);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ═══════════════════════════════════════
+   GRAIN & VIGNETTE OVERLAY
+═══════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.65) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATED CANDLE PARTICLES
+═══════════════════════════════════════ */
+.embers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  animation: ember-rise linear infinite;
+  opacity: 0;
+}
+@keyframes ember-rise {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) scale(1); }
+  15%  { opacity: 0.9; }
+  85%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-100vh) translateX(var(--dx)) scale(0.2); }
+}
+
+/* ═══════════════════════════════════════
+   HERO — IMPERIAL THRONE
+═══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem 6rem;
+  overflow: hidden;
+}
+
+.hero-radiance {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201,148,58,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(12,45,26,0.8) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 40% at 50% 0%, rgba(0,0,0,0.5) 0%, transparent 60%),
+    linear-gradient(180deg, #050f09 0%, #071a0e 30%, #0c2d1a 60%, #071a0e 100%);
+}
+
+/* Animated radial glow behind portrait area */
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(201,148,58,0.07) 0%, transparent 70%);
+  animation: glow-pulse 5s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%, 100% { transform: translate(-50%,-52%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%,-52%) scale(1.15); opacity: 1; }
+}
+
+/* Imperial border frame */
+.imperial-frame {
+  position: absolute;
+  inset: 20px;
+  pointer-events: none;
+  z-index: 2;
+}
+.imperial-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201,148,58,0.12);
+}
+.imperial-frame::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(201,148,58,0.06);
+}
+
+/* Corner ornaments */
+.corner {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  z-index: 3;
+}
+.corner svg { width: 100%; height: 100%; }
+.corner-tl { top: 20px; left: 20px; }
+.corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.corner-br { bottom: 20px; right: 20px; transform: scale(-1,-1); }
+
+/* IMPERIAL SEAL SVG */
+.imperial-seal {
+  position: relative;
+  z-index: 4;
+  margin-bottom: 3rem;
+  animation: seal-appear 2s ease forwards, seal-rotate 40s linear infinite 2s;
+  opacity: 0;
+}
+@keyframes seal-appear {
+  0% { opacity: 0; transform: scale(0.7) rotate(-20deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes seal-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hero-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+  letter-spacing: 0.7em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  animation: emerge 1.2s ease forwards 0.8s;
+  margin-bottom: 2rem;
+}
+
+.hero-crown {
+  position: relative;
+  z-index: 4;
+  font-size: 2rem;
+  opacity: 0;
+  animation: emerge 1s ease forwards 1.2s;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 20px rgba(201,148,58,0.5));
+}
+
+.hero-name-block {
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  animation: emerge 1.5s ease forwards 1.5s;
+}
+
+.hero-dona {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  margin-bottom: 0.3rem;
+  font-weight: 400;
+}
+
+.hero-name {
+  display: block;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(3.5rem, 11vw, 10rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  background: linear-gradient(170deg,
+    var(--gold-pale) 0%,
+    var(--gold-bright) 25%,
+    var(--gold) 50%,
+    var(--gold-dim) 65%,
+    var(--gold) 80%,
+    var(--gold-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 30px rgba(201,148,58,0.3));
+  text-shadow: none;
+}
+
+.hero-title-role {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: rgba(248,240,220,0.7);
+  margin-top: 1rem;
+}
+
+.hero-ornamental-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2.5rem auto;
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  animation: emerge 1s ease forwards 2.2s;
+  max-width: 500px;
+}
+.hero-ornamental-line::before,
+.hero-ornamental-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+}
+.orn-diamond {
+  color: var(--gold);
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+}
+
+.hero-subtitle {
+  position: relative;
+  z-index: 4;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.6rem, 1.3vw, 0.8rem);
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: emerge 1s ease forwards 2.6s;
+}
+
+.hero-dates {
+  position: relative;
+  z-index: 4;
+  margin-top: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  color: rgba(248,240,220,0.4);
+  letter-spacing: 0.2em;
+  opacity: 0;
+  animation: emerge 1s ease forwards 3s;
+}
+
+.scroll-prompt {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+  animation: emerge 1s ease forwards 4s;
+}
+.scroll-prompt span {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+.scroll-candle {
+  width: 8px;
+  height: 24px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px 4px 2px 2px;
+  position: relative;
+  overflow: hidden;
+}
+.scroll-candle::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--gold), transparent);
+  animation: candle-fill 2s ease infinite alternate;
+}
+@keyframes candle-fill {
+  from { height: 20%; }
+  to { height: 90%; }
+}
+
+@keyframes emerge {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   PROCLAMATION SECTION
+═══════════════════════════════════════ */
+.proclamation {
+  padding: 10rem 2rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--deep-green) 0%, #0a2015 50%, var(--deep-green) 100%);
+}
+
+.proclamation-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(201,148,58,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Vertical ornamental border */
+.proc-border-left {
+  position: absolute;
+  left: clamp(20px, 5vw, 80px);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(201,148,58,0.2), rgba(201,148,58,0.4), rgba(201,148,58,0.2), transparent);
+}
+.proc-border-right {
+  position: absolute;
+  right: clamp(20px, 5vw, 80px);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(201,148,58,0.2), rgba(201,148,58,0.4), rgba(201,148,58,0.2), transparent);
+}
+
+.proc-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.proc-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.6em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.proc-title {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+.proc-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.proc-divider {
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 2.5rem auto;
+}
+
+.proc-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(248,240,220,0.8);
+  text-align: justify;
+  hyphens: auto;
+}
+.proc-text em {
+  font-style: italic;
+  color: var(--gold-pale);
+}
+.proc-text strong {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+/* ═══════════════════════════════════════
+   BIOGRAPHICAL PILLARS
+═══════════════════════════════════════ */
+.pillars {
+  padding: 8rem 2rem;
+  background: var(--deep-green);
+  position: relative;
+}
+
+.pillars::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,148,58,0.3), transparent);
+}
+
+.pillars-title {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.6em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 5rem;
+  display: block;
+}
+
+.pillars-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.pillar {
+  padding: 3.5rem 2.5rem;
+  position: relative;
+  background: rgba(12,45,26,0.4);
+  border: 1px solid rgba(201,148,58,0.08);
+  transition: all 0.6s ease;
+  text-align: center;
+}
+
+.pillar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.pillar:hover {
+  background: rgba(201,148,58,0.04);
+  border-color: rgba(201,148,58,0.2);
+}
+
+.pillar:hover::before { opacity: 1; }
+
+.pillar-roman {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.5rem;
+  color: rgba(201,148,58,0.12);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  transition: color 0.6s;
+}
+
+.pillar:hover .pillar-roman {
+  color: rgba(201,148,58,0.25);
+}
+
+.pillar-icon {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(201,148,58,0.3));
+}
+
+.pillar-title {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.4rem;
+  color: var(--gold-bright);
+  margin-bottom: 1rem;
+}
+
+.pillar-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(248,240,220,0.7);
+}
+
+/* ═══════════════════════════════════════
+   TIMELINE — THE GREAT ACTS
+═══════════════════════════════════════ */
+.timeline {
+  padding: 10rem 2rem;
+  background: linear-gradient(180deg, var(--deep-green) 0%, #081808 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-glow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(201,148,58,0.3) 15%, rgba(201,148,58,0.6) 50%, rgba(201,148,58,0.3) 85%, transparent);
+}
+
+.timeline-title-block {
+  text-align: center;
+  margin-bottom: 7rem;
+  position: relative;
+  z-index: 2;
+}
+
+.tl-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.6em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.tl-title {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--cream);
+}
+.tl-title em {
+  color: var(--gold-bright);
+}
+
+.tl-items {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  margin-bottom: 5rem;
+  align-items: start;
+}
+
+.tl-item:nth-child(odd) .tl-left { text-align: right; padding-right: 3rem; }
+.tl-item:nth-child(odd) .tl-right { padding-left: 3rem; opacity: 0; }
+.tl-item:nth-child(even) .tl-left { padding-right: 3rem; opacity: 0; }
+.tl-item:nth-child(even) .tl-right { text-align: left; padding-left: 3rem; }
+
+.tl-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding-top: 0.5rem;
+}
+
+.tl-node {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--deep-green);
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(201,148,58,0.4);
+}
+
+.tl-node::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: node-pulse 3s ease infinite;
+}
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.tl-year {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.7rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.1em;
+  margin-top: 0.7rem;
+  white-space: nowrap;
+}
+
+.tl-event-title {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  color: var(--gold-bright);
+  line-height: 1.2;
+  margin-bottom: 0.7rem;
+}
+
+.tl-event-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(248,240,220,0.65);
+}
+
+/* ═══════════════════════════════════════
+   THE DECREE — PARCHMENT SCROLL
+═══════════════════════════════════════ */
+.decree {
+  padding: 10rem 2rem;
+  position: relative;
+  background: var(--imperial-green);
+  overflow: hidden;
+}
+
+.decree::before, .decree::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+}
+.decree::before { top: 0; }
+.decree::after { bottom: 0; }
+
+.decree-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Parchment paper effect */
+.parchment-scroll {
+  background:
+    linear-gradient(180deg,
+      rgba(240,220,160,0.97) 0%,
+      rgba(235,210,145,0.97) 50%,
+      rgba(230,205,140,0.97) 100%);
+  border: 2px solid rgba(140,100,30,0.4);
+  box-shadow:
+    0 0 0 1px rgba(100,70,20,0.2),
+    0 20px 80px rgba(0,0,0,0.5),
+    inset 0 0 60px rgba(160,120,40,0.1);
+  padding: 5rem 4rem;
+  position: relative;
+  border-radius: 4px;
+}
+
+/* Top and bottom curl shadows */
+.parchment-scroll::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.12), transparent);
+  border-radius: 4px 4px 0 0;
+}
+.parchment-scroll::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.12), transparent);
+  border-radius: 0 0 4px 4px;
+}
+
+.parchment-eyebrow {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  color: rgba(80,50,10,0.6);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.parchment-heading {
+  text-align: center;
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  color: #3a2005;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.parchment-sub {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(80,50,10,0.7);
+  margin-bottom: 2rem;
+}
+
+.parchment-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(140,100,30,0.5), transparent);
+  margin: 2rem 0;
+}
+
+.parchment-body {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.9;
+  color: #2a1a05;
+  text-align: justify;
+  hyphens: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.parchment-body .initial {
+  float: left;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 5rem;
+  line-height: 0.8;
+  margin: 0.1em 0.15em 0 0;
+  color: #5a3008;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.parchment-sig {
+  margin-top: 3rem;
+  text-align: right;
+}
+
+.parchment-sig-name {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: #3a2005;
+}
+
+.parchment-sig-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(80,50,10,0.6);
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+.parchment-sig-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(80,50,10,0.5);
+  margin-top: 0.2rem;
+}
+
+/* SEAL on parchment */
+.parchment-seal {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  width: 80px;
+  height: 80px;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════
+   VIRTUES — IMPERIAL ATTRIBUTES
+═══════════════════════════════════════ */
+.virtues {
+  padding: 10rem 2rem;
+  background: linear-gradient(180deg, #081808 0%, var(--deep-green) 100%);
+  text-align: center;
+}
+
+.virtues-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.6em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.virtues-title {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--cream);
+  margin-bottom: 5rem;
+}
+.virtues-title em { color: var(--gold-bright); font-style: italic; }
+
+.virtues-list {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.virtue-badge {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 0.8rem 2rem;
+  border: 1px solid rgba(201,148,58,0.2);
+  color: var(--gold-dim);
+  transition: all 0.5s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.virtue-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(201,148,58,0.04);
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+  transform-origin: left;
+}
+
+.virtue-badge:hover {
+  border-color: rgba(201,148,58,0.6);
+  color: var(--gold-pale);
+  box-shadow: 0 0 20px rgba(201,148,58,0.1);
+}
+
+.virtue-badge:hover::before { transform: scaleX(1); }
+
+/* ═══════════════════════════════════════
+   GRAND FINALE
+═══════════════════════════════════════ */
+.finale {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #030a06;
+  padding: 8rem 2rem;
+  text-align: center;
+}
+
+.finale-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201,148,58,0.06);
+  transform: translate(-50%, -50%);
+  animation: ring-breathe 6s ease-in-out infinite;
+}
+
+.ring:nth-child(1) { width: 200px; height: 200px; animation-delay: 0s; }
+.ring:nth-child(2) { width: 400px; height: 400px; animation-delay: 1s; border-color: rgba(201,148,58,0.04); }
+.ring:nth-child(3) { width: 650px; height: 650px; animation-delay: 2s; border-color: rgba(201,148,58,0.025); }
+.ring:nth-child(4) { width: 950px; height: 950px; animation-delay: 3s; border-color: rgba(201,148,58,0.015); }
+
+@keyframes ring-breathe {
+  0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.3; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.finale-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.finale-crown {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 2.5rem;
+  filter: drop-shadow(0 0 30px rgba(201,148,58,0.6));
+  animation: crown-glow 4s ease-in-out infinite;
+}
+
+@keyframes crown-glow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(201,148,58,0.5)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 50px rgba(201,148,58,0.9)); transform: scale(1.05); }
+}
+
+.finale-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.8em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 3rem;
+}
+
+.finale-quote {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  color: var(--cream);
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.finale-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  font-size: 6rem;
+  color: rgba(201,148,58,0.08);
+  font-family: 'Cinzel Decorative', serif;
+  line-height: 1;
+}
+
+.finale-quote em {
+  color: var(--gold-bright);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.finale-attr {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 6rem;
+}
+
+.finale-name-grand {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(180deg,
+    rgba(201,168,58,0.4) 0%,
+    rgba(201,148,58,0.15) 50%,
+    rgba(201,148,58,0.05) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.finale-epitaph {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: rgba(248,240,220,0.3);
+  letter-spacing: 0.15em;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(201,148,58,0.08);
+  text-align: center;
+  background: #030a06;
+}
+
+footer p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba(248,240,220,0.2);
+  letter-spacing: 0.15em;
+}
+footer .footer-dev {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-style: normal;
+}
+footer .footer-dev a {
+  color: rgba(201,148,58,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+footer .footer-dev a:hover {
+  color: var(--gold);
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-slow {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.8s ease, transform 1.8s ease;
+}
+.reveal-slow.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .pillars-grid { grid-template-columns: 1fr; }
+  .tl-item { grid-template-columns: 30px 1fr; grid-template-rows: auto auto; }
+  .tl-item .tl-left { display: none; }
+  .tl-item .tl-right { padding-left: 1.5rem !important; opacity: 1 !important; text-align: left !important; }
+  .tl-item .tl-center { grid-column: 1; grid-row: 1 / 3; }
+  .tl-item:nth-child(even) .tl-left { display: none; }
+  .tl-year { font-size: 0.6rem; }
+  .parchment-scroll { padding: 3rem 1.5rem; }
+  .corner { width: 40px; height: 40px; }
+  .hero-name { letter-spacing: 0; }
+}
+
+/* ═══════════════════════════════════════
+   SHARE CARD PREVIEW (1.91:1 = 1200×630)
+═══════════════════════════════════════ */
+.share-card-preview {
+  padding: 4rem 2rem 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--deep-green);
+}
+.share-card-preview-inner {
+  max-width: 600px;
+  text-align: center;
+}
+.share-card-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+.share-card {
+  aspect-ratio: 1200 / 630;
+  max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(201,148,58,0.2);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.share-card-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201,148,58,0.1) 0%, transparent 60%),
+    linear-gradient(180deg, #050f09 0%, #071a0e 50%, #0c2d1a 100%);
+}
+.share-card-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.share-card-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.45rem, 1.5vw, 0.6rem);
+  letter-spacing: 0.5em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.share-card-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(170deg, var(--gold-pale), var(--gold-bright), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.4rem;
+}
+.share-card-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.55rem, 1.8vw, 0.8rem);
+  color: rgba(248,240,220,0.85);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+.share-card-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-bottom: 0.4rem;
+}
+.share-card-site {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.4rem, 1.2vw, 0.55rem);
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+.share-card-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: rgba(248,240,220,0.35);
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+
+<!-- EMBERS -->
+<div class="embers" id="embers"></div>
+
+<!-- CORNER ORNAMENTS -->
+<div class="corner corner-tl">
+  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L2 30" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <path d="M2 2 L30 2" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <path d="M2 2 L18 18" stroke="rgba(201,148,58,0.15)" stroke-width="0.5"/>
+    <circle cx="2" cy="2" r="2.5" fill="rgba(201,148,58,0.4)"/>
+    <circle cx="30" cy="2" r="1" fill="rgba(201,148,58,0.2)"/>
+    <circle cx="2" cy="30" r="1" fill="rgba(201,148,58,0.2)"/>
+    <path d="M2 15 Q10 10 15 2" stroke="rgba(201,148,58,0.1)" stroke-width="0.5" fill="none"/>
+  </svg>
+</div>
+<div class="corner corner-tr">
+  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L2 30" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <path d="M2 2 L30 2" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <path d="M2 2 L18 18" stroke="rgba(201,148,58,0.15)" stroke-width="0.5"/>
+    <circle cx="2" cy="2" r="2.5" fill="rgba(201,148,58,0.4)"/>
+    <circle cx="30" cy="2" r="1" fill="rgba(201,148,58,0.2)"/>
+    <circle cx="2" cy="30" r="1" fill="rgba(201,148,58,0.2)"/>
+  </svg>
+</div>
+<div class="corner corner-bl">
+  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L2 30" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <path d="M2 2 L30 2" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <circle cx="2" cy="2" r="2.5" fill="rgba(201,148,58,0.4)"/>
+    <circle cx="30" cy="2" r="1" fill="rgba(201,148,58,0.2)"/>
+    <circle cx="2" cy="30" r="1" fill="rgba(201,148,58,0.2)"/>
+  </svg>
+</div>
+<div class="corner corner-br">
+  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L2 30" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <path d="M2 2 L30 2" stroke="rgba(201,148,58,0.3)" stroke-width="1"/>
+    <circle cx="2" cy="2" r="2.5" fill="rgba(201,148,58,0.4)"/>
+    <circle cx="30" cy="2" r="1" fill="rgba(201,148,58,0.2)"/>
+    <circle cx="2" cy="30" r="1" fill="rgba(201,148,58,0.2)"/>
+  </svg>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-radiance"></div>
+  <div class="hero-glow"></div>
+  <div class="imperial-frame"></div>
+
+  <!-- Imperial Seal SVG -->
+  <div class="imperial-seal">
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="45" cy="45" r="43" stroke="rgba(201,148,58,0.4)" stroke-width="0.8"/>
+      <circle cx="45" cy="45" r="38" stroke="rgba(201,148,58,0.2)" stroke-width="0.5"/>
+      <circle cx="45" cy="45" r="33" stroke="rgba(201,148,58,0.3)" stroke-width="0.8"/>
+      <!-- Star of 8 points -->
+      <path d="M45 15 L47.5 40 L45 45 L42.5 40 Z" fill="rgba(201,148,58,0.5)"/>
+      <path d="M45 75 L47.5 50 L45 45 L42.5 50 Z" fill="rgba(201,148,58,0.5)"/>
+      <path d="M15 45 L40 47.5 L45 45 L40 42.5 Z" fill="rgba(201,148,58,0.5)"/>
+      <path d="M75 45 L50 47.5 L45 45 L50 42.5 Z" fill="rgba(201,148,58,0.5)"/>
+      <path d="M24.4 24.4 L42.5 42.5 L45 45 L42.5 42.5 L24.4 24.4 Z" fill="rgba(201,148,58,0.3)"/>
+      <path d="M65.6 24.4 L47.5 42.5 L45 45 L47.5 42.5 L65.6 24.4 Z" fill="rgba(201,148,58,0.3)"/>
+      <path d="M24.4 65.6 L42.5 47.5 L45 45 L42.5 47.5 L24.4 65.6 Z" fill="rgba(201,148,58,0.3)"/>
+      <path d="M65.6 65.6 L47.5 47.5 L45 45 L47.5 47.5 L65.6 65.6 Z" fill="rgba(201,148,58,0.3)"/>
+      <circle cx="45" cy="45" r="5" stroke="rgba(201,148,58,0.6)" stroke-width="0.8" fill="rgba(201,148,58,0.15)"/>
+      <circle cx="45" cy="45" r="2" fill="rgba(201,148,58,0.7)"/>
+      <!-- Tick marks around outer ring -->
+      <g stroke="rgba(201,148,58,0.3)" stroke-width="0.6">
+        <line x1="45" y1="2" x2="45" y2="7"/>
+        <line x1="45" y1="83" x2="45" y2="88"/>
+        <line x1="2" y1="45" x2="7" y2="45"/>
+        <line x1="83" y1="45" x2="88" y2="45"/>
+        <line x1="14.6" y1="14.6" x2="18.1" y2="18.1"/>
+        <line x1="71.9" y1="71.9" x2="75.4" y2="75.4"/>
+        <line x1="75.4" y1="14.6" x2="71.9" y2="18.1"/>
+        <line x1="18.1" y1="71.9" x2="14.6" y2="75.4"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">Império do Brasil &nbsp;·&nbsp; 1797 – 1826</p>
+
+  <div class="hero-crown">♛</div>
+
+  <div class="hero-name-block">
+    <span class="hero-dona">Sua Alteza Imperial</span>
+    <span class="hero-name">Leopoldina</span>
+    <span class="hero-title-role">Imperatriz do Brasil &nbsp;·&nbsp; Mãe da Independência</span>
+  </div>
+
+  <div class="hero-ornamental-line">
+    <span class="orn-diamond">◆ ◆ ◆</span>
+  </div>
+
+  <p class="hero-subtitle">A Mulher que Assinou a Liberdade de um Povo</p>
+  <p class="hero-dates">Viena, 22 Jan 1797 &nbsp;·&nbsp; Rio de Janeiro, 11 Dez 1826</p>
+
+  <div class="scroll-prompt">
+    <span>Adentrar</span>
+    <div class="scroll-candle"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROCLAMATION ═══════════════ -->
+<section class="proclamation">
+  <div class="proclamation-bg"></div>
+  <div class="proc-border-left"></div>
+  <div class="proc-border-right"></div>
+
+  <div class="proc-inner reveal">
+    <span class="proc-label">Homenagem Imperial &nbsp;·&nbsp; In Memoriam</span>
+
+    <h2 class="proc-title">
+      A mulher que carregou<br>
+      <em>o destino de uma nação</em><br>
+      nas mãos de uma imperatriz
+    </h2>
+
+    <div class="proc-divider"></div>
+
+    <p class="proc-text">
+      Antes que qualquer homem tivesse a coragem de assinar, foi <strong>Maria Leopoldina de Habsburgo-Lorena</strong>, filha do Imperador da Áustria, que tomou a pena, convocou o Conselho de Estado e, com a serenidade dos grandes, decretou o fim da sujeição de um continente inteiro.
+      <br><br>
+      Enquanto Pedro I galopava pelos caminhos de São Paulo, era <em>ela</em> quem governava no Rio de Janeiro — políglota em oito línguas, naturalista respeitada pela Academia de Ciências de Viena, diplomata de palavra firme e coração inabalável.
+      <br><br>
+      A história gravou o grito às margens do Ipiranga. Mas foi <em>nas câmaras do Paço Imperial, pela mão de Leopoldina</em>, que a independência foi forjada, selada e enviada ao mundo como verdade irrevogável.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ PILLARS ═══════════════ -->
+<section class="pillars">
+  <span class="pillars-title reveal">As Virtudes da Imperatriz</span>
+  <div class="pillars-grid">
+
+    <div class="pillar reveal">
+      <div class="pillar-roman">I</div>
+      <span class="pillar-icon">📜</span>
+      <h3 class="pillar-title">A Intelectual</h3>
+      <p class="pillar-text">Dominava latim, francês, italiano, espanhol, inglês, tcheco, húngaro e português. Naturalista reconhecida, conduziu expedições científicas pelo Brasil com rigor e paixão pela terra que a adotou como pátria.</p>
+    </div>
+
+    <div class="pillar reveal">
+      <div class="pillar-roman">II</div>
+      <span class="pillar-icon">⚖️</span>
+      <h3 class="pillar-title">A Estadista</h3>
+      <p class="pillar-text">Presidiu a reunião do Conselho de Estado em 2 de setembro de 1822. Com plena consciência do peso histórico, argumentou, convenceu e assinou — enquanto o Príncipe Regente ainda estava longe. O Brasil existia por decisão dela.</p>
+    </div>
+
+    <div class="pillar reveal">
+      <div class="pillar-roman">III</div>
+      <span class="pillar-icon">🕊️</span>
+      <h3 class="pillar-title">A Patriota</h3>
+      <p class="pillar-text">Renunciou à corte esplendorosa de Viena, ao conforto da Europa imperial, para construir uma nação a partir do nada. Amou o Brasil com a profundidade de quem escolheu uma pátria por convicção, não por nascimento.</p>
+    </div>
+
+    <div class="pillar reveal">
+      <div class="pillar-roman">IV</div>
+      <span class="pillar-icon">🌿</span>
+      <h3 class="pillar-title">A Naturalista</h3>
+      <p class="pillar-text">Trouxe da Europa uma das maiores expedições científicas já realizadas. Catalogou a fauna e a flora do Brasil com olhar apaixonado. Sua coleção integrou os maiores museus do mundo. O Brasil era, para ela, um jardim de maravilhas.</p>
+    </div>
+
+    <div class="pillar reveal">
+      <div class="pillar-roman">V</div>
+      <span class="pillar-icon">🛡️</span>
+      <h3 class="pillar-title">A Corajosa</h3>
+      <p class="pillar-text">Enfrentou traições, abandono e dor sem jamais trair a causa que abraçou. Mesmo nos anos finais de sofrimento pessoal, manteve a dignidade de quem sabe que seu nome pertence à eternidade, não ao momento.</p>
+    </div>
+
+    <div class="pillar reveal">
+      <div class="pillar-roman">VI</div>
+      <span class="pillar-icon">👑</span>
+      <h3 class="pillar-title">A Imperatriz</h3>
+      <p class="pillar-text">Filha de Francisco I da Áustria e Marie Thérèse de Bourbon, neta de Maria Teresa, a maior imperatriz da Europa. Leopoldina carregava em suas veias séculos de realeza — e os honrou com o Brasil na alma.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ TIMELINE ═══════════════ -->
+<section class="timeline">
+  <div class="timeline-glow"></div>
+
+  <div class="timeline-title-block reveal">
+    <span class="tl-eyebrow">Cronologia Imperial</span>
+    <h2 class="tl-title">Os Grandes <em>Atos de uma Vida</em></h2>
+  </div>
+
+  <div class="tl-items">
+
+    <div class="tl-item reveal">
+      <div class="tl-left">
+        <h3 class="tl-event-title">Nascimento em Viena</h3>
+        <p class="tl-event-text">Maria Leopoldina Josefa Carolina nasce no Palácio de Hofburg, filha do Imperador Francisco I. Desde a infância, demonstra excepcional inteligência e paixão pelo conhecimento da natureza.</p>
+      </div>
+      <div class="tl-center">
+        <div class="tl-node"></div>
+        <span class="tl-year">1797</span>
+      </div>
+      <div class="tl-right"></div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-left"></div>
+      <div class="tl-center">
+        <div class="tl-node"></div>
+        <span class="tl-year">1817</span>
+      </div>
+      <div class="tl-right">
+        <h3 class="tl-event-title">Chegada ao Brasil</h3>
+        <p class="tl-event-text">Embarca para o Rio de Janeiro com a maior expedição científica já enviada ao Novo Mundo. Chega ao Brasil não como estrangeira — mas como quem finalmente chegou em casa.</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-left">
+        <h3 class="tl-event-title">Casamento com Dom Pedro</h3>
+        <p class="tl-event-text">Casa-se com o Príncipe Herdeiro Dom Pedro de Alcântara, tornando-se Princesa do Brasil. Inicia sua trajetória de dedicação absoluta à nova pátria que escolheu com o coração.</p>
+      </div>
+      <div class="tl-center">
+        <div class="tl-node"></div>
+        <span class="tl-year">1817</span>
+      </div>
+      <div class="tl-right"></div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-left"></div>
+      <div class="tl-center">
+        <div class="tl-node"></div>
+        <span class="tl-year">1821</span>
+      </div>
+      <div class="tl-right">
+        <h3 class="tl-event-title">O Dia do Fico</h3>
+        <p class="tl-event-text">Ao lado de Dom Pedro, apoia a decisão histórica de permanecer no Brasil. Sua influência política e sua visão estratégica são determinantes para que Pedro I resista às pressões de Lisboa.</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-left">
+        <h3 class="tl-event-title">O Decreto da Independência</h3>
+        <p class="tl-event-text">Em 2 de setembro de 1822, Leopoldina preside o Conselho de Estado, assina o decreto e escreve a carta decisiva a Dom Pedro: <em>"A causa é justa e nela todos confiam. Separem-se neste momento."</em> O Brasil nasce.</p>
+      </div>
+      <div class="tl-center">
+        <div class="tl-node"></div>
+        <span class="tl-year">1822</span>
+      </div>
+      <div class="tl-right"></div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-left"></div>
+      <div class="tl-center">
+        <div class="tl-node"></div>
+        <span class="tl-year">1826</span>
+      </div>
+      <div class="tl-right">
+        <h3 class="tl-event-title">Partida para a Eternidade</h3>
+        <p class="tl-event-text">Falece aos 29 anos no Rio de Janeiro, deixando atrás de si uma nação livre, uma memória imortal e a certeza de que sua coragem mudou para sempre o destino de milhões de brasileiros.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ DECREE / PARCHMENT ═══════════════ -->
+<section class="decree">
+  <div class="decree-inner">
+    <div class="reveal-slow">
+      <div class="parchment-scroll">
+        <svg class="parchment-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" stroke="rgba(80,50,10,0.5)" stroke-width="1"/>
+          <circle cx="40" cy="40" r="32" stroke="rgba(80,50,10,0.3)" stroke-width="0.5"/>
+          <path d="M40 10 L42 36 L40 40 L38 36 Z" fill="rgba(80,50,10,0.4)"/>
+          <path d="M40 70 L42 44 L40 40 L38 44 Z" fill="rgba(80,50,10,0.4)"/>
+          <path d="M10 40 L36 42 L40 40 L36 38 Z" fill="rgba(80,50,10,0.4)"/>
+          <path d="M70 40 L44 42 L40 40 L44 38 Z" fill="rgba(80,50,10,0.4)"/>
+          <circle cx="40" cy="40" r="4" stroke="rgba(80,50,10,0.5)" stroke-width="0.8" fill="rgba(80,50,10,0.2)"/>
+        </svg>
+
+        <p class="parchment-eyebrow">Paço Imperial · Rio de Janeiro</p>
+        <h3 class="parchment-heading">Carta a Dom Pedro I</h3>
+        <p class="parchment-sub">2 de Setembro de 1822 — Às vésperas do Grito do Ipiranga</p>
+        <div class="parchment-rule"></div>
+
+        <div class="parchment-body">
+          <span class="initial">P</span>edro meu bem querido. Peço-vos pelo amor de Deus que tomeis uma resolução prompta e energica, tanto pela vossa honra e gloria como pelo bem da nossa adorada Patria. A hora he chegada. Os representantes das Provincias esperam a vossa resolução. Esta Provincia está firme em sua adhesão a vossa Pessoa e deseja com ardor a Independencia do Brazil.
+          <br><br>
+          <strong>A causa é justa, e nela todos confiam.</strong> Separem-se neste momento. Não haverá força humana que vos possa deter, quando o povo e o exercito estão convoscos. Vosso reino he o Brazil — e o Brazil sois Vós.
+          <br><br>
+          Ficai com Deus, meu Pedro, e lembrai-vos que o destino de um povo inteiro pende da vossa decisão desta hora.
+        </div>
+
+        <div class="parchment-sig">
+          <p class="parchment-sig-name">Leopoldina</p>
+          <p class="parchment-sig-title">Imperatriz do Brasil · Regente do Império</p>
+          <p class="parchment-sig-date">Rio de Janeiro, 2 de setembro de 1822</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VIRTUES BADGES ═══════════════ -->
+<section class="virtues">
+  <span class="virtues-eyebrow reveal">O Legado Imortal</span>
+  <h2 class="virtues-title reveal">Uma Vida que se tornou<br><em>a alma de uma Nação</em></h2>
+
+  <div class="virtues-list reveal">
+    <span class="virtue-badge">Imperatriz do Brasil</span>
+    <span class="virtue-badge">Mãe da Independência</span>
+    <span class="virtue-badge">Políglota</span>
+    <span class="virtue-badge">Naturalista</span>
+    <span class="virtue-badge">Estadista</span>
+    <span class="virtue-badge">Habsburgo-Lorena</span>
+    <span class="virtue-badge">Diplomata Imperial</span>
+    <span class="virtue-badge">Patriota do Brasil</span>
+    <span class="virtue-badge">Cientista</span>
+    <span class="virtue-badge">Regente</span>
+    <span class="virtue-badge">Filha da Áustria</span>
+    <span class="virtue-badge">Alma do Ipiranga</span>
+    <span class="virtue-badge">Coragem Imortal</span>
+    <span class="virtue-badge">Honra Eterna</span>
+  </div>
+</section>
+
+<!-- ═══════════════ FINALE ═══════════════ -->
+<section class="finale">
+  <div class="finale-rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <div class="finale-content reveal">
+    <span class="finale-crown">♛</span>
+    <span class="finale-label">In Memoriam · 1797 – 1826</span>
+
+    <blockquote class="finale-quote">
+      "A causa é justa, e nela <em>todos confiam</em>.<br>
+      Separem-se neste momento."
+    </blockquote>
+
+    <p class="finale-attr">Leopoldina de Habsburgo — 2 de Setembro de 1822</p>
+
+    <div class="finale-name-grand">LEOPOLDINA</div>
+    <p class="finale-epitaph">Imperatriz do Brasil · Mãe da Independência · Honra Imortal</p>
+  </div>
+</section>
+
+<!-- SHARE CARD PREVIEW -->
+<section class="share-card-preview reveal">
+  <div class="share-card-preview-inner">
+    <span class="share-card-label">Preview do compartilhamento</span>
+    <div class="share-card" role="img" aria-label="Preview: Dona Leopoldina — Imperatriz do Brasil">
+      <div class="share-card-bg"></div>
+      <div class="share-card-content">
+        <span class="share-card-eyebrow">Império do Brasil · 1797 – 1826</span>
+        <h3 class="share-card-title">Leopoldina</h3>
+        <p class="share-card-subtitle">Imperatriz do Brasil · Mãe da Independência</p>
+        <div class="share-card-line"></div>
+        <span class="share-card-site">gosurf.site</span>
+      </div>
+    </div>
+    <p class="share-card-hint">Assim o link aparecerá no WhatsApp, X, LinkedIn e outras redes.</p>
+  </div>
+</section>
+
+<!-- SHARE BAR (injetado pelo share-bar.js antes do footer) -->
+<!-- FOOTER -->
+<footer class="footer-credit">
+  <p>Homenagem perpétua à Imperatriz Leopoldina — a mulher mais honrada que pisou nesta terra</p>
+  <p class="footer-dev">Desenvolvido por <a href="https://artesdosul.com/" target="_blank" rel="noopener noreferrer">Artes do Sul</a></p>
+</footer>
+
+<script src="https://gosurf.site/share-bar.js"></script>
+<script>
+// ═══ EMBERS / PARTICLES ═══
+const emberContainer = document.getElementById('embers');
+const colors = ['rgba(201,148,58,', 'rgba(232,192,96,', 'rgba(255,200,80,'];
+for (let i = 0; i < 55; i++) {
+  const e = document.createElement('div');
+  e.className = 'ember';
+  const size = 1.5 + Math.random() * 3;
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const dx = (Math.random() - 0.5) * 120;
+  e.style.cssText = `
+    left: ${Math.random() * 100}%;
+    bottom: -10px;
+    width: ${size}px;
+    height: ${size}px;
+    background: ${color}${0.5 + Math.random() * 0.5});
+    box-shadow: 0 0 ${size * 3}px ${color}0.3);
+    animation-duration: ${8 + Math.random() * 16}s;
+    animation-delay: ${Math.random() * 15}s;
+    --dx: ${dx}px;
+  `;
+  emberContainer.appendChild(e);
+}
+
+// ═══ SCROLL REVEAL ═══
+const reveals = document.querySelectorAll('.reveal, .reveal-slow');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const siblings = entry.target.parentElement?.querySelectorAll('.reveal, .reveal-slow');
+      let delay = 0;
+      if (siblings) {
+        siblings.forEach((sib, idx) => { if (sib === entry.target) delay = idx * 120; });
+      }
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// ═══ PARALLAX GLOW ON SCROLL ═══
+const heroGlow = document.querySelector('.hero-glow');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  if (heroGlow) {
+    heroGlow.style.transform = `translate(-50%, calc(-52% + ${scrolled * 0.3}px))`;
+    heroGlow.style.opacity = Math.max(0, 1 - scrolled / 600);
+  }
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

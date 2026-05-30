@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Intercept 2026 — Três Frentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #0f0f11;
+    --bg3: #141416;
+    --border: #1e1e22;
+    --border2: #2a2a30;
+    --text: #e8e8ec;
+    --text2: #9090a0;
+    --text3: #505060;
+    --red: #e03535;
+    --red2: #ff4444;
+    --orange: #e07a35;
+    --yellow: #c8a820;
+    --green: #35a065;
+    --blue: #4488dd;
+    --accent: #c83535;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Syne', sans-serif;
+    --serif: 'Crimson Pro', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* SCANLINES */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--orange), transparent);
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .corpus-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .status-live {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--red2);
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .status-live::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red2);
+    animation: pulse 1.2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  h1 {
+    font-family: var(--sans);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 span.red { color: var(--red); }
+
+  .header-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text2);
+    font-size: 1.05rem;
+    max-width: 700px;
+  }
+
+  .header-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    margin-top: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* NAV TABS */
+  nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0 3rem;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 11, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  nav a {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  nav a:hover { color: var(--text2); }
+  nav a.active {
+    color: var(--red);
+    border-bottom-color: var(--red);
+    background: rgba(224, 53, 53, 0.06);
+  }
+
+  /* MAIN */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem;
+    padding-bottom: 5rem;
+  }
+
+  .tab-content {
+    display: block;
+    padding-top: 88px;
+    margin-top: -52px;
+    margin-bottom: 3rem;
+    scroll-margin-top: 64px;
+  }
+  .tab-content:last-of-type { margin-bottom: 1.5rem; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-number {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-family: var(--sans);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  /* OPERATION FLOW */
+  .op-flow {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 2;
+    color: var(--text2);
+  }
+
+  .op-flow .step {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .op-flow .arrow {
+    color: var(--red);
+    margin: 0 0.5rem;
+  }
+
+  .op-flow .result {
+    color: var(--orange);
+  }
+
+  .op-flow .active-step {
+    color: var(--red2);
+    font-weight: 500;
+  }
+
+  /* FRENTES GRID */
+  .frentes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .frente-card {
+    background: var(--bg2);
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .frente-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .frente-card.financeira::before { background: var(--yellow); }
+  .frente-card.judicial::before { background: var(--orange); }
+  .frente-card.psicologica::before { background: var(--red2); }
+
+  .frente-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .financeira .frente-label { color: var(--yellow); }
+  .judicial .frente-label { color: var(--orange); }
+  .psicologica .frente-label { color: var(--red2); }
+
+  .frente-title {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .frente-desc {
+    font-size: 0.88rem;
+    color: var(--text2);
+    line-height: 1.6;
+    font-family: var(--serif);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .frente-status {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .status-done { color: var(--green); }
+  .status-active { color: var(--red2); animation: pulse 1.5s infinite; }
+  .status-ongoing { color: var(--orange); }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border2);
+  }
+
+  .tl-item {
+    position: relative;
+    padding: 0 0 1.5rem 1.5rem;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--text3);
+  }
+
+  .tl-item.critical::before {
+    border-color: var(--red);
+    background: var(--red);
+    box-shadow: 0 0 8px var(--red);
+  }
+
+  .tl-item.active::before {
+    border-color: var(--red2);
+    background: transparent;
+    animation: pulse 1.2s infinite;
+  }
+
+  .tl-date {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-title {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .tl-body {
+    font-size: 0.88rem;
+    color: var(--text2);
+    line-height: 1.6;
+    font-family: var(--serif);
+  }
+
+  .tl-source {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text3);
+    margin-top: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* EVIDENCE BLOCKS */
+  .evidence {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-left: 2px solid var(--blue);
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    color: var(--text2);
+    font-family: var(--serif);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .evidence-source {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text3);
+    font-style: normal;
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* ANALYSIS BOXES */
+  .analysis-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .analysis-box.warning {
+    border-color: var(--red);
+    background: rgba(200, 53, 53, 0.04);
+  }
+
+  .analysis-box.note {
+    border-color: var(--border2);
+  }
+
+  .box-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 0.75rem;
+  }
+
+  .analysis-box.warning .box-label { color: var(--red); }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 1.5rem 0;
+  }
+
+  .data-table th {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    text-align: left;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  .data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--serif);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .data-table tr:hover td { background: var(--bg2); }
+
+  .data-table td:first-child {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* PATTERN BADGE */
+  .pattern {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    border: 1px solid rgba(224,122,53,0.3);
+    padding: 0.15rem 0.5rem;
+    margin: 0.15rem;
+    background: rgba(224,122,53,0.05);
+  }
+
+  /* SEVERITY */
+  .sev-critico {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--red2);
+    border: 1px solid var(--red2);
+    padding: 0.1rem 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .sev-alto {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--orange);
+    border: 1px solid var(--orange);
+    padding: 0.1rem 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* PROSE */
+  p { margin-bottom: 1rem; color: var(--text2); }
+  p strong { color: var(--text); font-weight: 600; }
+
+  .lead {
+    font-size: 1.05rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  /* METHODOLOGY */
+  .methodology {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin-top: 3rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    line-height: 1.8;
+  }
+
+  .methodology strong {
+    color: var(--text2);
+    font-weight: 500;
+  }
+
+  /* RELATED */
+  .related-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1.5rem;
+  }
+  .related-link {
+    background: var(--bg2);
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+  }
+  .related-link:hover { background: var(--bg3); }
+  .related-cat {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 0.5rem;
+  }
+  .related-title {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.35;
+  }
+  .related-desc {
+    font-size: 0.82rem;
+    color: var(--text2);
+    line-height: 1.5;
+    font-family: var(--serif);
+    font-style: italic;
+  }
+
+  /* GO TOP */
+  #gotop {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 50%;
+    color: var(--red2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.2s, background 0.2s;
+    z-index: 1000;
+    font-size: 18px;
+    line-height: 1;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  }
+  #gotop.show { opacity: 1; visibility: visible; }
+  #gotop:hover { background: var(--bg2); transform: translateY(-3px); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+    position: relative;
+    z-index: 5;
+  }
+  footer a { color: var(--text2); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+  footer a.lawfare-link { color: var(--red2); }
+  footer a.lawfare-link:hover { color: var(--text); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header, nav, main, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    nav { padding-left: 0; }
+    nav a { padding: 0.75rem 1rem; font-size: 0.62rem; }
+    h1 { font-size: 1.6rem; }
+    .op-flow { font-size: 0.7rem; }
+    .related-grid { grid-template-columns: 1fr; }
+    #gotop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-meta">
+    <span class="corpus-tag">Lawfare Timeline — Dossiê</span>
+    <span class="status-live">OPERAÇÃO EM CURSO</span>
+  </div>
+  <h1>OPERAÇÃO <span class="red">INTERCEPT</span> 2026<br>Três Frentes Simultâneas</h1>
+  <p class="header-subtitle">Análise estrutural do uso do The Intercept Brasil como instrumento de lawfare eleitoral, inteligência operacional e guerra psicológica contra o campo bolsonarista no ciclo eleitoral 2026.</p>
+  <div class="header-date">PUBLICADO: 22.05.2026 · CORPUS LAWFARE-TIMELINE · LICENÇA CC0 1.0 · GOSURF.SITE</div>
+</header>
+
+<nav>
+  <a href="#visao-geral" class="active">Visão Geral</a>
+  <a href="#frente-financeira">Frente Financeira</a>
+  <a href="#frente-judicial">Frente Judicial</a>
+  <a href="#frente-psicologica">Frente Psicológica</a>
+  <a href="#precedentes">Precedentes</a>
+  <a href="#estrutura">Estrutura Operacional</a>
+  <a href="#metodologia">Metodologia</a>
+</nav>
+
+<main>
+
+  <!-- VISÃO GERAL -->
+  <div id="visao-geral" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>Visão Geral — O Campo de Batalha</h2>
+    </div>
+
+    <p class="lead">Em maio de 2026, cinco meses antes das eleições gerais, o The Intercept Brasil opera simultaneamente em três frentes contra o campo bolsonarista. Esta não é uma hipótese — é uma sequência documentada por investigação ativa do STF, decisões judiciais, e padrão comportamental verificável.</p>
+
+    <div class="frentes-grid">
+      <div class="frente-card financeira">
+        <div class="frente-label">Frente I — Financeira</div>
+        <div class="frente-title">Áudio Flávio / Vorcaro</div>
+        <div class="frente-desc">Perito da PF vaza material sigiloso da Operação Compliance Zero. Intercept publica áudios de Flávio Bolsonaro pedindo R$134M a banqueiro preso. Candidatura presidencial contaminada.</div>
+        <div class="frente-status status-done">● PUBLICADO — DANO FEITO</div>
+      </div>
+      <div class="frente-card judicial">
+        <div class="frente-label">Frente II — Judicial</div>
+        <div class="frente-title">Réu + Mandato Cassado</div>
+        <div class="frente-desc">Eduardo Bolsonaro réu no STF, mandato cassado em dezembro 2025, exilado nos EUA. PGR com denúncia aberta. Retorno ao Brasil equivale a prisão imediata.</div>
+        <div class="frente-status status-ongoing">● EM CURSO — PROCESSO ABERTO</div>
+      </div>
+      <div class="frente-card psicologica">
+        <div class="frente-label">Frente III — Psicológica</div>
+        <div class="frente-title">Repórter na Porta / Família</div>
+        <div class="frente-desc">Repórter do Intercept vai à residência de Eduardo nos EUA quando ele está ausente. Aborda esposa sozinha com filhos pequenos. Mapeia vizinhos. Reconhecimento de terreno.</div>
+        <div class="frente-status status-active">● OPERAÇÃO ATIVA — EM ANDAMENTO</div>
+      </div>
+    </div>
+
+    <div class="op-flow">
+<span class="step">VAZA JATO (2019)</span><br>
+Hacker → Intercept publica chats Moro/Deltan<br>
+<span class="arrow">→</span> <span class="result">STF anula condenações</span><br>
+<span class="arrow">→</span> <span class="result">Lula livre após 580 dias</span><br>
+<span class="arrow">→</span> <span class="result">Lava Jato destruída</span><br>
+<br>
+<span class="step">COMPLIANCE ZERO (2026)</span><br>
+Perito PF → Intercept publica áudios Flávio/Vorcaro<br>
+<span class="arrow">→</span> <span class="result">Candidatura Flávio 2026 contaminada</span><br>
+<span class="arrow">→</span> PF "descobre" vazamento, investiga perito (dano já feito)<br>
+<br>
+<span class="active-step">FAMÍLIA EDUARDO (2026) — EM CURSO</span><br>
+Repórter na porta → esposa + filhos sozinhos → vizinhos mapeados<br>
+<span class="arrow">→</span> <span class="active-step">Sinalização: "sabemos onde você mora"</span><br>
+<span class="arrow">→</span> <span class="active-step">Pressão para silêncio / neutralização do articulador externo</span><br>
+<span class="arrow">→</span> <span class="active-step">??? — próximo passo ainda não executado</span>
+    </div>
+
+    <div class="analysis-box warning">
+      <div class="box-label">⚠ Distinção Analítica Crítica</div>
+      <p style="color: var(--text); margin: 0; font-size: 0.92rem;">Esta análise não afirma que o The Intercept Brasil é formalmente uma extensão do aparato estatal. Afirma que existe <strong>coordenação operacional verificável por resultados documentados</strong> — confirmada pela própria investigação do STF sobre o vazamento da Compliance Zero. A distinção entre coordenação formal e funcional é jurídica; para fins de análise de risco, o efeito é idêntico.</p>
+    </div>
+
+  </div>
+
+  <!-- FRENTE FINANCEIRA -->
+  <div id="frente-financeira" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>Frente I — Destruição Financeira do Campo</h2>
+    </div>
+
+    <span class="sev-critico">CRÍTICO</span>
+    <span class="pattern">P3 — Assimetria Punitiva</span>
+    <span class="pattern">P7 — Captura de Instrumentos Civis</span>
+
+    <p class="lead" style="margin-top: 1rem;">Em 13 de maio de 2026, o Intercept Brasil publicou áudios e mensagens obtidos de material sigiloso da Operação Compliance Zero da PF. O timing — cinco meses antes das eleições — não é acidental.</p>
+
+    <h3>O Vazamento</h3>
+
+    <div class="evidence">
+      O STF autorizou operação da Polícia Federal para investigar o vazamento de informações sigilosas da Operação Compliance Zero que foram parar nas mãos do The Intercept Brasil. A decisão foi tomada pelo ministro André Mendonça, relator do caso. Um perito criminal federal foi suspenso do exercício da função pública.
+      <span class="evidence-source">Fonte: O Antagonista, 19.05.2026</span>
+    </div>
+
+    <div class="evidence">
+      Há indícios de que o perito teria compartilhado informações sigilosas obtidas durante a análise de materiais apreendidos em uma das fases da Operação Compliance Zero, entre dezembro de 2025 e janeiro de 2026. A investigação identificou rastros deixados pelo perito em consultas a dados protegidos e no envio dessas informações a pessoas sem ligação formal com o inquérito.
+      <span class="evidence-source">Fonte: O Tempo Brasília, 19.05.2026</span>
+    </div>
+
+    <div class="evidence">
+      O conteúdo do vazamento foi verificado pelo Intercept por meio de cruzamento de informações contidas nos diálogos com dados públicos <strong>e sigilosos</strong>. Entre os elementos que confirmaram a autenticidade do material estão dados bancários e telefônicos, inquéritos policiais, registros do Congresso Nacional e de redes sociais.
+      <span class="evidence-source">Fonte: The Intercept Brasil, 13.05.2026 (autodeclaração)</span>
+    </div>
+
+    <h3>O Dano Eleitoral</h3>
+
+    <p>Os áudios mostram Flávio Bolsonaro — pré-candidato à presidência em 2026 — pedindo US$24 milhões (R$134M) a Daniel Vorcaro, fundador do Banco Master, preso desde novembro de 2025. Flávio confirmou a veracidade dos áudios, alegando ser financiamento para a cinebiografia de seu pai.</p>
+
+    <div class="evidence">
+      O deputado José Medeiros apontou indícios de "vazamento seletivo" e suspeita de "uso político-midiático de material sigiloso", questionando como materiais protegidos chegaram à imprensa e mencionando preocupação com a divulgação inicial em veículos alinhados ao governo federal.
+      <span class="evidence-source">Fonte: Poder360, 13.05.2026</span>
+    </div>
+
+    <h3>A Mecânica do Dano Pré-Eleitoral</h3>
+
+    <div class="analysis-box note">
+      <div class="box-label">Análise Estrutural</div>
+      <p style="margin: 0; font-size: 0.9rem; color: var(--text2);">A lógica do vazamento pré-eleitoral não requer que Flávio seja culpado de crime. Requer apenas que o <strong>frame "Flávio/PCC/banqueiro preso"</strong> seja instalado no debate público antes que ele formalize a candidatura. Uma vez que a narrativa existe, cabe à defesa desconstruí-la — posição estruturalmente mais fraca. O dano é de percepção, não de condenação. A condenação, se vier, virá depois das eleições. O efeito eleitoral, porém, já está feito.</p>
+    </div>
+
+  </div>
+
+  <!-- FRENTE JUDICIAL -->
+  <div id="frente-judicial" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>Frente II — Neutralização Judicial</h2>
+    </div>
+
+    <span class="sev-alto">ALTO</span>
+    <span class="pattern">P1 — Captura Institucional</span>
+    <span class="pattern">P3 — Assimetria Punitiva</span>
+
+    <div class="timeline" style="margin-top: 1.5rem;">
+
+      <div class="tl-item">
+        <div class="tl-date">FEV 2025</div>
+        <div class="tl-title">Autoexílio nos EUA</div>
+        <div class="tl-body">Eduardo Bolsonaro parte para os EUA antes de eventual ordem de prisão. Torna-se articulador internacional do campo bolsonarista junto a Trump e conservadores americanos.</div>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">DEZ 2025</div>
+        <div class="tl-title">Mandato Cassado</div>
+        <div class="tl-body">Câmara cassa mandato de Eduardo por ausências. Perde imunidade parlamentar. PF determina retorno imediato ao cargo de escrivão — que ele não pode cumprir sem ser preso.</div>
+        <div class="tl-source">Fonte: Agência Brasil, 02.01.2026</div>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">MAR 2026</div>
+        <div class="tl-title">CPAC Dallas — Articulação Internacional</div>
+        <div class="tl-body">Eduardo participa da CPAC USA 2026 como "liderança conservadora em exílio". Apresenta evidências de perseguição política no Brasil para audiência americana. Insere eleições 2026 no contexto da disputa global entre direita e esquerda.</div>
+        <div class="tl-source">Fonte: Gazeta do Povo, Abr 2026</div>
+      </div>
+
+      <div class="tl-item active">
+        <div class="tl-date">MAI 2026</div>
+        <div class="tl-title">Repórter Intercept na Porta — ATIVO</div>
+        <div class="tl-body">Eduardo ausente. Repórter aborda Heloisa e filhos. Tocar campainhas dos vizinhos para confirmar residência e rotinas da família.</div>
+      </div>
+
+    </div>
+
+    <div class="analysis-box note">
+      <div class="box-label">Posição Estratégica de Eduardo</div>
+      <p style="font-size: 0.9rem; color: var(--text2); margin: 0;">Eduardo não é um exilado passivo. É o principal canal do bolsonarismo junto ao governo Trump — responsável por articular sanções a Moraes via Lei Magnitsky, pressão diplomática sobre extradições, e narrativa internacional de perseguição política. Neutralizá-lo psicologicamente ou forçar seu recuo é objetivo de alto valor estratégico para o campo adversário. O custo de deixá-lo operar livremente nos EUA é alto demais para ser ignorado.</p>
+    </div>
+
+  </div>
+
+  <!-- FRENTE PSICOLÓGICA -->
+  <div id="frente-psicologica" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>Frente III — Guerra Psicológica</h2>
+    </div>
+
+    <span class="sev-critico">CRÍTICO — OPERAÇÃO ATIVA</span>
+    <span class="pattern">P-NOVO — Reconhecimento Transnacional</span>
+
+    <p class="lead" style="margin-top: 1rem;">Um repórter do Intercept foi à residência de Eduardo Bolsonaro nos EUA quando ele estava ausente. Abordou a esposa sozinha com filhos pequenos. Identificou-se como jornalista. Depois tocou campainhas de todas as casas vizinhas. A leitura jornalística padrão não explica o comportamento pós-porta-fechada.</p>
+
+    <h3>O Que o Post de Heloisa Documenta</h3>
+
+    <div class="evidence">
+      "A campainha tocou e eu estava saindo do banho. Georgia, minha filha de 5 anos, achando que fosse o pai, foi correndo para a porta, mostrando seu rosto pela janela ao lado. Eu me aproximei e abri. Ele se identificou, falando em inglês, como repórter do Intercept e queria apenas confirmar que eu vivia aqui com minha família. Fechei a porta. Ele entrou no carro, ficou mexendo no celular e saiu. Eu continuei olhando, me tremendo toda. Eis que o vejo novamente, tocando a campainha de todas as casas vizinhas, buscando detalhes sobre nossas vidas e rotinas."
+      <span class="evidence-source">Fonte: Post de Heloisa Bolsonaro no Instagram Stories, mai.2026</span>
+    </div>
+
+    <h3>Análise Operacional do Comportamento</h3>
+
+    <table class="data-table">
+      <tr>
+        <th>Ação</th>
+        <th>Leitura Jornalística</th>
+        <th>Leitura Operacional</th>
+      </tr>
+      <tr>
+        <td>Ir quando Eduardo está ausente</td>
+        <td>Tentativa de pegar em casa</td>
+        <td>Objetivo era a esposa, não Eduardo</td>
+      </tr>
+      <tr>
+        <td>Confirmar residência</td>
+        <td>Verificação de endereço para matéria</td>
+        <td>Confirmação de alvo para fase seguinte</td>
+      </tr>
+      <tr>
+        <td>Tocar campainhas de vizinhos</td>
+        <td>Fontes adicionais para reportagem</td>
+        <td>Mapeamento de rotina familiar, horários, perfil</td>
+      </tr>
+      <tr>
+        <td>Ficar no carro mexendo no celular</td>
+        <td>Anotando informações / ligando para editor</td>
+        <td>Registrando geolocalização / reportando à cadeia</td>
+      </tr>
+    </table>
+
+    <div class="analysis-box warning">
+      <div class="box-label">⚠ Hipótese Operacional — Marcada como Inferência</div>
+      <p style="color: var(--text); margin: 0 0 0.75rem; font-size: 0.92rem;">O dado mais revelador: o repórter foi quando Eduardo <strong>não estava em casa</strong>. Isso pode ser acaso. Mas se quem enviou o repórter sabia que Eduardo estaria ausente — o que é possível dado o histórico de monitoramento documentado nos casos Ramagem e Filipe Martins — o objetivo nunca foi falar com Eduardo.</p>
+      <p style="color: var(--text2); margin: 0; font-size: 0.88rem; font-style: italic;">O alvo era o que o combatente protege. Guerra psicológica clássica: não atacar o guerreiro — atacar o que o guerreiro não pode abandonar.</p>
+    </div>
+
+    <h3>Três Objetivos Simultâneos — Nenhum Jornalístico</h3>
+
+    <div class="timeline" style="margin-top: 1rem;">
+      <div class="tl-item critical">
+        <div class="tl-title">1. Sinalização de Vulnerabilidade</div>
+        <div class="tl-body">Demonstrar que os EUA não são zona segura. Que o aparato alcança solo americano. Que a família é acessível. Precedente: Ramagem monitorado em Fort Lauderdale; Filipe Martins com dados fabricados no sistema I-94 americano.</div>
+      </div>
+      <div class="tl-item critical">
+        <div class="tl-title">2. Pressão Indireta sobre Eduardo</div>
+        <div class="tl-body">Um homem que sabe que sua esposa e filhos foram abordados pelo mesmo veículo que destruiu a Lava Jato e mapeou exilados na Argentina pensa duas vezes antes da próxima aparição na CPAC, do próximo contato com senadores americanos, do próximo pedido de sanções.</div>
+      </div>
+      <div class="tl-item active">
+        <div class="tl-title">3. Coleta de Inteligência Real</div>
+        <div class="tl-body">Vizinhos abordados = confirmação de residência + rotinas + horários + perfil de ocupação. Exatamente o padrão que precedeu as operações contra exilados na Argentina (Josiel Gomes), Paraguai e Uruguai.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRECEDENTES -->
+  <div id="precedentes" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>Precedentes — O Padrão Documentado</h2>
+    </div>
+
+    <p class="lead">O comportamento do Intercept em relação à família Eduardo não é isolado. É a repetição de um padrão verificável em quatro casos anteriores, com resultados documentados.</p>
+
+    <h3>Caso 1 — Vaza Jato (2019)</h3>
+    <div class="evidence">
+      Hacker Walter Delgatti entregou material ao Intercept voluntariamente, anonimamente e sem buscar compensação. As mensagens revelaram que Moro passava informações sensíveis aos procuradores e orientava como deveriam ser feitas as acusações. A Vaza Jato serviu como base para a justiça decidir pela suspeição de Moro — a sentença foi anulada e Lula foi libertado após 580 dias de prisão.
+      <span class="evidence-source">Fontes: Gazeta do Povo, Agência Brasil, Wikipedia/Vaza Jato</span>
+    </div>
+
+    <h3>Caso 2 — Filipe Martins (2024) — Fabricação em Solo Americano</h3>
+    <div class="evidence">
+      Há indícios fortes de que dados de entrada de Martins nos EUA foram manipulados por autoridades com objetivos escusos. As informações incorretas foram a base para justificar sua prisão cautelar no Brasil. Martins ficou preso preventivamente por seis meses em Curitiba, em processo com características de jogo psicológico com o objetivo de arrancar uma delação. Dados de geolocalização do celular e registros da Latam confirmaram que ele nunca saiu do Brasil na data alegada.
+      <span class="evidence-source">Fonte: Gazeta do Povo, mar.2025</span>
+    </div>
+
+    <h3>Caso 3 — Ramagem (2026) — Monitoramento em Solo Americano</h3>
+    <div class="evidence">
+      Um mandado de prisão foi encaminhado a um agente da PF em Miami. Agentes ficaram no encalço de uma brasileira durante evento público em Fort Lauderdale — monitoramento em pleno solo americano. Era inteiramente falso o conteúdo da nota emitida pela cúpula da PF por ocasião da detenção de Ramagem pelo ICE.
+      <span class="evidence-source">Fonte: Gazeta do Povo, abr.2026</span>
+    </div>
+
+    <h3>Caso 4 — Exilados Argentina/Paraguai/Uruguai (2024-2025)</h3>
+    <div class="evidence">
+      O Intercept publicou reportagem localizando Josiel Gomes de Macedo, condenado a 16 anos de prisão, em Buenos Aires — cujo paradeiro era desconhecido pelo STF. Em seguida, Moraes ordenou extradição de 63 bolsonaristas identificados na Argentina. A PF acionou a Ameripol, organismo de cooperação de polícias de 30 países, para ajudar nas buscas de aproximadamente 180 exilados.
+      <span class="evidence-source">Fontes: Intercept Brasil, Revista Fórum, Carta Capital</span>
+    </div>
+
+    <h3>Sequência Estrutural Recorrente</h3>
+
+    <div class="op-flow">
+INTERCEPT identifica / localiza alvo
+<span class="arrow">→</span> Publica posição, endereço ou conteúdo sigiloso
+<span class="arrow">→</span> PF/STF usa como base para ação judicial
+<span class="arrow">→</span> Prisão / extradição / pressão para delação
+<span class="arrow">→</span> PF "investiga" o vazamento (dano já feito)
+<span class="arrow">→</span> Nenhuma condenação relevante do vazador
+    </div>
+
+    <div class="analysis-box note">
+      <div class="box-label">Nota Epistemológica</div>
+      <p style="font-size: 0.88rem; color: var(--text2); margin: 0;">Esta sequência não requer que exista coordenação formal ou acordo prévio explícito entre Intercept e PF/STF. Requer apenas que os interesses se alinhem no mesmo ponto de saída — o que é verificável pelos resultados. A investigação do perito da Compliance Zero confirmou o elo PF→Intercept como fato jurídico em apuração, elevando o status de "coordenação funcional inferida" para "coordenação operacional documentada".</p>
+    </div>
+
+  </div>
+
+  <!-- ESTRUTURA OPERACIONAL -->
+  <div id="estrutura" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>Estrutura Operacional</h2>
+    </div>
+
+    <h3>Mapa de Atores por Função Estrutural</h3>
+
+    <table class="data-table">
+      <tr>
+        <th>Função</th>
+        <th>Descrição</th>
+        <th>Ator(es) Identificados</th>
+        <th>Padrão</th>
+      </tr>
+      <tr>
+        <td>Vazador Interno</td>
+        <td>Acesso legal a material sigiloso; repassa ao canal de saída</td>
+        <td>Perito PF (Compliance Zero); Anderson da Silva Lima (Compliance Zero fase 1)</td>
+        <td><span class="pattern">P7</span></td>
+      </tr>
+      <tr>
+        <td>Canal de Saída</td>
+        <td>Publica com plausible deniability editorial; não pode ser processado pelo conteúdo</td>
+        <td>The Intercept Brasil</td>
+        <td><span class="pattern">P7</span></td>
+      </tr>
+      <tr>
+        <td>Executor Judicial</td>
+        <td>Usa publicação como base para ação; coordena sem coordenar</td>
+        <td>STF/Moraes; PF/Andrei Rodrigues</td>
+        <td><span class="pattern">P1</span></td>
+      </tr>
+      <tr>
+        <td>Amplificador Midiático</td>
+        <td>Repercute, legitima, instala frame no debate público</td>
+        <td>Veículos alinhados ao governo federal (mencionados por Medeiros)</td>
+        <td><span class="pattern">P4b</span></td>
+      </tr>
+      <tr>
+        <td>Alvo Primário</td>
+        <td>Figura de alto valor estratégico a ser neutralizada</td>
+        <td>Flávio Bolsonaro (financeiro); Eduardo Bolsonaro (articulação externa)</td>
+        <td><span class="pattern">P3</span></td>
+      </tr>
+    </table>
+
+    <h3>Comparativo Vaza Jato × Compliance Zero</h3>
+
+    <table class="data-table">
+      <tr>
+        <th>Dimensão</th>
+        <th>Vaza Jato (2019)</th>
+        <th>Compliance Zero (2026)</th>
+      </tr>
+      <tr>
+        <td>Fonte do material</td>
+        <td>Hacker externo (Delgatti)</td>
+        <td>Perito interno da PF</td>
+      </tr>
+      <tr>
+        <td>Natureza do vazador</td>
+        <td>Ator movido por motivação pessoal</td>
+        <td>Servidor público com acesso legal</td>
+      </tr>
+      <tr>
+        <td>Resultado imediato</td>
+        <td>Anulação de condenações + Lula livre</td>
+        <td>Candidatura Flávio contaminada</td>
+      </tr>
+      <tr>
+        <td>Timing</td>
+        <td>7 meses antes de decisão do STF sobre suspeição</td>
+        <td>5 meses antes das eleições gerais</td>
+      </tr>
+      <tr>
+        <td>Investigação do vazador</td>
+        <td>Delgatti preso, depois solto, depois testemunha</td>
+        <td>Perito suspenso, investigado (em curso)</td>
+      </tr>
+      <tr>
+        <td>Intercept processado?</td>
+        <td>Não</td>
+        <td>Não — "liberdade de imprensa preservada" (nota STF)</td>
+      </tr>
+    </table>
+
+    <h3>Lacunas Analíticas Remanescentes</h3>
+
+    <div class="analysis-box note">
+      <div class="box-label">Lacunas — Marcadas como Pendentes de Evidência</div>
+      <p style="font-size: 0.88rem; color: var(--text2); margin: 0 0 0.5rem;">1. <strong>Cadeia de comando do vazamento:</strong> a investigação identificou o perito, mas não divulgou (publicamente) a quem dentro do Intercept o material foi enviado, nem se houve intermediário.<br><br>
+      2. <strong>Saber prévio sobre ausência de Eduardo:</strong> não há evidência documentada de que o repórter sabia que Eduardo estava fora — pode ser acaso ou planejamento. Hipótese marcada como inferência.<br><br>
+      3. <strong>Instrução editorial:</strong> não sabemos se a visita foi iniciativa do repórter ou instrução da direção do Intercept. O padrão comportamental (vizinhos, mapeamento) é consistente com instrução operacional, mas não documentado.</p>
+    </div>
+
+  </div>
+
+  <!-- METODOLOGIA -->
+  <div id="metodologia" class="tab-content">
+
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2>Metodologia e Notas do Corpus</h2>
+    </div>
+
+    <div class="methodology">
+      <strong>PADRÕES APLICADOS</strong><br>
+      P1 — Captura Institucional (STF como nó terminal)<br>
+      P3 — Assimetria Punitiva (vazamentos seletivos contra campo específico)<br>
+      P4b — Both-Sidesism Funcional (jornalismo como "neutro" apesar de efeitos assimétricos)<br>
+      P7 — Captura de Instrumentos Civis (imprensa como braço operacional)<br>
+      P-NOVO — Reconhecimento Transnacional (mapeamento de exilados para fase operacional subsequente)<br>
+      <br>
+      <strong>PRINCÍPIO METODOLÓGICO</strong><br>
+      Distinção entre fato documentado, inferência estrutural e especulação motivacional.<br>
+      Motivações não são registradas no corpus sem evidência direta.<br>
+      Hipóteses marcadas explicitamente como tais.<br>
+      <br>
+      <strong>FONTES PRIMÁRIAS CONSULTADAS</strong><br>
+      STF/nota oficial (maio 2026) · O Antagonista (19.05.2026) · O Tempo Brasília (19.05.2026)<br>
+      Poder360 (13.05.2026) · Gazeta do Povo (abr.2026, mar.2025, set.2024)<br>
+      Intercept Brasil (publicação original 13.05.2026) · Agência Brasil (jan.2026)<br>
+      Post Heloisa Bolsonaro Instagram Stories (mai.2026)<br>
+      Wikipedia/Vaza Jato · DefesaNet (mar.2023) · Revista Oeste (mar.2023)<br>
+      <br>
+      <strong>STATUS DO DOCUMENTO</strong><br>
+      Operação em curso — documento vivo — atualizar conforme novos desenvolvimentos<br>
+      Próxima revisão esperada: publicação da matéria do Intercept sobre Eduardo (se/quando ocorrer)<br>
+      <br>
+      <strong>LICENÇA</strong><br>
+      CC0 1.0 Public Domain · Nenhum direito reservado · gosurf.site
+    </div>
+
+  </div>
+
+  <div class="related-block" id="artefatos-relacionados">
+    <div class="section-header" style="padding-top: 0;">
+      <span class="section-number">↗</span>
+      <h2>Artefatos Relacionados</h2>
+    </div>
+    <div class="related-grid">
+      <a class="related-link" href="https://gosurf.site/intercept-dossie" target="_blank" rel="noopener">
+        <div class="related-cat">Dossiê</div>
+        <div class="related-title">The Intercept — Controlled Opposition</div>
+        <div class="related-desc">Financiamento, rede de atores e função estrutural do veículo no corpus lawfare.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/the-intercept-e-redes" target="_blank" rel="noopener">
+        <div class="related-cat">Rede de Atores</div>
+        <div class="related-title">The Intercept e Redes</div>
+        <div class="related-desc">Mapa de conexões editoriais, fundadores e fluxos de influência documentados.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/banco-master-compliance-zero" target="_blank" rel="noopener">
+        <div class="related-cat">Operação PF</div>
+        <div class="related-title">Compliance Zero — Banco Master</div>
+        <div class="related-desc">A operação cujo material sigiloso alimentou a Frente Financeira deste dossiê.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/direita-permitida" target="_blank" rel="noopener">
+        <div class="related-cat">Gatekeeping</div>
+        <div class="related-title">Direita Permitida</div>
+        <div class="related-desc">Extração de capital político e certificação midiática do campo oposicionista.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/global-kompromat" target="_blank" rel="noopener">
+        <div class="related-cat">Padrão Transnacional</div>
+        <div class="related-title">Global Kompromat</div>
+        <div class="related-desc">Reconhecimento transnacional, exílio e pressão sobre articuladores externos.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/selecao-antes-da-eleicao" target="_blank" rel="noopener">
+        <div class="related-cat">Eleições 2026</div>
+        <div class="related-title">Seleção Antes da Eleição</div>
+        <div class="related-desc">Como o sistema filtra candidatos antes do voto — timing e dano eleitoral pré-outubro.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<button type="button" id="gotop" aria-label="Voltar ao topo">↑</button>
+
+<footer>
+  <div>
+    <a href="https://gosurf.site" target="_blank" rel="noopener">gosurf.site</a> ·
+    <a href="https://lawfare-timeline.vercel.app/" class="lawfare-link" target="_blank" rel="noopener">lawfare-timeline</a> · CC0 1.0 · Operação em curso
+  </div>
+  <div>P1 · P3 · P4b · P7 · P-NOVO</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.tab-content');
+  const navLinks = document.querySelectorAll('nav a');
+  const nav = document.querySelector('nav');
+  const gotop = document.getElementById('gotop');
+
+  function navOffset() {
+    return nav ? nav.getBoundingClientRect().height + 8 : 64;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+            link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+      }
+    });
+  }, { root: null, rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) gotop.classList.add('show');
+    else gotop.classList.remove('show');
+  }, { passive: true });
+
+  gotop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+
+</body>
+</html>

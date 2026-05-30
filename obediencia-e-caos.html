@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obediência & Caos — O Estado Como Gestor do Sofrimento</title>
+<meta name="description" content="Da Experiência de Milgram à pandemia global: obediência destrutiva, Estado gestor da impunidade, violência estrutural e Direitos Humanos — dossiê em texto corrido para leitura e cópia.">
+<link rel="canonical" href="https://gosurf.site/obediencia-e-caos">
+<meta property="og:title" content="Obediência & Caos — O Estado Como Gestor do Sofrimento">
+<meta property="og:description" content="Milgram, pandemia COVID-19, impunidade e violência estrutural: texto completo com dados e bibliografia para análise.">
+<meta property="og:url" content="https://gosurf.site/obediencia-e-caos">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://gosurf.site/og-obediencia-e-caos.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="600">
+<meta property="og:image:alt" content="Obediência e Caos — Estado como gestor do sofrimento — Análise psicopolítica">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Obediência & Caos — Estado como Gestor do Sofrimento">
+<meta name="twitter:description" content="Milgram ao cotidiano: obediência, pandemia e impunidade em texto corrido para pesquisa e ferramentas de IA.">
+<meta name="twitter:image" content="https://gosurf.site/og-obediencia-e-caos.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0d;
+    --bg2: #0d1117;
+    --bg3: #131920;
+    --bg4: #1a2230;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --fg: #e8eaf0;
+    --fg2: #9aa3b2;
+    --fg3: #5a6478;
+    --accent: #c8483a;
+    --accent2: #e05a3a;
+    --amber: #d4a847;
+    --blue: #4a8fc4;
+    --green: #3a9e6e;
+    --red: #c8483a;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-serif: 'Cormorant Garamond', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-display);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* LAYOUT */
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 24px;
+    margin-bottom: 40px;
+  }
+  .header-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 90vw;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--fg2);
+    font-style: italic;
+    margin-top: 12px;
+    max-width: 70vw;
+    line-height: 1.5;
+  }
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+  .header-stats {
+    display: flex;
+    gap: 32px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg3);
+  }
+  .header-stat-val { color: var(--fg2); display: block; font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+
+  /* NAV (sticky índice + scroll-spy) */
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 120;
+    background: rgba(8, 10, 13, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding-top: 4px;
+    margin-top: -4px;
+  }
+  .nav-tab {
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    white-space: nowrap;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    font-family: var(--font-display);
+    text-decoration: none;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .nav-tab:hover { color: var(--fg2); }
+  .nav-tab.active {
+    color: var(--fg);
+    border-bottom-color: var(--accent);
+  }
+  .nav-tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .topic-section { scroll-margin-top: 76px; }
+  .section { display: block; margin-bottom: 48px; }
+
+  /* SHARE + GO TOP */
+  .share-panel {
+    margin-bottom: 28px;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .share-panel-h {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--fg);
+    font-family: var(--font-display);
+  }
+  .share-panel-desc {
+    font-size: 14px;
+    color: var(--fg2);
+    line-height: 1.65;
+    margin-bottom: 14px;
+    font-family: var(--font-serif);
+  }
+  .share-panel-desc strong { color: var(--fg); }
+  .share-panel-desc code {
+    font-size: 12px;
+    color: var(--amber);
+    background: var(--bg3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    word-break: break-all;
+  }
+  .share-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    padding: 10px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .share-strip-label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 4px;
+    font-family: var(--font-mono);
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid var(--border2);
+    background: var(--bg2);
+    color: var(--fg2);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    padding: 0;
+  }
+  .share-btn:hover {
+    border-color: var(--accent);
+    color: var(--fg);
+    background: rgba(200, 72, 58, 0.08);
+  }
+  .share-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .share-ic { width: 16px; height: 16px; flex-shrink: 0; }
+  .share-btn.copied { border-color: var(--green); color: var(--green); }
+  .share-og-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--fg2);
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .share-og-copy:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    background: rgba(212, 168, 71, 0.08);
+  }
+
+  #gotop {
+    position: fixed;
+    bottom: 1.35rem;
+    right: 1.35rem;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, border-color 0.2s, background 0.2s;
+  }
+  #gotop.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #gotop:hover {
+    background: rgba(200, 72, 58, 0.12);
+    border-color: var(--accent);
+  }
+
+  /* SECTION (visible) — legacy .section retains layout */
+
+  /* CARDS GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
+  .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-bottom: 16px; }
+  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
+  }
+
+  /* CARD */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  }
+  .card.accent-red { border-top: 2px solid var(--accent); }
+  .card.accent-amber { border-top: 2px solid var(--amber); }
+  .card.accent-blue { border-top: 2px solid var(--blue); }
+  .card.accent-green { border-top: 2px solid var(--green); }
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .card-body {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg2);
+  }
+  .card-body strong { color: var(--fg); font-family: var(--font-display); font-size: 13px; font-weight: 600; }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 16px 0;
+    background: rgba(200, 72, 58, 0.05);
+  }
+  .quote-text {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--fg);
+  }
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* METRIC CARD */
+  .metric-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+  .metric-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .metric-value {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--fg);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-value.red { color: var(--accent); }
+  .metric-value.amber { color: var(--amber); }
+  .metric-value.blue { color: var(--blue); }
+  .metric-sub {
+    font-size: 12px;
+    color: var(--fg3);
+    font-family: var(--font-mono);
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border2);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 24px 20px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .timeline-item.amber::before { background: var(--amber); }
+  .timeline-item.blue::before { background: var(--blue); }
+  .timeline-date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .timeline-item.amber .timeline-date { color: var(--amber); }
+  .timeline-item.blue .timeline-date { color: var(--blue); }
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .timeline-body {
+    font-size: 13px;
+    color: var(--fg2);
+    font-family: var(--font-serif);
+    line-height: 1.5;
+  }
+
+  /* OBEDIENCE BAR */
+  .obe-item { margin-bottom: 16px; }
+  .obe-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .obe-label { font-size: 12px; color: var(--fg2); font-weight: 600; }
+  .obe-pct { font-family: var(--font-mono); font-size: 12px; color: var(--fg3); }
+  .obe-bar { height: 6px; background: var(--bg4); border-radius: 3px; overflow: hidden; }
+  .obe-fill { height: 100%; border-radius: 3px; transition: width 1s cubic-bezier(0.25,1,0.5,1); }
+  .obe-fill.red { background: var(--accent); }
+  .obe-fill.amber { background: var(--amber); }
+  .obe-fill.blue { background: var(--blue); }
+  .obe-fill.green { background: var(--green); }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .tag.red { background: rgba(200,72,58,0.15); color: var(--accent); border: 1px solid rgba(200,72,58,0.3); }
+  .tag.amber { background: rgba(212,168,71,0.15); color: var(--amber); border: 1px solid rgba(212,168,71,0.3); }
+  .tag.blue { background: rgba(74,143,196,0.15); color: var(--blue); border: 1px solid rgba(74,143,196,0.3); }
+  .tag.green { background: rgba(58,158,110,0.15); color: var(--green); border: 1px solid rgba(58,158,110,0.3); }
+
+  /* EXPERIMENT TABLE */
+  .exp-table { width: 100%; border-collapse: collapse; }
+  .exp-table th {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--fg2);
+    vertical-align: top;
+  }
+  .exp-table tr:last-child td { border-bottom: none; }
+  .exp-table td:first-child { color: var(--fg); font-weight: 600; font-size: 12px; }
+
+  /* PANDEMIC EVENTS */
+  .pandemic-item {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: var(--bg3);
+  }
+  .pandemic-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .pandemic-country {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 3px 8px;
+    background: var(--bg4);
+    border-radius: 3px;
+    color: var(--fg2);
+    white-space: nowrap;
+  }
+  .pandemic-event { font-size: 13px; font-weight: 600; color: var(--fg); flex: 1; }
+  .pandemic-body { font-size: 13px; color: var(--fg2); font-family: var(--font-serif); line-height: 1.5; }
+  .pandemic-milgram {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(200,72,58,0.08);
+    border-left: 2px solid var(--accent);
+    font-size: 12px;
+    color: var(--fg3);
+    font-family: var(--font-mono);
+  }
+
+  /* FRAMEWORK CARD */
+  .fw-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 8px;
+  }
+  .fw-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .fw-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    min-width: 28px;
+  }
+  .fw-title { font-size: 14px; font-weight: 700; color: var(--fg); }
+  .fw-body {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--fg2);
+    line-height: 1.6;
+    padding-left: 38px;
+  }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    font-family: var(--font-mono);
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg3);
+  }
+
+  /* MILGRAM VISUAL */
+  .milgram-scale {
+    display: flex;
+    gap: 2px;
+    margin: 16px 0;
+  }
+  .volt-block {
+    flex: 1;
+    height: 48px;
+    border-radius: 2px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 4px;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: rgba(255,255,255,0.5);
+    transition: opacity 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .volt-block:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg);
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 4px;
+  }
+
+  /* SCROLL ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .topic-section .card,
+  .topic-section .metric-card,
+  .topic-section .pandemic-item,
+  .topic-section .fw-card {
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .highlight { color: var(--accent); font-weight: 700; }
+  .highlight-amber { color: var(--amber); font-weight: 700; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div id="top" tabindex="-1" aria-hidden="true"></div>
+
+<div class="container">
+
+  <header class="header">
+    <div class="header-meta">Análise Psicopolítica · Série Civilização &amp; Poder · 2025</div>
+    <div class="header-grid">
+      <div>
+        <h1>Obediência &amp; <span>Caos</span><br>O Estado como Gestor do Sofrimento</h1>
+        <p class="header-sub">Da Experiência de Milgram à Pandemia Global: como instituições transformam a impunidade em mecanismo de controle e como a obediência irrefletida destrói direitos humanos fundamentais.</p>
+      </div>
+      <div class="header-stats">
+        <div>
+          <span class="header-stat-val">65%</span>
+          obediência total<br>Milgram 1963
+        </div>
+        <div>
+          <span class="header-stat-val">193</span>
+          países<br>lockdowns 2020
+        </div>
+        <div>
+          <span class="header-stat-val">5.000+</span>
+          anos de<br>evidência histórica
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="share-panel" id="compartilhar-obediencia-e-caos">
+    <div class="share-panel-h"><svg class="share-ic" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 5.51l-6.82 3.98"/></svg>Copiar ou compartilhar</div>
+    <p class="share-panel-desc"><strong>Página inteira:</strong> use Ctrl+A / Ctrl+C no corpo do texto para colar em chat com IA.<br><strong>URL canônica:</strong> <code>https://gosurf.site/obediencia-e-caos</code><br><strong>Open Graph (sharecard):</strong> <code>https://gosurf.site/og-obediencia-e-caos.png</code></p>
+    <div id="page-share-root"></div>
+    <div style="margin-top:12px">
+      <button type="button" class="share-og-copy" id="copyOgImgUrl" title="Copiar só a URL da imagem OG"><svg class="share-ic" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="opacity:.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar URL da imagem (OG)</button>
+    </div>
+  </div>
+
+  <nav class="nav-tabs" id="topic-nav" role="navigation" aria-label="Índice do dossiê">
+    <a class="nav-tab active" href="#milgram" data-topic="milgram">Experimento Milgram</a>
+    <a class="nav-tab" href="#estado" data-topic="estado">Estado &amp; Caos</a>
+    <a class="nav-tab" href="#pandemia" data-topic="pandemia">Pandemia: Caso Histórico</a>
+    <a class="nav-tab" href="#violencia" data-topic="violencia">Violência Estrutural</a>
+    <a class="nav-tab" href="#historia" data-topic="historia">Civilizações</a>
+    <a class="nav-tab" href="#referencias" data-topic="referencias">Referências</a>
+  </nav>
+
+  <!-- ==================== MILGRAM ==================== -->
+  <section class="section topic-section" id="milgram">
+
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Obediência Total (450V)</div>
+        <div class="metric-value red">65%</div>
+        <div class="metric-sub">dos participantes chegaram ao fim</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Ponto de 1ª resistência</div>
+        <div class="metric-value amber">285V</div>
+        <div class="metric-sub">média de hesitação real</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Replicações em países</div>
+        <div class="metric-value blue">19+</div>
+        <div class="metric-sub">resultado consistente globalmente</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Desumanização por distância</div>
+        <div class="metric-value">+28%</div>
+        <div class="metric-sub">obediência quando vítima invisível</div>
+      </div>
+    </div>
+
+    <div class="section-heading">A Experiência Fundadora</div>
+    <div class="grid-2">
+      <div class="card accent-red">
+        <div class="card-label">Stanley Milgram · Yale · 1963</div>
+        <div class="card-title">O Experimento que Redefiniu a Psicologia do Mal</div>
+        <div class="card-body">
+          Em 1961, enquanto o mundo assistia ao julgamento de Adolf Eichmann em Jerusalém — o burocrata do Holocausto que dizia ter apenas "cumprido ordens" — Stanley Milgram começou a perguntar: <strong>até onde pessoas comuns vão quando uma autoridade legitima ordena que causem dor a outro ser humano?</strong>
+          <br><br>
+          O experimento era simples em sua estrutura, devastador em seus resultados. Participantes acreditavam estar num estudo sobre memória e aprendizagem. Sentados diante de um painel com chaves rotuladas de 15V a 450V, recebiam instrução de aplicar choques elétricos crescentes em um "aluno" (ator) a cada erro.
+        </div>
+        <div class="quote-block">
+          <div class="quote-text">"A essência da obediência consiste no fato de que a pessoa passa a se ver como instrumento para carregar os desejos de outra pessoa e, portanto, não se considera mais responsável por suas ações."</div>
+          <div class="quote-author">— Stanley Milgram, Obedience to Authority, 1974</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Escala de Voltagem &amp; Obediência</div>
+        <div class="card-title">Os 30 Níveis de Submissão</div>
+        <div style="margin-bottom: 12px;">
+          <div class="milgram-scale" id="voltScale"></div>
+          <div style="display:flex; justify-content:space-between; font-family: var(--font-mono); font-size: 9px; color: var(--fg3); margin-top: 4px;">
+            <span>15V — Leve</span>
+            <span>150V — Forte</span>
+            <span>300V — Intenso</span>
+            <span style="color:var(--accent)">450V — XXX</span>
+          </div>
+        </div>
+        <div class="obe-item">
+          <div class="obe-header"><span class="obe-label">Chegaram a 450V (obediência total)</span><span class="obe-pct">65%</span></div>
+          <div class="obe-bar"><div class="obe-fill red" style="width:65%"></div></div>
+        </div>
+        <div class="obe-item">
+          <div class="obe-header"><span class="obe-label">Resistiram entre 150V–300V</span><span class="obe-pct">20%</span></div>
+          <div class="obe-bar"><div class="obe-fill amber" style="width:20%"></div></div>
+        </div>
+        <div class="obe-item">
+          <div class="obe-header"><span class="obe-label">Interromperam abaixo de 150V</span><span class="obe-pct">15%</span></div>
+          <div class="obe-bar"><div class="obe-fill green" style="width:15%"></div></div>
+        </div>
+        <div style="margin-top: 16px; font-size: 12px; color: var(--fg3); font-family: var(--font-mono);">
+          Hover nas barras para ver o marcador psicológico de cada nível
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading">Os 4 Mecanismos Psicológicos da Obediência Destrutiva</div>
+    <div class="grid-2">
+      <div class="fw-card">
+        <div class="fw-header"><span class="fw-num">01</span><span class="fw-title">Estado Agêntico</span></div>
+        <div class="fw-body">Milgram identificou que o ser humano possui dois modos de operação psicológica: o <strong>estado autônomo</strong>, onde age por seus próprios valores, e o <strong>estado agêntico</strong>, onde se vê como agente de outra pessoa, executando suas vontades. No estado agêntico, a consciência moral é suspensa — o indivíduo transfere a responsabilidade para a autoridade. <span class="highlight">O agressor que "estava cumprindo a lei" e o policial que não pune o violentador operam em estado agêntico institucional.</span></div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-header"><span class="fw-num">02</span><span class="fw-title">Deslocamento de Responsabilidade</span></div>
+        <div class="fw-body">Quando a autoridade é percebida como legítima, o executor da ordem desloca mentalmente a responsabilidade moral para quem ordenou. O burocrata que processa o pedido de medida protetiva e não o prioriza não se vê como responsável pela violência subsequente — "segui o protocolo". <span class="highlight-amber">Hannah Arendt chamou isso de "banalidade do mal": o mal não precisa de monstros, precisa de funcionários.</span></div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-header"><span class="fw-num">03</span><span class="fw-title">Desumanização Gradual da Vítima</span></div>
+        <div class="fw-body">A obediência é facilitada quando a vítima é abstraída ou distanciada. No experimento, obediência caía de 65% para 40% quando o participante via a vítima; para 30% quando precisava tocá-la. <span class="highlight">A mulher violentada que não tem nome, rosto ou voz no sistema burocrático é precisamente a abstração necessária para que o funcionário processe seu caso sem perturbação moral.</span> Processos desumanizam ao transformar pessoas em números de protocolo.</div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-header"><span class="fw-num">04</span><span class="fw-title">Comprometimento Incremental — "Foot in the Door"</span></div>
+        <div class="fw-body">Os choques não começam em 450V. Começam em 15V. Cada pequeno passo de obediência torna o próximo mais fácil — e a desobediência mais improvável, porque implicaria admitir que os passos anteriores foram errados. <span class="highlight-amber">Sistemas de impunidade se constroem da mesma forma: a primeira vez que "nada aconteceu" com o agressor, a segunda vez fica mais tolerável — para o sistema e para a sociedade.</span></div>
+      </div>
+    </div>
+
+    <div class="section-heading">Derivações e Replicações — O Mundo Confirmou Milgram</div>
+    <div class="card">
+      <table class="exp-table">
+        <thead>
+          <tr>
+            <th>Experimento / Pesquisador</th>
+            <th>Ano / Local</th>
+            <th>Descoberta Principal</th>
+            <th>Relevância para o Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Experimento de Stanford<br><span style="font-weight:400;color:var(--fg3)">Philip Zimbardo</span></td>
+            <td><span class="tag amber">1971 · EUA</span></td>
+            <td>Estudantes tornaram-se "guardas sádicos" e "prisioneiros passivos" em 6 dias. A estrutura do papel social corrompeu o comportamento independente de personalidade prévia.</td>
+            <td>Cargos institucionais produzem comportamentos independente de quem os ocupa. O delegado, o promotor, o juiz são moldados pela estrutura, não apenas por seus valores individuais.</td>
+          </tr>
+          <tr>
+            <td>Replicação Virtual<br><span style="font-weight:400;color:var(--fg3)">Mel Slater, UCL</span></td>
+            <td><span class="tag blue">2006 · Reino Unido</span></td>
+            <td>Mesmo com avatar virtual no lugar da vítima real, 73% dos participantes demonstraram estresse fisiológico e obedeceram. O cérebro trata representações virtuais como reais.</td>
+            <td>O espetáculo midiático sobre violência (Twitter, noticiário) ativa resposta emocional sem produzir ação real — os cidadãos "sentem" que algo foi feito quando nada foi.</td>
+          </tr>
+          <tr>
+            <td>Replicação Jerry Burger<br><span style="font-weight:400;color:var(--fg3)">Santa Clara University</span></td>
+            <td><span class="tag amber">2009 · EUA</span></td>
+            <td>70% de obediência até 150V (ponto máximo permitido eticamente). Resultado praticamente idêntico a Milgram 46 anos depois. A psicologia humana não mudou.</td>
+            <td>A vulnerabilidade à obediência destrutiva não é histórica ou cultural — é estrutural da psicologia humana e se reproduz em cada geração.</td>
+          </tr>
+          <tr>
+            <td>The Milgram Re-enactment<br><span style="font-weight:400;color:var(--fg3)">Rod Dickinson / Dominic Johnson</span></td>
+            <td><span class="tag blue">2002 · UK</span></td>
+            <td>Reencenação teatral exata. Público externo, sabendo ser teatro, experienciou ansiedade fisiológica mensurável assistindo. A estrutura da situação afeta até observadores.</td>
+            <td>Sociedades que observam impunidade sistêmica sem intervir são afetadas pelo mesmo mecanismo — o desconforto existe, mas a estrutura (o Estado como "autoridade") inibe ação.</td>
+          </tr>
+          <tr>
+            <td>Obediência em Contexto Médico<br><span style="font-weight:400;color:var(--fg3)">Hofling et al.</span></td>
+            <td><span class="tag red">1966 · EUA</span></td>
+            <td>95% das enfermeiras administrariam medicamento em dose perigosa quando instruídas por médico ao telefone — violando protocolo, sem verificação. A autoridade profissional suprimiu o julgamento clínico.</td>
+            <td>Autoridade institucional (médico, delegado, promotor) suprime julgamento individual. Ordens absurdas são executadas por profissionais treinados quando vêm de autoridade legítima.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2" style="margin-top:16px">
+      <div class="card accent-amber">
+        <div class="card-label">Hannah Arendt · 1963</div>
+        <div class="card-title">A Banalidade do Mal — Eichmann em Jerusalém</div>
+        <div class="card-body">
+          O julgamento de Adolf Eichmann — o burocrata nazista responsável pela logística do Holocausto — revelou algo perturbador: ele não era um monstro. Era um funcionário medíocre, preocupado com promoções e eficiência administrativa.
+          <br><br>
+          Arendt cunhou "banalidade do mal" para descrever como <strong>atrocidades em larga escala não requerem pessoas excepcionalmente más — requerem pessoas comuns em estruturas que normalizam a crueldade incremental</strong>.
+          <br><br>
+          O policial que não registra o boletim, o promotor que arquiva o caso, o juiz que concede liberdade ao reincidente — não são vilões de história. São Eichmanns de baixa voltagem, executando protocolos que produzem sofrimento sistêmico sem sujar as próprias mãos.
+        </div>
+      </div>
+      <div class="card accent-blue">
+        <div class="card-label">Philip Zimbardo · 2007</div>
+        <div class="card-title">O Efeito Lúcifer — Quando Boas Pessoas Fazem Coisas Más</div>
+        <div class="card-body">
+          Zimbardo expandiu as conclusões de Stanford e Milgram para criar uma teoria sistêmica: <strong>o comportamento humano é mais determinado pela situação e pelo sistema do que pelo caráter individual</strong>.
+          <br><br>
+          O "Efeito Lúcifer" descreve a transformação de indivíduos normais quando inseridos em sistemas com:
+          <br><br>
+          <strong>→ Autoridade percebida como legítima</strong><br>
+          <strong>→ Desumanização dos afetados</strong><br>
+          <strong>→ Difusão de responsabilidade</strong><br>
+          <strong>→ Comprometimento incremental</strong>
+          <br><br>
+          Esses exatos 4 elementos estão presentes no sistema burocrático que gerencia impunidade de violência doméstica, pensão alimentícia e crimes sexuais.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== ESTADO ==================== -->
+  <section class="section topic-section" id="estado">
+
+    <div class="section-heading">A Tese Central — Diagnóstico Estrutural</div>
+    <div class="card accent-red" style="margin-bottom:16px">
+      <div class="card-title" style="font-size:18px; margin-bottom:16px">O Estado Não Falha. Ele Performa a Falha.</div>
+      <div class="card-body" style="font-size:15px">
+        A distinção mais importante nesta análise não é entre estados competentes e incompetentes, honestos e corruptos, de direita ou esquerda. É entre estados que <strong>resolvem problemas</strong> e estados que <strong>gerenciam problemas</strong>. Um problema resolvido elimina a necessidade de intervenção estatal contínua — e, portanto, a justificativa de orçamentos, cargos e poder burocrático. Um problema gerenciado é uma fonte perpétua de legitimidade, financiamento e controle social.
+        <br><br>
+        <strong>B.F. Skinner</strong> nos deu o arcabouço: sistemas se perpetuam através de reforços. A burocracia que resolve violência doméstica eficientemente torna-se desnecessária. A que a gerencia cronicamente torna-se indispensável. O incentivo estrutural, portanto, não é a solução — é a manutenção do problema em nível tolerável.
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-label">Mancur Olson · 1965</div>
+        <div class="card-title">A Lógica da Ação Coletiva</div>
+        <div class="card-body">Grupos pequenos e organizados (burocracias, elites políticas) quase sempre vencem grupos grandes e difusos (população geral) porque o custo de organização é menor e o benefício individual é maior. <span class="highlight">A impunidade não precisa ser conspirada — ela emerge da equação de incentivos.</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Robert Michels · 1911</div>
+        <div class="card-title">Lei de Ferro da Oligarquia</div>
+        <div class="card-body">Qualquer organização, independente de seus ideais fundadores, é capturada por uma elite que passa a servir seus próprios interesses. <span class="highlight-amber">Partidos de esquerda criados para combater a elite tornam-se elites. Movimentos feministas institucionalizados tornam-se máquinas de financiamento. A estrutura vence a ideologia.</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Guy Debord · 1967</div>
+        <div class="card-title">A Sociedade do Espetáculo</div>
+        <div class="card-body">A representação política do problema substitui sua resolução. O debate sobre "lei da misoginia" no Twitter é o espetáculo. A mulher com a cabeça raspada é a realidade. <span class="highlight">O espetáculo consome energia social, cria ilusão de progresso e esvazia a demanda por resultados concretos.</span></div>
+      </div>
+    </div>
+
+    <div class="section-heading">Psicologia do Desamparo Aprendido — Por que a População não Reage</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Martin Seligman · 1967</div>
+        <div class="card-title">Learned Helplessness — Desamparo Aprendido</div>
+        <div class="card-body">
+          Quando organismos recebem estímulos negativos que não conseguem controlar repetidamente, eventualmente param de tentar — mesmo quando a possibilidade de mudança surge. Seligman demonstrou isso em cães; estudos posteriores confirmaram em humanos.
+          <br><br>
+          A população que <strong>repetidamente vê que "NADA ACONTECE COM ELES"</strong> internaliza que a ação individual é ineficaz. O resultado é a adaptação à sobrevivência dentro do sistema, não sua transformação.
+          <br><br>
+          <span class="highlight">A metáfora "dançar com o Estado" no texto original é a voz do desamparo aprendido aplicado à escala civilizatória.</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Psicologia da Obediência Aplicada ao Cotidiano</div>
+        <div class="card-title">O Continuum do Comprometimento</div>
+        <div style="margin: 16px 0;">
+          <div class="obe-item">
+            <div class="obe-header"><span class="obe-label">Tolerância passiva ("não é comigo")</span><span class="obe-pct">Nível 1</span></div>
+            <div class="obe-bar"><div class="obe-fill green" style="width:90%"></div></div>
+          </div>
+          <div class="obe-item">
+            <div class="obe-header"><span class="obe-label">Engajamento simbólico (posts, protestos)</span><span class="obe-pct">Nível 2</span></div>
+            <div class="obe-bar"><div class="obe-fill blue" style="width:60%"></div></div>
+          </div>
+          <div class="obe-item">
+            <div class="obe-header"><span class="obe-label">Pressão institucional real (ação coletiva)</span><span class="obe-pct">Nível 3</span></div>
+            <div class="obe-bar"><div class="obe-fill amber" style="width:15%"></div></div>
+          </div>
+          <div class="obe-item">
+            <div class="obe-header"><span class="obe-label">Ruptura sistêmica (risco pessoal real)</span><span class="obe-pct">Nível 4</span></div>
+            <div class="obe-bar"><div class="obe-fill red" style="width:3%"></div></div>
+          </div>
+        </div>
+        <div class="card-body" style="font-size:12px">O espetáculo digital mantém a população no Nível 2, criando a sensação de resistência sem os custos do Nível 3 ou 4.</div>
+      </div>
+    </div>
+
+    <div class="section-heading">O Continuum Milgram-Estado: Paralelo Direto</div>
+    <div class="card">
+      <table class="exp-table">
+        <thead>
+          <tr>
+            <th>No Experimento Milgram</th>
+            <th>No Sistema Estatal de Impunidade</th>
+            <th>Mecanismo Psicológico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"O cientista do Yale" — autoridade legítima</td>
+            <td>O Estado, a lei, o protocolo institucional</td>
+            <td>Transferência de responsabilidade para a autoridade percebida como legítima</td>
+          </tr>
+          <tr>
+            <td>O "aluno" é um ator — vítima invisível</td>
+            <td>A mulher violentada é um número de processo</td>
+            <td>Desumanização burocrática que reduz empatia do executor</td>
+          </tr>
+          <tr>
+            <td>"Continue. O experimento requer isso."</td>
+            <td>"É protocolo. Não é minha área. Aguarde na fila."</td>
+            <td>Autoridade script que elimina necessidade de julgamento moral</td>
+          </tr>
+          <tr>
+            <td>15V → 30V → 45V... comprometimento gradual</td>
+            <td>Primeiro BO não lavrado → depois medida ignorada → depois assassinato</td>
+            <td>Foot-in-the-door: cada passo torna o próximo mais fácil</td>
+          </tr>
+          <tr>
+            <td>Participantes sentiam angústia mas continuavam</td>
+            <td>Funcionários "sabem que está errado" mas seguem o fluxo</td>
+            <td>Dissonância cognitiva resolvida via racionalização ("faço o que posso")</td>
+          </tr>
+          <tr>
+            <td>65% chegaram ao choque máximo</td>
+            <td>A maioria dos casos de violência doméstica não resulta em punição real</td>
+            <td>A estrutura sistêmica é mais determinante que a intenção individual</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <!-- ==================== PANDEMIA ==================== -->
+  <section class="section topic-section" id="pandemia">
+
+    <div class="section-heading">2020–2022 — O Maior Experimento de Obediência em Massa da História</div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Países com lockdown total</div>
+        <div class="metric-value red">90+</div>
+        <div class="metric-sub">sem precedente histórico</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pessoas em confinamento</div>
+        <div class="metric-value amber">4,5Bi</div>
+        <div class="metric-sub">pico de abril de 2020</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Violência doméstica</div>
+        <div class="metric-value red">+30%</div>
+        <div class="metric-sub">média global no lockdown</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Crianças sem escola</div>
+        <div class="metric-value blue">1,6Bi</div>
+        <div class="metric-sub">pico de fechamento global</div>
+      </div>
+    </div>
+
+    <div class="card accent-red" style="margin-bottom:16px">
+      <div class="card-title">A Pandemia como Laboratório de Milgram em Escala Global</div>
+      <div class="card-body">
+        A pandemia de COVID-19 não foi apenas uma crise de saúde pública — foi o <strong>maior experimento involuntário de obediência à autoridade da história humana</strong>. Bilhões de pessoas, em simultaneidade, foram submetidas a ordens que em contexto normal seriam impensáveis: não sair de casa, não visitar parentes moribundos, não comparecer a funerais, não abraçar os próprios filhos. E a maioria obedeceu.
+        <br><br>
+        Os quatro mecanismos de Milgram se manifestaram com clareza clínica: <strong>autoridade percebida como legítima</strong> (governo + ciência + mídia em uníssono), <strong>desumanização da vítima abstrata</strong> (curvas de mortalidade substituíram rostos), <strong>deslocamento de responsabilidade</strong> ("sigo as orientações das autoridades sanitárias") e <strong>comprometimento incremental</strong> (15 dias que viraram 2 anos).
+      </div>
+    </div>
+
+    <div class="section-heading">Eventos Documentados — Obediência Destrutiva na Pandemia</div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🇨🇳 China · Wuhan</span>
+        <span class="pandemic-event">Soldaturas de Portas e Confinamento Forçado — Jan/Fev 2020</span>
+        <span class="tag red">Crítico</span>
+      </div>
+      <div class="pandemic-body">Funcionários soldaram portas de apartamentos com moradores dentro. Vídeos amplamente documentados mostraram pessoas sendo arrastadas de suas casas pelas "equipes de controle epidemiológico". Funcionários executavam ordens sem aparente questionamento moral, mesmo em face de desespero humano visível.</div>
+      <div class="pandemic-milgram">⚡ MILGRAM: Estado agêntico claro — funcionários transferiram responsabilidade para "o protocolo epidemiológico". Vítimas desumanizadas como "vetores de transmissão", não como pessoas.</div>
+    </div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🇫🇷 França · Paris</span>
+        <span class="pandemic-event">Multas por Crianças Brincando no Parque — Março 2020</span>
+        <span class="tag amber">Alto</span>
+      </div>
+      <div class="pandemic-body">Policiais franceses multaram famílias cujas crianças brincavam em parques públicos. Mães foram autuadas por "violação do confinamento" enquanto filhos de até 5 anos brincavam em espaços abertos. A aplicação era assimétrica: bairros pobres recebiam fiscalização drasticamente mais intensa.</div>
+      <div class="pandemic-milgram">⚡ MILGRAM: Aplicação assimétrica de regras demonstra que a obediência do executor (policial) é moldada pela hierarquia social — populações vulneráveis recebem mais "choques".</div>
+    </div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🇬🇧 Reino Unido</span>
+        <span class="pandemic-event">Proibição de Visitar Pais Moribundos em Hospitais — 2020</span>
+        <span class="tag red">Crítico</span>
+      </div>
+      <div class="pandemic-body">Hospitais britânicos, seguindo protocolos governamentais, proibiram visitas familiares mesmo a pacientes em estado terminal. Milhares de pessoas morreram sozinhas. Funcionários hospitalares executavam as regras mesmo em face de súplicas de familiares — e estudos posteriores mostraram que o isolamento contribuiu para mortes por outras causas, incluindo deterioração cognitiva acelerada em idosos.</div>
+      <div class="pandemic-milgram">⚡ MILGRAM: O "cientista do Yale" aqui era o "protocolo do NHS". Enfermeiras replicaram exatamente o experimento de Hofling (1966): seguiram instruções superiores mesmo sabendo do dano humano causado.</div>
+    </div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🇦🇺 Austrália · Melbourne</span>
+        <span class="pandemic-event">Lockdown mais Longo do Mundo — 262 dias contínuos — 2020/2021</span>
+        <span class="tag red">Crítico</span>
+      </div>
+      <div class="pandemic-body">Melbourne impôs o lockdown mais longo registrado em democracia liberal — 262 dias consecutivos. Grávidas foram presas por postar protocolos anti-lockdown no Facebook. Manifestantes foram detidos antes mesmo de chegar ao local de protesto. A polícia usou gás de pimenta e balas de borracha contra protestos. Estudos de saúde mental documentaram aumento de 400% em suicídios em jovens durante o período.</div>
+      <div class="pandemic-milgram">⚡ MILGRAM: O "continuum do comprometimento" em escala governamental. Cada prorrogação tornava a próxima mais fácil de justificar. A população entrou em estado agêntico coletivo, delegando julgamento aos "especialistas em saúde".</div>
+    </div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🇧🇷 Brasil</span>
+        <span class="pandemic-event">Assimetria Pandêmica: Ricos Isolados, Pobres Expostos</span>
+        <span class="tag amber">Alto</span>
+      </div>
+      <div class="pandemic-body">Enquanto a classe média e alta praticava home office com conforto, trabalhadores domésticos, motoristas, entregadores e trabalhadores informais — em sua maioria negros e pardos — continuaram expostos sem proteção equivalente. O Estado "lockdown" se aplicava seletivamente: restaurantes fechados, igrejas evangélicas em disputa judicial. O Bolsa Família tardou semanas enquanto subsídios a empresas foram aprovados em 48 horas.</div>
+      <div class="pandemic-milgram">⚡ MILGRAM: Desumanização estratificada — o "choque elétrico" do vírus e da precarização foi aplicado com muito mais intensidade nas populações já vulnerabilizadas. O Estado agiu como o pesquisador, e os pobres como os "alunos" do experimento.</div>
+    </div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🌍 Global</span>
+        <span class="pandemic-event">Violência Doméstica: A "Pandemia Sombra" — 2020</span>
+        <span class="tag red">Crítico</span>
+      </div>
+      <div class="pandemic-body">A ONU documentou aumento médio de 30% em chamadas de violência doméstica globalmente durante lockdowns. Em alguns países: Grã-Bretanha +25%, Austrália +40%, Brasil (FBSP) +40,5%, Chipre +30%. A lógica é direta: lockdown forçou vítimas a permanecerem 24h com agressores. O Estado que ordenou o confinamento simultâneamente criou condições para escalada da violência doméstica — e não restruturou serviços de proteção para absorver o aumento previsto.</div>
+      <div class="pandemic-milgram">⚡ MILGRAM + ESTADO: O Estado aplicou ordens (lockdown) sem considerar o sofrimento de terceiros (vítimas de violência doméstica). Burocratas seguiram "o protocolo epidemiológico" ignorando o protocolo de proteção humana — estado agêntico institucional em sua forma mais pura.</div>
+    </div>
+
+    <div class="pandemic-item">
+      <div class="pandemic-header">
+        <span class="pandemic-country">🇺🇸 EUA</span>
+        <span class="pandemic-event">Passaportes Vacinais e Exclusão Social — 2021</span>
+        <span class="tag amber">Alto</span>
+      </div>
+      <div class="pandemic-body">Vários estados e cidades americanas, além de empresas privadas, implementaram sistemas de exclusão baseados em status vacinal. Funcionários foram demitidos. Crianças foram proibidas de frequentar escolas. A segregação por status médico criou uma nova categoria de cidadãos de segunda classe — independente dos debates científicos sobre a política, a estrutura social de segregação e exclusão foi executada por funcionários, empresas e cidadãos comuns que "seguiam as diretrizes".</div>
+      <div class="pandemic-milgram">⚡ MILGRAM: Cidadãos comuns aplicaram exclusão social a vizinhos, colegas e familiares por instrução de autoridades governamentais e corporativas. O "choque elétrico" aqui era a perda de emprego, educação e participação social.</div>
+    </div>
+
+    <div class="section-heading">O Paradoxo Central da Pandemia</div>
+    <div class="grid-2">
+      <div class="card accent-amber">
+        <div class="card-title">Obediência como Virtude Moral — A Inversão Milgram</div>
+        <div class="card-body">
+          No experimento de Milgram, os participantes sabiam que estavam causando dor. A maioria sentia angústia. Mas obedecia.
+          <br><br>
+          Na pandemia, ocorreu algo mais sofisticado: <strong>a obediência foi enquadrada como ato moral positivo</strong> — "proteger os vulneráveis", "non sto a casa per te" (fico em casa por você). A desobediência foi enquadrada como assassinato simbólico ("você está matando avós").
+          <br><br>
+          <span class="highlight-amber">Milgram invertido: em vez de angústia ao causar dano, havia satisfação moral ao executar ordens.</span> O mecanismo psicológico é mais poderoso porque remove o atrito emocional que poderia gerar resistência.
+        </div>
+      </div>
+      <div class="card accent-blue">
+        <div class="card-title">O Estado Que Cresce no Caos Que Gerencia</div>
+        <div class="card-body">
+          A pandemia foi uma prova empírica da tese central desta análise:
+          <br><br>
+          <strong>→</strong> Orçamentos de vigilância cresceram 300% em 2020-2021<br>
+          <strong>→</strong> Tecnologias de rastreamento instaladas durante "emergência" permaneceram após<br>
+          <strong>→</strong> Poderes de emergência invocados em 2020 ainda não foram completamente revogados em vários países<br>
+          <strong>→</strong> Agências criadas para "gestão da pandemia" se tornaram permanentes<br>
+          <strong>→</strong> A narrativa de "próxima pandemia" já justifica infra-estruturas de controle antes de qualquer crise
+          <br><br>
+          <span class="highlight">O caos não foi apenas tolerado — foi instrumentalizado para expansão do poder estatal que sobreviveu ao caos original.</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== VIOLÊNCIA ==================== -->
+  <section class="section topic-section" id="violencia">
+    <div class="section-heading">Violência Estrutural — Onde Milgram Encontra o Cotidiano</div>
+
+    <div class="card accent-red" style="margin-bottom:16px">
+      <div class="card-title">A Anatomia da Impunidade Sistêmica</div>
+      <div class="card-body" style="font-size:15px">
+        O texto original documenta quatro situações concretas de impunidade: violência física, descumprimento de medida protetiva, estupro reincidente e inadimplência de pensão. Em todas, a conclusão é idêntica: "NADA ACONTECE COM ELES". Isso não é falha aleatória — é <strong>arquitetura sistêmica de impunidade com lógica psicológica, histórica e política</strong> identificável.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Johan Galtung · 1969</div>
+        <div class="card-title">Violência Estrutural</div>
+        <div class="card-body">
+          Galtung distinguiu entre violência direta (uma pessoa agredindo outra) e violência estrutural — o dano causado por estruturas sociais que impedem pessoas de atingir seu pleno potencial humano. <strong>A mulher que não recebe proteção estatal efetiva sofre violência estrutural mesmo quando não está sendo fisicamente agredida no momento.</strong>
+          <br><br>
+          A impunidade do agressor é um ato de violência estrutural cometido pelo Estado. A burocracia que não funciona mata — estatisticamente, em casos documentados.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Aplicação Milgram à Violência Doméstica</div>
+        <div class="card-title">A Cadeia de Obediência que Mata</div>
+        <div class="card-body">
+          <strong>Nível 1 — Polícia:</strong> Recebe B.O., segue "protocolo de triagem", prioriza "casos mais graves". Deslocamento: "não é minha decisão prender sem flagrante".<br><br>
+          <strong>Nível 2 — Delegado:</strong> Enquadra como "conflito doméstico", adia medida protetiva. "O sistema é assim. Não criei eu."<br><br>
+          <strong>Nível 3 — Promotoria:</strong> Pauta cheia, caso arquivado ou postergado. "Sigo as prioridades do sistema".<br><br>
+          <strong>Nível 4 — Judiciário:</strong> Concede liberdade, "presunção de inocência". "Aplico a lei".<br><br>
+          <span class="highlight">Cada elo da cadeia é um "participante Milgram" aplicando o choque seguinte. Ninguém se sente responsável. A vítima recebe 450V.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading">Dados: O Brasil Como Caso de Estudo</div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Feminicídios em 2023</div>
+        <div class="metric-value red">1.467</div>
+        <div class="metric-sub">Brasil · FBSP 2024</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Violência doméstica/h</div>
+        <div class="metric-value amber">~500</div>
+        <div class="metric-sub">casos registrados · Brasil</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Medidas protetivas descumpridas</div>
+        <div class="metric-value red">1 em 3</div>
+        <div class="metric-sub">estimativa IPEA</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pensão alimentícia inadimplente</div>
+        <div class="metric-value amber">40%</div>
+        <div class="metric-sub">dos devedores · CNJ</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">O Direito Humano que o Estado Viola ao Não Proteger</div>
+      <div class="card-body">
+        A Declaração Universal dos Direitos Humanos (1948), a Convenção de Belém do Pará (1994) e a Constituição Brasileira de 1988 estabelecem que o Estado tem <strong>obrigação positiva de proteção</strong> — não apenas o dever de não violar direitos, mas o dever ativo de protegê-los.
+        <br><br>
+        <strong>Artigo 3º da DUDH:</strong> "Todo indivíduo tem direito à vida, à liberdade e à segurança pessoal." A impunidade sistemática do agressor viola este artigo por omissão estatal deliberada.
+        <br><br>
+        <strong>Convenção de Belém do Pará:</strong> Estabelece que os Estados devem adotar políticas para prevenir, punir e erradicar a violência contra a mulher. O Brasil é signatário. O padrão documentado de impunidade configura violação de tratado internacional por ação continuada.
+        <br><br>
+        O Estado que usa Milgram como estrutura — onde cada burocrata desloca responsabilidade para o protocolo — <strong>viola direitos humanos não por um ato, mas por uma arquitetura sistêmica de omissão que produz o mesmo resultado que um ato intencional.</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HISTÓRIA ==================== -->
+  <section class="section topic-section" id="historia">
+    <div class="section-heading">Cinco Mil Anos de Evidência — Como Terminam</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Os Três Desfechos Históricos</div>
+        <div class="card-title">Como Sistemas de Gerenciamento do Caos Terminam</div>
+        <div class="timeline" style="margin-top:16px">
+          <div class="timeline-item red">
+            <div class="timeline-date">Padrão 1 — Colapso Exógeno</div>
+            <div class="timeline-title">O Caos Não Gerenciável Consome o Gerenciador</div>
+            <div class="timeline-body">Roma, URSS, Haiti. Um evento externo (invasão, peste, crise econômica) destrói o sistema antes que a população o transforme. O gerenciamento infinito eventualmente consome os recursos do próprio gerenciador.</div>
+          </div>
+          <div class="timeline-item amber">
+            <div class="timeline-date">Padrão 2 — Reforma pelo Custo</div>
+            <div class="timeline-title">A Elite Reforma para Sobreviver</div>
+            <div class="timeline-body">Inglaterra séc. XIX, Brasil pós-ditadura. O custo de manter a impunidade supera o benefício. Quando a estrutura ameaça sua própria estabilidade, reformas emergem — não por virtude moral, mas por cálculo de sobrevivência da elite.</div>
+          </div>
+          <div class="timeline-item blue">
+            <div class="timeline-date">Padrão 3 — Ruptura Revolucionária</div>
+            <div class="timeline-title">Quando o Custo de Tolerar Supera o Medo de Mudar</div>
+            <div class="timeline-body">França 1789, Irã 1979, Primavera Árabe 2011. A população atinge o ponto de não-retorno. Problema: revoluções frequentemente produzem novos Estados que gerenciam novos caos com nova roupagem ideológica.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Casos Históricos</div>
+        <div class="card-title">Cinco Civilizações — Um Padrão</div>
+        <div class="timeline" style="margin-top:16px">
+          <div class="timeline-item red">
+            <div class="timeline-date">Roma Imperial — Séc. II d.C.</div>
+            <div class="timeline-title">Panem et Circenses — Pão e Circo</div>
+            <div class="timeline-body">O Estado romano não eliminou a pobreza — a administrou com distribuições de grão e gladiadores. A gestão do caos funcionou por séculos mas criou dependência fiscal insustentável. Desfecho: Colapso exógeno (invasões bárbaras).</div>
+          </div>
+          <div class="timeline-item amber">
+            <div class="timeline-date">Feudalismo Europeu — Séc. X-XIV</div>
+            <div class="timeline-title">A Violência Como Serviço de Proteção</div>
+            <div class="timeline-body">O senhor feudal "protegia" servos da violência que frequentemente ele mesmo organizava. A Peste Negra (1347-53) destruiu a estrutura ao criar escassez de mão de obra — o caos exógeno incontrolável libertou os sobreviventes.</div>
+          </div>
+          <div class="timeline-item blue">
+            <div class="timeline-date">EUA — Guerra às Drogas · 1971–hoje</div>
+            <div class="timeline-title">A Criminalização Como Controle Social</div>
+            <div class="timeline-body">Nixon declarou "guerra às drogas" — o conselheiro Ehrlichman admitiu décadas depois que o objetivo real era criminalizar negros e hippies. 50 anos de evidência de fracasso nos objetivos declarados com sucesso extraordinário nos objetivos reais. Ainda em curso.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">URSS — 1917–1991</div>
+            <div class="timeline-title">A Escassez Como Mecanismo de Lealdade</div>
+            <div class="timeline-body">Escassez mantida artificialmente criava dependência do Estado e redes de privilégio. Quando Gorbachev reformou o sistema, descobriu que a reforma destruía as lealdades que o mantinham coeso. Colapso em 3 anos.</div>
+          </div>
+          <div class="timeline-item amber">
+            <div class="timeline-date">Brasil Colonial/Imperial — 1500–1916</div>
+            <div class="timeline-title">A Violência Doméstica Institucionalizada</div>
+            <div class="timeline-body">O "pátrio poder" romano sobreviveu no Código Civil de 1916 — legalizando ao marido poderes de "correção". A violência doméstica não era falha do sistema: era parte do sistema de controle social descentralizado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading">Viktor Frankl e a Última Liberdade</div>
+    <div class="card accent-blue">
+      <div class="card-title">O Contraponto — A Resistência Como Postura Civilizatória</div>
+      <div class="card-body" style="font-size:15px">
+        Viktor Frankl sobreviveu a quatro campos de concentração nazistas — o extremo absoluto do Estado gerenciando o sofrimento humano como política. Em <em>Em Busca de Sentido</em> (1946), ele formulou a única conclusão possível:
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">"Tudo pode ser tirado de um homem, exceto uma coisa: a última das liberdades humanas — a liberdade de escolher a própria atitude diante de qualquer conjunto de circunstâncias, de escolher o próprio caminho."</div>
+        <div class="quote-author">— Viktor Frankl, Em Busca de Sentido, 1946</div>
+      </div>
+      <div class="card-body" style="margin-top:12px; font-size:15px">
+        A "dança com o Estado" é racional como estratégia de sobrevivência individual de curto prazo. É <strong>mortífera como postura civilizatória coletiva de longo prazo</strong>. A diferença entre as duas é exatamente o que Frankl viveu: pode-se sobreviver dentro do sistema sem endossar o sistema como permanente ou legítimo.
+        <br><br>
+        A questão mais profunda que o texto original não diz: <strong>o Estado é a cristalização institucional dos valores médios da sociedade que o produz</strong>. Milgram demonstrou que a maioria obedece. Mas demonstrou também que há os 35% que não obedecem — e que a simples presença de outro dissidente no experimento reduzia a obediência de 65% para 10%.
+        <br><br>
+        <span class="highlight">A dissidência visível é contágio. O custo de dissidência estrutural diminui quando outras pessoas a praticam. Isso não é idealismo — é o mecanismo inverso de Milgram.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REFERÊNCIAS ==================== -->
+  <section class="section topic-section" id="referencias">
+    <div class="section-heading">Referências Bibliográficas e Fontes</div>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-heading" style="margin-top:0">Psicologia e Experimentos</div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">001</span><span class="fw-title">Milgram, S. (1963)</span></div>
+          <div class="fw-body"><em>Behavioral Study of Obedience</em>. Journal of Abnormal and Social Psychology, 67(4), 371–378. O artigo fundador que documentou 65% de obediência total.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">002</span><span class="fw-title">Milgram, S. (1974)</span></div>
+          <div class="fw-body"><em>Obedience to Authority: An Experimental View</em>. Harper & Row. Livro completo com todas as variações experimentais e análise do estado agêntico.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">003</span><span class="fw-title">Zimbardo, P. (2007)</span></div>
+          <div class="fw-body"><em>The Lucifer Effect: Understanding How Good People Turn Evil</em>. Random House. Expansão do Experimento de Stanford para teoria sistêmica.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">004</span><span class="fw-title">Seligman, M.E.P. (1975)</span></div>
+          <div class="fw-body"><em>Helplessness: On Depression, Development, and Death</em>. W.H. Freeman. Formulação completa do desamparo aprendido com implicações clínicas e sociais.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">005</span><span class="fw-title">Burger, J. (2009)</span></div>
+          <div class="fw-body"><em>Replicating Milgram: Would People Still Obey Today?</em> American Psychologist, 64(1), 1–11. Replicação ética confirmando resultados 46 anos depois.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">006</span><span class="fw-title">Hofling, C.K. et al. (1966)</span></div>
+          <div class="fw-body"><em>An Experimental Study in Nurse-Physician Relationships</em>. Journal of Nervous and Mental Disease. 95% das enfermeiras seguiram ordens perigosas de autoridade médica.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">007</span><span class="fw-title">Frankl, V. (1946)</span></div>
+          <div class="fw-body"><em>Ein Psychologe erlebt das Konzentrationslager</em> (trad. Em Busca de Sentido). Vozes. Experiência nos campos nazistas como fonte da logoterapia e do conceito de liberdade final.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-heading" style="margin-top:0">Teoria Política e Sociologia</div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">008</span><span class="fw-title">Arendt, H. (1963)</span></div>
+          <div class="fw-body"><em>Eichmann in Jerusalem: A Report on the Banality of Evil</em>. Viking Press. O conceito de "banalidade do mal" aplicado ao julgamento do burocrata do Holocausto.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">009</span><span class="fw-title">Olson, M. (1965)</span></div>
+          <div class="fw-body"><em>The Logic of Collective Action</em>. Harvard University Press. Por que grupos pequenos e organizados vencem grupos grandes e difusos sistematicamente.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">010</span><span class="fw-title">Michels, R. (1911)</span></div>
+          <div class="fw-body"><em>Zur Soziologie des Parteiwesens</em> (Lei de Ferro da Oligarquia). Qualquer organização tende a ser capturada por elite que serve seus próprios interesses.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">011</span><span class="fw-title">Debord, G. (1967)</span></div>
+          <div class="fw-body"><em>La Société du spectacle</em>. Buchet-Chastel. A representação do problema substitui sua solução — base teórica para analisar o debate simbólico vs. realidade material.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">012</span><span class="fw-title">Galtung, J. (1969)</span></div>
+          <div class="fw-body"><em>Violence, Peace, and Peace Research</em>. Journal of Peace Research, 6(3). Distinção entre violência direta e violência estrutural — impunidade como ato de violência estatal.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">013</span><span class="fw-title">Alexander, M. (2010)</span></div>
+          <div class="fw-body"><em>The New Jim Crow</em>. New Press. Como a Guerra às Drogas foi projetada como instrumento de controle racial — caos gerenciado documentado com admissão oficial.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">014</span><span class="fw-title">Fanon, F. (1961)</span></div>
+          <div class="fw-body"><em>Les Damnés de la Terre</em>. Maspero. O colonizado que internaliza a superioridade do colonizador policia a si mesmo — co-administração da própria submissão.</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-header"><span class="fw-num">015</span><span class="fw-title">ONU Mulheres (2020)</span></div>
+          <div class="fw-body"><em>COVID-19 and Violence Against Women</em>. UN Women Policy Brief #17. Documentação do aumento global de violência doméstica durante lockdowns com dados por país.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading">Fontes de Dados — Pandemia e Violência</div>
+    <div class="card">
+      <table class="exp-table">
+        <thead>
+          <tr><th>Fonte</th><th>Dado</th><th>Referência</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FBSP — Fórum Brasileiro de Segurança Pública</td><td>+40,5% violência doméstica no lockdown Brasil; 1.467 feminicídios em 2023</td><td>Anuário Brasileiro de Segurança Pública 2020, 2024</td></tr>
+          <tr><td>ONU Mulheres</td><td>+30% média global em chamadas de violência doméstica durante lockdowns</td><td>Policy Brief #17, Abril 2020</td></tr>
+          <tr><td>CNJ — Conselho Nacional de Justiça</td><td>~40% de inadimplência em pensão alimentícia</td><td>Relatório de Pesquisa CNJ, 2022</td></tr>
+          <tr><td>IPEA — Instituto de Pesquisa Econômica Aplicada</td><td>Estimativa de descumprimento de medidas protetivas</td><td>Nota Técnica IPEA 2021</td></tr>
+          <tr><td>University of Melbourne</td><td>Dados sobre impacto de 262 dias de lockdown em saúde mental — aumento de suicídios juvenis</td><td>Study on COVID-19 Mental Health Impact, 2021</td></tr>
+          <tr><td>Johns Hopkins / Our World in Data</td><td>Dados de países com lockdown e duração 2020–2022</td><td>COVID-19 Dataset</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <div>Obediência &amp; Caos — Análise Psicopolítica · <span style="color:var(--accent)">Artes do Sul</span> · 2025</div>
+    <div>Conteúdo para fins analíticos e educacionais</div>
+  </footer>
+
+</div>
+
+<button type="button" id="gotop" title="Voltar ao topo" aria-label="Voltar ao topo">
+  <svg width="18" height="18" fill="none" stroke="var(--fg2)" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+(function () {
+  'use strict';
+  var PAGE_URL = 'https://gosurf.site/obediencia-e-caos';
+  var OG_IMG_URL = 'https://gosurf.site/og-obediencia-e-caos.png';
+  var PAGE_TITLE = document.title;
+
+  function navPad() {
+    var nav = document.getElementById('topic-nav');
+    return nav ? nav.offsetHeight + 10 : 72;
+  }
+
+  function scrollToId(id, pushHash) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + window.scrollY - navPad();
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    if (pushHash) history.pushState(null, '', '#' + id);
+  }
+
+  function makeShareStrip() {
+    var el = document.createElement('div');
+    el.className = 'share-strip';
+    el.setAttribute('role', 'group');
+    el.setAttribute('aria-label', 'Compartilhar esta página');
+    el.dataset.shareUrl = PAGE_URL;
+    el.dataset.shareTitle = PAGE_TITLE;
+    el.innerHTML =
+      '<span class="share-strip-label">' +
+      '<svg class="share-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 5.51l-6.82 3.98"/></svg>' +
+      'Compartilhar</span>' +
+      '<button type="button" class="share-btn" data-share="copy" title="Copiar URL da página" aria-label="Copiar link"><svg class="share-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>' +
+      '<button type="button" class="share-btn" data-share="x" title="Postar no X" aria-label="Compartilhar no X"><svg class="share-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>' +
+      '<button type="button" class="share-btn" data-share="whatsapp" title="WhatsApp" aria-label="WhatsApp"><svg class="share-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>' +
+      '<button type="button" class="share-btn" data-share="linkedin" title="LinkedIn" aria-label="LinkedIn"><svg class="share-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></button>' +
+      '<button type="button" class="share-btn share-btn-native" data-share="native" title="Compartilhar…" aria-label="Compartilhar pelo sistema"><svg class="share-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>';
+    if (!navigator.share) {
+      var nb = el.querySelector('.share-btn-native');
+      if (nb) nb.hidden = true;
+    }
+    return el;
+  }
+
+  function mountShare() {
+    var root = document.getElementById('page-share-root');
+    if (root && !root.querySelector('.share-strip')) root.appendChild(makeShareStrip());
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.share-btn[data-share]');
+    if (!btn || btn.hidden) return;
+    e.preventDefault();
+    var strip = btn.closest('.share-strip');
+    var url = (strip && strip.dataset.shareUrl) || PAGE_URL;
+    var title = (strip && strip.dataset.shareTitle) || PAGE_TITLE;
+    var kind = btn.dataset.share;
+    if (kind === 'copy') {
+      function done() {
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.classList.remove('copied');
+        }, 2000);
+      }
+      var text = PAGE_URL + '\nOG: ' + OG_IMG_URL;
+      function textareaCopy(val) {
+        var ta = document.createElement('textarea');
+        ta.value = val;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          done();
+        } catch (_) {}
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () {
+          textareaCopy(text);
+        });
+      } else {
+        textareaCopy(text);
+      }
+      return;
+    }
+    if (kind === 'native' && navigator.share) {
+      navigator.share({ title: title, text: title, url: url }).catch(function () {});
+      return;
+    }
+    if (kind === 'x') {
+      window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(url), '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (kind === 'whatsapp') {
+      window.open('https://wa.me/?text=' + encodeURIComponent(title + ' ' + url), '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (kind === 'linkedin') {
+      window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank', 'noopener,noreferrer');
+    }
+  });
+
+  var copyOgBtn = document.getElementById('copyOgImgUrl');
+  if (copyOgBtn) {
+    copyOgBtn.addEventListener('click', function () {
+      var b = copyOgBtn;
+      function flash() {
+        b.style.borderColor = 'var(--green)';
+        b.style.color = 'var(--green)';
+        setTimeout(function () {
+          b.style.borderColor = '';
+          b.style.color = '';
+        }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(OG_IMG_URL).then(flash).catch(function () {
+          var ta = document.createElement('textarea');
+          ta.value = OG_IMG_URL;
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            flash();
+          } catch (_) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta2 = document.createElement('textarea');
+        ta2.value = OG_IMG_URL;
+        document.body.appendChild(ta2);
+        ta2.select();
+        try {
+          document.execCommand('copy');
+          flash();
+        } catch (_) {}
+        document.body.removeChild(ta2);
+      }
+    });
+  }
+
+  document.querySelectorAll('#topic-nav a.nav-tab[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      if (!document.getElementById(id)) return;
+      e.preventDefault();
+      scrollToId(id, true);
+    });
+  });
+
+  window.addEventListener('hashchange', function () {
+    var h = window.location.hash.slice(1);
+    if (h && document.getElementById(h)) scrollToId(h, false);
+  });
+
+  /** Scroll-spy (uma única inicialização): destaca item do índice conforme viewport */
+  function initScrollSpy() {
+    var sections = document.querySelectorAll('.topic-section[id]');
+    var links = document.querySelectorAll('#topic-nav a.nav-tab[href^="#"]');
+    if (!sections.length || !links.length) return;
+
+    function highlight(href) {
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === href;
+        a.classList.toggle('active', on);
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }
+
+    function onScrollManual() {
+      var y = (window.scrollY || document.documentElement.scrollTop) + navPad();
+      var bestId = '';
+      sections.forEach(function (s) {
+        var t = s.getBoundingClientRect().top + window.scrollY;
+        if (t <= y + 2) bestId = s.id;
+      });
+      if (!bestId) bestId = sections[0].id;
+      highlight('#' + bestId);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(
+        function (entries) {
+          var wins = entries.filter(function (en) {
+            return en.isIntersecting && en.target.id;
+          });
+          if (!wins.length) return;
+          wins.sort(function (a, b) {
+            var ra = a.intersectionRatio;
+            var rb = b.intersectionRatio;
+            if (rb !== ra) return rb - ra;
+            return a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top;
+          });
+          highlight('#' + wins[0].target.id);
+        },
+        { rootMargin: '-38% 0px -42% 0px', threshold: [0, 0.06, 0.12, 0.22, 0.42, 0.72, 1] }
+      );
+      sections.forEach(function (s) {
+        obs.observe(s);
+      });
+    } else {
+      window.addEventListener('scroll', onScrollManual, { passive: true });
+      window.addEventListener('resize', onScrollManual);
+      onScrollManual();
+    }
+
+    var first = '#' + sections[0].id;
+    if (!window.location.hash) highlight(first);
+    else highlight(window.location.hash);
+  }
+
+  function initVoltageScale() {
+    var voltColors = [
+      '#3a9e6e','#3a9e6e','#3a9e6e','#3a9e6e',
+      '#4a8fc4','#4a8fc4','#4a8fc4','#4a8fc4',
+      '#d4a847','#d4a847','#d4a847','#d4a847','#d4a847','#d4a847','#d4a847',
+      '#c8483a','#c8483a','#c8483a','#c8483a','#c8483a',
+      '#8b0000','#8b0000','#8b0000','#8b0000','#8b0000',
+      '#4a0000','#4a0000','#4a0000','#4a0000','#4a0000'
+    ];
+    var voltLabels = [
+      '15V','30V','45V','60V',
+      '75V','90V','105V','120V',
+      '135V','150V — Fortes gritos','165V','180V','195V','210V','225V',
+      '240V','255V','270V','285V','300V — Não respondo mais',
+      '315V','330V','345V','360V','375V',
+      '390V','405V','420V','435V','450V — XXX'
+    ];
+    var voltScale = document.getElementById('voltScale');
+    if (!voltScale) return;
+    voltColors.forEach(function (c, i) {
+      var b = document.createElement('div');
+      b.className = 'volt-block';
+      b.style.background = c;
+      b.style.opacity = 0.4 + (i / voltColors.length) * 0.6;
+      b.setAttribute('data-label', voltLabels[i]);
+      b.style.height = (24 + i * 0.8) + 'px';
+      voltScale.appendChild(b);
+    });
+  }
+
+  function animateBars() {
+    setTimeout(function () {
+      document.querySelectorAll('.obe-fill').forEach(function (bar) {
+        var w = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(function () { bar.style.width = w; }, 50);
+      });
+    }, 80);
+  }
+
+  mountShare();
+  initVoltageScale();
+  animateBars();
+  initScrollSpy();
+
+  window.addEventListener('load', function () {
+    if (window.location.hash) {
+      var id = window.location.hash.slice(1);
+      if (document.getElementById(id)) scrollToId(id, false);
+    }
+  });
+
+  var gt = document.getElementById('gotop');
+  var topAnchor = document.getElementById('top');
+  if (gt && topAnchor) {
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      gt.classList.toggle('visible', y > 360);
+    }, { passive: true });
+    gt.addEventListener('click', function () {
+      topAnchor.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+})();
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

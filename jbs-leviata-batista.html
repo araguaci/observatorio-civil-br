@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Leviatã dos Batistas — JBS/J&F: Impunidade Sistêmica</title>
+<meta name="description" content="Painel investigativo: JBS/J&F nas operações anticorrupção brasileiras. Lava Jato, Greenfield, Jaburu, cargas contaminadas — o padrão sistêmico de impunidade que capitalizou um império.">
+<link rel="canonical" href="https://gosurf.site/jbs-leviata-batistas">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gosurf.site/jbs-leviata-batistas">
+<meta property="og:title" content="O Leviatã dos Batistas — JBS/J&F: Impunidade Sistêmica">
+<meta property="og:description" content="5 operações. 1 grupo. Impunidade funcional em todas. Análise dos padrões sistêmicos que transformaram crime em capital estratégico.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Observatório Civil BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;600;700;800&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg0: #080a0d;
+  --bg1: #0d1017;
+  --bg2: #111520;
+  --bg3: #161c2e;
+  --border0: #1a2035;
+  --border1: #222840;
+  --border2: #2d3655;
+  --txt0: #e2ddd4;
+  --txt1: #9fa4b4;
+  --txt2: #616880;
+  --txt3: #3a4060;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --serif: 'Source Serif 4', Georgia, serif;
+
+  /* Operação colors */
+  --lj: #e05c3a;     /* Lava Jato — laranja queimado */
+  --lj-dim: rgba(224,92,58,0.10);
+  --gf: #c44de8;     /* Greenfield — violeta */
+  --gf-dim: rgba(196,77,232,0.10);
+  --jb: #e8c23a;     /* Jaburu — âmbar */
+  --jb-dim: rgba(232,194,58,0.10);
+  --tr: #3ab4e8;     /* Tráfico logístico — azul */
+  --tr-dim: rgba(58,180,232,0.10);
+  --us: #4de896;     /* DOJ/EUA — verde */
+  --us-dim: rgba(77,232,150,0.10);
+  --bndes: #e84d6a;  /* BNDES/Campeãs — vermelho */
+  --bndes-dim: rgba(232,77,106,0.10);
+  --cf: #e87030;     /* Carne Fraca — laranja escuro */
+  --cf-dim: rgba(232,112,48,0.10);
+  --amb: #c8920a;    /* Âmbar Energia — dourado */
+  --amb-dim: rgba(200,146,10,0.10);
+
+  --red: #e05c3a;
+  --amber: #e8c23a;
+  --green: #4de896;
+  --blue: #3ab4e8;
+  --purple: #c44de8;
+  --crimson: #e84d6a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg0);
+  color: var(--txt0);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* Grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scanlines */
+body::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px);
+}
+
+.page {
+  position: relative; z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+/* ─── HEADER ─── */
+.header {
+  border-bottom: 1px solid var(--border1);
+  padding-bottom: 28px;
+  margin-bottom: 40px;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.badge-obs {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  border: 1px solid var(--crimson);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.badge-cc0 {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--txt2);
+  border: 1px solid var(--border1);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.header-date {
+  font-size: 10px;
+  color: var(--txt3);
+}
+
+.header {
+  border-bottom: 1px solid var(--border1);
+  padding-bottom: 28px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header h1 {
+  font-family: var(--sans);
+  font-size: clamp(28px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--txt0);
+  margin-bottom: 16px;
+  max-width: 900px;
+}
+
+.header h1 em {
+  font-style: normal;
+  color: var(--red);
+}
+
+.header-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--txt1);
+  font-weight: 300;
+  margin-bottom: 20px;
+  max-width: 720px;
+  margin-inline: 0;
+}
+
+.header-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.htag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: var(--bg2);
+  border: 1px solid var(--border1);
+  color: var(--txt1);
+}
+
+/* ─── KPI STRIP ─── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border0);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .kpi-strip { grid-template-columns: repeat(4, 1fr); }
+}
+
+.kpi-cell {
+  background: var(--bg1);
+  padding: 20px 16px;
+  transition: background 150ms;
+}
+
+.kpi-cell:hover { background: var(--bg2); }
+
+.kpi-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--txt2);
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-family: var(--sans);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.kpi-desc {
+  font-size: 11px;
+  color: var(--txt2);
+  line-height: 1.4;
+}
+
+.kv-red { color: var(--red); }
+.kv-amber { color: var(--amber); }
+.kv-green { color: var(--green); }
+.kv-blue { color: var(--blue); }
+.kv-purple { color: var(--purple); }
+.kv-crimson { color: var(--crimson); }
+
+/* ─── SECTION HEADER ─── */
+.sec-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border0);
+  text-align: center;
+}
+
+.sec-num {
+  font-size: 10px;
+  color: var(--txt3);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  min-width: 24px;
+}
+
+.sec-title {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--txt0);
+}
+
+.sec-title span {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+/* ─── OPERAÇÕES GRID ─── */
+.op-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border0);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .op-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.op-card {
+  background: rgba(13, 16, 23, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 200ms ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.op-card:hover { 
+  background: rgba(22, 28, 46, 0.8);
+  transform: translateY(-2px);
+}
+
+.op-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.op-lj::before { background: var(--lj); }
+.op-gf::before { background: var(--gf); }
+.op-jb::before { background: var(--jb); }
+.op-tr::before { background: var(--tr); }
+.op-us::before { background: var(--us); }
+.op-cf::before { background: var(--cf); }
+.op-amb::before { background: var(--amb); }
+
+.op-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.op-name {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--txt0);
+  line-height: 1.2;
+}
+
+.op-period {
+  font-size: 10px;
+  color: var(--txt3);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.op-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.status-impune { background: rgba(224,92,58,0.12); color: var(--red); border: 1px solid rgba(224,92,58,0.25); }
+.status-parcial { background: rgba(232,194,58,0.12); color: var(--amber); border: 1px solid rgba(232,194,58,0.25); }
+.status-ativo { background: rgba(58,180,232,0.12); color: var(--blue); border: 1px solid rgba(58,180,232,0.25); }
+.status-punido { background: rgba(77,232,150,0.12); color: var(--green); border: 1px solid rgba(77,232,150,0.25); }
+
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+.op-body {
+  font-size: 12px;
+  color: var(--txt1);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.op-body strong { color: var(--txt0); }
+
+.op-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border0);
+}
+
+.op-fact {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--txt2);
+  line-height: 1.4;
+}
+
+.op-fact-key {
+  font-weight: 600;
+  color: var(--txt1);
+  white-space: nowrap;
+  min-width: 64px;
+}
+
+.op-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  color: var(--txt2);
+  background: var(--bg3);
+  border: 1px solid var(--border0);
+}
+
+.tag-red { color: var(--red); border-color: rgba(224,92,58,0.2); background: var(--lj-dim); }
+.tag-amber { color: var(--amber); border-color: rgba(232,194,58,0.2); background: var(--jb-dim); }
+.tag-blue { color: var(--blue); border-color: rgba(58,180,232,0.2); background: var(--tr-dim); }
+.tag-green { color: var(--green); border-color: rgba(77,232,150,0.2); background: var(--us-dim); }
+.tag-purple { color: var(--purple); border-color: rgba(196,77,232,0.2); background: var(--gf-dim); }
+.tag-crimson { color: var(--crimson); border-color: rgba(232,77,106,0.2); background: var(--bndes-dim); }
+
+/* ─── MAPA MENTAL SVG ─── */
+.mindmap-section {
+  margin-bottom: 40px;
+}
+
+.mindmap-wrap {
+  background: var(--bg1);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mindmap-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ─── PADRÕES SISTÊMICOS ─── */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border0);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .pattern-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .pattern-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.pattern-card {
+  background: rgba(13, 16, 23, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 24px;
+  transition: all 200ms ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pattern-card:hover { 
+  background: rgba(22, 28, 46, 0.8);
+  transform: translateY(-2px);
+}
+
+.pattern-num {
+  font-size: 10px;
+  color: var(--txt3);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.pattern-name {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--txt0);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.pattern-vector {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+
+.pattern-desc {
+  font-size: 11px;
+  color: var(--txt1);
+  line-height: 1.55;
+}
+
+/* ─── TABELA COMPARATIVA ─── */
+.matrix-wrap {
+  background: var(--bg1);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: auto;
+  margin-bottom: 40px;
+}
+
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  min-width: 700px;
+}
+
+.matrix-table th {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--txt2);
+  background: var(--bg2);
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border1);
+  white-space: nowrap;
+}
+
+.matrix-table th:first-child { color: var(--txt0); }
+
+.matrix-table td {
+  padding: 11px 14px;
+  color: var(--txt1);
+  border-bottom: 1px solid var(--border0);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.matrix-table tr:last-child td { border-bottom: none; }
+.matrix-table tr:hover td { background: var(--bg2); }
+
+.matrix-table td:first-child {
+  font-weight: 600;
+  color: var(--txt0);
+  white-space: nowrap;
+}
+
+.dot-sim { color: var(--green); }
+.dot-nao { color: var(--red); }
+.dot-parc { color: var(--amber); }
+
+/* ─── LINHA DO TEMPO ─── */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--border1);
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -19px; top: 6px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+}
+
+.tl-item.tl-critical::before { background: var(--red); border-color: var(--red); }
+.tl-item.tl-warning::before { background: var(--amber); border-color: var(--amber); }
+.tl-item.tl-info::before { background: var(--blue); border-color: var(--blue); }
+.tl-item.tl-success::before { background: var(--green); border-color: var(--green); }
+
+.tl-date {
+  font-size: 10px;
+  color: var(--txt3);
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.tl-title {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--txt0);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.tl-body {
+  font-size: 11px;
+  color: var(--txt1);
+  line-height: 1.5;
+  max-width: 700px;
+}
+
+/* ─── ATORES ─── */
+.actors-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border0);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 640px) {
+  .actors-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .actors-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.actor-card {
+  background: rgba(13, 16, 23, 0.6);
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  transition: all 200ms ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.actor-card:hover { 
+  background: rgba(22, 28, 46, 0.8);
+}
+
+.actor-role-badge {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  margin-bottom: 5px;
+}
+
+.actor-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--txt0);
+  margin-bottom: 4px;
+}
+
+.actor-status-line {
+  font-size: 11px;
+  color: var(--txt2);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.actor-verdict {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.av-impune { color: var(--red); border: 1px solid rgba(224,92,58,0.3); background: var(--lj-dim); }
+.av-preso { color: var(--amber); border: 1px solid rgba(232,194,58,0.3); background: var(--jb-dim); }
+.av-condenado { color: #e84d6a; border: 1px solid rgba(232,77,106,0.3); background: var(--bndes-dim); }
+.av-livre { color: var(--green); border: 1px solid rgba(77,232,150,0.3); background: var(--us-dim); }
+
+/* ─── QUESTÃO NÃO FEITA ─── */
+.blind-box {
+  background: var(--bg1);
+  border: 1px solid var(--border1);
+  border-top: 3px solid var(--amber);
+  border-radius: 4px;
+  padding: 32px;
+  margin-bottom: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.blind-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+.blind-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--txt0);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.blind-body {
+  font-size: 13px;
+  color: var(--txt1);
+  line-height: 1.65;
+  max-width: 800px;
+}
+
+/* ─── REFERÊNCIAS ─── */
+.refs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border0);
+  border: 1px solid var(--border0);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 640px) {
+  .refs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .refs-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.ref-card {
+  background: rgba(13, 16, 23, 0.6);
+  backdrop-filter: blur(5px);
+  padding: 16px;
+  transition: all 200ms ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.ref-card:hover { 
+  background: rgba(22, 28, 46, 0.8);
+  transform: translateY(-1px);
+}
+
+.ref-type {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  margin-bottom: 4px;
+}
+
+.ref-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--txt0);
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.ref-src {
+  font-size: 11px;
+  color: var(--txt2);
+  margin-bottom: 6px;
+}
+
+.ref-link {
+  font-size: 10px;
+  color: var(--blue);
+  text-decoration: none;
+  font-family: var(--mono);
+  word-break: break-all;
+  transition: color 150ms;
+}
+
+.ref-link:hover { color: var(--txt0); text-decoration: underline; }
+
+/* ─── FOOTER ─── */
+.footer {
+  border-top: 1px solid var(--border0);
+  padding-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-left { max-width: 520px; }
+
+.footer-title {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt0);
+  margin-bottom: 6px;
+}
+
+.footer-body {
+  font-size: 11px;
+  color: var(--txt2);
+  line-height: 1.55;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: right;
+}
+
+.footer-nav a {
+  font-size: 11px;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.footer-nav a:hover { color: var(--txt0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .header { text-align: center; }
+  .header-meta { justify-content: center; }
+  .header-tags { justify-content: center; }
+  .header-subtitle { margin-inline: auto; }
+  .header-date { margin-left: 0; width: 100%; text-align: center; }
+  
+  .footer { flex-direction: column; align-items: center; text-align: center; }
+  .footer-nav { text-align: center; align-items: center; }
+}
+
+/* ─── CONCLUSION BOX ─── */
+.conclusion-box {
+  background: var(--bg1);
+  border: 1px solid var(--border1);
+  border-radius: 4px;
+  padding: 40px;
+  margin-bottom: 60px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.conclusion-box h3 {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txt0);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.conclusion-box p {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--txt1);
+  line-height: 1.7;
+  margin-bottom: 12px;
+  max-width: 100%;
+}
+
+.conclusion-box p:last-child { margin-bottom: 0; }
+
+.conclusion-box em { color: var(--red); font-style: normal; font-weight: 600; }
+
+/* ─── INTERACTIVE TABS ─── */
+.tab-bar {
+  display: flex;
+  gap: 1px;
+  background: var(--border0);
+  border: 1px solid var(--border0);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+
+.tab-btn {
+  background: var(--bg2);
+  border: none;
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--txt2);
+  cursor: pointer;
+  transition: background 150ms, color 150ms;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.tab-btn:hover { background: var(--bg3); color: var(--txt1); }
+.tab-btn.active { background: var(--bg1); color: var(--txt0); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.tab-container {
+  border: 1px solid var(--border0);
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+/* ─── SEVERITY RING ─── */
+.severity-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sev-fill {
+  height: 3px;
+  border-radius: 2px;
+  flex: 1;
+  background: var(--border1);
+  position: relative;
+}
+
+.sev-fill::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: 2px;
+}
+
+.sev-9::after { width: 95%; background: var(--red); }
+.sev-8::after { width: 80%; background: var(--red); }
+.sev-7::after { width: 70%; background: var(--amber); }
+.sev-6::after { width: 60%; background: var(--amber); }
+.sev-5::after { width: 50%; background: var(--blue); }
+
+.sev-num {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--txt2);
+  min-width: 16px;
+  text-align: right;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-meta">
+      <span class="badge-obs">Observatório Civil BR</span>
+      <span class="badge-cc0">CC0 1.0 — Domínio Público</span>
+      <span class="badge-cc0">Investigação</span>
+      <span class="header-date">Atualizado: Abr 2026</span>
+    </div>
+    <h1>O Leviatã dos <em>Batistas</em></h1>
+    <p class="header-subtitle">JBS/J&F — Metamorfose do Açougueiro em Estrategista de Estado. Do BNDES ao míssil da Avibras: como a impunidade sistêmica capitalizou um império.</p>
+    <div class="header-tags">
+      <span class="htag">JBS / J&F Investimentos</span>
+      <span class="htag">Joesley Batista</span>
+      <span class="htag">Wesley Batista</span>
+      <span class="htag">Operação Lava Jato</span>
+      <span class="htag">Operação Greenfield</span>
+      <span class="htag">Avibras</span>
+      <span class="htag">BNDES</span>
+      <span class="htag">Impunidade Funcional</span>
+      <span class="htag">DOJ/FCPA</span>
+    </div>
+  </header>
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip">
+    <div class="kpi-cell">
+      <div class="kpi-label">Operações Envolvidas</div>
+      <div class="kpi-value kv-red">7</div>
+      <div class="kpi-desc">Investigações formais com nexo documentado ao grupo</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Taxa de Impunidade BR</div>
+      <div class="kpi-value kv-red">100%</div>
+      <div class="kpi-desc">Nenhuma punição efetiva na jurisdição brasileira</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Multa Original</div>
+      <div class="kpi-value kv-amber">R$10,3B</div>
+      <div class="kpi-desc">Acordo de leniência 2017 — progressivamente contestado</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Multa DOJ/EUA</div>
+      <div class="kpi-value kv-green">US$256M</div>
+      <div class="kpi-desc">Único enforcement real — fora da jurisdição BR</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Aporte BNDES</div>
+      <div class="kpi-value kv-crimson">R$8B+</div>
+      <div class="kpi-desc">Capital público subsidiado — política de Campeãs Nacionais</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Políticos Delatados</div>
+      <div class="kpi-value kv-purple">1.893</div>
+      <div class="kpi-desc">Em 28 partidos — delação rescindida e renegociada</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Cargas Contaminadas</div>
+      <div class="kpi-value kv-blue">8+</div>
+      <div class="kpi-desc">Episódios documentados — cocaína em embarques JBS</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">Setor Defesa</div>
+      <div class="kpi-value kv-red">2026</div>
+      <div class="kpi-desc">Aquisição Avibras — blindagem via "segurança nacional"</div>
+    </div>
+  </div>
+
+  <!-- MAPA MENTAL -->
+  <div class="mindmap-section">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title"><span style="background:var(--amber)"></span>Mapa Mental — Arquitetura do Grupo</span>
+    </div>
+    <div class="mindmap-wrap">
+      <svg class="mindmap-svg" viewBox="0 0 1100 620" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#2d3655"/>
+          </marker>
+          <marker id="arr-red" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#e05c3a"/>
+          </marker>
+          <marker id="arr-amber" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#e8c23a"/>
+          </marker>
+          <filter id="glow-red">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background -->
+        <rect width="1100" height="620" fill="#0d1017"/>
+
+        <!-- Grid subtle lines -->
+        <g stroke="#1a2035" stroke-width="0.5" opacity="0.4">
+          <line x1="0" y1="155" x2="1100" y2="155"/>
+          <line x1="0" y1="310" x2="1100" y2="310"/>
+          <line x1="0" y1="465" x2="1100" y2="465"/>
+          <line x1="275" y1="0" x2="275" y2="620"/>
+          <line x1="550" y1="0" x2="550" y2="620"/>
+          <line x1="825" y1="0" x2="825" y2="620"/>
+        </g>
+
+        <!-- CENTER NODE — J&F/JBS -->
+        <g filter="url(#glow-red)">
+          <rect x="420" y="255" width="260" height="80" rx="2" fill="#161c2e" stroke="#e05c3a" stroke-width="1.5"/>
+        </g>
+        <text x="550" y="283" text-anchor="middle" fill="#e2ddd4" font-size="11" font-weight="600" font-family="'Syne',sans-serif" letter-spacing="0.05em">J&amp;F INVESTIMENTOS</text>
+        <text x="550" y="300" text-anchor="middle" fill="#e05c3a" font-size="14" font-weight="800" font-family="'Syne',sans-serif" letter-spacing="-0.02em">JBS S.A.</text>
+        <text x="550" y="319" text-anchor="middle" fill="#616880" font-size="9" letter-spacing="0.08em">JOESLEY &amp; WESLEY BATISTA</text>
+
+        <!-- BRANCH: BNDES/CAPITAL PÚBLICO (esquerda superior) -->
+        <line x1="420" y1="272" x2="260" y2="130" stroke="#e84d6a" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+        <rect x="70" y="88" width="190" height="64" rx="2" fill="#161c2e" stroke="#e84d6a" stroke-width="1"/>
+        <text x="165" y="108" text-anchor="middle" fill="#e84d6a" font-size="9" font-weight="600" letter-spacing="0.08em">BNDES / CAMPEÃS</text>
+        <text x="165" y="122" text-anchor="middle" fill="#9fa4b4" font-size="10" font-weight="500">R$8B+ Subsidiados</text>
+        <text x="165" y="137" text-anchor="middle" fill="#616880" font-size="9">Política PT / Petistas</text>
+
+        <!-- BRANCH: LAVA JATO (esquerda centro) -->
+        <line x1="420" y1="295" x2="265" y2="295" stroke="#e05c3a" stroke-width="1" marker-end="url(#arr-red)"/>
+        <rect x="60" y="258" width="205" height="72" rx="2" fill="#161c2e" stroke="#e05c3a" stroke-width="1"/>
+        <text x="163" y="277" text-anchor="middle" fill="#e05c3a" font-size="9" font-weight="600" letter-spacing="0.08em">OP. LAVA JATO</text>
+        <text x="163" y="291" text-anchor="middle" fill="#9fa4b4" font-size="10">1.893 políticos delatados</text>
+        <text x="163" y="305" text-anchor="middle" fill="#9fa4b4" font-size="10">Delação rescindida</text>
+        <text x="163" y="318" text-anchor="middle" fill="#616880" font-size="9">→ Novo acordo + favorável</text>
+
+        <!-- BRANCH: JABURU/TEMER (esquerda inferior) -->
+        <line x1="420" y1="318" x2="265" y2="455" stroke="#e8c23a" stroke-width="1" marker-end="url(#arr-amber)"/>
+        <rect x="60" y="418" width="205" height="72" rx="2" fill="#161c2e" stroke="#e8c23a" stroke-width="1"/>
+        <text x="163" y="437" text-anchor="middle" fill="#e8c23a" font-size="9" font-weight="600" letter-spacing="0.08em">EPISÓDIO JABURU</text>
+        <text x="163" y="451" text-anchor="middle" fill="#9fa4b4" font-size="10">Grampo de Temer (2017)</text>
+        <text x="163" y="465" text-anchor="middle" fill="#9fa4b4" font-size="10">Mala R$500K — Loures</text>
+        <text x="163" y="479" text-anchor="middle" fill="#616880" font-size="9">→ Insider trading arquivado</text>
+
+        <!-- BRANCH: GREENFIELD (direita superior) -->
+        <line x1="680" y1="272" x2="840" y2="130" stroke="#c44de8" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+        <rect x="830" y="88" width="200" height="64" rx="2" fill="#161c2e" stroke="#c44de8" stroke-width="1"/>
+        <text x="930" y="108" text-anchor="middle" fill="#c44de8" font-size="9" font-weight="600" letter-spacing="0.08em">OP. GREENFIELD</text>
+        <text x="930" y="122" text-anchor="middle" fill="#9fa4b4" font-size="10">Fundos de pensão R$8B</text>
+        <text x="930" y="137" text-anchor="middle" fill="#616880" font-size="9">Absorvido na leniência global</text>
+
+        <!-- BRANCH: DOJ/EUA (direita centro) -->
+        <line x1="680" y1="295" x2="835" y2="295" stroke="#4de896" stroke-width="1" marker-end="url(#arr)"/>
+        <rect x="835" y="258" width="205" height="72" rx="2" fill="#161c2e" stroke="#4de896" stroke-width="1"/>
+        <text x="938" y="277" text-anchor="middle" fill="#4de896" font-size="9" font-weight="600" letter-spacing="0.08em">DOJ/EUA — FCPA</text>
+        <text x="938" y="291" text-anchor="middle" fill="#9fa4b4" font-size="10">US$256M pago (2020)</text>
+        <text x="938" y="305" text-anchor="middle" fill="#9fa4b4" font-size="10">Único enforcement real</text>
+        <text x="938" y="318" text-anchor="middle" fill="#4de896" font-size="9">↗ Fora da jurisdição BR</text>
+
+        <!-- BRANCH: TRÁFICO LOGÍSTICO (direita inferior) -->
+        <line x1="680" y1="318" x2="835" y2="455" stroke="#3ab4e8" stroke-width="1" marker-end="url(#arr)"/>
+        <rect x="835" y="418" width="205" height="72" rx="2" fill="#161c2e" stroke="#3ab4e8" stroke-width="1"/>
+        <text x="938" y="437" text-anchor="middle" fill="#3ab4e8" font-size="9" font-weight="600" letter-spacing="0.08em">NEXO LOGÍSTICO</text>
+        <text x="938" y="451" text-anchor="middle" fill="#9fa4b4" font-size="10">8+ cargas contaminadas</text>
+        <text x="938" y="465" text-anchor="middle" fill="#9fa4b4" font-size="10">Cocaína / Europa</text>
+        <text x="938" y="479" text-anchor="middle" fill="#616880" font-size="9">→ Sem indiciamento corporativo</text>
+
+        <!-- BRANCH: AVIBRAS (centro superior) -->
+        <line x1="550" y1="255" x2="550" y2="142" stroke="#e8c23a" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+        <rect x="440" y="68" width="220" height="72" rx="2" fill="#161c2e" stroke="#e8c23a" stroke-width="1.5"/>
+        <text x="550" y="88" text-anchor="middle" fill="#e8c23a" font-size="9" font-weight="600" letter-spacing="0.08em">AVIBRAS — DEFESA (2026)</text>
+        <text x="550" y="102" text-anchor="middle" fill="#9fa4b4" font-size="10">MTC-300 / Astros II</text>
+        <text x="550" y="116" text-anchor="middle" fill="#9fa4b4" font-size="10">"Segurança Nacional" como escudo</text>
+        <text x="550" y="131" text-anchor="middle" fill="#e8c23a" font-size="9">→ Imunidade investigativa futura</text>
+
+        <!-- BRANCH: ÂMBAR/VENEZUELA (centro inferior) -->
+        <line x1="550" y1="335" x2="550" y2="462" stroke="#e84d6a" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+        <rect x="440" y="462" width="220" height="72" rx="2" fill="#161c2e" stroke="#e84d6a" stroke-width="1"/>
+        <text x="550" y="482" text-anchor="middle" fill="#e84d6a" font-size="9" font-weight="600" letter-spacing="0.08em">ÂMBAR ENERGIA</text>
+        <text x="550" y="496" text-anchor="middle" fill="#9fa4b4" font-size="10">Petróleo venezuelano</text>
+        <text x="550" y="510" text-anchor="middle" fill="#9fa4b4" font-size="10">Sanções OFAC — zona cinza</text>
+        <text x="550" y="525" text-anchor="middle" fill="#616880" font-size="9">→ Diplomacia paraestatal</text>
+
+        <!-- STF NODE — interseção -->
+        <rect x="450" y="546" width="200" height="44" rx="2" fill="#1a1020" stroke="#c44de8" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="550" y="563" text-anchor="middle" fill="#c44de8" font-size="9" font-weight="600" letter-spacing="0.08em">STF — TOFFOLI</text>
+        <text x="550" y="578" text-anchor="middle" fill="#616880" font-size="9">Casos em segredo de justiça</text>
+        <line x1="550" y1="546" x2="550" y2="534" stroke="#c44de8" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+        <!-- Label central line -->
+        <text x="550" y="30" text-anchor="middle" fill="#3a4060" font-size="9" letter-spacing="0.1em">MAPA DE RELAÇÕES — J&amp;F / JBS — OPERAÇÕES &amp; ATIVOS ESTRATÉGICOS</text>
+
+        <!-- Legend -->
+        <g transform="translate(20,580)">
+          <rect x="0" y="-8" width="8" height="3" fill="#e05c3a"/>
+          <text x="12" y="-2" fill="#616880" font-size="9">Investigação criminal</text>
+          <rect x="120" y="-8" width="8" height="3" fill="#4de896"/>
+          <text x="132" y="-2" fill="#616880" font-size="9">Punição real (EUA)</text>
+          <rect x="235" y="-8" width="8" height="3" fill="#e8c23a" opacity="0.6"/>
+          <text x="247" y="-2" fill="#616880" font-size="9">Ativo estratégico</text>
+          <rect x="345" y="-8" width="8" height="1" fill="#c44de8" opacity="0.6"/>
+          <line x1="345" y1="-5" x2="353" y2="-5" stroke="#c44de8" stroke-dasharray="2,1"/>
+          <text x="357" y="-2" fill="#616880" font-size="9">Blindagem judicial</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- OPERAÇÕES TABS -->
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <span class="sec-title"><span style="background:var(--red)"></span>Operações — Análise Detalhada</span>
+  </div>
+
+  <div class="tab-bar" id="opTabBar">
+    <button class="tab-btn active" onclick="switchTab('lj')">Lava Jato</button>
+    <button class="tab-btn" onclick="switchTab('gf')">Greenfield</button>
+    <button class="tab-btn" onclick="switchTab('jb')">Jaburu</button>
+    <button class="tab-btn" onclick="switchTab('tr')">Logístico</button>
+    <button class="tab-btn" onclick="switchTab('us')">DOJ / EUA</button>
+    <button class="tab-btn" onclick="switchTab('cf')">Carne Fraca</button>
+    <button class="tab-btn" onclick="switchTab('amb')">Âmbar / OFAC</button>
+  </div>
+  <div class="tab-container">
+
+    <!-- LJ -->
+    <div class="tab-panel active" id="tab-lj">
+      <div class="op-grid">
+        <div class="op-card op-lj">
+          <div class="op-header">
+            <div>
+              <div class="op-name">Operação Lava Jato</div>
+              <div class="op-period">2014 – 2021 (força-tarefa encerrada)</div>
+            </div>
+          </div>
+          <div class="op-status status-impune"><span class="status-dot"></span>Impunidade Funcional</div>
+          <div class="op-body">
+            A participação da J&F na Lava Jato é <strong>multidimensional e culmina com a rescisão do próprio acordo de delação</strong>. Em 2017, Joesley e Wesley firmaram colaboração premiada com o MPF entregando 1.893 políticos de 28 partidos — em troca de imunidade ampla e manutenção de liberdade e fortuna. O MPF rescindiu o acordo meses depois ao descobrir crimes omitidos (conta não declarada em paraíso fiscal). Joesley foi preso brevemente em setembro de 2017 e solto em menos de 3 meses. Um <strong>novo acordo foi celebrado em condições mais favoráveis</strong>. A multa de R$10,3 bilhões está sendo progressivamente contestada judicialmente.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Multa orig.</span><span>R$ 10,3 bilhões — acordada em 2017, sendo contestada</span></div>
+            <div class="op-fact"><span class="op-fact-key">Delatados</span><span>1.893 políticos, 28 partidos — de Lula a Aécio, de Temer a Serra</span></div>
+            <div class="op-fact"><span class="op-fact-key">Prisão</span><span>Joesley preso set/2017 — solto dez/2017. Total: &lt;90 dias</span></div>
+            <div class="op-fact"><span class="op-fact-key">Fundamento</span><span>Rescisão por omissão de crimes; novo acordo mais favorável firmado</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-red">Rescisão de delação</span>
+            <span class="tag tag-red">Multa contestada</span>
+            <span class="tag tag-amber">Novo acordo + favorável</span>
+            <span class="tag">R$10,3B</span>
+          </div>
+        </div>
+        <div class="op-card op-lj">
+          <div class="op-header">
+            <div><div class="op-name">Mecanismo de Impunidade</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            O padrão operacional é preciso: <strong>usar a delação como arma ofensiva</strong> contra adversários políticos e empresariais, garantindo imunidade máxima — depois renegociar as penalidades financeiras via revisão judicial até que o capital "poupado" nas multas financie novas aquisições estratégicas.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Fase 1</span><span>Delação agressiva entregando 1.893 nomes para garantir imunidade</span></div>
+            <div class="op-fact"><span class="op-fact-key">Fase 2</span><span>Rescisão do acordo → arguição de "coação" pelos investigadores</span></div>
+            <div class="op-fact"><span class="op-fact-key">Fase 3</span><span>Novo acordo + favorável; contestação judicial das multas bilionárias</span></div>
+            <div class="op-fact"><span class="op-fact-key">Fase 4</span><span>Capital "poupado" das multas → aquisições estratégicas (Avibras, Âmbar)</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-amber">Weaponização da delação</span>
+            <span class="tag tag-red">STF — segredo Toffoli</span>
+            <span class="tag">Ciclo impunidade</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GF -->
+    <div class="tab-panel" id="tab-gf">
+      <div class="op-grid">
+        <div class="op-card op-gf">
+          <div class="op-header">
+            <div>
+              <div class="op-name">Operação Greenfield</div>
+              <div class="op-period">2016 – 2017 (MPF/PF)</div>
+            </div>
+          </div>
+          <div class="op-status status-impune"><span class="status-dot"></span>Absorvido — Leniência Global</div>
+          <div class="op-body">
+            A Greenfield investigou <strong>fraudes em fundos de pensão de trabalhadores</strong> (Funcef, Petros, Previ). A J&F foi um dos emissores de debêntures fraudulentas subscritas pelos fundos — títulos sem lastro real que drenaram R$8 bilhões dos aposentados e pensionistas. O esquema foi <strong>deliberadamente absorvido dentro do acordo de leniência global</strong> da J&F com o MPF, diluindo a responsabilidade específica no pacote geral.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Dano</span><span>~R$ 8 bilhões em ativos podres nos fundos de pensão</span></div>
+            <div class="op-fact"><span class="op-fact-key">Vítimas</span><span>Funcef (Caixa), Petros (Petrobras), Previ (Banco do Brasil)</span></div>
+            <div class="op-fact"><span class="op-fact-key">Mecanismo</span><span>Debêntures fraudulentas emitidas pela J&F e subscrtias pelos fundos</span></div>
+            <div class="op-fact"><span class="op-fact-key">Desfecho</span><span>Responsabilidade diluída no acordo global de leniência R$10,3B</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-purple">Fundos de pensão</span>
+            <span class="tag tag-purple">Debêntures fraudulentas</span>
+            <span class="tag">R$8B dano</span>
+            <span class="tag tag-amber">Diluído na leniência</span>
+          </div>
+        </div>
+        <div class="op-card op-gf">
+          <div class="op-header">
+            <div><div class="op-name">Dimensão Sistêmica</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            A Greenfield expõe a <strong>simetria perversa</strong> do modelo: o mesmo BNDES que capitalizou o grupo via subsídios entregou o capital dos fundos de pensão de trabalhadores como vetor secundário do esquema. O dinheiro público irrigou a expansão nos dois sentidos — entrada e saída.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Padrão</span><span>Fundo público como vetor de enriquecimento — entrada via BNDES, saída via fundos de pensão</span></div>
+            <div class="op-fact"><span class="op-fact-key">Blindagem</span><span>Leniência global absorveu a investigação específica — sem accountability individual</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-crimson">Capital público duplo</span>
+            <span class="tag tag-purple">BNDES + fundos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JB -->
+    <div class="tab-panel" id="tab-jb">
+      <div class="op-grid">
+        <div class="op-card op-jb">
+          <div class="op-header">
+            <div>
+              <div class="op-name">Episódio Jaburu / Investigação Temer</div>
+              <div class="op-period">Março – Setembro 2017</div>
+            </div>
+          </div>
+          <div class="op-status status-impune"><span class="status-dot"></span>Impunidade Total</div>
+          <div class="op-body">
+            Em março de 2017, Joesley entrou no Palácio do Jaburu com gravador oculto e registrou conversa com Michel Temer que parecia indicar aval à compra do silêncio de Eduardo Cunha. O áudio foi usado estrategicamente para garantir condições ainda mais favoráveis na delação. Enquanto isso, <strong>Joesley se utilizou de informação privilegiada na Bolsa</strong>: vendeu dólares e comprou derivativos antes de entregar o áudio ao MPF — lucro estimado de ~R$100 milhões. O inquérito sobre insider trading foi arquivado após negociação.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Áudio</span><span>Temer gravado no Jaburu — interpretado como aval à compra de silêncio</span></div>
+            <div class="op-fact"><span class="op-fact-key">Loures</span><span>Rodrigo Rocha Loures filmado com mala de R$500K de propina da J&F</span></div>
+            <div class="op-fact"><span class="op-fact-key">Insider</span><span>Joesley lucrou ~R$100M operando no mercado antes de entregar o áudio</span></div>
+            <div class="op-fact"><span class="op-fact-key">Desfecho</span><span>Inquérito de insider trading arquivado; Temer denunciado 2x pela PGR, arquivado pela Câmara</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-amber">Grampo presidencial</span>
+            <span class="tag tag-amber">Insider trading</span>
+            <span class="tag tag-red">Arquivado</span>
+            <span class="tag">Loures / R$500K</span>
+          </div>
+        </div>
+        <div class="op-card op-jb">
+          <div class="op-header">
+            <div><div class="op-name">A Arma de Uso Duplo</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            O episódio Jaburu demonstra o padrão mais sofisticado do grupo: <strong>usar uma investigação anticorrupção como ferramenta ofensiva</strong> contra adversários políticos (Temer) enquanto simultaneamente comete novos crimes (insider trading) amparado pela imunidade negociada. O aparato investigativo do Estado foi instrumentalizado como proteção, não como ameaça.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Tática</span><span>Weaponização da operação anticorrupção — investigado usa o aparato investigativo como escudo</span></div>
+            <div class="op-fact"><span class="op-fact-key">Padrão</span><span>Ocorre simultaneamente às negociações da delação — crimes continuam durante o acordo</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-amber">Weaponização investigativa</span>
+            <span class="tag tag-red">Crime durante acordo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TR -->
+    <div class="tab-panel" id="tab-tr">
+      <div class="op-grid">
+        <div class="op-card op-tr">
+          <div class="op-header">
+            <div>
+              <div class="op-name">Nexo Logístico — Cargas Contaminadas</div>
+              <div class="op-period">2015 – presente</div>
+            </div>
+          </div>
+          <div class="op-status status-ativo"><span class="status-dot"></span>Investigações Abertas</div>
+          <div class="op-body">
+            Ao menos 8 episódios documentados entre 2015 e 2023 de <strong>apreensão de cocaína em embarques de carne JBS</strong> com destino à Europa (Bélgica, Portugal, Países Baixos). A PF e autoridades europeias investigam o nexo logístico. A JBS mantém posição de "vítima da cadeia de fornecimento". Nenhuma investigação formal no Brasil produziu indiciamento de executivos ou responsabilização corporativa.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Episódios</span><span>8+ apreensões documentadas — toneladas de cocaína em containers</span></div>
+            <div class="op-fact"><span class="op-fact-key">Rotas</span><span>Brasil → Bélgica, Portugal, Países Baixos, Rotterdam</span></div>
+            <div class="op-fact"><span class="op-fact-key">Posição JBS</span><span>"Vítima" — alega desconhecimento e "fragilidade da cadeia logística"</span></div>
+            <div class="op-fact"><span class="op-fact-key">Desfecho BR</span><span>Sem indiciamento de executivos ou responsabilização corporativa</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-blue">PCC / CV interface</span>
+            <span class="tag tag-blue">Rota Europa</span>
+            <span class="tag">Sem accountability</span>
+            <span class="tag tag-amber">Investigação aberta</span>
+          </div>
+        </div>
+        <div class="op-card op-tr">
+          <div class="op-header">
+            <div><div class="op-name">Infraestrutura Dual-Use</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            A recorrência dos episódios aponta para o padrão identificado na análise da Lava Jato: <strong>conglomerados que cresceram rápido demais tornam-se infraestrutura por onde passa o melhor e o pior</strong>. A cadeia logística JBS — 400+ plantas, portos próprios, frotas refrigeradas — é tecnicamente impossível de fiscalizar em sua totalidade. A "fragilidade" da cadeia é estrutural, não acidental.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Escala</span><span>400+ unidades industriais, presença em 15+ países, portos próprios</span></div>
+            <div class="op-fact"><span class="op-fact-key">Argumento</span><span>"Cresceu rápido demais para ser controlado" — narrativa que blinda de responsabilidade</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-blue">Infraestrutura dual-use</span>
+            <span class="tag tag-red">Fiscalização impossível</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- US -->
+    <div class="tab-panel" id="tab-us">
+      <div class="op-grid">
+        <div class="op-card op-us">
+          <div class="op-header">
+            <div>
+              <div class="op-name">DOJ / FCPA — Investigação Americana</div>
+              <div class="op-period">2018 – 2020 (acordo firmado)</div>
+            </div>
+          </div>
+          <div class="op-status status-punido"><span class="status-dot"></span>Único Enforcement Real</div>
+          <div class="op-body">
+            Em 2020, a JBS assinou <strong>acordo com o Departamento de Justiça dos EUA pagando US$256 milhões</strong> por violações do FCPA — confirmando o pagamento de propinas a agentes públicos brasileiros (confirmação independente dos crimes confessados na delação). Investigações de cartel em proteína animal seguem ativas no DOJ. O processo de IPO da JBS nos EUA (NYSE) está parcialmente travado pelo passivo regulatório ainda em aberto.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Multa</span><span>US$ 256 milhões — pago efetivamente ao DOJ em 2020</span></div>
+            <div class="op-fact"><span class="op-fact-key">Base</span><span>FCPA — corrupção de funcionários públicos estrangeiros (brasileiros)</span></div>
+            <div class="op-fact"><span class="op-fact-key">Cartel</span><span>Investigações de price-fixing em proteína animal ainda ativas</span></div>
+            <div class="op-fact"><span class="op-fact-key">IPO</span><span>Abertura de capital na NYSE travada por risk assessment regulatório</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-green">US$256M pago</span>
+            <span class="tag tag-green">FCPA enforcement</span>
+            <span class="tag tag-amber">IPO bloqueado</span>
+            <span class="tag">Cartel ativo</span>
+          </div>
+        </div>
+        <div class="op-card op-us">
+          <div class="op-header">
+            <div><div class="op-name">O Contraste Jurisdicional</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            O contraste é analiticamente devastador: <strong>nos EUA, a mesma empresa, os mesmos crimes, punição real e irrecorrível</strong>. No Brasil, 5 investigações, 0 condenações efetivas, acordos renegociados e multas contestadas. O "pragmatismo estrangeiro" não aceita a criatividade contábil e ética brasileira — o FCPA não tem ministro do STF.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">BR vs EUA</span><span>0 vs 1 — única punição real é a americana, confirmando os crimes brasileiros</span></div>
+            <div class="op-fact"><span class="op-fact-key">Ironia</span><span>O DOJ americano provou que os crimes ocorreram — o STF brasileiro anula as investigações</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-green">Jurisdição EUA funciona</span>
+            <span class="tag tag-red">Jurisdição BR falha</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF — Carne Fraca -->
+    <div class="tab-panel" id="tab-cf">
+      <div class="op-grid">
+        <div class="op-card op-cf">
+          <div class="op-header">
+            <div>
+              <div class="op-name">Operação Carne Fraca</div>
+              <div class="op-period">17 Março 2017 — PF / MAPA</div>
+            </div>
+          </div>
+          <div class="op-status status-impune"><span class="status-dot"></span>Suspensa — Vício Processual</div>
+          <div class="op-body">
+            Em 17 de março de 2017 — <strong>dois dias antes do episódio Jaburu</strong> — a PF lançou buscas e apreensões em <strong>21 plantas da JBS em 5 estados</strong>, investigando o suborno sistemático de 33 fiscais do MAPA (Ministério da Agricultura, Pecuária e Abastecimento). O esquema envolvia emissão fraudulenta de laudos sanitários, venda de carnes adulteradas com conservantes proibidos, e exportação de produtos vencidos para a Europa. Ações da JBS despencaram 9% na abertura. O STJ suspendeu a operação por "excesso de abrangência investigativa" — e a investigação foi progressivamente esvaziada sem condenação de executivos.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Data</span><span>17 mar 2017 — 2 dias antes do grampo de Temer no Jaburu</span></div>
+            <div class="op-fact"><span class="op-fact-key">Alvos</span><span>21 plantas JBS em PR, MT, MS, GO e SP — + BRF, Friboi, outros</span></div>
+            <div class="op-fact"><span class="op-fact-key">Esquema</span><span>33 fiscais do MAPA subornados; laudos fraudulentos; carne vencida e adulterada exportada</span></div>
+            <div class="op-fact"><span class="op-fact-key">Impacto</span><span>JBS -9% no pregão; embargos temporários da UE e EUA; dano reputacional global</span></div>
+            <div class="op-fact"><span class="op-fact-key">Desfecho</span><span>STJ suspendeu por "excesso"; investigação esvaziada; zero condenação de executivos JBS</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-red">STJ suspendeu operação</span>
+            <span class="tag tag-red">33 fiscais subornados</span>
+            <span class="tag tag-amber">JBS: "vítima dos fornecedores"</span>
+            <span class="tag">Impacto exportações EU/EUA</span>
+          </div>
+        </div>
+        <div class="op-card op-cf">
+          <div class="op-header">
+            <div><div class="op-name">O Timing Estratégico</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            O cronograma da Carne Fraca não é trivial. <strong>17 mar 2017</strong>: PF raida 21 plantas JBS. <strong>19 mar 2017</strong>: Joesley entra no Jaburu com gravador. <strong>Mai 2017</strong>: acordo de leniência R$10,3B firmado. A sequência sugere que a delação funcionou como <strong>desviador de escrutínio e ferramenta de extinção da investigação sanitária</strong> — ao concentrar toda a atenção institucional no episódio Temer, a Carne Fraca foi silenciosamente arquivada. A impunidade na investigação criminal financiou a imunidade na investigação sanitária.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">17 mar</span><span>Carne Fraca — 21 plantas JBS raideadas pela PF</span></div>
+            <div class="op-fact"><span class="op-fact-key">19 mar</span><span>Jaburu — Joesley grava Temer com gravador oculto</span></div>
+            <div class="op-fact"><span class="op-fact-key">Mai 2017</span><span>Leniência R$10,3B — Carne Fraca desaparece da agenda pública</span></div>
+            <div class="op-fact"><span class="op-fact-key">Padrão</span><span>Delação como operação de gestão de agenda — investigação maior absorve a menor</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-amber">Timing estratégico</span>
+            <span class="tag tag-red">Investigação abortada</span>
+            <span class="tag">Delação como escudo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMB — Âmbar Energia / OFAC -->
+    <div class="tab-panel" id="tab-amb">
+      <div class="op-grid">
+        <div class="op-card op-amb">
+          <div class="op-header">
+            <div>
+              <div class="op-name">Âmbar Energia — Zona OFAC / Venezuela</div>
+              <div class="op-period">2020 – presente</div>
+            </div>
+          </div>
+          <div class="op-status status-ativo"><span class="status-dot"></span>Monitoramento OFAC Ativo</div>
+          <div class="op-body">
+            A J&F controla a <strong>Âmbar Energia</strong>, que opera petróleo venezuelano em parceria próxima com a PDVSA — entidade sancionada pelo OFAC (Office of Foreign Assets Control) dos EUA desde 2019. O negócio situa-se numa zona cinza regulatória: tecnicamente opera sob licença geral, mas a exposição a sanções secundárias é real e crescente. A conexão com a Venezuela <strong>transforma o grupo em ator de diplomacia paraestatal</strong>, com interesses que transcendem a lógica comercial e cruzam com a política externa do governo Lula. O mesmo grupo que busca o IPO na NYSE opera negócios que poderiam inviabilizá-lo.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">Entidade</span><span>Âmbar Energia — controlada pela J&F Investimentos</span></div>
+            <div class="op-fact"><span class="op-fact-key">Parceiro</span><span>PDVSA (Venezuela) — sancionada pelo OFAC desde 2019</span></div>
+            <div class="op-fact"><span class="op-fact-key">Risco</span><span>Sanções secundárias americanas — ameaça direta ao IPO na NYSE</span></div>
+            <div class="op-fact"><span class="op-fact-key">Blindagem</span><span>Relação estratégica com governo Lula neutraliza pressão americana sobre a Âmbar</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-amber">Sanções OFAC</span>
+            <span class="tag tag-blue">PDVSA / Venezuela</span>
+            <span class="tag">IPO NYSE em risco</span>
+            <span class="tag tag-amber">Diplomacia paraestatal</span>
+          </div>
+        </div>
+        <div class="op-card op-amb">
+          <div class="op-header">
+            <div><div class="op-name">Dupla Exposição Regulatória EUA</div></div>
+          </div>
+          <div class="op-body" style="margin-top:8px">
+            A Âmbar cria uma tensão estrutural: enquanto o DOJ monitora o FCPA e o cartel de proteínas, a Âmbar expõe o grupo a sanções secundárias do OFAC. <strong>Dois órgãos americanos distintos monitoram o mesmo conglomerado por razões distintas e independentes.</strong> A geometria da exposição regulatória americana só é sustentável com proteção política no Brasil — razão pela qual a relação com os governos Temer, Bolsonaro e Lula foi cultivada como ativo estratégico imprescindível, não como oportunismo.
+          </div>
+          <div class="op-facts">
+            <div class="op-fact"><span class="op-fact-key">DOJ</span><span>FCPA (pago 2020) + cartel proteínas (investigação ativa)</span></div>
+            <div class="op-fact"><span class="op-fact-key">OFAC</span><span>Âmbar Energia / PDVSA — sanções secundárias latentes</span></div>
+            <div class="op-fact"><span class="op-fact-key">Nexo</span><span>Proteção política brasileira é a variável que neutraliza ambas as pressões americanas</span></div>
+          </div>
+          <div class="op-tags">
+            <span class="tag tag-green">DOJ + OFAC — dupla monitoração</span>
+            <span class="tag tag-red">Dependência política estrutural</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-container -->
+
+  <!-- PADRÕES SISTÊMICOS -->
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <span class="sec-title"><span style="background:var(--purple)"></span>Padrões Sistêmicos Transversais</span>
+  </div>
+  <div class="pattern-grid" style="margin-bottom:40px">
+    <div class="pattern-card">
+      <div class="pattern-num">P-01</div>
+      <div class="pattern-name">Anulação por Vício Processual / Leniência Elástica</div>
+      <div class="pattern-vector">Vetor J&F: Rescisão + Renegociação</div>
+      <div class="pattern-desc">A delação foi rescindida por "omissões" — o que gerou, paradoxalmente, um novo acordo mais favorável. As multas bilionárias estão sendo contestadas via argumento de "coação" dos investigadores. O vício processual não apenas anula: ele regera condições melhores.</div>
+      <div class="severity-bar"><div class="sev-fill sev-9"></div><span class="sev-num">9</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-02</div>
+      <div class="pattern-name">Investigador Vira Investigado</div>
+      <div class="pattern-vector">Vetor J&F: MPF arguido de coação</div>
+      <div class="pattern-desc">O MPF que rescindiu o acordo foi ele mesmo questionado por "coação" nas negociações — inversão clássica. O próprio Moro foi declarado suspeito. Os que investigaram o grupo tornaram-se alvos de ações e contestações, consumindo energia institucional.</div>
+      <div class="severity-bar"><div class="sev-fill sev-8"></div><span class="sev-num">8</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-03</div>
+      <div class="pattern-name">Captura Judicial Emergencial</div>
+      <div class="pattern-vector">Vetor J&F: Toffoli / sigilo STF</div>
+      <div class="pattern-desc">Casos relacionados ao grupo tramitam em segredo de justiça no STF sob relatoria de ministros estratégicos. A liminares monocráticas funcionam como válvulas de pressão — suspendendo execuções antes que o colegiado se manifeste.</div>
+      <div class="severity-bar"><div class="sev-fill sev-9"></div><span class="sev-num">9</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-04</div>
+      <div class="pattern-name">Weaponização Midiática</div>
+      <div class="pattern-vector">Vetor J&F: Áudio Temer — entrega seletiva</div>
+      <div class="pattern-desc">O áudio do Jaburu foi entregue ao MPF de forma controlada e estratégica, gerando cobertura máxima e pressão política para garantir condições favoráveis na delação. A narrativa foi construída por equipes jurídico-midiáticas antes da entrega formal.</div>
+      <div class="severity-bar"><div class="sev-fill sev-7"></div><span class="sev-num">7</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-05</div>
+      <div class="pattern-name">Fundo Público como Vetor</div>
+      <div class="pattern-vector">Vetor J&F: BNDES + Fundos de Pensão</div>
+      <div class="pattern-desc">Capital público entrou pelo BNDES (subsidiado) e saiu pelos fundos de pensão (debêntures fraudulentas). O Estado financiou a expansão nas duas pontas do ciclo — como sócio capitalista e como vítima involuntária dos instrumentos financeiros do grupo.</div>
+      <div class="severity-bar"><div class="sev-fill sev-9"></div><span class="sev-num">9</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-06</div>
+      <div class="pattern-name">Exploração Estratégica da Prescrição</div>
+      <div class="pattern-vector">Vetor J&F: Leniência consome o tempo</div>
+      <div class="pattern-desc">O acordo de leniência, ao durar anos em negociação, contestação e revisão, consome o prazo prescricional dos crimes subjacentes. A "punição em processo" substitui a punição efetiva — o grupo opera normalmente enquanto o acordo é "discutido".</div>
+      <div class="severity-bar"><div class="sev-fill sev-8"></div><span class="sev-num">8</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-07</div>
+      <div class="pattern-name">HC Monocrático para Elite Econômica</div>
+      <div class="pattern-vector">Vetor J&F: Gilmar Mendes → Wesley Batista (nov/2017)</div>
+      <div class="pattern-desc">Wesley Batista preso em setembro 2017 por insider trading durante o acordo de delação. Em novembro, ministro Gilmar Mendes concede habeas corpus monocrático — solto em ~60 dias. O padrão é sistêmico: replica Satiagraha (Gilmar → Daniel Dantas, solto em 48h) e o Mensalão (Gilmar → Marcos Valério). A elite econômica acessa uma válvula de escape que o sistema reserva para quem detém capital político e advogados de alto porte.</div>
+      <div class="severity-bar"><div class="sev-fill sev-8"></div><span class="sev-num">8</span></div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">P-08</div>
+      <div class="pattern-name">Infraestrutura Crítica como Escudo Definitivo</div>
+      <div class="pattern-vector">Vetor J&F: Avibras (Defesa) + Âmbar (Energia) + Portos</div>
+      <div class="pattern-desc">A aquisição da Avibras (ASTROS II, MTC-300) transforma qualquer investigação futura em "risco à segurança nacional". Combinada com a Âmbar Energia (estabilidade energética) e o controle de portos e frotas logísticas, o grupo tornou-se <em>too-big-to-investigate</em>. O crime organizado encontrou sua forma mais avançada: ser estruturalmente necessário ao próprio Estado que deveria investigá-lo.</div>
+      <div class="severity-bar"><div class="sev-fill sev-9"></div><span class="sev-num">9</span></div>
+    </div>
+  </div>
+
+  <!-- LINHA DO TEMPO -->
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <span class="sec-title"><span style="background:var(--blue)"></span>Cronologia — Metamorfose do Grupo</span>
+  </div>
+  <div class="timeline">
+    <div class="tl-item tl-info">
+      <div class="tl-date">2006 – 2012</div>
+      <div class="tl-title">Fase BNDES — Expansão Subsidiada</div>
+      <div class="tl-body">J&F recebe R$8B+ em aportes do BNDES com juros subsidiados. Adquire Swift, Pilgrim's Pride e Smithfield Foods — tornam-se o maior processador de proteína do mundo. Pagamento paralelo de propinas ao PT e ao Guido Mantega para garantir acesso ao crédito público barato, conforme confessado na delação.</div>
+    </div>
+    <div class="tl-item tl-critical">
+      <div class="tl-date">2016 – 2017</div>
+      <div class="tl-title">Operação Greenfield — Fundos de Pensão</div>
+      <div class="tl-body">MPF/PF investigam fraudes em Funcef, Petros e Previ. A J&F figura como emissora de debêntures sem lastro real subscritas pelos fundos — R$8B em ativos podres. A investigação é absorvida silenciosamente no acordo de leniência global negociado em 2017.</div>
+    </div>
+    <div class="tl-item tl-critical">
+      <div class="tl-date">Março 2017</div>
+      <div class="tl-title">Jaburu — O Grampo do Presidente</div>
+      <div class="tl-body">Joesley entra no Palácio do Jaburu com gravador. Grava Temer. Simultaneamente, opera no mercado financeiro com informação privilegiada (insider trading) — lucro estimado de R$100M. Rodrigo Rocha Loures é filmado com mala de R$500K da J&F.</div>
+    </div>
+    <div class="tl-item tl-warning">
+      <div class="tl-date">Maio 2017</div>
+      <div class="tl-title">Acordo de Leniência — R$10,3 Bilhões</div>
+      <div class="tl-body">J&F firma maior acordo de leniência da história do Brasil com o MPF. 1.893 políticos delatados. Imunidade ampla garantida. Liberdade e fortuna mantidas. O acordo é apresentado como marco do combate à corrupção — mas os Batistas saem com a empresa, os ativos e a liberdade.</div>
+    </div>
+    <div class="tl-item tl-critical">
+      <div class="tl-date">Setembro 2017</div>
+      <div class="tl-title">Rescisão da Delação — Prisão Breve</div>
+      <div class="tl-body">MPF rescinde o acordo ao descobrir crimes omitidos (conta em paraíso fiscal). Joesley preso. Solto em menos de 90 dias. Novo acordo negociado em condições ainda mais favoráveis. O processo de rescisão/renegociação torna-se template para contestação judicial das multas.</div>
+    </div>
+    <div class="tl-item tl-info">
+      <div class="tl-date">2020</div>
+      <div class="tl-title">DOJ/FCPA — US$256 Milhões</div>
+      <div class="tl-body">Único enforcement real: acordo com o Departamento de Justiça dos EUA confirmando independentemente os crimes. US$256M pagos — irrecorríveis. O pagamento confirma os fatos da delação mas não revigora as investigações brasileiras.</div>
+    </div>
+    <div class="tl-item tl-warning">
+      <div class="tl-date">2021 – 2025</div>
+      <div class="tl-title">Revisão Judicial das Multas</div>
+      <div class="tl-body">Contestações judiciais progressivas das parcelas da multa de R$10,3B. Argumento central: "coação" dos investigadores do MPF. O capital "poupado" nestas revisões é reinvestido em aquisições estratégicas. A leniência financia a expansão.</div>
+    </div>
+    <div class="tl-item tl-critical">
+      <div class="tl-date">2025 – 2026</div>
+      <div class="tl-title">Avibras — De Bifes a Mísseis</div>
+      <div class="tl-body">J&F adquire a Avibras, maior empresa de defesa do Brasil, detentora do sistema ASTROS II e do MTC-300. A "soberania nacional" torna-se o novo escudo: qualquer investigação futura esbarra em "segurança nacional". O grupo deixa de ser dono de frigoríficos — torna-se guardião da artilharia do Exército.</div>
+    </div>
+  </div>
+
+  <!-- ATORES -->
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <span class="sec-title"><span style="background:var(--crimson)"></span>Atores-Chave — Posições e Veredictos</span>
+  </div>
+  <div class="actors-grid">
+    <div class="actor-card">
+      <div class="actor-role-badge">Principal — J&F</div>
+      <div class="actor-name">Joesley Batista</div>
+      <div class="actor-status-line">Gramou Temer, delatou 1.893 políticos, fez insider trading durante o acordo, preso 90 dias. Gestão ativa do grupo.</div>
+      <span class="actor-verdict av-impune">Impunidade Funcional</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Principal — J&F</div>
+      <div class="actor-name">Wesley Batista</div>
+      <div class="actor-status-line">Co-signatário da delação. Preso brevemente em 2017 por insider trading. Manteve controle do grupo durante todo o período.</div>
+      <span class="actor-verdict av-impune">Impunidade Funcional</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Beneficiário — Político</div>
+      <div class="actor-name">Michel Temer</div>
+      <div class="actor-status-line">Gravado no Jaburu. Duas denúncias da PGR arquivadas pela Câmara. Rodrigo Rocha Loures (seu assessor) preso com mala de propina.</div>
+      <span class="actor-verdict av-livre">Livre — Denúncias Arquivadas</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Beneficiário — Político</div>
+      <div class="actor-name">Aécio Neves</div>
+      <div class="actor-status-line">Gravado pedindo R$2M a Joesley. Absolvido pelo STF em 2023. Permanece Senador sem ter cumprido pena.</div>
+      <span class="actor-verdict av-livre">Absolvido — STF 2023</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Facilitador — BNDES</div>
+      <div class="actor-name">Guido Mantega</div>
+      <div class="actor-status-line">Ex-ministro da Fazenda. Delatado como operacionalizador das propinas em contas suíças para viabilizar aportes do BNDES à J&F.</div>
+      <span class="actor-verdict av-preso">Investigado</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Blindagem — STF</div>
+      <div class="actor-name">Min. Dias Toffoli</div>
+      <div class="actor-status-line">Relator de casos J&F em segredo de justiça no STF. Anulou atos da Lava Jato contra Youssef e Palocci por conluio Moro-MP.</div>
+      <span class="actor-verdict av-livre">Ministro Ativo — STF</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Instrumento — Lobista</div>
+      <div class="actor-name">Rodrigo Rocha Loures</div>
+      <div class="actor-status-line">Assessor de Temer. Filmado nas ruas de SP com mala de R$500K da J&F. Condenado. Cumpriu pena.</div>
+      <span class="actor-verdict av-condenado">Condenado</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Beneficiário — Lula</div>
+      <div class="actor-name">Luiz Inácio Lula da Silva</div>
+      <div class="actor-status-line">Delatado pelos Batistas como receptor de centenas de milhões via contas suíças — contrapartida pelos aportes do BNDES. Condenações na Lava Jato anuladas.</div>
+      <span class="actor-verdict av-livre">Condenações Anuladas</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Blindagem — STF</div>
+      <div class="actor-name">Min. Gilmar Mendes</div>
+      <div class="actor-status-line">HC monocrático para Wesley Batista (nov/2017) — solto em ~60 dias após prisão por insider trading. Replica padrão Satiagraha (Daniel Dantas) e Mensalão (Marcos Valério). Sem declaração de impedimento em nenhum dos casos.</div>
+      <span class="actor-verdict av-livre">Ministro Ativo — STF</span>
+    </div>
+    <div class="actor-card">
+      <div class="actor-role-badge">Executivo Delator — J&F</div>
+      <div class="actor-name">Ricardo Saud</div>
+      <div class="actor-status-line">Ex-diretor executivo da J&F. Negociou diretamente com o MPF a arquitetura da delação. Gravou conversas com políticos. Co-delator com Joesley. Colaborador premiado com restrições progressivamente flexibilizadas.</div>
+      <span class="actor-verdict av-preso">Colaborador Premiado</span>
+    </div>
+  </div>
+
+  <!-- MATRIZ COMPARATIVA -->
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <span class="sec-title"><span style="background:var(--green)"></span>Matriz — JBS vs. Outras Investigações BR</span>
+  </div>
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>JBS / J&F</th>
+          <th>Odebrecht</th>
+          <th>Castelo de Areia</th>
+          <th>Satiagraha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Punição efetiva BR</td>
+          <td><span class="dot-nao">✗ Nenhuma</span></td>
+          <td><span class="dot-parc">~ Parcial</span></td>
+          <td><span class="dot-nao">✗ Anulada STJ</span></td>
+          <td><span class="dot-nao">✗ Anulada STJ/STF</span></td>
+        </tr>
+        <tr>
+          <td>Punição EUA</td>
+          <td><span class="dot-sim">✓ US$256M DOJ</span></td>
+          <td><span class="dot-sim">✓ US$2,6B DOJ</span></td>
+          <td><span class="dot-nao">—</span></td>
+          <td><span class="dot-nao">—</span></td>
+        </tr>
+        <tr>
+          <td>Capital público como vetor</td>
+          <td><span class="dot-nao">✓ BNDES + fundos</span></td>
+          <td><span class="dot-nao">✓ BNDES + BID</span></td>
+          <td><span class="dot-parc">~ Indireto</span></td>
+          <td><span class="dot-nao">✗ Privado</span></td>
+        </tr>
+        <tr>
+          <td>Anulação por vício processual</td>
+          <td><span class="dot-nao">✓ Coação MPF</span></td>
+          <td><span class="dot-nao">✓ Competência Curitiba</span></td>
+          <td><span class="dot-nao">✓ Denúncia anônima</span></td>
+          <td><span class="dot-nao">✓ Provas ilícitas</span></td>
+        </tr>
+        <tr>
+          <td>Investigador vira investigado</td>
+          <td><span class="dot-nao">✓ MPF arguido</span></td>
+          <td><span class="dot-nao">✓ Moro declarado suspeito</span></td>
+          <td><span class="dot-nao">✓ Op. Appius</span></td>
+          <td><span class="dot-nao">✓ Protógenes indiciado</span></td>
+        </tr>
+        <tr>
+          <td>Setor estratégico adquirido pós-crise</td>
+          <td><span class="dot-nao">✓ Avibras (Defesa)</span></td>
+          <td><span class="dot-nao">✗ Empresa dissolvida</span></td>
+          <td><span class="dot-parc">~ Camargo Corrêa</span></td>
+          <td><span class="dot-nao">✗ Opportunity ativo</span></td>
+        </tr>
+        <tr>
+          <td>Blindagem "segurança nacional"</td>
+          <td><span class="dot-nao">✓ Avibras / MTC-300</span></td>
+          <td><span class="dot-nao">✗</span></td>
+          <td><span class="dot-nao">✗</span></td>
+          <td><span class="dot-nao">✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUESTÃO NÃO FEITA -->
+  <div class="blind-box">
+    <div class="blind-label">⬡ A Pergunta que Não Foi Feita</div>
+    <div class="blind-title">Qual o patrimônio líquido acumulado pela J&F no período entre a assinatura da leniência (2017) e as revisões judiciais das multas (2021–2026)?</div>
+    <div class="blind-body">
+      A resposta provavelmente revelaria que o capital "poupado" com a contestação das multas financiou diretamente as aquisições estratégicas — incluindo a Avibras. A leniência não apenas blindou: ela capitalizou. O crime não foi apenas não punido; ele gerou dividendos na forma de liquidez para comprar soberania.<br><br>
+      A segunda pergunta não feita: quem são os atores por trás do movimento de 2025 que enfraqueceu a regulação de transparência para fintechs — e qual a relação desses atores com o grupo J&F e com a operação Compliance Zero / Banco Master? O elo entre o setor financeiro paralelo e o setor de defesa pode estar sendo construído em tempo real, sem investigação.
+    </div>
+  </div>
+
+  <!-- CONCLUSÃO -->
+  <div class="conclusion-box">
+    <h3>🎯 Conclusão: O Estado a Serviço do Grupo (e vice-versa)</h3>
+    <p>O que une o petróleo venezuelano, o mícron do míssil e o quilo da picanha é um fio condutor único: <em>acesso ilimitado ao decisor político</em>. Joesley Batista não é um industrial — é um operador de concessões.</p>
+    <p>Ao se infiltrar na Defesa, na Energia e nos Portos, o grupo J&F garante que nenhum governo, à direita ou à esquerda, possa governar sem consultá-los. Eles deixaram de ser favorecidos pelo Estado para se tornarem, em muitos aspectos, uma extensão dele.</p>
+    <p>A corrupção na JBS não foi um erro de percurso — foi o <em>modelo de negócio</em>. Ao grampear um presidente e financiar outro, os Batistas provaram que no Brasil o capital não tem ideologia: tem alvos. O míssil da Avibras é apenas o novo calibre de uma arma que eles já operam há décadas — a influência letal sobre o destino da nação.</p>
+    <p>No Brasil dos Batistas: <em>o crime compensa, a leniência financia e o míssil protege o balcão.</em></p>
+  </div>
+
+  <!-- REFERÊNCIAS -->
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <span class="sec-title"><span style="background:var(--blue)"></span>Referências e Fontes</span>
+  </div>
+  <div class="refs-grid">
+    <div class="ref-card">
+      <div class="ref-type">Acordo Oficial</div>
+      <div class="ref-title">DOJ — JBS FCPA Agreement (2020)</div>
+      <div class="ref-src">U.S. Department of Justice</div>
+      <a class="ref-link" href="https://www.justice.gov/opa/pr/jbs-sa-agrees-pay-over-256-million-resolve-foreign-corrupt-practices-act-investigation" target="_blank" rel="noopener">justice.gov/opa/pr/jbs-sa-agrees-pay…</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Investigação Jornalística</div>
+      <div class="ref-title">Vaza Jato — Mensagens Moro/Dallagnol</div>
+      <div class="ref-src">The Intercept Brasil</div>
+      <a class="ref-link" href="https://theintercept.com/brasil/vazajato/" target="_blank" rel="noopener">theintercept.com/brasil/vazajato/</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Decisão Judicial</div>
+      <div class="ref-title">STF — Suspeição de Moro (2021)</div>
+      <div class="ref-src">Supremo Tribunal Federal — 2ª Turma</div>
+      <a class="ref-link" href="https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=467061" target="_blank" rel="noopener">portal.stf.jus.br/noticias/…</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Acordo de Leniência</div>
+      <div class="ref-title">Acordo J&F / MPF — R$10,3 Bilhões</div>
+      <div class="ref-src">Ministério Público Federal</div>
+      <a class="ref-link" href="https://www.mpf.mp.br/pgr/noticias-pgr/jbs-e-o-maior-acordo-de-leniencia-do-brasil" target="_blank" rel="noopener">mpf.mp.br/pgr/noticias-pgr/jbs-e-o-maior…</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Investigação Jornalística</div>
+      <div class="ref-title">Operação Greenfield — Fundos de Pensão</div>
+      <div class="ref-src">Agência Pública / Folha de S.Paulo</div>
+      <a class="ref-link" href="https://agenciapublica.org.br/investigacao/greenfield/" target="_blank" rel="noopener">agenciapublica.org.br/investigacao/greenfield/</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Livro / Referência</div>
+      <div class="ref-title">Rubens Valente — "Os Porões da Delação"</div>
+      <div class="ref-src">Companhia das Letras, 2019</div>
+      <a class="ref-link" href="https://www.companhiadasletras.com.br/detalhe/10135/os-poroes-da-delacao" target="_blank" rel="noopener">companhiadasletras.com.br/detalhe/10135/…</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Regulatório</div>
+      <div class="ref-title">CVM — Insider Trading JBS (Inquérito)</div>
+      <div class="ref-src">Comissão de Valores Mobiliários</div>
+      <a class="ref-link" href="https://www.cvm.gov.br/noticias/arquivos/2017/20171003-1.html" target="_blank" rel="noopener">cvm.gov.br/noticias/arquivos/2017/…</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Investigação</div>
+      <div class="ref-title">Avibras — Aquisição J&F (2026)</div>
+      <div class="ref-src">Correio Braziliense / Defesa.net</div>
+      <a class="ref-link" href="https://www.defesa.net/noticias/avibras" target="_blank" rel="noopener">defesa.net/noticias/avibras</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">BNDES</div>
+      <div class="ref-title">Relatório de Participações — BNDESPAR / JBS</div>
+      <div class="ref-src">BNDES — Banco Nacional de Desenvolvimento</div>
+      <a class="ref-link" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/participacoes-acionarias" target="_blank" rel="noopener">bndes.gov.br/transparencia/participacoes…</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Investigação Internacional</div>
+      <div class="ref-title">Cargas Contaminadas — Europol / PF</div>
+      <div class="ref-src">Europol Press Releases / Polícia Federal BR</div>
+      <a class="ref-link" href="https://www.europol.europa.eu/newsroom/news/drug-trafficking" target="_blank" rel="noopener">europol.europa.eu/newsroom/news/drug-trafficking</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Painel Relacionado</div>
+      <div class="ref-title">Paralelos — 4 Operações Anticorrupção BR</div>
+      <div class="ref-src">Observatório Civil BR / lawfare-timeline</div>
+      <a class="ref-link" href="https://gosurf.site/paralelos" target="_blank" rel="noopener">/paralelos</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-type">Painel Relacionado</div>
+      <div class="ref-title">Banco Master / Compliance Zero</div>
+      <div class="ref-src">Observatório Civil BR / lawfare-timeline</div>
+      <a class="ref-link" href="https://gosurf.site/banco-master-compliance-zero" target="_blank" rel="noopener">/banco-master…</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <div class="footer-title">Observatório Civil BR — Série Investigativa</div>
+      <div class="footer-body">
+        Este painel é produzido como obra de domínio público (CC0 1.0 Universal). Todos os dados são de fontes primárias públicas: decisões judiciais, acordos de leniência, acordos DOJ, investigações parlamentares e jornalismo investigativo referenciado. Nenhuma informação é produzida por IA sem verificação de fonte.
+        <br><br>
+        <span style="color: var(--txt3)">lawfare-timeline.vercel.app — Série Operações Anticorrupção Brasil</span>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <a href="https://gosurf.site/paralelos">← Paralelos — 4 Operações</a>
+      <a href="https://gosurf.site/banco-master-compliance-zero">Banco Master / Compliance Zero →</a>
+      <a href="https://gosurf.site/operacao-lava-jato">Lava Jato — Análise Completa →</a>
+      <a href="https://gosurf.site/gilmar-mendes-em-fatos">Gilmar Mendes — HC Padrão Sistêmico →</a>
+      <a href="https://lawfare-timeline.vercel.app">lawfare-timeline.vercel.app ↗</a>
+      <a href="https://observatorio-civil-br.vercel.app">observatorio-civil-br.vercel.app ↗</a>
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  const map = {lj:0,gf:1,jb:2,tr:3,us:4,cf:5,amb:6};
+  btns[map[id]].classList.add('active');
+}
+
+// Animate KPI values on load
+document.addEventListener('DOMContentLoaded', () => {
+  const kpis = document.querySelectorAll('.kpi-value');
+  kpis.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(8px)';
+    setTimeout(() => {
+      el.style.transition = 'opacity 400ms ease, transform 400ms ease';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 100 + i * 60);
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

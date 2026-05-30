@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossiê Biomm · Insider, Conflito e Poder · Mai/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0c0a;
+    --ink2: #1e1d1b;
+    --ink3: #2e2d2b;
+    --muted: #6b6760;
+    --muted2: #9a9590;
+    --paper: #f7f4ef;
+    --paper2: #ede9e3;
+    --paper3: #e3dfd8;
+    --red: #b83025;
+    --red-d: #8c2019;
+    --red-pale: #faf0ee;
+    --amber: #a85a0a;
+    --amber-pale: #fdf5ec;
+    --green: #1a5e35;
+    --green-pale: #edf7f1;
+    --blue: #174274;
+    --blue-pale: #edf2fa;
+    --gold: #8a7028;
+    --gold-pale: #faf6ec;
+    --border: rgba(13,12,10,0.10);
+    --border2: rgba(13,12,10,0.18);
+    --border3: rgba(13,12,10,0.28);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* ─── NOISE GRAIN ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: .6;
+  }
+
+  /* ─── LAYOUT ─── */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ─── MASTHEAD ─── */
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding: 3rem 0 2rem;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::after {
+    content: 'DOSSIÊ';
+    position: absolute;
+    right: -1rem;
+    top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 7rem;
+    color: var(--paper2);
+    letter-spacing: -.04em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .masthead-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .masthead-kicker::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--red);
+  }
+  .masthead-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.08;
+    color: var(--ink);
+    margin-bottom: .75rem;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+  .masthead-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+  .masthead-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .meta-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 4px 10px;
+    border: .5px solid var(--border3);
+    border-radius: 2px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--paper);
+  }
+  .meta-pill.alert { border-color: var(--red); color: var(--red); background: var(--red-pale); }
+
+  /* ─── NAV TABS (sticky + scrollspy) ─── */
+  .nav-tabs {
+    display: flex;
+    border-bottom: 1.5px solid var(--border3);
+    margin: 0 -1rem 2.5rem;
+    padding: 0 1rem;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    padding-top: .6rem;
+    padding-bottom: 0;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(13,12,10,0.06), 0 8px 24px rgba(13,12,10,0.04);
+  }
+  .nav-tabs::-webkit-scrollbar { height: 4px; }
+  .nav-tabs::-webkit-scrollbar-thumb {
+    background: var(--border3);
+    border-radius: 4px;
+  }
+  .nav-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .65rem .85rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color .2s, border-color .2s, background .2s;
+    text-decoration: none;
+    display: block;
+    margin-bottom: -1.5px;
+    border-radius: 4px 4px 0 0;
+  }
+  .nav-tab:hover { color: var(--ink); background: rgba(13,12,10,0.04); }
+  .nav-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--red);
+    font-weight: 600;
+    background: linear-gradient(to top, rgba(184,48,37,0.08), transparent);
+  }
+
+  /* ─── RELACIONADOS (3×2) ─── */
+  .related-wrap {
+    margin: 3rem 0 2.5rem;
+    padding: 1.25rem 0 0;
+    border-top: 1.5px solid var(--border3);
+  }
+  .related-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 92px;
+    padding: 12px 14px;
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    background: linear-gradient(145deg, var(--paper) 0%, var(--paper2) 100%);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s, box-shadow .25s, transform .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .related-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px 80px at 0% 100%, rgba(184,48,37,0.07), transparent 60%);
+    pointer-events: none;
+  }
+  .related-card:hover {
+    border-color: var(--border3);
+    box-shadow: 0 6px 22px rgba(13,12,10,0.09);
+    transform: translateY(-2px);
+  }
+  .related-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink);
+    position: relative;
+    z-index: 1;
+  }
+  .related-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── GO TOP ─── */
+  .go-top {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 300;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border3);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 18px rgba(13,12,10,0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity .25s, transform .25s, visibility .25s, border-color .2s, background .2s;
+  }
+  .go-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .go-top:hover {
+    border-color: var(--red);
+    background: var(--red-pale);
+  }
+  .go-top:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+  }
+  .go-top svg { width: 20px; height: 20px; }
+
+  /* ─── STATS BAND ─── */
+  .stats-band {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1.5px solid var(--ink);
+    margin-bottom: 3rem;
+  }
+  .stat-cell {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--border3);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num.red { color: var(--red); }
+  .stat-num.amber { color: var(--amber); }
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-hdr {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 3rem 0 1.5rem;
+    padding-bottom: .5rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: .1em;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .section-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-left: auto;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .badge-novo { background: var(--blue-pale); color: var(--blue); border: .5px solid rgba(23,66,116,.2); }
+  .badge-resolvido { background: var(--green-pale); color: var(--green); border: .5px solid rgba(26,94,53,.2); }
+  .badge-aberto { background: var(--red-pale); color: var(--red); border: .5px solid rgba(184,48,37,.2); }
+  .badge-parcial { background: var(--amber-pale); color: var(--amber); border: .5px solid rgba(168,90,10,.2); }
+
+  /* ─── TIMELINE ─── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 12px;
+    bottom: 12px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border3) 5%, var(--border3) 95%, transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.75rem;
+    animation: fadeUp .4s ease both;
+  }
+  .tl-item:nth-child(1)  { animation-delay: .05s; }
+  .tl-item:nth-child(2)  { animation-delay: .10s; }
+  .tl-item:nth-child(3)  { animation-delay: .15s; }
+  .tl-item:nth-child(4)  { animation-delay: .20s; }
+  .tl-item:nth-child(5)  { animation-delay: .25s; }
+  .tl-item:nth-child(6)  { animation-delay: .30s; }
+  .tl-item:nth-child(7)  { animation-delay: .35s; }
+  .tl-item:nth-child(8)  { animation-delay: .40s; }
+  .tl-item:nth-child(9)  { animation-delay: .45s; }
+  .tl-item:nth-child(10) { animation-delay: .50s; }
+  .tl-item:nth-child(11) { animation-delay: .55s; }
+  .tl-item:nth-child(12) { animation-delay: .60s; }
+  .tl-item:nth-child(13) { animation-delay: .65s; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(8px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  .tl-marker {
+    position: absolute;
+    left: -2rem;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border3);
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tl-marker.critical { border-color: var(--red); background: var(--red); }
+  .tl-marker.critical::after { content:''; display:block; width:4px; height:4px; border-radius:50%; background:#fff; }
+  .tl-marker.warning  { border-color: var(--amber); }
+  .tl-marker.info     { border-color: var(--blue); background: var(--blue); }
+  .tl-marker.info::after { content:''; display:block; width:4px; height:4px; border-radius:50%; background:#fff; }
+  .tl-marker.neutral  { border-color: var(--muted); }
+  .tl-marker.success  { border-color: var(--green); }
+
+  .tl-card {
+    background: var(--paper);
+    border: .5px solid var(--border2);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .tl-card:hover { border-color: var(--border3); box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+  .tl-card.critical { border-left: 3px solid var(--red); background: var(--red-pale); }
+  .tl-card.warning  { border-left: 3px solid var(--amber); background: var(--amber-pale); }
+  .tl-card.info     { border-left: 3px solid var(--blue); background: var(--blue-pale); }
+
+  .tl-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: .06em;
+    margin-bottom: 4px;
+  }
+  .tl-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  .tl-card-body {
+    font-size: 13px;
+    color: var(--ink3);
+    line-height: 1.6;
+  }
+  .tl-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-top: 8px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .tag-red    { background: var(--red-pale); color: var(--red); border: .5px solid rgba(184,48,37,.2); }
+  .tag-amber  { background: var(--amber-pale); color: var(--amber); border: .5px solid rgba(168,90,10,.2); }
+  .tag-blue   { background: var(--blue-pale); color: var(--blue); border: .5px solid rgba(23,66,116,.2); }
+  .tag-green  { background: var(--green-pale); color: var(--green); border: .5px solid rgba(26,94,53,.2); }
+  .tag-gray   { background: var(--paper2); color: var(--muted); border: .5px solid var(--border2); }
+
+  /* ─── VOLUME CHART ─── */
+  .chart-wrap { margin: 1.5rem 0; }
+  .chart-row  { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .chart-lbl  {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    width: 75px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .chart-track {
+    flex: 1;
+    background: var(--paper3);
+    border-radius: 2px;
+    height: 22px;
+    overflow: hidden;
+  }
+  .chart-fill {
+    height: 100%;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: white;
+    font-weight: 500;
+    transition: width 1.4s cubic-bezier(.16,1,.3,1);
+  }
+  .fill-red   { background: var(--red); }
+  .fill-amber { background: var(--amber); }
+  .fill-blue  { background: var(--blue); }
+  .fill-gray  { background: var(--muted); }
+  .chart-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted2);
+    margin-top: 4px;
+    letter-spacing: .04em;
+  }
+
+  /* ─── MATRIX GRID ─── */
+  .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 1rem 0; }
+  .matrix-cell {
+    background: var(--paper2);
+    border: .5px solid var(--border2);
+    border-radius: 4px;
+    padding: 1rem 1.1rem;
+  }
+  .matrix-cell-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .matrix-cell-body { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .dot-red   { width:7px; height:7px; border-radius:50%; background:var(--red);   flex-shrink:0; }
+  .dot-amber { width:7px; height:7px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+  .dot-blue  { width:7px; height:7px; border-radius:50%; background:var(--blue);  flex-shrink:0; }
+  .dot-green { width:7px; height:7px; border-radius:50%; background:var(--green); flex-shrink:0; }
+  .dot-gray  { width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; }
+
+  /* ─── LEGAL GRID ─── */
+  .legal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1rem 0; }
+  .legal-cell {
+    border: .5px solid var(--border2);
+    border-radius: 4px;
+    padding: 1rem;
+    background: var(--paper2);
+  }
+  .legal-law {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+  }
+  .legal-desc { font-size: 12px; color: var(--ink3); line-height: 1.55; }
+
+  /* ─── LACUNAS ─── */
+  .lacuna-card {
+    border: .5px solid var(--border2);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .lacuna-card:hover { box-shadow: 0 3px 16px rgba(0,0,0,.07); }
+  .lacuna-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: .5px solid var(--border);
+    cursor: pointer;
+  }
+  .lacuna-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .li-red   { background:var(--red-pale);   color:var(--red); }
+  .li-amber { background:var(--amber-pale); color:var(--amber); }
+  .li-green { background:var(--green-pale); color:var(--green); }
+  .li-blue  { background:var(--blue-pale);  color:var(--blue); }
+  .lacuna-label { flex: 1; }
+  .lacuna-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .lacuna-status-txt {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .ls-open    { color: var(--red); }
+  .ls-partial { color: var(--amber); }
+  .ls-closed  { color: var(--green); }
+  .ls-new     { color: var(--blue); }
+  .lacuna-chevron {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform .2s;
+  }
+  .lacuna-body-wrap {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--ink3);
+    line-height: 1.65;
+    display: none;
+  }
+  .lacuna-body-wrap.open { display: block; }
+  .lacuna-card.open .lacuna-chevron { transform: rotate(180deg); }
+
+  .finding {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .f-red    { background:var(--red-pale);   border-left:2px solid var(--red); }
+  .f-amber  { background:var(--amber-pale); border-left:2px solid var(--amber); }
+  .f-green  { background:var(--green-pale); border-left:2px solid var(--green); }
+  .f-blue   { background:var(--blue-pale);  border-left:2px solid var(--blue); }
+  .f-gray   { background:var(--paper2);     border-left:2px solid var(--muted); }
+  .f-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  /* ─── PENDENTES ─── */
+  .pending-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 1rem 0; }
+  .pending-card {
+    border: .5px solid var(--border2);
+    border-radius: 5px;
+    padding: 1rem 1.1rem;
+    background: var(--paper2);
+    position: relative;
+    overflow: hidden;
+  }
+  .pending-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+  }
+  .pc-red::before    { background: var(--red); }
+  .pc-amber::before  { background: var(--amber); }
+  .pc-blue::before   { background: var(--blue); }
+  .pc-gold::before   { background: var(--gold); }
+  .pending-card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted2);
+    margin-bottom: 5px;
+    letter-spacing: .06em;
+  }
+  .pending-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .pending-card-body { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .pending-card-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink3);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: .5px solid var(--border);
+    line-height: 1.5;
+  }
+  .priority-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-top: 8px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .pb-p1 { background: var(--red-pale); color: var(--red); border: .5px solid rgba(184,48,37,.2); }
+  .pb-p2 { background: var(--amber-pale); color: var(--amber); border: .5px solid rgba(168,90,10,.2); }
+  .pb-p3 { background: var(--blue-pale); color: var(--blue); border: .5px solid rgba(23,66,116,.2); }
+
+  /* ─── STATUS MAP ─── */
+  .status-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 12px; }
+  .status-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1.5px solid var(--border3);
+    background: var(--paper2);
+  }
+  .status-table td {
+    padding: 10px;
+    border-bottom: .5px solid var(--border);
+    color: var(--ink3);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+  .status-table tr:hover td { background: var(--paper2); }
+  .st-body { font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .st-detail { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .status-pill {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .sp-red    { background:var(--red-pale);   color:var(--red);   border:.5px solid rgba(184,48,37,.2); }
+  .sp-amber  { background:var(--amber-pale); color:var(--amber); border:.5px solid rgba(168,90,10,.2); }
+  .sp-green  { background:var(--green-pale); color:var(--green); border:.5px solid rgba(26,94,53,.2); }
+  .sp-blue   { background:var(--blue-pale);  color:var(--blue);  border:.5px solid rgba(23,66,116,.2); }
+  .sp-gray   { background:var(--paper2);     color:var(--muted); border:.5px solid var(--border2); }
+
+  /* ─── CALLOUT / VERDICT ─── */
+  .callout {
+    border: .5px solid var(--border2);
+    border-radius: 4px;
+    padding: 1.1rem 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .callout.red    { background:var(--red-pale);   border-left: 3px solid var(--red); }
+  .callout.amber  { background:var(--amber-pale); border-left: 3px solid var(--amber); }
+  .callout.blue   { background:var(--blue-pale);  border-left: 3px solid var(--blue); }
+  .callout-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    font-weight: 500;
+  }
+  .callout.red   .callout-title { color: var(--red); }
+  .callout.amber .callout-title { color: var(--amber); }
+  .callout.blue  .callout-title { color: var(--blue); }
+  .callout-body { font-size: 13px; color: var(--ink3); line-height: 1.65; }
+
+  .verdict {
+    background: var(--ink);
+    color: white;
+    border-radius: 6px;
+    padding: 1.75rem 2rem;
+    margin: 2.5rem 0;
+  }
+  .verdict-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 10px;
+  }
+  .verdict-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f5f1eb;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .verdict-body {
+    font-size: 13px;
+    color: rgba(245,241,235,.8);
+    line-height: 1.75;
+  }
+  .verdict-footer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,.35);
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: .5px solid rgba(255,255,255,.12);
+    letter-spacing: .05em;
+    line-height: 1.7;
+  }
+
+  /* ─── SOURCES ─── */
+  .sources {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1.5px solid var(--border3);
+  }
+  .sources-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .source-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .source-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    line-height: 1.5;
+  }
+  .source-item::before { content: '→'; flex-shrink: 0; }
+  .source-item a { color: var(--blue); text-decoration: none; }
+  .source-item a:hover { text-decoration: underline; }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: .5px; background: var(--border2); margin: 2rem 0; }
+  .divider-thick { height: 1.5px; background: var(--border3); margin: 2.5rem 0; }
+
+  /* ─── PRINT / RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .stats-band { grid-template-columns: 1fr 1fr; }
+    .stat-cell:nth-child(2) { border-right: none; }
+    .stat-cell:nth-child(3) { border-top: 1px solid var(--border3); }
+    .matrix, .pending-grid { grid-template-columns: 1fr; }
+    .legal-grid { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .masthead::after { display: none; }
+    .go-top { right: .75rem; bottom: .75rem; width: 42px; height: 42px; }
+  }
+  @media print {
+    .nav-tabs { position: static; backdrop-filter: none; box-shadow: none; }
+    .go-top { display: none !important; }
+    .lacuna-body-wrap { display: block !important; }
+    body::before { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ MASTHEAD ══ -->
+  <header class="masthead" id="top">
+    <div class="masthead-kicker">Investigação · Conflito de Interesses · Mercado de Capitais</div>
+    <h1 class="masthead-title">A Operação Biomm:<br>Insider, Conflito e Poder</h1>
+    <p class="masthead-sub">Como o presidente do IBGE se tornou conselheiro remunerado da maior farmacêutica dependente do Estado — e o que as 1.780 operações de venda de ações revelam.</p>
+    <div class="masthead-meta">
+      <span class="meta-pill">Atualizado: Mai/2026</span>
+      <span class="meta-pill">Fontes: CVM · NeoFeed · TCU · MPTCU · Poder360</span>
+      <span class="meta-pill alert">⚠ 27 operações em período vedado confirmadas</span>
+      <span class="meta-pill alert">⚠ MPTCU pediu afastamento de Pochmann · Mar/2026</span>
+    </div>
+  </header>
+
+  <!-- ══ NAV ══ -->
+  <nav class="nav-tabs" aria-label="Seções do dossiê">
+    <a href="#stats" class="nav-tab active">Dados</a>
+    <a href="#timeline" class="nav-tab">Tempo</a>
+    <a href="#conflito" class="nav-tab">Conflito</a>
+    <a href="#lacunas" class="nav-tab">Lacunas</a>
+    <a href="#pendentes" class="nav-tab">Abertos</a>
+    <a href="#status" class="nav-tab">Risco</a>
+    <a href="#veredicto" class="nav-tab">Síntese</a>
+  </nav>
+
+  <!-- ══ STATS BAND ══ -->
+  <section id="stats">
+    <div class="stats-band">
+      <div class="stat-cell">
+        <div class="stat-num red">1.780</div>
+        <div class="stat-label">Operações pelo conselho<br>Abr/2024 → Nov/2025</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num red">R$68,9M</div>
+        <div class="stat-label">Volume total negociado<br>Fonte: CVM / NeoFeed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num amber">27</div>
+        <div class="stat-label">Operações em período<br>vedado — RCVM 44</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num amber">+231%</div>
+        <div class="stat-label">Volume vs. 2023 inteiro<br>(ano anterior ao Master)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TIMELINE ══ -->
+  <section id="timeline">
+    <div class="section-hdr">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Linha do Tempo da Operação</h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-marker neutral"></div>
+        <div class="tl-card">
+          <div class="tl-date">2001</div>
+          <div class="tl-card-title">Fundação da Biomm — cisão da Biobrás</div>
+          <div class="tl-card-body">Fundada por Walfrido Mares Guia — futuro ministro de Lula. Listada na B3 desde 2014. Opera com prejuízo por mais de dez anos consecutivos.</div>
+          <span class="tl-tag tag-gray">Contexto histórico</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker neutral"></div>
+        <div class="tl-card">
+          <div class="tl-date">2013 / 2017</div>
+          <div class="tl-card-title">Primeiras PDPs com Fiocruz e FUNED</div>
+          <div class="tl-card-body">Biomm firma Parcerias de Desenvolvimento Produtivo com laboratórios públicos para produção de insulina — base jurídica dos contratos futuros com o SUS.</div>
+          <span class="tl-tag tag-gray">Pré-Lula III</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker info"></div>
+        <div class="tl-card info">
+          <div class="tl-date">Agosto 2023</div>
+          <div class="tl-card-title">Pochmann nomeado presidente do IBGE</div>
+          <div class="tl-card-body">Ex-presidente do Instituto Lula e da Fundação Perseu Abramo (think tank do PT) assume o órgão responsável por todas as estatísticas oficiais da economia brasileira.</div>
+          <span class="tl-tag tag-blue">Início do nexo institucional</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker info"></div>
+        <div class="tl-card info">
+          <div class="tl-date">Fevereiro 2024</div>
+          <div class="tl-card-title">Banco Master entra na Biomm via Fundo Cartago / WNT Capital</div>
+          <div class="tl-card-body">Vorcaro torna-se maior acionista individual com 25,86% via Fundo Cartago (gerido inicialmente pela WNT Capital). Volume de negociação da ação começa a disparar imediatamente. WNT e Trustee são posteriormente citadas nas Operações Compliance Zero e Carbono Oculto.</div>
+          <span class="tl-tag tag-blue">Gatilho da operação</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker critical"></div>
+        <div class="tl-card critical">
+          <div class="tl-date">Abril 2024 — Evento duplo</div>
+          <div class="tl-card-title">Inauguração Lula + Pochmann entra no Conselho da Biomm</div>
+          <div class="tl-card-body">26/abr: Lula inaugura planta de Nova Lima (MG) ao lado de Mares Guia e outros acionistas. Vorcaro ausente — estava em Londres. No mesmo mês: Pochmann é eleito para o Conselho de Administração da Biomm, com remuneração e poder de voto. Mesma chapa elege Pedro Mesquita (WNT/Exa Capital) e Laura Gomes Castanheira. O conselho passa a acumular contratos do Estado ao mesmo tempo em que o presidente do IBGE tem assento e voto nas decisões corporativas.</div>
+          <span class="tl-tag tag-red">Ponto crítico — conflito de interesses</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker critical"></div>
+        <div class="tl-card critical">
+          <div class="tl-date">Junho 2024 — Pico histórico</div>
+          <div class="tl-card-title">428 operações de venda em 1 único mês</div>
+          <div class="tl-card-body">Conselho realiza 428 operações em junho — maior volume mensal registrado. Giro médio diário de R$ 4,2 milhões. Volume acumulado da ação supera 1 milhão de negociações/dia por 6 meses seguidos. Fase inicial corresponde ao período 15 dias antes da divulgação do balanço do 2º trimestre de 2024 — período vedado pela RCVM 44.</div>
+          <span class="tl-tag tag-red">Anomalia CVM — período vedado 2T24</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker warning"></div>
+        <div class="tl-card warning">
+          <div class="tl-date">Jul/2024 · Mai/2025 · Set/2025</div>
+          <div class="tl-card-title">Operações em mais dois períodos vedados: 1T25 e 3T25</div>
+          <div class="tl-card-body">Das 1.780 operações do conselho, 27 ocorreram nos 15 dias anteriores à divulgação dos balanços trimestrais de três períodos distintos: 2T24, 1T25 e 3T25. A RCVM 44 presume automaticamente o acesso à informação privilegiada para conselheiros nesses períodos — a defesa deve provar o contrário.</div>
+          <span class="tl-tag tag-amber">Violação RCVM 44 — presunção automática</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker warning"></div>
+        <div class="tl-card warning">
+          <div class="tl-date">Julho 2025</div>
+          <div class="tl-card-title">WNT sai. Fundo Cartago passa à gestão da Trustee</div>
+          <div class="tl-card-body">A gestora WNT Capital deixa o fundo e a Biomm. O Fundo Cartago passa a ser gerido pela Trustee. Ambas as gestoras — WNT e Trustee — são posteriormente citadas nas Operações Compliance Zero e Carbono Oculto, que investigam esquemas de evasão fiscal via fundos de investimento.</div>
+          <span class="tl-tag tag-amber">Nexo com operações policiais</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker warning"></div>
+        <div class="tl-card warning">
+          <div class="tl-date">30 jun / 3 nov 2025</div>
+          <div class="tl-card-title">Contratos com o Ministério da Saúde: R$ 303,65 mi</div>
+          <div class="tl-card-body">Dois contratos de insulina com o Ministério da Saúde: R$ 142 mi (insulina humana, 30/jun) e R$ 131 mi (insulina glargina, 3/nov). Vigência de 12 meses com prorrogação de até 10 anos. Vorcaro não participou das cerimônias. Contratos firmados via Parcerias de Desenvolvimento Produtivo — o mesmo mecanismo iniciado em 2013.</div>
+          <span class="tl-tag tag-amber">R$ 303,65 mi em contratos públicos</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker critical"></div>
+        <div class="tl-card critical">
+          <div class="tl-date">17–18 novembro 2025</div>
+          <div class="tl-card-title">Vorcaro preso. Banco Master liquidado. R$ 41 bi de rombo.</div>
+          <div class="tl-card-body">Banco Central decreta liquidação extrajudicial do Master. PF prende Vorcaro no aeroporto de Guarulhos, em avião particular rumo a Malta. Rombo estimado: R$ 41 bilhões ao FGC (maior da história). Fundo Cartago entra na lista de ativos a liquidar. Participação na Biomm (~R$ 250 mi) precisará ser vendida. Pochmann permanece no conselho da Biomm.</div>
+          <span class="tl-tag tag-red">Colapso do ecossistema Master</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker warning"></div>
+        <div class="tl-card warning">
+          <div class="tl-date">4 dezembro 2024 (revelado em 2026)</div>
+          <div class="tl-card-title">Reunião secreta Lula–Vorcaro no Planalto</div>
+          <div class="tl-card-body">Lula recebe Vorcaro fora da agenda oficial. Intermediado por Guido Mantega (ex-ministro, contratado pelo Master a R$ 1M/mês). Lula aconselhou Vorcaro a não vender o banco ao BTG Pactual. Gabriel Galípolo (futuro presidente do BC) participou de parte do encontro. Vorcaro havia visitado o Planalto ao menos 4 vezes entre 2023 e 2024, segundo registros do GSI.</div>
+          <span class="tl-tag tag-amber">Reunião fora da agenda — revelada em mai/2026</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker info"></div>
+        <div class="tl-card info">
+          <div class="tl-date">1 dezembro 2025</div>
+          <div class="tl-card-title">CVM emite Ofício nº 246/2025. Biomm responde.</div>
+          <div class="tl-card-body">CVM emite Ofício nº 246/2025/CVM/SEP/GEA-2 pedindo esclarecimentos sobre as negociações. Biomm responde alegando: capital pulverizado sem controlador, baixa liquidez causa volatilidade, operações seguem legislação. Não há PAS (processo sancionador) aberto publicamente até mai/2026.</div>
+          <span class="tl-tag tag-blue">CVM ativa — sem PAS público ainda</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker info"></div>
+        <div class="tl-card info">
+          <div class="tl-date">11 dezembro 2025</div>
+          <div class="tl-card-title">NeoFeed publica levantamento completo das 1.780 operações</div>
+          <div class="tl-card-body">Investigação de Guilherme Guilherme e Sérgio Vieira detalha o volume anômalo de negociações, as 27 operações em período vedado e nomeia Pochmann como membro da chapa eleita em abril de 2024, dois meses após o Master tornar-se maior acionista.</div>
+          <span class="tl-tag tag-blue">Publicação de referência</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker critical"></div>
+        <div class="tl-card critical">
+          <div class="tl-date">19 fevereiro / 11 março 2026</div>
+          <div class="tl-card-title">MPTCU protocola pedido de afastamento de Pochmann</div>
+          <div class="tl-card-body">Procurador Júlio Marcelo de Oliveira protocola representação no TCU em 19/fev/2026. Argumentos: risco de uso político do PIB em ano eleitoral, exonerações de coordenadora de Contas Nacionais (Rebeca Palis) às vésperas do PIB, criação irregular da Fundação IBGE+ sem autorização legislativa. Auditoria enviada ao relator ministro Aroldo Cedraz em 6/mar/2026. Não menciona o cargo na Biomm — mas o contexto é ampliável.</div>
+          <span class="tl-tag tag-red">MPTCU ativo — relator: Aroldo Cedraz</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker success"></div>
+        <div class="tl-card">
+          <div class="tl-date">Abril 2026</div>
+          <div class="tl-card-title">Pochmann deixa o conselho da Biomm. Fundo Cartago sai.</div>
+          <div class="tl-card-body">Pochmann se retira do Conselho em abril de 2026 — coincidindo exatamente com a saída do Fundo Cartago, cujas 35,39 mi de ações foram transferidas ao BRB (Banco de Brasília), que ficou como único cotista. Gestora Alaska assume participação de 26,15% logo após. CEO da Biomm celebra: "página virada e novas portas que se abrem".</div>
+          <span class="tl-tag tag-green">Saída coordenada — coincide com dissolução do Master</span>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+  </section>
+
+  <!-- ══ VOLUME CHART ══ -->
+  <div class="divider"></div>
+  <div class="section-hdr" style="margin-top:1rem;">
+    <span class="section-num">01b</span>
+    <h2 class="section-title">Volume de Negociações pelo Conselho</h2>
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-row">
+      <div class="chart-lbl">Jun/2024</div>
+      <div class="chart-track"><div class="chart-fill fill-red" style="width:100%">428 operações — pico histórico</div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-lbl">Total op.</div>
+      <div class="chart-track"><div class="chart-fill fill-blue" style="width:85%">1.780 operações — abr/2024 a nov/2025</div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-lbl">Em período<br>vedado</div>
+      <div class="chart-track"><div class="chart-fill fill-amber" style="width:30%">27 operações — 3 balanços distintos</div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-lbl">2023 (base)</div>
+      <div class="chart-track"><div class="chart-fill fill-gray" style="width:28%">Volume base = 1× (antes do Master)</div></div>
+    </div>
+  </div>
+  <p class="chart-note">Fonte: NeoFeed / dados CVM (dez/2025). Volume do conselho = 231% acima do total de 2023 inteiro. A CVM não individualizou quais dos 9 conselheiros realizaram cada operação.</p>
+
+  <!-- ══ ANATOMIA DO CONFLITO ══ -->
+  <section id="conflito">
+    <div class="section-hdr">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Anatomia do Conflito</h2>
+    </div>
+
+    <div class="matrix">
+      <div class="matrix-cell">
+        <div class="matrix-cell-title"><span class="dot-red"></span>Pochmann como presidente do IBGE</div>
+        <div class="matrix-cell-body">Acesso antecipado a inflação, emprego, renda, crescimento, demografia — todos movem mercados e impactam diretamente o valuation de farmacêuticas dependentes do SUS e de contratos governamentais.</div>
+      </div>
+      <div class="matrix-cell">
+        <div class="matrix-cell-title"><span class="dot-red"></span>Pochmann como conselheiro da Biomm</div>
+        <div class="matrix-cell-body">Acesso a balanços não publicados, estratégia corporativa, pipeline de contratos com o governo. Cargo remunerado. Poder de voto em todas as deliberações do Conselho.</div>
+      </div>
+      <div class="matrix-cell">
+        <div class="matrix-cell-title"><span class="dot-amber"></span>Biomm dependente do Estado</div>
+        <div class="matrix-cell-body">BNDES + Finep: R$ 330 mi em aportes. Ministério da Saúde: R$ 303 mi em contratos em 2025. Regulada pela ANVISA. Fornecedora do SUS via PDPs. BNDES é acionista com 5,52%.</div>
+      </div>
+      <div class="matrix-cell">
+        <div class="matrix-cell-title"><span class="dot-blue"></span>Fundo Cartago / Vorcaro</div>
+        <div class="matrix-cell-body">Principal acionista (25,86%) via fundo do banco em colapso. WNT e Trustee (gestoras do fundo) citadas em Compliance Zero e Carbono Oculto. Banco liquidado com rombo de R$ 41 bi ao FGC.</div>
+      </div>
+    </div>
+
+    <div class="legal-grid">
+      <div class="legal-cell">
+        <div class="legal-law">Lei 12.813/2013</div>
+        <div class="legal-desc">Conflito de interesses: veda ao servidor aceitar cargo em empresa cuja atividade se relacione com a área de competência do seu cargo público. Nexo direto e objetivo com o caso.</div>
+      </div>
+      <div class="legal-cell">
+        <div class="legal-law">RCVM 44 / Art. 14</div>
+        <div class="legal-desc">Período vedado: 15 dias antes do balanço. Presunção automática de acesso a informação privilegiada para todos os conselheiros — sem necessidade de provar uso efetivo.</div>
+      </div>
+      <div class="legal-cell">
+        <div class="legal-law">Lei 6.404/76 / Art. 155 §4º</div>
+        <div class="legal-desc">Insider trading: veda uso de informação relevante não divulgada para negociar. Alcança qualquer pessoa com acesso, não apenas diretores — conselheiros estão incluídos.</div>
+      </div>
+    </div>
+
+    <div class="callout red">
+      <div class="callout-title">⚠ Núcleo da suspeita institucional</div>
+      <div class="callout-body">Pochmann, como conselheiro com poder de voto, participou das deliberações que geraram 1.780 operações de venda de ações — R$ 68,9 mi em 19 meses. 27 dessas operações ocorreram nos 15 dias anteriores à publicação de balanços, violando objetivamente a RCVM 44. A norma <strong>presume automaticamente</strong> o acesso à informação privilegiada. A defesa precisaria provar o contrário. O conflito com a Lei 12.813/2013 é direto e não requer prova de favorecimento concreto — a mera aparência de comprometimento já configura violação.</div>
+    </div>
+  </section>
+
+  <!-- ══ LACUNAS RESOLVIDAS ══ -->
+  <section id="lacunas">
+    <div class="section-hdr">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Lacunas Investigadas</h2>
+      <span class="section-badge badge-resolvido">4 lacunas · mai/2026</span>
+    </div>
+
+    <!-- L1 -->
+    <div class="lacuna-card" id="lac1">
+      <div class="lacuna-head" onclick="toggleLacuna('lac1')">
+        <div class="lacuna-icon li-amber">?</div>
+        <div class="lacuna-label">
+          <div class="lacuna-title">Lacuna 1 — Quais conselheiros operaram no período vedado?</div>
+          <div class="lacuna-status-txt ls-partial">▲ Parcialmente resolvida — CVM não individualizou</div>
+        </div>
+        <div class="lacuna-chevron">▼</div>
+      </div>
+      <div class="lacuna-body-wrap open">
+        <p>O NeoFeed apurou as 1.780 operações via dados <strong>agregados</strong> da CVM. Os documentos públicos não especificam quais dos 9 conselheiros negociaram individualmente. A CVM declarou apenas que "acompanha e analisa" sem comentar o caso específico.</p>
+        <div class="finding f-amber">
+          <div>
+            <div class="f-label">O que a ata de dez/2025 delimita</div>
+            Reunião de 18/dez/2025: presentes Gaetani, Mares Guia Neto, Eduardo Buarque de Almeida, Cláudio Lottenberg, Laura Castanheira e suplentes. Pochmann não consta nesta ata — consistente com saída iminente. Composição de 9 membros ativos até esse período confirmada por múltiplas atas arquivadas na CVM.
+          </div>
+        </div>
+        <div class="finding f-red">
+          <div>
+            <div class="f-label">Por que a individualização importa juridicamente</div>
+            A RCVM 44 aplica presunção de acesso a informação privilegiada para <em>todo</em> conselheiro nos períodos vedados — independente de quem operou individualmente. Pochmann estava no conselho durante os três períodos identificados (2T24, 1T25, 3T25): está no escopo da presunção. Para se defender, precisaria provar que <em>não</em> operou e não influenciou operações.
+          </div>
+        </div>
+        <div class="finding f-blue">
+          <div>
+            <div class="f-label">Conclusão</div>
+            Não é possível afirmar que Pochmann pessoalmente executou ordens de compra/venda. É possível — e juridicamente relevante — afirmar que ele era conselheiro ativo nos três períodos vedados confirmados e está sujeito à presunção automática da RCVM 44.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- L2 -->
+    <div class="lacuna-card" id="lac2">
+      <div class="lacuna-head" onclick="toggleLacuna('lac2')">
+        <div class="lacuna-icon li-amber">!</div>
+        <div class="lacuna-label">
+          <div class="lacuna-title">Lacuna 2 — A CVM abriu Processo Administrativo Sancionador?</div>
+          <div class="lacuna-status-txt ls-partial">▲ Lacuna confirmada — sem PAS público até mai/2026</div>
+        </div>
+        <div class="lacuna-chevron">▼</div>
+      </div>
+      <div class="lacuna-body-wrap open">
+        <p>A CVM emitiu o Ofício nº 246/2025/CVM/SEP/GEA-2 em nov/2025, pedindo esclarecimentos após o NeoFeed. A Biomm respondeu em 1/dez/2025. A CVM declarou publicamente que "não comenta casos específicos."</p>
+        <div class="finding f-amber">
+          <div>
+            <div class="f-label">O que o silêncio da CVM significa na prática</div>
+            O rito regulatório é: ofício de esclarecimento → análise interna pela SEP/GEA → abertura de inquérito administrativo → acusação formal → PAS. O ofício de nov/2025 é o <em>primeiro passo</em>. A CVM tipicamente leva de 6 a 18 meses entre o ofício e a abertura formal de PAS — especialmente em casos com repercussão política. Ausência de PAS público não indica arquivamento.
+          </div>
+        </div>
+        <div class="finding f-red">
+          <div>
+            <div class="f-label">Precedente comparável — GPA (2025)</div>
+            Em caso análogo investigado pelo NeoFeed em out/2025, conselheiros do GPA realizaram 193 operações em período vedado. A CVM abriu inquérito. O volume da Biomm (27 operações em 3 balanços distintos) é menor numericamente, mas o contexto político — conselheiro sendo presidente de autarquia federal produtora dos dados que movem os mercados — eleva o escrutínio institucional consideravelmente.
+          </div>
+        </div>
+        <div class="finding f-blue">
+          <div>
+            <div class="f-label">Janela temporal</div>
+            Se o rito CVM seguir o padrão, uma acusação formal poderia surgir entre nov/2026 e mai/2027. A saída de Pochmann do conselho em abr/2026 não extingue a responsabilidade pelos atos praticados durante o mandato.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- L3 -->
+    <div class="lacuna-card" id="lac3">
+      <div class="lacuna-head" onclick="toggleLacuna('lac3')">
+        <div class="lacuna-icon li-red">✕</div>
+        <div class="lacuna-label">
+          <div class="lacuna-title">Lacuna 3 — Investigação PF/MPF específica sobre BIOM3?</div>
+          <div class="lacuna-status-txt ls-open">● Lacuna permanece aberta — sem confirmação</div>
+        </div>
+        <div class="lacuna-chevron">▼</div>
+      </div>
+      <div class="lacuna-body-wrap open">
+        <p>A Polícia Federal investiga Vorcaro pelo colapso do Banco Master (fraude, captação irregular, ativos ficticiosos via empresa Tirreno). Não há confirmação pública de investigação específica sobre as negociações de BIOM3 ou sobre o conflito de interesses de Pochmann.</p>
+        <div class="finding f-red">
+          <div>
+            <div class="f-label">O que existe na esfera federal</div>
+            O MPTCU protocolou representação em fev/2026 pedindo afastamento de Pochmann (ver Lacuna 4). Foca em gestão do IBGE, não na Biomm diretamente. A Comissão de Ética Pública da Presidência (CEP) não registra processo público relacionado.
+          </div>
+        </div>
+        <div class="finding f-amber">
+          <div>
+            <div class="f-label">Conexão indireta: Compliance Zero e Carbono Oculto</div>
+            A WNT Capital e a Trustee — gestoras sucessivas do Fundo Cartago que controlava a Biomm — são citadas nas Operações Compliance Zero e Carbono Oculto, que investigam evasão fiscal e lavagem via fundos de investimento. Se essas investigações alcançarem o Fundo Cartago, a Biomm e seus conselheiros entrarão naturalmente no escopo.
+          </div>
+        </div>
+        <div class="finding f-gray">
+          <div>
+            <div class="f-label">Vetor de entrada mais provável</div>
+            Uma representação formal ao CEP (Comissão de Ética Pública), ao MPTCU ou ao MPF — conectando explicitamente o cargo na Biomm ao cargo no IBGE — seria o caminho mais direto para abrir investigação específica sobre o conflito de interesses.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- L4 — NOVA -->
+    <div class="lacuna-card" id="lac4">
+      <div class="lacuna-head" onclick="toggleLacuna('lac4')">
+        <div class="lacuna-icon li-blue">★</div>
+        <div class="lacuna-label">
+          <div class="lacuna-title">Lacuna 4 — TCU e MPTCU: qual o status atual? <span style="background:#dbeafe;color:#1e40af;font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;margin-left:6px;letter-spacing:.05em;">DADO NOVO</span></div>
+          <div class="lacuna-status-txt ls-new">★ Lacuna nova — resolvida pela pesquisa</div>
+        </div>
+        <div class="lacuna-chevron">▼</div>
+      </div>
+      <div class="lacuna-body-wrap open">
+        <p>Esta frente não constava no dossiê original. A investigação revelou que é a mais avançada institucionalmente até mai/2026.</p>
+        <div class="finding f-blue">
+          <div>
+            <div class="f-label">Representação MPTCU — 19/fev/2026</div>
+            Procurador Júlio Marcelo de Oliveira protocola representação. Argumentos: risco de uso político do PIB em ano eleitoral; exoneração de Rebeca Palis (coordenadora de Contas Nacionais) às vésperas do PIB 2025; criação irregular da Fundação IBGE+ sem autorização legislativa via cartório. Auditoria enviada ao relator ministro Aroldo Cedraz em 6/mar/2026.
+          </div>
+        </div>
+        <div class="finding f-amber">
+          <div>
+            <div class="f-label">O que o TCU ainda não fez</div>
+            Até mai/2026, o TCU não decretou afastamento cautelar de Pochmann. Pochmann deixou o IBGE pelo término natural do mandato/cargo, não por determinação do TCU. O pedido do MPTCU está sob análise do relator Aroldo Cedraz, sem prazo definido.
+          </div>
+        </div>
+        <div class="finding f-red">
+          <div>
+            <div class="f-label">Por que o TCU importa para o caso Biomm</div>
+            O TCU tem competência para apurar dano ao erário e conflito de interesses de gestores de autarquias federais. Se a representação do MPTCU for ampliada para incluir o cargo na Biomm — empresa que recebeu R$ 330 mi do BNDES/Finep e R$ 303 mi em contratos do Ministério da Saúde — o TCU pode determinar: devolução da remuneração recebida no conselho, inabilitação para cargos públicos (Lei 8.443/92) e responsabilização por dano moral ao patrimônio institucional do IBGE.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUESTÕES PENDENTES DE APROFUNDAMENTO ══ -->
+  <section id="pendentes">
+    <div class="section-hdr">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Questões Pendentes de Aprofundamento</h2>
+      <span class="section-badge badge-aberto">8 frentes abertas</span>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-title">ℹ Critério de classificação</div>
+      <div class="callout-body">P1 = requer investigação imediata com dados disponíveis. P2 = relevante, requer documentação adicional. P3 = contexto estratégico de médio prazo.</div>
+    </div>
+
+    <div class="pending-grid">
+
+      <div class="pending-card pc-red">
+        <div class="pending-card-num">P1 · Frente 01</div>
+        <div class="pending-card-title">Remuneração exata de Pochmann na Biomm</div>
+        <div class="pending-card-body">O cargo era remunerado — confirmado. Mas o valor exato nunca foi divulgado publicamente. Formulários de Referência da CVM listam a política de remuneração do conselho mas não individualizam os membros.</div>
+        <div class="pending-card-q">"Quanto Pochmann recebeu da Biomm entre abril de 2024 e abril de 2026? O valor foi declarado no Imposto de Renda?"</div>
+        <span class="priority-badge pb-p1">P1 — CVM / Formulário de Referência / Declaração IR</span>
+      </div>
+
+      <div class="pending-card pc-red">
+        <div class="pending-card-num">P1 · Frente 02</div>
+        <div class="pending-card-title">Pochmann detinha ações da Biomm pessoalmente?</div>
+        <div class="pending-card-body">Conselheiros que recebem parte da remuneração em ações ou bônus de subscrição (warrants) podem ter interesse financeiro direto nas negociações. A Biomm tem bônus de subscrição ativos (BIOM11–BIOM14). A ata de dez/2025 discute prorrogação de vencimentos.</div>
+        <div class="pending-card-q">"Pochmann possuía ações, opções ou bônus de subscrição da Biomm em seu nome ou em nome de terceiros relacionados?"</div>
+        <span class="priority-badge pb-p1">P1 — RAD.CVM.gov.br / formulários DFP e ITR</span>
+      </div>
+
+      <div class="pending-card pc-red">
+        <div class="pending-card-num">P1 · Frente 03</div>
+        <div class="pending-card-title">Pochmann autorizou ou votou nos contratos com o Ministério da Saúde?</div>
+        <div class="pending-card-body">Os dois contratos (R$ 303 mi) foram firmados em jun e nov/2025, enquanto Pochmann ainda era conselheiro ativo. Contratos relevantes tipicamente passam pelo Conselho ou pela Diretoria. Atas da CVM podem revelar se houve deliberação formal.</div>
+        <div class="pending-card-q">"As atas do Conselho de junho e novembro de 2025 registram deliberação sobre os contratos com o Ministério da Saúde? Pochmann votou?"</div>
+        <span class="priority-badge pb-p1">P1 — Atas CVM jun/2025 e nov/2025</span>
+      </div>
+
+      <div class="pending-card pc-amber">
+        <div class="pending-card-num">P2 · Frente 04</div>
+        <div class="pending-card-title">A Comissão de Ética Pública (CEP) foi acionada?</div>
+        <div class="pending-card-body">A CEP é o órgão competente para analisar conflito de interesses de ocupantes de cargos de alto escalão do Poder Executivo Federal. Não há registro público de processo contra Pochmann na CEP até mai/2026.</div>
+        <div class="pending-card-q">"Algum partido, entidade ou cidadão protocolou representação à CEP sobre o caso Pochmann/Biomm? Qual o prazo prescricional para fazê-lo após a saída do cargo?"</div>
+        <span class="priority-badge pb-p2">P2 — Portal da Ética / CEP da Presidência</span>
+      </div>
+
+      <div class="pending-card pc-amber">
+        <div class="pending-card-num">P2 · Frente 05</div>
+        <div class="pending-card-title">Quais dados do IBGE impactaram diretamente o valuation da Biomm?</div>
+        <div class="pending-card-body">IBGE produz: pesquisas de saúde, demografia, perfil epidemiológico, gastos domiciliares com medicamentos (POF), dados do SUS. Todos são insumos diretos para precificar farmacêuticas. É possível mapear cronologicamente quais divulgações do IBGE coincidiram com picos de negociação das ações da Biomm.</div>
+        <div class="pending-card-q">"Existe correlação temporal entre publicações do IBGE (POF, PNAD Saúde, projeções demográficas) e os picos de negociação de BIOM3 em 2024–2025?"</div>
+        <span class="priority-badge pb-p2">P2 — IBGE Calendário / B3 histórico BIOM3</span>
+      </div>
+
+      <div class="pending-card pc-amber">
+        <div class="pending-card-num">P2 · Frente 06</div>
+        <div class="pending-card-title">O BNDES aprovou aportes com Pochmann no Conselho?</div>
+        <div class="pending-card-body">O BNDES é acionista da Biomm (5,52%) e aprovou aportes na empresa. O BNDESPar participou do aumento de capital de R$ 217 mi. Com Pochmann no conselho a partir de abr/2024, ele pode ter participado de deliberações sobre os aportes do próprio banco público.</div>
+        <div class="pending-card-q">"Houve deliberação do Conselho sobre aportes do BNDES entre abr/2024 e abr/2026, período em que Pochmann era conselheiro? Ele absteve-se ou votou?"</div>
+        <span class="priority-badge pb-p2">P2 — Atas CVM 2024–2026</span>
+      </div>
+
+      <div class="pending-card pc-blue">
+        <div class="pending-card-num">P3 · Frente 07</div>
+        <div class="pending-card-title">Transversalidade com Compliance Zero e Carbono Oculto</div>
+        <div class="pending-card-body">WNT Capital e Trustee aparecem em operações de investigação de evasão fiscal. O Fundo Cartago era gerido por essas mesmas gestoras. O padrão identificado nas operações anteriores (Castelo de Areia, Satiagraha, Lava Jato) — os mesmos atores financeiros em múltiplas investigações — pode se repetir aqui.</div>
+        <div class="pending-card-q">"Os atores do Fundo Cartago (WNT, Trustee, Vorcaro) aparecem nominalmente nas investigações Compliance Zero e Carbono Oculto, e com qual papel específico?"</div>
+        <span class="priority-badge pb-p3">P3 — PGR / MPF / operações em curso</span>
+      </div>
+
+      <div class="pending-card pc-blue">
+        <div class="pending-card-num">P3 · Frente 08</div>
+        <div class="pending-card-title">Declaração de bens de Pochmann e ativos financeiros no período</div>
+        <div class="pending-card-body">A Lei 8.730/93 e o Decreto 978/93 exigem declaração de bens de autoridades. A variação patrimonial de Pochmann entre 2023 e 2026 — incluindo remuneração da Biomm — pode ser acessada via Portal da Transparência e cruzada com a evolução de BIOM3.</div>
+        <div class="pending-card-q">"A declaração de bens de Pochmann registra a remuneração da Biomm e eventuais ativos financeiros? Houve variação patrimonial atípica no período?"</div>
+        <span class="priority-badge pb-p3">P3 — Portal da Transparência / declaração de bens</span>
+      </div>
+
+    </div><!-- /pending-grid -->
+  </section>
+
+  <!-- ══ MAPA DE RISCO ══ -->
+  <section id="status">
+    <div class="section-hdr">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Mapa de Risco por Frente Institucional</h2>
+    </div>
+
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th style="width:22%">Frente</th>
+          <th style="width:20%">Status atual</th>
+          <th>Situação detalhada</th>
+          <th style="width:18%">Risco p/ Pochmann</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="st-body">CVM</div>
+            <div class="st-detail">RCVM 44 · período vedado</div>
+          </td>
+          <td><span class="status-pill sp-amber">Ofício emitido</span></td>
+          <td class="st-detail">Ofício nº 246/2025 emitido nov/2025. Biomm respondeu dez/2025. Sem PAS público. Prazo típico para PAS: 6–18 meses. A saída do cargo não extingue responsabilidade pelos atos praticados.</td>
+          <td><span class="status-pill sp-amber">Médio-alto</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="st-body">TCU / MPTCU</div>
+            <div class="st-detail">Gestão IBGE · representação</div>
+          </td>
+          <td><span class="status-pill sp-red">Representação ativa</span></td>
+          <td class="st-detail">Representação protocolada 19/fev/2026. Relator: Aroldo Cedraz. Foco: PIB, IBGE+, exonerações. Não menciona Biomm diretamente — ampliável. TCU não determinou afastamento cautelar.</td>
+          <td><span class="status-pill sp-red">Alto</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="st-body">Lei 12.813/2013</div>
+            <div class="st-detail">Conflito de interesses</div>
+          </td>
+          <td><span class="status-pill sp-gray">Sem processo formal</span></td>
+          <td class="st-detail">Nexo jurídico direto e sólido, mas sem processo formal na Comissão de Ética Pública (CEP). Depende de representação ao CEP ou ao MPTCU. Prazo prescricional: verificar após saída do cargo.</td>
+          <td><span class="status-pill sp-amber">Médio — aguarda representação</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="st-body">PF / MPF</div>
+            <div class="st-detail">Operações Master / BIOM3</div>
+          </td>
+          <td><span class="status-pill sp-gray">Indireto</span></td>
+          <td class="st-detail">PF investiga Vorcaro pelo colapso do Master. WNT e Trustee citadas em Compliance Zero e Carbono Oculto. Sem investigação específica de BIOM3 confirmada. Conexão é indireta via Fundo Cartago.</td>
+          <td><span class="status-pill sp-blue">Baixo-médio · indireto</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="st-body">IBGE</div>
+            <div class="st-detail">Credibilidade institucional</div>
+          </td>
+          <td><span class="status-pill sp-red">Crise ativa</span></td>
+          <td class="st-detail">Crise com servidores, exonerações de técnicos do PIB, manifesto de integridade, IBGE+ barrado pela AGU e pelo TCU. Pochmann saiu do IBGE sem ter sido afastado formalmente. Dano reputacional ao instituto é o mais concreto e imediato.</td>
+          <td><span class="status-pill sp-red">Alto · reputacional</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══ SÍNTESE / VEREDICTO ══ -->
+  <section id="veredicto">
+    <div class="section-hdr">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Síntese Analítica</h2>
+    </div>
+
+    <div class="verdict">
+      <div class="verdict-eyebrow">Veredicto analítico · Mai/2026</div>
+      <div class="verdict-title">O que os fatos confirmam. O que permanece como hipótese. O que ainda precisa ser investigado.</div>
+      <div class="verdict-body">
+        <strong style="color:#f5f1eb;">Confirmado pelas fontes primárias:</strong> O presidente do IBGE — órgão que produz as estatísticas que movem mercados, definem juros e precificam empresas — atuou simultaneamente como conselheiro remunerado com poder de voto na maior farmacêutica dependente do Estado brasileiro, por 24 meses. Durante esse período, o conselho do qual Pochmann fazia parte realizou 1.780 operações de venda de ações, totalizando R$ 68,9 mi — 231% acima do volume total de 2023. Vinte e sete dessas operações violaram objetivamente o período vedado da RCVM 44, em três balanços trimestrais distintos. O conflito com a Lei 12.813/2013 é direto e não requer prova de favorecimento concreto.
+        <br><br>
+        <strong style="color:#f5f1eb;">Sem prova direta até o momento:</strong> Que Pochmann pessoalmente executou operações de compra ou venda. Que dados do IBGE foram efetivamente usados para beneficiar a Biomm. Que houve favorecimento nos contratos com o Ministério da Saúde.
+        <br><br>
+        <strong style="color:#f5f1eb;">A zona de sombra estrutural:</strong> Nenhuma frente institucional ativa cruzou formalmente e explicitamente o cargo na Biomm com o cargo no IBGE em um único processo. Essa é a lacuna que permanece — e é onde uma representação bem elaborada à CEP, ao MPTCU ou ao MPF poderia fechar o ciclo investigativo. A saída de Pochmann do conselho em abril de 2026 não extingue a responsabilidade pelos atos praticados durante os 24 meses de mandato.
+        <br><br>
+        <strong style="color:#f5f1eb;">O dano já consumado:</strong> A confiança institucional no IBGE. Quando o órgão responsável por medir a realidade econômica do país perde sua aparência de independência, o custo não é apenas legal — é sistêmico. Sem confiança nos números oficiais, não existe credibilidade fiscal, nem previsibilidade econômica, nem estabilidade monetária.
+      </div>
+      <div class="verdict-footer">
+        Fontes verificadas: NeoFeed (11/12/2025) · RAD.CVM.gov.br (ata dez/2025, Ofício nº 246/2025) · CNN Brasil (11/03/2026) · Gazeta do Povo (11/03/2026 e 01/03/2026) · Vespeiro (11/05/2026) · Claudio Dantas (mai/2026) · Poder360 (jan/2026) · Wikipedia: Daniel Vorcaro · Jornaldacidadeonline (mai/2026) · Diário do Poder (mai/2026) · Investidor10 (ata BIOM3 dez/2025)
+        <br>Versão: 2.0 · Atualizado em mai/2026 · Pesquisa e redação: análise baseada em fontes abertas e documentos CVM públicos.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ARTEFATOS RELACIONADOS (3×2) ══ -->
+  <div class="related-wrap" aria-labelledby="rel-title">
+    <div class="related-title" id="rel-title">Artefatos relacionados</div>
+    <div class="related-grid">
+      <a class="related-card" href="banco-master-too-big.html">
+        <span class="related-label">Too big to fail</span>
+        <span class="related-meta">Banco Master · concentração</span>
+      </a>
+      <a class="related-card" href="banco-master-compliance-zero.html">
+        <span class="related-label">Compliance Zero</span>
+        <span class="related-meta">Trilha regulatória</span>
+      </a>
+      <a class="related-card" href="operacao-carbono-oculto.html">
+        <span class="related-label">Carbono oculto</span>
+        <span class="related-meta">WNT · Trustee · Fundos</span>
+      </a>
+      <a class="related-card" href="xp-banco-master-poder.html">
+        <span class="related-label">Poder e XP</span>
+        <span class="related-meta">Banco Master · narrativa</span>
+      </a>
+      <a class="related-card" href="padroes-sistemicos-dashboard.html">
+        <span class="related-label">Padrões sistêmicos</span>
+        <span class="related-meta">Dashboard analítico</span>
+      </a>
+      <a class="related-card" href="lawfare-timeline.html">
+        <span class="related-label">Linha lawfare</span>
+        <span class="related-meta">Cronologia institucional</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ SOURCES ══ -->
+  <div class="sources">
+    <div class="sources-title">Fontes primárias e referências</div>
+    <ul class="source-list">
+      <li class="source-item">NeoFeed — "O repentino aumento na venda das ações da Biomm após a entrada do Banco Master" (11/12/2025) · <a href="https://neofeed.com.br/negocios/o-repentino-aumento-na-venda-das-acoes-da-biomm-apos-a-entrada-do-banco-master/en/" target="_blank">neofeed.com.br</a></li>
+      <li class="source-item">CVM — Ofício nº 246/2025/CVM/SEP/GEA-2 + Resposta da Biomm (01/12/2025) · <a href="https://ri.biomm.com" target="_blank">ri.biomm.com</a> · <a href="https://rad.cvm.gov.br" target="_blank">rad.cvm.gov.br</a></li>
+      <li class="source-item">CNN Brasil — "MP junto ao TCU pede afastamento de presidente do IBGE" (11/03/2026) · <a href="https://cnnbrasil.com.br" target="_blank">cnnbrasil.com.br</a></li>
+      <li class="source-item">Gazeta do Povo — "MPTCU pede afastamento de presidente do IBGE por risco de interferência nos dados do PIB" (11/03/2026) · <a href="https://gazetadopovo.com.br" target="_blank">gazetadopovo.com.br</a></li>
+      <li class="source-item">Claudio Dantas — "PR do IBGE é conselheiro de farmacêutica ligada ao Master" (mai/2026) · <a href="https://claudiodantas.com.br/pr-ibge-conselheiro-farmaceutica-master/" target="_blank">claudiodantas.com.br</a></li>
+      <li class="source-item">Poder360 — "Empresa de Daniel Vorcaro, do Master, fechou contratos com governo Lula" (jan/2026) · <a href="https://poder360.com.br" target="_blank">poder360.com.br</a></li>
+      <li class="source-item">Diário do Poder — "Lula recebeu Vorcaro fora da agenda e o aconselhou a não vender banco Master ao BTG" (mai/2026) · <a href="https://diariodopoder.com.br" target="_blank">diariodopoder.com.br</a></li>
+      <li class="source-item">Vespeiro — "Presidente do IBGE de Lula foi do conselho da farmacêutica de Vorcaro e Walfrido Mares Guia" (11/05/2026) · <a href="https://vespeiro.com" target="_blank">vespeiro.com</a></li>
+      <li class="source-item">Lei nº 12.813/2013 — Lei de Conflito de Interesses · <a href="https://planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12813.htm" target="_blank">planalto.gov.br</a></li>
+      <li class="source-item">Resolução CVM 44 — Período vedado e insider trading · <a href="https://conteudo.cvm.gov.br/legislacao/resolucoes/anexos/001/resol044.pdf" target="_blank">cvm.gov.br</a></li>
+      <li class="source-item">BNDES — Apoio à Biomm · <a href="https://bndes.gov.br" target="_blank">bndes.gov.br</a></li>
+      <li class="source-item">Portal da Transparência — Contratos Biomm / Ministério da Saúde · <a href="https://portaldatransparencia.gov.br" target="_blank">portaldatransparencia.gov.br</a></li>
+    </ul>
+  </div>
+
+</div><!-- /page -->
+
+<button type="button" class="go-top" id="go-top" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+  function toggleLacuna(id) {
+    const card = document.getElementById(id);
+    const body = card.querySelector('.lacuna-body-wrap');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    card.classList.toggle('open', !isOpen);
+  }
+
+  // Scrollspy: destaca a seção cujo topo passou pela âncora do menu sticky
+  const spySections = Array.from(document.querySelectorAll('.page section[id]'));
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const NAV_H = 72;
+
+  function setActiveNav() {
+    const marker = window.scrollY + NAV_H + 16;
+    let activeId = spySections[0] ? spySections[0].id : 'stats';
+    for (const sec of spySections) {
+      const secTop = window.scrollY + sec.getBoundingClientRect().top;
+      if (secTop <= marker) activeId = sec.id;
+    }
+    navTabs.forEach(t => {
+      const on = t.getAttribute('href') === '#' + activeId;
+      t.classList.toggle('active', on);
+      if (on) t.setAttribute('aria-current', 'location');
+      else t.removeAttribute('aria-current');
+    });
+  }
+
+  const goTop = document.getElementById('go-top');
+  const showTopFrom = 380;
+  let scrollTick = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTick) {
+      requestAnimationFrame(() => {
+        setActiveNav();
+        goTop.classList.toggle('visible', window.scrollY > showTopFrom);
+        scrollTick = false;
+      });
+      scrollTick = true;
+    }
+  }, { passive: true });
+  setActiveNav();
+  goTop.addEventListener('click', () => {
+    document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Animate bars on first view
+  const bars = document.querySelectorAll('.chart-fill');
+  const widths = [];
+  bars.forEach(b => { widths.push(b.style.width); b.style.width = '0'; });
+  setTimeout(() => {
+    bars.forEach((b, i) => { b.style.width = widths[i]; });
+  }, 300);
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

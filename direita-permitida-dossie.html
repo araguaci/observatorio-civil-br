@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direita Permitida — O Gatekeeping do Campo Oposicionista</title>
+<meta name="description" content="Documentação forense do mecanismo de extração de capital político bolsonarista pela centro-direita liberal. Do enunciado de Deltan (2019) à fragmentação pré-2026.">
+<link rel="canonical" href="https://gosurf.site/direita-permitida">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gosurf.site/direita-permitida">
+<meta property="og:title" content="Direita Permitida — O Gatekeeping do Campo Oposicionista">
+<meta property="og:description" content="Do enunciado Deltan (2019) à fragmentação pré-2026: como a centro-direita liberal extrai capital político bolsonarista sem herdar seus custos institucionais.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="gosurf.site · lawfare-timeline">
+<meta property="og:image" content="https://gosurf.site/og-direita-permitida-dossie.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gosurf.site/og-direita-permitida-dossie.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #07090d;
+  --bg2:      #0c0f16;
+  --bg3:      #11151f;
+  --bg4:      #181d2a;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.11);
+  --text:     #b8bfcc;
+  --text2:    #7a8296;
+  --text3:    #4a5060;
+  --bright:   #e8ecf5;
+  --red:      #c0392b;
+  --red2:     #e74c3c;
+  --amber:    #c9880f;
+  --amber2:   #f0a500;
+  --blue:     #2168a0;
+  --blue2:    #2e86c1;
+  --green:    #1a7a4a;
+  --green2:   #27ae60;
+  --purple:   #7d3c98;
+  --purple2:  #a569bd;
+  --mono:     'IBM Plex Mono', monospace;
+  --display:  'Syne', sans-serif;
+  --serif:    'Crimson Pro', Georgia, serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── SCANLINE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ── HEADER ── */
+.header {
+  position: relative; z-index: 10;
+  padding: 52px 64px 40px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(192,57,43,0.07) 0%, transparent 100%);
+}
+
+.header-meta {
+  font-size: 10px; letter-spacing: 3px; color: var(--red);
+  text-transform: uppercase; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.header-meta::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--red), transparent);
+}
+
+.header-id {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; color: var(--text3); letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 800;
+  color: var(--bright);
+  line-height: 1.05;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+h1 em {
+  color: var(--amber2);
+  font-style: normal;
+}
+
+.header-sub {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.header-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+
+.tag {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+  border: 1px solid var(--border2); color: var(--text2);
+  background: var(--bg3);
+}
+.tag-red   { border-color: rgba(192,57,43,.4); color: var(--red2); background: rgba(192,57,43,.08); }
+.tag-amber { border-color: rgba(201,136,15,.4); color: var(--amber2); background: rgba(201,136,15,.08); }
+.tag-blue  { border-color: rgba(33,104,160,.4); color: var(--blue2); background: rgba(33,104,160,.08); }
+.tag-purple{ border-color: rgba(125,60,152,.4); color: var(--purple2); background: rgba(125,60,152,.08); }
+
+/* ── NAV TABS ── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(7,9,13,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 64px;
+  display: flex; gap: 0; overflow-x: auto;
+}
+
+.nav-tab {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text3); padding: 16px 20px;
+  cursor: pointer; border: none; background: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s; white-space: nowrap;
+  text-decoration: none; flex-shrink: 0;
+}
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active {
+  color: var(--amber2);
+  border-bottom-color: var(--amber2);
+  background: rgba(240,165,0,0.06);
+}
+
+/* ── MAIN ── */
+.main {
+  position: relative; z-index: 5;
+  max-width: 1140px; margin: 0 auto;
+  padding: 0 64px 80px;
+}
+
+.section {
+  display: block;
+  padding-top: 90px;
+  margin-top: -42px;
+  margin-bottom: 48px;
+  scroll-margin-top: 72px;
+}
+.section:last-of-type { margin-bottom: 24px; }
+
+.sec-label {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border2), transparent);
+}
+
+h2 {
+  font-family: var(--display);
+  font-size: 22px; font-weight: 700;
+  color: var(--bright); margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-family: var(--display);
+  font-size: 16px; font-weight: 600;
+  color: var(--bright); margin-bottom: 12px;
+}
+
+p {
+  color: var(--text); line-height: 1.75;
+  margin-bottom: 16px;
+  font-family: var(--serif); font-size: 15px;
+}
+
+strong { color: var(--bright); font-family: var(--mono); font-size: 12px; }
+
+/* ── ENUNCIADO BLOCK ── */
+.enunciado {
+  background: var(--bg3);
+  border-left: 3px solid var(--amber2);
+  padding: 28px 32px;
+  margin: 32px 0;
+  position: relative;
+}
+
+.enunciado::before {
+  content: '"';
+  font-family: var(--serif);
+  font-size: 80px; line-height: 1;
+  color: rgba(240,165,0,0.15);
+  position: absolute; top: 8px; left: 16px;
+  pointer-events: none;
+}
+
+.enunciado-text {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 600;
+  font-style: italic;
+  color: var(--amber2); line-height: 1.5;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+
+.enunciado-meta {
+  font-size: 10px; letter-spacing: 2px;
+  color: var(--text3); text-transform: uppercase;
+}
+.enunciado-meta span { color: var(--text2); }
+
+/* ── CYCLE FLOW ── */
+.cycle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+.cycle-phase {
+  background: var(--bg2);
+  padding: 24px 28px;
+  position: relative;
+  transition: background 0.2s;
+}
+.cycle-phase:hover { background: var(--bg3); }
+
+.phase-num {
+  font-size: 36px; font-weight: 800;
+  font-family: var(--display);
+  color: rgba(255,255,255,0.04);
+  position: absolute; top: 12px; right: 16px;
+  line-height: 1;
+}
+
+.phase-label {
+  font-size: 9px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.phase-title {
+  font-family: var(--display);
+  font-size: 14px; font-weight: 700;
+  color: var(--bright); margin-bottom: 8px;
+}
+
+.phase-period {
+  font-size: 10px; color: var(--text3);
+  margin-bottom: 12px;
+}
+
+.phase-badge {
+  display: inline-block;
+  font-size: 9px; letter-spacing: 1.5px;
+  padding: 3px 8px; border-radius: 2px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.badge-p3  { background: rgba(33,104,160,.2); color: var(--blue2); border: 1px solid rgba(33,104,160,.3); }
+.badge-p4  { background: rgba(192,57,43,.2); color: var(--red2); border: 1px solid rgba(192,57,43,.3); }
+.badge-p4b { background: rgba(201,136,15,.2); color: var(--amber2); border: 1px solid rgba(201,136,15,.3); }
+.badge-p6  { background: rgba(125,60,152,.2); color: var(--purple2); border: 1px solid rgba(125,60,152,.3); }
+.badge-p7  { background: rgba(26,122,74,.2); color: var(--green2); border: 1px solid rgba(26,122,74,.3); }
+
+.phase-body {
+  display: block;
+  font-family: var(--serif);
+  font-size: 14px; line-height: 1.7;
+  color: var(--text);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.phase-toggle { display: none; }
+
+/* ── NIKOLAS BOX ── */
+.nikolas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+.nikolas-card {
+  background: var(--bg2);
+  padding: 24px 28px;
+}
+
+.nikolas-num {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red2); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nikolas-num::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%; background: var(--red2);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.nikolas-date {
+  font-family: var(--display); font-size: 18px; font-weight: 700;
+  color: var(--bright); margin-bottom: 8px;
+}
+
+.nikolas-desc {
+  font-family: var(--serif); font-size: 14px;
+  color: var(--text); line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.nikolas-result {
+  font-size: 10px; color: var(--red);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+/* ── MATRIX TABLE ── */
+.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+.matrix th {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text3); padding: 10px 16px;
+  border-bottom: 1px solid var(--border2);
+  text-align: left; background: var(--bg2);
+}
+.matrix td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; color: var(--text);
+  vertical-align: top;
+}
+.matrix tr:hover td { background: var(--bg3); }
+.matrix td:first-child { color: var(--bright); font-weight: 600; }
+
+/* ── QUOTE PULL ── */
+.pull-quote {
+  border-left: 2px solid var(--red);
+  padding: 16px 24px;
+  margin: 24px 0;
+  background: rgba(192,57,43,0.05);
+}
+.pull-quote p {
+  font-family: var(--serif);
+  font-size: 15px; font-style: italic;
+  color: var(--text); margin: 0;
+}
+.pull-quote cite {
+  display: block;
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3);
+  margin-top: 10px;
+  font-style: normal;
+}
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  padding: 28px 32px;
+  margin: 28px 0;
+  font-family: var(--mono);
+}
+
+.formula-title {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 16px;
+}
+
+.formula-line {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.formula-line:last-child { border-bottom: none; }
+
+.formula-arrow { color: var(--text3); font-size: 14px; }
+.formula-item { color: var(--text); }
+.formula-item.highlight { color: var(--amber2); font-weight: 600; }
+.formula-item.result { color: var(--red2); }
+
+/* ── SOURCES ── */
+.sources {
+  margin-top: 48px;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+.source-item {
+  display: flex; gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+
+.source-num {
+  font-size: 10px; color: var(--text3);
+  min-width: 28px; padding-top: 2px;
+}
+
+.source-body { flex: 1; }
+
+.source-title {
+  font-size: 12px; color: var(--blue2);
+  text-decoration: none;
+  display: block; margin-bottom: 3px;
+}
+.source-title:hover { color: var(--bright); }
+
+.source-meta {
+  font-size: 10px; color: var(--text3);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+
+.st { padding: 2px 7px; border-radius: 2px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+.st-vaza { background: rgba(192,57,43,.2); color: var(--red2); }
+.st-jornalismo { background: rgba(33,104,160,.2); color: var(--blue2); }
+.st-stf { background: rgba(125,60,152,.2); color: var(--purple2); }
+.st-primario { background: rgba(26,122,74,.2); color: var(--green2); }
+
+/* ── LACUNAS BOX ── */
+.lacunas {
+  background: rgba(201,136,15,.06);
+  border: 1px solid rgba(201,136,15,.2);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+
+.lacunas-title {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 14px;
+}
+
+.lacuna-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(201,136,15,.1);
+  font-size: 12px; color: var(--text);
+  display: flex; gap: 10px;
+}
+.lacuna-item:last-child { border-bottom: none; }
+.lacuna-item::before {
+  content: '⚠';
+  color: var(--amber); font-size: 11px;
+  padding-top: 1px; flex-shrink: 0;
+}
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 64px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+  font-size: 10px; color: var(--text3);
+  letter-spacing: 1.5px;
+  position: relative; z-index: 5;
+}
+
+.footer a { color: var(--text3); text-decoration: none; }
+.footer a:hover { color: var(--text); }
+.footer a.lawfare-link { color: var(--amber2); }
+.footer a.lawfare-link:hover { color: var(--bright); }
+
+.corpus-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.corpus-tag {
+  font-size: 9px; letter-spacing: 1.5px;
+  padding: 3px 8px; background: var(--bg3);
+  border: 1px solid var(--border); color: var(--text3);
+}
+
+/* ── RELATED ── */
+.related-block { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--border); }
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+.related-link {
+  background: var(--bg2); padding: 20px 24px;
+  cursor: pointer; transition: background 0.2s;
+  text-decoration: none; display: block;
+}
+.related-link:hover { background: var(--bg3); }
+
+/* ── GO TOP ── */
+#gotop {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  color: var(--amber2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.2s, background 0.2s;
+  z-index: 1000;
+  font-size: 18px;
+  line-height: 1;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+}
+#gotop.show { opacity: 1; visibility: visible; }
+#gotop:hover { background: var(--bg4); transform: translateY(-3px); }
+
+.related-cat {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 8px;
+}
+.related-title {
+  font-size: 13px; font-weight: 600;
+  color: var(--bright); margin-bottom: 6px;
+}
+.related-desc {
+  font-size: 12px; color: var(--text2); line-height: 1.5;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .header, .main, .footer { padding-left: 24px; padding-right: 24px; }
+  .nav { padding: 0 24px; }
+  .nikolas-grid { grid-template-columns: 1fr; }
+  .related-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 28px; }
+  #gotop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-meta">lawfare-timeline · ID Temático 189 · Registrado 22.mai.2026</div>
+  <div class="header-id">
+    <span class="tag tag-red">P3</span>
+    <span class="tag tag-amber">P4b</span>
+    <span class="tag tag-red">P4</span>
+    <span class="tag tag-purple">P6</span>
+    <span class="tag">P7</span>
+  </div>
+  <h1><em>Direita Permitida</em><br>O Gatekeeping do Campo Oposicionista</h1>
+  <p class="header-sub">
+    Documentação forense do mecanismo pelo qual segmentos da centro-direita liberal operam como
+    gatekeepers do campo oposicionista — extraindo capital político do eleitorado bolsonarista
+    sem herdar seus custos institucionais. Do enunciado de Deltan (2019) à fragmentação pré-outubro/2026.
+  </p>
+  <div class="header-tags">
+    <span class="tag tag-amber">Enunciado Deltan 26/03/2019</span>
+    <span class="tag tag-red">Aliança bloqueado TSE 2022</span>
+    <span class="tag tag-red">2× prisões / Nikolas</span>
+    <span class="tag tag-blue">Tarcísio / Faria Lima</span>
+    <span class="tag">Outubro 2026</span>
+    <span class="tag">CC0 1.0</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#tab-enunciado" class="nav-tab active">Enunciado</a>
+  <a href="#tab-ciclo" class="nav-tab">Ciclo (9 Fases)</a>
+  <a href="#tab-nikolas" class="nav-tab">Prisões / Nikolas</a>
+  <a href="#tab-matrix" class="nav-tab">Matriz</a>
+  <a href="#tab-analogias" class="nav-tab">Analogias</a>
+  <a href="#tab-lacunas" class="nav-tab">Lacunas</a>
+  <a href="#tab-fontes" class="nav-tab">Fontes</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ═══ TAB: ENUNCIADO ═══ -->
+<section id="tab-enunciado" class="section">
+  <div class="sec-label">O Enunciado Programático</div>
+
+  <div class="enunciado">
+    <div class="enunciado-text">
+      "O maior desafio é descolar do Bozo — para angariar o apoio dos jornalistas — sem perder o apoio dos apoiadores do Bozo"
+    </div>
+    <div class="enunciado-meta">
+      <span>Deltan Dallagnol</span> · Chat WhatsApp procuradores Lava Jato · <span>26 de março de 2019</span> ·
+      Obtido via Operação Spoofing (PF) · Publicado Vaza Jato / The Intercept Brasil, mar/2021
+    </div>
+  </div>
+
+  <h2>Por que este enunciado é uma fonte primária</h2>
+
+  <p>
+    A frase foi escrita em caráter privado, sem intenção de publicidade — o que a torna mais valiosa como
+    evidência do que qualquer declaração pública. Não é retórica política; é diagnóstico operacional
+    formulado por um ator que estava tentando executar exatamente o que descreve.
+  </p>
+
+  <p>
+    O contexto importa: Moro havia acabado de deixar a magistratura para virar Ministro da Justiça de
+    Bolsonaro (jan/2019). A força-tarefa de Curitiba temia que a associação com o governo destruísse
+    a blindagem midiática que a Lava Jato possuía na grande imprensa. Deltan formulava em tempo real
+    o problema de todo ator que pretende usar capital popular bolsonarista sem pagar o custo institucional
+    do bolsonarismo.
+  </p>
+
+  <div class="pull-quote">
+    <p>
+      O que começou como desabafo estratégico em 2019 tornou-se a linha de ação política oficial
+      de toda a centro-direita a partir de 2022: Moro candidato a presidente, Deltan eleito deputado
+      mais votado do Paraná, Partido Novo com filiações recordes após receber Deltan em 2023,
+      Tarcísio como candidato do establishment para 2026.
+    </p>
+    <cite>Análise estrutural — corpus lawfare-timeline</cite>
+  </div>
+
+  <h2>O Contra-Enunciado (2025)</h2>
+
+  <p>
+    Em junho de 2025, Eduardo Bolsonaro formalizou o ponto de vista do campo que estava sendo extraído:
+  </p>
+
+  <div class="enunciado" style="border-left-color: var(--red2);">
+    <div class="enunciado-text" style="color: var(--red2);">
+      "Teremos uma eleição onde, no máximo, poderá ser eleita uma direita permitida, o que fica longe dos anseios populares, o que significa que o establishment ainda continuará dando as cartas no Brasil."
+    </div>
+    <div class="enunciado-meta">
+      <span>Eduardo Bolsonaro</span> · Canal Estúdio 5º Elemento (YouTube) · <span>15 de junho de 2025</span>
+    </div>
+  </div>
+
+  <p>
+    Os dois enunciados são lados opostos do mesmo mecanismo. Deltan descreveu o protocolo do extrator.
+    Eduardo descreveu o efeito sobre o extraído. Juntos, constituem o enunciado e o contra-enunciado
+    completo de P4b aplicado ao campo oposicionista.
+  </p>
+
+  <h2>O Efeito Retroativo Documentado</h2>
+
+  <p>
+    Quando a frase de Deltan ressurgiu em dezembro de 2025, durante os atos contra sua cassação
+    pelo TSE, bolsonaristas usaram-na para esvaziar a mobilização em defesa do ex-procurador.
+    O que era para ser uma carreata em Curitiba virou, nas palavras da imprensa, um
+    <strong>"cortejo fúnebre esvaziado"</strong> — o veículo percorreu a cidade com vias praticamente vazias.
+  </p>
+
+  <p>
+    A ironia estrutural é perfeita: o capital político que Deltan havia extraído do bolsonarismo
+    foi destruído pela prova documental de que a extração era explicitamente instrumental.
+    O mecanismo se autodesintegrou ao ser nomeado.
+  </p>
+</section>
+
+<!-- ═══ TAB: CICLO ═══ -->
+<section id="tab-ciclo" class="section">
+  <div class="sec-label">Ciclo Completo — 9 Fases Documentadas (2019–2026)</div>
+
+  <p style="margin-bottom: 28px;">
+    Nove fases sequenciais documentadas abaixo — alguns vetores operam simultaneamente.
+    Distinção metodológica: fatos documentados aparecem sem marcação;
+    hipóteses inferenciais são marcadas explicitamente.
+  </p>
+
+  <div class="cycle">
+    <div class="cycle-phase open">
+      <div class="phase-num">01</div>
+      <div class="phase-label">Fase 1 · 2019</div>
+      <div class="phase-title">Enunciação do Protocolo</div>
+      <div class="phase-period">26 mar 2019</div>
+      <span class="phase-badge badge-p4b">P4b</span>
+      <div class="phase-body">
+        Deltan Dallagnol formula em chat privado com procuradores o protocolo de extração de capital político:
+        absorver o eleitorado bolsonarista sem herdar seus custos institucionais junto à imprensa.
+        A frase permanece privada até ser obtida na Operação Spoofing (2019) e publicada pela Vaza Jato em 2021.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">02</div>
+      <div class="phase-label">Fase 2 · 2019–2022</div>
+      <div class="phase-title">Bloqueio de Soberania Partidária</div>
+      <div class="phase-period">Nov 2019 – Mar 2022</div>
+      <span class="phase-badge badge-p3">P3</span>
+      <div class="phase-body">
+        Aliança pelo Brasil bloqueado pelo TSE via exigência de assinatura física em cartório (barreira comunicada
+        <em>após</em> o lançamento). ADI 5311, que contestava a regra de filiação, confirmada 10×1 em 04/03/2020 —
+        único voto favorável foi de Toffoli, amigo declarado de Karina Kufa (tesoureira do partido).
+        O secretário-geral era Admar Gonzaga, ex-ministro efetivo do TSE (2017–2019).
+        183 mil assinaturas descartadas. Bolsonaro forçado ao PL de Valdemar Costa Neto,
+        condenado pelo Mensalão pelo mesmo STF.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">03</div>
+      <div class="phase-label">Fase 3 · 2021–2026</div>
+      <div class="phase-title">Captura por Cacique Centrão</div>
+      <div class="phase-period">Nov 2021 – presente</div>
+      <span class="phase-badge badge-p7">P7</span>
+      <div class="phase-body">
+        Bolsonaro filia-se ao PL em 30/11/2021. Valdemar Costa Neto — condenado a 7 anos e 10 meses por
+        corrupção passiva e lavagem no Mensalão — detém o controle estrutural do partido.
+        Conflito documentado: Valdemar anuncia Tarcísio como "número 1 da fila" (out/2024),
+        Bolsonaro rebate publicamente. Em fev/2026, Valdemar delimita que indicações estaduais
+        são prerrogativa da direção partidária. Carlos Bolsonaro sugere "isolamento" do pai.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">04</div>
+      <div class="phase-label">Fase 4 · 2022–2023</div>
+      <div class="phase-title">Execução do Protocolo Deltan</div>
+      <div class="phase-period">2022–2023</div>
+      <span class="phase-badge badge-p4b">P4b</span>
+      <div class="phase-body">
+        Deltan eleito deputado mais votado do Paraná (344.917 votos) em 2022, operando exatamente
+        a fórmula que enunciou. TSE cassa seu mandato por unanimidade em 16/05/2023 — votação de 1 minuto e 6 segundos.
+        Moro candidato a presidente, Partido Novo absorve o capital Deltan em 2023 com filiações recordes.
+        Cada ciclo repete a extração com novos atores.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">05</div>
+      <div class="phase-label">Fase 5 · 2025</div>
+      <div class="phase-title">Canibalismo Midiático</div>
+      <div class="phase-period">Mai 2025</div>
+      <span class="phase-badge badge-p4b">P4b</span>
+      <div class="phase-body">
+        Rodrigo Constantino ataca André Porciuncula (ex-Secretário Especial da Cultura, exilado nos EUA
+        desde 2023) usando inferência patrimonial invertida: redução de patrimônio no Brasil após saída fiscal
+        legítima tratada como "prova de culpa". Porciuncula documenta publicamente que Constantino
+        "colocou um alvo num exilado político". O conflito tem registro desde 2017, quando Eduardo Bolsonaro
+        atacou a "direita doriana" associada ao Instituto Liberal de Constantino — 8 anos de padrão recorrente.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">06</div>
+      <div class="phase-label">Fase 6 · Ago 2025</div>
+      <div class="phase-title">Gatilho de Prisão 1</div>
+      <div class="phase-period">3–4 ago 2025</div>
+      <span class="phase-badge badge-p4">P4</span>
+      <div class="phase-body">
+        Nikolas Ferreira realiza videochamada ao vivo mostrando Bolsonaro para centenas de apoiadores
+        na Avenida Paulista durante manifestação pró-anistia. Constitui segundo descumprimento de
+        medida cautelar. Moraes decreta prisão domiciliar fechada em 04/08/2025.
+        <br><br>
+        <em>Nota metodológica:</em> motivação de Nikolas não é determinável pelas fontes disponíveis.
+        O efeito estrutural é documentado independentemente da intenção.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">07</div>
+      <div class="phase-label">Fase 7 · Nov 2025</div>
+      <div class="phase-title">Gatilho de Prisão 2</div>
+      <div class="phase-period">21–22 nov 2025</div>
+      <span class="phase-badge badge-p4">P4</span>
+      <div class="phase-body">
+        Nikolas visita Bolsonaro na prisão domiciliar em 21/11, flagrado pela TV Globo usando celular
+        em violação de medida cautelar. Horas depois, Bolsonaro tenta romper tornozeleira eletrônica
+        com ferro de solda (alega "paranoia" por interação de medicamentos).
+        Moraes decreta prisão preventiva em 22/11/2025. STF mantém por maioria em 24/11/2025.
+        <br><br>
+        <em>Nota metodológica:</em> causalidade entre a visita e a tentativa de romper a tornozeleira
+        não é estabelecível. Ambos os eventos são documentados separadamente.
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">08</div>
+      <div class="phase-label">Fase 8 · Dez 2025–Mai 2026</div>
+      <div class="phase-title">Candidato Ungido Atacado</div>
+      <div class="phase-period">Dez 2025 – Mai 2026</div>
+      <span class="phase-badge badge-p4">P4</span>
+      <div class="phase-body">
+        Flávio Bolsonaro lança pré-candidatura em dez/2025. Em mai/2026, aliados do PL avaliam que
+        Flávio ocultou relação com Daniel Vorcaro (Banco Master, R$54bi+ de passivos) para
+        "atravessar o prazo de desincompatibilização sem abrir espaço para Tarcísio".
+        A revelação dos vínculos vem exatamente após o prazo crítico.
+        Janaina Paschoal em 20/05/2026: "O PL está prejudicando o País, insistindo em um candidato
+        que vai impedir que alguém vá ao segundo turno."
+      </div>
+    </div>
+
+    <div class="cycle-phase open">
+      <div class="phase-num">09</div>
+      <div class="phase-label">Fase 9 · 2026</div>
+      <div class="phase-title">Tarcísio como Candidato do Sistema</div>
+      <div class="phase-period">2025–2026</div>
+      <span class="phase-badge badge-p4b">P4b</span>
+      <div class="phase-body">
+        Tarcísio documentado como "preferido do centrão e da Faria Lima" (JOTA, dez/2025).
+        "Até ministros do STF ainda nutriam a expectativa de ver o governador de São Paulo na disputa
+        contra Lula" (JOTA, dez/2025) — declaração que cruza o Judiciário com preferência eleitoral explícita.
+        Estrategistas de Tarcísio avaliam necessário o apoio do mercado financeiro, dos EUA e do setor produtivo.
+        Padrão de omissão calibrada: apoio verbal mínimo a Bolsonaro + distância institucional do STF —
+        posição só sustentável com esse equilíbrio preciso.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TAB: NIKOLAS ═══ -->
+<section id="tab-nikolas" class="section">
+  <div class="sec-label">Nikolas Ferreira — Dois Episódios Documentados</div>
+
+  <p style="margin-bottom: 24px;">
+    Nota metodológica obrigatória: as motivações de Nikolas Ferreira em ambos os episódios
+    <strong>não são determinadas pelas fontes disponíveis</strong>. O que está documentado é o
+    efeito estrutural — em dois momentos distintos, ações de um aliado de alta visibilidade
+    funcionaram objetivamente como gatilho de agravamento das condições de detenção de Bolsonaro.
+    Incompetência, descuido e ação deliberada produzem o mesmo efeito estrutural; a distinção
+    é analiticamente irrelevante para o corpus.
+  </p>
+
+  <div class="nikolas-grid">
+    <div class="nikolas-card">
+      <div class="nikolas-num">Episódio 1 — Prisão Domiciliar</div>
+      <div class="nikolas-date">3–4 de agosto de 2025</div>
+      <div class="nikolas-desc">
+        Durante manifestação pró-anistia na Avenida Paulista, Nikolas realiza videochamada
+        ao vivo mostrando Bolsonaro para centenas de apoiadores — afirmando ao público:
+        <em>"Bolsonaro não pode falar, mas pode ver."</em>
+        <br><br>
+        Constitui o segundo descumprimento de medida cautelar imposta em 18/07/2025.
+        Moraes interpreta como coação ao STF e obstrução à Justiça.
+      </div>
+      <div class="nikolas-result">Resultado: Prisão domiciliar fechada decretada 04/08/2025</div>
+    </div>
+
+    <div class="nikolas-card">
+      <div class="nikolas-num">Episódio 2 — Prisão Preventiva</div>
+      <div class="nikolas-date">21–22 de novembro de 2025</div>
+      <div class="nikolas-desc">
+        Nikolas visita Bolsonaro na prisão domiciliar. Drone da TV Globo flagra Nikolas
+        usando celular na presença do ex-presidente, em violação de medida cautelar que
+        proibia visitantes de usar aparelhos.
+        <br><br>
+        Horas depois da visita, Bolsonaro tenta romper a tornozeleira eletrônica com
+        ferro de solda. Moraes decreta prisão preventiva em 22/11/2025.
+      </div>
+      <div class="nikolas-result">Resultado: Prisão preventiva decretada 22/11/2025, mantida pelo STF 24/11/2025</div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>Após o episódio 1, Nikolas declarou: "Prisão domiciliar decretada de Jair Bolsonaro por Moraes.
+    Motivo: Corrupção? Rachadinha? Desvio de bilhões? Roubou o INSS? Não.
+    Seus filhos postaram conteúdo dele nas redes sociais. Que várzea!!"</p>
+    <cite>Nikolas Ferreira, redes sociais, 04/08/2025</cite>
+  </div>
+
+  <p>
+    A formulação de Nikolas é analiticamente relevante: ao negar responsabilidade atribuindo o
+    resultado apenas aos filhos de Bolsonaro (que também compartilharam conteúdo), ele omite
+    que sua própria ação — a videochamada ao vivo para uma multidão — foi explicitamente citada
+    por Moraes como fundamento da decisão.
+  </p>
+
+  <h2>Padrão de Alta Visibilidade como Vetor de Risco</h2>
+
+  <p>
+    Nos dois episódios, a característica comum é que Nikolas, por ser o aliado de maior
+    visibilidade pública presente, transformou ações que poderiam ser discretas em
+    eventos documentados de alcance massivo — exatamente o que as medidas cautelares
+    buscavam prevenir. O efeito estrutural de um aliado de alta visibilidade sem disciplina
+    processual é equivalente ao de um adversário deliberado.
+  </p>
+</section>
+
+<!-- ═══ TAB: MATRIX ═══ -->
+<section id="tab-matrix" class="section">
+  <div class="sec-label">Matriz de Atores e Funções Estruturais</div>
+
+  <p style="margin-bottom: 24px;">
+    Mapeamento por função estrutural, não por indivíduo. A função persiste mesmo que o ocupante mude.
+  </p>
+
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th>Vetor</th>
+        <th>Função Estrutural</th>
+        <th>Ocupante(s) Documentado(s)</th>
+        <th>Mecanismo</th>
+        <th>Padrão</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bloqueio partidário</td>
+        <td>Guardião do registro eleitoral</td>
+        <td>TSE / ADI 5311 (10×1)</td>
+        <td>Exigência técnica desproporcional + rejeição da ADI que poderia desbloqueá-la</td>
+        <td><span class="phase-badge badge-p3">P3</span></td>
+      </tr>
+      <tr>
+        <td>Bloqueio interno</td>
+        <td>Insider com trânsito duplo</td>
+        <td>Admar Gonzaga (ex-TSE + sec-geral Aliança) / Karina Kufa (tesoureira + amiga Toffoli)</td>
+        <td>Conhecimento do tribunal sem uso efetivo; trânsito com o único ministro favorável (Toffoli)</td>
+        <td><span class="phase-badge badge-p3">P3</span></td>
+      </tr>
+      <tr>
+        <td>Captura estrutural</td>
+        <td>Cacique centrão</td>
+        <td>Valdemar Costa Neto (condenado Mensalão)</td>
+        <td>Bolsonaro dependente do partido; Valdemar controla indicações estaduais contra vontade da família</td>
+        <td><span class="phase-badge badge-p7">P7</span></td>
+      </tr>
+      <tr>
+        <td>Certificação midiática</td>
+        <td>Árbitro da direita apresentável</td>
+        <td>Rodrigo Constantino / mídia liberal Faria Lima</td>
+        <td>Atacar exilados políticos usando inferência patrimonial invertida; 8 anos de padrão documentado</td>
+        <td><span class="phase-badge badge-p4b">P4b</span></td>
+      </tr>
+      <tr>
+        <td>Extração de capital</td>
+        <td>Executor do protocolo Deltan</td>
+        <td>Deltan (Podemos→NOVO) / Moro / Tarcísio</td>
+        <td>Absorver eleitorado bolsonarista sem herdar custos institucionais</td>
+        <td><span class="phase-badge badge-p4b">P4b</span></td>
+      </tr>
+      <tr>
+        <td>Gatilho de prisão</td>
+        <td>Aliado de alta visibilidade / risco processual</td>
+        <td>Nikolas Ferreira (2× documentado)</td>
+        <td>Ações de alcance massivo que constituem descumprimento de cautelar em ambos os episódios</td>
+        <td><span class="phase-badge badge-p4">P4</span></td>
+      </tr>
+      <tr>
+        <td>Omissão calibrada</td>
+        <td>Candidato do establishment</td>
+        <td>Tarcísio de Freitas</td>
+        <td>Apoio verbal mínimo + distância STF/Faria Lima; ministros STF declararam preferência por sua candidatura</td>
+        <td><span class="phase-badge badge-p4b">P4b</span></td>
+      </tr>
+      <tr>
+        <td>Weaponização interna</td>
+        <td>Revelação de timing cirúrgico</td>
+        <td>Aliados PL (vazamento Flávio/Vorcaro)</td>
+        <td>Vínculos com Banco Master revelados exatamente após prazo de desincompatibilização de Tarcísio</td>
+        <td><span class="phase-badge badge-p4">P4</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="formula">
+    <div class="formula-title">Loop estrutural documentado</div>
+    <div class="formula-line">
+      <span class="formula-arrow">→</span>
+      <span class="formula-item highlight">Aliança bloqueado [TSE + insider com trânsito duplo]</span>
+    </div>
+    <div class="formula-line">
+      <span class="formula-arrow">→</span>
+      <span class="formula-item">Bolsonaro refém do PL [Valdemar = condenado Mensalão = centrão]</span>
+    </div>
+    <div class="formula-line">
+      <span class="formula-arrow">→</span>
+      <span class="formula-item">Candidato ungido [Flávio] = herdeiro sem autonomia estrutural</span>
+    </div>
+    <div class="formula-line">
+      <span class="formula-arrow">→</span>
+      <span class="formula-item">Candidato atacado por dentro [Banco Master / timing cirúrgico]</span>
+    </div>
+    <div class="formula-line">
+      <span class="formula-arrow">→</span>
+      <span class="formula-item">Alternativa preferida pelo sistema [Tarcísio / Faria Lima / ministros STF]</span>
+    </div>
+    <div class="formula-line">
+      <span class="formula-arrow">→</span>
+      <span class="formula-item result">Fragmentação pré-outubro/2026 → sistema capturado preservado com nova face</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TAB: ANALOGIAS ═══ -->
+<section id="tab-analogias" class="section">
+  <div class="sec-label">Analogias Históricas e Literárias</div>
+
+  <h2>Mani Pulite / Itália (1992–1994)</h2>
+  <p>
+    O caso italiano é o paralelo mais direto: procuradores anticorrupção tornaram-se figuras políticas
+    nacionais, mas a transição do capital simbólico para capital eleitoral foi mediada por um establishment
+    (Berlusconi e seus aliados) que havia se beneficiado politicamente da destruição da Primeira República.
+    Os procuradores que achavam que podiam direcionar o processo foram eventualmente consumidos pela mesma
+    máquina que pensavam controlar. Di Pietro, o equivalente italiano de Moro, saiu da Itália.
+  </p>
+
+  <h2>O Protocolo de Extração de Capital — Levitsky &amp; Ziblatt</h2>
+  <p>
+    Em <em>Como as Democracias Morrem</em> (2018), Levitsky e Ziblatt documentam como atores estabelecidos
+    tentam "domar" outsiders populistas — absorvendo seu eleitorado enquanto mantêm controle institucional.
+    O mecanismo falha quando o outsider tem capital popular suficiente para resistir à domesticação.
+    No caso brasileiro, o outsider foi tornado inelegível antes que a domesticação fosse necessária —
+    o que é uma versão mais eficiente do mecanismo.
+  </p>
+
+  <h2>Sun Tzu — Vencer sem Lutar</h2>
+  <p>
+    "A suprema arte da guerra é subjugar o inimigo sem lutar."
+    O establishment não precisou derrotar o bolsonarismo nas urnas em 2022 —
+    precisava apenas que ele chegasse a 2026 suficientemente fragmentado para
+    que a alternativa "apresentável" apareça como única viável.
+    O bloqueio do Aliança (2019–2022) foi o movimento de abertura.
+    A inelegibilidade de Bolsonaro foi o meio-jogo.
+    A fragmentação atual é o final de partida.
+  </p>
+
+  <h2>Gramsci — Hegemonia e Guerra de Posição</h2>
+  <p>
+    Gramsci distingue entre guerra de movimento (confronto direto) e guerra de posição (controle de
+    instituições, narrativa e legitimidade). O que o corpus documenta é uma guerra de posição
+    operada contra o próprio campo oposicionista: o establishment não precisa vencer as eleições —
+    precisa controlar quem pode vencê-las. A "direita permitida" é o produto da guerra de posição
+    dentro do campo oposicionista, não entre campos adversários.
+  </p>
+</section>
+
+<!-- ═══ TAB: LACUNAS ═══ -->
+<section id="tab-lacunas" class="section">
+  <div class="sec-label">Lacunas Analíticas e Limites do Corpus</div>
+
+  <div class="lacunas">
+    <div class="lacunas-title">⚠ Hipóteses não confirmadas — marcadas explicitamente</div>
+    <div class="lacuna-item">
+      Motivação de Nikolas Ferreira nos dois episódios de prisão. As fontes documentam o efeito estrutural
+      (agravamento das condições de detenção de Bolsonaro), mas incompetência, descuido e ação deliberada
+      são indistinguíveis pelas evidências disponíveis. O corpus registra o mecanismo, não a intenção.
+    </div>
+    <div class="lacuna-item">
+      Grau de coordenação entre Constantino, outros gatekeepers midiáticos e o establishment judicial-financeiro.
+      A convergência de interesses estruturais é documentada; coordenação explícita não está demonstrada
+      e não é necessária para o mecanismo funcionar.
+    </div>
+    <div class="lacuna-item">
+      Papel específico de Admar Gonzaga na falha do Aliança. Que o conflito de interesse estrutural existia
+      é documentado; que ele foi deliberadamente usado para sabotar o partido é hipótese não verificável
+      com as fontes disponíveis.
+    </div>
+    <div class="lacuna-item">
+      Decisão final de Tarcísio sobre candidatura presidencial em 2026 — pendente no momento do registro.
+      O padrão de omissão calibrada está documentado; a decisão eleitoral definitiva ainda não.
+    </div>
+    <div class="lacuna-item">
+      Impacto do tarifaço Trump (50% sobre produtos brasileiros, ago/2026) na dinâmica eleitoral.
+      A armadilha estrutural — oposição não consegue capitalizar a pressão americana sem parecer
+      traidora do Brasil — está documentada, mas o desfecho eleitoral é incerto.
+    </div>
+  </div>
+
+  <h2>O Que Este Dossier NÃO Afirma</h2>
+  <p>
+    Este dossier não afirma que há uma conspiração coordenada entre o STF, a Faria Lima,
+    Constantino, Nikolas Ferreira e Tarcísio de Freitas para destruir o bolsonarismo.
+    O que documenta é que as ações de cada um desses atores, seguindo seus próprios interesses
+    estruturais, produzem o mesmo efeito funcional que uma conspiração produziria —
+    sem requerer coordenação explícita.
+  </p>
+  <p>
+    A distinção é metodologicamente essencial: sistemas capturados não precisam de
+    conspiradores conscientes. Precisam apenas do funcionamento normal de instituições
+    moldadas por assimetrias de capital econômico e político.
+  </p>
+</section>
+
+<!-- ═══ TAB: FONTES ═══ -->
+<section id="tab-fontes" class="section">
+  <div class="sec-label">Fontes Primárias e Secundárias Verificadas</div>
+
+  <div class="sources">
+
+    <div class="source-item">
+      <div class="source-num">01</div>
+      <div class="source-body">
+        <span class="source-meta"><span class="st st-primario">FONTE PRIMÁRIA</span></span>
+        <a class="source-title" href="https://pt.wikiquote.org/wiki/Deltan_Dallagnol" target="_blank">
+          Deltan Dallagnol — Wikiquote: "O maior desafio é descolar do Bozo..."
+        </a>
+        <div class="source-meta">Wikiquote · mensagem WhatsApp 26/03/2019 · via Operação Spoofing / Vaza Jato</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">02</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.diariodocentrodomundo.com.br/essencial/o-maior-desafio-e-descolar-do-bozo-sem-perder-os-apoiadores-dele-diz-deltan-em-mensagens-da-lava-jato/" target="_blank">
+          "O maior desafio é descolar do Bozo sem perder os apoiadores dele" — Diário do Centro do Mundo
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> DCM · mar/2021 · Vaza Jato</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">03</div>
+      <div class="source-body">
+        <a class="source-title" href="https://revistaforum.com.br/politica/frase-de-dallagnol-exposta-pela-vaza-jato-faz-bolsonaristas-esvaziarem-atos-contra-cassacao/" target="_blank">
+          Frase de Dallagnol exposta pela Vaza Jato faz bolsonaristas esvaziarem atos — Revista Fórum
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Fórum · dez/2025</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">04</div>
+      <div class="source-body">
+        <span class="source-meta"><span class="st st-primario">FONTE PRIMÁRIA</span></span>
+        <a class="source-title" href="https://agenciabrasil.ebc.com.br/justica/noticia/2020-03/supremo-mantem-lei-que-proibe-apoio-de-filiados-novos-partidos" target="_blank">
+          STF confirma lei que proíbe apoio de filiados a novos partidos — Agência Brasil
+        </a>
+        <div class="source-meta"><span class="st st-stf">STF</span> Agência Brasil · 04/03/2020 · ADI 5311 · placar 10×1, Toffoli divergente</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">05</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.poder360.com.br/analise/a-alianca-pelo-brasil-depende-da-boa-vontade-dos-ministros-do-tse/" target="_blank">
+          A Aliança pelo Brasil depende da boa vontade dos ministros do TSE — Poder360
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Poder360 · dez/2019 · Admar Gonzaga, ex-ministro TSE, secretário-geral do Aliança</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">06</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.metropoles.com/colunas/igor-gadelha/advogada-de-bolsonaro-anuncia-ida-a-posse-de-zanin-no-stf" target="_blank">
+          Advogada de Bolsonaro anuncia ida à posse de Zanin no STF — Metrópoles
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Metrópoles · ago/2023 · Karina Kufa amiga de Zanin + articuladora do Aliança</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">07</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.metropoles.com/brasil/ato-de-nikolas-ferreira-foi-crucial-para-prisao-domiciliar-de-bolsonaro" target="_blank">
+          Ato de Nikolas Ferreira foi crucial para prisão domiciliar de Bolsonaro — Metrópoles
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Metrópoles · 04/08/2025 · Episódio 1</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">08</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.em.com.br/politica/2025/11/7298364-nikolas-descumpriu-medida-de-moraes-e-usou-celular-em-visita-a-bolsonaro.html" target="_blank">
+          Nikolas descumpriu medida de Moraes e usou celular em visita a Bolsonaro — Estado de Minas
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Estado de Minas · 26/11/2025 · Episódio 2</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">09</div>
+      <div class="source-body">
+        <a class="source-title" href="https://tagteam.harvard.edu/hub_feeds/3884/feed_items/17115805" target="_blank">
+          Sombra de Tarcísio ronda Flávio Bolsonaro — JOTA
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> JOTA · dez/2025 · "até ministros do STF ainda nutriam a expectativa de ver Tarcísio"</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">10</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.gazetadopovo.com.br/republica/eduardo-bolsonaro-direita-permitida-defende-elegibilidade-pai-2026/" target="_blank">
+          Eduardo Bolsonaro critica "direita permitida" — Gazeta do Povo
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Gazeta do Povo · jun/2025 · frase "direita permitida" + referência a Tarcísio</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">11</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.metropoles.com/brasil/tse-cassa-por-unanimidade-mandato-de-deltan-dallagnol" target="_blank">
+          TSE cassa por unanimidade mandato de Deltan Dallagnol — Metrópoles
+        </a>
+        <div class="source-meta"><span class="st st-stf">TSE</span> Metrópoles · 16/05/2023 · votação 1min 6s · recurso Federação Brasil Esperança (PT/PCdoB/PV)</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">12</div>
+      <div class="source-body">
+        <a class="source-title" href="https://www.brasil247.com/brasil/pl-avalia-que-flavio-bolsonaro-ocultou-relacao-com-vorcaro-para-evitar-dar-lugar-a-tarcisio" target="_blank">
+          PL avalia que Flávio Bolsonaro ocultou relação com Vorcaro para evitar dar lugar a Tarcísio — Brasil 247
+        </a>
+        <div class="source-meta"><span class="st st-jornalismo">JORNALISMO</span> Brasil 247 · mai/2026 · Banco Master / candidatura / timing</div>
+      </div>
+    </div>
+
+    <div class="source-item">
+      <div class="source-num">⚠</div>
+      <div class="source-body">
+        <div style="font-size:11px; color: var(--amber); padding: 4px 0;">
+          Este documento é de caráter analítico-forense. Presunção de inocência aplicável onde indicado.
+          Hipóteses são explicitamente marcadas como tal. Motivações individuais são excluídas da análise estrutural.
+          Licença: CC0 1.0 Universal — Domínio Público Total.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- ARTEATOS RELACIONADOS -->
+  <div class="related-block" id="artefatos-relacionados">
+    <div class="sec-label">Artefatos Relacionados</div>
+    <div class="related-grid">
+      <a class="related-link" href="https://gosurf.site/paradoxo-constitucional" target="_blank" rel="noopener">
+        <div class="related-cat">Paradoxo Constitucional</div>
+        <div class="related-title">Dois Vetores Autoritários Simultâneos</div>
+        <div class="related-desc">O golpe tentado legitima a exceção judicial; a exceção radicaliza o golpe.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/selecao-antes-da-eleicao" target="_blank" rel="noopener">
+        <div class="related-cat">Seleção Pré-Eleitoral</div>
+        <div class="related-title">Seleção Antes da Eleição</div>
+        <div class="related-desc">Como o sistema filtra candidatos antes do voto — gatekeeping institucional documentado.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/banco-master" target="_blank" rel="noopener">
+        <div class="related-cat">Banco Master</div>
+        <div class="related-title">Compliance Zero — R$54bi</div>
+        <div class="related-desc">A fraude que contamina o candidato ungido e o campo oposicionista.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/inq4781" target="_blank" rel="noopener">
+        <div class="related-cat">INQ 4.781</div>
+        <div class="related-title">O Inquérito das Fake News</div>
+        <div class="related-desc">Geometria 535×1 e o chokepoint terminal do sistema de impunidade.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/intercept-dossie" target="_blank" rel="noopener">
+        <div class="related-cat">Mídia / Gatekeeping</div>
+        <div class="related-title">The Intercept — Controlled Opposition</div>
+        <div class="related-desc">O papel da mídia alternativa na certificação da oposição permitida.</div>
+      </a>
+      <a class="related-link" href="https://gosurf.site/paralelos" target="_blank" rel="noopener">
+        <div class="related-cat">Paralelos</div>
+        <div class="related-title">4 Operações Anticorrupção</div>
+        <div class="related-desc">Castelo de Areia · Satiagraha · Lava Jato · Compliance Zero. 75% anuladas.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<button type="button" id="gotop" aria-label="Voltar ao topo">↑</button>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <a href="https://gosurf.site" target="_blank" rel="noopener">gosurf.site</a> ·
+    <a href="https://lawfare-timeline.vercel.app/" class="lawfare-link" target="_blank" rel="noopener">lawfare-timeline</a> · ID 189 · @araguaci · CC0 1.0
+  </div>
+  <div class="corpus-tags">
+    <span class="corpus-tag">P3</span>
+    <span class="corpus-tag">P4b</span>
+    <span class="corpus-tag">P4</span>
+    <span class="corpus-tag">P6</span>
+    <span class="corpus-tag">P7</span>
+    <span class="corpus-tag">Outubro 2026</span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.nav-tab');
+  const gotop = document.getElementById('gotop');
+  const nav = document.querySelector('.nav');
+
+  function navOffset() {
+    return nav ? nav.getBoundingClientRect().height + 8 : 72;
+  }
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -65% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+            link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(sec => observer.observe(sec));
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) gotop.classList.add('show');
+    else gotop.classList.remove('show');
+  }, { passive: true });
+
+  gotop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasil: Dois Mandatos, Duas Economias · Painel Comparativo 2019–2026</title>
+<link rel="canonical" href="https://gosurf.site/insolvencia-brasil">
+<meta property="og:title" content="Brasil: Dois Mandatos, Duas Economias · Painel Comparativo 2019–2026">
+<meta property="og:description" content="Análise comparativa baseada em fontes primárias independentes. Entregas, reformas, insolvências, tributação e indicadores macroeconômicos.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0d;
+  --bg2: #111316;
+  --bg3: #16181d;
+  --bg4: #1c1f26;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.10);
+  --text: #e8eaf0;
+  --text2: #9098a8;
+  --text3: #5a6272;
+  --text4: #3a404f;
+
+  --era1: #3b82f6;
+  --era1-dim: rgba(59,130,246,0.12);
+  --era1-mid: rgba(59,130,246,0.25);
+  --era2: #ef4444;
+  --era2-dim: rgba(239,68,68,0.10);
+  --era2-mid: rgba(239,68,68,0.22);
+
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.10);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.10);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.10);
+
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --r: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { 
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ─── HEADER ─── */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  background: rgba(10,11,13,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.header-logo {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.header-logo span { color: var(--text2); }
+.nav-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 3px;
+}
+.nav-tab {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text3);
+  border: none;
+  background: transparent;
+  transition: all 150ms;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text2); background: var(--bg4); }
+.nav-tab.active { background: var(--bg4); color: var(--text); border: 1px solid var(--border2); }
+.header-update {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text4);
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--text4);
+  display: block;
+}
+.hero-title {
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+.hero-title em { 
+  font-style: normal;
+  font-weight: 600;
+}
+.hero-title .era1 { color: var(--era1); }
+.hero-title .era2 { color: var(--era2); }
+.hero-sub {
+  font-size: 14px;
+  color: var(--text2);
+  max-width: 540px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.hero-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  background: var(--bg3);
+}
+.badge.era1 { border-color: rgba(59,130,246,0.3); color: var(--era1); background: var(--era1-dim); }
+.badge.era2 { border-color: rgba(239,68,68,0.3); color: var(--era2); background: var(--era2-dim); }
+.badge.warn { border-color: rgba(245,158,11,0.3); color: var(--amber); background: var(--amber-dim); }
+
+/* ─── ALERT BANNER ─── */
+.alert-banner {
+  background: var(--era2-dim);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  margin: 24px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.alert-icon { color: var(--era2); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.alert-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.alert-text strong { color: var(--text); }
+
+/* ─── TAB PANELS ─── */
+.tab-panel { display: none; padding: 32px 0 64px; }
+.tab-panel.active { display: block; }
+
+/* ─── SECTION LABEL ─── */
+.sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.sec-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: -.01em;
+}
+.sec-sub {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 24px;
+  max-width: 600px;
+}
+
+/* ─── ERA COMPARE HEADER ─── */
+.era-headers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.era-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 20px;
+}
+.era-card.era1 { border-color: rgba(59,130,246,0.2); background: var(--era1-dim); }
+.era-card.era2 { border-color: rgba(239,68,68,0.2); background: var(--era2-dim); }
+.era-card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.era-card.era1 .era-card-label { color: var(--era1); }
+.era-card.era2 .era-card-label { color: var(--era2); }
+.era-card-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.era-card-period { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.era-card-tagline { font-size: 12px; color: var(--text2); margin-top: 6px; }
+
+/* ─── KPI GRID ─── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.kpi-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+}
+.kpi-label { font-size: 11px; color: var(--text3); margin-bottom: 10px; line-height: 1.4; }
+.kpi-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.kpi-val {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+}
+.kpi-val small { font-size: 10px; color: var(--text3); display: block; margin-top: 2px; font-family: var(--font); }
+.kpi-val.era1c { color: var(--era1); }
+.kpi-val.era2c { color: var(--era2); }
+.kpi-delta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  display: inline-block;
+}
+.kpi-delta.bad { color: var(--red); background: var(--red-dim); border-color: rgba(239,68,68,0.2); }
+.kpi-delta.good { color: var(--green); background: var(--green-dim); border-color: rgba(34,197,94,0.2); }
+
+/* ─── COMPARE TABLE ─── */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 32px;
+}
+.compare-table th {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+  font-weight: 500;
+}
+.compare-table th:nth-child(2) { color: var(--era1); }
+.compare-table th:nth-child(3) { color: var(--era2); }
+.compare-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.compare-table td:first-child { color: var(--text); font-weight: 500; }
+.compare-table td:nth-child(2) { color: var(--era1); font-family: var(--mono); font-size: 11px; }
+.compare-table td:nth-child(3) { color: var(--era2); font-family: var(--mono); font-size: 11px; }
+.compare-table td:last-child { font-family: var(--mono); font-size: 10px; }
+.compare-table tr:hover td { background: var(--bg3); }
+.delta-bad { color: var(--red) !important; }
+.delta-good { color: var(--green) !important; }
+.delta-neutral { color: var(--text3) !important; }
+
+/* ─── ENTREGA CARDS ─── */
+.entrega-section { margin-bottom: 32px; }
+.entrega-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+.entrega-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  transition: border-color 150ms;
+}
+.entrega-card:hover { border-color: var(--border2); }
+.entrega-cat {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--era1);
+  margin-bottom: 6px;
+}
+.entrega-nome { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+.entrega-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.entrega-inv {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--era1);
+  background: var(--era1-dim);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.entrega-status {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+/* ─── REFORMA LIST ─── */
+.reforma-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.reforma-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--text2);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.reforma-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--era1);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* ─── IMPOSTO TIMELINE ─── */
+.imposto-timeline { margin-bottom: 32px; }
+.imp-month {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 2px;
+  align-items: flex-start;
+}
+.imp-date {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  width: 80px;
+  flex-shrink: 0;
+  padding-top: 8px;
+  letter-spacing: .04em;
+}
+.imp-items { flex: 1; }
+.imp-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 7px 12px;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 3px;
+  line-height: 1.5;
+}
+.imp-item strong { color: var(--era1); font-weight: 500; }
+
+/* ─── INSOLVÊNCIA CHARTS ─── */
+.chart-area {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.chart-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 4px;
+}
+.chart-source {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text4);
+  margin-bottom: 16px;
+  letter-spacing: .04em;
+}
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 120px; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar-label { font-family: var(--mono); font-size: 9px; color: var(--text3); }
+.bar-wrap { width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.bar {
+  width: 100%;
+  max-width: 36px;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  transition: opacity 150ms;
+  min-height: 4px;
+}
+.bar:hover { opacity: 0.8; }
+.bar-val {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+
+/* ─── MACRO SECTION ─── */
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.macro-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+}
+.macro-name { font-size: 11px; color: var(--text3); margin-bottom: 12px; }
+.macro-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.macro-period { font-size: 10px; color: var(--text4); font-family: var(--mono); }
+.macro-num { font-family: var(--mono); font-size: 13px; font-weight: 500; }
+.macro-num.good { color: var(--green); }
+.macro-num.bad { color: var(--red); }
+.macro-num.warn { color: var(--amber); }
+.macro-divider { height: 1px; background: var(--border); margin: 8px 0; }
+
+/* ─── CONCLUSION ─── */
+.conclusion-block {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.conclusion-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 12px; letter-spacing: -.01em; }
+.conclusion-body { font-size: 13px; color: var(--text2); line-height: 1.8; }
+.conclusion-body p { margin-bottom: 12px; }
+.conclusion-body p:last-child { margin-bottom: 0; }
+.conclusion-body strong { color: var(--text); }
+
+/* ─── SOURCES ─── */
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 6px;
+}
+.source-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.source-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text4);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.source-body { flex: 1; }
+.source-title { font-size: 11px; color: var(--text2); line-height: 1.4; margin-bottom: 2px; }
+.source-title a { color: var(--text2); text-decoration: none; }
+.source-title a:hover { color: var(--era1); }
+.source-meta { font-family: var(--mono); font-size: 9px; color: var(--text4); }
+.source-tag { 
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  color: var(--text4);
+  margin-right: 4px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* ─── PARADOX CALLOUT ─── */
+.paradox {
+  background: linear-gradient(135deg, var(--bg3) 0%, rgba(239,68,68,0.05) 100%);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--r);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.paradox-title { 
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--era2);
+  margin-bottom: 8px;
+}
+.paradox-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.paradox-body strong { color: var(--text); }
+
+/* ─── FOOTER ─── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  margin-top: 48px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--text4); }
+.footer-meta { font-family: var(--mono); font-size: 10px; color: var(--text4); text-align: right; }
+
+/* ─── TIMELINE ─── */
+.timeline-wrap { position: relative; padding-left: 20px; margin-bottom: 32px; }
+.timeline-line {
+  position: absolute;
+  left: 3px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--border2);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 4px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.tl-dot {
+  position: absolute;
+  left: -20px;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+.tl-item.era1 .tl-dot { background: var(--era1-dim); border-color: var(--era1); }
+.tl-item.era2 .tl-dot { background: var(--era2-dim); border-color: var(--era2); }
+.tl-item.now .tl-dot { background: var(--amber-dim); border-color: var(--amber); }
+.tl-date { 
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  width: 70px;
+  flex-shrink: 0;
+  padding-top: 7px;
+}
+.tl-content {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 8px 12px;
+  flex: 1;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.tl-item.era1 .tl-content { border-color: rgba(59,130,246,0.15); }
+.tl-item.era2 .tl-content { border-color: rgba(239,68,68,0.15); }
+.tl-item.now .tl-content { border-color: rgba(245,158,11,0.2); }
+.tl-content strong { color: var(--text); }
+
+/* ─── NOTA METODOLÓGICA ─── */
+.nota {
+  background: var(--bg3);
+  border-left: 2px solid var(--border2);
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text3);
+  border-radius: 0 var(--r) var(--r) 0;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.nota strong { color: var(--text2); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 720px) {
+  .era-headers { grid-template-columns: 1fr; }
+  .macro-grid { grid-template-columns: 1fr; }
+  .nav-tabs { display: none; }
+  .hero-title { font-size: 26px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ─── SCROLL BAR ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-inner">
+      <div class="header-logo"><span>lawfare-timeline</span> · insolvência-brasil · v2</div>
+      <nav class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('visao-geral')">Visão Geral</button>
+        <button class="nav-tab" onclick="showTab('entregas-era1')">Entregas 2019–22</button>
+        <button class="nav-tab" onclick="showTab('tributacao')">Tributação</button>
+        <button class="nav-tab" onclick="showTab('insolvencia')">Insolvência</button>
+        <button class="nav-tab" onclick="showTab('macro')">Macro</button>
+        <button class="nav-tab" onclick="showTab('conclusao')">Análise</button>
+        <button class="nav-tab" onclick="showTab('fontes')">Fontes</button>
+      </nav>
+      <div class="header-update">Atualizado: Março 2026</div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-label">Painel comparativo · Fontes primárias independentes</div>
+    <h1 class="hero-title">
+      Brasil: Dois Mandatos,<br>
+      <em class="era1">Uma Economia Que Cresceu</em><br>
+      <em class="era2">E Uma Que Quebrou</em>
+    </h1>
+    <p class="hero-sub">Análise baseada em dados verificados de Serasa Experian, Monitor RGF, Allianz Trade, Banco Central, IBGE e fontes primárias do governo federal. Entregas, reformas, tributação, insolvência empresarial e indicadores macroeconômicos nos períodos 2019–2022 e 2023–2026.</p>
+    <div class="hero-badges">
+      <span class="badge era1">Era 1 · 2019–2022 · Bolsonaro</span>
+      <span class="badge era2">Era 2 · 2023–2026 · Lula III</span>
+      <span class="badge warn">⚠ Alerta sistêmico: 5.680 empresas em RJ · dez/2025</span>
+      <span class="badge">CC0 1.0 Domínio Público</span>
+    </div>
+    <div class="alert-banner" style="margin-top:24px; margin-bottom:0;">
+      <div class="alert-icon">▲</div>
+      <div class="alert-text">
+        <strong>Paradoxo documentado:</strong> 2024 apresentou crescimento do PIB de 3,5% ao mesmo tempo em que bateu todos os recordes históricos de pedidos de recuperação judicial (2.273 pedidos). O PIB cresceu — o tecido empresarial se desintegrou silenciosamente. Nota: o governo Lula decretou sigilo de 100 anos sobre mais da metade dos gastos de autoridades e outras despesas, limitando comparações fiscais plenas.
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: VISÃO GERAL -->
+<!-- ══════════════════════════════════════════ -->
+<div id="visao-geral" class="tab-panel active">
+<div class="wrap">
+
+  <div class="era-headers">
+    <div class="era-card era1">
+      <div class="era-card-label">Era 1</div>
+      <div class="era-card-name">Governo Bolsonaro</div>
+      <div class="era-card-period">Jan/2019 → Dez/2022 · 4 anos</div>
+      <div class="era-card-tagline">Pandemia + recuperação + juros baixos (Selic 2%–13,75%)</div>
+    </div>
+    <div class="era-card era2">
+      <div class="era-card-label">Era 2</div>
+      <div class="era-card-name">Governo Lula III</div>
+      <div class="era-card-period">Jan/2023 → Dez/2026 · 4 anos (em curso)</div>
+      <div class="era-card-tagline">Espiral de juros + inadimplência recorde (Selic 12,25%–15%)</div>
+    </div>
+  </div>
+
+  <div class="sec-label">Indicadores-chave comparativos</div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Pedidos de Recuperação Judicial · pico anual</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">1.397<small>pico 2021</small></div>
+        <div class="kpi-val era2c">2.273<small>recorde 2024</small></div>
+      </div>
+      <span class="kpi-delta bad">+62,7% no pico</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Estoque ativo de empresas em RJ (fim de período)</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~2.800<small>est. fim 2022</small></div>
+        <div class="kpi-val era2c">5.680<small>dez/2025 recorde</small></div>
+      </div>
+      <span class="kpi-delta bad">+102,8%</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Taxa Selic — piso do período</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">2%<small>ago/2020</small></div>
+        <div class="kpi-val era2c">12,25%<small>início 2023</small></div>
+      </div>
+      <span class="kpi-delta bad">+10,25 p.p.</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CNPJs inadimplentes (pessoas jurídicas)</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~5,5M<small>Serasa 2022</small></div>
+        <div class="kpi-val era2c">8,9M<small>nov/2025 recorde</small></div>
+      </div>
+      <span class="kpi-delta bad">+61,8%</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Consumidores inadimplentes (PF)</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">69,4M<small>dez/2022</small></div>
+        <div class="kpi-val era2c">74,6M<small>jan/2026</small></div>
+      </div>
+      <span class="kpi-delta bad">+7,5% (13 meses alta)</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Dívida total empresas inadimplentes</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~R$80B<small>estimativa base</small></div>
+        <div class="kpi-val era2c">R$213B<small>dez/2025</small></div>
+      </div>
+      <span class="kpi-delta bad">+166%</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Taxa de falência após RJ (conversão)</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~10–12%<small>histórico</small></div>
+        <div class="kpi-val era2c">37%<small>pico Q3/2025</small></div>
+      </div>
+      <span class="kpi-delta bad">~3× maior</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Emprego com carteira assinada · criação líquida</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">+6,6M<small>2019–2022</small></div>
+        <div class="kpi-val era2c">em apuração<small>parcial positivo</small></div>
+      </div>
+      <span class="kpi-delta good">Era 1 pico histórico</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Crescimento do PIB · melhor ano do período</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">+4,6%<small>2021</small></div>
+        <div class="kpi-val era2c">+3,5%<small>2024</small></div>
+      </div>
+      <span class="kpi-delta neutral">PIB cresceu nas 2 eras</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Agronegócio · índice de RJ por mil empresas</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~1,5/mil<small>estimativa histórica</small></div>
+        <div class="kpi-val era2c">13,53/mil<small>dez/2025</small></div>
+      </div>
+      <span class="kpi-delta bad">+802% — pior setor</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Inadimplência média BC (crédito livre)</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~3,2%<small>série histórica</small></div>
+        <div class="kpi-val era2c">4,2%<small>jan/2026</small></div>
+      </div>
+      <span class="kpi-delta bad">maior desde 2011</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Custo crédito livre (taxa média)</div>
+      <div class="kpi-row">
+        <div class="kpi-val era1c">~1,4% a.m.<small>2021</small></div>
+        <div class="kpi-val era2c">32,8% a.a.<small>jan/2026</small></div>
+      </div>
+      <span class="kpi-delta bad">maior desde nov/2016</span>
+    </div>
+  </div>
+
+  <div class="sec-label">Linha do tempo — eventos-chave comparados</div>
+
+  <div class="timeline-wrap">
+    <div class="timeline-line"></div>
+    <div class="tl-item era1">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2019</div>
+      <div class="tl-content">Selic 4,5% · ~1.100 pedidos de RJ/ano · Reforma da Previdência aprovada (R$800B de economia projetada) · início de desonerações tributárias</div>
+    </div>
+    <div class="tl-item era1">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2020</div>
+      <div class="tl-content"><strong>Pandemia COVID-19</strong> · Selic 2% (piso histórico) · Auxílio Emergencial (~R$322B) · RJ: 1.179 pedidos · Marco do Saneamento Básico aprovado</div>
+    </div>
+    <div class="tl-item era1">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2021</div>
+      <div class="tl-content">PIB +4,6% · Selic sobe para 9,25% · RJ: 1.397 pedidos (pico Era 1) · Vacinação em massa · +5,9 mil ônibus escolares entregues</div>
+    </div>
+    <div class="tl-item era1">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2022</div>
+      <div class="tl-content">Selic 13,75% · RJ: 833 pedidos (menor da era) · PIB +2,9% · Inadimplência PF: 64,8M · IPI zerado em julho (carros, motos, eletrônicos)</div>
+    </div>
+    <div class="tl-item era2">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2023</div>
+      <div class="tl-content">Caso Americanas (rombo R$40B) · RJ: 1.405 pedidos (+68,7% vs 2022) · Selic 12,25–13,75% · Revogação de desonerações tributárias</div>
+    </div>
+    <div class="tl-item era2">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2024</div>
+      <div class="tl-content">PIB +3,5% mas <strong>RJ: 2.273 pedidos — recorde histórico</strong> (+61,8%) · 29% das empresas em RJ vão à falência · MPEs = 80% dos pedidos</div>
+    </div>
+    <div class="tl-item now">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2025</div>
+      <div class="tl-content"><strong>Selic 15%</strong> (maior em 19 anos) · Estoque: 5.680 empresas em RJ (recorde absoluto) · CNPJs inadimplentes: 8,9M · Dívida empresas: R$213B · Agro: 13,53/mil</div>
+    </div>
+    <div class="tl-item era2">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2026</div>
+      <div class="tl-content">Projeção Allianz Trade: +5% em insolvências · reversão apenas em 2027 · Ano eleitoral retrai crédito · Selic ainda >12% na maior parte do ano</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: ENTREGAS ERA 1 -->
+<!-- ══════════════════════════════════════════ -->
+<div id="entregas-era1" class="tab-panel">
+<div class="wrap">
+
+  <div class="sec-title">Entregas e Realizações 2019–2022</div>
+  <div class="sec-sub">Dados compilados de fontes do Governo Federal — "1000 dias de governo" e relatórios ministeriais. Classificação por área temática.</div>
+
+  <div class="nota">
+    <strong>Nota de metodologia:</strong> Os dados a seguir são da fonte governamental original (governo Bolsonaro, via portais federais). Informações não foram ajustadas. Para contraste, dados de insolvência e inadimplência da Era 2 (aba Insolvência) provêm exclusivamente de fontes independentes (Serasa, Monitor RGF, Banco Central, Allianz Trade).
+  </div>
+
+  <!-- Reformas e Modernização -->
+  <div class="entrega-section">
+    <div class="sec-label">Reformas estruturais e modernização legislativa</div>
+    <div class="reforma-grid">
+      <div class="reforma-item"><div class="reforma-dot"></div>Reforma da Previdência (EC 103/2019) · economia projetada R$800B</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Reforma Trabalhista (implementação e complementação)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Lei da Liberdade Econômica (Lei 13.874/2019)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Marco do Saneamento Básico (Lei 14.026/2020)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Nova Lei do Gás (Lei 14.134/2021)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Lei das Ferrovias (Lei 14.273/2021)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Marco Legal das Startups (Lei Complementar 182/2021)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Nova Lei de Licitações (Lei 14.133/2021)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Privatizações e concessões — 22 aeroportos, portos, ferrovias</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Desburocratização e simplificação de processos</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Autonomia formal do Banco Central (LC 179/2021)</div>
+      <div class="reforma-item"><div class="reforma-dot"></div>Marco Legal do Câmbio (Lei 14.286/2021)</div>
+    </div>
+  </div>
+
+  <!-- Obras por categoria -->
+  <div class="entrega-section">
+    <div class="sec-label">Infraestrutura — obras e investimentos</div>
+    <div class="entrega-grid">
+      <div class="entrega-card">
+        <div class="entrega-cat">Rodovias</div>
+        <div class="entrega-nome">Rodovia BR-116 — Duplicação SP/RJ</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$1,25B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Hidrovias</div>
+        <div class="entrega-nome">Hidrovia Paraná-Tietê · 2.400 km revitalizados</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$2,8B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Ferrovias</div>
+        <div class="entrega-nome">Ferrovias de Integração Oeste-Leste</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$4,2B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Transporte Urbano</div>
+        <div class="entrega-nome">Metrô de Brasília — Linha 1 (31 km, 24 estações)</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$8,5B</span>
+          <span class="entrega-status">Operacional</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Energia Solar</div>
+        <div class="entrega-nome">Usina Solar de São Gonçalo · 475 MWp</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$2,1B</span>
+          <span class="entrega-status">Operacional</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Energia Eólica</div>
+        <div class="entrega-nome">Parques Eólicos Nordestinos</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$3,2B</span>
+          <span class="entrega-status">Operacional</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Habitação</div>
+        <div class="entrega-nome">Casa Verde e Amarela / Minha Casa Minha Vida (retomada) · 1,5M unidades</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$28,5B</span>
+          <span class="entrega-status">Concluído / Entregue</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Saneamento</div>
+        <div class="entrega-nome">Programa de Saneamento Básico Universal</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$5,2B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Saúde</div>
+        <div class="entrega-nome">Ampliação da Rede de Atenção Primária · 145M beneficiários</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$5,8B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Agropecuária</div>
+        <div class="entrega-nome">Programa de Modernização Agrícola · safras recordes</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$6,8B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Irrigação</div>
+        <div class="entrega-nome">Irrigação no Semiárido Nordestino · Rio São Francisco</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$2,4B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+      <div class="entrega-card">
+        <div class="entrega-cat">Educação</div>
+        <div class="entrega-nome">ProFuturo — Digitalização das Escolas</div>
+        <div class="entrega-meta">
+          <span class="entrega-inv">R$4,5B</span>
+          <span class="entrega-status">Concluído</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicadores sintetizados -->
+  <div class="sec-label">Indicadores econômicos da Era 1 (fontes governamentais)</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Empregos com carteira assinada criados</div>
+      <div class="kpi-val era1c" style="font-size:20px;">+6,6M</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">2019–2022 · menor desemprego da década</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Taxa de desemprego</div>
+      <div class="kpi-val era1c" style="font-size:20px;">6,8%</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Dez/2022 · menor em 10 anos</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Crescimento do PIB</div>
+      <div class="kpi-val era1c" style="font-size:20px;">4,6%</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">2021 / 2,9% em 2022</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Economia Reforma da Previdência</div>
+      <div class="kpi-val era1c" style="font-size:20px;">R$800B</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Projeção 10 anos · EC 103/2019</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Programas nacionais com cobertura ≥26 estados</div>
+      <div class="kpi-val era1c" style="font-size:20px;">14+</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Dados: portal "1000 dias de governo"</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Investimentos totais consolidados</div>
+      <div class="kpi-val era1c" style="font-size:20px;">R$94,8B</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Obras e entregas verificadas</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: TRIBUTAÇÃO -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tributacao" class="tab-panel">
+<div class="wrap">
+
+  <div class="sec-title">Tributação — Era 1 vs Era 2</div>
+  <div class="sec-sub">Impostos zerados ou reduzidos de ago/2019 a set/2022 (governo Bolsonaro). Em contraposição, reversões e novos tributos implementados a partir de jan/2023.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+    <div class="conclusion-block" style="border-color:rgba(59,130,246,0.2);">
+      <div class="conclusion-title" style="color:var(--era1);">Era 1 · Política Tributária</div>
+      <div class="conclusion-body">
+        <p>Mais de <strong>80 medidas de redução ou zeragem tributária</strong> documentadas entre ago/2019 e set/2022. Foco em: medicamentos (especialmente COVID-19, câncer, doenças raras), bens de capital, insumos agrícolas, eletrônicos e alimentos da cesta básica.</p>
+        <p>IPI cortado de 25% para 35% em julho/2022 para veículos, motos, bicicletas, eletrônicos, eletrodomésticos e calçados. Cide-Combustíveis e PIS/Cofins da gasolina zerados até dez/2022.</p>
+      </div>
+    </div>
+    <div class="conclusion-block" style="border-color:rgba(239,68,68,0.2);">
+      <div class="conclusion-title" style="color:var(--era2);">Era 2 · Política Tributária</div>
+      <div class="conclusion-body">
+        <p>Reversão das desonerações de IPI em 2023. Reoneração da folha de pagamentos para setores intensivos em mão de obra. Aumento da carga tributária efetiva via CSLL, IRPJ e contribuições.</p>
+        <p>Aprovação da Reforma Tributária (EC 132/2023) com transição 2026–2033 — CBS, IBS e Imposto Seletivo substituindo PIS/Cofins, ICMS e ISS. Custo de transição estimado: incerto.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Cronologia de desonerações — Era 1 (ago/2019 – set/2022)</div>
+
+  <div class="imposto-timeline">
+    <div class="imp-month">
+      <div class="imp-date">AGO 2019</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Redução</strong> das tarifas de importação de medicamentos de HIV no Mercosul</div>
+        <div class="imp-item"><strong>Redução</strong> do imposto sobre jogos eletrônicos e videogames</div>
+        <div class="imp-item"><strong>Redução</strong> de impostos de importação de remédios contra câncer e HIV</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">SET 2019</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Redução</strong> de impostos de importação para 532 bens de capital</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">JAN 2020</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Desoneração da folha</strong> de pagamento para contratação de jovens</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">MAR 2020</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Alíquota zerada</strong> para 61 produtos usados no combate à COVID-19</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">ABR–MAI 2020</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Zerada</strong> cobrança de imposto sobre produtos médicos · cilindros de oxigênio · remédios COVID-19</div>
+        <div class="imp-item">IOF zerado para distribuidoras de energia elétrica em 2020</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">JUL 2020</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Imposto zerado</strong> para remédios de AME · 37 medicamentos COVID-19 · equipamentos de Energia Solar</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">SET–OUT 2020</div>
+      <div class="imp-items">
+        <div class="imp-item">Importação do <strong>arroz zerada</strong> até fim de 2020 · centenas de equipamentos médicos zerados</div>
+        <div class="imp-item">Importação de soja e milho <strong>zerados</strong> até jan/2021</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">FEV 2021</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>25 produtos Mercosul</strong> com impostos reduzidos · Diesel e gás de cozinha federais zerados por 2 meses</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">MAR–JUN 2021</div>
+      <div class="imp-items">
+        <div class="imp-item">Importação para <strong>118 produtos COVID-19</strong> zerados · 23 insumos agrícolas com II reduzido</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">SET–OUT 2021</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Zerado por 1 ano</strong> imposto de importação de vacinas (gripe, hepatites, HPV, raiva, tétano, pertussis)</div>
+        <div class="imp-item">PIS/Cofins suspenso na importação de milho · <strong>20+ itens de TI e telecom</strong> zerados</div>
+        <div class="imp-item"><strong>Congelamento do ICMS</strong> cobrado em combustíveis 1/11/21 a 31/01/22</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">FEV 2022</div>
+      <div class="imp-items">
+        <div class="imp-item">IPI <strong>reduzido até 25%</strong> para linha branca e automotivos · 30 produtos aeronáuticos zerados</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">MAR–ABR 2022</div>
+      <div class="imp-items">
+        <div class="imp-item"><strong>Zerado</strong> imposto de alimentos básicos (café, margarina, queijo, macarrão, açúcar) · gás de cozinha zerado</div>
+        <div class="imp-item">Módulos solares fotovoltaicos · equipamentos adaptação para deficientes <strong>zerados</strong></div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">MAI–JUN 2022</div>
+      <div class="imp-items">
+        <div class="imp-item">Alimentos da <strong>cesta básica zerados</strong> (feijão, carne, massas, biscoitos, arroz, materiais de construção)</div>
+        <div class="imp-item"><strong>Cide-Combustíveis e PIS/Cofins da gasolina</strong> zerados até dez/2022 · ICMS combustíveis limitado a 18%</div>
+      </div>
+    </div>
+    <div class="imp-month">
+      <div class="imp-date">JUL–AGO 2022</div>
+      <div class="imp-items">
+        <div class="imp-item">Medicamentos para câncer e doença pulmonar <strong>zerados</strong> · IPI de 25% para 35% para carros, motos, TVs, celulares, eletrodomésticos</div>
+        <div class="imp-item">Nutrição esportiva reduzida de 11,2% para 4%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-table" style="font-size:12px;">
+    <table class="compare-table" style="width:100%;">
+      <thead>
+        <tr>
+          <th>Área</th>
+          <th>Era 1 · 2019–2022</th>
+          <th>Era 2 · 2023–2026</th>
+          <th>Variação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>IPI industrial</td><td>Reduzido progressivamente; -25-35% em 2022</td><td>Revertido em 2023 para setores não-ZFM</td><td class="delta-bad">Aumento efetivo</td></tr>
+        <tr><td>Desoneração folha</td><td>Ampliada para múltiplos setores</td><td>Reonerada parcialmente via STF/Congresso</td><td class="delta-bad">Reversão parcial</td></tr>
+        <tr><td>Medicamentos críticos</td><td>Dezenas de zeramento documentados</td><td>Manutenção geral, sem novas iniciativas</td><td class="delta-neutral">Neutro</td></tr>
+        <tr><td>Cesta básica</td><td>Zeramentos temporários em 2022</td><td>Reforma tributária preserva isenções na CBS/IBS</td><td class="delta-good">Mantido</td></tr>
+        <tr><td>Combustíveis</td><td>ICMS limitado, PIS/Cofins zerado</td><td>ICMS voltou ao regime geral em 2023</td><td class="delta-bad">Preço subiu</td></tr>
+        <tr><td>Energia solar</td><td>Importações zeradas em 2020</td><td>Mantido (política de Estado)</td><td class="delta-neutral">Neutro</td></tr>
+        <tr><td>Reforma tributária</td><td>Marco do Câmbio, Lei das Ferrovias, LP</td><td>EC 132/2023 — CBS+IBS+IS (transição 2026–33)</td><td class="delta-neutral">Estrutural</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: INSOLVÊNCIA -->
+<!-- ══════════════════════════════════════════ -->
+<div id="insolvencia" class="tab-panel">
+<div class="wrap">
+
+  <div class="sec-title">Insolvência Corporativa — Comparativo por Era</div>
+  <div class="sec-sub">Dados exclusivamente de fontes primárias independentes do governo: Serasa Experian, Monitor RGF & Associados, Allianz Trade, Banco Central, FecomercioSP.</div>
+
+  <div class="paradox">
+    <div class="paradox-title">▲ Paradoxo estrutural documentado</div>
+    <div class="paradox-body">
+      <strong>Em 2024, o PIB cresceu 3,5% e os pedidos de recuperação judicial bateram todos os recordes históricos.</strong> Isso não é contraditório — revela uma economia com dois andares: no térreo, o consumo das famílias e as transferências sustentam o agregado. No andar de cima, o tecido empresarial produtivo se desintegra silenciosamente. A Era 2 herdou uma bomba-relógio: dívidas pandêmicas contratadas a Selic de 2%, que precisaram ser pagas a Selic de 12%–15%.
+    </div>
+  </div>
+
+  <div class="sec-label">Série histórica — pedidos de recuperação judicial</div>
+
+  <div class="chart-area">
+    <div class="chart-title">Pedidos de Recuperação Judicial · 2019–2025</div>
+    <div class="chart-source">FONTE: Serasa Experian — Indicador de Falências e Recuperações Judiciais · * 2025 estimado (projeções setoriais)</div>
+    <div class="bar-chart" id="rj-chart"></div>
+  </div>
+
+  <div class="sec-label">Tabela completa de indicadores — todas as métricas</div>
+
+  <table class="compare-table" style="width:100%">
+    <thead>
+      <tr>
+        <th style="width:32%">Indicador</th>
+        <th style="width:22%">Era 1 · 2019–2022</th>
+        <th style="width:22%">Era 2 · 2023–2026</th>
+        <th style="width:14%">Variação</th>
+        <th style="width:10%">Fonte</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Pedidos de RJ (pico anual)</td><td>1.397 (2021)</td><td>2.273 (2024)</td><td class="delta-bad">+62,7%</td><td>Serasa</td></tr>
+      <tr><td>Pedidos de RJ (menor ano)</td><td>833 (2022)</td><td>≥1.405 (2023)</td><td class="delta-bad">+68,7%</td><td>Serasa</td></tr>
+      <tr><td>Total pedidos no período</td><td>~4.509 (4 anos)</td><td>~7.100 (3 anos est.)</td><td class="delta-bad">+57,5% em menos tempo</td><td>Serasa</td></tr>
+      <tr><td>Estoque ativo em RJ</td><td>~2.800 (fim 2022)</td><td>5.680 (dez/2025)</td><td class="delta-bad">+102,8%</td><td>Monitor RGF</td></tr>
+      <tr><td>Novas entradas em RJ (ano)</td><td>~833 (2022)</td><td>1.665 (2025)</td><td class="delta-bad">+99,9%</td><td>Monitor RGF</td></tr>
+      <tr><td>Taxa falência após RJ</td><td>~10–12% (histórico)</td><td>29–37% (2025)</td><td class="delta-bad">~3× maior</td><td>Monitor RGF</td></tr>
+      <tr><td>CNPJs inadimplentes</td><td>~5,5M (2022)</td><td>8,9M (nov/2025)</td><td class="delta-bad">+61,8%</td><td>Serasa / FecomercioSP</td></tr>
+      <tr><td>Dívida total empresas inadimpl.</td><td>~R$80B</td><td>R$213B (2025)</td><td class="delta-bad">+166%</td><td>Serasa</td></tr>
+      <tr><td>PF inadimplentes</td><td>69,4M (dez/2022)</td><td>74,6M (jan/2026)</td><td class="delta-bad">+7,5%</td><td>Serasa</td></tr>
+      <tr><td>Inadimplência média BC</td><td>~3,2%</td><td>4,2% (jan/2026)</td><td class="delta-bad">+31,2% · maior desde 2011</td><td>Banco Central</td></tr>
+      <tr><td>Selic piso do período</td><td>2% (ago/2020)</td><td>12,25% (início 2023)</td><td class="delta-bad">+10,25 p.p.</td><td>Banco Central</td></tr>
+      <tr><td>Selic teto do período</td><td>13,75% (2022)</td><td>15% (2025)</td><td class="delta-bad">maior em 19 anos</td><td>Banco Central</td></tr>
+      <tr><td>MPEs — % dos pedidos RJ</td><td>~60%</td><td>73–80%</td><td class="delta-bad">+20 p.p.</td><td>Serasa / FecomercioSP</td></tr>
+      <tr><td>Agronegócio em RJ (por mil)</td><td>~1,5/mil</td><td>13,53/mil</td><td class="delta-bad">+802%</td><td>Monitor RGF</td></tr>
+      <tr><td>Insolvências corporativas (cresc.)</td><td>~5% a.a.</td><td>+28% em 2025</td><td class="delta-bad">5,6× mais rápido</td><td>Allianz Trade</td></tr>
+      <tr><td>Recuperações extrajudiciais</td><td>~10–15/ano</td><td>78 em 2025 (recorde)</td><td class="delta-good">5× mais (maturidade)</td><td>OBRE</td></tr>
+      <tr><td>Comprometimento renda (famílias)</td><td>~27% (2022)</td><td>29,2% (dez/2025)</td><td class="delta-bad">+2,2 p.p.</td><td>CNC / BC</td></tr>
+      <tr><td>Custo crédito livre (taxa média)</td><td>~1,4% a.m. (2021)</td><td>32,8% a.a. (jan/2026)</td><td class="delta-bad">maior desde nov/2016</td><td>Banco Central</td></tr>
+      <tr><td>PIB — crescimento anual</td><td>-3,9% (2020) / +4,6% (2021)</td><td>+3,5% (2024)</td><td class="delta-neutral">PIB cresce, empresas quebram</td><td>BC / IBGE</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-label">Índice IRJ-RGF por setor — dez/2025 (empresas em RJ por 1.000 ativas)</div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Agropecuária</div><div class="kpi-val era2c" style="font-size:22px;">13,53/mil</div><div style="font-size:10px;color:var(--text4);margin-top:4px;">6× acima da média nacional</div></div>
+    <div class="kpi-card"><div class="kpi-label">Indústria</div><div class="kpi-val" style="font-size:22px;color:var(--amber);">6,74/mil</div><div style="font-size:10px;color:var(--text4);margin-top:4px;">3× acima da média</div></div>
+    <div class="kpi-card"><div class="kpi-label">Infraestrutura</div><div class="kpi-val" style="font-size:22px;color:var(--amber);">4,11/mil</div><div style="font-size:10px;color:var(--text4);margin-top:4px;">2× acima da média</div></div>
+    <div class="kpi-card"><div class="kpi-label">Comércio</div><div class="kpi-val" style="font-size:22px;">1,81/mil</div><div style="font-size:10px;color:var(--text4);margin-top:4px;">Abaixo da média</div></div>
+    <div class="kpi-card"><div class="kpi-label">Serviços</div><div class="kpi-val era1c" style="font-size:22px;">1,02/mil</div><div style="font-size:10px;color:var(--text4);margin-top:4px;">Maior volume absoluto: 1.302 empresas</div></div>
+    <div class="kpi-card"><div class="kpi-label">Média nacional</div><div class="kpi-val" style="font-size:22px;">2,13/mil</div><div style="font-size:10px;color:var(--text4);margin-top:4px;">Referência geral</div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: MACRO -->
+<!-- ══════════════════════════════════════════ -->
+<div id="macro" class="tab-panel">
+<div class="wrap">
+
+  <div class="sec-title">Indicadores Macroeconômicos Comparados</div>
+  <div class="sec-sub">Série histórica de variáveis-chave. Nota: dados IBGE incluídos nesta seção apenas para contexto de PIB; indicadores de insolvência e inadimplência excluem IBGE conforme metodologia.</div>
+
+  <div class="macro-grid">
+    <div class="macro-card">
+      <div class="macro-name">Taxa Selic · % a.a.</div>
+      <div class="macro-row"><span class="macro-period">Jan/2019</span><span class="macro-num good">6,50%</span></div>
+      <div class="macro-row"><span class="macro-period">Ago/2020 — Piso</span><span class="macro-num good">2,00%</span></div>
+      <div class="macro-row"><span class="macro-period">Dez/2022</span><span class="macro-num warn">13,75%</span></div>
+      <div class="macro-divider"></div>
+      <div class="macro-row"><span class="macro-period">Jan/2023</span><span class="macro-num bad">13,75%</span></div>
+      <div class="macro-row"><span class="macro-period">Meados 2023</span><span class="macro-num bad">13,25%</span></div>
+      <div class="macro-row"><span class="macro-period">Dez/2025 — Teto</span><span class="macro-num bad">15,00%</span></div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-name">Crescimento PIB · %</div>
+      <div class="macro-row"><span class="macro-period">2019</span><span class="macro-num good">+1,4%</span></div>
+      <div class="macro-row"><span class="macro-period">2020</span><span class="macro-num bad">-3,9%</span></div>
+      <div class="macro-row"><span class="macro-period">2021</span><span class="macro-num good">+4,6%</span></div>
+      <div class="macro-row"><span class="macro-period">2022</span><span class="macro-num good">+2,9%</span></div>
+      <div class="macro-divider"></div>
+      <div class="macro-row"><span class="macro-period">2023</span><span class="macro-num good">+2,9%</span></div>
+      <div class="macro-row"><span class="macro-period">2024</span><span class="macro-num good">+3,5%</span></div>
+      <div class="macro-row"><span class="macro-period">2025 est.</span><span class="macro-num warn">+2,0%</span></div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-name">Inflação IPCA · %</div>
+      <div class="macro-row"><span class="macro-period">2019</span><span class="macro-num good">4,31%</span></div>
+      <div class="macro-row"><span class="macro-period">2020</span><span class="macro-num good">4,52%</span></div>
+      <div class="macro-row"><span class="macro-period">2021</span><span class="macro-num bad">10,06%</span></div>
+      <div class="macro-row"><span class="macro-period">2022</span><span class="macro-num bad">5,79%</span></div>
+      <div class="macro-divider"></div>
+      <div class="macro-row"><span class="macro-period">2023</span><span class="macro-num warn">4,62%</span></div>
+      <div class="macro-row"><span class="macro-period">2024</span><span class="macro-num bad">4,83%</span></div>
+      <div class="macro-row"><span class="macro-period">2025 est.</span><span class="macro-num bad">~5,5%</span></div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-name">Desemprego · %</div>
+      <div class="macro-row"><span class="macro-period">2019 T1</span><span class="macro-num bad">12,7%</span></div>
+      <div class="macro-row"><span class="macro-period">2020 pico</span><span class="macro-num bad">14,9%</span></div>
+      <div class="macro-row"><span class="macro-period">Dez/2022</span><span class="macro-num good">6,8%</span></div>
+      <div class="macro-divider"></div>
+      <div class="macro-row"><span class="macro-period">2023</span><span class="macro-num good">7,4%</span></div>
+      <div class="macro-row"><span class="macro-period">2024</span><span class="macro-num good">6,2%</span></div>
+      <div class="macro-row"><span class="macro-period">2025 est.</span><span class="macro-num warn">~6,5%</span></div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-name">Dívida Pública / PIB · %</div>
+      <div class="macro-row"><span class="macro-period">2019</span><span class="macro-num warn">75,8%</span></div>
+      <div class="macro-row"><span class="macro-period">2020 (pandemia)</span><span class="macro-num bad">88,8%</span></div>
+      <div class="macro-row"><span class="macro-period">Dez/2022</span><span class="macro-num warn">73,5%</span></div>
+      <div class="macro-divider"></div>
+      <div class="macro-row"><span class="macro-period">2023</span><span class="macro-num bad">74,4%</span></div>
+      <div class="macro-row"><span class="macro-period">2024</span><span class="macro-num bad">78,7%</span></div>
+      <div class="macro-row"><span class="macro-period">2025 est.</span><span class="macro-num bad">>80%</span></div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-name">Inadimplência PF · Milhões</div>
+      <div class="macro-row"><span class="macro-period">Dez/2019</span><span class="macro-num warn">63,4M</span></div>
+      <div class="macro-row"><span class="macro-period">Pico 2022</span><span class="macro-num bad">68,4M</span></div>
+      <div class="macro-row"><span class="macro-period">Dez/2022</span><span class="macro-num warn">69,4M</span></div>
+      <div class="macro-divider"></div>
+      <div class="macro-row"><span class="macro-period">Mai/2025</span><span class="macro-num bad">76,6M</span></div>
+      <div class="macro-row"><span class="macro-period">Jan/2026</span><span class="macro-num bad">74,6M</span></div>
+      <div class="macro-row"><span class="macro-period">Acréscimo Era 2</span><span class="macro-num bad">+11,3M</span></div>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <div class="alert-icon">◆</div>
+    <div class="alert-text">
+      <strong>Sigilo fiscal:</strong> O governo federal decretou sigilo de 100 anos sobre uma parcela significativa dos gastos de autoridades e outras despesas. Isso impossibilita comparação fiscal plena entre as duas eras. Todos os dados fiscais aqui apresentados provêm de fontes independentes do governo (Banco Central, Serasa, Monitor RGF).
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: ANÁLISE / CONCLUSÃO -->
+<!-- ══════════════════════════════════════════ -->
+<div id="conclusao" class="tab-panel">
+<div class="wrap">
+
+  <div class="sec-title">Análise Estrutural</div>
+  <div class="sec-sub">Síntese analítica dos padrões identificados nos dados comparativos entre as duas eras de governo.</div>
+
+  <div class="conclusion-block">
+    <div class="conclusion-title">A ilusão do crescimento e o colapso que o PIB não mede</div>
+    <div class="conclusion-body">
+      <p>O contraste mais perturbador deste painel não está nos números de insolvência em si — está no fato de que <strong>2024 apresentou crescimento do PIB de 3,5% ao mesmo tempo em que bateu todos os recordes históricos de pedidos de recuperação judicial</strong>. Isso revela uma economia com dois andares: no térreo, o consumo das famílias e os programas de transferência sustentam o agregado macroeconômico. No andar de cima, o tecido empresarial produtivo se desintegra silenciosamente.</p>
+      <p>A Era 2 (2023–2026) herdou uma bomba-relógio da Era 1: <strong>o endividamento emergencial da pandemia (2020–2021), contratado a Selic de 2%, que precisou ser pago a Selic de 12%–15%</strong>. Cada ponto percentual de juros representa bilhões extras de serviço de dívida para empresas que já operam com margens comprimidas. O sistema não quebrou durante a pandemia porque o governo sustentou artificialmente as cadeias produtivas — mas o relógio financeiro nunca parou.</p>
+    </div>
+  </div>
+
+  <div class="conclusion-block">
+    <div class="conclusion-title">A taxa de conversão RJ→Falência como termômetro da viabilidade empresarial</div>
+    <div class="conclusion-body">
+      <p>O dado mais grave é a taxa de conversão RJ→falência: saltou de 17% em 2024 para <strong>37% no pico de 2025</strong>. Isso significa que o instrumento jurídico de recuperação está sendo usado por empresas já inviáveis — chegando ao Judiciário sem capital de giro, sem plano operacional e sem capacidade real de soerguimento.</p>
+      <p>O histórico de 10–12% de conversão na Era 1 reflete empresas que entravam em RJ com viabilidade operacional e possibilidade real de reestruturação. O salto para 29–37% na Era 2 indica que as empresas esperam até o limiar da inviabilidade para pedir proteção judicial — o que já é tarde demais.</p>
+    </div>
+  </div>
+
+  <div class="conclusion-block">
+    <div class="conclusion-title">O agronegócio: de âncora do PIB a líder de insolvências</div>
+    <div class="conclusion-body">
+      <p>O agronegócio é o caso mais emblemático da ruptura estrutural da Era 2. <strong>De âncora do PIB com safras recordes consecutivas (2019–2022) a líder de insolvências em menos de três anos.</strong> O índice de 13,53 empresas em RJ por mil ativas — seis vezes acima da média nacional — reflete a combinação de: alavancagem agressiva nos anos de juros baixos (2020–2021), quebras climáticas (El Niño, desastre do RS), queda de preços de commodities e crédito rural cortado por inadimplência crescente.</p>
+      <p>Os mesmos produtores que financiaram safras recordes a Selic de 2% estão pagando esses financiamentos a Selic de 15% — com margens comprimidas por preços internacionais adversos.</p>
+    </div>
+  </div>
+
+  <div class="conclusion-block">
+    <div class="conclusion-title">Perspectiva para 2026 — o nexo eleitoral</div>
+    <div class="conclusion-body">
+      <p>Para 2026, <strong>a Allianz Trade projeta +5% de alta em insolvências, com reversão apenas em 2027</strong>. O ambiente será ainda mais desafiador por três razões adicionais: (1) ano eleitoral retrai crédito por incerteza; (2) a Selic, mesmo em queda, ainda estará acima de 12% durante boa parte do ano; (3) empresas que adiam decisões durante um ciclo eleitoral chegam ao período pós-eleição com menor liquidez.</p>
+      <p>A marca de 8,9 milhões de CNPJs negativados e R$213 bilhões em dívidas empresariais não é uma crise passageira de liquidez. <strong>É a manifestação contábil de uma mudança de patamar estrutural</strong>: o Brasil pós-pandemia opera com um custo de capital permanentemente mais alto, e grande parte do tecido empresarial ainda não reprecificou seus modelos de negócio para essa realidade.</p>
+    </div>
+  </div>
+
+  <div class="conclusion-block" style="border-color:rgba(59,130,246,0.2);">
+    <div class="conclusion-title" style="color:var(--era1);">Legado estrutural da Era 1 que explica parte dos dados</div>
+    <div class="conclusion-body">
+      <p>Parte dos números positivos da Era 2 (crescimento do PIB, queda do desemprego) é herdada de reformas estruturais implementadas na Era 1: <strong>Reforma da Previdência</strong> (economia de R$800B), autonomia formal do Banco Central (LC 179/2021), Marco do Saneamento, Nova Lei de Licitações, Marco das Ferrovias e 22 privatizações de aeroportos e portos que continuaram operando e gerando empregos.</p>
+      <p>Por outro lado, a <strong>explosão do endividamento pandêmico</strong> (Auxílio Emergencial, PRONAMPE, BNDES emergencial), contraído a juros mínimos históricos, criou o passivo que virou a bomba de insolvência da Era 2. Nenhuma era pode ser avaliada isoladamente dos seus antecessores e do contexto global de ciclo de juros.</p>
+    </div>
+  </div>
+
+  <div class="conclusion-block" style="border-color:rgba(245,158,11,0.2);">
+    <div class="conclusion-title" style="color:var(--amber);">Ponto de atenção positivo — maturidade jurídico-empresarial</div>
+    <div class="conclusion-body">
+      <p>As recuperações extrajudiciais chegaram a <strong>78 casos em 2025 (recorde histórico)</strong>, sinalizando que parte das empresas está buscando reestruturação preventiva antes do colapso judicial — o que representa maturidade crescente do ecossistema jurídico-empresarial brasileiro. A Lei 14.112/2020 (reforma da LREF), sancionada na Era 1, criou mecanismos mais ágeis que estão sendo utilizados progressivamente na Era 2.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB: FONTES -->
+<!-- ══════════════════════════════════════════ -->
+<div id="fontes" class="tab-panel">
+<div class="wrap">
+
+  <div class="sec-title">Fontes e Referências Verificadas</div>
+  <div class="sec-sub">Todos os dados de insolvência e inadimplência foram coletados de fontes primárias independentes do governo. Dados do IBGE utilizados apenas para séries de PIB/desemprego.</div>
+
+  <div class="nota" style="margin-bottom:20px;">
+    <strong>Metodologia:</strong> dados de insolvência provêm da Serasa Experian (série desde 2005), Monitor RGF & Associados (Q2/2023 em diante), Allianz Trade (relatório econométrico), FecomercioSP e Banco Central. <strong>Zero uso de IBGE para indicadores de insolvência.</strong> Dados governamentais (entregas Era 1) provêm de fontes do próprio governo e são apresentados sem ajuste — o leitor deve aplicar senso crítico conforme padrão do lawfare-timeline.
+  </div>
+
+  <div class="sources-grid">
+    <div class="source-item">
+      <div class="source-num">01</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.serasaexperian.com.br/sala-de-imprensa/indicadores/brasil-registra-22-mil-pedidos-de-recuperacao-judicial-em-2024-o-maior-numero-da-serie-historica-aponta-serasa-experian/" target="_blank">Serasa Experian — Pedidos de RJ 2024 (recorde histórico)</a></div>
+        <div class="source-meta"><span class="source-tag">primária</span>Indicador oficial · jan/2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">02</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.serasaexperian.com.br/conteudos/indicadores-economicos/" target="_blank">Serasa Experian — Indicadores Econômicos (série histórica)</a></div>
+        <div class="source-meta"><span class="source-tag">primária</span>Banco de dados · atualização mensal</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">03</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.serasa.com.br/limpa-nome-online/blog/mapa-da-inadimplencia-e-renogociacao-de-dividas-no-brasil/" target="_blank">Serasa — Mapa da Inadimplência (PF)</a></div>
+        <div class="source-meta"><span class="source-tag">primária</span>Painel mensal · série desde 2016</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">04</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.gazetadopovo.com.br/economia/inadimplencia-recorde-governo-lula-guerra-no-ira/" target="_blank">Gazeta do Povo — Inadimplência recorde + 5.680 empresas</a></div>
+        <div class="source-meta"><span class="source-tag">jornalismo</span>Reportagem · mar/2026</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">05</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://setcesp.org.br/noticias/ano-de-2025-fecha-com-recorde-de-empresas-em-recuperacao-judicial-2/" target="_blank">SETCESP / Monitor RGF — Recorde 5.680 empresas 2025</a></div>
+        <div class="source-meta"><span class="source-tag">primária</span>Monitor RGF & Associados · fev/2026</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">06</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.poder360.com.br/poder-economia/numero-de-empresas-em-recuperacao-judicial-bate-recorde-em-2025/" target="_blank">Poder360 — Recorde RJ 2025 com dados do Monitor RGF</a></div>
+        <div class="source-meta"><span class="source-tag">jornalismo</span>Reportagem com dados exclusivos · fev/2026</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">07</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://istoedinheiro.com.br/30-empresas-recuperacao-judicial" target="_blank">IstoÉ Dinheiro — 29% das empresas em RJ vão à falência</a></div>
+        <div class="source-meta"><span class="source-tag">jornalismo</span>Reportagem · fev/2026</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">08</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.fecomercio.com.br/noticia/crise-silenciosa-brasil-registra-recorde-de-recuperacoes-judiciais-e-inadimplencia-entre-empresas" target="_blank">FecomercioSP — Crise silenciosa (7,2M CNPJs)</a></div>
+        <div class="source-meta"><span class="source-tag">primária</span>Análise FecomercioSP + Serasa · 2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">09</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.gazetadopovo.com.br/economia/recorde-falencias-recuperacao-judicial-2026/" target="_blank">Gazeta do Povo — Novo recorde de falências previsto 2026</a></div>
+        <div class="source-meta"><span class="source-tag">jornalismo</span>Reportagem + Allianz Trade · dez/2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">10</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://agenciabrasil.ebc.com.br/economia/noticia/2025-05/empresas-em-recuperacao-judicial-sobem-69-no-1o-trimestre-de-2025" target="_blank">Agência Brasil — RJ sobe 6,9% no Q1/2025</a></div>
+        <div class="source-meta"><span class="source-tag">oficial</span>Agência pública · mai/2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">11</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.conjur.com.br/2025-nov-05/recuperacoes-judiciais-crescem-69-e-atingem-maior-nivel-em-duas-decadas/" target="_blank">ConJur — RJ crescem 69%, maior em duas décadas</a></div>
+        <div class="source-meta"><span class="source-tag">jurídico</span>Anuário Justiça Empresarial · nov/2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">12</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.cnnbrasil.com.br/economia/negocios/onda-de-recuperacoes-no-brasil-passa-por-juros-altos-e-questoes-estruturais/" target="_blank">CNN Brasil — Onda de RJ: juros e questões estruturais</a></div>
+        <div class="source-meta"><span class="source-tag">jornalismo</span>Reportagem · mar/2026</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">13</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.mattosfilho.com.br/unico/boletim-reestruturacao-setembro-2025/" target="_blank">Mattos Filho — Boletim Reestruturação Q3/2025</a></div>
+        <div class="source-meta"><span class="source-tag">jurídico</span>Boletim especializado · set/2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">14</div>
+      <div class="source-body">
+        <div class="source-title"><a href="https://www.iedi.org.br/artigos/imprensa/2025/iedi_na_imprensa_20250313_sem_respiro.html" target="_blank">IEDI — "Sem respiro": inadimplência e custo do crédito</a></div>
+        <div class="source-meta"><span class="source-tag">análise</span>Instituto de Estudos Industriais · mar/2025</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">15</div>
+      <div class="source-body">
+        <div class="source-title">Governo Federal — "1000 Dias de Governo" · portais ministeriais</div>
+        <div class="source-meta"><span class="source-tag">gov</span>Fonte declaratória · 2019–2022 · dados não auditados independentemente</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-num">16</div>
+      <div class="source-body">
+        <div class="source-title">Banco Central do Brasil — Notas de Política Monetária</div>
+        <div class="source-meta"><span class="source-tag">primária</span>bcb.gov.br · série histórica Selic e crédito</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;" class="nota">
+    <strong>CC0 1.0 Domínio Público Universal.</strong> Compilado por análise independente como parte do projeto lawfare-timeline.vercel.app. Março 2026.
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-copy">Monitor de Insolvência Corporativa · Brasil 2019–2026 · lawfare-timeline</div>
+      <div class="footer-meta">Serasa · RGF · Allianz Trade · BC · FecomercioSP · v2 · Março 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── TAB NAVIGATION ───
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const tabs = ['visao-geral','entregas-era1','tributacao','insolvencia','macro','conclusao','fontes'];
+  const idx = tabs.indexOf(id);
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ─── BAR CHART ───
+const rjData = [
+  {year:'2019', val:1387, era:'era1'},
+  {year:'2020', val:1179, era:'era1'},
+  {year:'2021', val:1397, era:'era1'},
+  {year:'2022', val:833, era:'era1'},
+  {year:'2023', val:1405, era:'era2'},
+  {year:'2024', val:2273, era:'era2'},
+  {year:'2025*', val:1665, era:'era2'},
+];
+
+const maxVal = Math.max(...rjData.map(d=>d.val));
+const chart = document.getElementById('rj-chart');
+if(chart) {
+  rjData.forEach(d => {
+    const pct = (d.val / maxVal) * 100;
+    const color = d.era === 'era1' ? '#3b82f6' : '#ef4444';
+    const group = document.createElement('div');
+    group.className = 'bar-group';
+    group.innerHTML = `
+      <div class="bar-wrap" style="height:100%;">
+        <div class="bar" style="height:${pct}%;background:${color};opacity:0.8;position:relative;">
+          <div class="bar-val">${d.val}</div>
+        </div>
+      </div>
+      <div class="bar-label">${d.year}</div>
+    `;
+    chart.appendChild(group);
+  });
+}
+
+// ─── URL HASH ROUTING ───
+if(location.hash) {
+  const id = location.hash.slice(1);
+  const valid = ['visao-geral','entregas-era1','tributacao','insolvencia','macro','conclusao','fontes'];
+  if(valid.includes(id)) showTab(id);
+}
+</script>
+</body>
+</html>

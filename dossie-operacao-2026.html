@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSSIÊ OPERAÇÃO 2026 — A Anatomia da Desidratação</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--s1:#111;--s2:#161616;--b:#222;--b2:#2a2a2a;
+  --red:#c8001a;--amber:#e8b84b;--blue:#3a8fd4;--green:#2d9e6b;
+  --text:#e4ddd0;--muted:#7a7060;--dim:#3a3530;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.75}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+
+/* MASTHEAD */
+.masthead{padding:3rem 0 2.5rem;text-align:center;border-bottom:1px solid var(--red);position:relative;overflow:hidden}
+.masthead::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(200,0,26,.07),transparent);pointer-events:none}
+.masthead-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.4em;color:var(--red);text-transform:uppercase;margin-bottom:.75rem}
+.masthead h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;line-height:1.05;max-width:840px;margin:0 auto .75rem;animation:fadeUp .6s .1s both}
+.masthead h1 span{color:var(--amber)}
+.masthead-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.12em;margin-bottom:1.5rem}
+.copy-all-btn{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber);padding:8px 20px;border-radius:3px;cursor:pointer;background:transparent;transition:all .2s}
+.copy-all-btn:hover{background:rgba(232,184,75,.1)}
+
+/* NAV */
+nav{position:sticky;top:0;background:rgba(10,10,10,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--b);padding:.5rem 0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+nav a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:4px 10px;border:.5px solid var(--b2);border-radius:2px;transition:all .2s;white-space:nowrap}
+nav a:hover{color:var(--amber);border-color:var(--amber)}
+
+/* CONTAINER */
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+section{padding:3rem 0;border-bottom:1px solid var(--b)}
+
+/* SECTION HEADERS */
+.s-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.35em;color:var(--red);text-transform:uppercase;margin-bottom:.6rem}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;line-height:1.15;margin-bottom:1.5rem}
+
+/* CARDS */
+.card{background:var(--s1);border:.5px solid var(--b);border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:.75rem}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+
+/* ROW ITEMS */
+.row{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:.5px solid var(--b)}
+.row:last-child{border-bottom:none}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.nm{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.ds{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* BADGES */
+.bd{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.b-r{background:rgba(200,0,26,.2);color:#ff7070;border:.5px solid rgba(200,0,26,.4)}
+.b-a{background:rgba(232,184,75,.18);color:var(--amber);border:.5px solid rgba(232,184,75,.4)}
+.b-b{background:rgba(58,143,212,.2);color:var(--blue);border:.5px solid rgba(58,143,212,.4)}
+.b-g{background:rgba(45,158,107,.2);color:var(--green);border:.5px solid rgba(45,158,107,.4)}
+.b-p{background:rgba(140,80,220,.2);color:#b57bee;border:.5px solid rgba(140,80,220,.4)}
+.b-gr{background:rgba(120,110,100,.15);color:var(--muted);border:.5px solid var(--b)}
+
+/* ALERT */
+.alert{border-left:3px solid;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.65;border-radius:0 3px 3px 0}
+.al-r{border-color:var(--red);background:rgba(200,0,26,.08);color:#ffaaaa}
+.al-a{border-color:var(--amber);background:rgba(232,184,75,.07);color:#d4a535}
+.al-b{border-color:var(--blue);background:rgba(58,143,212,.07);color:#7fbde8}
+.al-g{border-color:var(--green);background:rgba(45,158,107,.08);color:#52c795}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.tbl th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border:.5px solid var(--b);background:var(--s2);color:var(--muted);text-align:left}
+.tbl td{padding:8px 12px;border:.5px solid var(--b);color:var(--muted);vertical-align:top;line-height:1.5}
+.tbl tr:nth-child(odd) td{background:rgba(255,255,255,.02)}
+.tbl strong{color:var(--text)}
+
+/* TIMELINE */
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),transparent)}
+.ti{display:flex;gap:1rem;padding:.7rem 0 .7rem 2.2rem;position:relative;border-bottom:.5px solid var(--b)}
+.ti:last-child{border-bottom:none}
+.tdot{position:absolute;left:7px;top:1rem;width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--bg)}
+.tdot.a{background:var(--amber)}.tdot.b{background:var(--blue)}.tdot.g{background:var(--green)}
+.tdate{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);white-space:nowrap;flex-shrink:0;width:90px;padding-top:2px}
+.ttitle{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.tdesc{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* STATS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.75rem;margin-bottom:1.25rem}
+.stat{background:var(--s1);border:.5px solid var(--b);border-radius:4px;padding:1rem 1.25rem;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--amber)}
+.sv{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--amber);line-height:1;margin-bottom:.3rem}
+.sv.r{color:var(--red)}.sv.b{color:var(--blue)}.sv.g{color:var(--green)}
+.sl{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* QUOTE */
+blockquote{border-left:3px solid var(--amber);padding:.75rem 1.25rem;margin:1.25rem 0;background:var(--s2);font-style:italic;font-size:14px;color:#bbb0a0;line-height:1.7}
+blockquote cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:.5rem;letter-spacing:.06em}
+
+/* REFS */
+.ref-list{list-style:none}
+.ref-list li{padding:5px 0;border-bottom:.5px solid var(--b);font-size:13px}
+.ref-list li:last-child{border-bottom:none}
+.ref-list a{color:var(--blue);text-decoration:none}
+.ref-list a:hover{color:var(--amber);text-decoration:underline}
+.ref-cat{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 .5rem;padding-bottom:.4rem;border-bottom:.5px solid var(--b)}
+
+/* COPY SECTION BUTTON */
+.copy-section{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted);background:transparent;border:.5px solid var(--b);padding:3px 10px;border-radius:2px;cursor:pointer;float:right;margin-top:-2px}
+.copy-section:hover{color:var(--amber);border-color:var(--amber)}
+
+/* SEP */
+.sep{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 .75rem;padding-bottom:.4rem;border-bottom:.5px solid var(--b)}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media(max-width:640px){.g2{grid-template-columns:1fr}}
+
+/* ACTOR */
+.actor{background:var(--s1);border:.5px solid var(--b);border-radius:4px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.an{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.ar{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem}
+.ap{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* FOOTER */
+footer{padding:2.5rem 0;text-align:center;border-top:1px solid var(--red)}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.footer-links a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber);padding-bottom:2px}
+.footer-links a:hover{color:var(--text)}
+.footer-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;line-height:1.8}
+
+/* GO TOP */
+#gotop{position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:var(--red);color:#fff;border:none;border-radius:4px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;transition:opacity .3s;box-shadow:0 4px 16px rgba(200,0,26,.4)}
+#gotop.vis{opacity:1}
+#gotop:hover{background:#a00015}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- GOTOP -->
+<button id="gotop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="container">
+    <div class="masthead-label">Dossiê investigativo · Compilação analítica completa · Mai/2026</div>
+    <h1>OPERAÇÃO <span>2026</span><br>A Anatomia da Desidratação</h1>
+    <div class="masthead-sub">Master · R$514k PT · Constantino · Serra Verde · Galípolo · Biomm · Duplo Padrão · Contra-Inteligência</div>
+    <button class="copy-all-btn" onclick="copyAll()">⊕ Copiar dossiê completo para IA</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#master">Master/Lula</a>
+    <a href="#pt514k">R$514k PT</a>
+    <a href="#constantino">Constantino</a>
+    <a href="#infiltrado">Infiltrado PL</a>
+    <a href="#omissao">Omissão</a>
+    <a href="#serra">Serra Verde</a>
+    <a href="#galipolo">Galípolo</a>
+    <a href="#biomm">Biomm</a>
+    <a href="#haddad">Haddad</a>
+    <a href="#duplo">Duplo Padrão</a>
+    <a href="#estrategia">Estratégia</a>
+    <a href="#conclusao">Conclusão</a>
+    <a href="#refs">Referências</a>
+  </div>
+</nav>
+
+<!-- 1. MASTER + LULA -->
+<section id="master">
+<div class="container">
+  <button class="copy-section" onclick="copySection('master')">copiar seção</button>
+  <div class="s-eye">1. Capitalismo de compadrio — documentado</div>
+  <h2 class="s-title">Master + Lula: a cena do crime</h2>
+
+  <div class="alert al-r"><strong>FATO CENTRAL:</strong> Em 4 de dezembro de 2024, Lula recebeu Daniel Vorcaro em reunião <strong>fora da agenda oficial</strong> no Palácio do Planalto. Presentes: Rui Costa, Alexandre Silveira, Augusto Lima (CEO Master), <strong>Gabriel Galípolo</strong> (futuro presidente do BC) e <strong>Guido Mantega</strong> (lobista de Vorcaro a R$1M/mês). Lula aconselhou a não vender o banco ao BTG e garantiu que "tudo melhoraria com Galípolo no BC."</div>
+
+  <div class="card">
+    <div class="card-title">A cadeia de favores</div>
+    <table class="tbl">
+      <thead><tr><th>Ator</th><th>Papel</th><th>Valor documentado</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Guido Mantega</strong></td><td>Lobista de Vorcaro — indicado por Jaques Wagner (PT-BA)</td><td><strong>R$1M/mês → R$16M+ total</strong></td></tr>
+        <tr><td><strong>Esposa de Moraes</strong></td><td>Contrato com o Master durante análise regulatória</td><td><strong>R$129M</strong></td></tr>
+        <tr><td><strong>Gabriel Galípolo</strong></td><td>Presente na reunião → assume BC → 41 reuniões com o Master</td><td><strong>41 reuniões em 11 meses</strong></td></tr>
+        <tr><td><strong>Walfrido Mares Guia</strong></td><td>Amigo pessoal de Lula / fundador da Biomm</td><td>Vorcaro comprou 25,86% da Biomm</td></tr>
+        <tr><td><strong>BRB (banco público DF)</strong></td><td>Alvo da venda do Master — carteiras sem lastro</td><td>Prejuízo bilionário ao erário</td></tr>
+        <tr><td><strong>FGC</strong></td><td>Absorveu o rombo da liquidação</td><td><strong>R$41–57,4B — maior da história</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- 2. R$514K -->
+<section id="pt514k">
+<div class="container">
+  <button class="copy-section" onclick="copySection('pt514k')">copiar seção</button>
+  <div class="s-eye">2. Financiamento ilegal — Meta Ads Library</div>
+  <h2 class="s-title">Os R$514 mil e a operação coordenada</h2>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="sv r">R$514k</div><div class="sl">PT — impulsionamento Facebook 13–19/mai/2026. Fonte: Meta Ads Library.</div></div>
+    <div class="stat"><div class="sv r">R$350k</div><div class="sl">Só no dia 13/mai — quando o áudio de Flávio veio a público. Operação em tempo real.</div></div>
+    <div class="stat"><div class="sv">39,5×</div><div class="sl">Proporção PT vs. PL no mesmo período. PL gastou R$13k.</div></div>
+    <div class="stat"><div class="sv r">R$1,4M</div><div class="sl">PT nos últimos 30 dias em política/eleições. PL: R$63k no mesmo período.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">O que o PT impulsionou</div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">Vídeo de Lula sobre o Master — R$350k em 1 dia</div><div class="ds">Coordenação em tempo real com o vazamento do áudio. Não foi reação espontânea — foi operação.</div></div><span class="bd b-r">Operação coordenada</span></div>
+    <div class="row"><div class="dot" style="background:var(--amber)"></div><div style="flex:1"><div class="nm">Força-tarefa overnight — editou o próprio vídeo de pré-campanha de Flávio</div><div class="ds">PT inseriu o áudio no vídeo de campanha do adversário. Secretário de Comunicação: "só a verdade." TSE: silêncio.</div></div><span class="bd b-a">Propaganda negativa</span></div>
+    <div class="row"><div class="dot" style="background:var(--blue)"></div><div style="flex:1"><div class="nm">Foco cirúrgico em SP (R$97k) + MG (R$49k)</div><div class="ds">Segmentação profissional nos dois maiores colégios eleitorais. Não foi impulsionamento genérico.</div></div><span class="bd b-b">Segmentação eleitoral</span></div>
+  </div>
+
+  <div class="alert al-a"><strong>ILEGALIDADE POTENCIAL:</strong> Lei 9.504/1997 art. 57-C — impulsionamento sem identificação "Propaganda Eleitoral" = multa R$5k–R$30k por post. Propaganda antecipada proibida antes de 16/ago/2026. O mesmo TSE que criminalizou grupos de WhatsApp durante o governo Bolsonaro: silêncio absoluto.</div>
+</div>
+</section>
+
+<!-- 3. CONSTANTINO -->
+<section id="constantino">
+<div class="container">
+  <button class="copy-section" onclick="copySection('constantino')">copiar seção</button>
+  <div class="s-eye">3. O fogo amigo liberal</div>
+  <h2 class="s-title">Constantino: "Fiz minha parte. Cansei."</h2>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Quem é Rodrigo Constantino</div>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">Setor financeiro 1997–2013</div><div class="ds">16 anos no mercado financeiro antes de virar comentarista. Não saiu do sistema — mudou de função dentro dele.</div></div></div>
+      <div class="row"><div class="dot" style="background:var(--amber)"></div><div style="flex:1"><div class="nm">Presidente do Conselho — Instituto Liberal</div><div class="ds">Financiado pela Rede Atlas — rede internacional de think tanks com capital de grandes fundos e corporações financeiras.</div></div></div>
+      <div class="row"><div class="dot" style="background:var(--blue)"></div><div style="flex:1"><div class="nm">Membro-fundador — Instituto Millenium</div><div class="ds">Financiado por grandes bancos privados (Itaú, Bradesco et al). Braço ideológico do mercado financeiro.</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">O que nunca atacou</div>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">Nunca questionou André Esteves sobre spreads</div><div class="ds">Nem uma análise sobre os maiores spreads bancários do mundo enquanto cobra "responsabilidade fiscal".</div></div></div>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">Nunca analisou o contrato R$129M da esposa de Moraes</div><div class="ds">O escândalo que o indigna é o político, não o financeiro. Não é crítica moral — é proteção de interesses.</div></div></div>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">Nunca cobrou os bancos pelos juros em 19 anos</div><div class="ds">Seletividade que não é ideológica — é posicionamento de interesse documentável.</div></div></div>
+    </div>
+  </div>
+
+  <blockquote>"Fiz minha parte. Cansei. Hora de tirar férias..." — Rodrigo Constantino, 12h18, 23/mai/2026, 39,8K visualizações. Postado no mesmo dia da matéria do Globo confirmando os R$514k do PT. Missão cumprida, ciclo encerrado.<cite>— Twitter @Rconstantino, 23/mai/2026</cite></blockquote>
+</div>
+</section>
+
+<!-- 4. INFILTRADO -->
+<section id="infiltrado">
+<div class="container">
+  <button class="copy-section" onclick="copySection('infiltrado')">copiar seção</button>
+  <div class="s-eye">4. Segurança operacional — urgente</div>
+  <h2 class="s-title">Infiltrado no PL: Framework de contra-inteligência</h2>
+
+  <div class="alert al-r"><strong>O VAZAMENTO:</strong> Fala de Valdemar Costa Neto em reunião fechada do PL — "15 dias para retomada do crescimento nas pesquisas" — chegou ao O Globo invertida como "prazo para testar viabilidade e substituir Flávio". Valdemar emitiu nota negando a interpretação mas confirmando que a fala existiu em reunião interna restrita.</div>
+
+  <div class="sep">Técnicas clássicas de contra-inteligência — aplicadas ao PL</div>
+
+  <div class="card">
+    <div class="card-title">Técnica 1 — Canary Trap (Armadilha do Canário)</div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">Dividir a cúpula em 3–5 grupos com versões ligeiramente diferentes de uma informação-isca</div><div class="ds">Exemplo: datas de evento, nomes de assessores, valores — cada versão chega a um grupo distinto. A versão que aparecer no Globo identifica o grupo-fonte. 2 rodadas = indivíduo identificado.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--amber)"></div><div style="flex:1"><div class="nm">A isca deve ser atraente mas não obviamente armadilha</div><div class="ds">Sweet spot: informação que parece estratégica para a narrativa de crise mas não levanta suspeita de que é fabricada. Monitorar a imprensa nas 48–72h seguintes.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--blue)"></div><div style="flex:1"><div class="nm">Documentar em silêncio — não confrontar antes da confirmação dupla</div><div class="ds">Uma coincidência pode ser acidente. Dois padrões confirmados com tipos diferentes de isca = prova operacional. Confrontar antes alerta o infiltrado.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Técnica 2 — Compartimentação (Need-to-Know)</div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">C1 — Núcleo duro: máx. 3 pessoas</div><div class="ds">Flávio + Valdemar + 1 assessor de confiança absoluta. Decisões estratégicas de campanha. Canal Signal com desaparecimento 24h. Nunca em grupo compartilhado.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--amber)"></div><div style="flex:1"><div class="nm">C2 — Liderança operacional: máx. 8 pessoas</div><div class="ds">Coordenadores regionais, líder Câmara, líder Senado. Pauta segmentada por função — cada um só ouve o bloco relevante para seu papel.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--blue)"></div><div style="flex:1"><div class="nm">C3 — Base parlamentar ampliada</div><div class="ds">Apenas informações já publicáveis ou prestes a ser públicas. Nenhuma decisão sensível chega aqui sem ser sanitizada pelos círculos anteriores.</div></div></div>
+  </div>
+
+  <div class="alert al-g"><strong>CHECKLIST 72 HORAS:</strong> (1) Suspender WhatsApp amplo — HOJE. (2) Criar canal Signal C1 máx. 3 — HOJE. (3) Listar retroativamente vazamentos 90 dias — 48h. (4) Preparar primeira isca Canary — 72h. (5) Silêncio operacional total sobre a operação — CONTÍNUO.</div>
+</div>
+</section>
+
+<!-- 5. OMISSÃO -->
+<section id="omissao">
+<div class="container">
+  <button class="copy-section" onclick="copySection('omissao')">copiar seção</button>
+  <div class="s-eye">5. Análise de omissão — cálculo ou traição?</div>
+  <h2 class="s-title">Tarcísio, Michelle, Nikolas: por que o silêncio?</h2>
+
+  <div class="actor" style="border-left:3px solid var(--red)">
+    <div class="an">Tarcísio de Freitas <span class="bd b-a">Cálculo de posicionamento</span></div>
+    <div class="ar">Governador SP · Candidato de reserva do sistema</div>
+    <div class="ap"><strong>Por que omite:</strong> recebeu <strong>R$2M de doação de Fabiano Zettel</strong> (cunhado e braço direito de Vorcaro) em sua própria campanha. Não pode atacar Vorcaro sem se autoincriminar. É o candidato de reserva da Faria Lima se Flávio naufragar. Cancelou evento com Flávio em Sorocaba. Quando pressionado: "É um escândalo grave que precisa ser apurado, doa quem doer" — tom de juiz, não de aliado.</div>
+  </div>
+  <div class="actor" style="border-left:3px solid var(--amber)">
+    <div class="an">Michelle Bolsonaro <span class="bd b-b">Agenda própria</span></div>
+    <div class="ar">Ex-primeira-dama · Trajetória para 2030</div>
+    <div class="ap"><strong>Por que omite:</strong> preserva agenda própria e trajetória para 2030. Compartilhou vídeo de Tarcísio em tom eleitoral no mesmo dia da primeira pesquisa de 2026. Eduardo Bolsonaro: acusou de "amnésia" em fev/2026. Jair, da prisão, publicou carta pedindo fim das críticas internas.</div>
+  </div>
+  <div class="actor" style="border-left:3px solid var(--blue)">
+    <div class="an">Nikolas Ferreira <span class="bd b-b">Calcismo eleitoral</span></div>
+    <div class="ar">Deputado federal · Agenda 2026 (reeleição) e 2030</div>
+    <div class="ap"><strong>Por que omite:</strong> calcula custo-benefício de 2026 (reeleição) e 2030 (presidência). Respondeu críticas de Eduardo: "Discordo que eu tenha amnésia. Me lembro muito bem de todos os anos que fui atacado injustamente." Eduardo: "Você continua colocando Flávio numa espiral do silêncio, com menos de meia dúzia de apoios públicos."</div>
+  </div>
+  <div class="actor" style="border-left:3px solid var(--red)">
+    <div class="an">Zema <span class="bd b-r">Fogo amigo ativo — caso diferente</span></div>
+    <div class="ar">Governador MG · Nexo Vorcaro documentado</div>
+    <div class="ap"><strong>Por que agiu:</strong> Arthur Machado: "Ele se revelou. Não foi precipitação — foi o combinado." Nexo documentado: Tamisa (ligada a Vorcaro) obteve TAC com governo Zema em área tombada (Serra do Curral). Empabra (sócio Kallas/Vorcaro): TAC jul/2021. Operação Rejeito: servidores da FEAM presos durante seu governo. Resultado: Zema despencou nas pesquisas após o vídeo.</div>
+  </div>
+</div>
+</section>
+
+<!-- 6. SERRA VERDE -->
+<section id="serra">
+<div class="container">
+  <button class="copy-section" onclick="copySection('serra')">copiar seção</button>
+  <div class="s-eye">6. Soberania mineral — a lacuna mais grave</div>
+  <h2 class="s-title">Serra Verde: a soberania entregue enquanto o Brasil dormia</h2>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="sv">US$2,8B</div><div class="sl">Venda da Serra Verde para a USA Rare Earth. 20/abr/2026.</div></div>
+    <div class="stat"><div class="sv">15 anos</div><div class="sl">Contrato de fornecimento exclusivo. 100% da produção para SPV capitalizada pelo governo americano.</div></div>
+    <div class="stat"><div class="sv r">+50%</div><div class="sl">Participação estimada da Serra Verde na oferta global de terras raras pesadas fora da China até 2027.</div></div>
+    <div class="stat"><div class="sv b">US$565M</div><div class="sl">Financiamento anterior da DFC (Dept. Defesa EUA) com opção de participação na empresa.</div></div>
+    <div class="stat"><div class="sv">23%</div><div class="sl">Reservas mundiais de terras raras que o Brasil detém. 2ª maior reserva mundial.</div></div>
+    <div class="stat"><div class="sv r">0</div><div class="sl">Processamento/refino no Brasil. EUA, UK e França processam. O Brasil apenas extrai.</div></div>
+  </div>
+
+  <div class="alert al-r"><strong>A OMISSÃO CONFIRMADA:</strong> O Itamaraty admitiu que "sempre esteve sendo tratado" — o silêncio público não foi ignorância, foi escolha. ANM, Cade e MME ficaram em silêncio enquanto US$2,8B e 15 anos de exclusividade se consolidavam. Terrabras discutida e descartada em 22/abr — 2 dias APÓS a venda. Art. 176 CF e art. 42 Código de Mineração permitiam barrar: não foram usados.</div>
+
+  <div class="card">
+    <div class="card-title">Por que as terras raras pesadas da Serra Verde são o insumo do séc. XXI</div>
+    <table class="tbl">
+      <thead><tr><th>Aplicação</th><th>Elementos (Serra Verde)</th><th>Impacto se faltarem</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Defesa</strong> — mísseis, drones, F-35, radares</td><td>Disprósio (Dy), Térbio (Tb)</td><td>Sistemas de defesa paralisados</td></tr>
+        <tr><td><strong>Veículos elétricos</strong> — motor permanente</td><td>Neodímio (Nd), Disprósio</td><td>Transição energética bloqueada</td></tr>
+        <tr><td><strong>Turbinas eólicas</strong> offshore</td><td>Neodímio, Disprósio</td><td>600kg por turbina — sem alternativa</td></tr>
+        <tr><td><strong>Semicondutores e chips avançados</strong></td><td>Térbio, Ítrio (Y)</td><td>Guerra tecnológica EUA-China</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <blockquote>"A Serra Verde foi comprada. Um acordo de 15 anos onde toda a produção de terras raras pesadas do Brasil vai ser vendida e entregue com exclusividade e preço fixo à indústria americana. Mesmo pagando mais, não vai conseguir comprar. As discussões verdadeiras que o Brasil devia estar tendo sobre a geopolítica atual — nós não estamos tendo."<cite>— Arthur Machado, Estúdio 5° Elemento, mai/2026</cite></blockquote>
+</div>
+</section>
+
+<!-- 7. GALIPOLO -->
+<section id="galipolo">
+<div class="container">
+  <button class="copy-section" onclick="copySection('galipolo')">copiar seção</button>
+  <div class="s-eye">7. Comprometimento institucional — o mais delicado</div>
+  <h2 class="s-title">Galípolo e o Banco Central: a independência comprometida</h2>
+
+  <div class="alert al-r"><strong>CONFLITO NÃO DECLARADO:</strong> Galípolo participou de reunião sigilosa com Vorcaro em 4/dez/2024 → assumiu o BC em jan/2025 → o BC tomou as decisões mais importantes sobre o Master (veto ao BRB, liquidação) entre mar–nov/2025 → NUNCA DECLAROU IMPEDIMENTO. Qualquer juiz que tivesse participado de reunião com uma das partes seria obrigado a se declarar impedido.</div>
+
+  <div class="card">
+    <div class="card-title">Cronologia — fatos documentados</div>
+    <div class="tl">
+      <div class="ti"><div class="tdot b"></div><div class="tdate">4 Dez/2024</div><div><div class="ttitle">Galípolo presente na reunião sigilosa Lula-Vorcaro <span class="bd b-r">documentado</span></div><div class="tdesc">Fora da agenda oficial. Lula aconselha Vorcaro a não vender ao BTG e garante que "tudo melhoraria com Galípolo no BC". Vorcaro interpreta a presença de Galípolo como sinal verde para manter o banco.</div></div></div>
+      <div class="ti"><div class="tdot b"></div><div class="tdate">Jan/2025</div><div><div class="ttitle">Galípolo assume presidência do Banco Central <span class="bd b-b">transição</span></div><div class="tdesc">O mesmo Galípolo que participou da reunião com Vorcaro agora dirige a autoridade regulatória responsável pelo destino do Master.</div></div></div>
+      <div class="ti"><div class="tdot a"></div><div class="tdate">Jan–Nov/2025</div><div><div class="ttitle">41 reuniões BC × Master em 11 meses — vs. 24 em 6 anos de Campos Neto <span class="bd b-a">estatística reveladora</span></div><div class="tdesc">Volume 70% acima do ritmo histórico durante o período de maior crise do banco. BC não documenta o conteúdo dessas reuniões.</div></div></div>
+      <div class="ti"><div class="tdot"></div><div class="tdate">Ago–Set/2025</div><div><div class="ttitle">Moraes reúne-se com Galípolo — esposa de Moraes tem contrato R$129M ativo <span class="bd b-r">controverso</span></div><div class="tdesc">BC confirma reuniões alegando pauta "Lei Magnitsky". Múltiplas fontes (incluindo Lula a banqueiros da Faria Lima) relatam discussão sobre o Master. Moraes nega. BC nega documentação.</div></div></div>
+      <div class="ti"><div class="tdot"></div><div class="tdate">3 Set/2025</div><div><div class="ttitle">BC veta compra BRB-Master por "falta de viabilidade econômico-financeira" <span class="bd b-r">decisão</span></div><div class="tdesc">Decisão unânime da diretoria. Galípolo frisa a unanimidade. Mas o contexto: reunião sigilosa + 41 encontros + ligações de Moraes + contrato da esposa de Moraes.</div></div></div>
+      <div class="ti"><div class="tdot"></div><div class="tdate">18 Nov/2025</div><div><div class="ttitle">BC decreta liquidação do Master — R$41B de prejuízo ao FGC <span class="bd b-r">liquidação</span></div><div class="tdesc">Maior prejuízo da história do FGC. A conta da insolvência — que o regulador devia ter identificado antes — vai para o sistema bancário e indiretamente para o povo.</div></div></div>
+      <div class="ti"><div class="tdot a"></div><div class="tdate">Dez/2025</div><div><div class="ttitle">BC nega 5 pedidos LAI sobre reuniões Galípolo-Moraes <span class="bd b-a">opacidade</span></div><div class="tdesc">O BC alega não manter registro de conteúdo de reuniões com "altas autoridades da República" — nem mesmo sob sigilo. O mesmo BC que exige transparência das instituições que regula.</div></div></div>
+    </div>
+  </div>
+
+  <div class="alert al-a"><strong>A IRONIA HISTÓRICA:</strong> O PT combateu a LC 179/2021 (autonomia do BC) e Lula pressionou Campos Neto publicamente. A mesma autonomia que o PT queria revogar é hoje o escudo formal que Galípolo usa para dizer que o BC atuou de forma independente — e o crédito que Haddad toma como próprio nos ratings internacionais.</div>
+</div>
+</section>
+
+<!-- 8. BIOMM -->
+<section id="biomm">
+<div class="container">
+  <button class="copy-section" onclick="copySection('biomm')">copiar seção</button>
+  <div class="s-eye">8. Erário como instrumento de compadrio</div>
+  <h2 class="s-title">Biomm: R$869M+ de dinheiro público para empresa de investigado</h2>
+
+  <div class="alert al-r"><strong>O CAPITALISMO DE COMPADRIO QUANTIFICADO:</strong> Vorcaro (investigado) compra empresa do amigo pessoal de Lula. Governo injeta R$336M em crédito público (Finep + BNDES + BDMG). Assina R$303M+ em contratos SUS. Lula vai pessoalmente à inauguração. BNDESPar vira acionista. Presidente do IBGE senta no conselho com voto remunerado. Total identificado: R$869M+.</div>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="sv r">R$203M</div><div class="sl">Finep — Financiadora de Estudos e Projetos. Crédito público federal.</div></div>
+    <div class="stat"><div class="sv r">R$133M</div><div class="sl">BNDES + BDMG. Crédito público e equity. BNDESPar: 5,12% das ações.</div></div>
+    <div class="stat"><div class="sv r">R$303M</div><div class="sl">Contratos Ministério da Saúde em 2025. Até 10 anos de duração. Insulina humana e glargina.</div></div>
+    <div class="stat"><div class="sv r">R$869M+</div><div class="sl">Total público identificado (crédito + contratos + Portal da Transparência). Risco zero para Vorcaro.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">A sequência que conta a história completa</div>
+    <div class="tl">
+      <div class="ti"><div class="tdot b"></div><div class="tdate">Jan/2023</div><div><div class="ttitle">Lula toma posse. Vorcaro aparece como sócio da Biomm via Fundo Cartago.</div><div class="tdesc">Imediatamente após a posse. A "gentileza" de comprar a empresa do amigo de Lula abre o canal de acesso ao Planalto.</div></div></div>
+      <div class="ti"><div class="tdot a"></div><div class="tdate">2023–2024</div><div><div class="ttitle">Finep R$203M. BNDES+BDMG R$133M. PDP com Ministério da Saúde firmada.</div><div class="tdesc">R$336M em crédito público. PDP garante 100% da receita via contratos SUS. Risco do investidor privado: quase zero.</div></div></div>
+      <div class="ti"><div class="tdot"></div><div class="tdate">26 Abr/2024</div><div><div class="ttitle">Lula inaugura a fábrica em Nova Lima (MG). Galípolo presente. Mantega presente. Vorcaro ausente.</div><div class="tdesc">Mares Guia discursa "visivelmente grato". A articulação política é evidente mesmo na ausência estratégica do banqueiro.</div></div></div>
+      <div class="ti"><div class="tdot"></div><div class="tdate">4 Dez/2024</div><div><div class="ttitle">Vorcaro vai ao Planalto pedir conselho a Lula sobre o Master.</div><div class="tdesc">8 meses após a inauguração. O investimento de R$217M na Biomm retornou como acesso privilegiado ao Executivo.</div></div></div>
+      <div class="ti"><div class="tdot a"></div><div class="tdate">Jun/2025</div><div><div class="ttitle">Contrato R$142M — insulina humana ao SUS.</div><div class="tdesc">4 meses após o BC vetar o BRB. Empresa do acionista sob investigação da PF recebe contrato público.</div></div></div>
+      <div class="ti"><div class="tdot"></div><div class="tdate">Nov/2025</div><div><div class="ttitle">BC liquida o Master. Vorcaro preso. Na mesma semana: segundo contrato R$131M assinado.</div><div class="tdesc">Na semana da prisão, o Ministério da Saúde assina o segundo contrato com a empresa do acionista preso.</div></div></div>
+      <div class="ti"><div class="tdot b"></div><div class="tdate">2026</div><div><div class="ttitle">Governo articula BTG entrando na Biomm para blindar o caso. Relatório Marinho expõe tudo.</div><div class="tdesc">O mesmo BTG que Lula chamou de predador é usado como veículo de blindagem política. Círculo fechado.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Bônus: Márcio Pochmann (presidente do IBGE) no conselho da Biomm</div>
+    <div class="alert al-r" style="margin:0"><strong>LEI 12.813/2013 VIOLADA:</strong> Pochmann integrou o Conselho de Administração da Biomm com cargo remunerado e poder de voto de abril de 2024 a abril de 2026 — exatamente o período dos contratos de R$303M. A Lei proíbe expressamente agente público de aceitar cargo remunerado em empresa cuja atividade tenha relação com sua área de competência. O IBGE tem acesso a dados epidemiológicos estratégicos para qualquer farmacêutica. Saiu do conselho em abr/2026 — exatamente quando o Master perdeu o controle das ações após o escândalo.</div>
+  </div>
+</div>
+</section>
+
+<!-- 9. HADDAD -->
+<section id="haddad">
+<div class="container">
+  <button class="copy-section" onclick="copySection('haddad')">copiar seção</button>
+  <div class="s-eye">9. Dados verificados 2025–2026</div>
+  <h2 class="s-title">A propaganda Haddad desmontada com números</h2>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">O que o povo sente no bolso</div>
+      <table class="tbl">
+        <thead><tr><th>Indicador</th><th>Valor</th><th>Fonte</th></tr></thead>
+        <tbody>
+          <tr><td>Selic</td><td><strong>15% — maior em 19 anos</strong></td><td>Banco Central</td></tr>
+          <tr><td>Inadimplentes</td><td><strong>81,2M — recorde histórico</strong></td><td>Serasa, mar/2026</td></tr>
+          <tr><td>Novos inadimplentes desde jan/2023</td><td><strong>+11 milhões</strong></td><td>Gazeta do Povo</td></tr>
+          <tr><td>Empresas em recuperação judicial</td><td><strong>2.466 — recorde</strong></td><td>Serasa, abr/2026</td></tr>
+          <tr><td>CNPJs negativados</td><td><strong>8,7M — dívida média R$23k</strong></td><td>Istoé Dinheiro</td></tr>
+          <tr><td>Juros crédito livre PF</td><td><strong>47% a.a.</strong></td><td>Banco Central</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Reformas que Haddad usa como vitrine — que o PT combateu</div>
+      <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">Reforma Trabalhista — Temer, 2017</div><div class="ds">PT prometeu revogar. Desemprego: 13,7% (2017) → 7,9% (dez/2022). Haddad usa essa queda como se fosse mérito do PT.</div></div></div>
+      <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">Reforma da Previdência — Bolsonaro, 2019</div><div class="ds">PT combateu ativamente. Condição exigida pelas agências de rating para elevar nota do Brasil.</div></div></div>
+      <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">Autonomia do BC — Bolsonaro, LC 179/2021</div><div class="ds">PT combateu; Lula pressionou o BC em 2023. S&P citou a autonomia como fator positivo no rating — crédito que Haddad toma como seu.</div></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 10. DUPLO PADRÃO -->
+<section id="duplo">
+<div class="container">
+  <button class="copy-section" onclick="copySection('duplo')">copiar seção</button>
+  <div class="s-eye">10. Assimetria institucional — o sistema de duas velocidades</div>
+  <h2 class="s-title">Bolsonaro vs. Lula: as regras que não se aplicam a todos</h2>
+
+  <table class="tbl">
+    <thead><tr><th>Conduta</th><th>Governo Bolsonaro / Oposição</th><th>Governo Lula / PT</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Comunicação digital</strong></td><td>Grupos de WhatsApp = organização criminosa. Inquéritos. Buscas e apreensões. "Gabinete do ódio". Prisões.</td><td>R$514k impulsionamento coordenado contra candidato, fora do período legal, segmentado por colégio eleitoral. <strong>Silêncio do TSE.</strong></td></tr>
+      <tr><td><strong>Prazos de resposta</strong></td><td>24–72h para responder inquéritos sob pena de prisão. 1.200+ equipamentos apreendidos. Nada encontrado sobre corrupção.</td><td>INSS R$6B fraudado. BRB/Master bilhões. Farra FAB. Orçamento secreto R$4,2B. Viagens R$2,44B. <strong>Zero prazo. Zero urgência.</strong></td></tr>
+      <tr><td><strong>Relação com Vorcaro</strong></td><td>Flávio visitou Vorcaro para encerrar relação sobre o filme Dark Horse. Sem função regulatória.</td><td>Lula recebeu Vorcaro 4× fora da agenda. Aconselhou sobre o banco. Garantiu "melhoraria com Galípolo." <strong>Galípolo presente.</strong></td></tr>
+      <tr><td><strong>Desinformação eleitoral</strong></td><td>Post de cidadão com 57k seguidores: juiz mandou apagar em 48h.</td><td>PT editou vídeo de pré-campanha de Flávio inserindo áudio. Impulsionou com R$350k em 1 dia. <strong>TSE: silêncio.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert al-r" style="margin-top:1rem"><strong>A ASSIMETRIA É O SISTEMA.</strong> Não é falha — é design. Um Estado de Direito real aplicaria as mesmas regras com a mesma intensidade independente de quem pratica. O que existe no Brasil de 2026 é um sistema de duas velocidades: uma para o poder, outra para quem o desafia.</div>
+</div>
+</section>
+
+<!-- 11. ESTRATÉGIA -->
+<section id="estrategia">
+<div class="container">
+  <button class="copy-section" onclick="copySection('estrategia')">copiar seção</button>
+  <div class="s-eye">11. Modelo Rogério Marinho — ações concretas</div>
+  <h2 class="s-title">Estratégia de resiliência: ocupar o território da ofensiva</h2>
+
+  <div class="card">
+    <div class="card-title">7 ações para a campanha e aliados</div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">1. Separar ataque ao candidato de ataque à verdade</div><div class="ds">A cada vez que Constantino falar "Flávio inviável", a resposta não é defender Flávio — é perguntar: "Quem você quer no lugar? Com qual modelo econômico? Com André Esteves na mesa?" Força o atacante a revelar para quem trabalha.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">2. Dados reais contra a propaganda Haddad — sempre com fonte</div><div class="ds">15% Selic (BC). 81,2M inadimplentes (Serasa). 2.466 empresas em RJ (Serasa). As reformas que ele usa como vitrine são de Temer e Bolsonaro. Postar com fonte toda vez que Haddad fizer propaganda. Sem adjetivo — os números atacam a narrativa.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">3. Expor a rede de financiamento dos ataques — não apenas o ataque</div><div class="ds">Constantino = Instituto Liberal = Rede Atlas = mercado financeiro. Quando o relatório de Arthur Machado sair, cada aliado publica o nexo financeiro, não só o episódio político.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">4. Identificar e isolar o infiltrado no PL com Canary Trap</div><div class="ds">Antes do próximo vazamento. Silêncio operacional total. Não confrontar antes de confirmação dupla.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">5. Usar o piso eleitoral como argumento ofensivo</div><div class="ds">35% de piso = segundo turno garantido = o sistema não consegue eliminar Flávio na primeira rodada. Comunicar isso como vantagem estrutural, não como consolação.</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">6. Serra Verde como ofensiva econômica soberana</div><div class="ds">Cada aliado deve ter 2–3 dados concretos sobre minerais críticos para virar a mesa narrativa. A pergunta que Haddad não consegue responder: "onde o Brasil vai comprar Disprósio se 100% da produção está contratada para os EUA por 15 anos?"</div></div></div>
+    <div class="row"><div class="dot" style="background:var(--green)"></div><div style="flex:1"><div class="nm">7. Nomear fogo amigo + contextualizar o conflito de interesse</div><div class="ds">"Constantino: presidente do Instituto Liberal, financiado pela Rede Atlas." "Zema: mineradoras ligadas a Vorcaro com TACs no seu governo — fontes: (o)eco, Agência Pública." Nome + contexto financeiro = desarmamento da credibilidade do atacante.</div></div></div>
+  </div>
+
+  <div class="alert al-g"><strong>REPRESENTAÇÃO AO TSE — AÇÃO IMEDIATA:</strong> Protocolar com base na Lei 9.504/1997 art. 57-C. R$514k documentados na Meta é prova prima facie. Usar App Pardal para denúncias populares massivas. Citar a própria jurisprudência do TSE contra grupos de WhatsApp como precedente aplicável ao PT.</div>
+</div>
+</section>
+
+<!-- 12. CONCLUSÃO -->
+<section id="conclusao">
+<div class="container">
+  <button class="copy-section" onclick="copySection('conclusao')">copiar seção</button>
+  <div class="s-eye">12. Síntese final</div>
+  <h2 class="s-title">O que este dossiê estabelece</h2>
+
+  <div class="card">
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">1. O Master não é escândalo de Flávio — é escândalo do governo Lula</div><div class="ds">Lula recebeu Vorcaro no Planalto, aconselhou a não vender ao BTG, foi à inauguração da Biomm com Galípolo e Mantega, e a conta de R$41B foi para o FGC. Flávio pediu dinheiro para um filme. Lula interveio no destino de um banco que custou bilhões ao sistema.</div></div><span class="bd b-r">Documentado</span></div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">2. A operação de desidratação é coordenada e financiada</div><div class="ds">Três vetores simultâneos na mesma janela 13–23/mai: R$514k PT (Meta documentado) + TikToks pagos na Europa (relatório Arthur Machado em preparação) + fogo amigo Constantino/Zema. Convergência que não é coincidência.</div></div><span class="bd b-r">Documentado</span></div>
+    <div class="row"><div class="dot" style="background:var(--amber)"></div><div style="flex:1"><div class="nm">3. A omissão tem causas distintas mas efeito idêntico</div><div class="ds">Tarcísio (R$2M de Zettel), Michelle (agenda própria), Nikolas (cálculo eleitoral). O resultado prático de todas as posições é idêntico ao objetivo da operação: desidratar Flávio sem que os principais nomes precisem assinar.</div></div><span class="bd b-a">Análise</span></div>
+    <div class="row"><div class="dot" style="background:var(--amber)"></div><div style="flex:1"><div class="nm">4. O duplo padrão é o sistema, não a exceção</div><div class="ds">Design deliberado de duas velocidades: uma para o poder, outra para quem o desafia. O mesmo TSE, o mesmo STF, as mesmas regras — aplicadas de formas opostas.</div></div><span class="bd b-a">Estrutural</span></div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div style="flex:1"><div class="nm">5. A janela é 20 de julho</div><div class="ds">Depois das convenções, Flávio tem piso de 35% garantido e chega ao 2º turno. O sistema não controla o que acontece no face a face Flávio vs. Lula. Toda a operação existe porque essa pergunta não tem resposta segura para o sistema rentista.</div></div><span class="bd b-r">Operacional</span></div>
+  </div>
+
+  <div class="alert al-a"><strong>LACUNA AINDA ABERTA:</strong> Relatório de redes (Arthur Machado) — identificação de quem financiou os TikToks europeus. Quando publicado, poderá conectar o financiamento da operação de desidratação aos atores específicos já mapeados neste dossiê (Vorcaro, XP, Instituto Liberal). É o elo que fecha formalmente o mapa.</div>
+</div>
+</section>
+
+<!-- 13. REFERÊNCIAS -->
+<section id="refs">
+<div class="container">
+  <div class="s-eye">13. Fontes verificáveis</div>
+  <h2 class="s-title">Referências com links</h2>
+
+  <div class="ref-cat">Master / Lula / Vorcaro</div>
+  <ul class="ref-list">
+    <li><a href="https://www.poder360.com.br/poder-economia/lula-aconselhou-vorcaro-a-nao-vender-master-ao-btg/" target="_blank">Poder360 — Lula aconselhou Vorcaro a não vender Master ao BTG</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/politica/lula-esteve-com-vorcaro-em-encontro-fora-da-agenda-em-dezembro-de-2024/" target="_blank">CNN Brasil — Lula esteve com Vorcaro fora da agenda em dezembro de 2024</a></li>
+    <li><a href="https://www.itatiaia.com.br/politica/lula-e-vorcaro-se-encontraram-em-dezembro-de-2024-gabriel-galipolo-esteve-na-reuniao/" target="_blank">Rádio Itatiaia — Galípolo esteve na reunião</a></li>
+    <li><a href="https://diariodopoder.com.br/brasil-e-regioes/mantega-articulou-reuniao-de-lula-com-vorcaro-que-pagava-a-ele-r1-milhao-por-mes" target="_blank">Diário do Poder — Mantega articulou reunião por R$1M/mês</a></li>
+    <li><a href="https://claudiodantas.com.br/a-dobradinha-de-lula-e-vorcaro-para-salvar-a-farmaceutica-de-mares-guia/" target="_blank">Claudio Dantas — A dobradinha de Lula e Vorcaro para salvar Mares Guia</a></li>
+    <li><a href="https://diariodopoder.com.br/justica/ttc-justica/lula-recebeu-vorcaro-fora-da-agenda-e-o-aconselhou-a-nao-vender-banco-master-ao-btg" target="_blank">Diário do Poder — Lula recebeu Vorcaro fora da agenda</a></li>
+  </ul>
+
+  <div class="ref-cat">PT / R$514 mil / Impulsionamento</div>
+  <ul class="ref-list">
+    <li><a href="https://www.podernacional.com.br/apos-audio-de-flavio-pt-gastou-r-514-mil-para-impulsionar-posts/" target="_blank">Poder Nacional — PT gastou R$514 mil para impulsionar posts</a></li>
+    <li><a href="https://www.tse.jus.br/comunicacao/noticias/2026/Abril/por-dentro-das-eleicoes-conheca-as-regras-sobre-uso-de-ia-na-campanha-eleitoral-de-2026" target="_blank">TSE — Regras sobre propaganda eleitoral 2026</a></li>
+  </ul>
+
+  <div class="ref-cat">Constantino / Omissão / Tarcísio</div>
+  <ul class="ref-list">
+    <li><a href="https://www.em.com.br/politica/2026/05/7423800-flavio-bolsonaro-esta-fazendo-de-tudo-para-perder-de-lula.html" target="_blank">Estado de Minas — Flávio está fazendo de tudo para perder de Lula (Constantino)</a></li>
+    <li><a href="https://www.metropoles.com/brasil/familia-bolsonaro-deveria-repensar-flavio-candidato-diz-constantino" target="_blank">Metrópoles — Família Bolsonaro deveria repensar Flávio candidato</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/politica/entenda-conflito-envolvendo-filhos-de-bolsonaro-nikolas-e-michelle/" target="_blank">CNN Brasil — Conflito Eduardo / Nikolas / Michelle</a></li>
+    <li><a href="https://www.metropoles.com/sao-paulo/de-ciro-a-flavio-como-caso-master-assombra-campanha-de-tarcisio-em-sp" target="_blank">Metrópoles — Como caso Master assombra campanha de Tarcísio</a></li>
+  </ul>
+
+  <div class="ref-cat">Serra Verde / Soberania Mineral</div>
+  <ul class="ref-list">
+    <li><a href="https://agenciabrasil.ebc.com.br/economia/noticia/2026-04/empresa-dos-eua-compra-mineradora-brasileira-de-terras-raras" target="_blank">Agência Brasil — Empresa dos EUA compra Serra Verde por US$2,8B</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/infra/empresa-dos-eua-compra-mineradora-brasileira-de-terras-raras-por-us-28-bi/" target="_blank">CNN Brasil — Serra Verde: US$2,8 bilhões</a></li>
+    <li><a href="https://www.poder360.com.br/poder-infra/governo-lula-nao-quis-regular-venda-de-terras-raras-em-goias/" target="_blank">Poder360 — Governo Lula não quis regular venda de terras-raras em Goiás</a></li>
+  </ul>
+
+  <div class="ref-cat">Galípolo / Banco Central</div>
+  <ul class="ref-list">
+    <li><a href="https://www.poder360.com.br/poder-economia/sem-citar-master-bc-confirma-reunioes-entre-galipolo-e-moraes/" target="_blank">Poder360 — BC confirma reuniões entre Galípolo e Moraes</a></li>
+    <li><a href="https://revistaoeste.com/politica/banco-central-nega-transparencia-em-encontros-entre-galipolo-e-moraes-sobre-master/" target="_blank">Revista Oeste — BC nega transparência em encontros sobre o Master</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/economia/macroeconomia/caso-master-relembre-a-liquidacao-do-banco-que-envolve-bc-stf-e-tcu/" target="_blank">CNN Brasil — Caso Master: relembre a liquidação</a></li>
+  </ul>
+
+  <div class="ref-cat">Biomm / Capitalismo de Compadrio</div>
+  <ul class="ref-list">
+    <li><a href="https://www.poder360.com.br/poder-economia/empresa-de-vorcaro-fechou-r-30365-mi-em-contratos-com-governo-lula/" target="_blank">Poder360 — Empresa de Vorcaro: R$303,65M em contratos com governo Lula</a></li>
+    <li><a href="https://www.gazetadopovo.com.br/economia/empresa-vorcaro-303-milhoes-contratos-governo-lula/" target="_blank">Gazeta do Povo — Empresa Vorcaro R$303M em contratos</a></li>
+    <li><a href="https://revistaoeste.com/politica/governo-lula-firmou-contratos-de-r-300-mi-com-empresa-ligada-a-vorcaro/" target="_blank">Revista Oeste — Governo Lula firmou R$300M com empresa ligada a Vorcaro</a></li>
+    <li><a href="https://revistaoeste.com/politica/marinho-caso-master-capitalismo-de-compadrio-lula/" target="_blank">Revista Oeste — Caso Master expõe capitalismo de compadrio no governo Lula</a></li>
+    <li><a href="https://www.jornaldacidadeonline.com.br/noticias/82890/mais-uma-digital-do-pt-no-caso-master-presidente-do-ibge-foi-conselheiro-de-empresa-que-tinha-o-banco-como-principal-socio" target="_blank">Jornal da Cidade Online — Pochmann no conselho da Biomm</a></li>
+    <li><a href="https://www.otempo.com.br/politica/governo/2026/1/28/lula-inaugurou-em-minas-fabrica-que-tem-vorcaro-do-master-como-socio-de-mares-guia" target="_blank">O Tempo — Lula inaugurou fábrica que tem Vorcaro como sócio</a></li>
+  </ul>
+
+  <div class="ref-cat">Indicadores Econômicos</div>
+  <ul class="ref-list">
+    <li><a href="https://www.gazetadopovo.com.br/economia/por-que-o-brasil-atingiu-o-maior-nivel-de-inadimplencia-da-historia/" target="_blank">Gazeta do Povo — Brasil bate recorde de inadimplência</a></li>
+    <li><a href="https://www.gazetadopovo.com.br/economia/recorde-falencias-recuperacao-judicial-2026/" target="_blank">Gazeta do Povo — Recuperações judiciais 2026: recorde histórico</a></li>
+  </ul>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://lawfare-timeline.vercel.app/" target="_blank">⚖ Lawfare Timeline</a>
+      <a href="https://observatorio-civil-br.vercel.app/" target="_blank">👁 Observatório Civil BR</a>
+    </div>
+    <div class="footer-meta">
+      DOSSIÊ OPERAÇÃO 2026 · Compilação analítica · Gerado em 23/05/2026<br>
+      Fontes: Poder360 · CNN Brasil · O Globo · Gazeta do Povo · Serasa · Banco Central · Meta Ads Library · Agência Brasil · Revista Oeste · Claudio Dantas<br>
+      Todo conteúdo baseado em fontes jornalísticas verificáveis e dados públicos. Hipóteses analíticas identificadas como tal.
+    </div>
+  </div>
+</footer>
+
+<script>
+// GOTOP
+window.addEventListener('scroll', () => {
+  document.getElementById('gotop').classList.toggle('vis', window.scrollY > 400);
+});
+
+// COPY ALL
+function copyAll() {
+  const content = document.body.innerText;
+  navigator.clipboard.writeText(content).then(() => {
+    const btn = document.querySelector('.copy-all-btn');
+    btn.textContent = '✓ Copiado!';
+    setTimeout(() => { btn.textContent = '⊕ Copiar dossiê completo para IA'; }, 2000);
+  });
+}
+
+// COPY SECTION
+function copySection(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText).then(() => {
+    const btns = el.querySelectorAll('.copy-section');
+    btns.forEach(b => { b.textContent = '✓ copiado'; setTimeout(() => { b.textContent = 'copiar seção'; }, 1500); });
+  });
+}
+</script>
+
+</body>
+</html>

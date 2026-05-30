@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Esquerda Prometeu. A Esquerda Entregou.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+  :root {
+    --red: #c0392b;
+    --red-dark: #8b1a0f;
+    --red-glow: rgba(192,57,43,0.3);
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: #2a2a2a;
+    --text: #e8e0d4;
+    --muted: #888;
+    --gold: #c9a84c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    background: radial-gradient(ellipse at center, #1a0505 0%, var(--black) 70%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.012) 2px,
+      rgba(255,255,255,0.012) 4px
+    );
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 160px);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  .hero-title span {
+    color: var(--red);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 3vw, 28px);
+    color: var(--gold);
+    margin-top: 24px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .hero-counter {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.2s;
+  }
+
+  .hero-scroll span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* ── ITEMS ── */
+  .items {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    position: relative;
+  }
+
+  .item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .item-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    line-height: 1;
+    color: rgba(192,57,43,0.06);
+    position: absolute;
+    top: -20px;
+    left: -16px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .item-promise {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 28px 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .promise-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .promise-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 4vw, 36px);
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: 0.03em;
+  }
+
+  .arrow-down {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .arrow-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--red), transparent);
+  }
+
+  .arrow-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .arrow-icon {
+    font-size: 20px;
+    color: var(--red);
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  .item-headline {
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 28px 32px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .item-headline::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--red), transparent 60%);
+  }
+
+  .headline-source {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .source-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  .source-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .source-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #444;
+    margin-left: auto;
+  }
+
+  .headline-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(17px, 2.5vw, 24px);
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .headline-sub {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .impact-tag {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 12px;
+    background: rgba(192,57,43,0.12);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 32px;
+    margin: -40px 0 40px;
+  }
+
+  .div-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .div-icon {
+    color: var(--border);
+    font-size: 16px;
+  }
+
+  /* ── FINALE ── */
+  .finale {
+    background: var(--red-dark);
+    border-top: 3px solid var(--red);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .finale::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.15) 20px,
+      rgba(0,0,0,0.15) 21px
+    );
+  }
+
+  .finale-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .finale-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+
+  .finale-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 88px);
+    line-height: 0.9;
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+  }
+
+  .finale-body {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    max-width: 560px;
+    margin: 0 auto 40px;
+  }
+
+  .finale-body strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 16px 40px;
+    background: #fff;
+    color: var(--red-dark);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .cta:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── PROGRESS ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--red);
+    z-index: 999;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 8px var(--red-glow);
+  }
+
+  /* ── STICKY COUNTER ── */
+  .sticky-counter {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .sticky-counter.show { opacity: 1; }
+  .sticky-counter span { color: var(--red); font-weight: 600; }
+
+  @media (max-width: 600px) {
+    .item-number { font-size: 80px; }
+    .arrow-down { padding: 16px 20px; }
+    .item-promise, .item-headline { padding: 22px 20px; }
+    .sticky-counter { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="sticky-counter" id="stickyCounter">Promessa <span id="currentItem">1</span> de 12</div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Dossiê · Brasil 2003–2026</p>
+  <h1 class="hero-title">
+    A Esquerda
+    <span>Prometeu.</span>
+  </h1>
+  <p class="hero-subtitle">12 promessas. 12 entregas. Julgue você mesmo.</p>
+  <p class="hero-counter">— Documentado com fontes jornalísticas públicas —</p>
+  <div class="hero-scroll">
+    <span>Role para ver</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ITEMS -->
+<section class="items" id="items">
+
+  <!-- 1. Racismo -->
+  <div class="item" data-index="1">
+    <div class="item-number">01</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #01</p>
+      <p class="promise-text">Prometeu acabar com o racismo</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">CNN Brasil</span>
+        <span class="source-date">Nov 2025</span>
+      </div>
+      <p class="headline-title">Processos por racismo disparam no Brasil, aponta painel do CNJ</p>
+      <p class="headline-sub">Painel de Monitoramento Justiça Racial revela que 7 mil novos casos foram registrados apenas em 2025.</p>
+      <span class="impact-tag">↑ 7.000 novos casos em 2025</span>
+    </div>
+  </div>
+
+  <!-- 2. Violência -->
+  <div class="item" data-index="2">
+    <div class="item-number">02</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #02</p>
+      <p class="promise-text">Prometeu acabar com a violência</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Folha de S.Paulo / ONU</span>
+        <span class="source-date">2024</span>
+      </div>
+      <p class="headline-title">Brasil registrou quase 1 milhão de homicídios em 18 anos, diz ONU</p>
+      <p class="headline-sub">País lidera ranking desde 2001. O ano mais violento foi 2017 (Temer). O menos violento, 2019 (Bolsonaro).</p>
+      <span class="impact-tag">~1 milhão de mortes em 18 anos</span>
+    </div>
+  </div>
+
+  <!-- 3. Idosos / INSS -->
+  <div class="item" data-index="3">
+    <div class="item-number">03</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #03</p>
+      <p class="promise-text">Prometeu cuidar dos idosos e aposentados</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Folha de S.Paulo</span>
+        <span class="source-date">Mar 2026</span>
+      </div>
+      <p class="headline-title">Servidores do INSS e Dataprev podem ter recebido R$ 1 bilhão desviados de aposentados e pensionistas</p>
+      <p class="headline-sub">Escândalo expõe desvio sistemático de recursos previdenciários durante a gestão petista.</p>
+      <span class="impact-tag">R$ 1 bilhão desviado de aposentados</span>
+    </div>
+  </div>
+
+  <!-- 4. Saúde -->
+  <div class="item" data-index="4">
+    <div class="item-number">04</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #04</p>
+      <p class="promise-text">Prometeu entregar saúde pública de qualidade</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">CRM-PR / TCU</span>
+        <span class="source-date">2002–2011</span>
+      </div>
+      <p class="headline-title">De 2002 a 2011, desvios de dinheiro público no setor da saúde somaram R$ 2,3 bilhões</p>
+      <p class="headline-sub">Tomadas de Contas Especiais encaminhadas ao TCU apontam que a Saúde sozinha respondeu por 32% dos R$ 6,89 bilhões perdidos pela União.</p>
+      <span class="impact-tag">R$ 2,3 bi desviados da saúde em 9 anos</span>
+    </div>
+  </div>
+
+  <!-- 5. Fome -->
+  <div class="item" data-index="5">
+    <div class="item-number">05</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #05</p>
+      <p class="promise-text">Prometeu acabar com a fome — Fome Zero</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Folha de S.Paulo / PF</span>
+        <span class="source-date">Set 2013</span>
+      </div>
+      <p class="headline-title">Operação da PF no PR, em SP e no MS apura desvio de verbas do Fome Zero</p>
+      <p class="headline-sub">Operação Agro-Fantasma investiga esquema envolvendo cooperativas rurais e a Conab-PR no desvio do Programa de Aquisição de Alimentos desde 2009.</p>
+      <span class="impact-tag">Verbas anti-fome desviadas por aliados</span>
+    </div>
+  </div>
+
+  <!-- 6. Crime organizado -->
+  <div class="item" data-index="6">
+    <div class="item-number">06</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #06</p>
+      <p class="promise-text">Prometeu acabar com o crime organizado</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">CNN Brasil</span>
+        <span class="source-date">Mai 2025</span>
+      </div>
+      <p class="headline-title">Brasil diz aos EUA não classificar PCC e CV como organizações terroristas</p>
+      <p class="headline-sub">Enviados do governo Trump foram recebidos em Brasília por técnicos do Ministério da Justiça; gestão Lula trata facções como criminosos em busca de lucro.</p>
+      <span class="impact-tag">PCC e CV protegidos pelo governo federal</span>
+    </div>
+  </div>
+
+  <!-- 7. Direitos humanos -->
+  <div class="item" data-index="7">
+    <div class="item-number">07</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #07</p>
+      <p class="promise-text">Prometeu garantir direitos humanos e liberdade</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">R7 / Relatório EUA</span>
+        <span class="source-date">Ago 2025</span>
+      </div>
+      <p class="headline-title">Relatório dos EUA alerta para declínio nos direitos humanos e censura judicial no Brasil</p>
+      <p class="headline-sub">EUA dizem que decisões do STF restringiram liberdade de expressão e acesso à internet, atingindo sobretudo apoiadores de Bolsonaro.</p>
+      <span class="impact-tag">Censura judicial denunciada internacionalmente</span>
+    </div>
+  </div>
+
+  <!-- 8. Empregadas domésticas -->
+  <div class="item" data-index="8">
+    <div class="item-number">08</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #08</p>
+      <p class="promise-text">Prometeu garantir direitos das domésticas</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Rádio Nacional / MTE</span>
+        <span class="source-date">Mai 2025</span>
+      </div>
+      <p class="headline-title">Trabalho doméstico com carteira assinada cai 18% em dez anos</p>
+      <p class="headline-sub">As vagas formais caíram de 1,64 mi para 1,34 mi entre 2015 e 2024. RS, RJ e SP tiveram as maiores reduções segundo dados do eSocial.</p>
+      <span class="impact-tag">300 mil domésticas perderam emprego formal</span>
+    </div>
+  </div>
+
+  <!-- 9. Desemprego -->
+  <div class="item" data-index="9">
+    <div class="item-number">09</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #09</p>
+      <p class="promise-text">Prometeu acabar com o desemprego</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Época</span>
+        <span class="source-date">Jan 2016</span>
+      </div>
+      <p class="headline-title">Dilma: "Desemprego é o que mais preocupa o governo"</p>
+      <p class="headline-sub">Presidenta comentou novos dados que mostram aumento do desemprego no Brasil em 2015 — durante o próprio governo do PT.</p>
+      <span class="impact-tag">Desemprego em alta sob governo petista</span>
+    </div>
+  </div>
+
+  <!-- 10. Vacina -->
+  <div class="item" data-index="10">
+    <div class="item-number">10</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #10</p>
+      <p class="promise-text">Prometeu que a vacina ia salvar todo mundo</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Folha de S.Paulo</span>
+        <span class="source-date">Jul 2025</span>
+      </div>
+      <p class="headline-title">Familiares de gestante e bebê mortos após vacina da Covid receberão R$ 3,75 milhões</p>
+      <p class="headline-sub">A gestante estava no segundo trimestre, era promotora de Justiça e tinha 35 anos. Ela e o bebê morreram após dose da vacina Oxford/AstraZeneca.</p>
+      <span class="impact-tag">Decisão judicial reconhece dano vacinal</span>
+    </div>
+  </div>
+
+  <!-- 11. Educação -->
+  <div class="item" data-index="11">
+    <div class="item-number">11</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #11</p>
+      <p class="promise-text">Prometeu cuidar da educação pública</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">G1 / Censo Escolar</span>
+        <span class="source-date">Fev 2026</span>
+      </div>
+      <p class="headline-title">Em um ano, Brasil tem queda de 1 milhão de matrículas nas escolas; ensino médio registra menor número de alunos do século</p>
+      <p class="headline-sub">SP perdeu 250 mil alunos no ensino médio em um ano. MEC alega queda na população em idade escolar.</p>
+      <span class="impact-tag">Menor número de alunos do século</span>
+    </div>
+  </div>
+
+  <!-- 12. FIES -->
+  <div class="item" data-index="12">
+    <div class="item-number">12</div>
+    <div class="item-promise">
+      <p class="promise-label">Promessa #12</p>
+      <p class="promise-text">Prometeu que pobre ia estudar de graça — FIES</p>
+    </div>
+    <div class="arrow-down">
+      <div class="arrow-line"></div>
+      <span class="arrow-text">E entregou</span>
+      <span class="arrow-icon">↓</span>
+      <div class="arrow-line" style="background:linear-gradient(to left, var(--red), transparent)"></div>
+    </div>
+    <div class="item-headline">
+      <div class="headline-source">
+        <div class="source-dot"></div>
+        <span class="source-name">Veja</span>
+        <span class="source-date">Jun 2025</span>
+      </div>
+      <p class="headline-title">FIES: inadimplência bate recorde e passa de 60% dos contratos</p>
+      <p class="headline-sub">Em 2023 a inadimplência já era de 50%. O prejuízo ao erário é bilionário, comprometendo a sustentabilidade do programa.</p>
+      <span class="impact-tag">+60% de inadimplência — prejuízo bilionário</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- FINALE -->
+<section class="finale">
+  <div class="finale-content">
+    <p class="finale-eyebrow">Conclusão · 2026</p>
+    <h2 class="finale-title">12 Promessas.<br>12 Fracassos.</h2>
+    <p class="finale-body">
+      Racismo em alta. Quase 1 milhão de mortos. Bilhões desviados de aposentados.
+      Saúde saqueada. Fome Zero corrompido. PCC e CV intocáveis.
+      Censura judicial internacionalmente denunciada. 300 mil domésticas sem carteira.
+      Desemprego disparado. Mortes vacinais reconhecidas na Justiça.
+      1 milhão de alunos sumidos. FIES com 60% de inadimplência.
+      <br><br>
+      <strong>Se você ainda apoia essa turma depois de tudo isso,<br>você é parte do problema.</strong>
+    </p>
+  </div>
+</section>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+
+  // Intersection observer for items
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const idx = entry.target.dataset.index;
+        if (idx) {
+          document.getElementById('currentItem').textContent = idx;
+          const counter = document.getElementById('stickyCounter');
+          counter.classList.add('show');
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.item').forEach(el => observer.observe(el));
+
+  // Show counter on scroll
+  window.addEventListener('scroll', () => {
+    const counter = document.getElementById('stickyCounter');
+    if (window.scrollY > 400) counter.classList.add('show');
+  });
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

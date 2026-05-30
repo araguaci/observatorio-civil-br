@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPERAÇÃO ESPELHO — Análise Estratégica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg0: #0a0b0d;
+  --bg1: #0f1114;
+  --bg2: #14171c;
+  --bg3: #1a1e25;
+  --bg4: #20252e;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text1: #e8eaf0;
+  --text2: #9aa0ad;
+  --text3: #5c6370;
+  --gold: #f5c842;
+  --gold2: #e6b830;
+  --red2: #e05252;
+  --red3: #c03a3a;
+  --orange: #e07d30;
+  --teal: #3eb89a;
+  --purple: #8b6fc0;
+  --blue: #4a9edd;
+  --green: #4caf7a;
+  --mono: 'IBM Plex Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg0);color:var(--text1);font-family:var(--mono);font-size:13px;line-height:1.6;min-height:100vh}
+a{color:var(--teal);text-decoration:none}
+
+/* ── HEADER ── */
+.site-header{
+  background:var(--bg1);
+  border-bottom:1px solid var(--border2);
+  padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:52px;position:sticky;top:0;z-index:100;
+}
+.site-logo{font-family:var(--display);font-weight:800;font-size:14px;color:var(--gold);letter-spacing:0.05em}
+.site-badge{font-size:10px;color:var(--text3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;letter-spacing:0.08em}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(160deg, #0f1114 0%, #0a0d10 60%, #0c0a08 100%);
+  border-bottom:1px solid var(--border2);
+  padding:64px 32px 48px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 80% 20%, rgba(245,200,66,0.05) 0%, transparent 60%),
+             radial-gradient(ellipse 40% 60% at 10% 80%, rgba(62,184,154,0.03) 0%, transparent 50%);
+}
+.hero-eyebrow{font-size:10px;color:var(--text3);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px}
+.hero-title{font-family:var(--display);font-weight:800;font-size:clamp(28px,5vw,52px);line-height:1.05;color:var(--text1);margin-bottom:8px}
+.hero-title span{color:var(--gold)}
+.hero-subtitle{font-size:13px;color:var(--text2);max-width:640px;margin-bottom:32px;line-height:1.7}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:4px}
+.hero-stat-val{font-family:var(--display);font-weight:700;font-size:22px;color:var(--gold)}
+.hero-stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em}
+.hero-quote{
+  margin-top:32px;padding:20px 24px;
+  background:var(--bg2);border-left:3px solid var(--gold);
+  border-radius:0 6px 6px 0;max-width:720px;
+}
+.hero-quote blockquote{font-size:14px;color:var(--text1);font-style:italic;line-height:1.7}
+.hero-quote cite{display:block;margin-top:8px;font-size:11px;color:var(--text3);font-style:normal}
+
+/* ── NAV TABS ── */
+.tabs-bar{
+  background:var(--bg1);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;display:flex;gap:0;overflow-x:auto;position:sticky;top:52px;z-index:90;
+  scrollbar-width:none;
+}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab-btn{
+  font-family:var(--mono);font-size:11px;color:var(--text3);
+  padding:16px 20px;border:none;background:none;cursor:pointer;
+  border-bottom:2px solid transparent;white-space:nowrap;
+  letter-spacing:0.05em;text-transform:uppercase;transition:all 0.15s;
+  text-decoration:none;display:inline-flex;align-items:center;
+}
+.tab-btn:hover{color:var(--text1)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── LAYOUT ── */
+.main{max-width:1200px;margin:0 auto;padding:40px 32px}
+.tab-panel{display:block}
+.section-anchor{scroll-margin-top:104px}
+
+/* ── SECTION ── */
+.sec{margin-bottom:48px}
+.sec-title{
+  font-family:var(--display);font-weight:700;font-size:20px;
+  color:var(--text1);margin-bottom:24px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.sec-title span{color:var(--gold)}
+.sec-desc{font-size:12px;color:var(--text2);margin-bottom:24px;max-width:700px;line-height:1.7}
+
+/* ── GRID ── */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+
+/* ── PANEL ── */
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px}
+.panel-title{font-family:var(--display);font-weight:600;font-size:13px;color:var(--text2);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dg{background:var(--gold)}.dr{background:var(--red2)}.dt{background:var(--teal)}
+.dp{background:var(--purple)}.do{background:var(--orange)}.db{background:var(--blue)}
+
+/* ── PHASE CARD ── */
+.phase-list{display:flex;flex-direction:column;gap:12px}
+.phase-item{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:20px;display:grid;grid-template-columns:60px 1fr;gap:16px;align-items:start;
+}
+.phase-num{
+  font-family:var(--display);font-weight:800;font-size:32px;
+  color:var(--gold);opacity:0.4;line-height:1;
+}
+.phase-name{font-family:var(--display);font-weight:700;font-size:15px;color:var(--text1);margin-bottom:6px}
+.phase-desc{font-size:12px;color:var(--text2);line-height:1.7}
+.phase-tzu{
+  margin-top:10px;padding:8px 12px;background:var(--bg4);
+  border-left:2px solid var(--gold);font-size:11px;color:var(--text3);font-style:italic;
+}
+
+/* ── MARKER CARD ── */
+.marker-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:16px;
+}
+.marker-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.marker-icon{font-size:16px}
+.marker-name{font-family:var(--display);font-weight:600;font-size:13px;color:var(--text1)}
+.marker-desc{font-size:12px;color:var(--text2);line-height:1.6}
+.marker-badge{
+  font-size:9px;padding:2px 7px;border-radius:3px;margin-left:auto;
+  font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+}
+.mb-alert{background:rgba(224,82,82,0.15);color:var(--red2)}
+.mb-warn{background:rgba(224,125,48,0.15);color:var(--orange)}
+.mb-ok{background:rgba(76,175,122,0.15);color:var(--green)}
+
+/* ── SUNTZSU TABLE ── */
+.tzu-table{width:100%;border-collapse:collapse}
+.tzu-table th{
+  font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;
+  padding:8px 12px;border-bottom:1px solid var(--border2);text-align:left;
+}
+.tzu-table td{
+  font-size:12px;padding:12px;border-bottom:1px solid var(--border);
+  vertical-align:top;color:var(--text2);
+}
+.tzu-table td:first-child{color:var(--gold);font-weight:600;white-space:nowrap}
+.tzu-table td:nth-child(2){color:var(--text1)}
+.tzu-table tr:last-child td{border-bottom:none}
+.tzu-table tr:hover td{background:var(--bg3)}
+
+/* ── RESOURCE CARD ── */
+.resource-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:20px;border-top:3px solid var(--gold);
+}
+.resource-val{font-family:var(--display);font-weight:800;font-size:28px;color:var(--gold);margin-bottom:4px}
+.resource-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px}
+.resource-body{font-size:12px;color:var(--text2);line-height:1.7}
+
+/* ── ALERT BOX ── */
+.alert{padding:16px 20px;border-radius:6px;margin-bottom:16px;font-size:12px;line-height:1.7}
+.alert-red{background:rgba(224,82,82,0.08);border:1px solid rgba(224,82,82,0.25);color:var(--text1)}
+.alert-gold{background:rgba(245,200,66,0.07);border:1px solid rgba(245,200,66,0.25);color:var(--text1)}
+.alert-teal{background:rgba(62,184,154,0.07);border:1px solid rgba(62,184,154,0.2);color:var(--text1)}
+.alert-title{font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.alert-title .ic{font-size:14px}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:var(--border2)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-dot{
+  position:absolute;left:-28px;top:4px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--bg0);border:2px solid var(--gold);
+}
+.tl-date{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+.tl-title{font-family:var(--display);font-weight:600;font-size:13px;color:var(--text1);margin-bottom:4px}
+.tl-body{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* ── SHIELD CARD ── */
+.shield-list{display:flex;flex-direction:column;gap:10px}
+.shield-item{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:16px;display:flex;gap:14px;align-items:flex-start;
+}
+.shield-num{
+  font-family:var(--display);font-weight:800;font-size:18px;
+  color:var(--teal);opacity:0.7;min-width:28px;line-height:1.2;
+}
+.shield-title{font-family:var(--display);font-weight:600;font-size:13px;color:var(--text1);margin-bottom:4px}
+.shield-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* ── FAIL LIST ── */
+.fail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.fail-item{
+  background:var(--bg3);border:1px solid var(--border);border-radius:4px;
+  padding:10px 14px;display:flex;align-items:center;gap:8px;
+}
+.fail-check{color:var(--green);font-size:12px;font-weight:700}
+.fail-name{font-size:12px;color:var(--text2)}
+
+/* ── QUOTE ── */
+.quote-block{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-left:3px solid var(--gold);border-radius:0 6px 6px 0;
+  padding:20px 24px;margin:20px 0;
+}
+.quote-block blockquote{font-size:15px;color:var(--text1);font-style:italic;line-height:1.7}
+.quote-block cite{display:block;margin-top:10px;font-size:11px;color:var(--gold)}
+
+/* ── SCOUT MOTTO ── */
+.scout-motto{
+  background:var(--bg2);
+  border:1px solid var(--gold);
+  border-radius:8px;padding:32px;text-align:center;
+  margin:32px 0;position:relative;overflow:hidden;
+}
+.scout-motto::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(245,200,66,0.04) 0%, transparent 70%);
+}
+.scout-icon{font-size:40px;margin-bottom:12px}
+.scout-text{font-family:var(--display);font-weight:800;font-size:clamp(20px,4vw,32px);
+  color:var(--gold);letter-spacing:0.05em;margin-bottom:8px}
+.scout-sub{font-size:12px;color:var(--text3);letter-spacing:0.15em;text-transform:uppercase}
+
+/* ── P-TAG ── */
+.p-tag{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;
+  font-weight:600;letter-spacing:0.08em;margin-right:4px;
+  background:rgba(245,200,66,0.12);color:var(--gold);border:1px solid rgba(245,200,66,0.2);
+}
+
+/* ── STATUS PILL ── */
+.pill{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;
+  font-weight:600;margin:2px;
+}
+.pill-red{background:rgba(224,82,82,0.15);color:var(--red2)}
+.pill-gold{background:rgba(245,200,66,0.12);color:var(--gold)}
+.pill-teal{background:rgba(62,184,154,0.12);color:var(--teal)}
+.pill-purple{background:rgba(139,111,192,0.15);color:var(--purple)}
+.pill-orange{background:rgba(224,125,48,0.15);color:var(--orange)}
+
+/* ── RELATED ARTIFACTS ── */
+.related-section{
+  background:var(--bg1);border-top:1px solid var(--border);
+  padding:48px 32px;
+}
+.related-section .inner{max-width:1200px;margin:0 auto}
+.related-title{
+  font-family:var(--display);font-weight:700;font-size:16px;
+  color:var(--text2);text-transform:uppercase;letter-spacing:0.15em;
+  margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.related-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
+  padding:16px 20px;text-decoration:none;display:block;
+  transition:border-color 0.15s,background 0.15s;
+}
+.related-card:hover{border-color:var(--border2);background:var(--bg3)}
+.related-card-tag{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px}
+.related-card-title{font-family:var(--display);font-weight:600;font-size:13px;color:var(--text1);line-height:1.4;margin-bottom:6px}
+.related-card-desc{font-size:11px;color:var(--text3);line-height:1.5}
+.related-card-arrow{font-size:10px;color:var(--teal);margin-top:8px;display:block}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg1);border-top:1px solid var(--border);
+  padding:24px 32px;text-align:center;font-size:11px;color:var(--text3);
+}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{color:var(--text1)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .hero{padding:40px 20px 32px}
+  .main{padding:24px 16px}
+  .tabs-bar{padding:0 16px}
+  .site-header{padding:0 16px}
+  .phase-item{grid-template-columns:1fr}
+  .phase-num{font-size:22px}
+  .related-section{padding:32px 16px}
+  .related-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a class="site-logo" href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener" style="text-decoration:none">LAWFARE · TIMELINE</a>
+  <div class="site-badge">ANÁLISE ESTRATÉGICA · CC0 1.0</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Inteligência Política · Eleições 2026</div>
+  <h1 class="hero-title">OPERAÇÃO <span>ESPELHO</span></h1>
+  <p class="hero-subtitle">
+    Anatomia da estratégia de captura eleitoral por agentes sistêmicos infiltrados no campo oposicionista.
+    Análise baseada em Sun Tzu, teoria política comparada e evidências documentais do caso brasileiro 2018–2026.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-stat"><span class="hero-stat-val">26+</span><span class="hero-stat-lbl">Ataques ao líder que falharam</span></div>
+    <div class="hero-stat"><span class="hero-stat-val">R$1bi+</span><span class="hero-stat-lbl">Fundo partidário em disputa</span></div>
+    <div class="hero-stat"><span class="hero-stat-val">8min</span><span class="hero-stat-lbl">TV alocados ao líder original</span></div>
+    <div class="hero-stat"><span class="hero-stat-val">5</span><span class="hero-stat-lbl">Fases da operação mapeadas</span></div>
+  </div>
+  <div class="hero-quote">
+    <blockquote>
+      "O maior desafio é descolar do Bozo sem perder os apoiadores dele."
+    </blockquote>
+    <cite>— Mensagem interna documentada de Deltan Dallagnol a procuradores da Lava Jato · Contexto: formulação de estratégia eleitoral</cite>
+  </div>
+</section>
+
+<!-- TABS NAV -->
+<nav class="tabs-bar" id="tabs-bar">
+  <a class="tab-btn active" href="#t1">01 · Contexto</a>
+  <a class="tab-btn" href="#t2">02 · Sun Tzu</a>
+  <a class="tab-btn" href="#t3">03 · Fases</a>
+  <a class="tab-btn" href="#t4">04 · Caso PL</a>
+  <a class="tab-btn" href="#t5">05 · Identificação</a>
+  <a class="tab-btn" href="#t6">06 · Escudos</a>
+  <a class="tab-btn" href="#t7">07 · Lema</a>
+</nav>
+
+<main class="main">
+
+<!-- ══ SEÇÃO 1 — CONTEXTO ══ -->
+<div id="t1" class="tab-panel section-anchor">
+
+  <div class="sec">
+    <div class="sec-title">O Fracasso da Guerra Direta</div>
+    <div class="sec-desc">
+      Quando o confronto frontal falha repetidamente, o sistema migra para a guerra de percepção.
+      A lista abaixo documenta 26+ tentativas de destruição direta do líder — todas malsucedidas —
+      forçando uma mudança de estratégia para a <strong>infiltração eleitoral</strong>.
+    </div>
+
+    <div class="alert alert-gold">
+      <div class="alert-title"><span class="ic">📌</span> Premissa Estratégica</div>
+      A incapacidade de eliminar o líder por via judicial, midiática ou escandalizante não enfraquece o sistema —
+      apenas força sua adaptação. A Operação Espelho é a resposta adaptativa ao fracasso da guerra direta.
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><span class="dot dr"></span>Registro de Ataques Falhados (2018–2026)</div>
+      <div class="fail-grid">
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Caso Queiroz</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Val do Açaí</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">51 imóveis</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Carteira de vacinação</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">PIX corrupção</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Cartão corporativo</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Joias sauditas</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Sigilo 100 anos</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Hacker</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Imóveis nos EUA</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">COVID (gestão)</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Caso Marielle</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Mauro Cid (1ª–8ª)</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Interferência na PF</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">ABIN Paralela</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Carluxo</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Importunação baleia</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Minuta do golpe</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Freire Gomes</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">General Baptista</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Golpe de Estado</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Embaixada Hungria</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Móveis Alvorada</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Leite condensado</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Assassinato Amazônia</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Queimadas + globais</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Tio França financiado</span></div>
+        <div class="fail-item"><span class="fail-check">✓</span><span class="fail-name">Máscara (pandemia)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">O Cartel Multissegmento</div>
+    <div class="sec-desc">
+      Para entender a Operação Espelho é necessário compreender a coalizão que a executa —
+      um cartel de múltiplos segmentos, cada um com sua função específica no ecossistema de captura.
+    </div>
+    <div class="grid-3">
+      <div class="panel">
+        <div class="panel-title"><span class="dot dr"></span>Segmento Judicial</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          Operacionaliza perseguições calibradas: processos que não destroem o alvo mas mantêm
+          pressão contínua. Serve de validador de credibilidade para avatares ("são perseguidos como Bolsonaro").
+          Pode suspender pressão sobre avatares enquanto concentra recursos no líder original.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot do"></span>Segmento Midiático</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          Controla a narrativa de quem é "legítimo" e quem é "radical". Pode construir ou destruir
+          a percepção de um avatar — e escolhe fazê-lo seletivamente. Críticas midiáticas leves
+          a avatares funcionam como certificado de autenticidade.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot dp"></span>Segmento Político-Partidário</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          O Centrão é o mecanismo de captura estrutural: qualquer figura que precise de viabilidade
+          legislativa converge para suas demandas. Avatares que "fingem" resistir mas nunca
+          bloqueiam votações críticas revelam sua função operacional.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot dt"></span>Segmento Cultural/ONGs</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          Constroem o "tribunal moral" que classifica candidatos como aceitáveis ou inaceitáveis.
+          Atores, artistas e formadores de opinião funcionam como agentes de legitimação ou
+          deslegitimação — escolhidos seletivamente conforme o alvo é avatar ou genuíno.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot db"></span>Segmento Institucional</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          Inclui frações das Forças Armadas, agências de inteligência e órgãos reguladores
+          que podem abrir ou fechar investigações, conceder ou negar registros, liberar ou
+          bloquear recursos conforme o alvo a proteger ou destruir.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot dg"></span>Segmento Financeiro</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          Financia direta e indiretamente candidaturas via fundo eleitoral, doações de PJ
+          e contratos futuros. O acesso ao fundo partidário bilionário é o principal
+          instrumento de alinhamento de avatares ao sistema após a eleição.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SEÇÃO 2 — SUN TZU ══ -->
+<div id="t2" class="tab-panel section-anchor" style="border-top:1px solid var(--border);margin-top:0;padding-top:40px">
+
+  <div class="sec">
+    <div class="sec-title">Sun Tzu · <span>A Arte da Guerra Aplicada</span></div>
+    <div class="sec-desc">
+      A Arte da Guerra (孫子兵法, c. 500 a.C.) permanece o tratado estratégico mais citado porque
+      sua lógica transcende o campo de batalha. Cada fase da Operação Espelho tem correspondência
+      direta em seus capítulos.
+    </div>
+
+    <div class="quote-block">
+      <blockquote>"Toda guerra é baseada em engano."</blockquote>
+      <cite>— Sun Tzu, A Arte da Guerra, Capítulo I · Cálculo Estratégico</cite>
+    </div>
+
+    <div class="panel" style="margin-bottom:16px">
+      <div class="panel-title"><span class="dot dg"></span>Os Cinco Tipos de Agentes · Capítulo XIII</div>
+      <table class="tzu-table">
+        <thead>
+          <tr>
+            <th>Tipo Sun Tzu</th>
+            <th>Definição Original</th>
+            <th>Equivalente Operacional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Agente Nativo</td>
+            <td>Cidadão do território inimigo recrutado</td>
+            <td>Político do campo oposicionista cooptado sem abandonar a aparência original</td>
+          </tr>
+          <tr>
+            <td>Agente Interno</td>
+            <td>Funcionário do inimigo a seu serviço</td>
+            <td>Figura que simula perseguição para ganhar credibilidade no campo adversário</td>
+          </tr>
+          <tr>
+            <td>Agente Convertido</td>
+            <td>Espião inimigo recaptado para servir você</td>
+            <td>Ex-crítico do sistema que, ao precisar do sistema para sobreviver, reverte a lealdade</td>
+          </tr>
+          <tr>
+            <td>Agente Vivo</td>
+            <td>Opera abertamente e retorna com inteligência</td>
+            <td>Candidato que penetra o eleitorado, capta votos e apoio, e retorna à órbita sistêmica</td>
+          </tr>
+          <tr>
+            <td>Agente Morto</td>
+            <td>Alimentado com desinformação para o inimigo</td>
+            <td>Figura sacrificável que amplifica narrativas falsas e é descartada quando necessário</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title"><span class="dot dg"></span>Cap. III · Estratégia Ofensiva</div>
+        <div class="quote-block" style="margin:0 0 12px 0">
+          <blockquote>"A arte suprema da guerra é subjugar o inimigo sem lutar."</blockquote>
+          <cite>— Sun Tzu, Cap. III</cite>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          A Operação Espelho é a implementação desta máxima. Ao invés de destruir o campo oposicionista
+          em confronto direto — o que falhou 26+ vezes — o sistema busca <strong>fragmentá-lo internamente</strong>
+          usando avatares que competem pela mesma base, dividem o voto, e depois reconstituem o sistema por dentro.
+          Vitória sem batalha.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot do"></span>Cap. VI · Pontos Fortes e Fracos</div>
+        <div class="quote-block" style="margin:0 0 12px 0">
+          <blockquote>"Apareça onde ele deve se apressar em defender; marche para onde não é esperado."</blockquote>
+          <cite>— Sun Tzu, Cap. VI</cite>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          A fraqueza identificada pelo sistema: o eleitorado oposicionista está orientado a reconhecer
+          <em>sinais</em> (perseguição, vocabulário, postura) mais que <em>estrutura</em>.
+          O avatar aparece exatamente onde o eleitorado não espera um agente do sistema — dentro do próprio campo.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot dt"></span>Cap. XI · As Nove Situações</div>
+        <div class="quote-block" style="margin:0 0 12px 0">
+          <blockquote>"Coloque suas tropas em situação onde não há escapatória e elas preferirão a morte à derrota."</blockquote>
+          <cite>— Sun Tzu, Cap. XI</cite>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          Aplicado inversamente ao avatar: é colocado em situação de dependência estrutural do sistema
+          (processos pendentes, financiamento, cargos futuros) de modo que a "traição" ao campo capturado
+          torna-se inevitável. O avatar não precisa ser convicto — apenas sem rota de saída.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot dp"></span>Cap. XIII · O Uso dos Espiões</div>
+        <div class="quote-block" style="margin:0 0 12px 0">
+          <blockquote>"O soberano iluminado que usa os mais inteligentes como espiões alcançará grandes conquistas."</blockquote>
+          <cite>— Sun Tzu, Cap. XIII</cite>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7">
+          O critério de seleção do avatar perfeito: figura suficientemente inteligente para construir
+          credibilidade genuína no campo-alvo, mas estruturalmente dependente do sistema para a própria sobrevivência.
+          A contradição entre competência e dependência é a alavanca de controle.
+        </p>
+      </div>
+    </div>
+
+    <div class="alert alert-teal" style="margin-top:24px">
+      <div class="alert-title"><span class="ic">🎯</span> A Meta-Estratégia Completa</div>
+      <strong>Nível 1 — Guerra de Destruição</strong> (2018–2022): Eliminar o líder por processo, escândalo, desmoralização. <em>Resultado: 26+ tentativas falhadas.</em><br><br>
+      <strong>Nível 2 — Guerra de Fragmentação</strong> (2023–2026): Já que não é possível destruir o campo, fragmentá-lo com avatares que disputam a mesma base eleitoral, dividem o voto e, após a eleição, reconstituem o sistema por dentro. <em>Em execução ativa.</em>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SEÇÃO 3 — FASES ══ -->
+<div id="t3" class="tab-panel section-anchor" style="border-top:1px solid var(--border);margin-top:0;padding-top:40px">
+
+  <div class="sec">
+    <div class="sec-title">Anatomia da Operação · <span>5 Fases</span></div>
+    <div class="sec-desc">
+      A operação não é improvisada — segue uma sequência lógica e identificável.
+      Reconhecer cada fase é o primeiro passo para a inoculação.
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-item">
+        <div class="phase-num">01</div>
+        <div>
+          <div class="phase-name">Identificação e Recrutamento do Ativo</div>
+          <div class="phase-desc">
+            O sistema mapeia figuras com capital político próprio, credibilidade residual e capacidade de
+            transitar entre campos. O critério central é dual: (a) histórico de crítica ao sistema,
+            que confere autenticidade de fachada; e (b) dependência estrutural do sistema, que cria
+            a vulnerabilidade de captura. Figuras com processos pendentes, concessões dependentes de
+            aprovação governamental, ou patrimônio construído sob proteção institucional são candidatos
+            prioritários. Quanto mais genuína a performance, mais valiosa a operação.
+          </div>
+          <div class="phase-tzu">Sun Tzu, Cap. XIII: "Entre os que se aproximam do inimigo, nenhum é mais próximo do que os espiões internos."</div>
+          <div style="margin-top:10px">
+            <span class="pill pill-gold">Critério: Autenticidade de Fachada</span>
+            <span class="pill pill-red">Critério: Vulnerabilidade de Captura</span>
+            <span class="pill pill-orange">Critério: Capital Eleitoral Próprio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">02</div>
+        <div>
+          <div class="phase-name">Ativação do Personagem</div>
+          <div class="phase-desc">
+            O candidato-avatar adota progressivamente o léxico, os símbolos e as demandas do campo-alvo.
+            Usa palavras como "liberdade", "soberania", "contra o sistema", "pelo povo". Não precisa ser
+            totalmente fabricado — frequentemente é alguém com convicções parcialmente genuínas que lentamente
+            as instrumentaliza. A performance mais eficaz é a que o próprio avatar acredita ser
+            autêntica, porque elimina os sinais inconscientes de dissimulação que eleitores treinados detectam.
+            Evita deliberadamente as pautas estruturais (reforma do STF, fim da censura institucional)
+            que realmente ameaçam o sistema.
+          </div>
+          <div class="phase-tzu">Sun Tzu, Cap. I: "Finja fraqueza quando você é forte; finja força quando é fraco."</div>
+          <div style="margin-top:10px">
+            <span class="pill pill-gold">Tática: Adoção de Léxico</span>
+            <span class="pill pill-purple">Tática: Evitar Pautas Estruturais</span>
+            <span class="pill pill-teal">Tática: Construção Gradual de Credibilidade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">03</div>
+        <div>
+          <div class="phase-name">Produção de Martírio Controlado</div>
+          <div class="phase-desc">
+            Elemento crítico da operação: o avatar precisa sofrer "perseguição" suficiente para ser
+            credível perante o campo-alvo, mas calibrada para não destruí-lo. A assimetria é o sinal
+            revelador: o líder original sofre ataques existenciais (inelegibilidade, prisão, destruição financeira),
+            enquanto o avatar sofre ataques que geram indignação mas não consequências permanentes — processos
+            que não avançam, críticas midiáticas que geram "censura" visível mas não condenação real,
+            exclusões temporárias revertidas. O eleitorado, treinado a reconhecer a perseguição como
+            marca de autenticidade, aceita o sinal sem questionar sua intensidade comparativa.
+          </div>
+          <div class="phase-tzu">Sun Tzu, Cap. VI: "Simule inferioridade e encoraje sua arrogância."</div>
+          <div style="margin-top:10px">
+            <span class="pill pill-red">Sinal de Alerta: Intensidade Assimétrica</span>
+            <span class="pill pill-gold">Tática: Perseguição Calibrada</span>
+            <span class="pill pill-orange">Tática: Martírio sem Consequência Real</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">04</div>
+        <div>
+          <div class="phase-name">Captura do Capital Eleitoral</div>
+          <div class="phase-desc">
+            Com a credibilidade construída nas fases 1–3, o avatar disputa diretamente o mesmo eleitorado
+            do líder original. O objetivo pode não ser vencer — frequentemente é apenas fragmentar,
+            impedir maioria, absorver parte do capital político para posterior negociação. Em alguns cenários,
+            o avatar serve como "candidato de equilíbrio" que drena votos suficientes para mudar o resultado
+            sem necessariamente vencer. O acesso ao fundo partidário bilionário amplifica exponencialmente
+            esta capacidade: candidatos com recursos do sistema superam o líder original que opera com
+            apenas 8 minutos de TV.
+          </div>
+          <div class="phase-tzu">Sun Tzu, Cap. III: "Subjugue o exército inimigo sem lutar... esta é a arte da estratégia ofensiva."</div>
+          <div style="margin-top:10px">
+            <span class="pill pill-red">Objetivo: Fragmentação Eleitoral</span>
+            <span class="pill pill-gold">Recurso: Fundo Partidário como Alavanca</span>
+            <span class="pill pill-purple">Recurso: Tempo de TV Assimétrico</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-num">05</div>
+        <div>
+          <div class="phase-name">Retorno à Órbita Sistêmica</div>
+          <div class="phase-desc">
+            Após a eleição — tendo vencido ou não — o avatar gradualmente realinha-se com o sistema.
+            O ritmo varia: alguns realinham imediatamente (declarações pós-eleitorais incompatíveis com
+            o discurso de campanha), outros progressivamente ao longo do mandato (votos de bancada,
+            alianças com o Centrão, silêncios estratégicos em votações críticas, abandono das pautas
+            prometidas). A promessa original de "reforma do sistema" dissolve-se em "pragmatismo
+            governamental" e "responsabilidade institucional" — termos que o sistema usa para sinalizar
+            que o agente foi exitosamente absorvido.
+          </div>
+          <div class="phase-tzu">Sun Tzu, Cap. XIII: "O agente vivo retorna com informações." O ciclo se fecha.</div>
+          <div style="margin-top:10px">
+            <span class="pill pill-teal">Sinal: Vocabulário de Moderação Pós-Eleição</span>
+            <span class="pill pill-red">Sinal: Votos Incompatíveis com Discurso</span>
+            <span class="pill pill-orange">Sinal: Alianças com Atores do Sistema</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SEÇÃO 4 — CASO PL ══ -->
+<div id="t4" class="tab-panel section-anchor" style="border-top:1px solid var(--border);margin-top:0;padding-top:40px">
+
+  <div class="sec">
+    <div class="sec-title">O Caso PL · <span>A Armadilha do Fundo Bilionário</span></div>
+    <div class="sec-desc">
+      O Partido Liberal representa o caso mais complexo da Operação Espelho porque inverte parcialmente
+      o vetor: aqui não é o líder que infiltra o sistema, mas o sistema que usa a estrutura do partido
+      como vetor para infiltrar o campo do líder, via fundo partidário como instrumento de captura.
+    </div>
+
+    <div class="grid-4">
+      <div class="resource-card">
+        <div class="resource-val">R$1bi+</div>
+        <div class="resource-label">Fundo Partidário 2026</div>
+        <div class="resource-body">Recursos públicos alocados ao PL para a campanha eleitoral de 2026 — um dos maiores do país após incorporação de filiados do campo oposicionista.</div>
+      </div>
+      <div class="resource-card" style="border-top-color:var(--red2)">
+        <div class="resource-val" style="color:var(--red2)">8min</div>
+        <div class="resource-label">TV alocada ao líder original</div>
+        <div class="resource-body">Tempo de televisão disponível ao ex-presidente — resultado de cálculo baseado no número de parlamentares eleitos, não no peso eleitoral real da liderança.</div>
+      </div>
+      <div class="resource-card" style="border-top-color:var(--orange)">
+        <div class="resource-val" style="color:var(--orange)">0</div>
+        <div class="resource-label">Partidos próprios criados</div>
+        <div class="resource-body">Tentativas de criação de partido próprio foram sistematicamente sabotadas — forçando a aliança estratégica com estruturas existentes do Centrão.</div>
+      </div>
+      <div class="resource-card" style="border-top-color:var(--teal)">
+        <div class="resource-val" style="color:var(--teal)">+1M</div>
+        <div class="resource-label">Assinaturas coletadas</div>
+        <div class="resource-body">Processo de criação de partido próprio atingiu a coleta de assinaturas necessária mas foi bloqueado por obstáculos institucionais no TSE.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-red" style="margin-top:24px">
+      <div class="alert-title"><span class="ic">⚠</span> A Contradição Estrutural</div>
+      O líder foi forçado pela sabotagem da criação partidária própria a se aliar ao Centrão —
+      o mesmo Centrão que é vetor histórico de captura do sistema que o persegue.
+      Resultado: uma estrutura partidária robusta com R$1bi+ em fundo, mas dentro da qual
+      múltiplos filiados têm interesse no <em>capital financeiro</em> do partido,
+      não nas pautas que o tornaram relevante eleitoralmente.
+    </div>
+
+    <div class="timeline" style="margin-top:32px">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2018–2019</div>
+        <div class="tl-title">Tentativa de Partido Próprio: Aliança pelo Brasil</div>
+        <div class="tl-body">Lançamento da iniciativa de criação do Aliança pelo Brasil. Coleta de assinaturas iniciada com grande mobilização popular. Meta de 492 mil assinaturas atingida e superada.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--red2)"></div>
+        <div class="tl-date">2019–2021</div>
+        <div class="tl-title">Sabotagem Institucional do Processo</div>
+        <div class="tl-body">TSE e estruturas cartorárias criam obstáculos sucessivos ao processo de validação das assinaturas. Prazo eleitoral esgota-se sem conclusão. Processo não avança por razões técnicas contestáveis.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--orange)"></div>
+        <div class="tl-date">Nov/2021</div>
+        <div class="tl-title">Filiação ao PL: Aliança com o Centrão</div>
+        <div class="tl-body">Sem alternativa após sabotagem do partido próprio, o líder filia-se ao Partido Liberal. A estrutura oferece viabilidade eleitoral imediata mas introduz dependência dos mecanismos do Centrão.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--teal)"></div>
+        <div class="tl-date">2022</div>
+        <div class="tl-title">Maior partido do Brasil — e a armadilha do fundo</div>
+        <div class="tl-body">O PL torna-se o maior partido do país por número de filiados. O fundo partidário cresce proporcionalmente. Mas atrai novos filiados motivados primariamente pelo acesso a recursos — não pelas pautas.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--gold)"></div>
+        <div class="tl-date">2023–2026</div>
+        <div class="tl-title">Veto ao fundo derrubado pelo Congresso</div>
+        <div class="tl-body">O líder posiciona-se contra o fundo eleitoral milionário. O Congresso derruba o veto. O partido — seu próprio partido — recebe R$1bi+ que financia candidaturas de figuras com lealdade questionável.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-gold" style="margin-top:24px">
+      <div class="alert-title"><span class="ic">🔍</span> A Lógica da Captura pelo Recurso</div>
+      O fundo eleitoral bilionário não precisa comprar a lealdade de ninguém com um pagamento direto.
+      Basta tornar a filiação ao partido vantajosa financeiramente. Candidatos que entram pelo fundo
+      devem ao partido — não ao líder. Sua lealdade é à estrutura que distribui recursos, não às pautas
+      que tornaram o partido eleitoralmente relevante. Esta é a forma mais sofisticada de captura:
+      usa o próprio capital eleitoral construído pelo líder para financiar sua fragmentação.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SEÇÃO 5 — IDENTIFICAÇÃO ══ -->
+<div id="t5" class="tab-panel section-anchor" style="border-top:1px solid var(--border);margin-top:0;padding-top:40px">
+
+  <div class="sec">
+    <div class="sec-title">Manual de Identificação · <span>Dissidente Genuíno vs. Avatar</span></div>
+    <div class="sec-desc">
+      A distinção entre um dissidente genuíno e um avatar operacional não é baseada em discurso —
+      é baseada em estrutura, histórico e custos reais. O discurso pode ser fabricado;
+      os custos pagos pela posição não.
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-title"><span class="ic">🚨</span> Princípio Fundamental</div>
+      Nunca avalie um candidato pelo que ele <em>diz</em>. Avalie pelo que ele <em>custa ao sistema</em> e
+      pelo que o sistema lhe <em>custa a ele</em>. A Operação Espelho é invulnerável a análise de discurso
+      — é vulnerável apenas a análise de estrutura.
+    </div>
+
+    <div class="grid-2" style="margin-top:24px">
+      <div class="panel">
+        <div class="panel-title"><span class="dot dr"></span>Marcadores de Avatar — ALERTA</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="marker-card">
+            <div class="marker-head">
+              <span class="marker-icon">⚖️</span>
+              <span class="marker-name">Perseguição sem Consequência Real</span>
+              <span class="marker-badge mb-alert">CRÍTICO</span>
+            </div>
+            <div class="marker-desc">Processos abertos que nunca avançam. Críticas midiáticas que geram indignação mas não condenação. Exclusões temporárias revertidas. Compare sempre com a intensidade sofrida pelo líder original.</div>
+          </div>
+          <div class="marker-card">
+            <div class="marker-head">
+              <span class="marker-icon">🔇</span>
+              <span class="marker-name">Silêncio nas Votações Estruturais</span>
+              <span class="marker-badge mb-alert">CRÍTICO</span>
+            </div>
+            <div class="marker-desc">Ausências ou abstenções em votações sobre reforma do STF, fim da censura institucional, Lava Jato, fundo eleitoral. As pautas que realmente ameaçam o sistema revelam o avatar pelo silêncio.</div>
+          </div>
+          <div class="marker-card">
+            <div class="marker-head">
+              <span class="marker-icon">🏦</span>
+              <span class="marker-name">Dependência Financeira Estrutural</span>
+              <span class="marker-badge mb-alert">CRÍTICO</span>
+            </div>
+            <div class="marker-desc">Concessões, contratos, financiamentos ou patrimônio dependentes de aprovação ou manutenção pelo sistema. A dependência financeira é o mecanismo de controle, não a convicção ideológica.</div>
+          </div>
+          <div class="marker-card">
+            <div class="marker-head">
+              <span class="marker-icon">🔄</span>
+              <span class="marker-name">Alianças Pós-Eleitorais Incompatíveis</span>
+              <span class="marker-badge mb-warn">ALTO</span>
+            </div>
+            <div class="marker-desc">Após a eleição, aproximação com figuras do sistema que antes eram "inimigos declarados". Vocabulário de "moderação", "responsabilidade" e "pragmatismo" que contradiz o discurso de campanha.</div>
+          </div>
+          <div class="marker-card">
+            <div class="marker-head">
+              <span class="marker-icon">🎭</span>
+              <span class="marker-name">Vocabulário Correto, Pautas Superficiais</span>
+              <span class="marker-badge mb-warn">ALTO</span>
+            </div>
+            <div class="marker-desc">Usa "liberdade", "soberania", "contra o sistema" mas nunca propõe mecanismos concretos de reforma das instituições capturas. O léxico serve de embalagem; o conteúdo é vazio ou decorativo.</div>
+          </div>
+          <div class="marker-card">
+            <div class="marker-head">
+              <span class="marker-icon">📊</span>
+              <span class="marker-name">Rota de Retorno Viável ao Sistema</span>
+              <span class="marker-badge mb-warn">ALTO</span>
+            </div>
+            <div class="marker-desc">Possui alternativas de carreira, poder ou sobrevivência política que dependem do sistema permanecer intacto. Um dissidente genuíno queimou as pontes; o avatar mantém a ponte oculta.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot dt"></span>Marcadores de Dissidente Genuíno</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="marker-card" style="border-color:rgba(62,184,154,0.2)">
+            <div class="marker-head">
+              <span class="marker-icon">💸</span>
+              <span class="marker-name">Custos Reais e Irreversíveis</span>
+              <span class="marker-badge mb-ok">CONFIRMADO</span>
+            </div>
+            <div class="marker-desc">Perdas patrimoniais, profissionais ou pessoais reais e permanentes pela posição adotada. Inelegibilidade, processos com risco real de condenação, destruição de redes anteriores de apoio.</div>
+          </div>
+          <div class="marker-card" style="border-color:rgba(62,184,154,0.2)">
+            <div class="marker-head">
+              <span class="marker-icon">⚔️</span>
+              <span class="marker-name">Inimigos Permanentes no Sistema</span>
+              <span class="marker-badge mb-ok">CONFIRMADO</span>
+            </div>
+            <div class="marker-desc">Figuras do sistema que nunca realizarão acordos com o dissidente — não por disputa conjuntural, mas por ameaça estrutural que o dissidente representa às suas posições de poder.</div>
+          </div>
+          <div class="marker-card" style="border-color:rgba(62,184,154,0.2)">
+            <div class="marker-head">
+              <span class="marker-icon">🏗️</span>
+              <span class="marker-name">Pautas que Atacam Mecanismos, não Sintomas</span>
+              <span class="marker-badge mb-ok">CONFIRMADO</span>
+            </div>
+            <div class="marker-desc">Propõe reforma concreta das estruturas de captura: composição do STF, mandato de ministros, controle externo do Judiciário, limitação do poder monocrático. Sintomas são passageiros; mecanismos são permanentes.</div>
+          </div>
+          <div class="marker-card" style="border-color:rgba(62,184,154,0.2)">
+            <div class="marker-head">
+              <span class="marker-icon">🚫</span>
+              <span class="marker-name">Sem Rota de Retorno ao Sistema</span>
+              <span class="marker-badge mb-ok">CONFIRMADO</span>
+            </div>
+            <div class="marker-desc">Não possui alternativa de sobrevivência política que dependa do sistema permanecer como está. A posição de dissidente não é estratégica — é a única opção disponível, o que torna a lealdade estruturalmente mais confiável.</div>
+          </div>
+          <div class="marker-card" style="border-color:rgba(62,184,154,0.2)">
+            <div class="marker-head">
+              <span class="marker-icon">📋</span>
+              <span class="marker-name">Consistência em Votações Incômodas</span>
+              <span class="marker-badge mb-ok">CONFIRMADO</span>
+            </div>
+            <div class="marker-desc">Vota contra os interesses do sistema mesmo quando é o único, mesmo quando há custo político alto, mesmo quando a maioria do campo vai na direção oposta. Consistência custosa é o sinal mais confiável.</div>
+          </div>
+          <div class="marker-card" style="border-color:rgba(62,184,154,0.2)">
+            <div class="marker-head">
+              <span class="marker-icon">🎯</span>
+              <span class="marker-name">Proposta Estrutural Detalhada</span>
+              <span class="marker-badge mb-ok">CONFIRMADO</span>
+            </div>
+            <div class="marker-desc">Apresenta proposta concreta e detalhada de como as estruturas de captura seriam desmanteladas. Avatares evitam o detalhamento porque o detalhamento revela o compromisso real — ou a ausência dele.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block" style="margin-top:32px">
+      <blockquote>
+        A inoculação contra a Operação Espelho exige o mesmo método aplicado às operações documentadas
+        neste projeto: mapear <strong>funções</strong>, não atores; mapear <strong>dependências estruturais</strong>,
+        não discursos; mapear <strong>custos pagos</strong>, não promessas feitas.
+      </blockquote>
+      <cite>— Princípio metodológico · Lawfare Timeline · 2026</cite>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SEÇÃO 6 — ESCUDOS ══ -->
+<div id="t6" class="tab-panel section-anchor" style="border-top:1px solid var(--border);margin-top:0;padding-top:40px">
+
+  <div class="sec">
+    <div class="sec-title">Escudos de Resiliência · <span>Aprendizado Institucional</span></div>
+    <div class="sec-desc">
+      Reconhecer a operação é necessário mas insuficiente. A resiliência sustentada exige
+      mecanismos estruturais — tanto individuais quanto coletivos — que tornem o campo oposicionista
+      progressivamente mais resistente à infiltração.
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title"><span class="dot dt"></span>Escudos Cognitivos · Individual</div>
+        <div class="shield-list">
+          <div class="shield-item">
+            <div class="shield-num">E1</div>
+            <div>
+              <div class="shield-title">Análise de Estrutura, não de Discurso</div>
+              <div class="shield-desc">Treinar o cérebro para responder à pergunta "quais são as dependências estruturais desta figura?" antes de processar o discurso. O discurso é fabricável; a estrutura de dependências revela a verdade.</div>
+            </div>
+          </div>
+          <div class="shield-item">
+            <div class="shield-num">E2</div>
+            <div>
+              <div class="shield-title">Escala de Custos Comparativos</div>
+              <div class="shield-desc">Sempre comparar a intensidade das perseguições sofridas pelo candidato com as sofridas pelo líder original. A assimetria calibrada é o sinal mais confiável de martírio fabricado.</div>
+            </div>
+          </div>
+          <div class="shield-item">
+            <div class="shield-num">E3</div>
+            <div>
+              <div class="shield-title">Resistência ao Gatilho de Perseguição</div>
+              <div class="shield-desc">O sistema sabe que o eleitorado oposicionista responde ao gatilho "perseguido". Cultivar ceticismo deliberado quando a perseguição parece excessivamente conveniente para o momento eleitoral.</div>
+            </div>
+          </div>
+          <div class="shield-item">
+            <div class="shield-num">E4</div>
+            <div>
+              <div class="shield-title">Memória Institucional de Votações</div>
+              <div class="shield-desc">Manter registro das votações passadas do candidato — especialmente nas pautas estruturais que o sistema precisa proteger. Não o que disse nos comícios; o que votou no plenário.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot dg"></span>Escudos Coletivos · Movimento</div>
+        <div class="shield-list">
+          <div class="shield-item">
+            <div class="shield-num">E5</div>
+            <div>
+              <div class="shield-title">Redes de Verificação Distribuída</div>
+              <div class="shield-desc">Construir comunidades de análise que funcionem como contrapeso à narrativa midiática: verificação de votações, histórico de posições, mapeamento de financiadores e dependências institucionais de candidatos.</div>
+            </div>
+          </div>
+          <div class="shield-item">
+            <div class="shield-num">E6</div>
+            <div>
+              <div class="shield-title">Proteção do Capital Simbólico do Líder</div>
+              <div class="shield-desc">Distinguir claramente entre o capital simbólico do movimento (construído pelo líder original) e a estrutura partidária (que pode ser capturada). Não confundir fidelidade à pauta com fidelidade à sigla.</div>
+            </div>
+          </div>
+          <div class="shield-item">
+            <div class="shield-num">E7</div>
+            <div>
+              <div class="shield-title">Arquivo de Contradições Documentadas</div>
+              <div class="shield-desc">Manter documentação pública das contradições entre discurso pré-eleitoral e comportamento pós-eleitoral de figuras passadas. O histórico de ciclos anteriores é o melhor manual de identificação.</div>
+            </div>
+          </div>
+          <div class="shield-item">
+            <div class="shield-num">E8</div>
+            <div>
+              <div class="shield-title">Demanda por Especificidade Programática</div>
+              <div class="shield-desc">Exigir de qualquer candidato propostas específicas sobre os mecanismos de captura: como reforma o STF, como limita o poder monocrático, como desconstrói a censura institucional. Vagueza é conivência.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" style="margin-top:32px">
+      <div class="sec-title">Aprendizados dos Ciclos Anteriores</div>
+      <div class="grid-3">
+        <div class="panel">
+          <div class="panel-title"><span class="dot dp"></span>Caso Sérgio Moro</div>
+          <p style="font-size:12px;color:var(--text2);line-height:1.7">
+            Paradigma mais documentado. Crítico do sistema pelo combate à corrupção → aceitou ser ministro
+            do governo → tentou candidatura presidencial independente com o léxico do campo oposicionista →
+            derrotado nas primárias → retorno ao Senado em posição ambígua. A mensagem de Deltan
+            ("descolar do Bozo sem perder os apoiadores") documenta a estratégia em linguagem clara.
+          </p>
+          <div style="margin-top:10px">
+            <span class="pill pill-red">Custo Pago: Médio</span>
+            <span class="pill pill-orange">Rota de Retorno: Disponível</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title"><span class="dot do"></span>Padrão Recorrente: Lava Jato → Campo Oposicionista</div>
+          <p style="font-size:12px;color:var(--text2);line-height:1.7">
+            Múltiplos ex-procuradores e delegados da Lava Jato migraram para o campo oposicionista
+            com credibilidade construída pelo combate à corrupção. Cada um em algum ponto precisou
+            do sistema que combatia — para candidatura, para proteção de processos, para carreira.
+            A dependência estrutural é o mecanismo de captura, não a corrupção pessoal.
+          </p>
+          <div style="margin-top:10px">
+            <span class="pill pill-purple">Vetor: Dependência Processual</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title"><span class="dot db"></span>A Questão que Não Foi Feita</div>
+          <p style="font-size:12px;color:var(--text2);line-height:1.7">
+            O eleitorado deveria sistematicamente perguntar: <em>se esta figura conquistar poder, quais
+            mecanismos concretos implementará para que outra figura como ela não possa mais ser capturada?</em>
+            Avatares nunca têm resposta para esta pergunta porque a resposta revelaria a contradição central:
+            eles precisam do sistema para chegar lá.
+          </p>
+          <div style="margin-top:10px">
+            <span class="pill pill-teal">Ferramenta: Pergunta Estrutural</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══ SEÇÃO 7 — LEMA ══ -->
+<div id="t7" class="tab-panel section-anchor" style="border-top:1px solid var(--border);margin-top:0;padding-top:40px">
+
+  <div class="sec">
+    <div class="scout-motto">
+      <div class="scout-icon">⚜️</div>
+      <div class="scout-text">SEMPRE ALERTA</div>
+      <div class="scout-sub">Lema do Escoteiro · Princípio Estratégico Permanente</div>
+    </div>
+
+    <div class="sec-title">A Filosofia da Vigilância Permanente</div>
+    <div class="sec-desc">
+      O lema escoteiro "Sempre Alerta" (Be Prepared) transcende a preparação individual.
+      Aplicado ao contexto político, define uma postura epistêmica: nunca descansar na
+      confiança não verificada, nunca aceitar autenticidade sem evidência estrutural,
+      nunca confundir lealdade performática com lealdade real.
+    </div>
+
+    <div class="grid-3">
+      <div class="panel">
+        <div class="panel-title"><span class="dot dg"></span>Alerta Cognitivo</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+          Manter a mente treinada para distinguir sinal de ruído. A sobrecarga de informações —
+          incluindo o escândalo diário como estratégia de exaustão cognitiva — é projetada
+          para tornar a vigilância insustentável. A resposta é <strong>foco estrutural</strong>:
+          monitorar mecanismos, não episódios.
+        </p>
+        <div class="quote-block" style="margin:0">
+          <blockquote style="font-size:12px">"Se você tentar agarrar tudo, não segurará nada."</blockquote>
+          <cite>— Sun Tzu, Cap. V</cite>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot do"></span>Alerta Institucional</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+          A memória institucional é o principal escudo contra ciclos de captura repetidos.
+          Cada nova geração de avatares conta com o esquecimento do eleitorado.
+          Documentação sistemática — como este projeto — é resistência ativa à
+          <strong>fragmentação narrativa</strong> projetada para apagar o registro.
+        </p>
+        <div class="quote-block" style="margin:0">
+          <blockquote style="font-size:12px">"Aquele que não conhece o passado é condenado a repeti-lo."</blockquote>
+          <cite>— George Santayana</cite>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot dt"></span>Alerta Emocional</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+          O principal vetor de captura do eleitorado é emocional: a esperança de um "novo" nome
+          que promete o que o líder original prometeu, sem os custos associados a ele.
+          O avatar apela ao cansaço da batalha. A vigilância emocional é resistir à
+          <strong>sedução do caminho mais fácil</strong>.
+        </p>
+        <div class="quote-block" style="margin:0">
+          <blockquote style="font-size:12px">"O inimigo mais perigoso é aquele que você não reconhece como inimigo."</blockquote>
+          <cite>— Arte da Guerra, Cap. XIII</cite>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-teal" style="margin-top:32px">
+      <div class="alert-title"><span class="ic">🧭</span> As Três Perguntas do Escoteiro Político</div>
+      <strong>1. Quais são as dependências estruturais desta figura com o sistema?</strong><br>
+      Processos pendentes, concessões, contratos, patrimônio. Se existem, é um vetor de captura.<br><br>
+      <strong>2. Quais custos reais e irreversíveis esta figura pagou pela sua posição?</strong><br>
+      Não custos de imagem; custos patrimoniais, profissionais, legais permanentes.<br><br>
+      <strong>3. O que esta figura propõe para que nenhuma outra possa ser capturada no futuro?</strong><br>
+      Se a resposta é vaga ou inexistente, a figura precisa do sistema para existir.
+    </div>
+
+    <div class="sec" style="margin-top:40px">
+      <div class="sec-title">Síntese · <span>A Conclusão Estratégica</span></div>
+
+      <div class="quote-block">
+        <blockquote>
+          A Operação Espelho é a resposta adaptativa mais sofisticada do sistema a sua própria
+          incapacidade de destruir uma liderança genuína por via direta. Quando 26+ ataques frontais falham,
+          o sistema não desiste — aprende. Aprende que não pode destruir o líder, mas pode tentar
+          fragmentar o campo. Aprende que não pode ganhar o argumento, mas pode multiplicar os
+          argumentadores. Aprende que não pode acabar com a insatisfação popular, mas pode capturar
+          seus representantes antes que cheguem ao poder.
+          <br><br>
+          A inoculação não é emocional. É metodológica. É o mesmo método aplicado às operações
+          financeiras documentadas neste projeto: mapear funções, não atores; mapear estruturas,
+          não discursos; mapear o que custa, não o que promete.
+          <br><br>
+          <strong>Sempre Alerta não é paranoia. É ciência política aplicada.</strong>
+        </blockquote>
+        <cite>— Síntese analítica · Operação Espelho · Lawfare Timeline 2026</cite>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:24px;text-align:center;padding:32px">
+      <div style="font-family:var(--display);font-weight:700;font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:16px">Padrões Sistêmicos Identificados</div>
+      <div>
+        <span class="p-tag">P1 · Anulação Procedimental</span>
+        <span class="p-tag">P2 · Investigador Investigado</span>
+        <span class="p-tag">P3 · Captura Judicial de Emergência</span>
+        <span class="p-tag">P4 · Weaponização Midiática</span>
+        <span class="p-tag">P5 · Vetor de Recursos Públicos</span>
+        <span class="p-tag">P6 · Prescrição Estratégica</span>
+        <span class="p-tag">P7 · Fragmentação Narrativa</span>
+        <span class="p-tag">P8 · Captura por Dependência</span>
+      </div>
+      <div style="margin-top:16px;font-size:11px;color:var(--text3)">
+        A Operação Espelho ativa primariamente os padrões P4, P7 e P8 em combinação.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</main>
+
+<!-- ARTEFATOS RELACIONADOS -->
+<section class="related-section">
+  <div class="inner">
+    <div class="related-title">Artefatos Relacionados</div>
+    <div class="related-grid">
+      <a class="related-card" href="padroes-sistemicos-dashboard.html">
+        <div class="related-card-tag">Dashboard · Análise</div>
+        <div class="related-card-title">Padrões Sistêmicos — Dashboard Interativo</div>
+        <div class="related-card-desc">8 padrões recorrentes de captura institucional mapeados com visualizações e evidências documentais.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="golpe-brasil-analise-evidencial.html">
+        <div class="related-card-tag">Análise Evidencial</div>
+        <div class="related-card-title">Golpe no Brasil — Análise Evidencial</div>
+        <div class="related-card-desc">Mapeamento das tentativas de ruptura democrática com base em documentos, depoimentos e votações.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="republica-capturada.html">
+        <div class="related-card-tag">Lawfare · Estrutura</div>
+        <div class="related-card-title">República Capturada</div>
+        <div class="related-card-desc">Anatomia da captura institucional do Estado brasileiro — vetores, atores e mecanismos documentados.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="duplo-padrao-judicial.html">
+        <div class="related-card-tag">Judiciário · Lawfare</div>
+        <div class="related-card-title">Duplo Padrão Judicial</div>
+        <div class="related-card-desc">Comparação sistemática de decisões judiciais para lados opostos do espectro político em casos análogos.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="brasil-falha-institucional-diagnostico.html">
+        <div class="related-card-tag">Diagnóstico Institucional</div>
+        <div class="related-card-title">Brasil — Falha Institucional: Diagnóstico</div>
+        <div class="related-card-desc">Diagnóstico sistêmico das falhas institucionais que permitem a captura do Estado por coalizões de interesse.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="operacao-silencio-digital.html">
+        <div class="related-card-tag">Censura Digital</div>
+        <div class="related-card-title">Operação Silêncio Digital</div>
+        <div class="related-card-desc">Mapeamento das operações coordenadas de censura e supressão de narrativas no espaço digital brasileiro.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="vaza-toga.html">
+        <div class="related-card-tag">Judiciário · Vazamentos</div>
+        <div class="related-card-title">Vaza Toga</div>
+        <div class="related-card-desc">Análise dos vazamentos que expõem a coordenação entre Judiciário e acusação na Operação Lava Jato.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="atores-ruptura-democratica-global.html">
+        <div class="related-card-tag">Geopolítica</div>
+        <div class="related-card-title">Atores da Ruptura Democrática Global</div>
+        <div class="related-card-desc">Mapa dos atores globais envolvidos em padrões de erosão democrática — paralelos com o caso brasileiro.</div>
+        <span class="related-card-arrow">→ Ver análise</span>
+      </a>
+      <a class="related-card" href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener" style="border-color:rgba(245,200,66,0.2)">
+        <div class="related-card-tag" style="color:var(--gold)">Timeline Completa · External</div>
+        <div class="related-card-title" style="color:var(--gold)">Lawfare Timeline — Plataforma Completa</div>
+        <div class="related-card-desc">Acesse a timeline interativa completa com todos os eventos, documentos e análises do projeto.</div>
+        <span class="related-card-arrow" style="color:var(--gold)">→ lawfare-timeline.vercel.app ↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-family:var(--display);font-weight:600;font-size:12px;color:var(--text2);margin-bottom:6px">
+    LAWFARE · TIMELINE — Memória Institucional Permanente
+  </div>
+  <div>
+    Análise estratégica produzida para fins de documentação cívica e transparência democrática.
+    Conteúdo sob licença <strong style="color:var(--gold)">CC0 1.0 Universal — Domínio Público</strong>.
+    Compartilhamento irrestrito autorizado e encorajado.
+  </div>
+  <div style="margin-top:8px;color:var(--text3)">
+    <a href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener">lawfare-timeline.vercel.app</a> · Eleições 2026 · Abril/2026
+  </div>
+</footer>
+
+<script>
+(function(){
+  const sections = document.querySelectorAll('.section-anchor');
+  const navLinks = document.querySelectorAll('.tab-btn');
+  const OFFSET = 110;
+
+  // Smooth scroll on nav click
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target){
+        const top = target.getBoundingClientRect().top + window.scrollY - OFFSET;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+    });
+  });
+
+  // Scroll spy via IntersectionObserver
+  let activeId = 't1';
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        activeId = entry.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + activeId);
+        });
+        // scroll active tab into view within nav bar
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if(activeBtn){
+          activeBtn.scrollIntoView({block:'nearest',inline:'nearest'});
+        }
+      }
+    });
+  },{rootMargin:`-${OFFSET}px 0px -60% 0px`, threshold:0});
+
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

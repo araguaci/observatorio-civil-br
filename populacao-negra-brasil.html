@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>População Negra no Brasil — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111114;
+    --bg3: #17171b;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.14);
+    --fg: #f0ede8;
+    --fg2: #a8a4a0;
+    --fg3: #5a5754;
+    --accent: #e8c547;
+    --accent2: #c9a62a;
+    --danger: #e85d4a;
+    --green: #4caf7d;
+    --blue: #5b8dee;
+    --red: #e85d4a;
+    --amber: #e8a54a;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'Crimson Pro', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .page-wrap { position: relative; z-index: 1; }
+
+  /* LANGUAGE TOGGLE */
+  #lang-toggle {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    z-index: 100;
+    display: flex;
+    gap: 4px;
+    background: var(--bg3);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .lang-btn {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.06em;
+    transition: all 150ms;
+    background: transparent;
+    color: var(--fg3);
+  }
+  .lang-btn.active {
+    background: var(--accent);
+    color: #000;
+  }
+
+  /* HEADER — mobile-first */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 60% 80% at 10% 50%, rgba(232,197,71,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,197,71,0.12);
+    border: 1px solid rgba(232,197,71,0.25);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .header-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  h1.main-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    /*max-width: 820px;*/
+    margin-bottom: 16px;
+  }
+  h1.main-title em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .header-sub {
+    font-size: 17px;
+    color: var(--fg2);
+    max-width: 640px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg3);
+    letter-spacing: 0.06em;
+  }
+  .meta-item span {
+    color: var(--fg2);
+  }
+
+  /* CORRECTION BANNER */
+  .correction-banner {
+    margin: 24px 20px;
+    background: rgba(232,93,74,0.08);
+    border: 1px solid rgba(232,93,74,0.3);
+    border-left: 3px solid var(--danger);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .banner-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .banner-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--danger);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .banner-text {
+    font-size: 15px;
+    color: var(--fg2);
+    line-height: 1.5;
+  }
+  .banner-text strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* MAIN GRID — mobile-first: 1 col → 2 cols (2 cards/row) em desktop */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin: 0 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    padding: 20px;
+    position: relative;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .card:hover {
+    background: var(--bg3);
+  }
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .card-number {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .card-number.accent { color: var(--accent); }
+  .card-number.danger { color: var(--danger); }
+  .card-number.green { color: var(--green); }
+  .card-number.blue { color: var(--blue); }
+  .card-desc {
+    font-size: 14px;
+    color: var(--fg2);
+    line-height: 1.4;
+  }
+  .card-source {
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg3);
+  }
+
+  /* HERO CARD — full width mobile, span 2 em desktop */
+  .card-hero { grid-column: 1 / -1; }
+  /* Último card (ímpar) ocupa linha inteira em desktop */
+  .main-grid .card:last-child { grid-column: 1 / -1; }
+
+  /* PIE CHART VISUAL */
+  .donut-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { flex: 1; }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .legend-item:last-child { border-bottom: none; }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .legend-name {
+    flex: 1;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .legend-pct {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .legend-pop {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg3);
+    width: 80px;
+    text-align: right;
+  }
+
+  /* BAR CHART */
+  .bar-section { margin-top: 12px; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .bar-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg2);
+    width: 140px;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s cubic-bezier(0.25,1,0.5,1);
+  }
+  .bar-val {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    width: 48px;
+    text-align: right;
+    color: var(--fg);
+  }
+
+  /* SECTIONS — mobile-first */
+  .section {
+    padding: 28px 20px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--border) 60%);
+    margin: 0 20px;
+  }
+
+  /* METRICS GRID — mobile-first */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .metric-cell {
+    background: var(--bg2);
+    padding: 24px;
+  }
+  .metric-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-context {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.4;
+  }
+  .metric-source {
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg3);
+  }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .compare-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    text-align: left;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+  .compare-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .td-indicator {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  .td-black { background: var(--accent); }
+  .td-white { background: var(--fg3); }
+  .td-val {
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .td-diff {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .td-neg { color: var(--danger); background: rgba(232,93,74,0.1); }
+  .td-pos { color: var(--green); background: rgba(76,175,125,0.1); }
+  .td-neu { color: var(--fg3); background: rgba(255,255,255,0.05); }
+
+  /* VIOLENCE SECTION — mobile 1 col */
+  .violence-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .v-card {
+    background: var(--bg2);
+    padding: 28px;
+  }
+  .v-card.danger-bg {
+    background: rgba(232,93,74,0.05);
+    border-left: 2px solid rgba(232,93,74,0.3);
+  }
+  .v-big {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--danger);
+    line-height: 1;
+  }
+  .v-desc {
+    font-size: 14px;
+    color: var(--fg2);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .v-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--border));
+    border-radius: 2px;
+  }
+  .tl-item {
+    position: relative;
+    padding: 0 0 28px 20px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -17px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .tl-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .tl-event {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .tl-desc {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.4;
+  }
+
+  /* CONCLUSIONS — mobile 1 col */
+  .conclusion-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .conclusion-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .conclusion-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .conclusion-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .conclusion-text {
+    font-size: 14px;
+    color: var(--fg2);
+    line-height: 1.5;
+  }
+
+  /* REFERENCES — mobile 1 col */
+  .ref-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .ref-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ref-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .ref-body {}
+  .ref-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .ref-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg3);
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg3);
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--fg3);
+    letter-spacing: 0.08em;
+  }
+
+  /* LANGUAGE SWITCHING */
+  .lang-pt { display: block; }
+  .lang-en { display: none; }
+  body.en .lang-pt { display: none; }
+  body.en .lang-en { display: block; }
+
+  span.lang-pt { display: inline; }
+  span.lang-en { display: none; }
+  body.en span.lang-pt { display: none; }
+  body.en span.lang-en { display: inline; }
+
+  /* SCROLL ANIMATION */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Tablet */
+  @media (min-width: 600px) {
+    .header { padding: 36px 28px 32px; }
+    .section { padding: 36px 28px; }
+    .main-grid { margin: 0 28px; }
+    .correction-banner { margin: 28px; padding: 20px 24px; }
+    .section-divider { margin: 0 28px; }
+    .donut-wrap { flex-direction: row; gap: 28px; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .violence-grid { grid-template-columns: 1fr 1fr; }
+    .conclusion-grid { grid-template-columns: 1fr 1fr; }
+    .ref-list { grid-template-columns: 1fr 1fr; }
+    .footer { padding: 24px 28px; }
+  }
+
+  /* Desktop — 2 cards, 2 linhas KPI + layout otimizado */
+  @media (min-width: 900px) {
+    #lang-toggle { top: 20px; right: 32px; }
+    .header { padding: 48px 48px 40px; }
+    .section { padding: 40px 48px; }
+    .main-grid {
+      margin: 0 48px;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+    }
+    .card-hero { grid-column: 1 / -1; padding: 32px; }
+    .card { padding: 28px; }
+    .donut-wrap { flex-direction: row; gap: 36px; margin-top: 20px; }
+    .correction-banner { margin: 32px 48px; padding: 20px 28px; }
+    .section-divider { margin: 0 48px; }
+    .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+    .violence-grid { grid-template-columns: 1fr 1fr; }
+    .conclusion-grid { grid-template-columns: 1fr 1fr; }
+    .ref-list { grid-template-columns: repeat(3, 1fr); }
+    .footer { padding: 28px 48px; }
+  }
+
+  /* Large desktop — espaços maiores */
+  @media (min-width: 1200px) {
+    .main-grid { max-width: 1100px; margin-left: auto; margin-right: auto; }
+    .section { max-width: 1100px; margin-left: auto; margin-right: auto; padding-left: 48px; padding-right: 48px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- Language Toggle -->
+<div id="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-badge">
+    <span class="lang-pt">Análise de Dados · IBGE · IPEA · DIEESE · 2024</span>
+    <span class="lang-en">Data Analysis · IBGE · IPEA · DIEESE · 2024</span>
+  </div>
+  <h1 class="main-title lang-pt">A população negra no Brasil é<br><em>maioria</em>, não minoria</h1>
+  <h1 class="main-title lang-en">Brazil's Black population is the<br><em>majority</em>, not a minority</h1>
+  <p class="header-sub lang-pt">
+    Dados oficiais mostram que pretos e pardos somam 55,5% da população brasileira — equivalente a 112,7 milhões de pessoas. A premissa de "10%" é amplamente equivocada.
+  </p>
+  <p class="header-sub lang-en">
+    Official data shows Black and mixed-race (pardo) Brazilians total 55.5% of the population — approximately 112.7 million people. The "10%" assumption is widely mistaken.
+  </p>
+  <div class="header-meta">
+    <div class="meta-item">📅 <span>Censo IBGE 2022</span></div>
+    <div class="meta-item">📊 <span>PNAD Contínua 2024</span></div>
+    <div class="meta-item">⚖️ <span>Atlas da Violência 2024–2025</span></div>
+    <div class="meta-item">🔬 <span>IPEA · DIEESE · CEDRA</span></div>
+  </div>
+</header>
+
+<!-- CORRECTION BANNER -->
+<div class="correction-banner fade-in">
+  <div class="banner-icon">⚠️</div>
+  <div>
+    <div class="banner-title lang-pt">Correção de premissa</div>
+    <div class="banner-title lang-en">Premise correction</div>
+    <p class="banner-text lang-pt">
+      A afirmação de que negros representam "cerca de 10% da população" e "22 milhões" está errada em mais de <strong>5× em proporção e 5× em número absoluto</strong>. Segundo o Censo Demográfico 2022 (IBGE), pretos correspondem a <strong>10,6% (20,6M)</strong> e pardos a <strong>45,3% (92,1M)</strong>. Juntos — conforme a definição do Estatuto da Igualdade Racial — formam <strong>55,9% da população (112,7M)</strong>.
+    </p>
+    <p class="banner-text lang-en">
+      The claim that Black Brazilians represent "about 10% of the population" and "22 million people" is incorrect by more than <strong>5× in proportion and 5× in absolute number</strong>. Per the 2022 IBGE Census: self-declared Black (pretos) = <strong>10.6% (20.6M)</strong>; mixed-race (pardos) = <strong>45.3% (92.1M)</strong>. Together — as defined by Brazil's Racial Equality Statute — they total <strong>55.9% of the population (112.7M)</strong>.
+    </p>
+  </div>
+</div>
+
+<!-- KPI ROW -->
+<div class="main-grid fade-in">
+  <div class="card card-hero">
+    <div class="card-label lang-pt">composição racial · censo 2022</div>
+    <div class="card-label lang-en">racial composition · 2022 census</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="20"/>
+        <!-- Pardos 45.3% = 0.453 * 339.3 = 153.7 -->
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#e8c547" stroke-width="20"
+          stroke-dasharray="153.7 185.6" stroke-dashoffset="0" transform="rotate(-90 70 70)"/>
+        <!-- Pretos 10.6% = 35.97 -->
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#c9a62a" stroke-width="20"
+          stroke-dasharray="35.97 303.33" stroke-dashoffset="-153.7" transform="rotate(-90 70 70)"/>
+        <!-- Brancos 43.5% = 147.5 -->
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#3a3a3f" stroke-width="20"
+          stroke-dasharray="147.5 191.8" stroke-dashoffset="-189.67" transform="rotate(-90 70 70)"/>
+        <!-- Outros 0.6% -->
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#222225" stroke-width="20"
+          stroke-dasharray="2.04 337.26" stroke-dashoffset="-337.17" transform="rotate(-90 70 70)"/>
+        <text x="70" y="66" text-anchor="middle" font-family="Syne" font-weight="800" font-size="20" fill="#f0ede8">55.9%</text>
+        <text x="70" y="82" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#a8a4a0">NEGROS</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#c9a62a;"></div>
+          <div class="legend-name lang-pt">Pretos</div>
+          <div class="legend-name lang-en">Black (preto)</div>
+          <div class="legend-pct" style="color:#c9a62a">10.6%</div>
+          <div class="legend-pop">20.6M</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#e8c547;"></div>
+          <div class="legend-name lang-pt">Pardos</div>
+          <div class="legend-name lang-en">Mixed-race (pardo)</div>
+          <div class="legend-pct" style="color:#e8c547">45.3%</div>
+          <div class="legend-pop">92.1M</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#3a3a3f;"></div>
+          <div class="legend-name lang-pt">Brancos</div>
+          <div class="legend-name lang-en">White (branco)</div>
+          <div class="legend-pct" style="color:#a8a4a0">43.5%</div>
+          <div class="legend-pop">88.2M</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#222225; border:1px solid #3a3a3f;"></div>
+          <div class="legend-name lang-pt">Outros</div>
+          <div class="legend-name lang-en">Others</div>
+          <div class="legend-pct" style="color:#5a5754">0.6%</div>
+          <div class="legend-pop">~1.2M</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-source">
+      <span class="lang-pt">Fonte: IBGE · Censo Demográfico 2022 · Ministério da Igualdade Racial</span>
+      <span class="lang-en">Source: IBGE · 2022 Demographic Census · Ministry of Racial Equality</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label lang-pt">total · negros (pretos + pardos)</div>
+    <div class="card-label lang-en">total · Black population</div>
+    <div class="card-number accent">112.7M</div>
+    <div class="card-desc lang-pt">pessoas pretas e pardas no Brasil, segundo o Censo 2022. Maior grupo racial do país.</div>
+    <div class="card-desc lang-en">Black and mixed-race people in Brazil per the 2022 Census. The country's largest racial group.</div>
+    <div class="card-source">IBGE Censo 2022</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label lang-pt">crescimento · autodeclaração preta</div>
+    <div class="card-label lang-en">growth · self-declared Black</div>
+    <div class="card-number accent">+42.3%</div>
+    <div class="card-desc lang-pt">crescimento de pessoas que se autodeclaram pretas entre 2010 e 2022 (de 7.6% para 10.2%).</div>
+    <div class="card-desc lang-en">growth in self-declared Black (preto) population between 2010 and 2022 (7.6% → 10.2%).</div>
+    <div class="card-source">IBGE Censo 2022</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label lang-pt">negros em favelas</div>
+    <div class="card-label lang-en">Black population in slums</div>
+    <div class="card-number danger">73%</div>
+    <div class="card-desc lang-pt">dos moradores de favelas e aglomerados subnormais são negros, vs 56% na população geral.</div>
+    <div class="card-desc lang-en">of slum (favela) residents are Black, vs. 56% in the general population.</div>
+    <div class="card-source">IBGE Censo 2022 · Nov/2024</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label lang-pt">% nordeste</div>
+    <div class="card-label lang-en">% northeast region</div>
+    <div class="card-number accent">59.6%</div>
+    <div class="card-desc lang-pt">da população nordestina se declara preta ou parda. Norte: 67.2%. SC apenas 23.3%.</div>
+    <div class="card-desc lang-en">of Northeastern population self-declares Black or mixed-race. North: 67.2%. SC: only 23.3%.</div>
+    <div class="card-source">IBGE Censo 2022 · Guia Negro</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label lang-pt">PNAD 2024 · % atualizado</div>
+    <div class="card-label lang-en">PNAD 2024 · latest share</div>
+    <div class="card-number accent">56.7%</div>
+    <div class="card-desc lang-pt">da população brasileira classificada como negra (pretos + pardos) no 2º trimestre de 2024.</div>
+    <div class="card-desc lang-en">of Brazil's population classified as Black in Q2 2024 PNAD Contínua survey.</div>
+    <div class="card-source">IBGE PNAD Contínua · Q2 2024 · DIEESE</div>
+  </div>
+</div>
+
+<!-- SECTION 1: ECONOMY & LABOR -->
+<div class="section-divider fade-in"></div>
+<div class="section fade-in">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title lang-pt">Economia e Mercado de Trabalho</h2>
+    <h2 class="section-title lang-en">Economy & Labor Market</h2>
+  </div>
+
+  <div class="metrics-grid" style="margin-bottom:24px;">
+    <div class="metric-cell">
+      <div class="metric-label lang-pt">Renda média · brancos vs. negros (2024)</div>
+      <div class="metric-label lang-en">Avg. income · white vs. Black (2024)</div>
+      <div class="metric-value" style="color:var(--danger)">−65.9%</div>
+      <div class="metric-context lang-pt">A pessoa branca recebe em média <strong>R$4.119</strong> vs. <strong>R$2.484</strong> do preto/pardo. Diferença de 65.9% em favor do branco.</div>
+      <div class="metric-context lang-en">White workers earn avg. <strong>R$4,119</strong> vs. <strong>R$2,484</strong> for Black workers — a 65.9% wage gap favoring whites.</div>
+      <div class="metric-source">IBGE SIS 2025 (dados 2024)</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label lang-pt">Renda-hora · branco vs. negro</div>
+      <div class="metric-label lang-en">Hourly wage · white vs. Black</div>
+      <div class="metric-value" style="color:var(--danger)">R$9.60</div>
+      <div class="metric-context lang-pt">Branco recebe <strong>R$24,60/h</strong> e negro recebe <strong>R$15,00/h</strong>. Diferença de R$9,60 por hora trabalhada.</div>
+      <div class="metric-context lang-en">Whites earn <strong>R$24.60/h</strong>; Blacks earn <strong>R$15.00/h</strong>. The R$9.60/h gap compounds over a lifetime.</div>
+      <div class="metric-source">IBGE SIS 2025</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label lang-pt">Déficit salarial vitalício estimado</div>
+      <div class="metric-label lang-en">Estimated lifetime wage deficit</div>
+      <div class="metric-value" style="color:var(--danger)">R$899K</div>
+      <div class="metric-context lang-pt">Uma pessoa negra trabalhando dos 18 aos 65 anos perde em média <strong>R$899 mil</strong> a menos que uma pessoa não negra equivalente.</div>
+      <div class="metric-context lang-en">A Black worker from age 18 to 65 earns an estimated <strong>R$899,000 less</strong> than an equivalent non-Black worker over their career.</div>
+      <div class="metric-source">DIEESE · Nov 2024</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label lang-pt">Perda coletiva em 2024</div>
+      <div class="metric-label lang-en">Collective loss in 2024</div>
+      <div class="metric-value" style="color:var(--danger)">R$103Bi</div>
+      <div class="metric-context lang-pt">Se os trabalhadores negros tivessem os mesmos salários e taxas de desemprego dos brancos, teriam recebido <strong>R$103 bilhões a mais</strong> em 2024.</div>
+      <div class="metric-context lang-en">If Black workers had the same wages and unemployment rates as whites, they would have earned <strong>R$103 billion more</strong> in 2024 alone.</div>
+      <div class="metric-source">DIEESE · Nov 2024</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label lang-pt">Cargos de gestão ocupados por negros</div>
+      <div class="metric-label lang-en">Management positions held by Blacks</div>
+      <div class="metric-value" style="color:var(--amber)">33.7%</div>
+      <div class="metric-context lang-pt">Apesar de representarem 56.5% da população, negros ocupam apenas 33.7% dos cargos gerenciais em 2023.</div>
+      <div class="metric-context lang-en">Despite being 56.5% of the population, Black Brazilians held only 33.7% of managerial positions in 2023.</div>
+      <div class="metric-source">CEDRA · PNAD 2023</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label lang-pt">Gap salarial com diploma superior</div>
+      <div class="metric-label lang-en">College-degree wage gap</div>
+      <div class="metric-value" style="color:var(--danger)">−44.6%</div>
+      <div class="metric-context lang-pt">Branco com diploma recebe <strong>R$43,20/h</strong> vs. negro com diploma <strong>R$29,90/h</strong>. Maior desigualdade entre todos os níveis de escolaridade.</div>
+      <div class="metric-context lang-en">College-educated whites earn <strong>R$43.20/h</strong> vs. <strong>R$29.90/h</strong> for Black college graduates — the widest gap across all education levels.</div>
+      <div class="metric-source">IBGE SIS 2025</div>
+    </div>
+  </div>
+
+  <!-- OCCUPATION BAR CHART -->
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:28px;">
+    <div class="card-label lang-pt">concentração de negros por setor</div>
+    <div class="card-label lang-en">Black concentration by sector</div>
+    <div class="bar-section">
+      <div class="bar-row">
+        <div class="bar-label lang-pt">Serv. Domésticos</div>
+        <div class="bar-label lang-en">Domestic Work</div>
+        <div class="bar-track"><div class="bar-fill" style="width:66.4%;background:var(--danger);"></div></div>
+        <div class="bar-val" style="color:var(--danger)">66.4%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label lang-pt">Construção Civil</div>
+        <div class="bar-label lang-en">Construction</div>
+        <div class="bar-track"><div class="bar-fill" style="width:65.1%;background:var(--amber);"></div></div>
+        <div class="bar-val" style="color:var(--amber)">65.1%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label lang-pt">Agropecuária</div>
+        <div class="bar-label lang-en">Agriculture</div>
+        <div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--amber);"></div></div>
+        <div class="bar-val" style="color:var(--amber)">62.0%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label lang-pt">Transporte</div>
+        <div class="bar-label lang-en">Transport</div>
+        <div class="bar-track"><div class="bar-fill" style="width:57%;background:var(--accent2);"></div></div>
+        <div class="bar-val" style="color:var(--accent2)">57.0%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label lang-pt">Serv. Financeiros</div>
+        <div class="bar-label lang-en">Financial Services</div>
+        <div class="bar-track"><div class="bar-fill" style="width:43.4%;background:var(--fg3);"></div></div>
+        <div class="bar-val" style="color:var(--fg3)">43.4%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label lang-pt">Adm. Pública/Saúde</div>
+        <div class="bar-label lang-en">Public Admin/Health</div>
+        <div class="bar-track"><div class="bar-fill" style="width:49.8%;background:var(--green);"></div></div>
+        <div class="bar-val" style="color:var(--green)">49.8%</div>
+      </div>
+    </div>
+    <div class="card-source" style="margin-top:8px;">
+      <span class="lang-pt">Fonte: IBGE SIS 2023 — negros concentram-se em setores de menor remuneração</span>
+      <span class="lang-en">Source: IBGE SIS 2023 — Black workers are concentrated in lower-paying sectors</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: VIOLENCE -->
+<div class="section-divider fade-in"></div>
+<div class="section fade-in">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title lang-pt">Violência e Segurança Pública</h2>
+    <h2 class="section-title lang-en">Violence & Public Security</h2>
+  </div>
+
+  <div class="violence-grid">
+    <div class="v-card danger-bg">
+      <div class="v-label lang-pt">vítimas de homicídio · 2022</div>
+      <div class="v-label lang-en">homicide victims · 2022</div>
+      <div class="v-big">76.5%</div>
+      <div class="v-desc lang-pt">das 46.409 vítimas de homicídio no Brasil em 2022 eram pretas ou pardas. Uma pessoa negra morta a cada <strong>12 minutos</strong>.</div>
+      <div class="v-desc lang-en">of Brazil's 46,409 homicide victims in 2022 were Black. That's one Black person killed every <strong>12 minutes</strong>.</div>
+      <div class="card-source" style="margin-top:12px;">Atlas da Violência 2024 · IPEA/FBSP</div>
+    </div>
+    <div class="v-card">
+      <div class="v-label lang-pt">risco relativo de homicídio</div>
+      <div class="v-label lang-en">relative homicide risk</div>
+      <div class="v-big" style="color:var(--amber)">2.7×</div>
+      <div class="v-desc lang-pt">maior risco de uma pessoa negra ser vítima de homicídio em relação a uma pessoa não negra em 2023. Era 2.4× em 2013 — o índice piorou.</div>
+      <div class="v-desc lang-en">higher homicide risk for Black Brazilians compared to non-Black in 2023. It was 2.4× in 2013 — the ratio has worsened over time.</div>
+      <div class="card-source" style="margin-top:12px;">Atlas da Violência 2025 · IPEA/FBSP</div>
+    </div>
+    <div class="v-card">
+      <div class="v-label lang-pt">taxa por 100 mil · negros vs. brancos</div>
+      <div class="v-label lang-en">rate per 100k · Black vs. white</div>
+      <div style="display:flex;gap:32px;align-items:flex-end;margin-top:8px;">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--fg3);margin-bottom:4px;" class="lang-pt">Negros</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--fg3);margin-bottom:4px;" class="lang-en">Black</div>
+          <div style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--danger)">29.7</div>
+        </div>
+        <div style="font-family:var(--font-display);font-size:28px;color:var(--fg3);padding-bottom:4px;">vs</div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--fg3);margin-bottom:4px;" class="lang-pt">Não Negros</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--fg3);margin-bottom:4px;" class="lang-en">Non-Black</div>
+          <div style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--fg3)">10.8</div>
+        </div>
+      </div>
+      <div class="v-desc lang-pt" style="margin-top:8px;">Negros morrem proporcionalmente 2.75× mais que não-negros por homicídio.</div>
+      <div class="v-desc lang-en" style="margin-top:8px;">Black Brazilians die from homicide at 2.75× the rate of non-Black Brazilians.</div>
+      <div class="card-source" style="margin-top:8px;">Atlas da Violência 2024 · IPEA</div>
+    </div>
+    <div class="v-card">
+      <div class="v-label lang-pt">10 anos de dados · 2012–2022</div>
+      <div class="v-label lang-en">10 years of data · 2012–2022</div>
+      <div class="v-big" style="color:var(--danger);font-size:44px;">445.442</div>
+      <div class="v-desc lang-pt">pessoas negras assassinadas no Brasil entre 2012 e 2022. O número de negros mortos foi <strong>mais de 3× maior</strong> que o de não-negros no mesmo período.</div>
+      <div class="v-desc lang-en">Black people killed in Brazil between 2012 and 2022. The Black death toll was <strong>over 3× higher</strong> than that of non-Black people over the same period.</div>
+      <div class="card-source" style="margin-top:8px;">Atlas da Violência 2024 · IPEA/FBSP</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: POVERTY & EDUCATION -->
+<div class="section-divider fade-in"></div>
+<div class="section fade-in">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title lang-pt">Pobreza, Educação e Saúde</h2>
+    <h2 class="section-title lang-en">Poverty, Education & Health</h2>
+  </div>
+
+  <table class="compare-table" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+    <thead>
+      <tr>
+        <th><span class="lang-pt">Indicador</span><span class="lang-en">Indicator</span></th>
+        <th><span class="lang-pt">Negros</span><span class="lang-en">Black</span></th>
+        <th><span class="lang-pt">Brancos</span><span class="lang-en">White</span></th>
+        <th><span class="lang-pt">Diferença</span><span class="lang-en">Gap</span></th>
+        <th><span class="lang-pt">Fonte</span><span class="lang-en">Source</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">10% mais pobres</span><span class="lang-en">Bottom 10% poorest</span></td>
+        <td class="td-val" style="color:var(--danger)">80%</td>
+        <td class="td-val" style="color:var(--fg3)">20%</td>
+        <td><span class="td-diff td-neg lang-pt">Negros 4× concentrados</span><span class="td-diff td-neg lang-en">4× overrepresented</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IPEA 2022</td>
+      </tr>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">10% mais ricos</span><span class="lang-en">Top 10% wealthiest</span></td>
+        <td class="td-val" style="color:var(--fg3)">30%</td>
+        <td class="td-val" style="color:var(--green)">70%</td>
+        <td><span class="td-diff td-neg lang-pt">Brancos 2.3× mais</span><span class="td-diff td-neg lang-en">Whites 2.3× overrep.</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IPEA 2022</td>
+      </tr>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">Pobreza extrema</span><span class="lang-en">Extreme poverty</span></td>
+        <td class="td-val" style="color:var(--danger)">7.4%</td>
+        <td class="td-val" style="color:var(--fg3)">3.1%</td>
+        <td><span class="td-diff td-neg lang-pt">Negros 2.4× mais</span><span class="td-diff td-neg lang-en">2.4× higher rate</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IPEA 2022</td>
+      </tr>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">Analfabetismo</span><span class="lang-en">Illiteracy rate</span></td>
+        <td class="td-val" style="color:var(--danger)">7.1%</td>
+        <td class="td-val" style="color:var(--fg3)">3.2%</td>
+        <td><span class="td-diff td-neg lang-pt">Mais do que o dobro</span><span class="td-diff td-neg lang-en">More than double</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">PNAD</td>
+      </tr>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">Analfab. 60+ anos</span><span class="lang-en">Illiteracy 60+ yrs</span></td>
+        <td class="td-val" style="color:var(--danger)">22.7%</td>
+        <td class="td-val" style="color:var(--fg3)">8.6%</td>
+        <td><span class="td-diff td-neg lang-pt">Quase 3× maior</span><span class="td-diff td-neg lang-en">Nearly 3× higher</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">PNAD</td>
+      </tr>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">Taxa de desemprego</span><span class="lang-en">Unemployment rate</span></td>
+        <td class="td-val" style="color:var(--danger)">~16%</td>
+        <td class="td-val" style="color:var(--fg3)">11.3%</td>
+        <td><span class="td-diff td-neg lang-pt">~5pp a mais</span><span class="td-diff td-neg lang-en">~5pp higher</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IBGE 2022</td>
+      </tr>
+      <tr>
+        <td><span class="td-indicator td-black"></span><span class="lang-pt">Sem saneamento básico</span><span class="lang-en">No sanitation access</span></td>
+        <td class="td-val" style="color:var(--danger)">42.8%</td>
+        <td class="td-val" style="color:var(--fg3)">26.5%</td>
+        <td><span class="td-diff td-neg lang-pt">16pp de diferença</span><span class="td-diff td-neg lang-en">16pp gap</span></td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IBGE 2023</td>
+      </tr>
+      <tr>
+        <td class="lang-pt"><span class="td-indicator td-black"></span>Atendidos pelo SUS</td>
+        <td class="lang-en"><span class="td-indicator td-black"></span>Public health system users</td>
+        <td class="td-val" style="color:var(--accent)">~67%</td>
+        <td class="td-val" style="color:var(--fg3)">~33%</td>
+        <td><span class="td-diff td-pos lang-pt">Maioria dos usuários</span><span class="td-diff td-pos lang-en">Majority of users</span></td>
+        <td class="lang-pt" style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IPEA 2008</td>
+        <td class="lang-en" style="font-family:var(--font-mono);font-size:11px;color:var(--fg3)">IPEA 2008</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 4: HISTORICAL CONTEXT -->
+<div class="section-divider fade-in"></div>
+<div class="section fade-in">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title lang-pt">Contexto Histórico</h2>
+    <h2 class="section-title lang-en">Historical Context</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1550–1888</div>
+        <div class="tl-event lang-pt">Escravidão no Brasil</div>
+        <div class="tl-event lang-en">Slavery in Brazil</div>
+        <div class="tl-desc lang-pt">Brasil importou cerca de 4,9 milhões de africanos escravizados — o maior contingente das Américas. A escravidão durou mais de 300 anos.</div>
+        <div class="tl-desc lang-en">Brazil imported approximately 4.9 million enslaved Africans — the largest contingent in the Americas. Slavery lasted over 300 years.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1888</div>
+        <div class="tl-event lang-pt">Lei Áurea — abolição sem reparação</div>
+        <div class="tl-event lang-en">Lei Áurea — abolition without reparation</div>
+        <div class="tl-desc lang-pt">A abolição ocorreu sem distribuição de terras ou políticas compensatórias, consolidando a marginalização econômica da população negra.</div>
+        <div class="tl-desc lang-en">Abolition occurred without land distribution or reparatory policies, entrenching economic marginalization for Black Brazilians.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2003</div>
+        <div class="tl-event lang-pt">Estatuto da Igualdade Racial</div>
+        <div class="tl-event lang-en">Racial Equality Statute</div>
+        <div class="tl-desc lang-pt">Marco legal que define "população negra" como o conjunto de pretos e pardos, e estabelece políticas de igualdade racial.</div>
+        <div class="tl-desc lang-en">Key legislation defining "Black population" as pretos + pardos and establishing racial equality policies.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2012</div>
+        <div class="tl-event lang-pt">Lei de Cotas (Lei 12.711)</div>
+        <div class="tl-event lang-en">Racial Quotas Law (Lei 12.711)</div>
+        <div class="tl-desc lang-pt">Reserva de vagas em universidades federais para negros, pardos e indígenas. Impacto: aumento na representação universitária, mas gaps salariais persistem.</div>
+        <div class="tl-desc lang-en">Reserved seats in federal universities for Black, mixed-race, and indigenous students. Impact: increased university representation, but wage gaps persist.</div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:16px;">
+        <div class="card-label lang-pt">autodeclaração preta · evolução histórica</div>
+        <div class="card-label lang-en">self-declared Black · historical growth</div>
+        <div class="bar-section">
+          <div class="bar-row">
+            <div class="bar-label">2000</div>
+            <div class="bar-track"><div class="bar-fill" style="width:6.2%;background:var(--accent);"></div></div>
+            <div class="bar-val">6.2%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2010</div>
+            <div class="bar-track"><div class="bar-fill" style="width:7.6%;background:var(--accent);"></div></div>
+            <div class="bar-val">7.6%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2022</div>
+            <div class="bar-track"><div class="bar-fill" style="width:10.6%;background:var(--accent);"></div></div>
+            <div class="bar-val" style="color:var(--accent)">10.6%</div>
+          </div>
+        </div>
+        <div class="card-source lang-pt">Crescimento de 71% em 22 anos. Reflete consciência racial crescente.</div>
+        <div class="card-source lang-en">71% growth in 22 years. Reflects growing racial consciousness.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;">
+        <div class="card-label lang-pt">pardos · evolução histórica</div>
+        <div class="card-label lang-en">mixed-race (pardo) · historical trend</div>
+        <div class="bar-section">
+          <div class="bar-row">
+            <div class="bar-label">2000</div>
+            <div class="bar-track"><div class="bar-fill" style="width:38.5%;background:var(--accent2);"></div></div>
+            <div class="bar-val">38.5%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2010</div>
+            <div class="bar-track"><div class="bar-fill" style="width:43.1%;background:var(--accent2);"></div></div>
+            <div class="bar-val">43.1%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2022</div>
+            <div class="bar-track"><div class="bar-fill" style="width:45.3%;background:var(--accent2);"></div></div>
+            <div class="bar-val" style="color:var(--accent2)">45.3%</div>
+          </div>
+        </div>
+        <div class="card-source lang-pt">+11.9% entre 2010–2022 (IBGE Censo 2022)</div>
+        <div class="card-source lang-en">+11.9% between 2010–2022 (IBGE Census 2022)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: CONCLUSIONS -->
+<div class="section-divider fade-in"></div>
+<div class="section fade-in">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title lang-pt">Conclusões</h2>
+    <h2 class="section-title lang-en">Conclusions</h2>
+  </div>
+  <div class="conclusion-grid">
+    <div class="conclusion-card">
+      <div class="conclusion-num">C.01</div>
+      <div class="conclusion-title lang-pt">A premissa está errada em 5×</div>
+      <div class="conclusion-title lang-en">The premise is wrong by 5×</div>
+      <div class="conclusion-text lang-pt">Afirmar que negros são "10% da população" equivale a apagar 92 milhões de pardos da estatística. A definição do IBGE e do Estatuto da Igualdade Racial é clara: negros = pretos + pardos = 55,9% ou 112,7M de brasileiros.</div>
+      <div class="conclusion-text lang-en">Claiming Black people are "10% of the population" erases 92 million mixed-race Brazilians from the count. IBGE and the Racial Equality Statute are clear: Black = pretos + pardos = 55.9%, or 112.7M people.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-num">C.02</div>
+      <div class="conclusion-title lang-pt">Maioria da população, minoria do poder</div>
+      <div class="conclusion-title lang-en">Population majority, power minority</div>
+      <div class="conclusion-text lang-pt">Com 56.7% da população, negros ocupam apenas 33.7% dos cargos gerenciais, 30% entre os 10% mais ricos, e são 76.5% das vítimas de homicídio. O paradoxo demográfico é um marcador de racismo estrutural.</div>
+      <div class="conclusion-text lang-en">At 56.7% of the population, Black Brazilians hold only 33.7% of management positions, represent 30% of the wealthiest 10%, and account for 76.5% of homicide victims — a demographic paradox that defines structural racism.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-num">C.03</div>
+      <div class="conclusion-title lang-pt">Desigualdade é estrutural, não circunstancial</div>
+      <div class="conclusion-title lang-en">Inequality is structural, not coincidental</div>
+      <div class="conclusion-text lang-pt">O gap salarial persiste mesmo com diploma universitário (−44.6%). Negros com ensino superior ganham 32% menos que brancos equivalentes. Educação sozinha não quebra a desigualdade racial no Brasil.</div>
+      <div class="conclusion-text lang-en">The wage gap persists even with a university degree (−44.6%). Black college graduates earn 32% less than equivalent white workers. Education alone does not break racial inequality in Brazil.</div>
+    </div>
+    <div class="conclusion-card">
+      <div class="conclusion-num">C.04</div>
+      <div class="conclusion-title lang-pt">A violência letal é racialmente seletiva</div>
+      <div class="conclusion-title lang-en">Lethal violence is racially selective</div>
+      <div class="conclusion-text lang-pt">O risco de homicídio para negros piorou desde 2013 (de 2.4× para 2.7×), apesar de avanços legislativos. 445.442 negros foram assassinados entre 2012–2022, taxa 3× maior que não-negros — evidência de racismo que mata.</div>
+      <div class="conclusion-text lang-en">Homicide risk for Black Brazilians worsened from 2.4× (2013) to 2.7× (2023) despite legislative progress. 445,442 Black people were killed 2012–2022 — 3× the non-Black rate — evidence of lethal structural racism.</div>
+    </div>
+    <div class="conclusion-card" style="grid-column:span 2;border-color:rgba(232,197,71,0.2);background:rgba(232,197,71,0.04);">
+      <div class="conclusion-num" style="color:var(--accent)">C.05 · SÍNTESE</div>
+      <div class="conclusion-title lang-pt">O Brasil é majoritariamente negro — e sua desigualdade é majoritariamente racial</div>
+      <div class="conclusion-title lang-en">Brazil is majority Black — and its inequality is majority racial</div>
+      <div class="conclusion-text lang-pt">O Brasil abriga a segunda maior população negra do mundo, atrás apenas da Nigéria. Reconhecer isso não é política — é demográfico. As desigualdades documentadas não são resultado de mérito individual, mas de uma estrutura histórica construída sobre séculos de escravidão sem reparação, seguida por políticas de branqueamento e exclusão institucional. Dados do IPEA, DIEESE, IBGE e Atlas da Violência convergem: o racismo estrutural é mensurável, persistente e se intensificou em algumas dimensões nos últimos 10 anos.</div>
+      <div class="conclusion-text lang-en">Brazil is home to the world's second-largest Black population, after Nigeria. Recognizing this is not politics — it's demographics. The documented inequalities are not the product of individual merit, but of a historical structure built on centuries of unreparated slavery followed by whitening policies and institutional exclusion. Data from IPEA, DIEESE, IBGE, and the Violence Atlas converge: structural racism is measurable, persistent, and has intensified in several dimensions over the past decade.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: REFERENCES -->
+<div class="section-divider fade-in"></div>
+<div class="section fade-in">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title lang-pt">Referências</h2>
+    <h2 class="section-title lang-en">References</h2>
+  </div>
+  <div class="ref-list">
+    <div class="ref-item">
+      <div class="ref-num">01</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Censo Demográfico 2022</div>
+        <div class="ref-title lang-en">2022 Demographic Census</div>
+        <div class="ref-meta">IBGE · Instituto Brasileiro de Geografia e Estatística</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">02</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">PNAD Contínua · 2º tri 2024</div>
+        <div class="ref-title lang-en">PNAD Contínua · Q2 2024</div>
+        <div class="ref-meta">IBGE · Pesquisa Nacional por Amostra de Domicílios</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">03</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Atlas da Violência 2024 e 2025</div>
+        <div class="ref-title lang-en">Violence Atlas 2024 & 2025</div>
+        <div class="ref-meta">IPEA · Instituto de Pesquisa Econômica Aplicada · FBSP</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">04</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Síntese de Indicadores Sociais (SIS) 2023 e 2025</div>
+        <div class="ref-title lang-en">Social Indicators Summary 2023 & 2025</div>
+        <div class="ref-meta">IBGE · Desigualdades Sociais por Cor ou Raça</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">05</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Boletim Especial Dia da Consciência Negra</div>
+        <div class="ref-title lang-en">Black Consciousness Day Special Report</div>
+        <div class="ref-meta">DIEESE · Novembro 2024</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">06</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Retratos das Desigualdades · Renda, Pobreza e Cor</div>
+        <div class="ref-title lang-en">Portraits of Inequality · Income, Poverty & Race</div>
+        <div class="ref-meta">IPEA · ipea.gov.br/portal/retrato</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">07</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Estudo de Desigualdade Racial Salarial 2012–2023</div>
+        <div class="ref-title lang-en">Racial Wage Inequality Study 2012–2023</div>
+        <div class="ref-meta">CEDRA · Centro de Estudos e Dados sobre Desigualdades Raciais · Mar 2025</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">08</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Hub Igualdade Racial · Distribuição Pop. por Raça</div>
+        <div class="ref-title lang-en">Racial Equality Hub · Population by Race</div>
+        <div class="ref-meta">Ministério da Igualdade Racial · gov.br/igualdaderacial</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">09</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Censo 2022 · Aglomerados Subnormais (Favelas)</div>
+        <div class="ref-title lang-en">2022 Census · Subnormal Clusters (Slums)</div>
+        <div class="ref-meta">IBGE · Novembro 2024 · Alma Preta</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">10</div>
+      <div class="ref-body">
+        <div class="ref-title lang-pt">Relatório do Observatório Brasileiro das Desigualdades 2025</div>
+        <div class="ref-title lang-en">Brazilian Inequality Observatory Report 2025</div>
+        <div class="ref-meta">Pacto Nacional pelo Combate às Desigualdades · combateasdesigualdades.org</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <div class="footer-note lang-pt">Todos os dados são de fontes oficiais brasileiras (IBGE, IPEA, DIEESE, FBSP, CEDRA).</div>
+    <div class="footer-note lang-en">All data sourced from official Brazilian institutions (IBGE, IPEA, DIEESE, FBSP, CEDRA).</div>
+    <div class="footer-note" style="margin-top:4px;">
+      <span class="lang-pt">Dashboard produzido com Claude · Atualizado: Março 2026</span>
+      <span class="lang-en">Dashboard produced with Claude · Updated: March 2026</span>
+    </div>
+  </div>
+  <div class="footer-brand">ARTES DO SUL · AI NATIVO BRASIL</div>
+</footer>
+
+</div><!-- .page-wrap -->
+
+<script>
+  function setLang(lang) {
+    document.body.classList.toggle('en', lang === 'en');
+    document.querySelectorAll('.lang-btn').forEach((b, i) => {
+      b.classList.toggle('active', (i === 0 && lang === 'pt') || (i === 1 && lang === 'en'));
+    });
+  }
+
+  // Ler parâmetro ?lang=pt ou ?lang=en na URL
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang === 'pt' || urlLang === 'en') {
+    setLang(urlLang);
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Stagger delays
+  document.querySelectorAll('.fade-in').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 80}ms`;
+  });
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irã — Mapa Mental Geopolítico Estratégico</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0c;
+    --bg1: #111116;
+    --bg2: #16161d;
+    --bg3: #1e1e27;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6df;
+    --text2: #9c9a91;
+    --text3: #5c5a54;
+    --accent: #c9a84c;
+    --accent2: #8b6f2e;
+    --red: #c94c4c;
+    --teal: #4c9c8a;
+    --blue: #4c7bc9;
+    --purple: #7c4cc9;
+    --amber: #c97c4c;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-size: 16px; /* Base mais legível */
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,12,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-title {
+    font-size: 16px; /* Aumentado de 13 */
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; /* Aumentado de 11 */
+    color: var(--text3);
+    letter-spacing: .02em;
+  }
+
+  /* NAV PILLS */
+  .nav-pills {
+    display: flex;
+    gap: 6px;
+    padding: 20px 32px 0;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 13px; /* Aumentado de 11 */
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 8px 18px; /* Padding maior para touch */
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .2s;
+    font-family: 'Syne', sans-serif;
+  }
+  .pill:hover { border-color: var(--accent2); color: var(--accent); }
+  .pill.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+  .main { padding: 16px 20px 48px; display: flex; flex-direction: column; gap: 24px; }
+  @media (min-width: 768px) { .main { padding: 24px 32px 48px; } }
+
+  /* KPI STRIP */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile First */
+    gap: 16px;
+  }
+  @media (min-width: 600px) {
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); } /* 3 colunas para 2 linhas (6 cards) */
+  }
+  .kpi-card {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .kpi-card:hover { border-color: var(--border2); }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .kpi-card.red::before { background: var(--red); }
+  .kpi-card.teal::before { background: var(--teal); }
+  .kpi-card.amber::before { background: var(--amber); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-card.gold::before { background: var(--accent); }
+  .kpi-label { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: .05em; color: var(--text3); text-transform: uppercase; margin-bottom: 8px; }
+  .kpi-value { font-family: 'DM Mono', monospace; font-size: 32px; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 6px; }
+  .kpi-sub { font-size: 14px; color: var(--text2); line-height: 1.4; }
+  .kpi-trend { font-family: 'DM Mono', monospace; font-size: 12px; margin-top: 10px; }
+  .kpi-trend.up { color: var(--teal); }
+  .kpi-trend.dn { color: var(--red); }
+  .kpi-trend.neutral { color: var(--amber); }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 14px; /* Aumentado de 11 */
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  /* MIND MAP VISUAL */
+  .mindmap-container {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+  }
+  #mindmap-canvas {
+    width: 100%;
+    display: block;
+    cursor: default;
+  }
+
+  /* NODE PANELS */
+  .panels-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile First */
+    gap: 16px;
+  }
+  @media (min-width: 768px) { .panels-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .panels-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .panel {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    position: relative;
+    transition: border-color .2s, transform .2s;
+    cursor: pointer;
+  }
+  .panel:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .panel-accent { position: absolute; top: 0; left: 0; bottom: 0; width: 3px; border-radius: 8px 0 0 8px; }
+  .panel-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; padding-left: 12px; }
+  .panel-icon { font-size: 18px; line-height: 1; margin-top: 1px; }
+  .panel-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .panel-subtitle { font-size: 13px; color: var(--text2); }
+  .panel-body { padding-left: 12px; }
+  .panel-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px; /* Aumentado de 12 */
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .panel-item:last-child { border-bottom: none; }
+  .panel-item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); margin-top: 8px; flex-shrink: 0; }
+  .panel-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .panel-metric:last-child { border-bottom: none; }
+  .panel-metric-key { color: var(--text3); font-family: 'DM Mono', monospace; font-size: 12px; }
+  .panel-metric-val { color: var(--text); font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 80px 1px 1fr;
+    gap: 0 16px;
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px; /* Aumentado de 12 */
+    color: var(--accent);
+    font-weight: 600;
+    text-align: right;
+    padding-top: 3px;
+  }
+  .tl-line { background: var(--border2); position: relative; }
+  .tl-dot {
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg1);
+  }
+  .tl-content { padding-top: 2px; }
+  .tl-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .tl-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+  .tl-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 6px;
+  }
+  .tl-badge.red { background: rgba(201,76,76,.15); color: var(--red); border: 1px solid rgba(201,76,76,.2); }
+  .tl-badge.teal { background: rgba(76,156,138,.15); color: var(--teal); border: 1px solid rgba(76,156,138,.2); }
+  .tl-badge.amber { background: rgba(201,124,76,.15); color: var(--amber); border: 1px solid rgba(201,124,76,.2); }
+  .tl-badge.gold { background: rgba(201,168,76,.15); color: var(--accent); border: 1px solid rgba(201,168,76,.2); }
+
+  /* PSYOP MATRIX */
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile First */
+    gap: 16px;
+  }
+  @media (min-width: 600px) { .matrix-grid { grid-template-columns: 1fr 1fr; } }
+  .matrix-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .matrix-card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .matrix-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .matrix-text { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+  /* STRATEGIC PATHS */
+  .paths-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 768px) { .paths-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .paths-grid { grid-template-columns: repeat(3, 1fr); } }
+  .path-card {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .path-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--border2);
+    position: absolute;
+    top: 8px; right: 14px;
+    line-height: 1;
+  }
+  .path-badge {
+    display: inline-block;
+    font-size: 11px; /* Aumentado de 10 */
+    font-family: 'DM Mono', monospace;
+    letter-spacing: .02em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .path-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .path-desc { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 16px; }
+  .path-prob-label { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); margin-bottom: 6px; }
+  .path-bar { height: 4px; background: var(--border2); border-radius: 2px; margin-bottom: 12px; }
+  .path-bar-fill { height: 100%; border-radius: 2px; }
+  .path-conditions { font-size: 12px; color: var(--text3); line-height: 1.6; }
+
+  /* REFERENCES */
+  .refs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+  .ref-card {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  .ref-card:hover { border-color: var(--accent2); background: var(--bg2); }
+  .ref-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; /* Aumentado de 9 */
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ref-type.wiki { background: rgba(76,123,201,.15); color: var(--blue); border: 1px solid rgba(76,123,201,.25); }
+  .ref-type.cfr { background: rgba(124,76,201,.15); color: var(--purple); border: 1px solid rgba(124,76,201,.25); }
+  .ref-type.acad { background: rgba(76,156,138,.15); color: var(--teal); border: 1px solid rgba(76,156,138,.25); }
+  .ref-type.news { background: rgba(201,124,76,.15); color: var(--amber); border: 1px solid rgba(201,124,76,.25); }
+  .ref-type.data { background: rgba(201,168,76,.15); color: var(--accent); border: 1px solid rgba(201,168,76,.25); }
+  .ref-type.book { background: rgba(201,76,76,.15); color: var(--red); border: 1px solid rgba(201,76,76,.25); }
+  .ref-content { flex: 1; }
+  .ref-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .ref-source { font-size: 12px; color: var(--text3); }
+
+  /* SECTION BOXES */
+  .section-box {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  /* BARS */
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-label { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text2); width: 140px; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 6px; background: var(--border2); border-radius: 3px; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); width: 40px; text-align: right; }
+
+  /* PSYOP MECHANISMS */
+  .mech-list { display: flex; flex-direction: column; gap: 8px; }
+  .mech-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+  }
+  .mech-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .mech-desc { font-size: 14px; color: var(--text2); line-height: 1.5; }
+  .mech-example { font-family: 'DM Mono', monospace; font-size: 12px; margin-top: 6px; padding: 4px 10px; background: rgba(255,255,255,.05); border-radius: 3px; }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 3px solid var(--accent2);
+    padding: 14px 20px;
+    background: rgba(201,168,76,.04);
+    border-radius: 0 8px 8px 0;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 16px; /* Aumentado de 14 */
+    color: var(--text2);
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+
+  /* LEGEND */
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px 32px;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  /* TABS */
+  .tab-nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .tab-btn {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-family: 'Syne', sans-serif;
+    background: transparent;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .15s, border-color .15s;
+  }
+  .tab-btn:hover { color: var(--text2); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .mono { font-family: 'DM Mono', monospace; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .section-box { animation: fadeIn .3s ease both; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">Irã — Inteligência Geopolítica Estratégica</div>
+  <div class="header-meta">Análise multidimensional · Mar 2026 · v2.1</div>
+</div>
+
+<div class="nav-pills" id="nav">
+  <button class="pill active" onclick="showSection('kpis')">KPIs</button>
+  <button class="pill" onclick="showSection('mindmap')">Mapa Mental</button>
+  <button class="pill" onclick="showSection('cronologia')">Cronologia</button>
+  <button class="pill" onclick="showSection('psyop')">Mecanismos PSYOP</button>
+  <button class="pill" onclick="showSection('caminhos')">3 Caminhos</button>
+  <button class="pill" onclick="showSection('referencias')">Referências</button>
+</div>
+
+<div class="main">
+
+  <!-- ===================== KPIs ===================== -->
+  <div id="sec-kpis">
+    <div class="section-header">
+      <span class="section-title">Indicadores estratégicos</span>
+      <div class="section-line"></div>
+      <span class="section-tag">2025–2026</span>
+    </div>
+    <div class="kpi-strip">
+      <div class="kpi-card red">
+        <div class="kpi-label">Inflação anual</div>
+        <div class="kpi-value">42%</div>
+        <div class="kpi-sub">Rial desvalorizado 85% desde 2018</div>
+        <div class="kpi-trend dn">↑ pressão econômica crítica</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-label">Aprovação do regime</div>
+        <div class="kpi-value">~15%</div>
+        <div class="kpi-sub">Estimativa surveys internos vazados</div>
+        <div class="kpi-trend dn">↓ mínimo histórico pós-Mahsa</div>
+      </div>
+      <div class="kpi-card teal">
+        <div class="kpi-label">Prod. petróleo</div>
+        <div class="kpi-value">3.2M</div>
+        <div class="kpi-sub">barris/dia · sanções restringem</div>
+        <div class="kpi-trend neutral">→ China absorve 90% das exportações</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Usuários de VPN</div>
+        <div class="kpi-value">35M+</div>
+        <div class="kpi-sub">de 88M habitantes (40%)</div>
+        <div class="kpi-trend up">↑ resistência informacional</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-label">Desemprego jovem</div>
+        <div class="kpi-value">28%</div>
+        <div class="kpi-sub">Faixa 18–29 anos</div>
+        <div class="kpi-trend dn">↑ combustível de protestos</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">Distância 1979→hoje</div>
+        <div class="kpi-value">46 a</div>
+        <div class="kpi-sub">3 gerações sob o regime</div>
+        <div class="kpi-trend neutral">→ memória coletiva fragmentada</div>
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+    <div class="section-header">
+      <span class="section-title">Pressões simultâneas sobre o regime</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="section-box">
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Risco crítico</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> Pressão alta</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> Moderada</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--text3)"></div> Estrutural</div>
+      </div>
+      <div class="bar-row"><span class="bar-label">Econômica</span><div class="bar-track"><div class="bar-fill" style="width:92%;background:var(--red)"></div></div><span class="bar-val mono">92</span></div>
+      <div class="bar-row"><span class="bar-label">Geracional</span><div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--red)"></div></div><span class="bar-val mono">85</span></div>
+      <div class="bar-row"><span class="bar-label">Corrupção elite</span><div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--amber)"></div></div><span class="bar-val mono">80</span></div>
+      <div class="bar-row"><span class="bar-label">Escrutínio global</span><div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--amber)"></div></div><span class="bar-val mono">75</span></div>
+      <div class="bar-row"><span class="bar-label">Sanções petróleo</span><div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--amber)"></div></div><span class="bar-val mono">70</span></div>
+      <div class="bar-row"><span class="bar-label">Isolamento digital</span><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--teal)"></div></div><span class="bar-val mono">62</span></div>
+      <div class="bar-row"><span class="bar-label">Oposição militar</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--text3)"></div></div><span class="bar-val mono">30</span></div>
+    </div>
+  </div>
+
+  <!-- ===================== MIND MAP ===================== -->
+  <div id="sec-mindmap" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Mapa mental — nós interativos</span>
+      <div class="section-line"></div>
+      <span class="section-tag">clique nos nós</span>
+    </div>
+
+    <div class="legend" style="margin-bottom:12px">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Núcleo central</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Dinâmicas de ruptura</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> Resistência / memória</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> PSYOP / narrativa</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Dimensão geopolítica</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> Mecanismos internos</div>
+    </div>
+
+    <div class="mindmap-container">
+      <svg id="mindmap-canvas" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M1 1L9 5L1 9" fill="none" stroke="#3a3a44" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Background grid -->
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="0.5"/>
+        </pattern>
+        <rect width="1000" height="700" fill="url(#grid)"/>
+
+        <!-- Connectors -->
+        <!-- Center to nodes -->
+        <line x1="500" y1="350" x2="200" y2="130" stroke="#3a3a44" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="500" y1="350" x2="750" y2="120" stroke="#3a3a44" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="500" y1="350" x2="850" y2="340" stroke="#3a3a44" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="500" y1="350" x2="750" y2="560" stroke="#3a3a44" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="500" y1="350" x2="240" y2="560" stroke="#3a3a44" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="500" y1="350" x2="145" y2="340" stroke="#3a3a44" stroke-width="1" marker-end="url(#arr)"/>
+
+        <!-- Sub-connectors -->
+        <line x1="200" y1="130" x2="100" y2="60" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="200" y1="130" x2="300" y2="55" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="750" y1="120" x2="680" y2="50" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="750" y1="120" x2="860" y2="55" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="850" y1="340" x2="940" y2="250" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="850" y1="340" x2="950" y2="400" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="750" y1="560" x2="840" y2="640" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="750" y1="560" x2="880" y2="580" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="240" y1="560" x2="130" y2="630" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="240" y1="560" x2="340" y2="640" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="145" y1="340" x2="55" y2="270" stroke="#2a2a34" stroke-width="0.7"/>
+        <line x1="145" y1="340" x2="50" y2="420" stroke="#2a2a34" stroke-width="0.7"/>
+
+        <!-- CENTER NODE -->
+        <g style="cursor:pointer" onclick="showNodeInfo('center')">
+          <ellipse cx="500" cy="350" rx="90" ry="52" fill="#1a1208" stroke="#c9a84c" stroke-width="1.5"/>
+          <text x="500" y="344" text-anchor="middle" fill="#c9a84c" font-family="Syne, sans-serif" font-size="13" font-weight="700">IRÃ</text>
+          <text x="500" y="362" text-anchor="middle" fill="#7c6828" font-family="DM Mono, monospace" font-size="10">SEQUESTRO CIVILIZACIONAL</text>
+        </g>
+
+        <!-- NODE 1: Irã Pré-1979 -->
+        <g style="cursor:pointer" onclick="showNodeInfo('pre1979')">
+          <rect x="130" y="95" width="140" height="72" rx="8" fill="#0c1a1a" stroke="#4c9c8a" stroke-width="1"/>
+          <text x="200" y="120" text-anchor="middle" fill="#4c9c8a" font-family="Syne, sans-serif" font-size="12" font-weight="700">Irã Pré-1979</text>
+          <text x="200" y="137" text-anchor="middle" fill="#2a6056" font-family="DM Mono, monospace" font-size="9">Secular · Moderno</text>
+          <text x="200" y="153" text-anchor="middle" fill="#2a6056" font-family="DM Mono, monospace" font-size="9">Teerã = capital europeia</text>
+        </g>
+        <!-- Sub-nodes -->
+        <g style="cursor:pointer"><rect x="40" y="30" width="110" height="30" rx="4" fill="#0c1a1a" stroke="#2a5a50" stroke-width="0.7"/><text x="95" y="48" text-anchor="middle" fill="#4c9c8a" font-family="Syne, sans-serif" font-size="10">Mulheres profissionais</text></g>
+        <g style="cursor:pointer"><rect x="200" y="22" width="110" height="30" rx="4" fill="#0c1a1a" stroke="#2a5a50" stroke-width="0.7"/><text x="255" y="40" text-anchor="middle" fill="#4c9c8a" font-family="Syne, sans-serif" font-size="10">Arte · Ciência · Música</text></g>
+
+        <!-- NODE 2: Mecanismo Revolução -->
+        <g style="cursor:pointer" onclick="showNodeInfo('revolucao')">
+          <rect x="680" y="84" width="148" height="72" rx="8" fill="#1a0c0c" stroke="#c94c4c" stroke-width="1"/>
+          <text x="754" y="109" text-anchor="middle" fill="#c94c4c" font-family="Syne, sans-serif" font-size="12" font-weight="700">Revolução 1979</text>
+          <text x="754" y="126" text-anchor="middle" fill="#7c2828" font-family="DM Mono, monospace" font-size="9">Khomeini como libertador</text>
+          <text x="754" y="142" text-anchor="middle" fill="#7c2828" font-family="DM Mono, monospace" font-size="9">Medo ≠ Crença</text>
+        </g>
+        <g><rect x="618" y="22" width="110" height="30" rx="4" fill="#1a0c0c" stroke="#7c2828" stroke-width="0.7"/><text x="673" y="40" text-anchor="middle" fill="#c94c4c" font-family="Syne, sans-serif" font-size="10">CIA / Xá 1953</text></g>
+        <g><rect x="810" y="22" width="110" height="30" rx="4" fill="#1a0c0c" stroke="#7c2828" stroke-width="0.7"/><text x="865" y="40" text-anchor="middle" fill="#c94c4c" font-family="Syne, sans-serif" font-size="10">SAVAK · Repressão</text></g>
+
+        <!-- NODE 3: PSYOP / Narrativa -->
+        <g style="cursor:pointer" onclick="showNodeInfo('psyop')">
+          <rect x="780" y="300" width="148" height="80" rx="8" fill="#0c0c1a" stroke="#4c7bc9" stroke-width="1"/>
+          <text x="854" y="326" text-anchor="middle" fill="#4c7bc9" font-family="Syne, sans-serif" font-size="12" font-weight="700">PSYOP / Narrativa</text>
+          <text x="854" y="343" text-anchor="middle" fill="#2a3a7c" font-family="DM Mono, monospace" font-size="9">Sequestro de movimentos</text>
+          <text x="854" y="358" text-anchor="middle" fill="#2a3a7c" font-family="DM Mono, monospace" font-size="9">Fragmentação narrativa</text>
+          <text x="854" y="373" text-anchor="middle" fill="#2a3a7c" font-family="DM Mono, monospace" font-size="9">Bloqueio internet</text>
+        </g>
+        <g><rect x="888" y="220" width="100" height="28" rx="4" fill="#0c0c1a" stroke="#2a3a7c" stroke-width="0.7"/><text x="938" y="237" text-anchor="middle" fill="#4c7bc9" font-family="Syne, sans-serif" font-size="9.5">35M VPN users</text></g>
+        <g><rect x="896" y="390" width="100" height="28" rx="4" fill="#0c0c1a" stroke="#2a3a7c" stroke-width="0.7"/><text x="946" y="407" text-anchor="middle" fill="#4c7bc9" font-family="Syne, sans-serif" font-size="9.5">Inf. × confusão</text></g>
+
+        <!-- NODE 4: 3 Caminhos -->
+        <g style="cursor:pointer" onclick="showNodeInfo('caminhos')">
+          <rect x="682" y="522" width="148" height="76" rx="8" fill="#1a100c" stroke="#c97c4c" stroke-width="1"/>
+          <text x="756" y="547" text-anchor="middle" fill="#c97c4c" font-family="Syne, sans-serif" font-size="12" font-weight="700">3 Caminhos</text>
+          <text x="756" y="564" text-anchor="middle" fill="#7c4020" font-family="DM Mono, monospace" font-size="9">Punho de ferro</text>
+          <text x="756" y="579" text-anchor="middle" fill="#7c4020" font-family="DM Mono, monospace" font-size="9">Fratura interna</text>
+          <text x="756" y="594" text-anchor="middle" fill="#7c4020" font-family="DM Mono, monospace" font-size="9">Ponto de ruptura</text>
+        </g>
+        <g><rect x="792" y="634" width="106" height="28" rx="4" fill="#1a100c" stroke="#7c4020" stroke-width="0.7"/><text x="845" y="651" text-anchor="middle" fill="#c97c4c" font-family="Syne, sans-serif" font-size="9.5">Elite negociando</text></g>
+        <g><rect x="890" y="564" width="100" height="28" rx="4" fill="#1a100c" stroke="#7c4020" stroke-width="0.7"/><text x="940" y="581" text-anchor="middle" fill="#c97c4c" font-family="Syne, sans-serif" font-size="9.5">IRGC fraturado?</text></g>
+
+        <!-- NODE 5: Memória / Resistência -->
+        <g style="cursor:pointer" onclick="showNodeInfo('memoria')">
+          <rect x="165" y="522" width="150" height="76" rx="8" fill="#0c1a0c" stroke="#4c9c8a" stroke-width="1"/>
+          <text x="240" y="547" text-anchor="middle" fill="#4c9c8a" font-family="Syne, sans-serif" font-size="12" font-weight="700">Memória Coletiva</text>
+          <text x="240" y="564" text-anchor="middle" fill="#2a6028" font-family="DM Mono, monospace" font-size="9">Mulher · Vida · Liberdade</text>
+          <text x="240" y="579" text-anchor="middle" fill="#2a6028" font-family="DM Mono, monospace" font-size="9">Protestos Mahsa 2022</text>
+          <text x="240" y="594" text-anchor="middle" fill="#2a6028" font-family="DM Mono, monospace" font-size="9">Geração Z iraniana</text>
+        </g>
+        <g><rect x="54" y="622" width="120" height="28" rx="4" fill="#0c1a0c" stroke="#2a6028" stroke-width="0.7"/><text x="114" y="639" text-anchor="middle" fill="#4c9c8a" font-family="Syne, sans-serif" font-size="9.5">Fotos 70s contrabandeadas</text></g>
+        <g><rect x="220" y="640" width="116" height="28" rx="4" fill="#0c1a0c" stroke="#2a6028" stroke-width="0.7"/><text x="278" y="657" text-anchor="middle" fill="#4c9c8a" font-family="Syne, sans-serif" font-size="9.5">Estudantes · profissionais</text></g>
+
+        <!-- NODE 6: Geopolítica -->
+        <g style="cursor:pointer" onclick="showNodeInfo('geopolitica')">
+          <rect x="72" y="300" width="148" height="80" rx="8" fill="#12091a" stroke="#7c4cc9" stroke-width="1"/>
+          <text x="146" y="326" text-anchor="middle" fill="#7c4cc9" font-family="Syne, sans-serif" font-size="12" font-weight="700">Geopolítica</text>
+          <text x="146" y="343" text-anchor="middle" fill="#3a1a7c" font-family="DM Mono, monospace" font-size="9">Eixo Rússia · China</text>
+          <text x="146" y="358" text-anchor="middle" fill="#3a1a7c" font-family="DM Mono, monospace" font-size="9">Hezbolah · Hamas</text>
+          <text x="146" y="373" text-anchor="middle" fill="#3a1a7c" font-family="DM Mono, monospace" font-size="9">BRICS · SCO</text>
+        </g>
+        <g><rect x="8" y="248" width="98" height="28" rx="4" fill="#12091a" stroke="#3a1a7c" stroke-width="0.7"/><text x="57" y="265" text-anchor="middle" fill="#7c4cc9" font-family="Syne, sans-serif" font-size="9.5">Petróleo → China</text></g>
+        <g><rect x="4" y="408" width="98" height="28" rx="4" fill="#12091a" stroke="#3a1a7c" stroke-width="0.7"/><text x="53" y="425" text-anchor="middle" fill="#7c4cc9" font-family="Syne, sans-serif" font-size="9.5">Sanções EUA/UE</text></g>
+
+        <!-- FRASE CENTRAL -->
+        <text x="500" y="440" text-anchor="middle" fill="rgba(201,168,76,0.25)" font-family="Libre Baskerville, serif" font-style="italic" font-size="11">
+          "Quando uma população se lembra de si mesma, a repressão se torna extremamente difícil."
+        </text>
+      </svg>
+    </div>
+
+    <!-- Node info panel -->
+    <div id="node-info" style="display:none; margin-top:12px; background:var(--bg1); border:1px solid var(--accent2); border-radius:8px; padding:18px;">
+      <div style="font-size:12px;color:var(--text3);margin-bottom:6px;font-family:'DM Mono',monospace">NÓ SELECIONADO</div>
+      <div id="node-info-content"></div>
+    </div>
+  </div>
+
+  <!-- ===================== CRONOLOGIA ===================== -->
+  <div id="sec-cronologia" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Cronologia do sequestro civilizacional</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="section-box">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">1953</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Golpe CIA — Operação Ajax</div>
+            <div class="tl-desc">EUA e Reino Unido derrubam o PM Mohammed Mossadegh, eleito democraticamente, que havia nacionalizado o petróleo. Instalam o Xá Mohammad Reza Shah. Semente do ressentimento anti-ocidental que Khomeini exploraria 26 anos depois.</div>
+            <span class="tl-badge red">Ruptura fundadora</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1960s–70s</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--teal)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Irã secular — pico da modernidade</div>
+            <div class="tl-desc">Mulheres são médicas, advogadas, professoras. Teerã tem estética de capital europeia. Universidades de nível internacional. Arte, música ocidental, jeans. A "Revolução Branca" do Xá moderniza forçosamente o país — mas a SAVAK reprime toda dissidência.</div>
+            <span class="tl-badge teal">Memória contrabandeada</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1979</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--red)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Revolução Islâmica — Khomeini retorna</div>
+            <div class="tl-desc">Vendida como "limpeza moral e independência", não como extremismo religioso. O xá foge. Khomeini, de exílio em Paris, assume como libertador. Uso do medo social — não da religião — como ferramenta de controle. Quem muda não é a crença, mas quem detém o monopólio da violência.</div>
+            <span class="tl-badge red">Sequestro do poder</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1980–88</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--amber)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Guerra Irã–Iraque</div>
+            <div class="tl-desc">1 milhão de mortos. Endurece o aparato repressivo. Normaliza vigilância e delação. Econômica devastada. Sanções internacionais se iniciam. Geração inteira cresce aprendendo "o que não dizer".</div>
+            <span class="tl-badge amber">Endurecimento estrutural</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2009</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--teal)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Movimento Verde — primeira grande ruptura</div>
+            <div class="tl-desc">Protestos pós-eleição fraudada de Ahmadinejad. Reprimidos. Mousavi e Karroubi presos em prisão domiciliar (até hoje). Internet controlada pela primeira vez em escala. Demonstra o potencial e os limites da resistência sem fratura no aparato.</div>
+            <span class="tl-badge teal">Sinal de rachadura</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2018</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--red)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">EUA saem do JCPOA — sanções máximas</div>
+            <div class="tl-desc">Trump abandona acordo nuclear. Sanções devastam economia: inflação dispara, rial colapsa 85%. Criação de pressão econômica sem precedentes que alimenta protestos subsequentes.</div>
+            <span class="tl-badge red">Pressão econômica máxima</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--accent)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Mahsa Amini — "Mulher, Vida, Liberdade"</div>
+            <div class="tl-desc">Jovem curda de 22 anos morre após detenção pela "Polícia da Moralidade". Protestos explodem em todas as 31 províncias por meses. Mais de 500 mortos, 19.000 presos. Geração Z iraniana na linha de frente. Ponto de inflexão geracional histórico.</div>
+            <span class="tl-badge gold">Momento definidor</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024–26</div>
+          <div class="tl-line"><div class="tl-dot" style="background:var(--purple)"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Pressão convergente — estado atual</div>
+            <div class="tl-desc">Colapso econômico, desemprego jovem 28%, corrupção da elite IRGC, escrutínio global pós-Mahsa, operações militares regionais (Gaza, Hezbolah), assassinato de Haniyeh em Teerã, Raisi morto em acidente aéreo. Todas as pressões convergem simultaneamente.</div>
+            <span class="tl-badge amber">Pressão máxima convergente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PSYOP ===================== -->
+  <div id="sec-psyop" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Mecanismos de controle psicopolítico</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="section-box" style="margin-bottom:20px">
+      <div class="quote-block">
+        "Se a crença se torna obrigatória, a verdade se torna um risco. Esse é o mecanismo central de toda operação de sequestro civilizacional."
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)">— análise do texto · grupo Selva&Aço&Nb · 09/03/2026</div>
+    </div>
+
+    <div class="panels-grid">
+      <div class="panel">
+        <div class="panel-accent" style="background:var(--red)"></div>
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Medo como substituto da crença</div>
+            <div class="panel-subtitle">Mecanismo #1 — fundacional</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-item"><div class="panel-item-dot"></div>Conformidade via exclusão social, não via convicção religiosa genuína</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Medo de ser rotulado como imoral, antipatriótico ou subversivo</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Silêncio como estratégia de sobrevivência — não como concordância</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Rituais públicos como testes de conformidade contínuos</div>
+          <div class="panel-metric"><span class="panel-metric-key">Eficácia a curto prazo</span><span class="panel-metric-val">ALTA</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Durabilidade</span><span class="panel-metric-val">FRÁGIL</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-accent" style="background:var(--blue)"></div>
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Sequestro de movimentos</div>
+            <div class="panel-subtitle">Mecanismo #2 — PSYOP avançado</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-item"><div class="panel-item-dot"></div>PSYOPs não fabricam movimentos — redirecionam os que já existem</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>A raiva genuína é fragmentada em múltiplas direções</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Narrativas concorrentes injetadas para dividir a oposição</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Informantes normalizados — vigilância horizontal entre cidadãos</div>
+          <div class="panel-metric"><span class="panel-metric-key">Custo operacional</span><span class="panel-metric-val">BAIXO</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Eficácia</span><span class="panel-metric-val">ALTA</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-accent" style="background:var(--amber)"></div>
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Bloqueio informacional</div>
+            <div class="panel-subtitle">Mecanismo #3 — controle digital</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-item"><div class="panel-item-dot"></div>Cortes de internet em momentos críticos de protestos</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Fragmentação narrativa — escassez de informação de Teerã</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>35M+ iraníanos usam VPNs diariamente (resistência)</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Amplificação de notícias estrangeiras para gerar confusão</div>
+          <div class="panel-metric"><span class="panel-metric-key">Penetração VPN</span><span class="panel-metric-val">~40% pop.</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Controle efetivo</span><span class="panel-metric-val">PARCIAL</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-accent" style="background:var(--teal)"></div>
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Memória como resistência</div>
+            <div class="panel-subtitle">Contra-mecanismo — chave estratégica</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-item"><div class="panel-item-dot"></div>Fotos dos anos 70 "contrabandeadas" para novas gerações</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Manifestantes não pedem algo novo — pedem o que foi roubado</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Quando a população se lembra de si, a repressão fracassa</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Geração Z conecta memória familiar com presente digital</div>
+          <div class="panel-metric"><span class="panel-metric-key">Força coesiva</span><span class="panel-metric-val">ALTA</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Sustentabilidade</span><span class="panel-metric-val">CRESCENTE</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-accent" style="background:var(--purple)"></div>
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Narrativa como legitimidade</div>
+            <div class="panel-subtitle">Mecanismo #4 — filosófico</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-item"><div class="panel-item-dot"></div>Regimes colapsam quando sua versão da história para de funcionar</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Não pela força dos opositores, mas pela perda de narrativa</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Histórias importam mais do que fatos quando o medo opera</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Irã como espelho: "o que qualquer sociedade se torna quando histórias substituem pessoas"</div>
+          <div class="panel-metric"><span class="panel-metric-key">Aplicação global</span><span class="panel-metric-val">UNIVERSAL</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Alerta para democracias</span><span class="panel-metric-val">CRÍTICO</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-accent" style="background:var(--accent)"></div>
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Monopólio da violência</div>
+            <div class="panel-subtitle">Variável decisiva — colapso de regimes</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-item"><div class="panel-item-dot"></div>Toda revolução = mudança de QUEM pode usar a violência</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Regimes caem quando as forças de segurança param de acreditar</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>Romênia 1989, Tunísia 2011 — colapso por fratura interna do aparato</div>
+          <div class="panel-item"><div class="panel-item-dot"></div>IRGC iraniano: altamente ideológico, privilegiado economicamente — principal obstáculo</div>
+          <div class="panel-metric"><span class="panel-metric-key">Coesão IRGC atual</span><span class="panel-metric-val">ALTA</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Risco de fratura</span><span class="panel-metric-val">BAIXO-MÉDIO</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== CAMINHOS ===================== -->
+  <div id="sec-caminhos" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Três caminhos prospectivos</span>
+      <div class="section-line"></div>
+      <span class="section-tag">framework de transição (Linz & Stepan)</span>
+    </div>
+
+    <div class="paths-grid">
+      <div class="path-card">
+        <div class="path-num">01</div>
+        <div class="path-badge" style="background:rgba(201,76,76,.15);color:var(--red);border:1px solid rgba(201,76,76,.3)">MAIS PROVÁVEL</div>
+        <div class="path-title">Punho de ferro</div>
+        <div class="path-desc">O regime sobrevive endurecendo. Repressão aumenta, espaço cívico se fecha ainda mais. Pode durar anos ou décadas. Garante nova ruptura no futuro — a pressão acumulada não desaparece, apenas é diferida.</div>
+        <div class="path-prob-label">Probabilidade estimada</div>
+        <div class="path-bar"><div class="path-bar-fill" style="width:75%;background:var(--red)"></div></div>
+        <div class="path-conditions">
+          Condições: IRGC permanece coeso · economia estabiliza via China · oposição fragmentada · sem evento catalisador externo
+        </div>
+        <div style="margin-top:12px;padding:10px;background:rgba(201,76,76,.06);border-radius:6px">
+          <div style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:4px">ANÁLOGO HISTÓRICO</div>
+          <div style="font-size:11px;color:var(--text2)">Coreia do Norte, Bielorrússia pós-2020, China pós-Tiananmen</div>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <div class="path-num">02</div>
+        <div class="path-badge" style="background:rgba(201,124,76,.15);color:var(--amber);border:1px solid rgba(201,124,76,.3)">REALISTA</div>
+        <div class="path-title">Fratura interna</div>
+        <div class="path-desc">Sistema se divide silenciosamente. Elites negociam sobrevivência. Reformistas e linha-dura se realinham. Reformas controladas emergem por necessidade — triagem interna quando o custo de não mudar supera o custo de mudar.</div>
+        <div class="path-prob-label">Probabilidade estimada</div>
+        <div class="path-bar"><div class="path-bar-fill" style="width:45%;background:var(--amber)"></div></div>
+        <div class="path-conditions">
+          Condições: pressão econômica insustentável · facções do IRGC divergem · abertura a negociações nucleares · elite teme perder tudo
+        </div>
+        <div style="margin-top:12px;padding:10px;background:rgba(201,124,76,.06);border-radius:6px">
+          <div style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:4px">ANÁLOGO HISTÓRICO</div>
+          <div style="font-size:11px;color:var(--text2)">Espanha pós-Franco · URSS glasnost · Myanmar 2011 (abertura controlada)</div>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <div class="path-num">03</div>
+        <div class="path-badge" style="background:rgba(76,156,138,.15);color:var(--teal);border:1px solid rgba(76,156,138,.3)">RARO · POSSÍVEL</div>
+        <div class="path-title">Ponto de ruptura</div>
+        <div class="path-desc">Colapso da barreira psicológica. Número suficiente do aparato de segurança para de acreditar. Monopólio da violência se fragmenta. Não são os manifestantes que ganham força — é o Estado que perde a vontade de reprimir.</div>
+        <div class="path-prob-label">Probabilidade estimada</div>
+        <div class="path-bar"><div class="path-bar-fill" style="width:20%;background:var(--teal)"></div></div>
+        <div class="path-conditions">
+          Condições: evento catalisador de alta magnitude · divisão visível das forças armadas · narrativa do regime colapsa publicamente · isolamento total da elite
+        </div>
+        <div style="margin-top:12px;padding:10px;background:rgba(76,156,138,.06);border-radius:6px">
+          <div style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:4px">ANÁLOGO HISTÓRICO</div>
+          <div style="font-size:11px;color:var(--text2)">Romênia 1989 · Tunísia 2011 · Ucrânia Maidan 2014</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px" class="section-box">
+      <div style="font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:12px;letter-spacing:.08em;text-transform:uppercase">Variáveis críticas de monitoramento</div>
+      <div class="panels-grid" style="grid-template-columns:repeat(2,1fr)">
+        <div>
+          <div class="panel-metric"><span class="panel-metric-key">Coesão IRGC</span><span class="panel-metric-val" style="color:var(--amber)">MONITORAR</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Inflação mensal</span><span class="panel-metric-val" style="color:var(--red)">CRÍTICO</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Cortes de internet</span><span class="panel-metric-val" style="color:var(--amber)">ATENÇÃO</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Acordos nucleares</span><span class="panel-metric-val" style="color:var(--teal)">POSITIVO</span></div>
+        </div>
+        <div>
+          <div class="panel-metric"><span class="panel-metric-key">Desemprego jovem</span><span class="panel-metric-val" style="color:var(--red)">28% ↑</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Protestos ativos</span><span class="panel-metric-val" style="color:var(--amber)">LATENTES</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Apoio China/Rússia</span><span class="panel-metric-val" style="color:var(--purple)">ESTRUTURAL</span></div>
+          <div class="panel-metric"><span class="panel-metric-key">Legitimidade narrativa</span><span class="panel-metric-val" style="color:var(--red)">EM COLAPSO</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== REFERÊNCIAS ===================== -->
+  <div id="sec-referencias" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Fontes e referências</span>
+      <div class="section-line"></div>
+      <span class="section-tag">verificadas · abertas</span>
+    </div>
+
+    <div style="margin-bottom:16px;font-size:12px;color:var(--text2);line-height:1.6">
+      Base documental para aprofundamento. Todas as fontes são abertas e verificáveis.
+    </div>
+
+    <div style="margin-bottom:12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)">Contexto histórico</div>
+    <div class="refs-grid" style="margin-bottom:20px">
+      <a class="ref-card" href="https://en.wikipedia.org/wiki/1953_Iranian_coup_d%27%C3%A9tat" target="_blank">
+        <span class="ref-type wiki">WIKI</span>
+        <div class="ref-content"><div class="ref-title">Golpe de Estado iraniano 1953 (Op. Ajax)</div><div class="ref-source">Wikipedia · Operação TPAJAX · CIA e MI6</div></div>
+      </a>
+      <a class="ref-card" href="https://www.cfr.org/backgrounder/irans-revolutionary-guards" target="_blank">
+        <span class="ref-type cfr">CFR</span>
+        <div class="ref-content"><div class="ref-title">Iran's Revolutionary Guards (IRGC)</div><div class="ref-source">Council on Foreign Relations · Background Report</div></div>
+      </a>
+      <a class="ref-card" href="https://en.wikipedia.org/wiki/Iranian_Revolution" target="_blank">
+        <span class="ref-type wiki">WIKI</span>
+        <div class="ref-content"><div class="ref-title">Revolução Islâmica Iraniana 1979</div><div class="ref-source">Wikipedia · Cronologia completa · Khomeini</div></div>
+      </a>
+      <a class="ref-card" href="https://www.bbc.com/news/world-middle-east-24473944" target="_blank">
+        <span class="ref-type news">NEWS</span>
+        <div class="ref-content"><div class="ref-title">Iran profile — timeline history</div><div class="ref-source">BBC News · Linha do tempo completa</div></div>
+      </a>
+    </div>
+
+    <div style="margin-bottom:12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)">Protestos e sociedade civil</div>
+    <div class="refs-grid" style="margin-bottom:20px">
+      <a class="ref-card" href="https://en.wikipedia.org/wiki/Mahsa_Amini_protests" target="_blank">
+        <span class="ref-type wiki">WIKI</span>
+        <div class="ref-content"><div class="ref-title">Mahsa Amini protests 2022</div><div class="ref-source">Wikipedia · Woman Life Freedom movement</div></div>
+      </a>
+      <a class="ref-card" href="https://freedomhouse.org/country/iran/freedom-world/2024" target="_blank">
+        <span class="ref-type data">DATA</span>
+        <div class="ref-content"><div class="ref-title">Freedom in the World — Iran 2024</div><div class="ref-source">Freedom House · Score: 14/100</div></div>
+      </a>
+      <a class="ref-card" href="https://www.amnesty.org/en/location/middle-east-and-north-africa/iran/" target="_blank">
+        <span class="ref-type news">NEWS</span>
+        <div class="ref-content"><div class="ref-title">Iran — direitos humanos</div><div class="ref-source">Amnesty International · Relatórios atualizados</div></div>
+      </a>
+      <a class="ref-card" href="https://en.wikipedia.org/wiki/2009_Iranian_presidential_election_protests" target="_blank">
+        <span class="ref-type wiki">WIKI</span>
+        <div class="ref-content"><div class="ref-title">Movimento Verde 2009</div><div class="ref-source">Wikipedia · Green Movement protests</div></div>
+      </a>
+    </div>
+
+    <div style="margin-bottom:12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)">Economia e sanções</div>
+    <div class="refs-grid" style="margin-bottom:20px">
+      <a class="ref-card" href="https://www.worldbank.org/en/country/iran/overview" target="_blank">
+        <span class="ref-type data">DATA</span>
+        <div class="ref-content"><div class="ref-title">Iran — Country Overview</div><div class="ref-source">World Bank · GDP, inflação, indicadores</div></div>
+      </a>
+      <a class="ref-card" href="https://www.imf.org/en/Countries/IRN" target="_blank">
+        <span class="ref-type data">DATA</span>
+        <div class="ref-content"><div class="ref-title">Islamic Republic of Iran — IMF Data</div><div class="ref-source">FMI · Projeções macroeconômicas</div></div>
+      </a>
+      <a class="ref-card" href="https://www.bbc.com/news/world-middle-east-33521655" target="_blank">
+        <span class="ref-type news">NEWS</span>
+        <div class="ref-content"><div class="ref-title">Acordo nuclear JCPOA — o que é e como funcionou</div><div class="ref-source">BBC News · Joint Comprehensive Plan of Action</div></div>
+      </a>
+    </div>
+
+    <div style="margin-bottom:12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)">Geopolítica e teoria de transição</div>
+    <div class="refs-grid" style="margin-bottom:20px">
+      <a class="ref-card" href="https://www.cfr.org/backgrounder/what-iran-nuclear-deal" target="_blank">
+        <span class="ref-type cfr">CFR</span>
+        <div class="ref-content"><div class="ref-title">What is the Iran Nuclear Deal?</div><div class="ref-source">Council on Foreign Relations · JCPOA analysis</div></div>
+      </a>
+      <a class="ref-card" href="https://en.wikipedia.org/wiki/Breakdowns_of_Democratic_Regimes" target="_blank">
+        <span class="ref-type acad">ACAD</span>
+        <div class="ref-content"><div class="ref-title">Breakdowns of Democratic Regimes — Linz &amp; Stepan</div><div class="ref-source">Teoria de transição · Framework dos 3 caminhos</div></div>
+      </a>
+      <a class="ref-card" href="https://foreignpolicy.com/2022/09/27/iran-protest-mahsa-amini-regime-change/" target="_blank">
+        <span class="ref-type news">NEWS</span>
+        <div class="ref-content"><div class="ref-title">Could This Be Iran's Revolution?</div><div class="ref-source">Foreign Policy · 2022 · análise estratégica</div></div>
+      </a>
+      <a class="ref-card" href="https://www.crisisgroup.org/middle-east-north-africa/gulf-and-arabian-peninsula/iran" target="_blank">
+        <span class="ref-type cfr">ICG</span>
+        <div class="ref-content"><div class="ref-title">Iran — International Crisis Group</div><div class="ref-source">Crisis Group · relatórios de campo atualizados</div></div>
+      </a>
+    </div>
+
+    <div style="margin-bottom:12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)">Operações psicológicas e mídia</div>
+    <div class="refs-grid">
+      <a class="ref-card" href="https://en.wikipedia.org/wiki/Psychological_operations_(United_States)" target="_blank">
+        <span class="ref-type wiki">WIKI</span>
+        <div class="ref-content"><div class="ref-title">Psychological Operations (US)</div><div class="ref-source">Wikipedia · PSYOP — conceitos e história</div></div>
+      </a>
+      <a class="ref-card" href="https://www.rand.org/topics/iran.html" target="_blank">
+        <span class="ref-type acad">RAND</span>
+        <div class="ref-content"><div class="ref-title">RAND Corporation — Iran Research</div><div class="ref-source">RAND · análises estratégicas independentes</div></div>
+      </a>
+      <a class="ref-card" href="https://netblocks.org/reports/iran" target="_blank">
+        <span class="ref-type data">DATA</span>
+        <div class="ref-content"><div class="ref-title">Iran Internet Shutdowns</div><div class="ref-source">NetBlocks · monitoramento cortes de internet em tempo real</div></div>
+      </a>
+      <a class="ref-card" href="https://www.rferl.org/z/iran" target="_blank">
+        <span class="ref-type news">NEWS</span>
+        <div class="ref-content"><div class="ref-title">Radio Free Europe — Iran</div><div class="ref-source">RFE/RL · cobertura independente · farsi e inglês</div></div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Análise baseada no conteúdo do grupo Selva&Aço&Nb · 09/03/2026 · Todas as métricas são estimativas baseadas em fontes abertas · Uso educacional e estratégico
+</div>
+
+<script>
+  const sections = ['kpis','mindmap','cronologia','psyop','caminhos','referencias'];
+
+  function showSection(id) {
+    sections.forEach(s => {
+      document.getElementById('sec-'+s).style.display = s === id ? 'block' : 'none';
+    });
+    document.querySelectorAll('.pill').forEach((p,i) => {
+      p.classList.toggle('active', sections[i] === id);
+    });
+    const info = document.getElementById('node-info');
+    if (info) info.style.display = 'none';
+  }
+
+  const nodeData = {
+    center: {
+      title: 'Núcleo — Sequestro Civilizacional',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">O Irã não evoluiu para o estado atual — foi tomado. A distinção central do texto é entre <span class="highlight">povo e sistema</span>. Um país moderno e secular foi substituído por um regime teocrático via revolução vendida como libertação moral.</p>
+        <div class="panel-metric"><span class="panel-metric-key">Mecanismo central</span><span class="panel-metric-val">Medo substitui crença</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Variável decisiva</span><span class="panel-metric-val">Monopólio da violência</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Aplicação global</span><span class="panel-metric-val">Prévia para o Ocidente</span></div>
+      `
+    },
+    pre1979: {
+      title: 'Irã Pré-1979 — A Memória Roubada',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">Teerã dos anos 60–70 era comparável a capitais europeias. Mulheres eram médicas, advogadas, professoras. Arte, música ocidental e ciência prosperavam. Esse detalhe destrói o mito de que "o Irã sempre foi assim".</p>
+        <div class="panel-metric"><span class="panel-metric-key">Tipo de mudança</span><span class="panel-metric-val">Ruptura, não evolução</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Relevância atual</span><span class="panel-metric-val">Protestantes pedem o que foi roubado</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Fonte</span><span class="panel-metric-val">Álbuns de família, depoimentos</span></div>
+      `
+    },
+    revolucao: {
+      title: 'Revolução 1979 — Anatomia do Sequestro',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">A revolução foi vendida como independência e limpeza moral, não como extremismo religioso. Khomeini se apresentou como libertador. O Xá caiu por acumulação de ressentimento — corrupção, SAVAK, apoio ocidental visto como subserviente.</p>
+        <div class="panel-metric"><span class="panel-metric-key">Lacuna crítica do texto</span><span class="panel-metric-val">Golpe CIA 1953 omitido</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Consolidação</span><span class="panel-metric-val">Lenta e metódica, não imediata</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Arma usada</span><span class="panel-metric-val">Medo, não religião</span></div>
+      `
+    },
+    psyop: {
+      title: 'PSYOP / Narrativa — Operações de Controle',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">PSYOPs não criam movimentos — sequestram os que já existem. A raiva genuína da população é redirecionada e fragmentada. Bloqueios de internet aumentam controle mas também geram confusão — útil para o regime.</p>
+        <div class="panel-metric"><span class="panel-metric-key">Princípio-chave</span><span class="panel-metric-val">Redirecionar raiva existente</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Ferramenta atual</span><span class="panel-metric-val">Cortes de internet seletivos</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Resistência</span><span class="panel-metric-val">35M VPN users (40%)</span></div>
+      `
+    },
+    caminhos: {
+      title: 'Os 3 Caminhos Prospectivos',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">Framework clássico de transição de regimes (Linz & Stepan). O caminho 1 é mais provável a curto prazo, mas não elimina a pressão. O caminho 3 é raro mas devastadoramente rápido quando ocorre.</p>
+        <div class="panel-metric"><span class="panel-metric-key">Caminho 1 — Punho de ferro</span><span class="panel-metric-val" style="color:var(--red)">75% prob.</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Caminho 2 — Fratura interna</span><span class="panel-metric-val" style="color:var(--amber)">45% prob.</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Caminho 3 — Ruptura</span><span class="panel-metric-val" style="color:var(--teal)">20% prob.</span></div>
+      `
+    },
+    memoria: {
+      title: 'Memória Coletiva — A Arma da Resistência',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">"Quando uma população se lembra de si mesma, a repressão se torna extremamente difícil." Os protestantes de 2022 (Mahsa Amini) não pediam algo novo — pediam o que foi roubado. Estudantes e profissionais herdaram memórias contrabandeadas.</p>
+        <div class="panel-metric"><span class="panel-metric-key">Vetor da memória</span><span class="panel-metric-val">Fotos 70s, álbuns familiares</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Geração ativa</span><span class="panel-metric-val">Gen Z iraniana</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Potência</span><span class="panel-metric-val">Alta — dificulta narrativa do regime</span></div>
+      `
+    },
+    geopolitica: {
+      title: 'Dimensão Geopolítica — Eixos e Pressões',
+      content: `
+        <p style="font-size:13px;color:var(--text);margin-bottom:12px">O Irã sustenta seu regime via apoio de China e Rússia. 90% das exportações de petróleo vão para a China sob sanções. Participa do BRICS e SCO. Mantém proxies: Hezbolah (Líbano), Hamas (Gaza), Houthis (Iêmen).</p>
+        <div class="panel-metric"><span class="panel-metric-key">Aliados estratégicos</span><span class="panel-metric-val">China · Rússia</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Pressão externa</span><span class="panel-metric-val">EUA · UE · Israel</span></div>
+        <div class="panel-metric"><span class="panel-metric-key">Soft power</span><span class="panel-metric-val">Hezbolah · Hamas · Houthis</span></div>
+      `
+    }
+  };
+
+  function showNodeInfo(id) {
+    const data = nodeData[id];
+    if (!data) return;
+    const panel = document.getElementById('node-info');
+    const content = document.getElementById('node-info-content');
+    content.innerHTML = `<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px">${data.title}</div>${data.content}`;
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

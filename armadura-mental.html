@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMADURA MENTAL — Framework de Defesa Cognitiva</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --border: rgba(255,255,255,0.06);
+    --border-active: rgba(255,215,0,0.3);
+    --gold: #c9a84c;
+    --gold-light: #f0d070;
+    --red: #c0392b;
+    --red-glow: rgba(192,57,43,0.15);
+    --green: #27ae60;
+    --green-glow: rgba(39,174,96,0.12);
+    --blue: #2980b9;
+    --text: #e8e8e8;
+    --text-dim: #888;
+    --text-faint: #444;
+    --shield: #c9a84c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  .header {
+    position: relative;
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    color: var(--gold);
+  }
+
+  .header-sub {
+    font-size: 16px;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* TABS NAV */
+  .nav {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .tab-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+
+  .tab-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .tab-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #000;
+    font-weight: 500;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .section-desc {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 36px;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* NÍVEIS DA ARMADURA */
+  .levels-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .level-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 24px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .level-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: rgba(201,168,76,0.04);
+    transition: width 0.3s;
+  }
+
+  .level-card:hover::before,
+  .level-card.open::before {
+    width: 100%;
+  }
+
+  .level-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateX(2px);
+  }
+
+  .level-card.open {
+    border-left-color: var(--gold-light);
+  }
+
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+
+  .level-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 1;
+    min-width: 48px;
+  }
+
+  .level-card.open .level-num { opacity: 0.7; }
+
+  .level-title-wrap { flex: 1; }
+
+  .level-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  .level-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .level-toggle {
+    font-size: 20px;
+    color: var(--gold);
+    opacity: 0.5;
+    transition: transform 0.2s;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .level-card.open .level-toggle { transform: rotate(45deg); opacity: 1; }
+
+  .level-body {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .level-card.open .level-body { display: block; }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ccc;
+  }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: transparent;
+    transition: all 0.15s;
+  }
+
+  .check-box.checked {
+    background: var(--gold);
+    color: #000;
+  }
+
+  /* PERGUNTAS RADAR */
+  .questions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .question-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .question-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.04);
+  }
+
+  .question-card.flagged {
+    border-color: var(--red);
+    background: var(--red-glow);
+  }
+
+  .question-card.safe {
+    border-color: var(--green);
+    background: var(--green-glow);
+  }
+
+  .q-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .q-text {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .q-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .q-status {
+    margin-top: 12px;
+    font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .question-card.flagged .q-status,
+  .question-card.safe .q-status { opacity: 1; }
+
+  .question-card.flagged .q-status { color: var(--red); }
+  .question-card.safe .q-status { color: var(--green); }
+
+  /* TÉCNICAS */
+  .techniques-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .tech-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .tech-card:hover {
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-2px);
+  }
+
+  .tech-card::after {
+    content: attr(data-icon);
+    position: absolute;
+    bottom: -10px;
+    right: -5px;
+    font-size: 64px;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .tech-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .tech-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .tech-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .tech-example {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: rgba(192,57,43,0.08);
+    border-left: 2px solid var(--red);
+    font-size: 12px;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  /* FILMES */
+  .films-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .film-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .film-card:hover {
+    border-color: rgba(39,174,96,0.4);
+    transform: translateY(-2px);
+  }
+
+  .film-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at top right, rgba(39,174,96,0.08), transparent);
+  }
+
+  .film-cat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+    display: block;
+    opacity: 0.8;
+  }
+
+  .film-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .film-year {
+    font-size: 12px;
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 12px;
+  }
+
+  .film-why {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .film-virtue {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .virtue-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid rgba(39,174,96,0.3);
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  /* MANIFESTO */
+  .manifesto {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .principle {
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .p-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+    min-width: 56px;
+    text-align: right;
+    transition: opacity 0.2s;
+  }
+
+  .principle:hover .p-num { opacity: 0.5; }
+
+  .p-content {}
+
+  .p-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .p-text {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .p-quote {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-left: 2px solid var(--gold);
+    font-size: 14px;
+    color: var(--gold-light);
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--text-dim);
+    z-index: 200;
+    backdrop-filter: blur(8px);
+    min-width: 160px;
+  }
+
+  .progress-label {
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    margin-top: 6px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.3s;
+    width: 0%;
+  }
+
+  /* SCORE */
+  .score-display {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ALERT BOX */
+  .alert-box {
+    padding: 16px 20px;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    margin-bottom: 32px;
+    font-size: 14px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+
+  .alert-box strong {
+    color: var(--gold);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .nav { padding: 12px; }
+    .tab-btn { font-size: 10px; padding: 6px 10px; }
+    .main { padding: 24px 16px 60px; }
+    h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Framework de Defesa Cognitiva · v1.0</div>
+  <h1>ARMADURA <span>MENTAL</span></h1>
+  <p class="header-sub">Como não ser manipulado pela indústria cinematográfica — um sistema de 5 níveis para análise crítica de conteúdo cultural</p>
+</div>
+
+<nav class="nav">
+  <button class="tab-btn active" onclick="switchTab('niveis')">⚔ Os 5 Níveis</button>
+  <button class="tab-btn" onclick="switchTab('radar')">🔍 Radar de Perguntas</button>
+  <button class="tab-btn" onclick="switchTab('tecnicas')">🧠 Técnicas de Manipulação</button>
+  <button class="tab-btn" onclick="switchTab('filmes')">🎬 Filmes que Constroem</button>
+  <button class="tab-btn" onclick="switchTab('manifesto')">📜 Manifesto</button>
+</nav>
+
+<div class="main">
+
+  <!-- TAB: NÍVEIS -->
+  <div class="tab-content active" id="tab-niveis">
+    <p class="section-title">Os 5 Níveis da Armadura</p>
+    <p class="section-desc">Cada nível é uma camada de proteção cognitiva. Clique para expandir e marque os itens conforme os internaliza.</p>
+
+    <div class="levels-grid">
+
+      <div class="level-card" onclick="toggleLevel(this)">
+        <div class="level-header">
+          <div class="level-num">01</div>
+          <div class="level-title-wrap">
+            <span class="level-tag">Nível 1 — Ver</span>
+            <div class="level-title">Alfabetização Midiática</div>
+          </div>
+          <div class="level-toggle">+</div>
+        </div>
+        <div class="level-body">
+          <p style="font-size:13px;color:#999;margin-bottom:16px;">Faça estas perguntas durante qualquer filme, série ou notícia:</p>
+          <ul class="checklist">
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Quem estou sendo levado a amar — e por quê? Qual o mecanismo?</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Quem estou sendo levado a odiar — e por quê? É justo?</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Quais instituições são ridiculizadas? Quais são glorificadas?</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> A violência de quem é estetizada como "cool" ou heroica?</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Qual comportamento ilegal ou antiético está sendo normalizado?</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Há um "inimigo" claramente pior que justifica o anti-herói?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="level-card" onclick="toggleLevel(this)">
+        <div class="level-header">
+          <div class="level-num">02</div>
+          <div class="level-title-wrap">
+            <span class="level-tag">Nível 2 — Ancorar</span>
+            <div class="level-title">Princípios Filosóficos como Base</div>
+          </div>
+          <div class="level-toggle">+</div>
+        </div>
+        <div class="level-body">
+          <ul class="checklist">
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Lei Natural:</strong> Violência só é legítima dentro de um framework de lei. Justiceiro bonito não muda o princípio.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Distinção:</strong> Você pode achar um personagem carismático E reconhecer que o que ele faz é errado. São coisas separadas.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Desconfiança do apelo emocional:</strong> Quanto mais emoção intensa, mais pausar e analisar. Emoção é o veículo preferido da manipulação.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Devido processo:</strong> Sem tribunal, sem processo, sem lei — é tirania com boa fotografia. Venom define quem merece morrer. Isso é poder absoluto.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Simpatia ≠ Legitimidade:</strong> Gostar de alguém não valida seus atos. Aprender a separar esses planos é essencial.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="level-card" onclick="toggleLevel(this)">
+        <div class="level-header">
+          <div class="level-num">03</div>
+          <div class="level-title-wrap">
+            <span class="level-tag">Nível 3 — Decodificar</span>
+            <div class="level-title">Engenharia por Trás do Conteúdo</div>
+          </div>
+          <div class="level-toggle">+</div>
+        </div>
+        <div class="level-body">
+          <ul class="checklist">
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Music score:</strong> A trilha sonora diz o que sentir antes do cérebro processar. Silencie internamente e reavalie a cena.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Ângulo de câmera:</strong> Câmera baixa = dominância, poder. Câmera alta = fraqueza. É subconsciente e sistemático.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Humor como desarmador:</strong> Você ri, baixa a guarda, aceita a premissa. O humor é o cavalo de Troia mais eficiente.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Gradualismo moral:</strong> Cena 1: mata serial killer. Cena 30: mata policial corrupto. O espectador já normalizou. Perceba a escada.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Vilão pior como justificativa:</strong> O anti-herói nunca é comparado ao padrão ético — sempre ao monstro ainda pior.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="level-card" onclick="toggleLevel(this)">
+        <div class="level-header">
+          <div class="level-num">04</div>
+          <div class="level-title-wrap">
+            <span class="level-tag">Nível 4 — Proteger</span>
+            <div class="level-title">Zonas de Maior Vulnerabilidade</div>
+          </div>
+          <div class="level-toggle">+</div>
+        </div>
+        <div class="level-body">
+          <ul class="checklist">
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Crianças e adolescentes:</strong> Sem filtro crítico formado. A normalização acontece sem resistência nenhuma.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Consumo passivo repetido:</strong> Maratonar séries desliga o senso crítico. Volume + velocidade = infiltração.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Conteúdo emocionalmente carregado:</strong> Luto, romance, injustiça — quando emocional, o racional vai embora.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">O vilão com história triste:</strong> Backstory de trauma é o cavalo de Troia mais sofisticado. "Ele ficou assim por culpa da sociedade."</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> <strong style="color:#ccc">Personagens "complexos":</strong> Complexidade moral ≠ licença para o mal. A complexidade real mostra consequências — a falsa glamouriza.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="level-card" onclick="toggleLevel(this)">
+        <div class="level-header">
+          <div class="level-num">05</div>
+          <div class="level-title-wrap">
+            <span class="level-tag">Nível 5 — Construir</span>
+            <div class="level-title">A Armadura Positiva (Dieta Mental)</div>
+          </div>
+          <div class="level-toggle">+</div>
+        </div>
+        <div class="level-body">
+          <ul class="checklist">
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Leia fontes primárias: filosofia, direito, história — não secondhand narrative.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Consuma narrativas que glorificam virtude dentro da lei e da ordem (ver aba Filmes).</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Converse sobre o que consome — exatamente como estamos fazendo agora.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Seletividade no consumo. Não é censura — é dieta mental. Você não come lixo todo dia.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Ensine crianças a fazer as perguntas do Nível 1 desde cedo. Antes da indústria as alcançar.</li>
+            <li><div class="check-box" onclick="toggleCheck(event, this)">✓</div> Lembre sempre: <em style="color:var(--gold)">"Entretenimento que você não analisa, você absorve."</em></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB: RADAR -->
+  <div class="tab-content" id="tab-radar">
+    <p class="section-title">Radar de Perguntas</p>
+    <p class="section-desc">Clique em cada pergunta enquanto assiste. Verde = sinal seguro. Vermelho = sinal de alerta — pause e analise.</p>
+
+    <div class="alert-box">
+      <strong>Como usar:</strong> Clique uma vez para marcar como ALERTA (vermelho), clique novamente para SEGURO (verde), terceiro clique para resetar.
+    </div>
+
+    <div class="questions-grid">
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Empatia</span>
+        <span class="q-icon">💛</span>
+        <p class="q-text">"Estou sentindo afeto por este personagem — mas o que ele faz é realmente defensável?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Afeto não valida ação" data-safe="✓ SEGURO — Afeto por virtude real">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Autoridade</span>
+        <span class="q-icon">🏛</span>
+        <p class="q-text">"As forças de segurança estão sendo retratadas como incompetentes ou corruptas por padrão?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Erosão de legitimidade institucional" data-safe="✓ SEGURO — Crítica justa com nuance">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Violência</span>
+        <span class="q-icon">⚔</span>
+        <p class="q-text">"A violência está sendo filmada como algo admirável, cool ou esteticamente bonito?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Estetização da violência" data-safe="✓ SEGURO — Violência com consequências reais">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Justiça</span>
+        <span class="q-icon">⚖</span>
+        <p class="q-text">"Quem define quem merece punição neste universo? Há devido processo ou é julgamento pessoal?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Justiça arbitrária glamourizada" data-safe="✓ SEGURO — Processo e lei respeitados">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Humor</span>
+        <span class="q-icon">😂</span>
+        <p class="q-text">"O humor está sendo usado para tornar palatável algo que seria inaceitável se apresentado a sério?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Humor como cavalo de Troia" data-safe="✓ SEGURO — Humor sem subversão moral">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Comparação</span>
+        <span class="q-icon">📊</span>
+        <p class="q-text">"O anti-herói é comparado ao padrão ético — ou sempre ao monstro ainda pior para parecer justificado?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Falsa comparação moral" data-safe="✓ SEGURO — Comparação com padrão real">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Gradualismo</span>
+        <span class="q-icon">📈</span>
+        <p class="q-text">"O filme está escalando o comportamento do herói progressivamente para que eu aceite mais ao final?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Escada moral detectada" data-safe="✓ SEGURO — Sem escalada manipulativa">·</p>
+      </div>
+      <div class="question-card" onclick="cycleQuestion(this)">
+        <span class="q-label">Instituições</span>
+        <span class="q-icon">🏢</span>
+        <p class="q-text">"Família, religião, lei, Estado — quais estruturas estão sendo sistematicamente desconstruídas?"</p>
+        <p class="q-status" data-alert="⚠ ALERTA — Erosão sistemática de estruturas" data-safe="✓ SEGURO — Crítica pontual e justa">·</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: TÉCNICAS -->
+  <div class="tab-content" id="tab-tecnicas">
+    <p class="section-title">Técnicas de Manipulação</p>
+    <p class="section-desc">Conhecer a ferramenta a neutraliza. Estas são as técnicas mais usadas pela indústria cinematográfica para moldar valores.</p>
+
+    <div class="techniques-wrap">
+      <div class="tech-card" data-icon="🎵">
+        <span class="tech-label">Técnica 01</span>
+        <div class="tech-name">Music Score Emocional</div>
+        <p class="tech-desc">A trilha sonora instrui o que sentir antes do cérebro processar a cena racionalmente. É pré-racional e muito eficaz.</p>
+        <div class="tech-example">Experimento: assista uma cena de ação sem som. O herói matar alguém parece diferente.</div>
+      </div>
+      <div class="tech-card" data-icon="📷">
+        <span class="tech-label">Técnica 02</span>
+        <div class="tech-name">Linguagem de Câmera</div>
+        <p class="tech-desc">Câmera baixa (plongée invertido) transmite poder e admiração. Câmera alta transmite fraqueza. É universal e subconsciente.</p>
+        <div class="tech-example">Heróis: câmera low angle. Autoridades "más": câmera alta, plano aberto, sem carisma.</div>
+      </div>
+      <div class="tech-card" data-icon="😂">
+        <span class="tech-label">Técnica 03</span>
+        <div class="tech-name">Humor como Desarmador</div>
+        <p class="tech-desc">Quando você ri, baixa a guarda crítica. A premissa é injetada enquanto você ainda está sorrindo. Venom usa isso extensivamente.</p>
+        <div class="tech-example">"Eddie e Venom brigando sobre comer pessoas" — a seriedade do ato desaparece no contexto cômico.</div>
+      </div>
+      <div class="tech-card" data-icon="📈">
+        <span class="tech-label">Técnica 04</span>
+        <div class="tech-name">Gradualismo Moral</div>
+        <p class="tech-desc">A escada: cena 1 o herói faz algo que todos aprovam, cena 30 faz algo que antes seria inaceitável — mas você já normalizou a jornada.</p>
+        <div class="tech-example">Venom 1: come criminosos violentos. Venom 3: é o "salvador da humanidade" sem qualquer processo.</div>
+      </div>
+      <div class="tech-card" data-icon="😢">
+        <span class="tech-label">Técnica 05</span>
+        <div class="tech-name">Backstory de Trauma</div>
+        <p class="tech-desc">O vilão ou anti-herói tem história de sofrimento que explica (e implicitamente justifica) seus atos. Confunde explicação com absolvição.</p>
+        <div class="tech-example">"Ele ficou assim porque a sociedade o falhou" — logo, matar se torna compreensível, quase nobre.</div>
+      </div>
+      <div class="tech-card" data-icon="👹">
+        <span class="tech-label">Técnica 06</span>
+        <div class="tech-name">Vilão Ainda Pior</div>
+        <p class="tech-desc">O anti-herói nunca é comparado ao padrão ético — sempre ao monstro ainda mais sombrio. Você torce pelo "menor mal" sem perceber.</p>
+        <div class="tech-example">Venom come bandidos? Mas Knull quer destruir toda a humanidade! Comparação sempre favorável.</div>
+      </div>
+      <div class="tech-card" data-icon="🔄">
+        <span class="tech-label">Técnica 07</span>
+        <div class="tech-name">Inversão de Papéis</div>
+        <p class="tech-desc">Quem deveria proteger (polícia, governo, militares) é retratingido como ameaça. Quem deveria ser contido vira herói. Inversão sistémica.</p>
+        <div class="tech-example">Agentes do governo em Venom: obcecados, corruptos, incompetentes. Eddie/Venom: livres, certos, moralmente superiores.</div>
+      </div>
+      <div class="tech-card" data-icon="💕">
+        <span class="tech-label">Técnica 08</span>
+        <div class="tech-name">Parasocial e Repetição</div>
+        <p class="tech-desc">3 filmes com o mesmo personagem criam vínculo parasocial real. Na terceira obra, você já defende o personagem quase como a um amigo.</p>
+        <div class="tech-example">Após 3 filmes de Venom, o espectador médio defende o direito de Venom "existir como é".</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: FILMES -->
+  <div class="tab-content" id="tab-filmes">
+    <p class="section-title">Filmes que Constroem</p>
+    <p class="section-desc">Narrativas que glorificam virtude, processo legal, coragem institucional e justiça com integridade. O antídoto cinematográfico.</p>
+
+    <div class="films-grid">
+
+      <div class="film-card">
+        <span class="film-cat">Drama Jurídico · Clássico</span>
+        <div class="film-title">12 Homens e uma Sentença</div>
+        <div class="film-year">1957 · Sidney Lumet</div>
+        <p class="film-why">Um único homem que se recusa a condenar sem evidências. A defesa do processo como virtude suprema. O melhor argumento já filmado contra a justiça sumária.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">devido processo</span>
+          <span class="virtue-tag">integridade</span>
+          <span class="virtue-tag">coragem moral</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Drama · Clássico Americano</span>
+        <div class="film-title">O Sol é Para Todos</div>
+        <div class="film-year">1962 · Robert Mulligan</div>
+        <p class="film-why">Atticus Finch: o advogado que defende o injustiçado dentro do sistema, com dignidade, sem vingança. Virtude institucional ao mais alto nível.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">justiça institucional</span>
+          <span class="virtue-tag">dignidade</span>
+          <span class="virtue-tag">coragem civil</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Thriller Jurídico · Argentina</span>
+        <div class="film-title">O Segredo dos Seus Olhos</div>
+        <div class="film-year">2009 · Juan José Campanella</div>
+        <p class="film-why">A busca pela justiça real dentro (e apesar) do sistema. Mostra como a justiça com as próprias mãos tem um custo humano devastador.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">consequências da vingança</span>
+          <span class="virtue-tag">processo</span>
+          <span class="virtue-tag">obsessão vs. lei</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Biopic · Antitruste</span>
+        <div class="film-title">Erin Brockovich</div>
+        <div class="film-year">2000 · Steven Soderbergh</div>
+        <p class="film-why">Justiça conquistada pelo sistema legal, não pela violência. Persistência, documentação, processo. A lei como arma dos fracos contra os poderosos.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">lei como ferramenta</span>
+          <span class="virtue-tag">persistência</span>
+          <span class="virtue-tag">accountability</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Biopic · Investigação</span>
+        <div class="film-title">Spotlight</div>
+        <div class="film-year">2015 · Tom McCarthy</div>
+        <p class="film-why">O jornalismo investigativo como serviço público. Expõe abuso de poder sem glamourizar vingança — o sistema corrigindo a si mesmo pela verdade.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">verdade como virtude</span>
+          <span class="virtue-tag">accountability institucional</span>
+          <span class="virtue-tag">serviço público</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Biopic · Guerra</span>
+        <div class="film-title">Dunkirk</div>
+        <div class="film-year">2017 · Christopher Nolan</div>
+        <p class="film-why">Coragem coletiva, disciplina, sacrifício dentro de uma estrutura de comando. Heroísmo real sem estetização de violência ou ausência de lei.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">sacrifício coletivo</span>
+          <span class="virtue-tag">disciplina</span>
+          <span class="virtue-tag">cadeia de comando legítima</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Drama · Investigação Criminal</span>
+        <div class="film-title">Zodiac</div>
+        <div class="film-year">2007 · David Fincher</div>
+        <p class="film-why">Investigação metódica, obsessão pela evidência, respeito ao processo. O crime não é glamourizado — e a busca pela verdade tem um custo humano real.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">metodologia</span>
+          <span class="virtue-tag">verdade sobre conveniência</span>
+          <span class="virtue-tag">custo da obsessão</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Biopic · Ética Profissional</span>
+        <div class="film-title">O Informante</div>
+        <div class="film-year">1999 · Michael Mann</div>
+        <p class="film-why">A coragem de dizer a verdade dentro do sistema, com consequências reais. Integridade pessoal vs. pressão corporativa e institucional.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">integridade</span>
+          <span class="virtue-tag">coragem civil</span>
+          <span class="virtue-tag">verdade com custo</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Drama · Tribunal Militar</span>
+        <div class="film-title">Questão de Honra</div>
+        <div class="film-year">1992 · Rob Reiner</div>
+        <p class="film-why">A lei militar como estrutura necessária, não como obstáculo. O processo judicial como único antídoto contra o poder arbitrário.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">due process</span>
+          <span class="virtue-tag">limites do poder</span>
+          <span class="virtue-tag">accountability militar</span>
+        </div>
+      </div>
+
+      <div class="film-card">
+        <span class="film-cat">Biopic · Direitos Civis</span>
+        <div class="film-title">Selma</div>
+        <div class="film-year">2014 · Ava DuVernay</div>
+        <p class="film-why">Resistência não violenta dentro do sistema legal como estratégia de transformação. A lei como campo de batalha, não o beco como tribunal.</p>
+        <div class="film-virtue">
+          <span class="virtue-tag">resistência não violenta</span>
+          <span class="virtue-tag">mudança institucional</span>
+          <span class="virtue-tag">dignidade</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB: MANIFESTO -->
+  <div class="tab-content" id="tab-manifesto">
+    <p class="section-title">Manifesto da Clareza</p>
+    <p class="section-desc">Princípios para quem decidiu não consumir passivamente a cultura de massas.</p>
+
+    <div class="manifesto">
+
+      <div class="principle">
+        <div class="p-num">I</div>
+        <div class="p-content">
+          <div class="p-title">Entretenimento que você não analisa, você absorve</div>
+          <p class="p-text">A indústria conta com o consumo passivo. Cada hora de série sem análise crítica é uma hora de engenharia de valores não examinada. Divertir-se é legítimo — fazê-lo conscientemente é obrigação.</p>
+          <div class="p-quote">"Não existe entretenimento neutro. Toda narrativa tem uma tese."</div>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">II</div>
+        <div class="p-content">
+          <div class="p-title">Simpatia não é validação</div>
+          <p class="p-text">Você pode gostar de um personagem e reconhecer que suas ações são erradas. Hollywood trabalha para colapsar essa distinção. Mantê-la separada é um ato de higiene mental.</p>
+          <div class="p-quote">"Gostar de quem faz algo errado não torna o ato certo. Nem o personagem, nem a pessoa real."</div>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">III</div>
+        <div class="p-content">
+          <div class="p-title">O processo é a civilização</div>
+          <p class="p-text">Tribunal, evidência, defesa, recurso — esses mecanismos são o que separa a civilização da barbárie. Qualquer narrativa que glamourize a justiça sem processo está, conscientemente ou não, vendendo tirania com boa estética.</p>
+          <div class="p-quote">"Venom decide quem merece morrer. Isso é poder absoluto sem accountability. Sob qualquer outro nome, chamamos de ditador."</div>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">IV</div>
+        <div class="p-content">
+          <div class="p-title">Emoção intensa é sinal de alerta</div>
+          <p class="p-text">Quanto mais uma obra ativa raiva, medo, ternura intensa ou euforia, mais devemos pausar e analisar. Emoção e razão não são opostos — mas a emoção não pode substituir a análise.</p>
+          <div class="p-quote">"Se você saiu do cinema com certeza de quem são os mocinhos e os vilões, pergunte-se: quem decidiu isso por você?"</div>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">V</div>
+        <div class="p-content">
+          <div class="p-title">A dieta mental é responsabilidade sua</div>
+          <p class="p-text">Ninguém vai proteger sua mente por você. Seletividade no consumo não é censura — é a mesma lógica da alimentação saudável. O que você alimenta cresce. O que você ignora atrofia.</p>
+          <div class="p-quote">"Você cuida do que come, do que respira, de com quem anda. Por que não cuida do que assiste?"</div>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">VI</div>
+        <div class="p-content">
+          <div class="p-title">Passe adiante</div>
+          <p class="p-text">A armadura mais eficiente é aquela compartilhada. Conversar sobre o que você assiste — com seus filhos, seus amigos, sua comunidade — é o ato mais subversivo contra a engenharia de consentimento cultural.</p>
+          <div class="p-quote">"Nomear o mecanismo é o primeiro passo para não cair nele."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- PROGRESS WIDGET -->
+<div class="progress-wrap" id="progressWidget">
+  <span class="progress-label">Itens Internalizados</span>
+  <span class="score-display"><span id="scoreNum">0</span><span style="font-size:14px;color:#666"> / 21</span></span>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<script>
+  let totalChecked = 0;
+  const totalItems = 21;
+
+  function switchTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleLevel(card) {
+    card.classList.toggle('open');
+  }
+
+  function toggleCheck(e, box) {
+    e.stopPropagation();
+    const wasChecked = box.classList.contains('checked');
+    box.classList.toggle('checked');
+    totalChecked += wasChecked ? -1 : 1;
+    totalChecked = Math.max(0, totalChecked);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    document.getElementById('scoreNum').textContent = totalChecked;
+    const pct = Math.min(100, (totalChecked / totalItems) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function cycleQuestion(card) {
+    if (!card.classList.contains('flagged') && !card.classList.contains('safe')) {
+      card.classList.add('flagged');
+      const status = card.querySelector('.q-status');
+      status.textContent = status.dataset.alert;
+    } else if (card.classList.contains('flagged')) {
+      card.classList.remove('flagged');
+      card.classList.add('safe');
+      const status = card.querySelector('.q-status');
+      status.textContent = status.dataset.safe;
+    } else {
+      card.classList.remove('safe');
+      const status = card.querySelector('.q-status');
+      status.textContent = '·';
+    }
+  }
+
+  // Auto-open first level
+  document.querySelector('.level-card').classList.add('open');
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

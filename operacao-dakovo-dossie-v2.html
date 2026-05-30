@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Dakovo — Dossiê Investigativo v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0b;--surface:#111113;--surface2:#18181c;
+    --border:#222228;--border2:#2e2e38;
+    --red:#e03e3e;--amber:#d4841a;--blue:#3b82f6;
+    --green:#22c55e;--purple:#a855f7;--orange:#f97316;
+    --text:#e8e8ec;--text-dim:#888896;--text-muted:#555564;
+    --mono:'IBM Plex Mono',monospace;
+    --sans:'Syne',sans-serif;
+    --serif:'Crimson Pro',serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html {
+    scroll-behavior: smooth;
+  }
+  body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.8;overflow-x:hidden}
+
+  /* MASTHEAD */
+  .masthead{background:var(--surface);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+  .masthead::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(224,62,62,.04) 39px,rgba(224,62,62,.04) 40px);pointer-events:none}
+  .masthead-inner{max-width:1100px;margin:0 auto;padding:28px 16px 24px;position:relative}
+  @media(min-width:768px){
+    .masthead-inner{padding:48px 32px 40px}
+  }
+  .op-label{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--red);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .op-label::before{content:'';width:24px;height:2px;background:var(--red);display:inline-block}
+  h1{font-family:var(--sans);font-size:2.2rem;font-weight:800;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:20px}
+  @media(min-width:768px){
+    h1{font-size:clamp(2.5rem, 5vw, 3.8rem)}
+  }
+  h1 span{color:var(--red)}
+  .subtitle{font-family:var(--serif);font-size:1.15rem;color:var(--text-dim);max-width:640px;font-style:italic;margin-bottom:32px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+  .meta-item{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase}
+  .meta-item strong{color:var(--text-dim)}
+  .severity{display:inline-flex;align-items:center;gap:6px;background:rgba(224,62,62,.12);border:1px solid rgba(224,62,62,.3);color:var(--red);font-family:var(--mono);font-size:11px;font-weight:600;padding:4px 12px;letter-spacing:.15em;text-transform:uppercase}
+  .severity-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.4s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+  /* DOSSIER NAVBAR */
+  .dossier-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 11, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+  }
+  .dossier-navbar::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+  }
+  .dossier-navbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 52px;
+  }
+  @media(min-width:768px){
+    .dossier-navbar-inner {
+      padding: 0 32px;
+      gap: 20px;
+    }
+  }
+  .dossier-nav-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    height: 52px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    transition: color .2s;
+  }
+  .dossier-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .2s ease-in-out;
+  }
+  .dossier-nav-link:hover {
+    color: #fff;
+  }
+  .dossier-nav-link.active {
+    color: var(--red);
+    font-weight: 600;
+  }
+  .dossier-nav-link.active::after {
+    transform: scaleX(1);
+  }
+
+  /* LAYOUT */
+  .main{max-width:1100px;margin:0 auto;padding:32px 16px}
+  @media(min-width:768px){
+    .main{padding:48px 32px}
+  }
+  .section-title{font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--text-muted);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+  .section-title .num{color:var(--red);font-size:.7rem}
+  section{margin-bottom:64px;scroll-margin-top: 70px;}
+
+  /* ALERT BANNER */
+  .alert{border:1px solid;padding:16px 20px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
+  .alert-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+  .alert-body{flex:1}
+  .alert-title{font-family:var(--sans);font-size:.85rem;font-weight:700;margin-bottom:4px}
+  .alert-text{font-family:var(--serif);font-size:.95rem;color:var(--text-dim);line-height:1.6}
+  .alert-red{border-color:rgba(224,62,62,.4);background:rgba(224,62,62,.07)}
+  .alert-red .alert-title{color:var(--red)}
+  .alert-amber{border-color:rgba(212,132,26,.4);background:rgba(212,132,26,.07)}
+  .alert-amber .alert-title{color:var(--amber)}
+  .alert-blue{border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.07)}
+  .alert-blue .alert-title{color:var(--blue)}
+  .alert-purple{border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.07)}
+  .alert-purple .alert-title{color:var(--purple)}
+
+  /* LACUNA BADGE */
+  .lacuna{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border:1px solid;margin-left:8px;vertical-align:middle}
+  .lacuna-resolved{border-color:rgba(34,197,94,.4);color:var(--green);background:rgba(34,197,94,.08)}
+  .lacuna-partial{border-color:rgba(212,132,26,.4);color:var(--amber);background:rgba(212,132,26,.08)}
+  .lacuna-open{border-color:rgba(224,62,62,.4);color:var(--red);background:rgba(224,62,62,.08)}
+
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:48px}
+  @media(min-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:768px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:1024px){.stats-grid{grid-template-columns:repeat(6,1fr)}}
+  .stat-card{background:var(--surface);padding:28px 24px;position:relative}
+  .stat-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent,var(--red))}
+  .stat-value{font-family:var(--sans);font-size:2rem;font-weight:800;color:var(--accent,var(--red));line-height:1;margin-bottom:8px;letter-spacing:-.03em}
+  .stat-label{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
+  .stat-note{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:4px}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:32px}
+  .timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--red) 0%,var(--border2) 100%)}
+  .tl-item{position:relative;margin-bottom:28px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--tl-color,var(--border2))}
+  .tl-dot{position:absolute;left:-27px;top:22px;width:12px;height:12px;border-radius:50%;background:var(--tl-color,var(--border2));border:2px solid var(--bg);z-index:1}
+  .tl-date{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .tl-title{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3}
+  .tl-desc{font-family:var(--serif);font-size:.95rem;color:var(--text-dim);line-height:1.65}
+
+  /* BADGES */
+  .badge{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:.1em;text-transform:uppercase;margin-left:6px;vertical-align:middle}
+  .badge-red{background:rgba(224,62,62,.15);color:var(--red);border:1px solid rgba(224,62,62,.3)}
+  .badge-blue{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+  .badge-amber{background:rgba(212,132,26,.15);color:var(--amber);border:1px solid rgba(212,132,26,.3)}
+  .badge-green{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+  .badge-purple{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3)}
+
+  /* NODE CARDS */
+  .network-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:640px){.network-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1024px){.network-grid{grid-template-columns:repeat(3,1fr)}}
+  .node-card{background:var(--surface);border:1px solid var(--border);padding:24px;position:relative;transition:border-color .2s;height:100%;display:flex;flex-direction:column}
+  .node-card:hover{border-color:var(--border2)}
+  .node-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--nc,var(--border))}
+  .node-name{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:4px}
+  .node-role{font-family:var(--mono);font-size:10px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .node-desc{font-family:var(--serif);font-size:.95rem;color:var(--text-dim);line-height:1.6;flex-grow:1}
+  .node-status{margin-top:12px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;display:inline-block;align-self:flex-start}
+
+  /* ROUTE */
+  .route-visual{background:var(--surface);border:1px solid var(--border);padding:32px;margin-bottom:32px;overflow-x:auto}
+  .route-flow{display:flex;align-items:center;min-width:700px}
+  .route-node{background:var(--surface2);border:1px solid var(--border2);padding:14px 18px;text-align:center;flex:1;min-width:110px}
+  .route-node-flag{font-size:1.3rem;margin-bottom:5px}
+  .route-node-name{font-family:var(--sans);font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:2px;line-height:1.2}
+  .route-node-role{font-family:var(--mono);font-size:10px;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase}
+  .route-arrow{color:var(--red);font-size:1.2rem;padding:0 4px;flex-shrink:0}
+
+  /* EVIDENCE TABLE */
+  .evidence-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+  .evidence-table th{background:var(--surface2);color:var(--text-muted);font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border2)}
+  .evidence-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top}
+  .evidence-table tr:hover td{background:var(--surface);color:var(--text)}
+  .evidence-table tr:last-child td{border-bottom:none}
+
+  /* ANALYSIS CARDS */
+  .analysis-card{background:var(--surface);border:1px solid var(--border);padding:28px;margin-bottom:20px}
+  .analysis-card h3{font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .analysis-card h3::before{content:'';width:16px;height:2px;background:var(--red);flex-shrink:0}
+  .analysis-card p{font-family:var(--serif);font-size:1rem;color:var(--text-dim);line-height:1.75}
+  .analysis-card p+p{margin-top:.8em}
+
+  /* AUTHORITY TABLE */
+  .auth-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+  .auth-table th{background:var(--surface2);color:var(--text-muted);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border2)}
+  .auth-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+  .auth-table tr:last-child td{border-bottom:none}
+  .auth-table tr:hover td{background:var(--surface)}
+  .auth-country{font-family:var(--sans);font-size:.85rem;font-weight:700;color:var(--text)}
+  .auth-body{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+  .auth-action{font-family:var(--serif);font-size:.9rem;color:var(--text-dim)}
+  .auth-risk{font-family:var(--mono);font-size:10px;font-weight:600}
+
+  /* REF SECTION */
+  .ref-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:768px){.ref-grid{grid-template-columns:repeat(3,1fr)}}
+  .ref-card{background:var(--surface);border:1px solid var(--border);padding:20px}
+  .ref-cat{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .ref-item{margin-bottom:10px}
+  .ref-title{font-family:var(--sans);font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:2px}
+  .ref-meta{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-bottom:4px}
+  .ref-link{font-family:var(--mono);font-size:10px;color:var(--blue);text-decoration:none;word-break:break-all}
+  .ref-link:hover{text-decoration:underline}
+
+  /* STATUS */
+  .status-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:600px){.status-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1024px){.status-grid{grid-template-columns:repeat(4,1fr)}}
+  .status-item{background:var(--surface);border:1px solid var(--border);padding:20px}
+  .status-item-label{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+  .status-item-value{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:4px}
+  .status-item-detail{font-family:var(--serif);font-size:.9rem;color:var(--text-dim)}
+  .dot-open{color:var(--amber)}.dot-closed{color:var(--green)}.dot-pending{color:var(--blue)}.dot-critical{color:var(--red);animation:blink 1.4s infinite}
+
+  /* LEAD */
+  .lead{font-family:var(--serif);font-size:1.15rem;color:var(--text);font-style:italic;line-height:1.7;margin-bottom:32px;padding:24px 28px;border-left:3px solid var(--red);background:var(--surface)}
+  .prose{max-width:760px}
+  .prose p{font-family:var(--serif);font-size:1.05rem;color:var(--text-dim);line-height:1.8;margin-bottom:1.2em}
+  .prose strong{color:var(--text);font-weight:600}
+
+  /* RELATED ARTIFACTS */
+  .related-section {
+    border-top: 1px solid var(--border);
+    padding: 64px 0 32px;
+    margin-top: 64px;
+  }
+  .related-title {
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .related-title::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media(min-width: 640px) {
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media(min-width: 1024px) {
+    .related-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .related-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all .2s ease;
+  }
+  .related-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+    background: var(--surface2);
+  }
+  .related-card-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--red);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .related-card-title {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    transition: color .2s;
+  }
+  .related-card:hover .related-card-title {
+    color: var(--red);
+  }
+  .related-card-desc {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  .related-card-arrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    transition: color .2s;
+  }
+  .related-card:hover .related-card-arrow {
+    color: var(--text);
+  }
+
+  /* GO TO TOP */
+  .go-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(17, 17, 19, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s ease;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .go-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  .go-to-top:hover {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
+    transform: translateY(-3px);
+  }
+  .go-to-top:active {
+    transform: translateY(-1px);
+  }
+
+  /* FOOTER */
+  footer{background:var(--surface);border-top:1px solid var(--border);padding:24px 32px;font-family:var(--mono);font-size:10px;color:var(--text-muted);letter-spacing:.08em;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
+  .src-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .src-tag{background:var(--surface2);border:1px solid var(--border2);padding:2px 8px;color:var(--text-muted);font-size:10px;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="op-label">Dossiê Investigativo Expandido · Versão 2.0 · Mai/2026</div>
+    <h1>Operação<br><span>Dakovo</span></h1>
+    <p class="subtitle">O maior esquema de tráfico internacional de armas da América do Sul — arquitectura completa, autoridades estrangeiras, lacunas abertas e alertas de risco sistémico.</p>
+    <div class="meta-row">
+      <div class="severity"><span class="severity-dot"></span> Gravidade Máxima</div>
+      <div class="meta-item">Deflagrada: <strong>5 Dez 2023</strong></div>
+      <div class="meta-item">Jurisdição Principal: <strong>2ª VCF Bahia</strong></div>
+      <div class="meta-item">Países: <strong>BR · PY · AR · US + 4 UE</strong></div>
+      <div class="meta-item">Padrões: <strong>P1 · P3 · P6</strong></div>
+    </div>
+</header>
+
+<nav class="dossier-navbar">
+  <div class="dossier-navbar-inner">
+    <a class="dossier-nav-link" href="#riscos">Riscos</a>
+    <a class="dossier-nav-link" href="#dimensao">Dimensão</a>
+    <a class="dossier-nav-link" href="#cronologia">Cronologia</a>
+    <a class="dossier-nav-link" href="#rota">Rota</a>
+    <a class="dossier-nav-link" href="#atores">Atores</a>
+    <a class="dossier-nav-link" href="#autoridades">Autoridades</a>
+    <a class="dossier-nav-link" href="#provas">Provas</a>
+    <a class="dossier-nav-link" href="#analise">Análise</a>
+    <a class="dossier-nav-link" href="#status">Status</a>
+    <a class="dossier-nav-link" href="#fontes">Fontes</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ ALERTAS PRIORITÁRIOS ══ -->
+<section id="riscos">
+  <div class="section-title"><span class="num">⚠</span> Alertas de Risco Activos</div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <div class="alert-title">RISCO CRÍTICO — 42.300 armas não recuperadas em circulação</div>
+      <div class="alert-text">Das ~43 mil armas traficadas, apenas 659 foram apreendidas (1,5%). O restante está distribuído pelas redes do PCC e CV em pelo menos 10 estados. Cada arma não recuperada é uma potencial arma de guerra urbana. Não existe programa de rastreamento ou recolha activo. O Estado brasileiro não demonstrou capacidade nem vontade política de enfrentar este défice.</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <div class="alert-title">RISCO CRÍTICO — Servidor da PGR identificado como elo financeiro</div>
+      <div class="alert-text">Wagner Vinicius de Oliveira Miranda, analista concursado da Procuradoria-Geral da República, foi alvo da Dakovo como suspeito de integrar o núcleo financeiro da organização. Representa infiltração documentada na própria instituição que deveria combater o crime organizado. Status processual: afastado por 30 dias — sem informação pública de condenação.</div>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-icon">🟡</div>
+    <div class="alert-body">
+      <div class="alert-title">RISCO ALTO — Extradição de Dirísio bloqueada há mais de 2 anos</div>
+      <div class="alert-text">O principal operador da rede está preso na Argentina desde fev/2024 mas a Suprema Corte argentina ainda não decidiu sobre a extradição. A CNN procurou o governo argentino e a Corte sem resposta. A defesa alega violação de soberania. Se a Argentina negar a extradição, pode julgar Dirísio internamente — com penas potencialmente menores e sem o corpus probatório brasileiro completo.</div>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-icon">🟡</div>
+    <div class="alert-body">
+      <div class="alert-title">RISCO ALTO — Investigação do vazamento sem conclusão pública</div>
+      <div class="alert-text">Dirísio fugiu dias antes da deflagração. A PF abriu investigação interna. Mais de 18 meses depois, não há resultado público. Padrão idêntico ao da Operação Carbono Oculto (ago/2025), onde 8 de 14 alvos desapareceram na véspera. A infiltração operacional nas forças de segurança não é hipótese — é padrão recorrente documentado.</div>
+    </div>
+  </div>
+
+  <div class="alert alert-blue">
+    <div class="alert-icon">🔵</div>
+    <div class="alert-body">
+      <div class="alert-title">RISCO MODERADO — Núcleo financeiro nos EUA sem processo penal visível</div>
+      <div class="alert-text">A Pallares Enterprises LLC (Miami) e Eduardo Tomas Pallares Viveros foram identificados pelo MPF como operadores centrais da lavagem de dinheiro. Os alvos "também serão processados nos Estados Unidos", segundo o MPF (jan/2024). Contudo, não há notícia pública de processo federal aberto nos EUA até mai/2026. O MLAT Brasil-EUA tem eficácia de apenas 22% segundo dados citados pelo ministro Moraes.</div>
+    </div>
+  </div>
+
+  <div class="alert alert-purple">
+    <div class="alert-icon">🟣</div>
+    <div class="alert-body">
+      <div class="alert-title">RISCO ESTRUTURAL — Fábricas europeias: ausência de resposta regulatória</div>
+      <div class="alert-text">Quatro países europeus (Croácia, República Tcheca, Eslovênia, Turquia) forneceram armas que chegaram a facções brasileiras. A empresa croata HS Produkt suspendeu voluntariamente as vendas após ser notificada — mas apenas quando a PF pediu dados de rastreamento. Nenhum dos países europeus abriu investigação pública sobre falhas nos seus sistemas de licenciamento de exportação. A UE não emitiu qualquer alerta regulatório conhecido.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIMENSÃO ══ -->
+<section id="dimensao">
+  <div class="section-title"><span class="num">01</span> Dimensão do Esquema</div>
+  <div class="stats-grid">
+    <div class="stat-card" style="--accent:var(--red)">
+      <div class="stat-value">43 mil</div>
+      <div class="stat-label">Armas traficadas (est.)</div>
+      <div class="stat-note">Out/2019 — Mar/2023 · PF/MPF</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--amber)">
+      <div class="stat-value">R$1,2bi</div>
+      <div class="stat-label">Movimentação financeira</div>
+      <div class="stat-note">3 anos · via Pallares LLC/Miami</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--blue)">
+      <div class="stat-value">28+</div>
+      <div class="stat-label">Denunciados pelo MPF</div>
+      <div class="stat-note">9+ condenações obtidas até ago/2025</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--green)">
+      <div class="stat-value">659</div>
+      <div class="stat-label">Armas apreendidas</div>
+      <div class="stat-note">1,5% do total · 67 operações · 10 estados</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--purple)">
+      <div class="stat-value">4+1</div>
+      <div class="stat-label">Militares PY condenados</div>
+      <div class="stat-note">+ ex-cmdt FA preso · Dimabel capturada</div>
+    </div>
+    <div class="stat-card" style="--accent:var(--orange)">
+      <div class="stat-value">US$5M</div>
+      <div class="stat-label">Confisco pedido pelo MPF</div>
+      <div class="stat-note">Patrimônio de Dirísio nos EUA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CRONOLOGIA ══ -->
+<section id="cronologia">
+  <div class="section-title"><span class="num">02</span> Cronologia Completa</div>
+  <div class="lead">A operação nasceu de uma apreensão de rotina, cresceu durante quatro anos de monitoramento silencioso, e continua produzindo desdobramentos judiciais em quatro países — mas o seu principal suspeito permanece em limbo jurídico.</div>
+
+  <div class="timeline">
+
+    <div class="tl-item" style="--tl-color:var(--blue)">
+      <div class="tl-dot" style="background:var(--blue)"></div>
+      <div class="tl-date">2012 · Início das Actividades</div>
+      <div class="tl-title">IAS-PY fundada — começa com automóveis, depois armas</div>
+      <div class="tl-desc">A International Auto Supply, sediada em Assunção, foi fundada pelo casal Dirísio/Nardi como empresa de importação de automóveis. A transição para armas iniciou-se gradualmente. Os primeiros fornecedores eram empresas norte-americanas — que suspenderam as vendas após identificar o desvio dos armamentos para o crime organizado brasileiro. Dirísio então procurou alternativas na Europa, começando pela Croácia numa feira de armas na Alemanha em 2019.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--blue)">
+      <div class="tl-dot" style="background:var(--blue)"></div>
+      <div class="tl-date">Outubro 2019 — Ignição da Investigação</div>
+      <div class="tl-title">Apreensão de 25 armas em Vitória da Conquista (BA) <span class="badge badge-blue">PRF</span></div>
+      <div class="tl-desc">A Polícia Rodoviária Federal apreende 23 pistolas e 2 fuzis numa paragem de rotina. Numerações raspadas. Peritos do Centro Nacional de Rastreamento da PF reconstroem os números de série. Rastreiam até a HS Produkt, fabricante croata, que confirma que as pistolas foram vendidas à International Auto Supply em Assunção. O fio da meada está puxado.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--amber)">
+      <div class="tl-dot" style="background:var(--amber)"></div>
+      <div class="tl-date">2019–2023 · Monitoramento Sistemático</div>
+      <div class="tl-title">4 anos, 67 apreensões, 7 núcleos mapeados <span class="badge badge-amber">GAECO-BA / PF</span></div>
+      <div class="tl-desc">O GAECO do MPF na Bahia e a PF constroem o dossiê durante quatro anos sem revelar a investigação. São identificadas 67 apreensões de armas IAS em 10 estados. A HS Produkt suspende as vendas a Dirísio quando notificada pela PF — facto que confirma o modus operandi e documenta que os fabricantes europeus cooperaram quando contactados. Dirísio migra para fornecedores turcos, eslovenos e checos.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--red)">
+      <div class="tl-dot" style="background:var(--red)"></div>
+      <div class="tl-date">5 Dezembro 2023 · Deflagração</div>
+      <div class="tl-title">Megaoperação em 3 países — 31 mandados de prisão, 54 buscas <span class="badge badge-red">PF + SENAD + HSI</span></div>
+      <div class="tl-desc">A PF actua em conjunto com a SENAD paraguaia e a HSI (Homeland Security Investigations) americana. No Brasil são cumpridos mandados em 9 cidades incluindo Foz do Iguaçu, Ponta Grossa, São Paulo, Salvador. No Paraguai são detidos 13 alvos incluindo militares de alta patente. Diego Dirísio e Julieta Nardi estão foragidos. A PF abre investigação interna sobre possível vazamento. O nome Dakovo provém da cidade croata onde a HS Produkt tem as suas fábricas.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--amber)">
+      <div class="tl-dot" style="background:var(--amber)"></div>
+      <div class="tl-date">Dezembro 2023</div>
+      <div class="tl-title">Armas apreendidas devolvidas à polícia paraguaia — escândalo <span class="badge badge-amber">Paraguai</span></div>
+      <div class="tl-desc">Cerca de 2 mil pistolas e fuzis apreendidos no Paraguai são devolvidos à polícia local numa cerimónia com o presidente Santiago Peña Palacios. A decisão gera controvérsia: armamento que serviu para identificar o esquema volta ao sistema institucional paraguaio — o mesmo que foi comprometido pelo Núcleo Dimabel. Dirísio concede suposta entrevista a site local criticando a devolução e afirmando inocência.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--amber)">
+      <div class="tl-dot" style="background:var(--amber)"></div>
+      <div class="tl-date">Dezembro 2023 — Janeiro 2024</div>
+      <div class="tl-title">Paraguai bloqueia R$ 66M · MPF denuncia 28 <span class="badge badge-amber">Judicial</span></div>
+      <div class="tl-desc">A Justiça paraguaia decreta o congelamento de R$ 66 milhões em bens dos alvos. Recurso da defesa negado pelo Tribunal de Apelação especializado. O MPF apresenta denúncia na 2ª Vara Federal Criminal da Bahia contra 28 pessoas organizadas em 7 núcleos. A ação penal é desmembrada por núcleos para agilizar as condenações.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--blue)">
+      <div class="tl-dot" style="background:var(--blue)"></div>
+      <div class="tl-date">2 Fevereiro 2024 · Captura</div>
+      <div class="tl-title">Interpol prende Dirísio e Nardi em Córdoba (Argentina) <span class="badge badge-blue">Interpol + PFA</span></div>
+      <div class="tl-desc">Agentes da Interpol Buenos Aires e da Unidade Operativa Federal de Córdoba prendem o casal após 57 dias de fuga, através de trabalho de inteligência e intercâmbio com a Interpol brasileira. Dirísio entra para a Difusão Vermelha da Interpol. O Brasil formaliza imediatamente pedido de extradição à Suprema Corte argentina. A Justiça Federal da Bahia solicita confisco de US$ 5 milhões do seu patrimônio.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--green)">
+      <div class="tl-dot" style="background:var(--green)"></div>
+      <div class="tl-date">Agosto 2025 · Condenação</div>
+      <div class="tl-title">9ª condenação obtida pelo MPF — núcleo de compras <span class="badge badge-green">Sentença</span></div>
+      <div class="tl-desc">O MPF obtém a condenação de mais um membro do núcleo de compras a 6 anos e 9 meses de reclusão em regime fechado. A sentença inclui R$ 50 mil em danos morais colectivos revertidos ao Fundo Nacional de Segurança Pública. O MPF recorre pedindo penas mais altas em todas as condenações.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--green)">
+      <div class="tl-dot" style="background:var(--green)"></div>
+      <div class="tl-date">Novembro 2025 · Condenação Dimabel</div>
+      <div class="tl-title">4 militares paraguaios condenados — capitã, tenente, coronel, general <span class="badge badge-green">Sentença</span></div>
+      <div class="tl-desc">A Justiça Federal condena os integrantes do Núcleo Dimabel a penas de 6a8m a 7a6m de reclusão em regime fechado. O MPF recorre ao TRF1 por considerar as penas-base de 4 anos desproporcionalmente baixas face à gravidade do uso de cargos públicos para viabilizar o tráfico internacional. Os militares permanecem presos no Paraguai aguardando extradição.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--blue)">
+      <div class="tl-dot" style="background:var(--blue)"></div>
+      <div class="tl-date">Janeiro 2026</div>
+      <div class="tl-title">Paraguai mantém militar presa — risco de fuga reconhecido <span class="badge badge-blue">Judicial PY</span></div>
+      <div class="tl-desc">O Judiciário paraguaio rejeita pedido de revisão da prisão de militar condenada pela Dakovo. O magistrado reconhece explicitamente risco de fuga e afirma que a libertação comprometeria o processo de extradição. O MP de ambos os países apoia a manutenção da prisão preventiva.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--orange)">
+      <div class="tl-dot" style="background:var(--orange)"></div>
+      <div class="tl-date">Março 2026</div>
+      <div class="tl-title">Paraguai prende Díaz Ocampos em Ciudad del Este <span class="badge badge-amber">Novo desdobramento</span></div>
+      <div class="tl-desc">Dario Eugenio Díaz Ocampos, 58 anos, é detido em cumprimento de mandado de prisão preventiva para fins de extradição emitido em 2023 pelo juiz Gustavo Amarilla. Investigado por lavagem de dinheiro proveniente do tráfico de armas. O casal tinha sido anteriormente investigado por ligação com tráfico de mulheres para a Espanha a partir de uma agência de viagens em Ciudad del Este.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--green)">
+      <div class="tl-dot" style="background:var(--green)"></div>
+      <div class="tl-date">9 Maio 2026 · Mais recente</div>
+      <div class="tl-title">Paraguai autoriza extradição de Díaz Ocampos para o Brasil <span class="badge badge-green">Decisão judicial</span></div>
+      <div class="tl-desc">O juiz Osmar Legal, especializado em crimes financeiros e crime organizado, autoriza a extradição de Díaz Ocampos. A sentença afirma que o pedido brasileiro cumpre todos os requisitos do Tratado de Extradição do Mercosul. As autoridades paraguaias consideram-no "peça importante" na engrenagem do tráfico. É o desdobramento mais recente da Dakovo, sinal de que o processo judicial prossegue.</div>
+    </div>
+
+    <div class="tl-item" style="--tl-color:var(--red)">
+      <div class="tl-dot" style="background:var(--red)"></div>
+      <div class="tl-date">Em aberto · Mai/2026</div>
+      <div class="tl-title">Extradição de Dirísio — Suprema Corte argentina sem decisão <span class="badge badge-red">Bloqueado</span></div>
+      <div class="tl-desc">Mais de 27 meses após a prisão, a Suprema Corte argentina não decidiu sobre a extradição. A defesa alega violação de soberania e impedimentos processuais. A CNN procurou o governo argentino sem resposta. O tratado de extradição Brasil-Argentina prevê que a negativa por motivo de nacionalidade obriga a Argentina a julgar internamente — mas com penas menores. O Brasil pede confisco de US$5M em activos.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ROTA ══ -->
+<section id="rota">
+  <div class="section-title"><span class="num">03</span> Arquitectura da Rota</div>
+  <div class="route-visual">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px">Fluxo operacional documentado pelo MPF · 2019–2023</div>
+    <div class="route-flow">
+      <div class="route-node">
+        <div class="route-node-flag">🇭🇷🇨🇿🇸🇮🇹🇷</div>
+        <div class="route-node-name">Fábricas UE/TR</div>
+        <div class="route-node-role">HS Produkt · CZ · Arex · Canik · Venda legal</div>
+      </div>
+      <div class="route-arrow">→</div>
+      <div class="route-node" style="border-color:var(--amber)">
+        <div class="route-node-flag">🇺🇸</div>
+        <div class="route-node-name">Pallares LLC · Miami</div>
+        <div class="route-node-role">Doleiros · Pagamentos ocultos · US$5M+</div>
+      </div>
+      <div class="route-arrow">→</div>
+      <div class="route-node" style="border-color:var(--red);background:rgba(224,62,62,.06)">
+        <div class="route-node-flag">🇵🇾</div>
+        <div class="route-node-name">IAS-PY · Assunção</div>
+        <div class="route-node-role">Raspagem · Docs falsos · Dimabel corrompida</div>
+      </div>
+      <div class="route-arrow">→</div>
+      <div class="route-node" style="border-color:var(--amber)">
+        <div class="route-node-flag">🇵🇾🇧🇷</div>
+        <div class="route-node-name">Fronteira Seca</div>
+        <div class="route-node-role">50–100 armas/viagem · Caminhões fretados</div>
+      </div>
+      <div class="route-arrow">→</div>
+      <div class="route-node" style="border-color:var(--red);background:rgba(224,62,62,.06)">
+        <div class="route-node-flag">🇧🇷</div>
+        <div class="route-node-name">PCC + CV</div>
+        <div class="route-node-role">10 estados · Pistolas calibre .50 a fuzis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-amber" style="margin-top:0">
+    <div class="alert-icon">💡</div>
+    <div class="alert-body">
+      <div class="alert-title">Detalhe crítico — Modificação para submetralhadoras</div>
+      <div class="alert-text">Os armeiros paraguaios não só raspavam números de série — em vários casos acoplavam seletores de rajada, transformando pistolas semiautomáticas em submetralhadoras. Isso aumentava o valor de mercado das armas e o poder de fogo das facções. O esquema não era apenas logístico: era de transformação bélica.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACTORES ══ -->
+<section id="atores">
+  <div class="section-title"><span class="num">04</span> Arquitectura da Rede — Actores Identificados</div>
+  <div class="network-grid">
+
+    <div class="node-card" style="--nc:var(--red)">
+      <div class="node-name">Diego Hernan Dirísio</div>
+      <div class="node-role">Liderança · "Mestre das Armas"</div>
+      <div class="node-desc">Argentino. Fundador da IAS-PY. Operava com "distância plausível" — nunca contactava directamente as facções. Em 2019 visitou feira de armas na Alemanha com Julieta Nardi e iniciou relação com fabricantes croatas. Tinha US$5M+ em activos incompatíveis com rendimentos declarados. Fugiu antes da Dakovo — indício de vazamento.</div>
+      <div class="node-status badge badge-red">Preso AR · Extradição pendente Suprema Corte</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--red)">
+      <div class="node-name">Julieta Vanessa Nardi Aranda</div>
+      <div class="node-role">Vice-Presidente IAS-PY · Co-operadora</div>
+      <div class="node-desc">Uruguaia/ex-modelo. Vice-presidente da IAS-PY. O MPF documenta que tinha conhecimento activo do destino ilegal das armas e "actuava na vigilância dos órgãos de segurança". Enviou fotos de fuzis em feiras de armas para Dirísio. Presa com o marido em Córdoba. Processo conjunto na Suprema Corte argentina.</div>
+      <div class="node-status badge badge-red">Presa AR · Extradição pendente</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--amber)">
+      <div class="node-name">Eduardo Tomas Pallares Viveros</div>
+      <div class="node-role">Núcleo Financeiro EUA · Doleiro</div>
+      <div class="node-desc">Operava a Pallares Enterprises LLC em Miami. Geria US$673.600 em 2021 e US$4.340.000 em 2022 para Dirísio — incompatível com qualquer rendimento declarado. O dinheiro saía de empresas de fachada no Brasil e Paraguai, passava pela Pallares LLC e era enviado em dólares directamente para as fábricas europeias e turcas.</div>
+      <div class="node-status badge badge-amber">Status EUA: sem condenação pública confirmada</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--amber)">
+      <div class="node-name">Wagner Vinicius de Oliveira Miranda</div>
+      <div class="node-role">Analista da PGR · Núcleo Financeiro BR</div>
+      <div class="node-desc">Servidor concursado da Procuradoria-Geral da República. Alvo da Dakovo como suspeito de integrar o núcleo financeiro. Suspeita de transacções entre a sua empresa Bravoshop Plataformas e a Bravo Brasil-iPhones Ltda usada para receber pagamentos do tráfico. Ligado a Angel Antônio Flecha Barrios, intermediário na fronteira.</div>
+      <div class="node-status badge badge-amber">Afastado 30 dias · Status posterior não confirmado</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--purple)">
+      <div class="node-name">Núcleo Dimabel — 4 militares condenados + ex-Cmdt FA</div>
+      <div class="node-role">Paraguai · Captura Institucional Estatal</div>
+      <div class="node-desc">Capitã Josefina Cuervas Galeano, Tenente, Coronel Bienvenido Santiago Fretes Gonzales + General Arturo Javier González Ocampo (ex-comandante da Força Aérea paraguaia). Recebiam subornos para autorizar importações, emitir documentos falsos e bloquear concorrentes. Condenados em nov/2025 a 6a8m-7a6m.</div>
+      <div class="node-status badge badge-green">Condenados · Presos no PY · Extradição em curso</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--blue)">
+      <div class="node-name">Júlio Cesar Cubas Cantero ("Taito")</div>
+      <div class="node-role">Intermediário Principal · Fronteira</div>
+      <div class="node-desc">Principal elo entre a IAS e as facções brasileiras. Conversas interceptadas mostram negociação de lotes com Ricardo Rangel e Edgar Espíndola, fotos de armas trocadas, confirmações de entrega via "freteiro". Coordenava transportes de 50-100 armas/caminhão.</div>
+      <div class="node-status badge badge-amber">Em processo · Extradição Brasil-PY</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--blue)">
+      <div class="node-name">Ricardo Rangel ("Sem Cabelo")<br>Adilson de Souza ("Amigo Mina")<br>Edgar Espíndola ("Chiva")</div>
+      <div class="node-role">Compradores PCC/CV · Condenados</div>
+      <div class="node-desc">Condenados por integrar organização criminosa fornecedora de armas ao PCC e CV. "Chiva" aplicava margem de lucro própria sobre o preço de Taito. Conversas interceptadas documentam negociações de pistolas e fuzis, confirmação de entrega e gestão financeira dos lotes.</div>
+      <div class="node-status badge badge-green">Condenados · Regime fechado</div>
+    </div>
+
+    <div class="node-card" style="--nc:var(--orange)">
+      <div class="node-name">Dario Eugenio Díaz Ocampos</div>
+      <div class="node-role">Núcleo Lavagem · Ciudad del Este</div>
+      <div class="node-desc">Paraguaio, 58 anos. Preso em mar/2026 em Ciudad del Este. Investigado por lavagem de dinheiro do tráfico de armas. Casal também investigado por tráfico de mulheres para a Espanha via agência de viagens em Ciudad del Este — conexão com redes criminosas mais amplas. Extradição autorizada em mai/2026.</div>
+      <div class="node-status badge badge-amber">Extradição autorizada PY · Mai/2026</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ AUTORIDADES ESTRANGEIRAS ══ -->
+<section id="autoridades">
+  <div class="section-title"><span class="num">05</span> Posição das Autoridades Estrangeiras <span class="lacuna lacuna-partial">Lacuna Parcialmente Resolvida</span></div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <div class="alert-title">Análise crítica — No Brasil não há interesse político em resolver</div>
+      <div class="alert-text">O governo Lula não apresentou qualquer iniciativa legislativa ou diplomática específica decorrente da Dakovo. O ministro Flávio Dino celebrou a operação em 2023 e foi depois nomeado para o STF. O seu sucessor no Ministério da Justiça não deu continuidade pública à agenda. A investigação do possível vazamento permanece sem resultado divulgado. É nas jurisdições estrangeiras que o processo avança — não em Brasília.</div>
+    </div>
+  </div>
+
+  <table class="auth-table">
+    <thead>
+      <tr>
+        <th>País / Instituição</th>
+        <th>Acções Documentadas</th>
+        <th>Estado Actual</th>
+        <th>Risco / Bloqueio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="auth-country">🇦🇷 Argentina</div><div class="auth-body">Suprema Corte da Nação · PFA · Interpol BA</div></td>
+        <td class="auth-action">Captura de Dirísio e Nardi em Córdoba (fev/2024). Extradição pedida pelo Brasil. Audiência online realizada nov/2025. Congelamento de bens decretado no Paraguai afecta activos argentinos.</td>
+        <td><span class="badge badge-red">Bloqueado</span><br><div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:6px">Suprema Corte sem decisão após 27 meses. CNN não obteve resposta do governo.</div></td>
+        <td class="auth-risk" style="color:var(--red)">ALTO · Nacionalidade argentina permite negar extradição e julgar internamente com penas menores. Tratado bilateral prevê essa hipótese mas não garante resultado equivalente.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇵🇾 Paraguai</div><div class="auth-body">SENAD · Judiciário · Ministério Público</div></td>
+        <td class="auth-action">Co-deflagração da operação (dez/2023). 13 presos. Bloqueio de R$66M. Condenação dos militares Dimabel. Extradição de Díaz Ocampos autorizada (mai/2026). Militar presa mantida em jan/2026.</td>
+        <td><span class="badge badge-green">Activo</span><br><div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:6px">O mais cooperativo dos países envolvidos. Processo avança com novas extradições em 2026.</div></td>
+        <td class="auth-risk" style="color:var(--amber)">MODERADO · A própria Dimabel foi o núcleo corrompido. Risco de recidiva institucional sem reforma estrutural documentada. Devolução das armas à polícia local em dez/2023 é sinal preocupante.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇺🇸 Estados Unidos</div><div class="auth-body">HSI · FICTA · DOJ · FinCEN</div></td>
+        <td class="auth-action">A HSI (Homeland Security Investigations) participou da operação via Força-Tarefa Internacional de Combate ao Tráfico de Armas (FICTA). Mandados de busca cumpridos nos EUA em dez/2023. MPF identificou Pallares LLC como elo de lavagem e pediu que alvos sejam processados nos EUA.</td>
+        <td><span class="badge badge-amber">Desconhecido</span><br><div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:6px">Sem processo federal público confirmado contra Pallares LLC. MLAT Brasil-EUA tem 22% de eficácia (dado Moraes/STF).</div></td>
+        <td class="auth-risk" style="color:var(--red)">ALTO · Pallares LLC operou em Miami com US$5M+. Sem persecução penal americana documentada, o elo financeiro central da rede permanece imune. Trump-era HSI redirecionou prioridades para imigração em 2025.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇭🇷 Croácia</div><div class="auth-body">HS Produkt · MUP (Polícia) · Agências de exportação</div></td>
+        <td class="auth-action">A fabricante HS Produkt suspendeu vendas à IAS-PY quando notificada pela PF — acção voluntária, não regulatória. A PF confirmou que "a empresa suspendeu as vendas a Dirísio" após identificação. Não há investigação penal pública na Croácia.</td>
+        <td><span class="badge badge-amber">Passivo</span><br><div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:6px">Cooperação reactiva, não proactiva. Sem investigação às falhas do sistema de licenciamento.</div></td>
+        <td class="auth-risk" style="color:var(--amber)">MODERADO · A Croácia é membro da UE e NATO. O seu sistema de controlo de exportações de armas falhou durante anos. A UE não emitiu alerta regulatório sobre esta rota.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇨🇿 República Checa</div><div class="auth-body">CZ (Česká zbrojovka) · Policie ČR</div></td>
+        <td class="auth-action">Armas identificadas em apreensões. PF confirmou como fornecedor activo após suspensão da Croácia. Sem investigação pública conhecida.</td>
+        <td><span class="badge badge-red">Sem resposta</span></td>
+        <td class="auth-risk" style="color:var(--red)">ALTO · Continuou a fornecer depois da HS Produkt suspender. Sem sanção nem investigação pública documentada.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇸🇮 Eslovênia</div><div class="auth-body">Arex · Polícia</div></td>
+        <td class="auth-action">Armas identificadas em apreensões. Sem investigação pública conhecida.</td>
+        <td><span class="badge badge-red">Sem resposta</span></td>
+        <td class="auth-risk" style="color:var(--amber)">MODERADO · Membro da UE. Falhas no sistema de end-user certificate não investigadas publicamente.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇹🇷 Turquia</div><div class="auth-body">Canik / Samsun Yurt Savunma</div></td>
+        <td class="auth-action">Armas Canik identificadas em apreensões. Turquia não é membro da UE, sistema de controlo de exportações menos regulado. Sem investigação pública conhecida.</td>
+        <td><span class="badge badge-red">Sem resposta</span></td>
+        <td class="auth-risk" style="color:var(--red)">ALTO · Menor escrutínio regulatório. Potencial substituto permanente para fornecedores europeus que suspendam vendas.</td>
+      </tr>
+      <tr>
+        <td><div class="auth-country">🇪🇺 União Europeia</div><div class="auth-body">Europol · Comissão Europeia</div></td>
+        <td class="auth-action">Europol tem documentação sobre PCC e CV na Europa (relatório 2021). Sem alerta específico sobre a rota Dakovo documentado. A UE tem regulamento de controlo de exportações de armas (Reg. 2021/821) mas a supervisão é nacional.</td>
+        <td><span class="badge badge-red">Ausente</span></td>
+        <td class="auth-risk" style="color:var(--red)">CRÍTICO · A maior falha regulatória é europeia. Armas legalmente fabricadas na UE chegaram às favelas do Rio e ao PCC durante 4 anos sem que qualquer alerta de inteligência da UE fosse activado. A supervisão de exportações para países terceiros é sistemicamente inadequada.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="analysis-card" style="margin-top:24px">
+    <h3>O vazio regulatório europeu — a lacuna mais grave</h3>
+    <p>O Regulamento UE 2021/821 exige que os Estados-Membros realizem avaliações de risco antes de aprovar licenças de exportação de armas para países terceiros, incluindo verificação do "utilizador final" (end-user certificate). Na prática, a IAS-PY apresentava-se como importador legítimo no Paraguai — um país com sistema de controlo fraco e agências corrompidas (Dimabel). As fábricas croatas, checas e eslovenas emitiram licenças que eram formalmente válidas.</p>
+    <p><strong>O que isso revela estruturalmente:</strong> O sistema europeu de controlo de exportações não verifica a integridade do utilizador final no destino — apenas a legalidade formal do importador. Dirísio explorou exactamente este intervalo entre a legalidade formal europeia e a corrupção institucional paraguaia. Esta falha continua activa. Nenhum dos países fornecedores modificou os seus procedimentos após a Dakovo.</p>
+  </div>
+</section>
+
+<!-- ══ PROVAS ══ -->
+<section id="provas">
+  <div class="section-title"><span class="num">06</span> Base Probatória</div>
+  <div style="overflow-x:auto">
+    <table class="evidence-table">
+      <thead>
+        <tr>
+          <th>Tipo</th><th>Conteúdo</th><th>Origem</th><th>Peso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reconstituição pericial</td>
+          <td>Números de série raspados reconstruídos; rastreados até HS Produkt (HR) que confirmou a IAS-PY como compradora</td>
+          <td>PF / Centro Nac. de Rastreamento</td>
+          <td><span class="badge badge-red">Prova directa</span></td>
+        </tr>
+        <tr>
+          <td>Interceptações telefónicas</td>
+          <td>Rangel/Taito: 12 pistolas (nov/2021); Espíndola/Taito: lotes 50-100 armas; Julieta Nardi: "vigilância dos órgãos de segurança"; Dirísio: negociações com fábricas europeias</td>
+          <td>GAECO-BA / PF</td>
+          <td><span class="badge badge-red">Prova directa</span></td>
+        </tr>
+        <tr>
+          <td>Análise pericial balística</td>
+          <td>348 de 659 armas apreendidas rastreadas directamente à IAS-PY; em várias, modificações de rajada identificadas</td>
+          <td>PF / GAECO</td>
+          <td><span class="badge badge-red">Prova directa</span></td>
+        </tr>
+        <tr>
+          <td>67 apreensões documentadas</td>
+          <td>Mapa de distribuição em 10 estados — BA, RJ, SP, MS, RS entre outros — confirmando escala e sistematicidade</td>
+          <td>MPF / 10 superintendências PF</td>
+          <td><span class="badge badge-red">Prova sistemática</span></td>
+        </tr>
+        <tr>
+          <td>Documentação Pallares LLC</td>
+          <td>Diagramas de fluxo financeiro: fachadas BR/PY → Pallares LLC Miami → fábricas EU/TR. US$673.600 (2021) + US$4.340.000 (2022) sob gestão de Pallares Viveros</td>
+          <td>MPF / quebras de sigilo</td>
+          <td><span class="badge badge-amber">Prova financeira</span></td>
+        </tr>
+        <tr>
+          <td>Documentos Dimabel</td>
+          <td>Licenças falsas, autorizações indevidas, correspondência interna dos militares paraguaios; influência de Dirísio na Dimabel descrita pelo MPF como "primordial para o êxito"</td>
+          <td>SENAD PY / MPF</td>
+          <td><span class="badge badge-red">Prova directa</span></td>
+        </tr>
+        <tr>
+          <td>Empresa DDM Aviação</td>
+          <td>Ligação entre empresa de David Ferreira ("Comandante Ferreira"), conhecido da PF, e pedidos de facções acompanhados de repasses financeiros relacionados com a rede Dakovo</td>
+          <td>MPF / análise de dados</td>
+          <td><span class="badge badge-amber">Prova conexa</span></td>
+        </tr>
+        <tr>
+          <td>Bloqueio de bens PY</td>
+          <td>R$66M congelados; recurso negado pelo Tribunal de Apelação especializado em crimes financeiros</td>
+          <td>Judiciário PY</td>
+          <td><span class="badge badge-green">Confirmação judicial</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ ANÁLISE ESTRUTURAL ══ -->
+<section id="analise">
+  <div class="section-title"><span class="num">07</span> Análise Estrutural</div>
+
+  <div class="analysis-card">
+    <h3>P1 — Captura institucional transnacional · Dimabel como paradigma</h3>
+    <p>O Núcleo Dimabel representa a forma mais pura de captura institucional: não uma agência que falhou na fiscalização, mas uma que foi activamente convertida em infra-estrutura de crime. O ex-comandante da Força Aérea paraguaia, um general, um coronel, uma capitã e uma tenente recebiam subornos para autorizar importações, emitir documentação falsa e bloquear concorrentes. O Estado paraguaio não foi vítima — foi instrumento.</p>
+    <p>Este padrão repete-se na identificação de um analista da PGR brasileira no núcleo financeiro da operação. A captura institucional na Dakovo operou em pelo menos três países simultaneamente: Paraguai (Dimabel), Brasil (PGR/analista), EUA (Pallares LLC). É captura transnacional coordenada, não coincidência.</p>
+  </div>
+
+  <div class="analysis-card">
+    <h3>P3 — Distância plausível como arquitectura jurídica</h3>
+    <p>Dirísio nunca contactou directamente facções brasileiras. Cada elo era gerido por um núcleo separado: compradores europeus (núcleo vendedores), operadores paraguaios (núcleo IAS), intermediários de fronteira (Cantero/Barrios), compradores brasileiros (Rangel/Espíndola/Souza), financeiros (Pallares). Esta separação funcional não é apenas operacional — é um design para resistir à persecução penal. Cada elo pode ser julgado por crimes menores sem implicar automaticamente o topo.</p>
+    <p>A PF precisou de quatro anos de monitoramento para reunir provas suficientes para ligar todos os elos. Isto também explica por que as penas aplicadas são, no entender do MPF, desproporcionalmente baixas: os juízes tendem a calibrar penas pelo papel individual de cada réu, não pelo impacto sistémico da rede.</p>
+  </div>
+
+  <div class="analysis-card">
+    <h3>P6 — Legalidade na origem como escudo · A arma legal que vira ilegal</h3>
+    <p>O esquema explorou a diferença entre legalidade formal e destinação real. As armas saíam da Europa com toda a documentação correcta. A criminalidade entrava apenas nos elos intermediários, geograficamente distantes dos fabricantes. Os fornecedores europeus podiam sustentar que venderam legalmente a um importador registado num país terceiro.</p>
+    <p><strong>O precedente crítico:</strong> quando a PF contactou a HS Produkt croata com os dados de rastreamento, a empresa suspendeu voluntariamente as vendas. Isto prova que o sistema de resposta existe — mas só funciona quando activado por uma investigação policial. Sem essa activação, as armas continuam a fluir. As empresas checas, eslovenas e turcas não receberam — ou ignoraram — sinais equivalentes.</p>
+  </div>
+
+  <div class="analysis-card">
+    <h3>Lacuna aberta — Correlação com homicídios e violência territorial</h3>
+    <p>A investigação não produziu análise pública correlacionando a chegada das armas IAS com picos de violência em territórios específicos. O Atlas da Violência (IPEA) regista homicídios por arma de fogo por município, mas sem rastreamento por origem da arma. Seria possível, cruzando as 67 apreensões geolocalizadas com dados do FBSP sobre conflitos territoriais nos mesmos períodos, construir uma hipótese de impacto. Esse trabalho não foi realizado publicamente. Constitui a maior lacuna analítica não resolvida da Dakovo.</p>
+  </div>
+</section>
+
+<!-- ══ STATUS ══ -->
+<section id="status">
+  <div class="section-title"><span class="num">08</span> Estado Actual · Mai/2026</div>
+  <div class="status-grid">
+    <div class="status-item">
+      <div class="status-item-label">Dirísio / Nardi · AR</div>
+      <div class="status-item-value"><span class="dot-critical">●</span> Impasse · 27 meses</div>
+      <div class="status-item-detail">Suprema Corte argentina sem decisão. CNN sem resposta do governo. Audiência online nov/2025 realizada. US$5M confisco pedido pelo MPF.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Militares Dimabel · PY</div>
+      <div class="status-item-value"><span class="dot-pending">●</span> Condenados · Recurso em TRF1</div>
+      <div class="status-item-detail">MPF pediu aumento de penas. Presos no PY aguardando extradição. Militar mantida presa em jan/2026.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Díaz Ocampos</div>
+      <div class="status-item-value"><span class="dot-pending">●</span> Extradição autorizada PY</div>
+      <div class="status-item-detail">Decisão de mai/2026 pelo juiz Osmar Legal. Pendente transferência para o Brasil. Ligado também a tráfico humano.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Processo Principal · Bahia</div>
+      <div class="status-item-value"><span class="dot-pending">●</span> Em andamento · 9+ condenações</div>
+      <div class="status-item-detail">2ª VCF Bahia. 28 denunciados, processo desmembrado por núcleos. MPF recorre de todas as penas por insuficiência.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Pallares LLC · EUA</div>
+      <div class="status-item-value"><span class="dot-critical">●</span> Sem processo público</div>
+      <div class="status-item-detail">Identificado pelo MPF como elo central de lavagem. Sem acusação federal americana confirmada. MLAT 22% de eficácia.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Vazamento interno · PF</div>
+      <div class="status-item-value"><span class="dot-critical">●</span> Investigação sem resultado</div>
+      <div class="status-item-detail">Dirísio fugiu dias antes. PF abriu inquérito. Mais de 18 meses sem resultado público. Padrão recorrente.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Analista PGR · Miranda</div>
+      <div class="status-item-value"><span class="dot-critical">●</span> Indefinido</div>
+      <div class="status-item-detail">Afastado por 30 dias em dez/2023. Sem condenação pública posterior confirmada. Represente infiltração na PGR.</div>
+    </div>
+    <div class="status-item">
+      <div class="status-item-label">Armas em circulação</div>
+      <div class="status-item-value"><span class="dot-critical">●</span> ~42.300 não recuperadas</div>
+      <div class="status-item-detail">1,5% do total apreendido. Sem programa de recolha activo. Distribuídas pelo PCC e CV em pelo menos 10 estados.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REFERÊNCIAS ══ -->
+<section id="fontes">
+  <div class="section-title"><span class="num">09</span> Referências com Links</div>
+  <div class="ref-grid">
+
+    <div class="ref-card">
+      <div class="ref-cat">Fontes Primárias · MPF e PF</div>
+      <div class="ref-item">
+        <div class="ref-title">MPF-BA — Deflagração Operação Dakovo</div>
+        <div class="ref-meta">Ministério Público Federal · Bahia · 5 Dez 2023</div>
+        <a class="ref-link" href="https://www.mpf.mp.br/ba/sala-de-imprensa/noticias-ba/brasil-e-paraguai-deflagram-na-data-de-hoje-a-operacao-dakovo-de-combate-ao-trafico-internacional-de-armas" target="_blank">mpf.mp.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">MPF-BA — Condenação militares paraguaios Dimabel</div>
+        <div class="ref-meta">Ministério Público Federal · Nov 2025</div>
+        <a class="ref-link" href="https://www.mpf.mp.br/ba/sala-de-imprensa/noticias-ba/operacao-dakovo-mpf-consegue-condenacao-de-militares-paraguaios-envolvidos-em-trafico-internacional-de-armas" target="_blank">mpf.mp.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Agência Gov — PF cumpre 19 mandados</div>
+        <div class="ref-meta">Agência Brasil / Agência Gov · Dez 2023</div>
+        <a class="ref-link" href="https://agenciagov.ebc.com.br/noticias/202312/201cso-e-possivel-superar-o-crime-organizado-indo-a-raiz-do-problema201d-diz-flavio-dino-sobre-operacao-que-combate-trafico-de-armas" target="_blank">agenciagov.ebc.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Agência Brasil — PF combate tráfico de armas</div>
+        <div class="ref-meta">Agência Brasil · Dez 2023</div>
+        <a class="ref-link" href="https://agenciabrasil.ebc.com.br/geral/noticia/2023-12/policia-federal-combate-trafico-de-armas-da-europa-para-o-brasil" target="_blank">agenciabrasil.ebc.com.br →</a>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-cat">Investigação Jornalística</div>
+      <div class="ref-item">
+        <div class="ref-title">SBT News — 28 alvos, provas do MPF (análise completa)</div>
+        <div class="ref-meta">SBT News · Jan 2024</div>
+        <a class="ref-link" href="https://sbtnews.sbt.com.br/noticia/justica/o-senhor-das-armas-do-cv-e-pcc-no-banco-dos-reus-as-provas-do-mpf-contra-28-alvos-operacao-dakovo-1" target="_blank">sbtnews.sbt.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Gazeta do Povo — O argentino maior fornecedor de armas</div>
+        <div class="ref-meta">Gazeta do Povo · Dez 2023</div>
+        <a class="ref-link" href="https://www.gazetadopovo.com.br/brasil/o-argentino-maior-fornecedor-trafico-de-armas-pcc-comando-vermelho/" target="_blank">gazetadopovo.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Istoé Dinheiro — 7 núcleos da organização</div>
+        <div class="ref-meta">Istoé Dinheiro · Dez 2023</div>
+        <a class="ref-link" href="https://istoedinheiro.com.br/pf-identifica-quadrilha-de-7-nucleos-em-investigacao-de-trafico-de-armas-para-pcc-e-cv/" target="_blank">istoedinheiro.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Fonte Segura — Como a PRF na Bahia iniciou o maior golpe</div>
+        <div class="ref-meta">Fórum Brasileiro de Segurança Pública · Jan 2025</div>
+        <a class="ref-link" href="https://fontesegura.forumseguranca.org.br/operacao-dakovo-como-um-posto-da-prf-na-bahia-iniciou-o-maior-golpe-no-trafico-de-armas/" target="_blank">fontesegura.forumseguranca.org.br →</a>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-cat">Extradição e Processo Judicial</div>
+      <div class="ref-item">
+        <div class="ref-title">CNN Brasil — Brasil tenta extraditar Mestre das Armas há 2 anos</div>
+        <div class="ref-meta">CNN Brasil · Nov 2025</div>
+        <a class="ref-link" href="https://www.cnnbrasil.com.br/nacional/brasil/brasil-tenta-extraditar-mestre-das-armas-ha-quase-dois-anos/" target="_blank">cnnbrasil.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Metrópoles — Brasil tenta extraditar Mestre das Armas</div>
+        <div class="ref-meta">Metrópoles · Nov 2025</div>
+        <a class="ref-link" href="https://www.metropoles.com/brasil/brasil-tenta-extraditar-mestre-das-armas-preso-na-argentina" target="_blank">metropoles.com →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Metrópoles — Conversas que condenaram três compradores</div>
+        <div class="ref-meta">Metrópoles · Fev 2025</div>
+        <a class="ref-link" href="https://www.metropoles.com/colunas/fabio-serapiao/as-conversas-que-condenaram-tres-compradores-de-armas-do-pcc-e-cv" target="_blank">metropoles.com →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">SBT News — Brasil e Paraguai negociam extradição</div>
+        <div class="ref-meta">SBT News · Fev 2024</div>
+        <a class="ref-link" href="https://sbtnews.sbt.com.br/noticia/policia/brasil-e-paraguai-negociam-extradicao-do-senhor-das-armas-que-abastecia-cv-e-pcc" target="_blank">sbtnews.sbt.com.br →</a>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-cat">Desdobramentos 2025–2026</div>
+      <div class="ref-item">
+        <div class="ref-title">Bahia Notícias — Militares condenados nov/2025</div>
+        <div class="ref-meta">Bahia Notícias · Nov 2025</div>
+        <a class="ref-link" href="https://www.bahianoticias.com.br/justica/noticia/73445-militares-paraguaios-sao-condenados-por-trafico-internacional-de-armas-para-faccoes-brasileiras.html" target="_blank">bahianoticias.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">CATVE — Paraguai mantém militar presa jan/2026</div>
+        <div class="ref-meta">CATVE · Jan 2026</div>
+        <a class="ref-link" href="https://catve.com/noticia/9/463211/justica-do-paraguai-mantem-presa-militar-acusada-de-fornecer-armas-ao-pcc-e-comando-vermelho" target="_blank">catve.com →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">Radio Cultura Foz — Paraguai autoriza extradição Díaz Ocampos</div>
+        <div class="ref-meta">Radio Cultura Foz · 9 Mai 2026</div>
+        <a class="ref-link" href="https://www.radioculturafoz.com.br/2026/05/09/operacao-dakovo-paraguai-autoriza-extradicao-de-suspeito-ligado-ao-pcc-e-cv" target="_blank">radioculturafoz.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">A Tarde — 9ª condenação Dakovo ago/2025</div>
+        <div class="ref-meta">A Tarde · Ago 2025</div>
+        <a class="ref-link" href="https://atarde.com.br/bahia/condenado-mais-um-envolvido-em-esquema-de-trafico-de-armas-1347600" target="_blank">atarde.com.br →</a>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-cat">Captura e Fuga</div>
+      <div class="ref-item">
+        <div class="ref-title">H2FOZ — Foragido da Dakovo preso pela Interpol na Argentina</div>
+        <div class="ref-meta">H2FOZ · Fev 2024</div>
+        <a class="ref-link" href="https://www.h2foz.com.br/fronteira/foragido-operacao-dakovo-preso-argentina/" target="_blank">h2foz.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">O Tempo — Argentino maior traficante de armas preso</div>
+        <div class="ref-meta">O Tempo · Fev 2024</div>
+        <a class="ref-link" href="https://www.otempo.com.br/mundo/argentino-apontado-como-maior-traficante-de-armas-na-america-latina-e-preso-1.3324032" target="_blank">otempo.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">SBT News — Wagner Miranda, analista da PGR como suspeito</div>
+        <div class="ref-meta">São Bento em Foco · Dez 2023</div>
+        <a class="ref-link" href="https://saobentoemfoco.com.br/quem-e-o-servidor-da-pgr-suspeito-de-ser-elo-financeiro-entre-pcc-e-cv/" target="_blank">saobentoemfoco.com.br →</a>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-cat">Contexto Europeu e Rotas de Armas</div>
+      <div class="ref-item">
+        <div class="ref-title">BBC/Correio Braziliense — Como fuzis importados chegam ao crime</div>
+        <div class="ref-meta">Correio Braziliense · Out 2025</div>
+        <a class="ref-link" href="https://www.correiobraziliense.com.br/mundo/2025/10/7281318-como-fuzis-importados-chegam-as-maos-do-crime-organizado-no-brasil.html" target="_blank">correiobraziliense.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">JusBrasil — Decisão TRF1 com identificação HS Produkt croata</div>
+        <div class="ref-meta">TRF1 · Abr 2025</div>
+        <a class="ref-link" href="https://www.jusbrasil.com.br/jurisprudencia/trf-1/3562299316/inteiro-teor-3562299345" target="_blank">jusbrasil.com.br →</a>
+      </div>
+      <div class="ref-item">
+        <div class="ref-title">MLAT Brasil-EUA — Eficácia 22% citada por Moraes</div>
+        <div class="ref-meta">Brasil 247 · Abr 2026</div>
+        <a class="ref-link" href="https://www.brasil247.com/blog/via-de-mao-unica" target="_blank">brasil247.com →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- RELATED ARTIFACTS SECTION -->
+  <section class="related-section" id="relacionados">
+    <div class="related-title">Artefatos Relacionados</div>
+    <div class="related-grid">
+      <a href="padroes-sistemicos-dashboard.html" class="related-card">
+        <div class="related-card-tag">Dashboard · Mapeamento</div>
+        <div class="related-card-title">Padrões Sistêmicos</div>
+        <div class="related-card-desc">8 padrões recorrentes de captura institucional mapeados com visualizações e evidências documentais.</div>
+        <div class="related-card-arrow">Ver Análise →</div>
+      </a>
+      <a href="republica-capturada.html" class="related-card">
+        <div class="related-card-tag">Lawfare · Diagnóstico</div>
+        <div class="related-card-title">República Capturada</div>
+        <div class="related-card-desc">Anatomia da captura institucional do Estado brasileiro — vetores, atores e mecanismos documentados.</div>
+        <div class="related-card-arrow">Ver Análise →</div>
+      </a>
+      <a href="duplo-padrao-judicial.html" class="related-card">
+        <div class="related-card-tag">Judiciário · Lawfare</div>
+        <div class="related-card-title">Duplo Padrão Judicial</div>
+        <div class="related-card-desc">Comparação sistemática de decisões judiciais para lados opostos do espectro político em casos análogos.</div>
+        <div class="related-card-arrow">Ver Análise →</div>
+      </a>
+      <a href="operacao-carbono-oculto.html" class="related-card">
+        <div class="related-card-tag">Ambiental · Lavagem</div>
+        <div class="related-card-title">Operação Carbono Oculto</div>
+        <div class="related-card-desc">Mapeamento da lavagem de ativos em créditos de carbono na Amazônia e elos com o crime organizado.</div>
+        <div class="related-card-arrow">Ver Análise →</div>
+      </a>
+      <a href="operacao-hydra-fintech-laundry.html" class="related-card">
+        <div class="related-card-tag">Fintechs · Lavagem</div>
+        <div class="related-card-title">Operação Hydra</div>
+        <div class="related-card-desc">Desvio de recursos por meio de contas de pagamento digitais e facilitação financeira transnacional.</div>
+        <div class="related-card-arrow">Ver Análise →</div>
+      </a>
+      <a href="operacao-narco-fluxo.html" class="related-card">
+        <div class="related-card-tag">Logística · Narcotráfico</div>
+        <div class="related-card-title">Operação Narco-Fluxo</div>
+        <div class="related-card-desc">A logística de exportação de cocaína para a Europa através de contêineres e portos brasileiros.</div>
+        <div class="related-card-arrow">Ver Análise →</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>Operação Dakovo — Dossiê Investigativo v2.0 · Compilado Mai/2026 · Todas as lacunas resolvidas ou classificadas · CC0 1.0 · gosurf.site</div>
+  <div class="src-tags">
+    <span class="src-tag">PF/Bahia</span><span class="src-tag">MPF-BA</span><span class="src-tag">GAECO-BA</span>
+    <span class="src-tag">SENAD-PY</span><span class="src-tag">HSI/EUA</span><span class="src-tag">Interpol</span>
+    <span class="src-tag">SBT News</span><span class="src-tag">CNN Brasil</span><span class="src-tag">Metrópoles</span>
+    <span class="src-tag">Gazeta do Povo</span><span class="src-tag">A Tarde</span><span class="src-tag">Radio Cultura Foz</span>
+    <span class="src-tag">FBSP/Fonte Segura</span><span class="src-tag">TRF1</span><span class="src-tag">2ª VCF Bahia</span>
+  </div>
+</footer>
+
+<button id="go-to-top" class="go-to-top" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navbarLinks = document.querySelectorAll('.dossier-nav-link');
+    const sections = Array.from(navbarLinks).map(link => {
+      const id = link.getAttribute('href').substring(1);
+      return document.getElementById(id);
+    }).filter(el => el !== null);
+
+    const goTopBtn = document.getElementById('go-to-top');
+
+    // Go to top scroll visibility
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        goTopBtn.classList.add('visible');
+      } else {
+        goTopBtn.classList.remove('visible');
+      }
+    });
+
+    // Go to top click
+    goTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Scroll Spy active navigation highlight
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    };
+
+    let activeLink = null;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navbarLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${id}`) {
+              if (activeLink) activeLink.classList.remove('active');
+              link.classList.add('active');
+              activeLink = link;
+
+              // Smoothly scroll the navbar on mobile to keep active item in view
+              const nav = document.querySelector('.dossier-navbar');
+              const linkRect = link.getBoundingClientRect();
+              const navRect = nav.getBoundingClientRect();
+              if (linkRect.left < navRect.left || linkRect.right > navRect.right) {
+                nav.scrollTo({
+                  left: link.offsetLeft - navRect.width / 2 + linkRect.width / 2,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+  });
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

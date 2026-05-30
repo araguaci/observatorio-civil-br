@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abono Blindado — lawfare-timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #080a0c;
+  --bg2:   #0f1215;
+  --bg3:   #161b20;
+  --line:  rgba(255,255,255,0.06);
+  --line2: rgba(255,255,255,0.11);
+  --text:  #e0e6ec;
+  --text2: #7a8898;
+  --text3: #3a4858;
+  --blue:  #3888d8;
+  --blue-bg: rgba(56,136,216,0.08);
+  --blue-border: rgba(56,136,216,0.22);
+  --amber: #d89030;
+  --amber-bg: rgba(216,144,48,0.08);
+  --amber-border: rgba(216,144,48,0.22);
+  --red:   #d84040;
+  --red-bg: rgba(216,64,64,0.07);
+  --red-border: rgba(216,64,64,0.22);
+  --green: #28b870;
+  --green-bg: rgba(40,184,112,0.08);
+  --green-border: rgba(40,184,112,0.22);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono:  'IBM Plex Mono', monospace;
+  --sans:  'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); color: var(--text); font-family: var(--mono); -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; position: relative; overflow-x: hidden; }
+
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--amber), var(--red), var(--blue));
+  background-size: 300% 100%;
+  animation: scan 6s linear infinite; z-index: 999;
+}
+@keyframes scan { to { background-position: 300% 0; } }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none; z-index: 0;
+}
+
+main { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; }
+
+/* ── HEADER ── */
+header { padding: 3rem 3rem 2rem; border-bottom: 1px solid var(--line2); }
+
+.meta-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.badge {
+  font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0.2rem 0.6rem; border-radius: 2px; font-weight: 600;
+}
+.b-blue   { background: var(--blue-bg);   color: var(--blue);  border: 1px solid var(--blue-border); }
+.b-amber  { background: var(--amber-bg);  color: var(--amber); border: 1px solid var(--amber-border); }
+.b-red    { background: var(--red-bg);    color: var(--red);   border: 1px solid var(--red-border); }
+.b-green  { background: var(--green-bg);  color: var(--green); border: 1px solid var(--green-border); }
+.b-dim    { background: rgba(255,255,255,0.03); color: var(--text3); border: 1px solid var(--line); }
+
+h1 {
+  font-family: var(--serif); font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 400; line-height: 1.0; color: var(--text); margin-bottom: 1rem;
+}
+h1 em { font-style: italic; color: var(--amber); }
+
+.header-sub { font-size: 0.75rem; color: var(--text2); line-height: 1.8; max-width: 680px; }
+
+/* ── AXIOM ── */
+.axiom {
+  background: var(--amber-bg);
+  border-top: 1px solid var(--amber-border);
+  border-bottom: 1px solid var(--amber-border);
+  padding: 1.1rem 3rem;
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.ax-label { font-size: 0.55rem; color: var(--amber); letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
+.ax-text  { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--text); line-height: 1.5; }
+
+/* ── NUMBERS STRIP ── */
+.nums { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border-bottom: 1px solid var(--line2); }
+.num-cell { padding: 1.8rem 2rem; border-right: 1px solid var(--line); }
+.num-cell:last-child { border-right: none; }
+.num-val { font-family: var(--sans); font-size: 1.7rem; font-weight: 800; line-height: 1; margin-bottom: 0.4rem; }
+.num-val.amber { color: var(--amber); }
+.num-val.red   { color: var(--red); }
+.num-val.blue  { color: var(--blue); }
+.num-val.green { color: var(--green); }
+.num-label { font-size: 0.62rem; color: var(--text3); line-height: 1.6; }
+.num-sub   { font-size: 0.62rem; color: var(--text2); margin-top: 0.25rem; }
+
+/* ── MECHANISM BLOCK ── */
+.mech-block {
+  padding: 2.5rem 3rem;
+  border-bottom: 1px solid var(--line2);
+}
+.sec-label { font-size: 0.55rem; color: var(--text3); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 2rem; display: block; }
+
+.logic-chain {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  border: 1px solid var(--line2);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.logic-step {
+  padding: 1.4rem 1.5rem;
+  border-right: 1px solid var(--line2);
+  position: relative;
+}
+.logic-step:last-child { border-right: none; }
+.logic-n { font-size: 0.55rem; color: var(--text3); letter-spacing: 0.15em; margin-bottom: 0.6rem; }
+.logic-title {
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.5rem; line-height: 1.3;
+}
+.logic-body { font-size: 0.7rem; color: var(--text2); line-height: 1.7; }
+.logic-body strong { color: var(--text); font-weight: 500; }
+.logic-step.highlight { background: var(--amber-bg); }
+.logic-step.highlight .logic-title { color: var(--amber); }
+
+/* ── TWO COL ── */
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line2);
+}
+@media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
+
+.col { padding: 2.5rem 3rem; border-right: 1px solid var(--line); }
+.col:last-child { border-right: none; }
+
+/* ── CASES TABLE ── */
+.cases-table { width: 100%; border-collapse: collapse; font-size: 0.68rem; margin-bottom: 1.5rem; }
+.cases-table th {
+  font-size: 0.55rem; color: var(--text3); letter-spacing: 0.15em; text-transform: uppercase;
+  text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--line2); font-weight: 500;
+}
+.cases-table td { padding: 0.7rem 0.6rem; border-bottom: 1px solid var(--line); color: var(--text2); vertical-align: top; }
+.cases-table tr:last-child td { border-bottom: none; }
+.cases-table .val { color: var(--text); font-weight: 500; }
+.cases-table .hot { color: var(--red); font-weight: 500; }
+.cases-table .justif { font-size: 0.62rem; color: var(--text3); font-style: italic; }
+
+/* ── OIS LANGUAGE ── */
+.ois-block {
+  margin-top: 1.5rem; padding: 1.2rem;
+  background: var(--red-bg); border: 1px solid var(--red-border); border-radius: 2px;
+}
+.ois-label { font-size: 0.55rem; color: var(--red); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.8rem; }
+.ois-row { margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--line); }
+.ois-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.ois-who { font-size: 0.6rem; color: var(--text3); margin-bottom: 0.25rem; }
+.ois-quote { font-family: var(--serif); font-size: 0.82rem; font-style: italic; color: var(--text2); border-left: 2px solid var(--red-border); padding-left: 0.7rem; line-height: 1.5; }
+
+/* ── PATTERN ── */
+.pattern-block {
+  padding: 2.5rem 3rem;
+  display: grid; grid-template-columns: 5rem 1fr;
+  gap: 2rem; align-items: start;
+  border-bottom: 1px solid var(--line2);
+}
+@media (max-width: 600px) { .pattern-block { grid-template-columns: 1fr; } }
+.p-codes { display: flex; flex-direction: column; gap: 0.5rem; }
+.p-code { font-family: var(--sans); font-size: 1.8rem; font-weight: 800; opacity: 0.25; line-height: 1; }
+.p-code.blue  { color: var(--blue); }
+.p-code.amber { color: var(--amber); }
+.p-code.red   { color: var(--red); }
+.p-body {}
+.p-title { font-family: var(--sans); font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 0.7rem; }
+.p-text { font-size: 0.72rem; color: var(--text2); line-height: 1.85; margin-bottom: 1rem; }
+.p-text strong { color: var(--text); font-weight: 500; }
+.p-finding {
+  padding: 1rem 1.2rem; background: var(--blue-bg);
+  border: 1px solid var(--blue-border); border-radius: 2px;
+  font-size: 0.7rem; color: var(--text2); line-height: 1.8;
+}
+.p-finding strong { color: var(--blue); font-weight: 500; }
+
+/* ── TREM METAPHOR ── */
+.metaphor {
+  padding: 2.5rem 3rem;
+  border-bottom: 1px solid var(--line2);
+  background: var(--bg2);
+}
+.metaphor-text {
+  font-family: var(--serif); font-size: clamp(1.1rem, 2.8vw, 1.55rem);
+  font-style: italic; color: var(--text); line-height: 1.5; max-width: 760px;
+}
+.metaphor-text em { color: var(--amber); }
+.metaphor-attr { font-size: 0.62rem; color: var(--text3); margin-top: 1rem; letter-spacing: 0.1em; }
+
+/* ── SOURCES ── */
+.sources { padding: 1.5rem 3rem; border-bottom: 1px solid var(--line); }
+.sources-label { font-size: 0.55rem; color: var(--text3); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.8rem; }
+.src-link { display: block; font-size: 0.65rem; color: var(--blue); text-decoration: none; line-height: 2; }
+.src-link:hover { text-decoration: underline; }
+
+/* ── FOOTER ── */
+footer { padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.f-left, .f-right { font-size: 0.6rem; color: var(--text3); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<main>
+
+<!-- HEADER -->
+<header class="reveal">
+  <div class="meta-row">
+    <span class="badge b-amber">lawfare-timeline</span>
+    <span class="badge b-blue">P03 — captura judicial</span>
+    <span class="badge b-red">P05 — recursos públicos</span>
+    <span class="badge b-dim">mai/2026 · SP · STF</span>
+  </div>
+  <h1>O Abono<br><em>Blindado</em></h1>
+  <div class="header-sub">
+    O STF extinguiu 15 penduricalhos em 25/mar/2026 e gerou narrativa de contenção. O mesmo acórdão preservou o abono permanência — o mecanismo que mais inflaciona contracheques do funcionalismo público. Em março, 62,7% dos procuradores do Estado de SP receberam acima do teto constitucional. Auditores fiscais chegaram a R$ 513 mil líquidos.
+  </div>
+</header>
+
+<!-- AXIOM -->
+<div class="axiom reveal">
+  <span class="ax-label">Mecanismo</span>
+  <span class="ax-text">A corte que define o teto é a mesma que define as exceções ao teto. A decisão que limita é a mesma que libera. O árbitro joga.</span>
+</div>
+
+<!-- NUMBERS -->
+<div class="nums reveal">
+  <div class="num-cell">
+    <div class="num-val amber">R$163k</div>
+    <div class="num-label">maior contracheque<br>procurador PGE-SP</div>
+    <div class="num-sub">mar/2026 · R$99k só de abono</div>
+  </div>
+  <div class="num-cell">
+    <div class="num-val red">62,7%</div>
+    <div class="num-label">procuradores SP<br>acima do teto</div>
+    <div class="num-sub">591 de 942 · março 2026</div>
+  </div>
+  <div class="num-cell">
+    <div class="num-val amber">R$31,5mi</div>
+    <div class="num-label">custo abono permanência<br>PGE-SP em um mês</div>
+    <div class="num-sub">908 de 942 receberam</div>
+  </div>
+  <div class="num-cell">
+    <div class="num-val red">R$513k</div>
+    <div class="num-label">maior contracheque<br>auditor fiscal SP</div>
+    <div class="num-sub">R$490k só de licença-prêmio<br>Fazenda-SP · abr/2026</div>
+  </div>
+  <div class="num-cell">
+    <div class="num-val blue">R$7,3bi</div>
+    <div class="num-label">economia estimada<br>pela decisão STF</div>
+    <div class="num-sub">estimativa do próprio tribunal<br>base: médias de 2025</div>
+  </div>
+  <div class="num-cell">
+    <div class="num-val green">R$46,3k</div>
+    <div class="num-label">teto constitucional<br>subsídio ministro STF</div>
+    <div class="num-sub">referência formal do sistema<br>base de cálculo dos limites</div>
+  </div>
+</div>
+
+<!-- MECHANISM -->
+<div class="mech-block reveal">
+  <span class="sec-label">// arquitetura da decisão — lógica interna documentada</span>
+
+  <div class="logic-chain">
+    <div class="logic-step">
+      <div class="logic-n">01 · GATILHO</div>
+      <div class="logic-title">Dino limina penduricalhos</div>
+      <div class="logic-body">Fev/2026: Flávio Dino dá 60 dias para os Três Poderes suspenderem verbas extrateto. Pressão pública máxima. Associações de magistrados e procuradores se mobilizam e se reúnem com ministros.</div>
+    </div>
+    <div class="logic-step">
+      <div class="logic-n">02 · JULGAMENTO</div>
+      <div class="logic-title">STF vota tese unificada</div>
+      <div class="logic-body">25/mar/2026: Plenário aprova regra nacional. Extinção de 15 verbas. Limite de 70% extrateto dividido em dois grupos de 35%. Economia declarada: <strong>R$ 7,3 bilhões/ano</strong>. Narrativa pública: "acabou o excesso".</div>
+    </div>
+    <div class="logic-step highlight">
+      <div class="logic-n">03 · EXCEÇÃO ESTRUTURAL</div>
+      <div class="logic-title">Abono permanência: imune</div>
+      <div class="logic-body">O mecanismo que mais inflaciona contracheques — pago a quem já pode se aposentar mas continua — <strong>fica fora do limite de 70%</strong>. Justificativa: "devolução de contribuição previdenciária". Na prática: pagamento mensal recorrente que ultrapassa o teto sem restrição.</div>
+    </div>
+    <div class="logic-step">
+      <div class="logic-n">04 · ACÓRDÃO</div>
+      <div class="logic-title">Publicação 8/mai/2026</div>
+      <div class="logic-body">216 páginas. Proíbe pagamento dividido em múltiplos contracheques. Exige divulgação clara dos valores. Atribui regulamentação ao CNJ e CNMP. O abono permanência <strong>não é mencionado como alvo</strong> de restrição.</div>
+    </div>
+  </div>
+
+  <div style="padding:1.2rem; background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:2px; font-size:0.72rem; color:var(--text2); line-height:1.8;">
+    <span style="font-size:0.55rem; color:var(--amber); letter-spacing:0.18em; text-transform:uppercase; display:block; margin-bottom:0.5rem;">conclusão analítica · ev-confirmed</span>
+    O STF operou em dois registros simultâneos: <strong style="color:var(--text)">registro público</strong> (extinção de penduricalhos, R$ 7,3bi de economia, narrativa de contenção) e <strong style="color:var(--text)">registro estrutural</strong> (preservação do mecanismo mais custoso, sem restrição formal, sem prazo, sem teto adicional). A exceção não é residual — 908 de 942 procuradores de SP recebem o benefício, ou seja, <strong style="color:var(--amber)">96,4% da carreira é atingida pela exceção</strong>. A regra é a exceção.
+  </div>
+</div>
+
+<!-- TWO COL: CASOS + LINGUAGEM OIS -->
+<div class="two-col">
+
+  <div class="col reveal">
+    <span class="sec-label">// casos documentados · Portal da Transparência SP · mar–abr 2026</span>
+
+    <table class="cases-table">
+      <thead>
+        <tr>
+          <th>carreira</th>
+          <th>valor</th>
+          <th>mecanismo</th>
+          <th>mês</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Procurador PGE-SP (maior)</td>
+          <td class="hot">R$163.000</td>
+          <td>R$99k de abono permanência</td>
+          <td>mar/26</td>
+        </tr>
+        <tr>
+          <td>Procuradora-Geral Inês Maria</td>
+          <td class="hot">R$94.562</td>
+          <td class="justif">~52 salários mínimos</td>
+          <td>mar/26</td>
+        </tr>
+        <tr>
+          <td>Procuradores PGE-SP (total)</td>
+          <td class="val">R$62mi</td>
+          <td>salários líquidos mês</td>
+          <td>mar/26</td>
+        </tr>
+        <tr>
+          <td>Auditor fiscal Fazenda-SP (maior)</td>
+          <td class="hot">R$513.273</td>
+          <td>R$490k licença-prêmio</td>
+          <td>abr/26</td>
+        </tr>
+        <tr>
+          <td>Auditores fiscais (penduricalhos)</td>
+          <td class="val">R$111,5mi</td>
+          <td>abono + licença-prêmio</td>
+          <td>mar/26</td>
+        </tr>
+        <tr>
+          <td>Teto constitucional (referência)</td>
+          <td class="val">R$46.366</td>
+          <td class="justif">subsídio ministro STF</td>
+          <td>2026</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="padding:1rem 1.2rem; background:var(--bg3); border:1px solid var(--line); border-radius:2px; font-size:0.68rem; color:var(--text2); line-height:1.8;">
+      <strong style="color:var(--text); font-weight:500;">Nota metodológica:</strong> Os dados são do Portal da Transparência do Estado de SP — fonte primária governamental. Nenhum valor foi inferido. A PGE e a Fazenda confirmaram os pagamentos; divergem apenas na qualificação jurídica ("indenizatório", "eventual", "extraordinário"). O corpus documenta o valor e a justificativa, sem colapsar os registros.
+    </div>
+  </div>
+
+  <div class="col reveal">
+    <span class="sec-label">// linguagem institucional OIS — padrão documentado</span>
+
+    <div style="font-size:0.7rem; color:var(--text2); line-height:1.8; margin-bottom:1.5rem;">
+      A resposta institucional ao questionamento segue o padrão <strong style="color:var(--text)">Operador Inconsciente do Sistema</strong> documentado em 12/05/2026: não nega o valor, qualifica juridicamente a natureza, e apresenta o cumprimento da lei como evidência de moralidade. A racionalização é fluída — provavelmente genuína.
+    </div>
+
+    <div class="ois-block">
+      <div class="ois-label">linguagem OIS institucional · três instâncias</div>
+
+      <div class="ois-row">
+        <div class="ois-who">PGE-SP — procuradores (2026)</div>
+        <div class="ois-quote">"valores referem-se à indenização de direitos acumulados, de natureza eventual e extraordinária, não se tratando de remuneração recorrente"</div>
+      </div>
+
+      <div class="ois-row">
+        <div class="ois-who">Fazenda-SP — auditores (abr/2026)</div>
+        <div class="ois-quote">"todos os pagamentos realizados observam rigorosamente os dispositivos legais vigentes e são passíveis de controle pelos órgãos de fiscalização competentes"</div>
+      </div>
+
+      <div class="ois-row">
+        <div class="ois-who">PGE-SP — procuradores (2024, padrão anterior)</div>
+        <div class="ois-quote">"os procuradores do Estado não recebem nenhuma verba remuneratória acima do teto, inclusive a título de verba honorária"</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem; padding:1rem 1.2rem; background:var(--red-bg); border:1px solid var(--red-border); border-radius:2px;">
+      <div style="font-size:0.55rem; color:var(--red); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.5rem;">padrão analítico</div>
+      <div style="font-size:0.7rem; color:var(--text2); line-height:1.8;">
+        A palavra "eventual" é tecnicamente defensável e factualmente falsa na prática: <strong style="color:var(--text)">908 de 942 procuradores recebem o abono todo mês</strong>. "Eventual" descreve a natureza jurídica do instrumento — não a regularidade do pagamento. A distinção é real e é usada para tornar invisível o padrão.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PATTERN -->
+<div class="pattern-block reveal">
+  <div class="p-codes">
+    <div class="p-code blue">P03</div>
+    <div class="p-code amber">P05</div>
+  </div>
+  <div class="p-body">
+    <div class="p-title">Captura judicial + recursos públicos como vetor — instância combinada</div>
+    <div class="p-text">
+      <strong>P03 — Captura Judicial Emergencial:</strong> o STF funciona simultaneamente como árbitro do sistema remuneratório e beneficiário direto das regras que estabelece. Os ministros não são atingidos pelo corte (teto já era seu subsídio). As exceções preservadas são as que mais beneficiam as carreiras com maior densidade de servidores próximos à aposentadoria — exatamente o perfil que mais usa o abono permanência. A corte não decidiu contra seu interesse; decidiu dentro dele.<br><br>
+      <strong>P05 — Recursos Públicos como Vetor:</strong> R$ 31,5 milhões pagos a 908 procuradores de SP em um único mês via mecanismo que o STF acabou de "limitar". R$ 111,5 milhões a auditores da Fazenda-SP no mês seguinte. O teto existe no papel; a folha de pagamento existe no Portal da Transparência. A distância entre os dois é o campo onde o sistema opera.
+    </div>
+    <div class="p-finding">
+      <strong>Achado estrutural:</strong> "A Justiça decide sobre os salários de seus próprios membros" — Juliana Sakai, Transparência Brasil (Estadão, 2024). Esta frase sintetiza o conflito de interesse estrutural com precisão cirúrgica. Não é acusação — é descrição da arquitetura institucional. O mesmo design que produz o INQ 4.781 (juiz + investigador + relator das contestações) produz, em registro diferente, a corte que define tetos e suas próprias exceções.
+    </div>
+  </div>
+</div>
+
+<!-- METAPHOR / CLOSING -->
+<div class="metaphor reveal">
+  <div class="metaphor-text">
+    "Como um trem descendo a serra <em>sem freios</em>."<br>
+    O freio foi instalado. Tem placa de inauguração.<br>
+    <em>Não está conectado às rodas.</em>
+  </div>
+  <div class="metaphor-attr">lawfare-timeline · P03/P05 · mecanismo_sistemico · 12 mai 2026 · ev-confirmed</div>
+</div>
+
+<!-- SOURCES -->
+<div class="sources reveal">
+  <div class="sources-label">// fontes primárias</div>
+  <a class="src-link" href="https://www.estadao.com.br/politica/blog-do-fausto-macedo/penduricalho-blindado-pelo-stf-turbina-salarios-e-paga-r-31-milhoes-a-procuradores-do-estado-em-sp/" target="_blank">Estadão — Penduricalho blindado pelo STF turbina salários e paga R$ 31 milhões a procuradores do Estado em SP (mai/2026)</a>
+  <a class="src-link" href="https://www.poder360.com.br/poder-justica/stf-autoriza-penduricalhos-com-limite-de-35-acima-do-teto/" target="_blank">Poder360 — STF libera penduricalhos e juízes podem ganhar até 70% extrateto (25/mar/2026)</a>
+  <a class="src-link" href="https://www.poder360.com.br/poder-justica/decisao-do-stf-libera-ate-r-422-mil-extrateto-por-ano-a-juizes/" target="_blank">Poder360 — Decisão do STF libera até R$ 422 mil extrateto por ano a juízes (26/mar/2026)</a>
+  <a class="src-link" href="https://www.metropoles.com/colunas/manoela-alcantara/stf-penduricalhos-judiciario-ministerio-publico" target="_blank">Metrópoles — Entenda regras do STF que limitaram penduricalhos (8/mai/2026)</a>
+  <a class="src-link" href="https://fatonews.com.br/2026/04/28/penduricalhos-da-fazenda-sp-custaram-r-111-milhoes-em-um-mes-maior-salario-e-r-513-mil/" target="_blank">FatoNews — Penduricalhos da Fazenda-SP custaram R$ 111 milhões em um mês; maior salário é R$ 513 mil (abr/2026)</a>
+  <a class="src-link" href="https://www.transparencia.sp.gov.br/" target="_blank">Portal da Transparência do Estado de São Paulo (fonte primária governamental)</a>
+</div>
+
+<footer>
+  <div class="f-left"><a href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener noreferrer">lawfare-timeline</a> · <a href="https://gosurf.site" target="_blank" rel="noopener noreferrer">gosurf.site</a></div>
+  <div class="f-right">CC0 1.0 Universal — Domínio Público Total</div>
+</footer>
+
+</main>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.04 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

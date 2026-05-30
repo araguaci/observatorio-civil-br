@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Não É Conspiração — É Documentação · lawfare-timeline</title>
+<meta name="description" content="Este projeto documenta controle estatal e corporativo sobre vítimas reais com fontes primárias verificáveis. Não é teoria, não é opinião, não é niilismo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d0d0b;--ink2:#2a2a28;--ink3:#555550;
+  --paper:#f5f2eb;--paper2:#ede9e0;--paper3:#e4e0d6;
+  --red:#8b1a1a;--red2:#c0392b;--amber:#8b6914;--amber2:#b8860b;
+  --teal:#1a4a3a;--teal2:#2e7d5a;--blue:#1a2f4a;
+  --serif:'Playfair Display',serif;
+  --body:'Crimson Pro',serif;
+  --mono:'JetBrains Mono',monospace;
+  --rule:1px solid rgba(13,13,11,.15);
+  --rule2:1px solid rgba(13,13,11,.08);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── GRAIN TEXTURE ─── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1000;opacity:.6;
+}
+
+/* ─── HEADER ─── */
+.masthead{
+  padding:80px 40px 60px;
+  border-bottom:2px solid var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+.masthead::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 40px,var(--paper) 40px,var(--paper) 48px);
+}
+.edition-line{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  color:var(--ink3);text-transform:uppercase;
+  margin-bottom:32px;
+  display:flex;gap:32px;flex-wrap:wrap;
+  border-bottom:var(--rule);padding-bottom:12px;
+}
+.masthead h1{
+  font-family:var(--serif);
+  font-size:clamp(36px,5vw,72px);
+  font-weight:900;line-height:1.05;
+  letter-spacing:-.5px;
+  margin-bottom:8px;
+}
+.masthead h1 .not{color:var(--red)}
+.masthead h1 .is{color:var(--teal)}
+.masthead .deck{
+  font-family:var(--body);font-size:clamp(16px,2vw,22px);
+  font-weight:300;color:var(--ink2);
+  max-width:700px;margin-top:20px;line-height:1.5;
+}
+.masthead .deck strong{font-weight:600;color:var(--ink)}
+
+/* ─── CONTAINER ─── */
+.container{max-width:960px;margin:0 auto;padding:0 40px}
+@media(max-width:600px){.container{padding:0 20px}}
+
+/* ─── LEAD ─── */
+.lead-section{padding:60px 0;border-bottom:var(--rule)}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:700px){.lead-grid{grid-template-columns:1fr}}
+
+.lead-col h2{
+  font-family:var(--serif);font-size:28px;font-weight:700;
+  margin-bottom:16px;
+}
+.lead-col p{font-size:17px;color:var(--ink2);line-height:1.7}
+.lead-col p+p{margin-top:12px}
+.overline{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  color:var(--red);text-transform:uppercase;
+  margin-bottom:8px;display:block;
+}
+.overline.teal{color:var(--teal2)}
+.overline.amber{color:var(--amber2)}
+
+/* ─── PULL QUOTE ─── */
+.pullquote{
+  padding:40px 0;
+  border-top:3px double var(--ink);
+  border-bottom:3px double var(--ink);
+  margin:40px 0;
+}
+.pullquote p{
+  font-family:var(--serif);font-size:clamp(20px,3vw,32px);
+  font-weight:400;font-style:italic;
+  line-height:1.4;color:var(--ink);
+  max-width:780px;
+}
+.pullquote cite{
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  color:var(--ink3);margin-top:16px;display:block;
+  font-style:normal;text-transform:uppercase;
+}
+
+/* ─── THE THREE ─── */
+.three-section{padding:60px 0;border-bottom:var(--rule)}
+.three-section h2{
+  font-family:var(--serif);font-size:clamp(24px,3vw,40px);
+  font-weight:900;margin-bottom:40px;
+}
+.three-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink)}
+@media(max-width:700px){.three-grid{grid-template-columns:1fr}}
+.three-item{
+  background:var(--paper);padding:28px 24px;
+  position:relative;overflow:hidden;
+}
+.three-item::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+}
+.three-item.red::before{background:var(--red)}
+.three-item.teal::before{background:var(--teal)}
+.three-item.amber::before{background:var(--amber)}
+.three-item .no{
+  font-family:var(--serif);font-size:48px;font-weight:900;
+  opacity:.08;position:absolute;right:16px;top:8px;
+  line-height:1;
+}
+.three-item h3{
+  font-family:var(--serif);font-size:22px;font-weight:700;
+  margin-bottom:12px;
+}
+.three-item .what{
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  color:var(--ink3);margin-bottom:16px;text-transform:uppercase;
+}
+.three-item p{font-size:15px;color:var(--ink2);line-height:1.6}
+
+/* ─── EVIDENCE HIERARCHY ─── */
+.evidence-section{padding:60px 0;border-bottom:var(--rule)}
+.evidence-section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:32px;
+}
+.ev-row{
+  display:grid;grid-template-columns:80px 1fr;
+  border-bottom:var(--rule2);padding:16px 0;
+  align-items:start;gap:20px;
+}
+.ev-row:first-of-type{border-top:var(--rule)}
+.ev-level{
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  color:#fff;background:var(--ink);
+  padding:4px 8px;border-radius:2px;text-align:center;
+  white-space:nowrap;
+}
+.ev-level.i{background:var(--teal)}
+.ev-level.ii{background:var(--teal2)}
+.ev-level.iii{background:var(--amber)}
+.ev-level.iv{background:var(--amber2);color:var(--ink)}
+.ev-level.x{background:var(--red)}
+.ev-content strong{font-weight:600;display:block;margin-bottom:4px;font-size:16px}
+.ev-content span{font-size:14px;color:var(--ink3);font-family:var(--mono)}
+
+/* ─── VICTIMS ─── */
+.victims-section{
+  padding:60px 0;border-bottom:var(--rule);
+  background:var(--paper2);
+  margin:0 -40px;padding:60px 40px;
+}
+.victims-section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:12px;
+}
+.victims-section .intro{font-size:16px;color:var(--ink2);margin-bottom:32px;max-width:700px}
+.victims-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.victim-card{
+  background:var(--paper);border:1px solid rgba(13,13,11,.12);
+  padding:20px;position:relative;
+}
+.victim-card::before{
+  content:'';width:3px;position:absolute;top:0;left:0;bottom:0;
+  background:var(--red);
+}
+.victim-card .category{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  color:var(--red);text-transform:uppercase;margin-bottom:8px;
+}
+.victim-card .fact{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.4}
+.victim-card .source{
+  font-family:var(--mono);font-size:10px;color:var(--ink3);
+  margin-top:8px;padding-top:8px;border-top:var(--rule2);
+}
+.victim-card .source a{color:var(--teal2);text-decoration:none}
+.victim-card .source a:hover{text-decoration:underline}
+
+/* ─── MEDIA SILENCE ─── */
+.silence-section{padding:60px 0;border-bottom:var(--rule)}
+.silence-section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:32px;
+}
+.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink)}
+@media(max-width:600px){.comparison-grid{grid-template-columns:1fr}}
+.comp-col{background:var(--paper);padding:24px}
+.comp-col.alt{background:var(--paper2)}
+.comp-col h3{
+  font-family:var(--mono);font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;
+  border-bottom:2px solid var(--ink);
+}
+.comp-col h3.red{border-color:var(--red);color:var(--red)}
+.comp-col h3.teal{border-color:var(--teal2);color:var(--teal2)}
+.comp-item{
+  font-size:14px;color:var(--ink2);padding:8px 0;
+  border-bottom:var(--rule2);line-height:1.5;
+}
+.comp-item:last-child{border-bottom:none}
+.comp-item strong{color:var(--ink)}
+
+/* ─── WHAT WE DO ─── */
+.method-section{padding:60px 0;border-bottom:var(--rule)}
+.method-section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:32px;
+}
+.method-row{
+  display:grid;grid-template-columns:200px 1fr;gap:24px;
+  padding:16px 0;border-bottom:var(--rule2);align-items:start;
+}
+.method-row:first-of-type{border-top:var(--rule)}
+.method-do{font-family:var(--mono);font-size:12px;color:var(--teal2);font-weight:500}
+.method-dont{font-family:var(--mono);font-size:12px;color:var(--red)}
+.method-desc{font-size:16px;color:var(--ink2);line-height:1.6}
+@media(max-width:600px){.method-row{grid-template-columns:1fr}}
+
+/* ─── STATS ─── */
+.stats-section{
+  padding:60px 0;border-bottom:var(--rule);
+  background:var(--ink);color:var(--paper);
+  margin:0 -40px;padding:60px 40px;
+}
+.stats-section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:32px;color:var(--paper);
+}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,.1)}
+.stat-box{
+  padding:24px 20px;
+  background:var(--ink);
+}
+.stat-box .num{
+  font-family:var(--serif);font-size:clamp(32px,4vw,52px);
+  font-weight:900;color:var(--paper);
+  line-height:1;margin-bottom:8px;
+}
+.stat-box .num span{color:#c0392b}
+.stat-box .label{
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  color:rgba(245,242,235,.5);text-transform:uppercase;line-height:1.4;
+}
+
+/* ─── SOURCES ─── */
+.sources-section{padding:60px 0;border-bottom:var(--rule)}
+.sources-section h2{
+  font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:32px;
+}
+.source-row{
+  display:grid;grid-template-columns:160px 1fr auto;
+  gap:16px;padding:12px 0;border-bottom:var(--rule2);
+  align-items:baseline;
+}
+@media(max-width:600px){.source-row{grid-template-columns:1fr;gap:4px}}
+.source-row:first-of-type{border-top:var(--rule)}
+.source-type{
+  font-family:var(--mono);font-size:10px;letter-spacing:1px;
+  color:var(--ink3);text-transform:uppercase;
+}
+.source-title{font-size:15px;color:var(--ink2)}
+.source-link a{
+  font-family:var(--mono);font-size:11px;color:var(--teal2);
+  text-decoration:none;
+}
+.source-link a:hover{text-decoration:underline}
+
+/* ─── FOOTER ─── */
+.footer{
+  padding:40px;border-top:2px solid var(--ink);
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
+  align-items:flex-end;
+}
+.footer-left .project{
+  font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:4px;
+}
+.footer-left .tagline{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  color:var(--ink3);text-transform:uppercase;
+}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{
+  font-family:var(--mono);font-size:11px;color:var(--teal2);
+  text-decoration:none;letter-spacing:.5px;
+}
+.footer-links a:hover{text-decoration:underline}
+
+/* ─── ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.revealed{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal,.revealed{opacity:1;transform:none;transition:none}}
+
+/* ─── DIVIDER ─── */
+.section-rule{height:2px;background:repeating-linear-gradient(90deg,var(--ink) 0,var(--ink) 20px,transparent 20px,transparent 28px);margin:0;opacity:.15}
+</style>
+</head>
+<body>
+
+<!-- ─── MASTHEAD ─── -->
+<header class="masthead">
+<div class="container">
+  <div class="edition-line">
+    <span>lawfare-timeline.vercel.app</span>
+    <span>1.424+ entradas documentadas</span>
+    <span>padrão forense · fontes primárias</span>
+    <span>mai 2026</span>
+  </div>
+  <h1>
+    <span class="not">Não É</span><br>
+    Conspiração.<br>
+    <span class="is">É Documentação.</span>
+  </h1>
+  <p class="deck">
+    Este projeto registra o <strong>controle estatal e corporativo sobre vítimas reais</strong> —
+    com nomes, processos, valores e datas verificáveis. Cada entrada deriva de
+    fonte primária pública. Nenhuma especulação. Nenhuma inferência de intenção sem prova material.
+  </p>
+</div>
+</header>
+
+<!-- ─── LEAD ─── -->
+<section class="lead-section">
+<div class="container">
+  <div class="lead-grid reveal">
+    <div class="lead-col">
+      <span class="overline">O problema</span>
+      <h2>O que a mídia corporativa não mostra</h2>
+      <p>Quando um ministro do STF bloqueia as contas bancárias de oito empresários por mensagens privadas de WhatsApp — antes de qualquer condenação — isso não é notícia prioritária nos grandes veículos.</p>
+      <p>Quando 1.500 pessoas são condenadas em tempo recorde por manifestação enquanto zero condenações definitivas são produzidas por R$ 2,27 bilhões desviados da pandemia, a assimetria não recebe headline.</p>
+      <p>Quando um ministro do STF torna-se réu em tribunal federal americano por censura transfronteiriça — primeiro caso na história —, a cobertura é mínima ou invertida.</p>
+    </div>
+    <div class="lead-col">
+      <span class="overline teal">A resposta</span>
+      <h2>O que este projeto faz</h2>
+      <p>Registra. Com método. Com fonte. Com data.</p>
+      <p>Não é análise política. Não é torcida. Não é revelação de "a verdade que escondem." É a aplicação do mesmo método que qualquer tribunal de contas deveria aplicar: <strong>fato, fonte, data, consequência mensurável</strong>.</p>
+      <p>O leitor tira as conclusões. O projeto entrega o material verificável que permite tirá-las.</p>
+    </div>
+  </div>
+
+  <div class="pullquote reveal">
+    <p>"Um sistema só pode ser rompido por quem consegue nomeá-lo com exatidão."</p>
+    <cite>— Maquiavel · Sun-Tzu · Gramsci · Orwell · Arendt · Kafka — convergência documentada em violencia-estatal-captura.html</cite>
+  </div>
+</div>
+</section>
+
+<!-- ─── THREE ─── -->
+<section class="three-section">
+<div class="container">
+  <h2 class="reveal">Este projeto <em>não é</em> nenhuma dessas três coisas</h2>
+  <div class="three-grid reveal">
+    <div class="three-item red">
+      <div class="no">✗</div>
+      <div class="what">Não é</div>
+      <h3>Conspiração</h3>
+      <p>Conspiração atribui intenção coordenada sem prova de cadeia de comando. Este projeto não inferiu uma única intenção que não esteja documentada em fonte primária. Quando a prova não existe, a entrada não existe.</p>
+    </div>
+    <div class="three-item teal">
+      <div class="no">✗</div>
+      <div class="what">Não é</div>
+      <h3>Opinião</h3>
+      <p>Opinião é avaliação subjetiva. Este projeto documenta: "Moraes assinou o mandado X" — não "Moraes agiu de má-fé." "A decisão viola o art. 5º, LV, CF/88" — não "o STF é ilegítimo." A conclusão moral pertence ao leitor.</p>
+    </div>
+    <div class="three-item amber">
+      <div class="no">✗</div>
+      <div class="what">Não é</div>
+      <h3>Niilismo</h3>
+      <p>Niilismo recusa qualquer valor ou ação. Este projeto parte do pressuposto oposto: os fatos importam, o registro importa, a memória importa. Vítimas reais foram produzidas. Documentá-las é um ato de responsabilidade, não de desespero.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ─── VICTIMS ─── -->
+<section class="victims-section reveal">
+<div class="container">
+  <h2>Vítimas reais. Fatos verificáveis.</h2>
+  <p class="intro">Estas não são abstrações políticas. São pessoas e instituições afetadas por atos documentados em processos públicos, diários oficiais e decisões com número de autos.</p>
+  <div class="victims-grid">
+
+    <div class="victim-card">
+      <div class="category">Domínio financeiro</div>
+      <div class="fact">8 empresários — contas bloqueadas, passaportes confiscados, buscas e apreensões — sem condenação prévia. Agosto 2022, 60 dias antes da eleição.</div>
+      <div class="source">Fonte: Univ. of Miami Law Review (2024) · <a href="https://repository.law.miami.edu/cgi/viewcontent.cgi?article=2700&context=umialr" target="_blank">repository.law.miami.edu</a></div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio jurídico</div>
+      <div class="fact">1.500+ manifestantes condenados em tempo recorde (jan/2023). Zero condenações definitivas por R$ 2,27B desviados em contratos Covid (2020–2024).</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/assimetria-punitiva" target="_blank">Assimetria Punitiva · gosurf.site</a> · dados FBSP/CNJ</div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio informacional</div>
+      <div class="fact">40 milhões de usuários brasileiros bloqueados do X/Twitter por decisão monocrática — sem processo legislativo, sem votação no Congresso. Agosto 2024.</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/operacao-silencio-digital" target="_blank">Operação Silêncio Digital · gosurf.site</a></div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio institucional</div>
+      <div class="fact">Primeiro ministro do STF citado como réu em tribunal federal estrangeiro: Processo 8:25-cv-00411, Distrito Central da Flórida, EUA. Citado por email em 08/jul/2025.</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/rumble-tmtg-vs-moraes" target="_blank">Rumble & TMTG vs. Moraes · gosurf.site</a></div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio financeiro / saúde</div>
+      <div class="fact">R$ 2,27B+ investigados em desvios de verbas Covid por 77 operações da PF em todo o território nacional. Maioria dos mandantes sem condenação definitiva.</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/pandemia-capturada" target="_blank">Pandemia Capturada · gosurf.site</a> · dados PF</div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio físico / ambiental</div>
+      <div class="fact">Maior fraude em créditos de carbono da história do Brasil: Operação Greenwashing, deflagrada em junho 2024, utilizando a Amazônia e a certificadora Verra como veículo.</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/operacao-greenwashing" target="_blank">Operação Greenwashing · gosurf.site</a></div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio institucional / diplomático</div>
+      <div class="fact">Delegado da PF expulso compulsoriamente dos EUA — Caso Ramagem. 20 de abril de 2026. Departamento de Estado americano: Escritório para Assuntos do Hemisfério Ocidental.</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/operacao-persona-non-grata" target="_blank">Persona Non Grata · gosurf.site</a></div>
+    </div>
+
+    <div class="victim-card">
+      <div class="category">Domínio judicial / criança</div>
+      <div class="fact">Pais condenados a 50 dias de detenção por homeschooling em Jales/SP — juiz ignorou pedido de absolvição do próprio MP. Maio 2026.</div>
+      <div class="source">Fonte: <a href="https://gosurf.site/caso-jales-homeschooling" target="_blank">Caso Jales · gosurf.site</a></div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ─── MEDIA SILENCE ─── -->
+<section class="silence-section">
+<div class="container">
+  <h2 class="reveal">O silêncio da grande mídia não é acidente — é estrutura</h2>
+  <div class="comparison-grid reveal">
+    <div class="comp-col">
+      <h3 class="red">O que os grandes veículos cobrem extensivamente</h3>
+      <div class="comp-item"><strong>Qualquer declaração de Bolsonaro</strong> com repercussão imediata</div>
+      <div class="comp-item"><strong>8 de janeiro</strong> — 1.500 condenações como narrativa de "defesa da democracia"</div>
+      <div class="comp-item"><strong>Fake news da direita</strong> — cada uma verificada, nomeada, investigada</div>
+      <div class="comp-item"><strong>Bolsonaro e o golpe</strong> — cobertura diária de cada fase processual</div>
+      <div class="comp-item"><strong>Discurso de ódio de apoiadores</strong> — documentado e amplificado</div>
+    </div>
+    <div class="comp-col alt">
+      <h3 class="teal">O que os grandes veículos cobrem com silêncio ou inversão</h3>
+      <div class="comp-item"><strong>Ministrocracia</strong> — poder monocrático incompatível com teoria constitucional (SCOTUSblog, 2026)</div>
+      <div class="comp-item"><strong>R$ 2,27B em desvios Covid</strong> — zero condenações definitivas de mandantes</div>
+      <div class="comp-item"><strong>Processo 8:25-cv-00411</strong> — Moraes réu em tribunal americano</div>
+      <div class="comp-item"><strong>Bloqueio de contas sem condenação</strong> — 8 empresários, agosto 2022</div>
+      <div class="comp-item"><strong>Donos da mídia</strong> — estrutura proprietária dos próprios veículos que noticiam</div>
+    </div>
+  </div>
+  <div style="margin-top:24px;padding:20px;background:var(--paper2);border-left:3px solid var(--amber)">
+    <p style="font-size:15px;color:var(--ink2);line-height:1.6">
+      <strong>Referência:</strong> O dossiê "Donos da Mídia Brasil" (<a href="https://gosurf.site/donos-da-midia-brasil" style="color:var(--teal2)">gosurf.site</a>) documenta a estrutura de propriedade dos principais grupos de comunicação brasileiros. A concentração de mídia em poucos grupos familiares com interesses financeiros entrelaçados com o Estado não é teoria — é dado verificável de registro de CNPJ e estrutura societária.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ─── EVIDENCE HIERARCHY ─── -->
+<section class="evidence-section">
+<div class="container">
+  <h2 class="reveal">Hierarquia de evidências — o que entra e o que não entra</h2>
+  <p style="font-size:16px;color:var(--ink2);margin-bottom:32px;max-width:700px" class="reveal">Cada entrada no lawfare-timeline precisa de, no mínimo, uma fonte de Nível I ou II. Sem isso, não entra. Simples assim.</p>
+
+  <div class="ev-row reveal"><div class="ev-level i">Nível I</div><div class="ev-content"><strong>Documento primário oficial</strong><span>Decisão judicial no DJe · número de processo · registro de patente USPTO · Diário Oficial · processo com autos verificáveis</span></div></div>
+  <div class="ev-row reveal"><div class="ev-level ii">Nível II</div><div class="ev-content"><strong>Declaração pública verificável</strong><span>Depoimento em Congresso com data · entrevista gravada identificada · documento vazado com autenticação · declaração em processo público</span></div></div>
+  <div class="ev-row reveal"><div class="ev-level iii">Nível III</div><div class="ev-content"><strong>Análise acadêmica ou jornalística</strong><span>Peer review com autores identificados · investigação com documentação publicada e verificável · relatório de órgão independente</span></div></div>
+  <div class="ev-row reveal"><div class="ev-level iv">Nível IV</div><div class="ev-content"><strong>Análise editorial fundamentada</strong><span>Argumentação com referência explícita a fontes I–III · pode ser incluída como análise, nunca como fato</span></div></div>
+  <div class="ev-row reveal"><div class="ev-level x">Excluído</div><div class="ev-content"><strong>Inferência não fundamentada</strong><span>Especulação sobre intenção sem cadeia de comando documentada · "dizem que" · atribuição de coordenação sem prova material</span></div></div>
+</div>
+</section>
+
+<!-- ─── STATS ─── */
+<section class="stats-section reveal">
+<div class="container">
+  <h2>O projeto em números</h2>
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num">1<span>.424</span>+</div><div class="label">Entradas documentadas no lawfare-timeline</div></div>
+    <div class="stat-box"><div class="num">150<span>+</span></div><div class="label">Patentes indexadas no geoengineering-patents</div></div>
+    <div class="stat-box"><div class="num">120<span>+</span></div><div class="label">Páginas analíticas no corpus gosurf.site</div></div>
+    <div class="stat-box"><div class="num">1992</div><div class="label">Ano da primeira entrada documentada</div></div>
+    <div class="stat-box"><div class="num">7</div><div class="label">Domínios de controle mapeados (FSD)</div></div>
+    <div class="stat-box"><div class="num">0</div><div class="label">Afirmações sem fonte primária verificável</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ─── WHAT WE DO ─── -->
+<section class="method-section">
+<div class="container">
+  <h2 class="reveal">O que fazemos — e o que deliberadamente não fazemos</h2>
+  <div class="method-row reveal"><div class="method-do">✓ Documentamos</div><div class="method-desc">"Moraes assinou o mandado X em data Y" — com número do processo e publicação no DJe</div></div>
+  <div class="method-row reveal"><div class="method-dont">✗ Não inferimos</div><div class="method-desc">"Moraes agiu de má-fé" — julgamento moral sem acesso à mente do agente</div></div>
+  <div class="method-row reveal"><div class="method-do">✓ Documentamos</div><div class="method-desc">"A decisão viola o art. 5º, LV, CF/88 e o princípio do contraditório" — análise jurídica técnica</div></div>
+  <div class="method-row reveal"><div class="method-dont">✗ Não declaramos</div><div class="method-desc">"O STF é ilegítimo" — avaliação política que pertence ao leitor, não ao documento</div></div>
+  <div class="method-row reveal"><div class="method-do">✓ Documentamos</div><div class="method-desc">"1.500 condenados em N meses" vs. "zero condenações definitivas por R$2,27B" — dado verificável do CNJ/PF</div></div>
+  <div class="method-row reveal"><div class="method-dont">✗ Não concluímos</div><div class="method-desc">"Há perseguição política coordenada" — conclusão que o leitor tira a partir dos dados, não o projeto</div></div>
+  <div class="method-row reveal"><div class="method-do">✓ Identificamos</div><div class="method-desc">Padrões sistêmicos recorrentes (P1–P10) documentados em múltiplas operações independentes</div></div>
+  <div class="method-row reveal"><div class="method-dont">✗ Não atribuímos</div><div class="method-desc">Coordenação central entre os padrões — sem prova documental de planejamento conjunto</div></div>
+</div>
+</section>
+
+<!-- ─── SOURCES ─── -->
+<section class="sources-section">
+<div class="container">
+  <h2 class="reveal">Fontes externas independentes que chegaram às mesmas conclusões</h2>
+  <p style="font-size:16px;color:var(--ink2);margin-bottom:32px;max-width:700px" class="reveal">Estas análises foram produzidas independentemente, por instituições acadêmicas e jornalísticas internacionais, sem relação com este projeto.</p>
+
+  <div class="source-row reveal"><div class="source-type">Jurídico · 2026</div><div class="source-title">SCOTUSblog — "The Brazilian Federal Supreme Court": documenta ministrocracia, expansão de poderes e problemas de imparcialidade</div><div class="source-link"><a href="https://www.scotusblog.com/2026/04/the-brazilian-federal-supreme-court/" target="_blank">scotusblog.com ↗</a></div></div>
+  <div class="source-row reveal"><div class="source-type">Constitucional · 2026</div><div class="source-title">Verfassungsblog — "Brazil STF Crisis": análise da paradoxo da ministrocracia e expansão de poderes individuais</div><div class="source-link"><a href="https://verfassungsblog.de/brazil-stf-crisis/" target="_blank">verfassungsblog.de ↗</a></div></div>
+  <div class="source-row reveal"><div class="source-type">Direito · 2024</div><div class="source-title">Univ. of Miami Law Review: documenta bloqueio de contas, passaportes e buscas sem condenação prévia (agosto 2022)</div><div class="source-link"><a href="https://repository.law.miami.edu/cgi/viewcontent.cgi?article=2700&context=umialr" target="_blank">law.miami.edu ↗</a></div></div>
+  <div class="source-row reveal"><div class="source-type">Segurança · 2023</div><div class="source-title">Just Security — "Brazil's Digital Sovereignty": INQ 4781, papel do STF na governança de plataformas digitais</div><div class="source-link"><a href="https://www.justsecurity.org/118915/brazil-digital-sovereignty-courts-democracy/" target="_blank">justsecurity.org ↗</a></div></div>
+  <div class="source-row reveal"><div class="source-type">Governança · 2023</div><div class="source-title">CIGI — "Brazil Courts and Disinformation": Moraes presidindo STF e TSE simultaneamente nas eleições de 2022</div><div class="source-link"><a href="https://www.cigionline.org/articles/in-brazil-the-courts-efforts-to-curb-disinformation-had-unintended-consequences/" target="_blank">cigionline.org ↗</a></div></div>
+  <div class="source-row reveal"><div class="source-type">Doutrina militar · 2000</div><div class="source-title">DoD USA — Joint Vision 2020: full-spectrum dominance como doutrina operacional formalizada</div><div class="source-link"><a href="https://www.resdal.org/Archivo/d00000cf.htm" target="_blank">resdal.org ↗</a></div></div>
+  <div class="source-row reveal"><div class="source-type">Híbrido · 2016</div><div class="source-title">Bachmann & Mosquera — "Lawfare in Hybrid Wars": lawfare como multiplicador de força em conflitos híbridos (SSRN)</div><div class="source-link"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2670550" target="_blank">ssrn.com ↗</a></div></div>
+</div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-left">
+    <div class="project">lawfare-timeline · geoengenharia · gosurf.site</div>
+    <div class="tagline">documentação forense · fontes primárias · padrão verificável</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline ↗</a>
+    <a href="https://geoengenharia.vercel.app" target="_blank">geoengenharia ↗</a>
+    <a href="https://gosurf.site" target="_blank">gosurf.site ↗</a>
+    <a href="https://gosurf.site/lawfare-timeline" target="_blank">dossiê 2026 ↗</a>
+    <a href="https://gosurf.site/padroes-sistemicos-dashboard" target="_blank">padrões sistêmicos ↗</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed') });
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

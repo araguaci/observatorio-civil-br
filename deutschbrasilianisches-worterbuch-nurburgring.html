@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0a0a0a">
+<title>Deutschbrasilianisches Wörterbuch — Edição Nürburgring 24h · Vol. I–VII</title>
+<meta name="description" content="Dicionário satírico alemão-brasileiro: 50 verbetes em 7 volumes (medicinal, ditados, política, STF, Congresso, mídia e povo). Edição especial Nürburgring Nordschleife 2026.">
+<meta name="author" content="gosurf.site">
+<link rel="canonical" href="https://gosurf.site/deutschbrasilianisches-worterbuch-nurburgring">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gosurf.site/deutschbrasilianisches-worterbuch-nurburgring">
+<meta property="og:title" content="Deutschbrasilianisches Wörterbuch — Edição Nürburgring 24h">
+<meta property="og:description" content="50 verbetes satíricos em 7 volumes: do alemão medicinal brasileiro ao Volkssufferwörterbuch. Busca integrada PT/DE.">
+<meta property="og:image" content="https://gosurf.site/og-image.png">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="gosurf.site">
+<meta property="article:published_time" content="2026-05-16">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deutschbrasilianisches Wörterbuch — Nürburgring 24h">
+<meta name="twitter:description" content="50 verbetes em 7 volumes. Satírico alemão-brasileiro com busca em português e &quot;alemão&quot;.">
+<meta name="twitter:image" content="https://gosurf.site/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { margin: 0; background: #0a0a0a; color-scheme: dark; }
+
+  .nb-root {
+    background: #0a0a0a;
+    color: #f0ede6;
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+
+  .nb-header {
+    background: #0a0a0a;
+    border-bottom: 2px solid #c8102e;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nb-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(200,16,46,0.04) 8px,
+      rgba(200,16,46,0.04) 16px
+    );
+    pointer-events: none;
+  }
+
+  .nb-flag {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 1rem;
+  }
+
+  .flag-stripe {
+    width: 32px;
+    height: 20px;
+    border-radius: 2px;
+  }
+
+  .nb-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: #f0ede6;
+    text-shadow: 0 0 40px rgba(200,16,46,0.3);
+    margin-bottom: 0.3rem;
+  }
+
+  .nb-title span { color: #c8102e; }
+
+  .nb-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+
+  .nb-lap {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #c8102e;
+    text-transform: uppercase;
+  }
+
+  .nb-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #1e1e1e;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: #0d0d0d;
+    padding: 0 1rem;
+  }
+
+  .nb-nav::-webkit-scrollbar { display: none; }
+
+  .nb-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .nb-tab:hover { color: #ccc; }
+  .nb-tab.active { color: #f0ede6; border-bottom-color: #c8102e; }
+
+  .nb-section {
+    display: none;
+    padding: 1.5rem;
+  }
+
+  .nb-section.active { display: block; }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c8102e;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1e1e1e;
+  }
+
+  .entry-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .entry {
+    border-bottom: 1px solid #141414;
+    padding: 1.1rem 0;
+    position: relative;
+    padding-left: 1rem;
+    cursor: default;
+    transition: background 0.1s;
+  }
+
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: transparent;
+    transition: background 0.15s;
+  }
+
+  .entry:hover { background: #0f0f0f; }
+  .entry:hover::before { background: #c8102e; }
+
+  .entry-de {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: #f0ede6;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+  }
+
+  .entry-pt {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.82rem;
+    color: #aaa;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+
+  .entry-law {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  .entry-law span {
+    color: #c8102e;
+    opacity: 0.8;
+  }
+
+  .pill {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  .pill-med { background: #1a1a2e; color: #6a8fff; border: 1px solid #2a2a4e; }
+  .pill-pol { background: #2e1a1a; color: #ff8a80; border: 1px solid #4e2a2a; }
+  .pill-jus { background: #1a2e1a; color: #80ff8a; border: 1px solid #2a4e2a; }
+  .pill-pop { background: #2e2a1a; color: #ffd080; border: 1px solid #4e4a2a; }
+  .pill-mid { background: #2a1a2e; color: #d080ff; border: 1px solid #4a2a4e; }
+  .pill-cong { background: #1a2a2e; color: #80dfff; border: 1px solid #2a4a4e; }
+
+  .nb-footer {
+    margin: 2rem 1.5rem 0;
+    padding: 1.5rem;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+    background: #0d0d0d;
+    text-align: center;
+  }
+
+  .nb-footer p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #444;
+    line-height: 2;
+  }
+
+  .nb-footer .selva {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
+    color: #c8102e;
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .ticker {
+    background: #c8102e;
+    padding: 0.35rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 40s linear infinite;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-100%); }
+  }
+
+  .search-wrap {
+    padding: 1rem 1.5rem 0;
+    background: #0d0d0d;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .search-input {
+    width: 100%;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 3px;
+    padding: 0.6rem 1rem;
+    color: #f0ede6;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .search-input:focus { border-color: #c8102e; }
+  .search-input::placeholder { color: #444; }
+
+  .search-hint {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #444;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .counter-bar {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #080808;
+    border-bottom: 1px solid #141414;
+  }
+
+  .counter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .counter-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: #c8102e;
+    line-height: 1;
+  }
+
+  .counter-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  #search-section { display: none; padding: 1.5rem; }
+  #search-section.active { display: block; }
+  #search-results .entry { display: none; }
+  #search-results .entry.match { display: block; }
+  .no-results {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    color: #555;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2rem 0;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="nb-root">
+
+  <div class="nb-header">
+    <div class="nb-flag">
+      <div class="flag-stripe" style="background:#009c3b;"></div>
+      <div class="flag-stripe" style="background:#ffdf00;"></div>
+      <div class="flag-stripe" style="background:#002776;"></div>
+      <div style="width:8px;"></div>
+      <div class="flag-stripe" style="background:#000;"></div>
+      <div class="flag-stripe" style="background:#c8102e;"></div>
+      <div class="flag-stripe" style="background:#ffcc00;"></div>
+    </div>
+    <div class="nb-subtitle">Edição Especial 24h</div>
+    <div class="nb-title">Deutsch<span>brasilianisches</span><br>Wörterbuch</div>
+    <div style="margin-top:0.6rem;">
+      <div class="nb-lap">Nürburgring Nordschleife · 2026 · Vol. I Completo</div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <span class="ticker-inner">
+      ROUBINPOUKIN NÃOÉROUBINHUM &nbsp;·&nbsp; INVESTIGATINHUM PRENDEINHUM SOLTINHUM &nbsp;·&nbsp; EMENDINHUM SECRETINHUM NÃOÉSECRETINHUM &nbsp;·&nbsp; PLENÁRIOZINHUM MARCAINHUM DESMARCAINHUM &nbsp;·&nbsp; VOTINHUM MUDINHUM NADINHUM &nbsp;·&nbsp; POVINHUM PAGINHUM SEMPRIN &nbsp;·&nbsp; SELVAINHUM SEMPRIN &nbsp;·&nbsp;
+    </span>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" id="searchBox" placeholder="Buscar em alemão ou português..." oninput="doSearch(this.value)" />
+    <div class="search-hint">Digite para filtrar todas as 50 entradas</div>
+  </div>
+
+  <div class="counter-bar">
+    <div class="counter-item">
+      <span class="counter-num">50</span>
+      <span class="counter-lbl">Verbetes</span>
+    </div>
+    <div class="counter-item">
+      <span class="counter-num">6</span>
+      <span class="counter-lbl">Volumes</span>
+    </div>
+    <div class="counter-item">
+      <span class="counter-num">24h</span>
+      <span class="counter-lbl">Nürburgring</span>
+    </div>
+    <div class="counter-item">
+      <span class="counter-num">∞</span>
+      <span class="counter-lbl">Sofrimento</span>
+    </div>
+  </div>
+
+  <div id="search-section">
+    <div class="section-label">Resultados da busca</div>
+    <div class="entry-grid" id="search-results"></div>
+    <div class="no-results" id="no-results" style="display:none;">Nenhum verbete encontrado</div>
+  </div>
+
+  <div class="nb-nav" id="mainNav">
+    <button type="button" class="nb-tab active" onclick="showTab('tab-med', this)">I · Medicinal</button>
+    <button type="button" class="nb-tab" onclick="showTab('tab-dit', this)">II · Ditados</button>
+    <button type="button" class="nb-tab" onclick="showTab('tab-pol', this)">III · Política</button>
+    <button type="button" class="nb-tab" onclick="showTab('tab-stf', this)">IV · STF</button>
+    <button type="button" class="nb-tab" onclick="showTab('tab-cong', this)">V · Congresso</button>
+    <button type="button" class="nb-tab" onclick="showTab('tab-mid', this)">VI · Mídia</button>
+    <button type="button" class="nb-tab" onclick="showTab('tab-pop', this)">VII · Povo</button>
+  </div>
+
+  <div id="tab-med" class="nb-section active">
+    <div class="section-label">Volume I — Alemão Medicinal Brasileiro</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Aftaszinhum ardemzinhum hemorreidzinhum idemzinhum" data-pt="Aftas ardem, hemorroidas idem">
+        <div class="entry-de"><span class="pill pill-med">Med</span>Aftaszinhum ardemzinhum hemorreidzinhum idemzinhum</div>
+        <div class="entry-pt">"Aftas ardem, hemorroidas idem"</div>
+        <div class="entry-law"><span>§</span> O verbete fundador. Axioma que deu origem a todo este dicionário.</div>
+      </div>
+
+      <div class="entry" data-de="Kokuebein Naskalein" data-pt="Cocô bem, nas calças idem">
+        <div class="entry-de"><span class="pill pill-med">Med</span>Kokuebein Naskalein</div>
+        <div class="entry-pt">"Cocô bem, nas calças idem"</div>
+        <div class="entry-law"><span>§</span> Diagnóstico clínico completo. Capítulo do intestino grosso.</div>
+      </div>
+
+      <div class="entry" data-de="Cãibranopé Griteinànoité" data-pt="Cãibra no pé, grito à noite idem">
+        <div class="entry-de"><span class="pill pill-med">Med</span>Cãibranopé Griteinànoité</div>
+        <div class="entry-pt">"Cãibra no pé, grito à noite idem"</div>
+        <div class="entry-law"><span>§</span> Síndrome neuromuscular das 3h da manhã. Incurável.</div>
+      </div>
+
+      <div class="entry" data-de="Ressakanmanhã Arrepeindemanhã" data-pt="Ressaca manhã, arrependimento idem">
+        <div class="entry-de"><span class="pill pill-med">Med</span>Ressakanmanhã Arrepeindemanhã</div>
+        <div class="entry-pt">"Ressaca manhã, arrependimento idem"</div>
+        <div class="entry-law"><span>§</span> Síndrome Pós-Feriado Nacional. Classificada no CID brasileiro como inevitável.</div>
+      </div>
+
+      <div class="entry" data-de="Olheinapedra Dedinpedra Prageiinhell" data-pt="Olhei na pedra, dedo na pedra, palavrão idem">
+        <div class="entry-de"><span class="pill pill-med">Med</span>Olheinapedra Dedinpedra Prageiinhell</div>
+        <div class="entry-pt">"Olhei na pedra, dedo na pedra, palavrão idem"</div>
+        <div class="entry-law"><span>§</span> Trauma ortopédico com efeito colateral vocabular imediato.</div>
+      </div>
+
+      <div class="entry" data-de="Cadeirinkaavião Joelhinkafrente Odieinvizinhum" data-pt="Cadeirinha no avião, joelho na frente, ódio do vizinho idem">
+        <div class="entry-de"><span class="pill pill-med">Med</span>Cadeirinkaavião Joelhinkafrente Odieinvizinhum</div>
+        <div class="entry-pt">"Cadeirinha no avião, joelho na frente, ódio do vizinho idem"</div>
+        <div class="entry-law"><span>§</span> Transtorno de Ansiedade de Voo em Classe Econômica. Endêmico.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-dit" class="nb-section">
+    <div class="section-label">Volume II — Ditados Populares em Alemão</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Águazinha correntin pedrazinha furin" data-pt="Água mole em pedra dura, tanto bate até que fura">
+        <div class="entry-de"><span class="pill pill-pop">Ditado</span>Águazinha correntin pedrazinha furin</div>
+        <div class="entry-pt">"Água mole em pedra dura, tanto bate até que fura"</div>
+        <div class="entry-law"><span>§</span> Lei da Persistência Hidrológica. Aplicável também ao contribuinte.</div>
+      </div>
+
+      <div class="entry" data-de="Caozinhum latrin caravanin segurin" data-pt="Cachorro que late não morde. Caravana passa.">
+        <div class="entry-de"><span class="pill pill-pop">Ditado</span>Caozinhum latrin caravanin segurin</div>
+        <div class="entry-pt">"Cachorro que late não morde. Caravana passa."</div>
+        <div class="entry-law"><span>§</span> Sabedoria nômade. Ignorar o barulho e seguir em frente.</div>
+      </div>
+
+      <div class="entry" data-de="Quemkorn espadin vivin despadin" data-pt="Quem com ferro fere, com ferro será ferido">
+        <div class="entry-de"><span class="pill pill-pop">Ditado</span>Quemkorn espadin vivin despadin</div>
+        <div class="entry-pt">"Quem com ferro fere, com ferro será ferido"</div>
+        <div class="entry-law"><span>§</span> Princípio da Retribuição Universal. Raro, mas acontece.</div>
+      </div>
+
+      <div class="entry" data-de="Filhindaputan saihin carinhum" data-pt="Filho de peixe, peixinho é">
+        <div class="entry-de"><span class="pill pill-pop">Ditado</span>Filhindaputan saihin carinhum</div>
+        <div class="entry-pt">"Filho de peixe, peixinho é"</div>
+        <div class="entry-law"><span>§</span> Teoria Hereditária da Vocação. Válida especialmente para cargos públicos.</div>
+      </div>
+
+      <div class="entry" data-de="Macacinhum velhinhum nãometinhum mãozinhum emgiringuitinhum" data-pt="Macaco velho não mete a mão em cumbuca">
+        <div class="entry-de"><span class="pill pill-pop">Ditado</span>Macacinhum velhinhum nãometinhum mãozinhum emgiringuitinhum</div>
+        <div class="entry-pt">"Macaco velho não mete a mão em cumbuca"</div>
+        <div class="entry-law"><span>§</span> Sabedoria primata. Não aplicável a políticos em final de mandato.</div>
+      </div>
+
+      <div class="entry" data-de="Deuzhein dázzein tambémin tirazein" data-pt="Deus dá, Deus tira">
+        <div class="entry-de"><span class="pill pill-pop">Ditado</span>Deuzhein dázzein tambémin tirazein</div>
+        <div class="entry-pt">"Deus dá, Deus tira"</div>
+        <div class="entry-law"><span>§</span> Teologia Popular Brasileira. Frequentemente aplicada ao salário.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-pol" class="nb-section">
+    <div class="section-label">Volume III — Malandragens Políticas da Corrupção Sistêmica</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Roubinpoukin nãoéroubinhum" data-pt="Roubou pouco não é roubo">
+        <div class="entry-de"><span class="pill pill-pol">Política</span>Roubinpoukin nãoéroubinhum</div>
+        <div class="entry-pt">"Roubou pouco não é roubo"</div>
+        <div class="entry-law"><span>§</span> Axioma Fundamental da República. Aceito em todas as instâncias.</div>
+      </div>
+
+      <div class="entry" data-de="Investigatinhum prendeinhum soltinhum" data-pt="Investiga, prende, solta">
+        <div class="entry-de"><span class="pill pill-pol">Política</span>Investigatinhum prendeinhum soltinhum</div>
+        <div class="entry-pt">"Investiga, prende, solta"</div>
+        <div class="entry-law"><span>§</span> Ciclo Eterno da Justiça Brasileira. Repetível ao infinito.</div>
+      </div>
+
+      <div class="entry" data-de="Laranjainhum levinhum culpinhum ficinhum" data-pt="Laranja leva, culpa fica">
+        <div class="entry-de"><span class="pill pill-pol">Política</span>Laranjainhum levinhum culpinhum ficinhum</div>
+        <div class="entry-pt">"Laranja leva, culpa fica"</div>
+        <div class="entry-law"><span>§</span> Lei do Tesoureiro Desafortunado. Imutável desde 1889.</div>
+      </div>
+
+      <div class="entry" data-de="Caixinhadoisinhum nãoexistin oficialinhum" data-pt="Caixa dois não existe oficialmente">
+        <div class="entry-de"><span class="pill pill-pol">Política</span>Caixinhadoisinhum nãoexistin oficialinhum</div>
+        <div class="entry-pt">"Caixa dois não existe oficialmente"</div>
+        <div class="entry-law"><span>§</span> Postulado Contábil Nacional. Amplamente praticado, nunca registrado.</div>
+      </div>
+
+      <div class="entry" data-de="Mandatinhum acabinhum processinhoinhum tambéinhum" data-pt="Mandato acabou, processo sumiu">
+        <div class="entry-de"><span class="pill pill-pol">Política</span>Mandatinhum acabinhum processinhoinhum tambéinhum</div>
+        <div class="entry-pt">"Mandato acabou, processo sumiu"</div>
+        <div class="entry-law"><span>§</span> Física Quântica Jurídica. Prescrição por conveniência.</div>
+      </div>
+
+      <div class="entry" data-de="Investigadinhum hojinhum investigadorzinhum amanhãzinhum" data-pt="Investigado hoje, investigador amanhã">
+        <div class="entry-de"><span class="pill pill-pol">Política</span>Investigadinhum hojinhum investigadorzinhum amanhãzinhum</div>
+        <div class="entry-pt">"Investigado hoje, investigador amanhã"</div>
+        <div class="entry-law"><span>§</span> Dialética do Poder. Ciclo com duração média de um mandato.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-stf" class="nb-section">
+    <div class="section-label">Volume IV — Supremgewörterbuch · Edição Togada</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Monocratzinhum decidinhum todoinhum" data-pt="Um decide por todos, todos pagam por um">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Monocratzinhum decidinhum todoinhum</div>
+        <div class="entry-pt">"Um decide por todos, todos pagam por um"</div>
+        <div class="entry-law"><span>§</span> Princípio da Colegialidade Invertida. Art. 1º do Regimento Interno Não-Escrito.</div>
+      </div>
+
+      <div class="entry" data-de="Bloqueiinhum redesinhum libberdadin expressinhum" data-pt="Bloqueio de rede é liberdade de expressão">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Bloqueiinhum redesinhum libberdadin expressinhum</div>
+        <div class="entry-pt">"Bloqueio de rede é liberdade de expressão"</div>
+        <div class="entry-law"><span>§</span> Paradoxo Hermenêutico Contemporâneo. Orwell aprovaria.</div>
+      </div>
+
+      <div class="entry" data-de="Plenáriozinhum marcainhum desmarcainhum remarcainhum nunkainhum" data-pt="Pauta marca, desmarca, remarca, nunca julga">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Plenáriozinhum marcainhum desmarcainhum remarcainhum nunkainhum</div>
+        <div class="entry-pt">"Pauta marca, desmarca, remarca, nunca julga"</div>
+        <div class="entry-law"><span>§</span> Calendário Quântico do STF. O julgamento existe em superposição.</div>
+      </div>
+
+      <div class="entry" data-de="Réuzinhum sentainhum cadeirainhum julgainhum outrozinhum" data-pt="Réu senta na cadeira e julga outros réus">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Réuzinhum sentainhum cadeirainhum julgainhum outrozinhum</div>
+        <div class="entry-pt">"Réu senta na cadeira e julga outros réus"</div>
+        <div class="entry-law"><span>§</span> Isonomia Criativa Brasileira. Sem paralelo no direito comparado.</div>
+      </div>
+
+      <div class="entry" data-de="Decisãozinhum noitinhum vésperin fériazinhum" data-pt="Decisão grave sempre à meia-noite de véspera de feriado">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Decisãozinhum noitinhum vésperin fériazinhum</div>
+        <div class="entry-pt">"Decisão grave sempre à meia-noite de véspera de feriado"</div>
+        <div class="entry-law"><span>§</span> Cronologia Natural do Direito Brasileiro. Comprovada empiricamente.</div>
+      </div>
+
+      <div class="entry" data-de="Transgredinhum Constituiçãozinhum guardainhum Constituiçãozinhum" data-pt="Quem transgride a Constituição é o guardião da Constituição">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Transgredinhum Constituiçãozinhum guardainhum Constituiçãozinhum</div>
+        <div class="entry-pt">"Quem transgride a Constituição é o guardião da Constituição"</div>
+        <div class="entry-law"><span>§</span> Oxímoro Jurídico Supremo. Tese aceita em todas as câmaras.</div>
+      </div>
+
+      <div class="entry" data-de="Inquéritozinhum 4781inhum nãoexistzinhum perguntinhum" data-pt="O Inquérito 4781 não existe, não pergunte">
+        <div class="entry-de"><span class="pill pill-jus">STF</span>Inquéritozinhum 4781inhum nãoexistzinhum perguntinhum</div>
+        <div class="entry-pt">"O Inquérito 4781 não existe, não pergunte"</div>
+        <div class="entry-law"><span>§</span> Nota Oficial — Gabinete da Omertà Togada. Lacrado por 100 anos.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-cong" class="nb-section">
+    <div class="section-label">Volume V — Kongresswörterbuch · Edição Orçamento Secreto</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Emendinhum secretinhum nãoésecretinhum éconfidencialinhum" data-pt="Emenda secreta não é secreta, é confidencial">
+        <div class="entry-de"><span class="pill pill-cong">Congresso</span>Emendinhum secretinhum nãoésecretinhum éconfidencialinhum</div>
+        <div class="entry-pt">"Emenda secreta não é secreta, é confidencial"</div>
+        <div class="entry-law"><span>§</span> Distinção Semântica Fundamental. Aprovada por unanimidade às 23h59.</div>
+      </div>
+
+      <div class="entry" data-de="Fisiologiazinhum nãoéfisiologiazinhum égovernabilidadzinhum" data-pt="Fisiologismo não é fisiologismo, é governabilidade">
+        <div class="entry-de"><span class="pill pill-cong">Congresso</span>Fisiologiazinhum nãoéfisiologiazinhum égovernabilidadzinhum</div>
+        <div class="entry-pt">"Fisiologismo não é fisiologismo, é governabilidade"</div>
+        <div class="entry-law"><span>§</span> Eufemismo Parlamentar Oficial. Tradução aceita por todos os partidos.</div>
+      </div>
+
+      <div class="entry" data-de="CPIzinhum abrinhum CPIzinhum fechinhum nadzinhum acontecinhum" data-pt="CPI abre, CPI fecha, nada acontece">
+        <div class="entry-de"><span class="pill pill-cong">Congresso</span>CPIzinhum abrinhum CPIzinhum fechinhum nadzinhum acontecinhum</div>
+        <div class="entry-pt">"CPI abre, CPI fecha, nada acontece"</div>
+        <div class="entry-law"><span>§</span> Ciclo Natural da Accountability. Duração: 6 meses, resultado: zero.</div>
+      </div>
+
+      <div class="entry" data-de="Filhozinhum netinhum sobrinzinhum assessorzinhum" data-pt="Filho, neto, sobrinho — todos assessores">
+        <div class="entry-de"><span class="pill pill-cong">Congresso</span>Filhozinhum netinhum sobrinzinhum assessorzinhum</div>
+        <div class="entry-pt">"Filho, neto, sobrinho — todos assessores"</div>
+        <div class="entry-law"><span>§</span> Nepotismo Familiar Republicano. Meritocracia à Brasileira.</div>
+      </div>
+
+      <div class="entry" data-de="Quorumzinhum nãoatinginhum votinhum importantinhum" data-pt="Quórum não atingido exatamente quando importa">
+        <div class="entry-de"><span class="pill pill-cong">Congresso</span>Quorumzinhum nãoatinginhum votinhum importantinhum</div>
+        <div class="entry-pt">"Quórum não atingido exatamente quando importa"</div>
+        <div class="entry-law"><span>§</span> Lei da Ausência Estratégica. Falta justificada por interesse próprio.</div>
+      </div>
+
+      <div class="entry" data-de="Receszinhum parlamentarzinhum trabalhinhum muitinhum feriadzinhum" data-pt="Recesso parlamentar: trabalhou muito, merece férias">
+        <div class="entry-de"><span class="pill pill-cong">Congresso</span>Receszinhum parlamentarzinhum trabalhinhum muitinhum feriadzinhum</div>
+        <div class="entry-pt">"Recesso parlamentar: trabalhou muito, merece férias"</div>
+        <div class="entry-law"><span>§</span> Calendário Legislativo Humanitário. 180 dias úteis, 185 de recesso.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-mid" class="nb-section">
+    <div class="section-label">Volume VI — Mídiawörterbuch · Edição Narrativa Aprovada</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Manifestaçãozinhum direitinhum baderninhum esquerdinhum manifestaçãozinhum" data-pt="Manifestação da direita é baderna, da esquerda é manifestação">
+        <div class="entry-de"><span class="pill pill-mid">Mídia</span>Manifestaçãozinhum direitinhum baderninhum esquerdinhum manifestaçãozinhum</div>
+        <div class="entry-pt">"Manifestação da direita é baderna, da esquerda é manifestação" (ou vice-versa)</div>
+        <div class="entry-law"><span>§</span> Relatividade Editorial Seletiva. Depende do canal sintonizado.</div>
+      </div>
+
+      <div class="entry" data-de="Fontinhum ouvidinhum nãorevelandinhum Globozinhum" data-pt="Fonte ouvida, não revelada — acredite">
+        <div class="entry-de"><span class="pill pill-mid">Mídia</span>Fontinhum ouvidinhum nãorevelandinhum Globozinhum</div>
+        <div class="entry-pt">"Fonte ouvida, não revelada — acredite"</div>
+        <div class="entry-law"><span>§</span> Jornalismo de Autoridade Anônima. Padrão ouro desde 1969.</div>
+      </div>
+
+      <div class="entry" data-de="Escândalozinhum aliadzinhum notinhum pequeninzinhum" data-pt="Escândalo do aliado vira nota pequena">
+        <div class="entry-de"><span class="pill pill-mid">Mídia</span>Escândalozinhum aliadzinhum notinhum pequeninzinhum</div>
+        <div class="entry-pt">"Escândalo do aliado vira nota pequena"</div>
+        <div class="entry-law"><span>§</span> Tipografia Ideológica. Corpo 6, página C-12, abaixo do anúncio.</div>
+      </div>
+
+      <div class="entry" data-de="Escândalozinhum adversárzinhum manchetinhum semanzinhum" data-pt="Escândalo do adversário vira manchete por semanas">
+        <div class="entry-de"><span class="pill pill-mid">Mídia</span>Escândalozinhum adversárzinhum manchetinhum semanzinhum</div>
+        <div class="entry-pt">"Escândalo do adversário vira manchete por semanas"</div>
+        <div class="entry-law"><span>§</span> Corolário do item anterior. Corpo 72, capa, com infográfico.</div>
+      </div>
+
+      <div class="entry" data-de="Narrativazinhum construídinhum fatzinhum realidadzinhum" data-pt="Narrativa construída vira realidade">
+        <div class="entry-de"><span class="pill pill-mid">Mídia</span>Narrativazinhum construídinhum fatzinhum realidadzinhum</div>
+        <div class="entry-pt">"Narrativa construída vira realidade"</div>
+        <div class="entry-law"><span>§</span> Alquimia Midiática Moderna. Repetir 1000x = verdade.</div>
+      </div>
+
+      <div class="entry" data-de="Silênciozinhum tambéinhum editorializinhum" data-pt="O silêncio também é editorial">
+        <div class="entry-de"><span class="pill pill-mid">Mídia</span>Silênciozinhum tambéinhum editorializinhum</div>
+        <div class="entry-pt">"O silêncio também é editorial"</div>
+        <div class="entry-law"><span>§</span> Capítulo Não Publicado. O mais poderoso dos instrumentos.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-pop" class="nb-section">
+    <div class="section-label">Volume VII — Volkssufferwörterbuch · Edição do Povo Sofrido</div>
+    <div class="entry-grid">
+
+      <div class="entry" data-de="Trabalhinhum mêszinhum impostinhum mêszinhum sobrazinhum nadinhum" data-pt="Trabalhou o mês, pagou imposto o mês, sobrou nada">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Trabalhinhum mêszinhum impostinhum mêszinhum sobrazinhum nadinhum</div>
+        <div class="entry-pt">"Trabalhou o mês, pagou imposto o mês, sobrou nada"</div>
+        <div class="entry-law"><span>§</span> Matemática Financeira Popular. Irrefutável desde o holerite.</div>
+      </div>
+
+      <div class="entry" data-de="Gasolinzinhum subinhum salárinhum nãosubinhum" data-pt="Gasolina sobe, salário não sobe">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Gasolinzinhum subinhum salárinhum nãosubinhum</div>
+        <div class="entry-pt">"Gasolina sobe, salário não sobe"</div>
+        <div class="entry-law"><span>§</span> Lei da Gravidade Econômica Seletiva. Só cai o que não convém.</div>
+      </div>
+
+      <div class="entry" data-de="Consultinhum marcainhum trêsmêzinhum curainhum sozinhum" data-pt="Consulta marcada pra três meses, curou sozinho">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Consultinhum marcainhum trêsmêzinhum curainhum sozinhum</div>
+        <div class="entry-pt">"Consulta marcada pra três meses, curou sozinho"</div>
+        <div class="entry-law"><span>§</span> Medicina Preventiva à Força. O SUS como terapia de resiliência.</div>
+      </div>
+
+      <div class="entry" data-de="UTIzinhum vaginhum mortinhum primeirinhum" data-pt="UTI tem vaga depois que morre">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>UTIzinhum vaginhum mortinhum primeirinhum</div>
+        <div class="entry-pt">"UTI tem vaga depois que morre"</div>
+        <div class="entry-law"><span>§</span> Gestão de Leitos Hospitalares. Eficiência post-mortem comprovada.</div>
+      </div>
+
+      <div class="entry" data-de="Escolinhum públicinhum desabinhum aluninzinhum estudinhum" data-pt="Escola pública desaba, aluno estuda embaixo">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Escolinhum públicinhum desabinhum aluninzinhum estudinhum</div>
+        <div class="entry-pt">"Escola pública desaba, aluno estuda embaixo"</div>
+        <div class="entry-law"><span>§</span> Resiliência Pedagógica Nacional. Prêmio UNESCO de Adaptabilidade.</div>
+      </div>
+
+      <div class="entry" data-de="Buraczinhum ruzinhum remendainhum nasce doisinhum" data-pt="Buraco na rua remenda, nascem dois">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Buraczinhum ruzinhum remendainhum nasce doisinhum</div>
+        <div class="entry-pt">"Buraco na rua remenda, nascem dois"</div>
+        <div class="entry-law"><span>§</span> Reprodução Asfáltica Brasileira. Fenômeno estudado pelo MIT.</div>
+      </div>
+
+      <div class="entry" data-de="Votinhum mudinhum nadinhum votinhum denovinhum" data-pt="Votou, mudou nada, votou de novo">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Votinhum mudinhum nadinhum votinhum denovinhum</div>
+        <div class="entry-pt">"Votou, mudou nada, votou de novo"</div>
+        <div class="entry-law"><span>§</span> Definição Clínica de Insanidade Eleitoral. Einstein concordaria.</div>
+      </div>
+
+      <div class="entry" data-de="Brasilinhum nãoépaiszinhum pobrzinhum épaiszinhum ricinhum povinhum pobrzinhum" data-pt="Brasil não é país pobre, é país rico com povo pobre">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Brasilinhum nãoépaiszinhum pobrzinhum épaiszinhum ricinhum povinhum pobrzinhum</div>
+        <div class="entry-pt">"Brasil não é país pobre, é país rico com povo pobre"</div>
+        <div class="entry-law"><span>§</span> Diagnóstico Estrutural Definitivo. Tese de doutorado em uma frase.</div>
+      </div>
+
+      <div class="entry" data-de="Resistinhum nãoéoptinhum éobrigatzinhum" data-pt="Resistir não é opção, é obrigação">
+        <div class="entry-de"><span class="pill pill-pop">Povo</span>Resistinhum nãoéoptinhum éobrigatzinhum</div>
+        <div class="entry-pt">"Resistir não é opção, é obrigação"</div>
+        <div class="entry-law"><span>§</span> Constituição Real do Povo. Artigo Primeiro e Único.</div>
+      </div>
+
+      <div class="entry" data-de="Selvainhum semprin" data-pt="SELVA sempre">
+        <div class="entry-de"><span class="pill pill-pol">Final</span>Selvainhum semprin</div>
+        <div class="entry-pt">"SELVA sempre"</div>
+        <div class="entry-law"><span>§</span> Saudação Final. Epílogo de todo dicionário que se preze. Irrevogável.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="nb-footer">
+    <p>APROVADO POR UNANIMIDADE · SESSÃO ULTRA-SECRETA · ÀS 23H59 · VÉSPERA DE FERIADO</p>
+    <p>TODOS OS MINISTROS AUSENTES · QUÓRUM NÃO ATINGIDO · APROVADO MESMO ASSIM</p>
+    <p>NÜRBURGRING NORDSCHLEIFE · 24H EDITION · 2026</p>
+    <span class="selva">SELVA</span>
+  </div>
+
+</div>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.nb-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nb-tab').forEach(t => t.classList.remove('active'));
+    const section = document.getElementById(id);
+    if (section) section.classList.add('active');
+    if (btn) btn.classList.add('active');
+    document.getElementById('search-section').classList.remove('active');
+    document.getElementById('searchBox').value = '';
+    document.getElementById('mainNav').style.display = 'flex';
+  }
+
+  function doSearch(val) {
+    const q = val.trim().toLowerCase();
+    const tabs = document.querySelectorAll('.nb-section:not(#search-section)');
+    const searchSection = document.getElementById('search-section');
+    const results = document.getElementById('search-results');
+    const noResults = document.getElementById('no-results');
+
+    if (!q) {
+      searchSection.classList.remove('active');
+      const firstBtn = document.querySelector('.nb-tab');
+      showTab('tab-med', firstBtn);
+      return;
+    }
+
+    tabs.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nb-tab').forEach(t => t.classList.remove('active'));
+    searchSection.classList.add('active');
+
+    results.innerHTML = '';
+    let found = 0;
+
+    document.querySelectorAll('.nb-section:not(#search-section) .entry').forEach(entry => {
+      const de = (entry.dataset.de || '').toLowerCase();
+      const pt = (entry.dataset.pt || '').toLowerCase();
+      if (de.includes(q) || pt.includes(q)) {
+        const clone = entry.cloneNode(true);
+        results.appendChild(clone);
+        found++;
+      }
+    });
+
+    noResults.style.display = found === 0 ? 'block' : 'none';
+  }
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

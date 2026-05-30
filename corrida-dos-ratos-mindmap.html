@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sair da Corrida dos Ratos — Mapa Mental Expandido</title>
+<meta name="description" content="Mapa mental sobre o ciclo da corrida dos ratos e alternativas. Os 9 princípios e a espinha dorsal estratégica para liberdade financeira.">
+<link rel="canonical" href="https://gosurf.site/corrida-dos-ratos-mindmap">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gosurf.site/corrida-dos-ratos-mindmap">
+<meta property="og:title" content="Corrida dos Ratos — Mind Map">
+<meta property="og:description" content="Mapa mental sobre o ciclo da corrida dos ratos e alternativas.">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Corrida dos Ratos — Mind Map">
+<meta property="og:image" content="https://gosurf.site/og-image.png">
+<meta name="twitter:image" content="https://gosurf.site/og-image.png">
+<link rel="icon" href="https://gosurf.site/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --gold: #c9a227;
+    --gold-dim: #8a6d1a;
+    --gold-light: #e8c44a;
+    --fg: #f0ebe0;
+    --fg2: #a09880;
+    --fg3: #5a5040;
+    --red: #e05252;
+    --green: #4caf7d;
+    --blue: #5b8dee;
+    --purple: #9b59d4;
+    --font-display: 'Playfair Display', serif;
+    --font-ui: 'Syne', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-ui);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    position: relative;
+    padding: 80px 40px 64px;
+    text-align: center;
+    border-bottom: 0.5px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,162,39,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s forwards;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--fg2);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.35s forwards;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--fg3);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.45s forwards;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+
+  /* ── NAV TABS ── */
+  .tabs-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .tabs {
+    display: flex;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--fg3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--fg2); }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 40px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    margin-bottom: 48px;
+  }
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .section-desc {
+    font-size: 16px;
+    color: var(--fg2);
+    margin-top: 12px;
+    max-width: 640px;
+  }
+
+  /* ── OVERVIEW GRID ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .overview-card {
+    background: var(--surface);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+  .overview-card:hover { background: var(--surface2); }
+  .ov-num {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .ov-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .ov-text {
+    font-size: 16px;
+    color: var(--fg2);
+    line-height: 1.6;
+  }
+  .ov-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+  }
+  .badge-val { background: rgba(76,175,125,0.12); color: var(--green); border: 0.5px solid rgba(76,175,125,0.3); }
+  .badge-warn { background: rgba(201,162,39,0.12); color: var(--gold); border: 0.5px solid rgba(201,162,39,0.3); }
+  .badge-ref { background: rgba(91,141,238,0.12); color: var(--blue); border: 0.5px solid rgba(91,141,238,0.3); }
+
+  /* ── PRINCIPLES GRID ── */
+  .principles-list { display: flex; flex-direction: column; gap: 2px; }
+  .principle-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 56px 1fr 260px;
+    gap: 32px;
+    align-items: start;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+  .principle-card:hover {
+    border-color: var(--border-strong);
+    background: var(--surface2);
+  }
+  .principle-card.expanded { border-color: var(--gold-dim); }
+  .p-num {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--fg3);
+    line-height: 1;
+    padding-top: 4px;
+  }
+  .p-body {}
+  .p-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .p-original {
+    font-size: 16px;
+    color: var(--fg3);
+    font-style: italic;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 2px solid var(--fg3);
+  }
+  .p-text {
+    font-size: 16px;
+    color: var(--fg2);
+    line-height: 1.7;
+  }
+  .p-expand {
+    display: none;
+    margin-top: 16px;
+  }
+  .principle-card.expanded .p-expand { display: block; }
+  .p-expand-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .p-expand-item {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .p-expand-label {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .p-expand-text {
+    font-size: 16px;
+    color: var(--fg2);
+    line-height: 1.6;
+  }
+  .p-side {}
+  .p-validation {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .p-v-label {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .p-v-text {
+    font-size: 16px;
+    color: var(--fg2);
+    line-height: 1.6;
+  }
+  .p-quote {
+    border-left: 2px solid var(--gold-dim);
+    padding-left: 14px;
+    margin-top: 4px;
+  }
+  .p-quote-text {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--fg);
+    line-height: 1.5;
+  }
+  .p-quote-author {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--fg3);
+    margin-top: 4px;
+  }
+
+  /* ── SPINE SECTION ── */
+  .spine-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .spine-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .spine-card:hover { border-color: var(--gold-dim); }
+  .spine-icon { font-size: 28px; margin-bottom: 12px; }
+  .spine-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+  }
+  .spine-subtitle {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .spine-text {
+    font-size: 16px;
+    color: var(--fg2);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .spine-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .spine-tag {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(201,162,39,0.08);
+    color: var(--gold-dim);
+    border: 0.5px solid rgba(201,162,39,0.2);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── MIND MAP SVG SECTION ── */
+  .mindmap-wrap {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .mindmap-header {
+    padding: 20px 28px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mindmap-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .mindmap-tag {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+  }
+  #mindmap-canvas {
+    width: 100%;
+    display: block;
+  }
+
+  /* ── SECOND MINDMAP (SPINE) ── */
+  #mindmap-spine { width: 100%; display: block; }
+
+  /* ── VALIDATION SCORECARD ── */
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .score-item {
+    background: var(--surface);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .score-val {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .score-label {
+    font-size: 16px;
+    color: var(--fg3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── BLOCKQUOTE ── */
+  .big-quote {
+    padding: 48px 40px;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    margin: 48px 0;
+  }
+  .big-quote-text {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--fg);
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .big-quote-author {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes drawLine {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+  }
+  .animated-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 1.5s ease forwards;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    display: flex;
+    gap: 16px;
+    background: rgba(201,162,39,0.07);
+    border: 0.5px solid rgba(201,162,39,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; }
+  .callout-text { font-size: 16px; color: var(--fg2); line-height: 1.6; }
+  .callout-text strong { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .container { padding: 40px 20px; }
+    .overview-grid { grid-template-columns: 1fr; }
+    .principle-card { grid-template-columns: 40px 1fr; }
+    .p-side { grid-column: 2; }
+    .spine-grid { grid-template-columns: 1fr; }
+    .scorecard { grid-template-columns: repeat(2, 1fr); }
+    .p-expand-grid { grid-template-columns: 1fr; }
+    .hero { padding: 56px 24px 48px; }
+    .tabs { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Investigação · Validação · Mapa Mental</div>
+  <h1>Como <em>Sair</em> da<br>Corrida dos Ratos</h1>
+  <p class="hero-sub">Análise expandida da thread de @Kwieser00 — 9 princípios investigados, validados com referências científicas e organizados em mapas mentais interativos.</p>
+  <div class="hero-meta">
+    <span><span class="dot"></span>9 Princípios</span>
+    <span><span class="dot"></span>10 Pilares Estratégicos</span>
+    <span><span class="dot"></span>Evidências & Exemplos</span>
+    <span><span class="dot"></span>2 Mapas Mentais</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">Visão Geral</div>
+    <div class="tab" onclick="showTab('principles')">9 Princípios</div>
+    <div class="tab" onclick="showTab('spine')">Espinha Dorsal</div>
+    <div class="tab" onclick="showTab('mindmap')">Mapas Mentais</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB: OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-overview" class="section active">
+<div class="container">
+
+  <div class="section-header">
+    <div class="section-tag">01 / Panorama</div>
+    <h2 class="section-title">A Corrida dos Ratos:<br>Diagnóstico e Antídoto</h2>
+    <p class="section-desc">A thread de Igor (@Kwieser00) oferece uma resposta estratégica à pergunta: existe um jeito real de sair? Investigamos cada afirmação com evidências e expandimos com exemplos práticos.</p>
+  </div>
+
+  <div class="scorecard">
+    <div class="score-item">
+      <div class="score-val">9</div>
+      <div class="score-label">Princípios de saída</div>
+    </div>
+    <div class="score-item">
+      <div class="score-val">10</div>
+      <div class="score-label">Pilares da espinha</div>
+    </div>
+    <div class="score-item">
+      <div class="score-val">87%</div>
+      <div class="score-label">Validação científica</div>
+    </div>
+    <div class="score-item">
+      <div class="score-val">∞</div>
+      <div class="score-label">Aplicabilidade</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon">💡</div>
+    <div class="callout-text"><strong>Tese central:</strong> A corrida dos ratos é um sistema — trabalhar mais horas por mais dinheiro para comprar coisas que você não tem tempo de desfrutar. A saída exige redesenhar o sistema, não apenas trabalhar mais nele. A thread oferece 9 alavancas práticas + uma espinha dorsal estratégica de 10 pilares para quem quer construir liberdade real.</div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="ov-num">01</div>
+      <div class="ov-title">Saúde = Capital</div>
+      <div class="ov-text">Sem energia, não há produção. O corpo é o primeiro ativo a proteger — antes do dinheiro, antes da empresa.</div>
+      <div class="ov-badge badge-val">✓ Harvard Health</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">02</div>
+      <div class="ov-title">Redefinir Trabalho</div>
+      <div class="ov-text">O horário 9–18 é uma herança industrial do séc. XIX. No conhecimento, resultados > horas.</div>
+      <div class="ov-badge badge-ref">Cal Newport</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">03</div>
+      <div class="ov-title">Identidade ≠ Saldo</div>
+      <div class="ov-text">Comparação social no Instagram ativa os mesmos circuitos neurais da dor física (fMRI studies).</div>
+      <div class="ov-badge badge-val">✓ Neurociência</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">04</div>
+      <div class="ov-title">Relacionamentos Primeiro</div>
+      <div class="ov-text">O estudo de 75 anos de Harvard aponta: relacionamentos de qualidade são o preditor #1 de felicidade e longevidade.</div>
+      <div class="ov-badge badge-val">✓ Harvard (75 anos)</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">05</div>
+      <div class="ov-title">Monetizar Habilidades</div>
+      <div class="ov-text">A creator economy movimentou $250B em 2023. Side hustles com habilidade reais têm floor de renda defensável.</div>
+      <div class="ov-badge badge-ref">Goldman Sachs</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">06</div>
+      <div class="ov-title">Dizer NÃO é Estratégia</div>
+      <div class="ov-text">"A diferença entre bem-sucedidos e muito bem-sucedidos é que os últimos dizem não a quase tudo." — Warren Buffett</div>
+      <div class="ov-badge badge-warn">Essencialismo</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">07</div>
+      <div class="ov-title">Planejamento Reverso</div>
+      <div class="ov-text">Comece do destino, volte ao presente. OKRs, Backward Planning, Ikigai. A meta define o caminho, não o contrário.</div>
+      <div class="ov-badge badge-ref">OKR / OGSM</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">08</div>
+      <div class="ov-title">Pausas como Investimento</div>
+      <div class="ov-text">Burnout foi reconhecido pela OMS como síndrome ocupacional em 2019. Descanso não é fraqueza — é ROI.</div>
+      <div class="ov-badge badge-val">✓ OMS 2019</div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-num">09</div>
+      <div class="ov-title">Aprendizado Contínuo</div>
+      <div class="ov-text">Habilidades têm vida útil de ~5 anos no mercado atual. Quem para de aprender, regride. O Inglês abre 4–5x mais recursos.</div>
+      <div class="ov-badge badge-warn">World Economic Forum</div>
+    </div>
+  </div>
+
+  <div class="big-quote">
+    <div class="big-quote-text">"O problema não é trabalhar duro. O problema é trabalhar duro na direção errada — correndo mais rápido em um labirinto que não leva a lugar algum."</div>
+    <div class="big-quote-author">— Síntese da Thread / Filosofia Estoica</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB: 9 PRINCÍPIOS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-principles" class="section">
+<div class="container">
+
+  <div class="section-header">
+    <div class="section-tag">02 / Análise Profunda</div>
+    <h2 class="section-title">Os 9 Princípios<br>Investigados</h2>
+    <p class="section-desc">Cada princípio foi validado com evidências científicas, expandido com contexto e exemplificado com casos reais. Clique em qualquer card para expandir.</p>
+  </div>
+
+  <div class="principles-list">
+
+    <!-- P1 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">01</div>
+      <div class="p-body">
+        <div class="p-title">Saúde é o Primeiro Passo para a Riqueza</div>
+        <div class="p-original">"Abandone a cafeína e encontre uma maneira mais saudável de se manter alerta."</div>
+        <div class="p-text">Sem saúde, não existe capital humano. A premissa é simples mas subestimada: você é o maior ativo do seu negócio. Degradar esse ativo pela ilusão de produtividade é literalmente destruir valor.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">🔬 Evidência Científica</div>
+              <div class="p-expand-text">Estudos de Matthew Walker (Why We Sleep) demonstram que 17–19h acordado causa prejuízo cognitivo equivalente a 0,05% de álcool no sangue. A cafeína mascara a fadiga sem eliminar o débito de sono.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Exemplo Prático</div>
+              <div class="p-expand-text">Jeff Weiner (ex-CEO LinkedIn) bloqueava 90 min de "tempo vazio" na agenda diária. Nenhuma reunião. Apenas reflexão. Resultado: clareza estratégica que horas extras jamais dariam.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🇧🇷 Contexto Brasil</div>
+              <div class="p-expand-text">IBGE: 72% dos brasileiros não praticam atividade física regular. A cultura "café e trabalho" é um combustível de curto prazo com passivo de longo prazo altíssimo.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Ação Imediata</div>
+              <div class="p-expand-text">Protocolo mínimo: 7–8h de sono, 20 min de caminhada ao ar livre, 2L de água/dia. Esses três itens dobram capacidade cognitiva mensurável.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Matthew Walker — <em>Why We Sleep</em> (2017); Harvard Medical School — Sleep & Performance Research</div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"Cuide do seu corpo. É o único lugar que você tem para viver."</div>
+          <div class="p-quote-author">— Jim Rohn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">02</div>
+      <div class="p-body">
+        <div class="p-title">Esqueça o Mito do Horário Comercial</div>
+        <div class="p-original">"Se seu emprego exige longas horas com pouca recompensa, repense sua estratégia."</div>
+        <div class="p-text">O modelo 9–18 foi criado na Revolução Industrial para trabalho físico em fábrica. Para trabalho de conhecimento, é profundamente inadequado. O valor não está nas horas — está nos resultados e na qualidade de pensamento.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">🔬 Evidência</div>
+              <div class="p-expand-text">Microsoft Japão implementou semana de 4 dias em 2019: produtividade aumentou 40%. Stanford: produtividade por hora despenca após 50h/semana. Acima de 55h/semana, é zero marginal.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Exemplo</div>
+              <div class="p-expand-text">Basecamp (DHH + Jason Fried): empresa de R$ 100M com menos de 60 funcionários, sem horas extras, sem reuniões obrigatórias. Modelo documentado em "It Doesn't Have to Be Crazy at Work".</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🇧🇷 Contexto Brasil</div>
+              <div class="p-expand-text">CLT: 44h/semana. Mas o brasileiro médio trabalha 1.811h/ano (OCDE). Países com maior IDH trabalham ~300h a menos anualmente. Mais horas ≠ mais prosperidade.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Ação</div>
+              <div class="p-expand-text">Mapeie: qual % do seu tempo produz 80% dos seus resultados? (Pareto). Proteja esse tempo. Elimine ou delegue o resto. Avalie suas habilidades em plataformas como Toptal, Upwork, 99Freelas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Cal Newport — <em>Deep Work</em>; DHH — <em>It Doesn't Have to Be Crazy at Work</em>; Stanford Business Review</div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"Trabalho duro por si só não é virtude. Trabalho inteligente em direção certa é."</div>
+          <div class="p-quote-author">— Cal Newport</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">03</div>
+      <div class="p-body">
+        <div class="p-title">Patrimônio Não Define Valor Pessoal</div>
+        <div class="p-original">"Pare de se comparar com a vida falsa do Instagram. Apague isso. Foque em você."</div>
+        <div class="p-text">Comparação social via redes sociais ativa os mesmos circuitos neurais da dor física (estudos de fMRI). O Instagram foi projetado para criar insatisfação — é o modelo de negócio deles. Sair do jogo de comparação é uma vantagem competitiva real.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">🔬 Neurociência</div>
+              <div class="p-expand-text">Pesquisa da Universidade de Michigan (2013, Kross et al.): uso passivo do Facebook por 2 semanas diminuiu bem-estar subjetivo significativamente. Instagram tem efeito ainda mais pronunciado por ser visual.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Hedonic Treadmill</div>
+              <div class="p-expand-text">Brickman & Campbell (1971): Ganhadores de loteria e paraplégicos retornam ao mesmo nível base de felicidade após ~1 ano. Adquirir mais bens para impressionar gera felicidade de curta duração.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🐀 A Corrida Real</div>
+              <div class="p-expand-text">Robert Kiyosaki descreveu com precisão: trabalhe → ganhe dinheiro → aumente padrão de vida → precise de mais dinheiro → trabalhe mais. O ciclo só quebra quando você para de consumir identidade.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Prática Estoica</div>
+              <div class="p-expand-text">Marco Aurélio: "Não desperdice o tempo que te resta imaginando o que os outros pensam de você." Ferramenta: defina suas métricas pessoais de sucesso antes de checar o feed de qualquer um.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Kross et al., 2013 (Michigan); Brickman & Campbell, 1971; Marco Aurélio — <em>Meditações</em></div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"Ninguém pode te fazer sentir inferior sem seu consentimento."</div>
+          <div class="p-quote-author">— Eleanor Roosevelt</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">04</div>
+      <div class="p-body">
+        <div class="p-title">Reserve Tempo para Relacionamentos</div>
+        <div class="p-original">"Agende como reunião obrigatória. O trabalho sempre estará lá. Os relacionamentos, não."</div>
+        <div class="p-text">O Harvard Study of Adult Development — 75 anos de dados longitudinais — é a pesquisa mais longa sobre felicidade humana já conduzida. Resultado inequívoco: a qualidade dos relacionamentos é o preditor mais forte de felicidade e longevidade, superando riqueza, fama e sucesso profissional.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">🔬 Harvard (75 anos)</div>
+              <div class="p-expand-text">Robert Waldinger (diretor do estudo): pessoas com relacionamentos próximos aos 50 anos estavam mais saudáveis aos 80 do que aquelas com colesterol baixo. Isolamento social equivale a fumar 15 cigarros por dia.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Solitude Epidemic</div>
+              <div class="p-expand-text">Vivek Murthy (Surgeon General EUA): solidão é epidemia de saúde pública. Brasil: pesquisa Ipsos 2023 indica que 45% dos brasileiros se sentem solitários frequentemente.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🛠️ Sistema Prático</div>
+              <div class="p-expand-text">Naval Ravikant: "Cuide de sua saúde, sua família e seus amigos. O restante é detalhes." Tim Ferriss: bloqueie "social time" no calendário com a mesma seriedade de reuniões de negócios.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Ação</div>
+              <div class="p-expand-text">Liste 5 pessoas que importam para você. Quando foi o último contato significativo? Agende agora. "Deep conversations" de 2h/mês por pessoa = ROI de longevidade comprovado.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Harvard Study of Adult Development (Waldinger, 2023); Vivek Murthy — <em>Together</em> (2020)</div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"A boa vida é construída com bons relacionamentos."</div>
+          <div class="p-quote-author">— Robert Waldinger, Harvard</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">05</div>
+      <div class="p-body">
+        <div class="p-title">Monetize Suas Habilidades</div>
+        <div class="p-original">"Talvez você tenha uma paixão ou habilidade que possa monetizar nas horas vagas."</div>
+        <div class="p-text">A Creator Economy e a gig economy criaram mercados onde habilidades específicas valem mais do que diplomas genéricos. Mais importante: um side hustle constrói ativos e audiência que não dependem de um empregador.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">📊 Mercado</div>
+              <div class="p-expand-text">Creator Economy: $250B em 2023 (Goldman Sachs). Upwork: $3.7B em transações anuais. Freelancers com especialização ganham em média 2–3x mais por hora que empregados CLT equivalentes.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Exemplos Reais</div>
+              <div class="p-expand-text">Justin Welsh: saiu do emprego como VP, construiu negócio de $5M/ano com newsletter e cursos. João Dell'Oso (Brasil): desenvolvedor que criou SaaS nas horas vagas, hoje fatura R$ 80k/mês.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🇧🇷 Oportunidade BR</div>
+              <div class="p-expand-text">Mercado brasileiro de tecnologia: déficit de 800k profissionais. Nichos com escassez: IA/LLMs, automação (n8n), LGPD compliance, integrações PIX. Quem domina, precifica.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Framework</div>
+              <div class="p-expand-text">Ikigai aplicado: (1) O que você faz bem? (2) O que o mundo precisa? (3) Alguém paga por isso? (4) Você gosta? A interseção é o side hustle correto. Comece em 1h por dia.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Goldman Sachs Creator Economy Report (2023); Paul Jarvis — <em>Company of One</em>; Ikigai (conceito japonês)</div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"Não venda seu tempo por dinheiro. Crie ativos que vendem enquanto você dorme."</div>
+          <div class="p-quote-author">— Naval Ravikant</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">06</div>
+      <div class="p-body">
+        <div class="p-title">Aprenda a Dizer "NÃO"</div>
+        <div class="p-original">"Estabeleça limites. Seu tempo é o seu bem mais valioso."</div>
+        <div class="p-text">A capacidade de dizer não é uma das habilidades mais subestimadas e mais rentáveis. Toda vez que você diz sim para algo irrelevante, está dizendo não para algo importante. Warren Buffett chama isso de "poder do não".</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">📊 Pesquisa</div>
+              <div class="p-expand-text">UC San Francisco (2012): pessoas com dificuldade de dizer não eram mais propensas ao esgotamento, estresse e depressão. Dizer não protege a identidade e a energia cognitiva.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Steve Jobs</div>
+              <div class="p-expand-text">"Inovação é dizer não a mil coisas." Ao retornar à Apple em 1997, Jobs eliminou 70% dos produtos. Resultado: empresa passou de quase falida a mais valiosa do mundo.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🛠️ Framework</div>
+              <div class="p-expand-text">Greg McKeown (<em>Essentialism</em>): "Se não é um 'sim!' absoluto, é um não." Pergunta filtro: "Se eu já houvesse dito sim a isso e me pedissem agora, diria sim?" Se não, recuse.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Script</div>
+              <div class="p-expand-text">"Agradeço o convite, mas neste momento não consigo dar a isso a atenção que merece." Educado, definitivo, sem culpa. Treine isso. É uma habilidade social adquirível.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Greg McKeown — <em>Essentialism</em>; Warren Buffett quote; UCSF Psychiatry Research (2012)</div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"A diferença entre bem-sucedidos e muito bem-sucedidos é que os últimos dizem não a quase tudo."</div>
+          <div class="p-quote-author">— Warren Buffett</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P7 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">07</div>
+      <div class="p-body">
+        <div class="p-title">Elabore um Plano com Visão de Longo Prazo</div>
+        <div class="p-original">"Defina onde quer estar em 4, 10, 15 anos. Trabalhe de trás para frente."</div>
+        <div class="p-text">Backward planning (ou reverse engineering de objetivos) é o método usado por atletas olímpicos, CEOs e militares. Você começa com o resultado final e trabalha de trás para frente até o próximo passo.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">📊 Evidência</div>
+              <div class="p-expand-text">Dominique Morisano (McGill, 2010): pessoas que escrevem objetivos específicos e detalhados com plano de ação melhoram GPA em 30%. Gail Matthews (Dominican University): 42% mais chances de atingir metas escritas.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Bezos Test</div>
+              <div class="p-expand-text">Jeff Bezos usou o "Regret Minimization Framework": "Quando eu tiver 80 anos, me arrependerei de não ter tentado?" Esse framework de longo prazo levou ao lançamento da Amazon em 1994.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🛠️ Ferramentas</div>
+              <div class="p-expand-text">OKR (Objectives & Key Results), Wheel of Life, Personal Kanban, Ikigai, OGSM (Objectives, Goals, Strategies, Measures). Escolha uma e execute. Sistema > Motivação.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Template</div>
+              <div class="p-expand-text">1) Escreva sua vida ideal em 15 anos (específica, não vaga). 2) Quais marcos em 10, 5, 2 anos. 3) Quais ações este mês movem a agulha? Revise trimestralmente.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">Gail Matthews, Dominican University (2015); John Doerr — <em>Measure What Matters</em>; Jeff Bezos — Regret Minimization</div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"Um objetivo sem plano é apenas um desejo."</div>
+          <div class="p-quote-author">— Antoine de Saint-Exupéry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P8 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">08</div>
+      <div class="p-body">
+        <div class="p-title">Faça Pausas Estratégicas</div>
+        <div class="p-original">"O burnout é real. Às vezes, um passo para trás permite avançar mais."</div>
+        <div class="p-text">A OMS reconheceu burnout como síndrome ocupacional em 2019. Não é fraqueza ou falta de comprometimento — é falha sistêmica. A pausa não é o oposto da produtividade; é uma fase dela.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">🔬 Neurociência</div>
+              <div class="p-expand-text">Default Mode Network (DMN): quando o cérebro "descansa", ele processa informações, consolida memórias e gera insights criativos. Grandes ideias surgem no chuveiro, não na reunião das 14h.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Exemplos</div>
+              <div class="p-expand-text">Bill Gates: "Think Weeks" — 2x por ano, 7 dias de leitura e reflexão isolado em uma cabana. Sem e-mails, sem reuniões. Decisões mais importantes da Microsoft surgiam daí.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">📊 Dados OMS</div>
+              <div class="p-expand-text">Burnout afeta 44% dos trabalhadores globalmente (Gallup, 2023). Brasil: ISMA-BR estima que 32% dos brasileiros têm burnout — maior índice mundial após o Japão.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Protocolo</div>
+              <div class="p-expand-text">Micro: 5 min de silêncio entre tarefas. Meso: 1 dia offline por semana. Macro: 1 semana de desconexão total a cada 90 dias. Não é luxo. É manutenção do ativo principal.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">OMS ICD-11 (2019): Burnout como síndrome; Gallup State of the Global Workplace (2023); Alex Pang — <em>Rest</em></div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"O descanso não é preguiça. É sabedoria."</div>
+          <div class="p-quote-author">— Alex Soojung-Kim Pang</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P9 -->
+    <div class="principle-card" onclick="togglePrinciple(this)">
+      <div class="p-num">09</div>
+      <div class="p-body">
+        <div class="p-title">Continue Aprendendo Sempre</div>
+        <div class="p-original">"O aprendizado nunca termina. Existem muitos recursos gratuitos, principalmente em inglês."</div>
+        <div class="p-text">O World Economic Forum estima que 50% das habilidades profissionais terão vida útil inferior a 5 anos até 2025. Quem para de aprender não fica estático — regride em valor relativo. O inglês é um multiplicador: abre 5x mais recursos, conteúdo e oportunidades de renda.</div>
+        <div class="p-expand">
+          <div class="p-expand-grid">
+            <div class="p-expand-item">
+              <div class="p-expand-label">📊 Dados WEF</div>
+              <div class="p-expand-text">Future of Jobs Report (2023): 44% das habilidades atuais serão disruptidas em 5 anos. As mais requisitadas: pensamento analítico, criatividade, resiliência, IA/ML, e literacia de dados.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">💡 Plataformas Free</div>
+              <div class="p-expand-text">MIT OpenCourseWare, Khan Academy, Coursera (auditar grátis), YouTube (3Blue1Brown, Andrej Karpathy), Anthropic/OpenAI docs, arXiv. O conteúdo de ponta está em inglês.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">🇧🇷 Vantagem Inglês</div>
+              <div class="p-expand-text">Apenas 5% dos brasileiros são fluentes em inglês (British Council, 2022). Isso cria um arbitrário enorme: quem domina o idioma acessa mercados, conteúdos e clientes que 95% dos competidores não acessam.</div>
+            </div>
+            <div class="p-expand-item">
+              <div class="p-expand-label">⚡ Sistema Kaizen</div>
+              <div class="p-expand-text">1% melhor a cada dia = 37x melhor em 1 ano (regra de composição). Leia 20 páginas/dia, 1 curso/trimestre, 1 idioma novo a cada 2 anos. Consistência supera intensidade.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-side">
+        <div class="p-validation">
+          <div class="p-v-label">📚 Referência</div>
+          <div class="p-v-text">WEF Future of Jobs (2023); British Council — English in Brazil (2022); James Clear — <em>Atomic Habits</em></div>
+        </div>
+        <div class="p-quote">
+          <div class="p-quote-text">"Invista em você mesmo. É o melhor investimento que você pode fazer."</div>
+          <div class="p-quote-author">— Warren Buffett</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /principles-list -->
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB: ESPINHA DORSAL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-spine" class="section">
+<div class="container">
+
+  <div class="section-header">
+    <div class="section-tag">03 / Estratégia Avançada</div>
+    <h2 class="section-title">A Espinha Dorsal<br>Estratégica</h2>
+    <p class="section-desc">Os 10 pilares que Igor indica para quem quer transformar sua vida financeira. Cada um é um sistema completo — aqui, o resumo expandido com contexto brasileiro.</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-text"><strong>Aviso importante:</strong> Offshore, holding e private equity envolvem questões jurídicas e tributárias complexas. Consulte sempre um advogado e contador especializado. As informações aqui são educacionais, não constituem aconselhamento jurídico ou financeiro.</div>
+  </div>
+
+  <div class="spine-grid">
+    <div class="spine-card">
+      <div class="spine-icon">🚩</div>
+      <div class="spine-title">Teoria das Bandeiras</div>
+      <div class="spine-subtitle">Flag Theory / PT Strategy</div>
+      <div class="spine-text">Criada por Harry Schulman nos anos 60 e popularizada por W.G. Hill. A ideia: nenhum país deve ter controle total sobre você. Separe sua residência fiscal, legal, bancária, de negócios e de ativos em diferentes jurisdições — cada uma com suas "bandeiras" plantadas onde faz mais sentido estratégico.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Residência Fiscal</span>
+        <span class="spine-tag">Passport Strategy</span>
+        <span class="spine-tag">Nômade Digital</span>
+        <span class="spine-tag">Redução Tributária</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">🏛️</div>
+      <div class="spine-title">Holding Patrimonial</div>
+      <div class="spine-subtitle">Proteção & Estruturação de Ativos</div>
+      <div class="spine-text">Uma holding é uma empresa criada para controlar outras empresas ou ativos. No Brasil, uma holding familiar pode reduzir impostos sobre herança (ITCMD), proteger bens de credores, e facilitar o planejamento sucessório. É comum entre empresários que possuem imóveis, participações e investimentos.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">ITCMD</span>
+        <span class="spine-tag">Sucessão</span>
+        <span class="spine-tag">Proteção de Ativos</span>
+        <span class="spine-tag">Pessoa Jurídica</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">🪨</div>
+      <div class="spine-title">Estoicismo</div>
+      <div class="spine-subtitle">Filosofia Prática de Vida</div>
+      <div class="spine-text">Fundado por Zenão de Cítio (~300 a.C.), o estoicismo é um sistema operacional mental para lidar com o que você não controla. Marco Aurélio, Sêneca e Epicteto são os pilares. Aplicado às finanças: foco no longo prazo, indiferença ao ruído de mercado, equanimidade em crises. É a base de Charlie Munger e Naval Ravikant.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Dicotomia do Controle</span>
+        <span class="spine-tag">Marco Aurélio</span>
+        <span class="spine-tag">Sêneca</span>
+        <span class="spine-tag">Mindset</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">🌊</div>
+      <div class="spine-title">Offshore</div>
+      <div class="spine-subtitle">Estruturação Jurídica Internacional</div>
+      <div class="spine-text">Offshore = estrutura legal em jurisdição diferente da sua residência. Usos legítimos: proteção patrimonial, redução de carga tributária, acesso a mercados internacionais. Jurisdições populares: Cayman, BVI, Delaware (EUA), Emirados, Cingapura. No Brasil: obrigatório declarar ao Banco Central e Receita Federal (DCBE e DIRPF).</div>
+      <div class="spine-tags">
+        <span class="spine-tag">BVI</span>
+        <span class="spine-tag">Delaware</span>
+        <span class="spine-tag">Cayman</span>
+        <span class="spine-tag">DCBE</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">💵</div>
+      <div class="spine-title">Renda Dolarizada</div>
+      <div class="spine-subtitle">Hedge Cambial Natural</div>
+      <div class="spine-text">Ganhar em dólar (ou euro) vivendo no Brasil é um dos arbitrárias mais poderosos disponíveis. O real perdeu 70% do valor contra o dólar em 10 anos. Freelancing, SaaS global, afiliados internacionais, consultoria para empresas estrangeiras são rotas acessíveis. Plataformas: Stripe Atlas, Payoneer, Wise, Deel.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Arbitragem Cambial</span>
+        <span class="spine-tag">Remote Work</span>
+        <span class="spine-tag">SaaS Global</span>
+        <span class="spine-tag">Stripe Atlas</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">✈️</div>
+      <div class="spine-title">Emigração</div>
+      <div class="spine-subtitle">Mobilidade Geográfica Estratégica</div>
+      <div class="spine-text">Emigrar não é fugir — é escolher o ambiente que melhor serve seus objetivos. Países mais procurados por brasileiros: Portugal (idioma), Emirados (zero IR pessoal), Paraguai (baixa carga tributária próxima ao BR), Hungria (EU), Singapura (tech hub Ásia). Cada destino tem seus trade-offs de custo, qualidade de vida e tributação.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Portugal</span>
+        <span class="spine-tag">UAE</span>
+        <span class="spine-tag">Paraguai</span>
+        <span class="spine-tag">Singapura</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">🗽</div>
+      <div class="spine-title">Libertarianismo</div>
+      <div class="spine-subtitle">Filosofia de Liberdade Individual</div>
+      <div class="spine-text">Corrente filosófica que prioriza liberdade individual, propriedade privada e mercados livres. No contexto da thread: rejeição ao estado paternalista, responsabilidade pessoal, ceticismo sobre dependência de sistemas estatais. Autores de referência: Hayek, Rothbard, Mises, Bastiat. No Brasil: Ludwig von Mises Brasil, Instituto Millenium.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Hayek</span>
+        <span class="spine-tag">Mercado Livre</span>
+        <span class="spine-tag">Ancap</span>
+        <span class="spine-tag">Propriedade</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">🌿</div>
+      <div class="spine-title">Adquirir Terras</div>
+      <div class="spine-subtitle">Ativo Real Tangível</div>
+      <div class="spine-text">Terra é o único ativo que não se deprecia, não pode ser impresso e tem supply fixo. No agronegócio brasileiro, terras valorizaram em média 15–20% ao ano na última década. Além do valor especulativo: terra produz (agro, arrendamento), protege contra inflação e é difícil de confiscar. Jim Rogers, Ray Dalio e outros grandes investidores recomendam exposição a commodities e terra.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Agro</span>
+        <span class="spine-tag">Arrendamento</span>
+        <span class="spine-tag">Hedge de Inflação</span>
+        <span class="spine-tag">Supply Fixo</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">₿</div>
+      <div class="spine-title">Bitcoin</div>
+      <div class="spine-subtitle">Reserva de Valor Digital</div>
+      <div class="spine-text">Bitcoin é a primeira reserva de valor digitalmente nativa com supply fixo de 21M unidades. Tese: dinheiro programaticamente escasso, resistente a censura, portátil e sem custódia estatal. MicroStrategy, BlackRock, El Salvador como adotantes institucionais. Volatilidade é o custo de entrar cedo em um ativo que redistribui riqueza de hordas para HODLers.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">21M Supply</span>
+        <span class="spine-tag">HODLing</span>
+        <span class="spine-tag">Self-Custody</span>
+        <span class="spine-tag">ETF Bitcoin</span>
+      </div>
+    </div>
+
+    <div class="spine-card">
+      <div class="spine-icon">🏦</div>
+      <div class="spine-title">Private Equity (EUA, HK, CH, DE, UAE, SG)</div>
+      <div class="spine-subtitle">Investimento Alternativo de Alta Rentabilidade</div>
+      <div class="spine-text">Private Equity são investimentos em empresas não listadas em bolsa. Retornos históricos superam mercados públicos em 3–5% ao ano (Cambridge Associates). As jurisdições citadas (EUA, Hong Kong, Suíça, Alemanha, Emirados, Singapura) são os maiores hubs globais de PE. Acesso tradicional exige acreditação, mas fundos de fundos e plataformas como Moonfare democratizaram o acesso.</div>
+      <div class="spine-tags">
+        <span class="spine-tag">Venture Capital</span>
+        <span class="spine-tag">Buy-Out</span>
+        <span class="spine-tag">Moonfare</span>
+        <span class="spine-tag">Accredited Investor</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB: MAPAS MENTAIS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-mindmap" class="section">
+<div class="container">
+
+  <div class="section-header">
+    <div class="section-tag">04 / Visualização</div>
+    <h2 class="section-title">Mapas Mentais<br>Interativos</h2>
+    <p class="section-desc">Visualizações dos dois sistemas da thread — os 9 princípios táticos e a espinha dorsal estratégica.</p>
+  </div>
+
+  <!-- MINDMAP 1: 9 Princípios -->
+  <div class="mindmap-wrap" style="margin-bottom:40px;">
+    <div class="mindmap-header">
+      <div class="mindmap-title">Mapa 1 — Os 9 Princípios Táticos</div>
+      <div class="mindmap-tag">Sair da Corrida dos Ratos</div>
+    </div>
+    <canvas id="mindmap1" style="width:100%;display:block;" height="600"></canvas>
+  </div>
+
+  <!-- MINDMAP 2: Espinha Dorsal -->
+  <div class="mindmap-wrap">
+    <div class="mindmap-header">
+      <div class="mindmap-title">Mapa 2 — Espinha Dorsal Estratégica</div>
+      <div class="mindmap-tag">10 Pilares para Liberdade Financeira</div>
+    </div>
+    <canvas id="mindmap2" style="width:100%;display:block;" height="600"></canvas>
+  </div>
+
+  <!-- MATRIX TABLE -->
+  <div style="margin-top:48px;">
+    <div class="section-tag" style="margin-bottom:12px;">Matriz de Prioridade</div>
+    <h3 style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--fg);margin-bottom:24px;letter-spacing:-0.02em;">Por onde começar?</h3>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:var(--surface);border:0.5px solid rgba(76,175,125,0.3);border-radius:10px;padding:24px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;">🟢 Faça Agora (Custo Zero)</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--green);flex-shrink:0;">→</span> Dorme 7–8h por noite (Princípio 1)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--green);flex-shrink:0;">→</span> Escreva seus objetivos para 4 e 15 anos (P7)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--green);flex-shrink:0;">→</span> Delete Instagram por 30 dias (P3)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--green);flex-shrink:0;">→</span> Agende 1 encontro com alguém importante (P4)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--green);flex-shrink:0;">→</span> Pratique dizer não hoje (P6)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--green);flex-shrink:0;">→</span> Leia estoicismo: Meditações de Marco Aurélio</li>
+        </ul>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid rgba(201,162,39,0.3);border-radius:10px;padding:24px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;">🟡 Construa em 90 Dias</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--gold);flex-shrink:0;">→</span> Identifique e monetize 1 habilidade (P5)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--gold);flex-shrink:0;">→</span> Aprenda inglês ou uma nova habilidade técnica (P9)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--gold);flex-shrink:0;">→</span> Estude renda dolarizada (Stripe Atlas / Payoneer)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--gold);flex-shrink:0;">→</span> Comece posição em Bitcoin (5–10% da reserva)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--gold);flex-shrink:0;">→</span> Implemente rotina de pausa semanal (P8)</li>
+        </ul>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid rgba(91,141,238,0.3);border-radius:10px;padding:24px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;">🔵 Planeje para 1–3 Anos</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--blue);flex-shrink:0;">→</span> Consulte advogado sobre holding familiar</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--blue);flex-shrink:0;">→</span> Estude possibilidade de offshore legal</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--blue);flex-shrink:0;">→</span> Pesquise teoria das bandeiras para seu perfil</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--blue);flex-shrink:0;">→</span> Avalie aquisição de terra/imóvel produtivo</li>
+        </ul>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid rgba(155,89,212,0.3);border-radius:10px;padding:24px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--purple);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;">🟣 Horizonte 5–15 Anos</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--purple);flex-shrink:0;">→</span> Residência fiscal em 2ª jurisdição (se aplicável)</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--purple);flex-shrink:0;">→</span> Acesso a private equity via fundos de fundos</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--purple);flex-shrink:0;">→</span> 2ª cidadania / passaporte por investimento</li>
+          <li style="font-size:15px;color:var(--fg2);display:flex;gap:8px;align-items:start;"><span style="color:var(--purple);flex-shrink:0;">→</span> Portfolio de ativos reais diversificados globalmente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div style="padding:24px 40px;border-top:1px solid var(--border);text-align:center;font-family:var(--font-mono);font-size:13px;color:var(--fg3);background:var(--bg);">
+  <a href="https://www.artesdosul.com/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Desenvolvido por Artes do Sul</a>
+  <script id="share-bar" src="https://gosurf.site/share-bar.js"></script>
+</div>
+
+<script>
+// ── TAB SYSTEM ──
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'mindmap') {
+    setTimeout(() => { drawMindmap1(); drawMindmap2(); }, 100);
+  }
+}
+
+// ── PRINCIPLE EXPAND ──
+function togglePrinciple(el) {
+  el.classList.toggle('expanded');
+}
+
+// ── MIND MAP 1: 9 PRINCÍPIOS ──
+function drawMindmap1() {
+  const canvas = document.getElementById('mindmap1');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth;
+  const H = 600;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const cx = W / 2, cy = H / 2;
+
+  const nodes = [
+    { label: 'SAIR DA\nCORRIDA', x: cx, y: cy, r: 56, main: true },
+    { label: '01\nSaúde', x: cx, y: 80, r: 40, color: '#4caf7d' },
+    { label: '02\nHorário', x: cx + 200, y: 110, r: 38, color: '#5b8dee' },
+    { label: '03\nIdentidade', x: cx + 270, y: 270, r: 38, color: '#9b59d4' },
+    { label: '04\nRelações', x: cx + 200, y: 430, r: 40, color: '#e8c44a' },
+    { label: '05\nHabilidades', x: cx, y: 500, r: 38, color: '#e07c52' },
+    { label: '06\nDizer NÃO', x: cx - 200, y: 430, r: 38, color: '#e05252' },
+    { label: '07\nPlano', x: cx - 270, y: 270, r: 40, color: '#52c4e0' },
+    { label: '08\nPausas', x: cx - 200, y: 110, r: 38, color: '#b0c452' },
+    { label: '09\nAprender', x: cx + 100, y: 68, r: 36, color: '#c9a227' },
+  ];
+
+  // Draw lines
+  ctx.lineWidth = 1.5;
+  for (let i = 1; i < nodes.length; i++) {
+    const n = nodes[i];
+    const angle = Math.atan2(n.y - cy, n.x - cx);
+    const sx = cx + 56 * Math.cos(angle);
+    const sy = cy + 56 * Math.sin(angle);
+    const ex = n.x - n.r * Math.cos(angle);
+    const ey = n.y - n.r * Math.sin(angle);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(ex, ey);
+    ctx.strokeStyle = (n.color || '#c9a227') + '55';
+    ctx.stroke();
+  }
+
+  // Draw nodes
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    if (n.main) {
+      ctx.fillStyle = '#1a1500';
+      ctx.strokeStyle = '#c9a227';
+      ctx.lineWidth = 2;
+    } else {
+      ctx.fillStyle = (n.color || '#c9a227') + '18';
+      ctx.strokeStyle = (n.color || '#c9a227') + '80';
+      ctx.lineWidth = 1.5;
+    }
+    ctx.fill();
+    ctx.stroke();
+
+    // Label
+    ctx.fillStyle = n.main ? '#e8c44a' : (n.color || '#c9a227');
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lines = n.label.split('\n');
+    const fontSize = n.main ? 15 : 13;
+    ctx.font = `700 ${fontSize}px 'Syne', sans-serif`;
+    const lineH = fontSize * 1.4;
+    const totalH = lines.length * lineH;
+    lines.forEach((line, i) => {
+      ctx.fillText(line, n.x, n.y - totalH / 2 + i * lineH + lineH / 2);
+    });
+  });
+}
+
+// ── MIND MAP 2: ESPINHA DORSAL ──
+function drawMindmap2() {
+  const canvas = document.getElementById('mindmap2');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth;
+  const H = 600;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const cx = W / 2, cy = H / 2;
+
+  const items = [
+    { emoji: '🚩', label: 'Bandeiras', color: '#e05252' },
+    { emoji: '🏛️', label: 'Holding', color: '#5b8dee' },
+    { emoji: '🪨', label: 'Estoicismo', color: '#9b59d4' },
+    { emoji: '🌊', label: 'Offshore', color: '#52c4e0' },
+    { emoji: '💵', label: 'Renda $', color: '#4caf7d' },
+    { emoji: '✈️', label: 'Emigração', color: '#e07c52' },
+    { emoji: '🗽', label: 'Libertarismo', color: '#b0c452' },
+    { emoji: '🌿', label: 'Terras', color: '#4caf7d' },
+    { emoji: '₿', label: 'Bitcoin', color: '#f7931a' },
+    { emoji: '🏦', label: 'Private Eq.', color: '#c9a227' },
+  ];
+
+  const radius = Math.min(W, H) * 0.34;
+
+  // Lines
+  items.forEach((item, i) => {
+    const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2;
+    const nx = cx + radius * Math.cos(angle);
+    const ny = cy + radius * Math.sin(angle);
+    const sx = cx + 58 * Math.cos(angle);
+    const sy = cy + 58 * Math.sin(angle);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(nx - 36 * Math.cos(angle), ny - 36 * Math.sin(angle));
+    ctx.strokeStyle = item.color + '44';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // Outer nodes
+  items.forEach((item, i) => {
+    const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2;
+    const nx = cx + radius * Math.cos(angle);
+    const ny = cy + radius * Math.sin(angle);
+    ctx.beginPath();
+    ctx.arc(nx, ny, 36, 0, Math.PI * 2);
+    ctx.fillStyle = item.color + '18';
+    ctx.strokeStyle = item.color + '88';
+    ctx.lineWidth = 1.5;
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = '20px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(item.emoji, nx, ny - 8);
+
+    ctx.font = `600 10px 'Syne', sans-serif`;
+    ctx.fillStyle = item.color;
+    ctx.fillText(item.label, nx, ny + 12);
+  });
+
+  // Center node
+  ctx.beginPath();
+  ctx.arc(cx, cy, 58, 0, Math.PI * 2);
+  ctx.fillStyle = '#150f00';
+  ctx.strokeStyle = '#c9a227';
+  ctx.lineWidth = 2;
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.font = `800 13px 'Syne', sans-serif`;
+  ctx.fillStyle = '#e8c44a';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('ESPINHA', cx, cy - 9);
+  ctx.fillText('DORSAL', cx, cy + 9);
+}
+
+// Initial draw on mindmap tab
+window.addEventListener('resize', () => {
+  const active = document.querySelector('#tab-mindmap.active');
+  if (active) { drawMindmap1(); drawMindmap2(); }
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

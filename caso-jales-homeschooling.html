@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso Jales — Criminalização do Homeschooling · Brasil 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090d;
+  --bg1: #0b0e14;
+  --bg2: #10141c;
+  --bg3: #161c28;
+  --bg4: #1c2435;
+  --border: rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.10);
+  --border3: rgba(255,255,255,0.18);
+  --fg: #dde4ee;
+  --fg2: #7a8fa8;
+  --fg3: #3d5068;
+  --red: #e84040;
+  --red2: rgba(232,64,64,0.12);
+  --red3: rgba(232,64,64,0.25);
+  --amber: #e8a020;
+  --amber2: rgba(232,160,32,0.12);
+  --amber3: rgba(232,160,32,0.25);
+  --green: #28c880;
+  --green2: rgba(40,200,128,0.10);
+  --green3: rgba(40,200,128,0.22);
+  --blue: #4090e8;
+  --blue2: rgba(64,144,232,0.10);
+  --cyan: #20c8d8;
+  --cyan2: rgba(32,200,216,0.10);
+  --purple: #9060e0;
+  --purple2: rgba(144,96,224,0.10);
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Crimson Pro', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NOISE TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 1; }
+@media (min-width: 768px) { .wrap { padding: 0 40px 100px; } }
+
+/* ===== HEADER ===== */
+.header {
+  position: relative;
+  padding: 40px 0 32px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--red));
+  background-size: 300% 100%;
+  animation: bar 6s linear infinite;
+}
+@keyframes bar { to { background-position: 300% 0; } }
+
+.header-watermark {
+  position: absolute;
+  right: -10px;
+  top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(80px, 14vw, 160px);
+  font-weight: 800;
+  color: rgba(232,64,64,0.04);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.badge-red { background: var(--red2); color: var(--red); border: 1px solid var(--red3); }
+.badge-amber { background: var(--amber2); color: var(--amber); border: 1px solid var(--amber3); }
+.badge-green { background: var(--green2); color: var(--green); border: 1px solid var(--green3); }
+.badge-gray { background: rgba(255,255,255,0.04); color: var(--fg3); border: 1px solid var(--border); }
+.badge-blue { background: var(--blue2); color: var(--blue); border: 1px solid rgba(64,144,232,0.25); }
+.badge-cyan { background: var(--cyan2); color: var(--cyan); border: 1px solid rgba(32,200,216,0.25); }
+.badge-purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(144,96,224,0.25); }
+
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5.5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  color: var(--fg);
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--red);
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 2.2vw, 18px);
+  color: var(--fg2);
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  font-style: italic;
+}
+
+.header-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+  gap: 10px;
+  max-width: 680px;
+}
+.hstat {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 12px 14px;
+}
+.hstat-val {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hstat-label {
+  font-size: 9px;
+  color: var(--fg3);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+.hstat-val.red { color: var(--red); }
+.hstat-val.amber { color: var(--amber); }
+.hstat-val.green { color: var(--green); }
+.hstat-val.blue { color: var(--blue); }
+
+/* ===== QUOTE BOX ===== */
+.quote-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--red);
+  border-radius: 0 6px 6px 0;
+  padding: 20px 22px;
+  margin: 0 0 32px;
+  position: relative;
+}
+.quote-box::before {
+  content: '"';
+  position: absolute;
+  top: -8px;
+  left: 16px;
+  font-family: var(--font-body);
+  font-size: 64px;
+  color: var(--red);
+  opacity: 0.3;
+  line-height: 1;
+}
+.quote-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--fg);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.quote-attr {
+  font-size: 12px;
+  color: var(--fg3);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ===== GRIDS ===== */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 14px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 12px; margin-bottom: 24px; }
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--fg);
+}
+.card-body {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.7;
+}
+.card.border-red { border-left: 2px solid var(--red); }
+.card.border-amber { border-left: 2px solid var(--amber); }
+.card.border-green { border-left: 2px solid var(--green); }
+.card.border-blue { border-left: 2px solid var(--blue); }
+.card.border-purple { border-left: 2px solid var(--purple); }
+.card.border-cyan { border-left: 2px solid var(--cyan); }
+
+/* ===== TIMELINE ===== */
+.timeline { position: relative; padding-left: 24px; margin-bottom: 24px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: var(--border2);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: 7px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  transition: all 0.2s;
+}
+.tl-item:hover::before { background: var(--amber); border-color: var(--amber); }
+.tl-item.red::before { background: var(--red2); border-color: var(--red); }
+.tl-item.amber::before { background: var(--amber2); border-color: var(--amber); }
+.tl-item.green::before { background: var(--green2); border-color: var(--green); }
+.tl-item.blue::before { background: var(--blue2); border-color: var(--blue); }
+
+.tl-date {
+  font-size: 12px;
+  color: var(--fg3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.tl-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.tl-body {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.65;
+}
+
+/* ===== COMPARISON TABLE ===== */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-size: 12px;
+}
+.compare-table th {
+  background: var(--bg3);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  font-family: var(--font-mono);
+  border-bottom: 1px solid var(--border2);
+}
+.compare-table th:first-child { border-radius: 5px 0 0 0; }
+.compare-table th:last-child { border-radius: 0 5px 0 0; }
+.compare-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg2);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.compare-table tr:hover td { background: var(--bg3); }
+.compare-table td:first-child { color: var(--fg); font-weight: 500; }
+td.val-red { color: var(--red); font-weight: 600; }
+td.val-green { color: var(--green); font-weight: 600; }
+td.val-amber { color: var(--amber); font-weight: 600; }
+
+/* ===== PATTERN BOX ===== */
+.pattern-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.pattern-id {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+.pattern-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+.pattern-desc {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.pattern-instance {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.6;
+}
+.pattern-instance strong { color: var(--fg); }
+
+/* ===== ALERT BOX ===== */
+.alert {
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.alert-red { background: var(--red2); border: 1px solid var(--red3); }
+.alert-amber { background: var(--amber2); border: 1px solid var(--amber3); }
+.alert-green { background: var(--green2); border: 1px solid var(--green3); }
+.alert-icon { font-size: 18px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+.alert-content { font-size: 12px; line-height: 1.7; color: var(--fg2); }
+.alert-content strong { color: var(--fg); }
+
+/* ===== READING METER ===== */
+.meter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.meter-label { width: 140px; color: var(--fg2); flex-shrink: 0; font-size: 12px; }
+.meter-bar-wrap { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.meter-bar { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.meter-val { width: 50px; text-align: right; font-weight: 600; flex-shrink: 0; }
+
+/* ===== VERDICT BLOCK ===== */
+.verdict-block {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-top: 2px solid var(--red);
+  border-radius: 0 0 6px 6px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.verdict-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.verdict-text {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--fg);
+  margin-bottom: 12px;
+}
+.verdict-text em { color: var(--amber); font-style: italic; }
+
+/* ===== SOURCE ROW ===== */
+.source-row {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 12px;
+}
+.source-num { color: var(--fg3); flex-shrink: 0; font-weight: 600; min-width: 20px; }
+.source-text { color: var(--fg2); line-height: 1.55; }
+.source-text a { color: var(--blue); text-decoration: none; }
+.source-text a:hover { text-decoration: underline; }
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--fg3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.spacer { margin-bottom: 40px; }
+.spacer-sm { margin-bottom: 20px; }
+
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+/* STRUCTURAL NOTE */
+.struct-note {
+  background: linear-gradient(135deg, rgba(144,96,224,0.06), rgba(32,200,216,0.04));
+  border: 1px solid rgba(144,96,224,0.20);
+  border-radius: 6px;
+  padding: 20px 22px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.75;
+}
+.struct-note strong { color: var(--fg); }
+.struct-note .note-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 8px;
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-watermark">JALES</div>
+
+    <div class="hero-tag">Corpus · Captura Judicial do Espaço Educacional · Brasil 2026</div>
+
+    <h1 class="hero-title">
+      <em>Criminalização</em> do<br>Ensino Domiciliar
+    </h1>
+    <p class="hero-sub">
+      Um juiz de Jales (SP) condenou pais a 50 dias de detenção por praticar homeschooling — ignorando pedido de absolvição do próprio MP — usando como evidência o fato de uma adolescente não gostar de funk e sertanejo.
+    </p>
+
+    <div class="meta-row">
+      <span class="badge badge-red">▲ Condenação Criminal</span>
+      <span class="badge badge-amber">2ª Vara Criminal · Jales/SP</span>
+      <span class="badge badge-gray">Abril / Maio 2026</span>
+      <span class="badge badge-purple">P3 · Captura Judicial</span>
+      <span class="badge badge-cyan">Padrão Novo · Esfera Educacional</span>
+    </div>
+
+    <div class="header-stats">
+      <div class="hstat">
+        <div class="hstat-val red">50</div>
+        <div class="hstat-label">dias de detenção</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val amber">5.000+</div>
+        <div class="hstat-label">págs. de provas apresentadas</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val green">30</div>
+        <div class="hstat-label">livros/ano pelas meninas</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val blue">5,6</div>
+        <div class="hstat-label">livros/ano · média nacional</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- VEREDITO -->
+  <div class="verdict-block fade-in">
+    <div class="verdict-label">◆ Sentença · Juiz Júnior da Luz Miranda · 2ª Vara Criminal de Jales/SP</div>
+    <div class="verdict-text">
+      O Ministério Público pediu absolvição por <em>ausência de tipicidade legal</em>. O juiz condenou mesmo assim, usando como fundamento, entre outros argumentos, o fato de uma adolescente ter declarado não gostar de funk e sertanejo — interpretado como evidência de "discriminação e preconceito" resultante da educação domiciliar recebida.
+    </div>
+    <div class="meta-row" style="margin:0">
+      <span class="badge badge-red">Abandono Intelectual · Art. 246 CP</span>
+      <span class="badge badge-amber">50 dias · regime semiaberto inicial</span>
+      <span class="badge badge-gray">Suspensa: matrícula + serviços à comunidade</span>
+    </div>
+  </div>
+
+  <!-- QUOTE DO JUIZ -->
+  <div class="quote-box fade-in">
+    <p class="quote-text">
+      "Ao assim agir, violou frontalmente o contido no artigo 18 da Convenção sobre os Direitos da Criança, que estabelece que os pais têm a responsabilidade primordial pela educação e pelo desenvolvimento da criança, sendo que a preocupação fundamental daqueles deve ser o interesse maior da criança, não do pai ou de sua agenda ideológica."
+    </p>
+    <div class="quote-attr">— Juiz Júnior da Luz Miranda · Sentença · 2ª Vara Criminal de Jales/SP · Abr. 2026</div>
+  </div>
+
+  <div class="alert alert-amber fade-in">
+    <div class="alert-icon">⚠</div>
+    <div class="alert-content">
+      <strong>Inversão documentada:</strong> O mesmo juiz que acusa os pais de impor "agenda ideológica" fundamenta a condenação em critérios explicitamente ideológicos — preferência musical como proxy de adequação educacional. A estrutura argumentativa é circular e não sustenta exame de segunda instância, mas o efeito imediato (exposição criminal, coerção à matrícula compulsória) já se produziu.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- O PERFIL EDUCACIONAL DAS MENINAS -->
+  <div class="section-label fade-in">Perfil Educacional · O que o juiz considerou "abandono"</div>
+
+  <div class="grid-2 fade-in">
+    <div class="card border-green">
+      <div class="card-title">Currículo documentado</div>
+      <div class="card-body">
+        Matemática, ciências, história, geografia, educação física, inglês, <strong style="color:var(--fg)">latim, piano, teoria musical</strong> e canto coral em paróquia. Dois professores contratados, incluindo um de Portugal. Pesquisa em enciclopédias físicas e digitais. Processo com 5.000+ páginas de comprovação. Laudos anuais de psicopedagoga atestando ausência de abandono intelectual. Premiações das crianças documentadas.
+      </div>
+    </div>
+    <div class="card border-green">
+      <div class="card-title">Formação da mãe educadora</div>
+      <div class="card-body">
+        Formada originalmente em ciências contábeis. <strong style="color:var(--fg)">Cursou matemática e pedagogia especificamente para educar as filhas</strong>, concluindo os dois novos cursos em 2024 e 2025. Não é autodidatismo improvisado — é investimento educacional documentado, deliberado e superior ao exigido para professores do ensino fundamental público.
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARATIVO DE LEITURA -->
+  <div class="section-label fade-in">Índice de Leitura · Comparativo Quantitativo</div>
+
+  <div class="card fade-in" style="margin-bottom:24px">
+    <div class="card-title" style="margin-bottom:16px">Livros lidos por ano — 2025</div>
+
+    <div class="meter-row">
+      <div class="meter-label">Meninas (Jales)</div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar" style="width:0%;background:var(--green)" data-width="100%"></div>
+      </div>
+      <div class="meter-val" style="color:var(--green)">~30</div>
+    </div>
+
+    <div class="meter-row">
+      <div class="meter-label">Média nacional BR</div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar" style="width:0%;background:var(--amber)" data-width="18.7%"></div>
+      </div>
+      <div class="meter-val" style="color:var(--amber)">5,6</div>
+    </div>
+
+    <div class="meter-row">
+      <div class="meter-label">Média escola pública BR</div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar" style="width:0%;background:var(--red)" data-width="10%"></div>
+      </div>
+      <div class="meter-val" style="color:var(--red)">~3</div>
+    </div>
+
+    <div class="card-body" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px">
+      Fonte: Ceoword Magazine (média BR); estimativa PISA/SAEB (escola pública). A filha mais velha registrou leitura de <strong style="color:var(--fg)">mais de 6.000 páginas em 2025</strong> — documentada em relatório próprio de leitura preenchido pela criança.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CRONOLOGIA DO CASO -->
+  <div class="section-label fade-in">Cronologia Processual</div>
+
+  <div class="timeline fade-in">
+    <div class="tl-item blue">
+      <div class="tl-date">Ensino Fundamental · Anos anteriores</div>
+      <div class="tl-title">Retirada das filhas da escola regular</div>
+      <div class="tl-body">Família inicia homeschooling com currículo estruturado, professores contratados e acompanhamento anual de psicopedagoga. Três períodos letivos completos.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">Período intermediário</div>
+      <div class="tl-title">Intervenções judiciais cíveis prévias</div>
+      <div class="tl-body">Esfera cível já havia intervindo. Família manteve o modelo educacional mesmo após notificações, considerando que não há proibição constitucional explícita à prática.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">Denúncia ao Ministério Público</div>
+      <div class="tl-title">MP analisa o caso</div>
+      <div class="tl-body">Com 5.000+ páginas de provas apresentadas pela defesa — laudos, relatórios de desempenho, comprovações de premiações — o MP conclui pela <strong style="color:var(--fg)">ausência de tipicidade legal</strong> e pede absolvição.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">Abril 2026</div>
+      <div class="tl-title">Condenação criminal · contra o parecer do MP</div>
+      <div class="tl-body">Juiz Júnior da Luz Miranda condena os pais a 50 dias de detenção (semiaberto) por abandono intelectual. Ignora pedido de absolvição do próprio MP. Usa entre os fundamentos: não exposição das meninas a funk e sertanejo como evidência de "visão restrita de mundo" e "discriminação cultural".</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">Maio 2026</div>
+      <div class="tl-title">Recurso em andamento</div>
+      <div class="tl-body">Advogada Isabelle Monteiro anuncia recurso ao segundo grau. Pena suspensa mediante condições: matrícula compulsória + frequência regular + prestação de serviços. O efeito coercitivo imediato já opera independentemente do resultado do recurso.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ANÁLISE ESTRUTURAL -->
+  <div class="section-label fade-in">Análise Estrutural · Padrões Identificados</div>
+
+  <div class="struct-note fade-in">
+    <span class="note-title">Leitura de Padrão — P3 aplicado à esfera educacional-familiar</span>
+    Este caso não é uma anomalia judicial isolada. É a primeira instância documentada de aplicação do padrão de <strong>captura judicial como mecanismo de conformidade cultural compulsória</strong> na esfera doméstica-educacional. A estrutura é análoga à captura de operações investigativas: lacuna legislativa deliberadamente mantida → discricionariedade judicial irrestrita → criminalização de conduta explicitamente não criminalizada pelo órgão acusatório competente.
+  </div>
+
+  <div class="pattern-box fade-in">
+    <div class="pattern-id">Padrão P3 — Aplicação Nova · Esfera Educacional</div>
+    <div class="pattern-name">Captura Judicial como Conformidade Compulsória</div>
+    <div class="pattern-desc">
+      O padrão P3 (captura do aparato judicial como chokepoint de controle) manifesta-se aqui em escala micro-familiar: a lacuna do PL 1.338/2022 — aprovado na Câmara em 2022, parado no Senado desde então — cria discricionariedade judicial irrestrita que permite criminalizar práticas não proibidas pela Constituição. O juiz substitui o legislador e o acusador simultaneamente.
+    </div>
+    <div class="pattern-instance">
+      <strong>Instância documentada:</strong> MP pede absolvição → juiz condena. Legislativo não regulamenta (PL parado 3+ anos) → juiz decide o que é educação adequada via sentença criminal. Constituição não proíbe → STF em 2018 reconheceu compatibilidade mas exigiu lei regulamentadora → lei nunca vem → famílias ficam em limbo criminal permanente.
+    </div>
+  </div>
+
+  <div class="pattern-box fade-in">
+    <div class="pattern-id">Padrão Novo · Candidato P04b / Amboth-Sidesism Funcional</div>
+    <div class="pattern-name">Gosto Musical como Proxy Ideológico</div>
+    <div class="pattern-desc">
+      A inversão argumentativa documentada na sentença: pais acusados de "agenda ideológica" por um julgamento que usa preferência musical como critério jurídico. Isso não é erro lógico individual — é estrutura de raciocínio que trata conformidade cultural com padrões majoritários como requisito legal. O argumento opera como both-sidesism funcional: trata escolha educacional documentadamente superior como equivalente a "discriminação", neutralizando o peso das evidências apresentadas.
+    </div>
+    <div class="pattern-instance">
+      <strong>Mecanismo específico:</strong> Adolescente declara não gostar de funk e sertanejo → juiz lê como evidência de preconceito induzido pelos pais → preconceito evidencia falha educacional → falha educacional sustenta "abandono intelectual". Cadeia argumentativa que converte preferência cultural em elemento de tipo penal.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- COMPARATIVO JURÍDICO -->
+  <div class="section-label fade-in">Contexto Jurídico · Comparativo</div>
+
+  <div class="card fade-in" style="margin-bottom:24px; overflow-x:auto">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>O que a lei diz</th>
+          <th>O que o juiz decidiu</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Proibição constitucional ao homeschooling</td>
+          <td>Não existe. CF/88 não proíbe.</td>
+          <td>Tratou como crime de abandono intelectual</td>
+          <td class="val-red">Conflito</td>
+        </tr>
+        <tr>
+          <td>Posição do STF (2018)</td>
+          <td>Homeschooling não é incompatível com a CF, mas precisa de lei regulamentadora</td>
+          <td>Ignorado — condenou sem lei regulamentadora existente</td>
+          <td class="val-red">Conflito</td>
+        </tr>
+        <tr>
+          <td>Parecer do Ministério Público</td>
+          <td>Absolvição por ausência de tipicidade legal</td>
+          <td>Ignorado — condenou contra o parecer do MP</td>
+          <td class="val-red">Conflito</td>
+        </tr>
+        <tr>
+          <td>PL 1.338/2022</td>
+          <td>Aprovado na Câmara, parado no Senado há 3+ anos</td>
+          <td>Lacuna usada para sustentar condenação</td>
+          <td class="val-amber">Omissão legislativa</td>
+        </tr>
+        <tr>
+          <td>UNESCO (2025)</td>
+          <td>Reconheceu homeschooling como direito legítimo das famílias sob direitos humanos</td>
+          <td>Não considerado</td>
+          <td class="val-amber">Divergência internacional</td>
+        </tr>
+        <tr>
+          <td>Evidências educacionais apresentadas</td>
+          <td>5.000+ págs., laudos, premiações, 30 livros/ano</td>
+          <td>Insuficientes. "Limitados a conteúdo técnico"</td>
+          <td class="val-red">Conflito com fatos</td>
+        </tr>
+        <tr>
+          <td>Preferência musical da adolescente</td>
+          <td>Não é elemento de nenhum tipo penal</td>
+          <td>Usado como evidência de "discriminação" na sentença</td>
+          <td class="val-red">Elemento inválido</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IMPLICAÇÕES -->
+  <div class="section-label fade-in">Implicações Sistêmicas</div>
+
+  <div class="grid-3 fade-in">
+    <div class="card border-red">
+      <div class="card-title">Jurisprudência de conformidade cultural</div>
+      <div class="card-body">Se mantida em segunda instância, a sentença cria precedente que permite usar preferências culturais de crianças como prova de adequação ou inadequação educacional dos pais — mecanismo sem limite definido.</div>
+    </div>
+    <div class="card border-amber">
+      <div class="card-title">Limbo legislativo permanente</div>
+      <div class="card-body">O PL parado há 3 anos no Senado não é esquecimento — é instrumento. A ausência de lei mantém 150.000+ famílias homeschoolers brasileiras em exposição criminal permanente, sujeitas a discricionariedade judicial total.</div>
+    </div>
+    <div class="card border-blue">
+      <div class="card-title">Êxodo documentado</div>
+      <div class="card-body">Famílias homeschoolers em migração crescente para Paraguai, Chile, Panamá. O sinal não é ideológico: é cálculo de risco legal. Quando o sistema criminaliza a excelência educacional, exporta capital humano.</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red fade-in">
+    <div class="alert-icon">◆</div>
+    <div class="alert-content">
+      <strong>O mecanismo chokepoint aqui:</strong> A cadeia é: Senado bloqueia regulamentação → juízes individuais preenchem o vácuo com critérios subjetivos → famílias não têm lei para recorrer → o resultado é conformidade por exaustão processual. Não é necessário vencer no mérito — a exposição criminal já cumpre a função coercitiva independentemente do resultado do recurso.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FONTES -->
+  <div class="section-label fade-in">Fontes Primárias</div>
+
+  <div class="fade-in">
+    <div class="source-row">
+      <div class="source-num">01</div>
+      <div class="source-text">
+        <strong>Gazeta do Povo</strong> — "Pais são condenados a 50 dias de detenção por ensino domiciliar" · Maio 2026 ·
+        <a href="https://www.gazetadopovo.com.br/vida-e-cidadania/pais-condenados-abandono-intelectual-ensino-domiciliar-homeschooling/" target="_blank">↗ Link</a>
+      </div>
+    </div>
+    <div class="source-row">
+      <div class="source-num">02</div>
+      <div class="source-text">
+        <strong>Gazeta do Povo</strong> — "Filhas de condenados por educação domiciliar leem 30 livros por ano" · Maio 2026 ·
+        <a href="https://www.gazetadopovo.com.br/vida-e-cidadania/filhas-de-casal-condenado-por-ensino-domiciliar-leem-30-livros-por-ano-media-do-brasil-e-56/" target="_blank">↗ Link</a>
+      </div>
+    </div>
+    <div class="source-row">
+      <div class="source-num">03</div>
+      <div class="source-text">
+        <strong>Consultor Jurídico (ConJur)</strong> — "Pais que submetem filhos a ensino domiciliar cometem abandono intelectual" · Abr. 2026 ·
+        <a href="https://www.conjur.com.br/2026-abr-28/pais-que-submetem-filhos-a-ensino-domiciliar-cometem-abandono-intelectual/" target="_blank">↗ Link</a>
+      </div>
+    </div>
+    <div class="source-row">
+      <div class="source-num">04</div>
+      <div class="source-text">
+        <strong>CNN Brasil</strong> — "Abandono intelectual: pais são condenados por homeschooling em Jales (SP)" · Abr./Mai. 2026 ·
+        <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/abandono-intelectual-pais-sao-condenados-por-homeschooling-em-jales-sp/" target="_blank">↗ Link</a>
+      </div>
+    </div>
+    <div class="source-row">
+      <div class="source-num">05</div>
+      <div class="source-text">
+        <strong>TJSP</strong> — Sentença · 2ª Vara Criminal de Jales · Juiz Júnior da Luz Miranda · Abr. 2026 · (Texto integral via TJSP)
+      </div>
+    </div>
+    <div class="source-row">
+      <div class="source-num">06</div>
+      <div class="source-text">
+        <strong>UNESCO</strong> — "Homeschooling through a human rights lens" · 2025 · Reconhecimento do homeschooling como modalidade legítima sob direitos humanos
+      </div>
+    </div>
+    <div class="source-row">
+      <div class="source-num">07</div>
+      <div class="source-text">
+        <strong>STF</strong> — RE 888.815 · 2018 · Homeschooling não é incompatível com a CF/88, mas requer regulamentação por lei federal
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-in">
+    <span>Caso Jales · Criminalização do Homeschooling · Brasil 2026</span>
+    <span>lawfare-timeline · CC0 1.0 · gosurf.site</span>
+    <span>Juiz: Júnior da Luz Miranda · 2ª Vara Criminal de Jales/SP</span>
+  </footer>
+
+</div>
+
+<script>
+// Intersection Observer para fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Animar barras de leitura
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.meter-bar').forEach(bar => {
+        const target = bar.dataset.width;
+        setTimeout(() => { bar.style.width = target; }, 200);
+      });
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.card').forEach(c => {
+  if (c.querySelector('.meter-bar')) barObserver.observe(c);
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

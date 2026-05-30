@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lotus 98T — Ayrton Senna 1986</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --gold-dim: #8a6a20;
+    --black: #020202;
+    --dark: #0a0a08;
+    --smoke: #111109;
+    --text: #d4c08a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'EB Garamond', Georgia, serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 999; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: 
+      linear-gradient(to bottom, rgba(2,2,2,0.7) 0%, rgba(2,2,2,0.3) 50%, var(--black) 100%),
+      url('https://gosurf.site/senna-lotus-98t.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-bg-lines {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .hero-bg-lines::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 200vw; height: 200vw;
+    border: 1px solid rgba(201,168,76,0.05);
+    border-radius: 50%;
+    animation: pulse-ring 6s ease-in-out infinite;
+  }
+  .hero-bg-lines::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 150vw; height: 150vw;
+    border: 1px solid rgba(201,168,76,0.08);
+    border-radius: 50%;
+    animation: pulse-ring 6s ease-in-out infinite 2s;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%,-50%) scale(1.04); }
+  }
+
+  /* Scan lines */
+  .scanlines {
+    position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 3px,
+      rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px
+    );
+  }
+
+  /* Number 12 giant bg */
+  .hero-number {
+    position: absolute;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(18rem, 35vw, 42rem);
+    font-weight: 900;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.07);
+    letter-spacing: -0.05em;
+    user-select: none;
+    pointer-events: none;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -45%);
+    animation: hero-num-in 2s cubic-bezier(0.16,1,0.3,1) forwards;
+    opacity: 0;
+  }
+  @keyframes hero-num-in {
+    from { opacity: 0; transform: translate(-50%,-55%) scale(1.1); }
+    to { opacity: 1; transform: translate(-50%,-45%) scale(1); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fade-up 1s ease forwards 0.4s;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(3rem, 10vw, 9rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--gold-light);
+    text-shadow: 0 0 120px rgba(201,168,76,0.3), 0 0 40px rgba(201,168,76,0.2);
+    opacity: 0;
+    animation: fade-up 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.7s;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 5vw, 5rem);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fade-up 1.2s cubic-bezier(0.16,1,0.3,1) forwards 1s;
+    margin-top: 0.3em;
+  }
+
+  .hero-year {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
+    letter-spacing: 0.7em;
+    color: var(--gold-dim);
+    opacity: 0;
+    animation: fade-up 1s ease forwards 1.3s;
+    margin-top: 1.5rem;
+  }
+
+  .hero-divider {
+    width: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2.5rem auto;
+    animation: line-expand 1.5s ease forwards 1.6s;
+  }
+  @keyframes line-expand {
+    from { width: 0; opacity: 0; }
+    to { width: min(400px, 60vw); opacity: 1; }
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-style: italic;
+    color: rgba(212,192,138,0.7);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fade-up 1s ease forwards 2s;
+  }
+
+  .hero-chassis {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.55rem, 1vw, 0.7rem);
+    letter-spacing: 0.5em;
+    color: var(--gold-dim);
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fade-up 1s ease forwards 2.3s;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    z-index: 10; text-align: center;
+    opacity: 0; animation: fade-up 1s ease forwards 3s;
+  }
+  .scroll-hint span {
+    font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.4em;
+    color: var(--gold-dim); display: block; margin-bottom: 0.8rem;
+  }
+  .scroll-arrow {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    margin: 0 auto;
+    animation: scroll-drop 2s ease-in-out infinite;
+  }
+  @keyframes scroll-drop {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    51% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── GOLD STRIPE ── */
+  .gold-stripe {
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold-light) 50%, var(--gold) 80%, transparent 100%);
+    box-shadow: 0 0 30px rgba(201,168,76,0.6);
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.8s ease;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-label.visible { opacity: 1; transform: translateX(0); }
+
+  /* ── STATS SECTION ── */
+  .stats-bg {
+    background: var(--smoke);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+  }
+
+  .stat-item {
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.6s ease;
+    border-right: 1px solid rgba(201,168,76,0.08);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item.visible { opacity: 1; transform: translateY(0); }
+
+  .stat-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.6s ease;
+  }
+  .stat-item:hover::after { width: 60%; }
+
+  .stat-number {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--gold-light);
+    text-shadow: 0 0 40px rgba(201,168,76,0.4);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-unit {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212,192,138,0.5);
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  /* ── NARRATIVE ── */
+  .narrative {
+    position: relative;
+  }
+  .narrative::before {
+    content: '"';
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 20rem;
+    color: rgba(201,168,76,0.04);
+    position: absolute;
+    top: -4rem; left: -2rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .narrative-heading {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .narrative-heading.visible { opacity: 1; transform: translateY(0); }
+
+  .narrative-body {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.9;
+    color: rgba(212,192,138,0.75);
+    max-width: 680px;
+    opacity: 0;
+    transition: all 0.8s ease 0.2s;
+    transform: translateY(20px);
+  }
+  .narrative-body.visible { opacity: 1; transform: translateY(0); }
+  .narrative-body p + p { margin-top: 1.5em; }
+
+  .narrative-highlight {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  /* ── RACE WINS ── */
+  .wins-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 600px) {
+    .wins-grid { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.08); }
+  }
+
+  .win-card {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+  .win-card.visible { opacity: 1; transform: translateY(0); }
+  .win-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .win-card:hover {
+    background: rgba(201,168,76,0.07);
+    border-color: rgba(201,168,76,0.3);
+  }
+
+  .win-gp {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--gold-light);
+    font-weight: 700;
+  }
+  .win-flag { font-size: 1.5rem; margin-right: 0.5rem; }
+  .win-meta {
+    font-size: 0.8rem;
+    color: rgba(212,192,138,0.5);
+    margin-top: 0.5rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.2em;
+  }
+  .win-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+
+  /* ── TECH SPEC ── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    opacity: 0; transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+  .spec-row.visible { opacity: 1; transform: translateX(0); }
+  .spec-key {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212,192,138,0.4);
+  }
+  .spec-val {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    text-align: right;
+  }
+
+  /* ── QUOTE ── */
+  .quote-section {
+    background: var(--smoke);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-orb {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .quote-text {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.1rem, 2.5vw, 2rem);
+    font-weight: 600;
+    color: var(--gold-light);
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    transition: all 1s ease;
+  }
+  .quote-text.visible { opacity: 1; transform: translateY(0); }
+
+  .quote-attr {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--gold-dim);
+    margin-top: 2rem;
+    letter-spacing: 0.3em;
+    font-family: 'Cinzel', serif;
+    position: relative; z-index: 1;
+    opacity: 0; transition: all 0.8s ease 0.3s;
+    transform: translateY(10px);
+  }
+  .quote-attr.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── AUCTION ── */
+  .auction-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: clamp(2rem, 5vw, 4rem);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .auction-box.visible { opacity: 1; transform: translateY(0); }
+  .auction-box::before, .auction-box::after {
+    content: '';
+    position: absolute;
+    width: 60px; height: 60px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.4;
+  }
+  .auction-box::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+  .auction-box::after { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+
+  .auction-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1rem;
+  }
+
+  .auction-house {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .auction-price {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    line-height: 1;
+    margin: 1rem 0;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.4));
+  }
+
+  .auction-range {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(212,192,138,0.5);
+    margin-top: 0.5rem;
+  }
+
+  .auction-chassis {
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(212,192,138,0.5);
+    margin-top: 2rem;
+  }
+
+  .auction-link {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 1.2rem 3rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .auction-link:hover {
+    background: var(--gold);
+    color: var(--black);
+    box-shadow: 0 0 30px rgba(201,168,76,0.4);
+    transform: translateY(-3px);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .footer-emblem {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: rgba(201,168,76,0.3);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .footer-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: rgba(212,192,138,0.25);
+  }
+
+  /* ── FULL-WIDTH DIVIDER ── */
+  .divider-full {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 1.5rem 0 1.5rem 2rem;
+    opacity: 0; transform: translateX(-10px);
+    transition: all 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -2rem; top: 50%;
+    transform: translateY(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px rgba(201,168,76,0.6);
+    margin-left: -3.5px;
+  }
+
+  .timeline-date {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-event {
+    font-size: 1rem;
+    color: rgba(212,192,138,0.8);
+    line-height: 1.5;
+  }
+  .timeline-event strong {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+
+  /* ── LIVERY DETAIL ── */
+  .livery-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.5rem 1.2rem;
+    margin: 0.4rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--text);
+  }
+  .livery-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* Gold glow line bottom hero */
+  .hero-glow-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-light) 50%, var(--gold) 70%, transparent 100%);
+    box-shadow: 0 0 20px rgba(201,168,76,0.5);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="scanlines"></div>
+  <div class="hero-number">12</div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Ayrton Senna da Silva &nbsp;·&nbsp; Temporada 1986</p>
+
+    <h1 class="hero-title">Lotus</h1>
+    <h2 class="hero-subtitle">98T</h2>
+
+    <p class="hero-year">M · C · M · L · X · X · X · V · I</p>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-tagline">
+      Onde a escuridão encontra o ouro — uma obra-prima da velocidade,<br>
+      pilotada pelo mestre do impossível.
+    </p>
+
+    <p class="hero-chassis">Chassi &nbsp;·&nbsp; 98T–3 &nbsp;·&nbsp; John Player Special &nbsp;·&nbsp; Turbo Renault</p>
+  </div>
+
+  <div class="hero-glow-line"></div>
+
+  <div class="scroll-hint">
+    <span>Descer</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<div class="gold-stripe"></div>
+
+<!-- STATS -->
+<div class="stats-bg">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">2</span>
+        <span class="stat-unit">Vitórias</span>
+        <span class="stat-label">Espanha · Detroit</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">3</span>
+        <span class="stat-unit">Pódios</span>
+        <span class="stat-label">Temporada 1986</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">195</span>
+        <span class="stat-unit">cv/litro</span>
+        <span class="stat-label">Turbo Renault V6</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">1500</span>
+        <span class="stat-unit">cv</span>
+        <span class="stat-label">Pico de Qualificação</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">12</span>
+        <span class="stat-unit">Número</span>
+        <span class="stat-label">Lendário</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">40</span>
+        <span class="stat-unit">Anos</span>
+        <span class="stat-label">De Mito Vivo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-stripe"></div>
+
+<!-- NARRATIVE -->
+<section class="narrative">
+  <p class="section-label">A Máquina</p>
+
+  <h2 class="narrative-heading">
+    Uma Sinfonia de Carbono<br>e Fogo Negro
+  </h2>
+
+  <div class="narrative-body">
+    <p>
+      O <span class="narrative-highlight">Lotus 98T</span> era mais do que um automóvel de corrida — era uma declaração de poder absoluto pintada de preto e ouro. Com seu motor <span class="narrative-highlight">Renault EF15B turbo V6</span> rugindo a mais de 1.500 cavalos em classificação, este chassi representou o ápice da era turbo na Fórmula 1.
+    </p>
+    <p>
+      O chassi <span class="narrative-highlight">98T-3</span> — este exemplar específico — não era apenas um carro de corrida. Era o instrumento através do qual <span class="narrative-highlight">Ayrton Senna</span> dobrou as leis da física, roubando vitórias impossíveis em Jerez e Detroit com uma frieza cirúrgica que o mundo jamais havia visto.
+    </p>
+    <p>
+      A <span class="narrative-highlight">livery John Player Special</span> — preta como a meia-noite, dourada como a consagração — tornou-se o mais reconhecível dos uniformes na história das corridas. Uma tela sombria sobre a qual Senna escreveu seus poemas de velocidade.
+    </p>
+  </div>
+
+  <!-- Livery chips -->
+  <div style="margin-top:2.5rem;">
+    <span class="livery-pill"><span class="livery-dot"></span>John Player Special Black</span>
+    <span class="livery-pill"><span class="livery-dot" style="background:#f0d080;box-shadow:0 0 6px #f0d080;"></span>Ouro JPS</span>
+    <span class="livery-pill"><span class="livery-dot" style="background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.4);"></span>Elf</span>
+    <span class="livery-pill"><span class="livery-dot" style="background:#c00;box-shadow:0 0 6px #c00;"></span>Renault Turbo</span>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- RACE WINS -->
+<section>
+  <p class="section-label">Glórias Eternas</p>
+
+  <h2 class="narrative-heading">
+    As Vitórias que<br>Definiram uma Era
+  </h2>
+
+  <div class="wins-grid">
+    <div class="win-card">
+      <span class="win-badge">Vitória</span>
+      <div class="win-gp"><span class="win-flag">🇪🇸</span>GP da Espanha</div>
+      <div class="win-meta">Jerez de la Frontera · 13 Abril 1986</div>
+      <p style="margin-top:0.8rem; font-size:0.9rem; color:rgba(212,192,138,0.6); line-height:1.6;">
+        Uma das corridas mais dramáticas da história. Senna venceu por apenas 0,014s — margem que desafia a percepção humana do tempo.
+      </p>
+    </div>
+    <div class="win-card">
+      <span class="win-badge">Vitória</span>
+      <div class="win-gp"><span class="win-flag">🇺🇸</span>GP de Detroit</div>
+      <div class="win-meta">Detroit Street Circuit · 22 Junho 1986</div>
+      <p style="margin-top:0.8rem; font-size:0.9rem; color:rgba(212,192,138,0.6); line-height:1.6;">
+        Nas ruas de aço e concreto de Detroit, Senna dominou com absoluta maestria, convertendo o caos urbano em palco de genialidade.
+      </p>
+    </div>
+    <div class="win-card">
+      <span class="win-badge">Pódio</span>
+      <div class="win-gp"><span class="win-flag">🇧🇷</span>GP do Brasil</div>
+      <div class="win-meta">Jacarepaguá · Rio de Janeiro</div>
+      <p style="margin-top:0.8rem; font-size:0.9rem; color:rgba(212,192,138,0.6); line-height:1.6;">
+        Em solo pátrio, diante do povo brasileiro — um pódio que transcendeu o esporte e tocou a alma de uma nação inteira.
+      </p>
+    </div>
+    <div class="win-card">
+      <span class="win-badge">Pódio</span>
+      <div class="win-gp"><span class="win-flag">🏁</span>+2 Pódios Adicionais</div>
+      <div class="win-meta">Temporada 1986 Completa</div>
+      <p style="margin-top:0.8rem; font-size:0.9rem; color:rgba(212,192,138,0.6); line-height:1.6;">
+        Uma temporada de excelência constante, onde cada circuito se tornava um novo capítulo da lenda que Senna inscrevia na história.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="gold-stripe"></div>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-orb"></div>
+  <blockquote>
+    <p class="quote-text">
+      "Em corrida, existe uma linha muito tênue entre coragem e loucura.<br>
+      Eu nunca me preocupei com qual lado eu estava."
+    </p>
+    <p class="quote-attr">— Ayrton Senna da Silva &nbsp;·&nbsp; 1960–1994</p>
+  </blockquote>
+</div>
+
+<!-- TECH SPEC -->
+<section>
+  <p class="section-label">Especificações Técnicas</p>
+
+  <h2 class="narrative-heading">
+    A Anatomia de<br>um Monstro
+  </h2>
+
+  <div class="spec-grid">
+    <div>
+      <div class="spec-row">
+        <span class="spec-key">Motor</span>
+        <span class="spec-val">Renault EF15B V6 Turbo</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Cilindrada</span>
+        <span class="spec-val">1.492 cm³</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Potência (corrida)</span>
+        <span class="spec-val">~850–900 cv</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Potência (quali)</span>
+        <span class="spec-val">~1.500 cv</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Transmissão</span>
+        <span class="spec-val">Hewland 6 velocidades</span>
+      </div>
+    </div>
+    <div>
+      <div class="spec-row">
+        <span class="spec-key">Chassi</span>
+        <span class="spec-val">Monocoque carbono</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Peso</span>
+        <span class="spec-val">~540 kg (mínimo)</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Pneus</span>
+        <span class="spec-val">Goodyear Eagle</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Equipe</span>
+        <span class="spec-val">Team Lotus</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Chassis Nº</span>
+        <span class="spec-val">98T–3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- TIMELINE -->
+<section>
+  <p class="section-label">Linha do Tempo</p>
+  <h2 class="narrative-heading">Uma Jornada<br>para a Imortalidade</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">1984</div>
+      <div class="timeline-event"><strong>Senna assina com a Lotus.</strong> O brasileiro chega com fome de vitórias e uma habilidade sobre a chuva que desafiava a explicação racional.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1985</div>
+      <div class="timeline-event"><strong>Lotus 97T · Primeiras vitórias.</strong> Portugal e Bélgica — o mundo percebe que este homem é diferente de tudo que já existiu.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">13 Abril 1986</div>
+      <div class="timeline-event"><strong>Jerez, Espanha — 0,014 segundos.</strong> A vitória mais estreita da história da F1. Senna e o 98T-3 inscrevem seu nome no eterno.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">22 Junho 1986</div>
+      <div class="timeline-event"><strong>Detroit — Domínio absoluto.</strong> Nas ruas americanas, Senna dança com o 98T num ballet de asfalto e turbo.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1987</div>
+      <div class="timeline-event"><strong>Senna parte para a McLaren.</strong> O 98T-3 entra para a história como o carro que formou o maior piloto de todos os tempos.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026</div>
+      <div class="timeline-event"><strong>RM Sotheby's.</strong> O chassi 98T-3 vai a leilão. Estimativa: <strong>$9,5M — $12M</strong>. Não um carro. Um fragmento de eternidade.</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-stripe"></div>
+
+<!-- AUCTION -->
+<section>
+  <p class="section-label">Leilão</p>
+
+  <div class="auction-box">
+    <div class="auction-label">RM Sotheby's &nbsp;·&nbsp; 2026</div>
+    <div class="auction-house">Lotus 98T — Chassi 98T-3</div>
+    <div class="auction-price">$9.5M – $12M</div>
+    <div class="auction-range">Estimativa de Leilão · Dólares Americanos</div>
+    <div class="auction-chassis">
+      O carro de número 12, pilotado por Ayrton Senna na temporada de 1986.<br>
+      Vencedor dos Grandes Prêmios da Espanha e Detroit.
+    </div>
+    <a href="https://rmsothebys.com/auctions/as26/lots/r0001-1986-lotus-98t/" target="_blank" class="auction-link">Ver catálogo oficial</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="gold-stripe"></div>
+<footer class="footer">
+  <span class="footer-emblem">◈</span>
+  <p class="footer-text">Ayrton Senna da Silva &nbsp;·&nbsp; 1960–1994 &nbsp;·&nbsp; Sempre no Coração do Brasil</p>
+  <p class="footer-text" style="margin-top:0.8rem; opacity:0.6;">
+    desenvolvido por <a href="https://artesdosul.com/" style="color:var(--gold); text-decoration:none; font-weight:700; border-bottom:1px solid rgba(201,168,76,0.3);">@artesdosul</a>
+  </p>
+  <p class="footer-text" style="margin-top:0.6rem; opacity:0.3;">Lotus 98T &nbsp;·&nbsp; John Player Special &nbsp;·&nbsp; Turbo Renault &nbsp;·&nbsp; Temporada 1986</p>
+</footer>
+
+<script>
+// Intersection Observer for reveal animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const delay = el.dataset.delay || 0;
+      setTimeout(() => el.classList.add('visible'), delay * 150);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.15 });
+
+// Observe all animatable elements
+document.querySelectorAll(
+  '.section-label, .narrative-heading, .narrative-body, .stat-item, .win-card, .spec-row, .timeline-item, .quote-text, .quote-attr, .auction-box'
+).forEach((el, i) => {
+  el.dataset.delay = i % 5;
+  observer.observe(el);
+});
+
+// Stagger siblings
+document.querySelectorAll('.stat-item, .win-card, .timeline-item').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 0.1}s`;
+});
+
+// Subtle parallax on hero number
+const heroNum = document.querySelector('.hero-number');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY * 0.3;
+  if (heroNum) heroNum.style.transform = `translate(-50%, calc(-45% + ${y}px)) scale(1)`;
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

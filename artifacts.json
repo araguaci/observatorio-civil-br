@@ -5,24 +5,24 @@
     "tagline": "Central de inteligência civil — Brasil em Estado Crítico",
     "github": "https://github.com/araguaci/observatorio-civil-br",
     "url": "https://observatorio-civil-br.vercel.app",
-    "version": "1.4.0",
-    "updated": "2026-05-09",
+    "version": "1.5.0",
+    "updated": "2026-05-30",
     "license": "MIT",
     "maintainer": "araguaci",
-    "description": "Hub investigativo open-source com 100+ artefatos sobre crime organizado, corrupção sistêmica, captura do judiciário e colapso institucional no Brasil. Baseado exclusivamente em fontes públicas verificáveis.",
+    "description": "Hub investigativo open-source com 170+ artefatos sobre crime organizado, corrupção sistêmica, captura do judiciário e colapso institucional no Brasil. Baseado exclusivamente em fontes públicas verificáveis.",
     "methodology": "https://github.com/araguaci/observatorio-civil-br/blob/main/METHODOLOGY.md"
   },
   "stats": {
-    "totalArtifacts": 108,
+    "totalArtifacts": 225,
     "categories": {
-      "Crime Organizado": 17,
-      "Corrupção Política": 42,
-      "Judiciário": 30,
-      "Território & Soberania": 6,
-      "Economia": 15,
+      "Crime Organizado": 21,
+      "Corrupção Política": 86,
+      "Judiciário": 35,
+      "Território & Soberania": 7,
+      "Economia": 20,
       "Proteção Infantil": 2,
-      "Censura & Informação": 11,
-      "Operações Investigativas": 33
+      "Censura & Informação": 15,
+      "Operações Investigativas": 39
     },
     "criticalIndicators": {
       "territorioSobFaccoes": "26% do território nacional (FBSP 2025)",
@@ -38,7 +38,7 @@
     {
       "key": "crime",
       "label": "Crime Organizado",
-      "count": 17,
+      "count": 21,
       "artifacts": [
         {
           "id": 3,
@@ -141,13 +141,37 @@
           "title": "Nexo Fintech — Mapa Mental Investigativo 2026",
           "file": "mapa-mental-nexo-fintech.html",
           "url": "https://observatorio-civil-br.vercel.app/mapa-mental-nexo-fintech.html"
+        },
+        {
+          "id": 118,
+          "title": "DOSSIÊ — PCC: O Salve Geral",
+          "file": "dossie-pcc-salve-geral.html",
+          "url": "https://observatorio-civil-br.vercel.app/dossie-pcc-salve-geral.html"
+        },
+        {
+          "id": 121,
+          "title": "Brasil: Não É Só o Porto — É a Fábrica · v2",
+          "file": "brasil-fabrica-cocaina-v2.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-fabrica-cocaina-v2.html"
+        },
+        {
+          "id": 135,
+          "title": "PCC — Fluxo Completo 2026 | Dossiê Analítico",
+          "file": "pcc-fluxo-completo-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/pcc-fluxo-completo-2026.html"
+        },
+        {
+          "id": 149,
+          "title": "Operação Hydra — Dossiê Investigativo 2026",
+          "file": "operacao-hydra-fintech-laundry.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-hydra-fintech-laundry.html"
         }
       ]
     },
     {
       "key": "corrupcao",
       "label": "Corrupção Política",
-      "count": 42,
+      "count": 86,
       "artifacts": [
         {
           "id": 13,
@@ -400,13 +424,277 @@
           "title": "Matriz de Emaranhamento — 7 operações anticorrupção",
           "file": "emaranhamento-operacoes.html",
           "url": "https://observatorio-civil-br.vercel.app/emaranhamento-operacoes.html"
+        },
+        {
+          "id": 109,
+          "title": "Interferência dos EUA no Brasil — Mapa Mental Completo",
+          "file": "usaid-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/usaid-brasil.html"
+        },
+        {
+          "id": 110,
+          "title": "Como Ler Este Corpus — lawfare-timeline · gosurf.site",
+          "file": "como-ler-este-corpus.html",
+          "url": "https://observatorio-civil-br.vercel.app/como-ler-este-corpus.html"
+        },
+        {
+          "id": 111,
+          "title": "Não É Conspiração — É Documentação · lawfare-timeline",
+          "file": "nao-e-conspiracao.html",
+          "url": "https://observatorio-civil-br.vercel.app/nao-e-conspiracao.html"
+        },
+        {
+          "id": 115,
+          "title": "Caso Jales — Criminalização do Homeschooling · Brasil 2026",
+          "file": "caso-jales-homeschooling.html",
+          "url": "https://observatorio-civil-br.vercel.app/caso-jales-homeschooling.html"
+        },
+        {
+          "id": 116,
+          "title": "A Seleção Acontece Antes da Eleição",
+          "file": "selecao-antes-da-eleicao.html",
+          "url": "https://observatorio-civil-br.vercel.app/selecao-antes-da-eleicao.html"
+        },
+        {
+          "id": 125,
+          "title": "Deutschbrasilianisches Wörterbuch — Edição Nürburgring 24h",
+          "file": "deutschbrasilianisches-worterbuch-nurburgring.html",
+          "url": "https://observatorio-civil-br.vercel.app/deutschbrasilianisches-worterbuch-nurburgring.html"
+        },
+        {
+          "id": 126,
+          "title": "Donos da Mídia Brasil — Mapa de Propriedade e Poder",
+          "file": "donos-da-midia-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/donos-da-midia-brasil.html"
+        },
+        {
+          "id": 128,
+          "title": "8J — Cui Bono? Arquitetura de uma Orquestração de Omissões",
+          "file": "8j-cui-bono.html",
+          "url": "https://observatorio-civil-br.vercel.app/8j-cui-bono.html"
+        },
+        {
+          "id": 129,
+          "title": "Pacto Federativo: A Rede de Extração — Dossiê 2024–2026",
+          "file": "pacto-federativo-extracao.html",
+          "url": "https://observatorio-civil-br.vercel.app/pacto-federativo-extracao.html"
+        },
+        {
+          "id": 130,
+          "title": "A Violência do Sistema Contra Quem Ousa Nomear o Sistema",
+          "file": "violencia-estatal-captura.html",
+          "url": "https://observatorio-civil-br.vercel.app/violencia-estatal-captura.html"
+        },
+        {
+          "id": 131,
+          "title": "Retorno Zero — lawfare-timeline",
+          "file": "retorno-zero.html",
+          "url": "https://observatorio-civil-br.vercel.app/retorno-zero.html"
+        },
+        {
+          "id": 132,
+          "title": "Abono Blindado — lawfare-timeline",
+          "file": "abono-blindado.html",
+          "url": "https://observatorio-civil-br.vercel.app/abono-blindado.html"
+        },
+        {
+          "id": 133,
+          "title": "Corte Medieval — Um Ritual de Poder",
+          "file": "corte-medieval.html",
+          "url": "https://observatorio-civil-br.vercel.app/corte-medieval.html"
+        },
+        {
+          "id": 134,
+          "title": "Operador Inconsciente do Sistema — lawfare-timeline",
+          "file": "operador-inconsciente.html",
+          "url": "https://observatorio-civil-br.vercel.app/operador-inconsciente.html"
+        },
+        {
+          "id": 139,
+          "title": "Violência Política e Perseguição Jurídica — Dossiê Global 2018–2025",
+          "file": "violencia-politica-perseguicao-juridica.html",
+          "url": "https://observatorio-civil-br.vercel.app/violencia-politica-perseguicao-juridica.html"
+        },
+        {
+          "id": 140,
+          "title": "NASKAR · Dossiê Investigativo · R$ 900M · 2026",
+          "file": "naskar-gestao-ativos.html",
+          "url": "https://observatorio-civil-br.vercel.app/naskar-gestao-ativos.html"
+        },
+        {
+          "id": 141,
+          "title": "Armadilha do Decoro — Duplo Padrão, Gatilhos e Mecanismos de Defesa",
+          "file": "armadilha-do-decoro.html",
+          "url": "https://observatorio-civil-br.vercel.app/armadilha-do-decoro.html"
+        },
+        {
+          "id": 144,
+          "title": "Trilhas Anticorrupção — Mapa de Relações",
+          "file": "anticorrupcao-trilhas.html",
+          "url": "https://observatorio-civil-br.vercel.app/anticorrupcao-trilhas.html"
+        },
+        {
+          "id": 145,
+          "title": "O Espelho Partido — Narrativa Pública vs. Evidência Forense",
+          "file": "narrativa-vs-evidencia.html",
+          "url": "https://observatorio-civil-br.vercel.app/narrativa-vs-evidencia.html"
+        },
+        {
+          "id": 146,
+          "title": "Brasil: O País Preso na Roda · Economia Política",
+          "file": "brasil-roda-hamster.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-roda-hamster.html"
+        },
+        {
+          "id": 147,
+          "title": "ARMADURA MENTAL — Framework de Defesa Cognitiva",
+          "file": "armadura-mental.html",
+          "url": "https://observatorio-civil-br.vercel.app/armadura-mental.html"
+        },
+        {
+          "id": 150,
+          "title": "Janela 2026 — Cenário Estratégico de Defesa Institucional",
+          "file": "janela-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/janela-2026.html"
+        },
+        {
+          "id": 151,
+          "title": "O Polvorcaro — Registro Documental lawfare-timeline",
+          "file": "polvorcaro-registro.html",
+          "url": "https://observatorio-civil-br.vercel.app/polvorcaro-registro.html"
+        },
+        {
+          "id": 152,
+          "title": "O Leviatã dos Batistas — JBS/J&F: Impunidade Sistêmica",
+          "file": "jbs-leviata-batista.html",
+          "url": "https://observatorio-civil-br.vercel.app/jbs-leviata-batista.html"
+        },
+        {
+          "id": 153,
+          "title": "Obediência & Caos — O Estado Como Gestor do Sofrimento",
+          "file": "obediencia-e-caos.html",
+          "url": "https://observatorio-civil-br.vercel.app/obediencia-e-caos.html"
+        },
+        {
+          "id": 154,
+          "title": "O Brasil Sangra — Painel de Dados",
+          "file": "brasil-sangra.html",
+          "url": "https://observatorio-civil-br.vercel.app/brasil-sangra.html"
+        },
+        {
+          "id": 156,
+          "title": "População Negra no Brasil — Dashboard",
+          "file": "populacao-negra-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/populacao-negra-brasil.html"
+        },
+        {
+          "id": 157,
+          "title": "O Brasileiro Comum — Edição Completa",
+          "file": "vaibrasa.html",
+          "url": "https://observatorio-civil-br.vercel.app/vaibrasa.html"
+        },
+        {
+          "id": 158,
+          "title": "A Esquerda Prometeu. A Esquerda Entregou.",
+          "file": "promessas.html",
+          "url": "https://observatorio-civil-br.vercel.app/promessas.html"
+        },
+        {
+          "id": 159,
+          "title": "Brasil em Colapso Silencioso · Painel Comparativo 2019–2026",
+          "file": "insolvencia-brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/insolvencia-brasil.html"
+        },
+        {
+          "id": 162,
+          "title": "Irã — Mapa Mental Geopolítico Estratégico",
+          "file": "iran-mindmap.html",
+          "url": "https://observatorio-civil-br.vercel.app/iran-mindmap.html"
+        },
+        {
+          "id": 163,
+          "title": "Lotus 98T — Ayrton Senna 1986",
+          "file": "senna-lotus-98t.html",
+          "url": "https://observatorio-civil-br.vercel.app/senna-lotus-98t.html"
+        },
+        {
+          "id": 164,
+          "title": "Dona Leopoldina — Imperatriz do Brasil · Mãe da Independência",
+          "file": "leopoldina-imperial.html",
+          "url": "https://observatorio-civil-br.vercel.app/leopoldina-imperial.html"
+        },
+        {
+          "id": 165,
+          "title": "Dia Internacional da Mulher — Líderes que Mudaram o Mundo",
+          "file": "dia-da-mulher.html",
+          "url": "https://observatorio-civil-br.vercel.app/dia-da-mulher.html"
+        },
+        {
+          "id": 166,
+          "title": "Kené — A Linguagem Sagrada Shipibo",
+          "file": "shipibo-kene.html",
+          "url": "https://observatorio-civil-br.vercel.app/shipibo-kene.html"
+        },
+        {
+          "id": 167,
+          "title": "Produtividade em 4 Horas",
+          "file": "como-fazer-mais-trabalho-em-4-horas-do-que-a-maior.html",
+          "url": "https://observatorio-civil-br.vercel.app/como-fazer-mais-trabalho-em-4-horas-do-que-a-maior.html"
+        },
+        {
+          "id": 168,
+          "title": "Entrevista: Perguntas Estratégicas",
+          "file": "entrevista-perguntas-estrategicas.html",
+          "url": "https://observatorio-civil-br.vercel.app/entrevista-perguntas-estrategicas.html"
+        },
+        {
+          "id": 169,
+          "title": "Corrida dos Ratos — Mind Map",
+          "file": "corrida-dos-ratos-mindmap.html",
+          "url": "https://observatorio-civil-br.vercel.app/corrida-dos-ratos-mindmap.html"
+        },
+        {
+          "id": 170,
+          "title": "Multi-tenant com Laravel: 3 Padrões",
+          "file": "multitenant-patterns.html",
+          "url": "https://observatorio-civil-br.vercel.app/multitenant-patterns.html"
+        },
+        {
+          "id": 171,
+          "title": "O Paradoxo da Autonomia nos Agentes de IA",
+          "file": "agentes-ia-autonomia.html",
+          "url": "https://observatorio-civil-br.vercel.app/agentes-ia-autonomia.html"
+        },
+        {
+          "id": 172,
+          "title": "PIX Como Plataforma de Inovação",
+          "file": "pix-como-plataforma.html",
+          "url": "https://observatorio-civil-br.vercel.app/pix-como-plataforma.html"
+        },
+        {
+          "id": 173,
+          "title": "Sistemas Sobre Metas",
+          "file": "sistemas-sobre-metas.html",
+          "url": "https://observatorio-civil-br.vercel.app/sistemas-sobre-metas.html"
+        },
+        {
+          "id": 174,
+          "title": "A Clareza Antes da Velocidade",
+          "file": "demo-insight-1.html",
+          "url": "https://observatorio-civil-br.vercel.app/demo-insight-1.html"
+        },
+        {
+          "id": 176,
+          "title": "Full-Spectrum Dominance e o Lawfare Brasileiro",
+          "file": "full_spectrum_dominance_lawfare_brasil.html",
+          "url": "https://observatorio-civil-br.vercel.app/full_spectrum_dominance_lawfare_brasil.html"
         }
       ]
     },
     {
       "key": "judiciario",
       "label": "Judiciário",
-      "count": 30,
+      "count": 35,
       "artifacts": [
         {
           "id": 9,
@@ -587,13 +875,43 @@
           "title": "Assimetria Punitiva — P3 invertido (2023 × pandemia)",
           "file": "assimetria-punitiva.html",
           "url": "https://observatorio-civil-br.vercel.app/assimetria-punitiva.html"
+        },
+        {
+          "id": 112,
+          "title": "Processo 8:25-cv-00411 · Rumble & Trump Media vs. Alexandre de Moraes",
+          "file": "rumble-tmtg-vs-moraes.html",
+          "url": "https://observatorio-civil-br.vercel.app/rumble-tmtg-vs-moraes.html"
+        },
+        {
+          "id": 113,
+          "title": "Mapa Mental — Estado Democrático de Direito",
+          "file": "mapa-mental-moraes.html",
+          "url": "https://observatorio-civil-br.vercel.app/mapa-mental-moraes.html"
+        },
+        {
+          "id": 136,
+          "title": "O Sistema que Apaga — lawfare-timeline · Dossiê 2026",
+          "file": "lawfare-timeline.html",
+          "url": "https://observatorio-civil-br.vercel.app/lawfare-timeline.html"
+        },
+        {
+          "id": 138,
+          "title": "Análise do Voto — Ministro Luiz Fux na AP 2668 — STF 10/09/2025",
+          "file": "analise-voto-fux-ap-2668.html",
+          "url": "https://observatorio-civil-br.vercel.app/analise-voto-fux-ap-2668.html"
+        },
+        {
+          "id": 177,
+          "title": "Brazil's Supreme Embarrassment: When Foreign Courts Stop Trusting Brazilian Justice",
+          "file": "brazil_institutional_crisis_english_editorial.html",
+          "url": "https://observatorio-civil-br.vercel.app/brazil_institutional_crisis_english_editorial.html"
         }
       ]
     },
     {
       "key": "territorio",
       "label": "Território & Soberania",
-      "count": 6,
+      "count": 7,
       "artifacts": [
         {
           "id": 64,
@@ -630,13 +948,19 @@
           "title": "A Faixa do Silêncio — Dossiê Geopolítico",
           "file": "faixa-tropical.html",
           "url": "https://observatorio-civil-br.vercel.app/faixa-tropical.html"
+        },
+        {
+          "id": 143,
+          "title": "PALANTIR × SOBERANIA DIGITAL — Diagnóstico Crítico Brasil 2025–2026",
+          "file": "soberania-ameacada.html",
+          "url": "https://observatorio-civil-br.vercel.app/soberania-ameacada.html"
         }
       ]
     },
     {
       "key": "economia",
       "label": "Economia",
-      "count": 15,
+      "count": 20,
       "artifacts": [
         {
           "id": 45,
@@ -727,6 +1051,36 @@
           "title": "LGPD como vantagem competitiva",
           "file": "lgpd-como-vantagem.html",
           "url": "https://observatorio-civil-br.vercel.app/lgpd-como-vantagem.html"
+        },
+        {
+          "id": 119,
+          "title": "XP, Banco Master, Will Bank — Nova Arquitetura do Poder Financeiro Digital",
+          "file": "xp-master-nova-arquitetura.html",
+          "url": "https://observatorio-civil-br.vercel.app/xp-master-nova-arquitetura.html"
+        },
+        {
+          "id": 122,
+          "title": "Banco Master: Too Big to Investigate",
+          "file": "banco-master-too-big.html",
+          "url": "https://observatorio-civil-br.vercel.app/banco-master-too-big.html"
+        },
+        {
+          "id": 137,
+          "title": "Prisão Econômica — A Arquitetura da Dependência no Brasil · Dossiê 2026",
+          "file": "prisao-economica.html",
+          "url": "https://observatorio-civil-br.vercel.app/prisao-economica.html"
+        },
+        {
+          "id": 155,
+          "title": "Radiografia Tributária — Brasil",
+          "file": "radiografia-tributaria.html",
+          "url": "https://observatorio-civil-br.vercel.app/radiografia-tributaria.html"
+        },
+        {
+          "id": 175,
+          "title": "Dossiê Biomm · Insider, Conflito e Poder · Mai/2026",
+          "file": "biomm_insider_operacao_completa.html",
+          "url": "https://observatorio-civil-br.vercel.app/biomm_insider_operacao_completa.html"
         }
       ]
     },
@@ -752,7 +1106,7 @@
     {
       "key": "censura",
       "label": "Censura & Informação",
-      "count": 11,
+      "count": 15,
       "artifacts": [
         {
           "id": 51,
@@ -819,13 +1173,37 @@
           "title": "Thread X.com — Weaponized Legalism Brasil",
           "file": "thread-weaponized-legalism-x.html",
           "url": "https://observatorio-civil-br.vercel.app/thread-weaponized-legalism-x.html"
+        },
+        {
+          "id": 117,
+          "title": "Operação Intercept 2026 — Três Frentes",
+          "file": "operacao-intercept-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-intercept-2026.html"
+        },
+        {
+          "id": 127,
+          "title": "Dossiê — The Intercept: Controlled Opposition",
+          "file": "intercept-dossie.html",
+          "url": "https://observatorio-civil-br.vercel.app/intercept-dossie.html"
+        },
+        {
+          "id": 160,
+          "title": "Law 15,211/2025 — Brazil's Digital Apartheid: Critical Intelligence Report",
+          "file": "lei-15211-en.html",
+          "url": "https://observatorio-civil-br.vercel.app/lei-15211-en.html"
+        },
+        {
+          "id": 161,
+          "title": "LEI 15.211/2025 — O Apartheid Tecnológico Brasileiro CRÍTICO",
+          "file": "lei-15211.html",
+          "url": "https://observatorio-civil-br.vercel.app/lei-15211.html"
         }
       ]
     },
     {
       "key": "operacoes",
       "label": "Operações Investigativas",
-      "count": 33,
+      "count": 39,
       "artifacts": [
         {
           "id": 6,
@@ -1024,6 +1402,42 @@
           "title": "Matriz de Emaranhamento — 7 operações anticorrupção",
           "file": "emaranhamento-operacoes.html",
           "url": "https://observatorio-civil-br.vercel.app/emaranhamento-operacoes.html"
+        },
+        {
+          "id": 114,
+          "title": "DOSSIÊ 2026 — Operação de Desidratação",
+          "file": "dossie-operacao-2026.html",
+          "url": "https://observatorio-civil-br.vercel.app/dossie-operacao-2026.html"
+        },
+        {
+          "id": 120,
+          "title": "Direita Permitida — O Gatekeeping do Campo Oposicionista",
+          "file": "direita-permitida-dossie.html",
+          "url": "https://observatorio-civil-br.vercel.app/direita-permitida-dossie.html"
+        },
+        {
+          "id": 123,
+          "title": "Operação Dakovo — Dossiê Investigativo v2",
+          "file": "operacao-dakovo-dossie-v2.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-dakovo-dossie-v2.html"
+        },
+        {
+          "id": 124,
+          "title": "Caso Cão Orelha — Dossiê: Captura Institucional por Classe",
+          "file": "cao-orelha-dossie.html",
+          "url": "https://observatorio-civil-br.vercel.app/cao-orelha-dossie.html"
+        },
+        {
+          "id": 142,
+          "title": "Operação Greenwashing — Dossiê Forense",
+          "file": "operacao-greenwashing.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-greenwashing.html"
+        },
+        {
+          "id": 148,
+          "title": "OPERAÇÃO ESPELHO — Análise Estratégica",
+          "file": "operacao-espelho.html",
+          "url": "https://observatorio-civil-br.vercel.app/operacao-espelho.html"
         }
       ]
     }

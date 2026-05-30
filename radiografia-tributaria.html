@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiografia Tributária — Brasil</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #050505;
+    --panel: #0c0c0c;
+    --border: #1a1a1a;
+    --border2: #242424;
+    --white: #f0ebe3;
+    --muted: #333;
+    --dim: #555;
+    --mid: #777;
+    --red: #e53e3e;
+    --red2: #c53030;
+    --red3: #9b2c2c;
+    --amber: #d97706;
+    --green: #38a169;
+    --orange: #dd6b20;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* scanlines */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 3px
+    );
+    pointer-events: none; z-index: 9999;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 860px; margin: 0 auto; padding: 64px 28px 140px; }
+
+  /* ── HEADER ── */
+  .hd {
+    border-bottom: 1px solid var(--muted);
+    padding-bottom: 28px; margin-bottom: 56px;
+    display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;
+  }
+  .hd-left {}
+  .hd-tag {
+    font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 14px;
+  }
+  .hd-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 9vw, 88px);
+    line-height: 0.88; letter-spacing: 0.04em;
+    color: var(--white);
+  }
+  .hd-title span { color: var(--red); display: block; }
+  .hd-right {
+    text-align: right;
+  }
+  .hd-salary-label {
+    font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 6px;
+  }
+  .hd-salary {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    letter-spacing: 0.05em;
+    color: var(--green);
+    transition: color 1s ease;
+  }
+  .hd-salary.danger { color: var(--red); }
+  .hd-remaining-label {
+    font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--dim); margin-top: 4px;
+  }
+
+  /* ── SALARY BAR ── */
+  .bar-wrap {
+    margin-bottom: 60px;
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg);
+    padding: 16px 0 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .bar-label {
+    display: flex; justify-content: space-between;
+    font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 10px;
+  }
+  .bar-label span { color: var(--mid); }
+  .bar-track {
+    height: 10px; background: var(--border2);
+    position: relative; overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; background: var(--green);
+    transition: width 0.8s cubic-bezier(.4,0,.2,1), background 0.8s ease;
+    position: relative;
+  }
+  .bar-fill::after {
+    content: '';
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 2px; background: rgba(255,255,255,0.4);
+  }
+  .bar-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--mid); text-align: right; margin-top: 6px;
+    transition: color 0.5s;
+  }
+
+  /* ── IMPOSTO CARDS ── */
+  .taxes { display: flex; flex-direction: column; gap: 1px; }
+
+  .tax-item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto auto;
+    align-items: center; gap: 16px;
+    padding: 14px 16px;
+    background: var(--panel);
+    border-left: 3px solid transparent;
+    opacity: 0; transform: translateX(-12px);
+    transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s, border-color 0.3s;
+    cursor: default;
+    position: relative;
+  }
+  .tax-item:hover { background: #111; }
+  .tax-item.show { opacity: 1; transform: translateX(0); }
+
+  .tax-item.tier-1 { border-left-color: #742a2a; }
+  .tax-item.tier-2 { border-left-color: #c53030; }
+  .tax-item.tier-3 { border-left-color: var(--red); }
+  .tax-item.tier-last {
+    border-left-color: #ff6b6b;
+    background: rgba(229,62,62,0.06);
+  }
+
+  .tax-num {
+    font-size: 9px; color: var(--muted);
+    text-align: right; user-select: none;
+  }
+
+  .tax-name {
+    font-size: clamp(12px, 1.8vw, 14px);
+    color: var(--white); font-weight: 400;
+    line-height: 1.3;
+  }
+  .tax-name small {
+    display: block; font-size: 9px;
+    color: var(--dim); margin-top: 2px;
+    font-style: italic; font-weight: 300;
+  }
+
+  .tax-sigla {
+    font-size: 9px; letter-spacing: 0.2em;
+    color: var(--dim); text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .tax-bite {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 0.05em;
+    color: var(--red); text-align: right;
+    white-space: nowrap; min-width: 64px;
+  }
+  .tax-bite.small { font-size: 14px; color: var(--amber); }
+  .tax-bite.last  { color: #ff6b6b; font-size: 20px; }
+
+  /* TOOLTIP */
+  .tax-item:hover .tax-tooltip { opacity: 1; pointer-events: auto; }
+  .tax-tooltip {
+    position: absolute; left: 48px; top: 100%; z-index: 100;
+    background: #1a1a1a; border: 1px solid var(--border2);
+    padding: 10px 14px; max-width: 280px;
+    font-size: 10px; color: var(--mid); line-height: 1.6;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.15s;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex; align-items: center; gap: 16px;
+    padding: 28px 0 20px;
+  }
+  .div-line { flex: 1; height: 1px; background: var(--muted); }
+  .div-label {
+    font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--dim); white-space: nowrap;
+  }
+
+  /* ── GRAND TOTAL ── */
+  .grand {
+    margin-top: 2px;
+    background: rgba(229,62,62,0.05);
+    border: 1px solid rgba(229,62,62,0.2);
+    padding: 28px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .grand.show { opacity: 1; transform: translateY(0); }
+  .grand-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(16px, 3vw, 22px); letter-spacing: 0.15em;
+    color: var(--mid);
+  }
+  .grand-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 6vw, 52px); letter-spacing: 0.06em;
+    color: var(--red);
+  }
+
+  /* ── FINALE ── */
+  .finale {
+    margin-top: 72px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .finale.show { opacity: 1; transform: translateY(0); }
+
+  .finale-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; margin-bottom: 48px;
+  }
+  .fg-card {
+    background: var(--panel); padding: 20px 18px;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .fg-card.show { opacity: 1; transform: translateY(0); }
+  .fg-label {
+    font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 8px;
+  }
+  .fg-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 4vw, 38px); letter-spacing: 0.04em;
+    line-height: 1; color: var(--white); margin-bottom: 4px;
+  }
+  .fg-val.red { color: var(--red); }
+  .fg-val.amber { color: var(--amber); }
+  .fg-sub {
+    font-size: 9px; color: var(--dim); line-height: 1.5;
+  }
+
+  .quote-block {
+    border-left: 3px solid var(--amber);
+    padding-left: 24px; margin-bottom: 40px;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.5vw, 30px);
+    font-weight: 700; font-style: italic;
+    line-height: 1.3; color: var(--white); margin-bottom: 6px;
+  }
+  .quote-sub {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  .last-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 2.5vw, 20px);
+    font-style: italic; color: var(--mid);
+    border-top: 1px solid var(--muted); padding-top: 24px;
+    line-height: 1.7;
+  }
+  .last-line strong { color: var(--white); font-style: normal; }
+
+  /* PROGRESS */
+  .prog {
+    position: fixed; top: 0; left: 0;
+    height: 2px; background: var(--red);
+    z-index: 9000; transition: width 0.15s;
+    box-shadow: 0 0 8px rgba(229,62,62,0.5);
+  }
+
+  @media (max-width: 600px) {
+    .hd { flex-direction: column; align-items: flex-start; }
+    .hd-right { text-align: left; }
+    .finale-grid { grid-template-columns: 1fr 1fr; }
+    .tax-item { grid-template-columns: 24px 1fr auto; }
+    .tax-sigla { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hd">
+    <div class="hd-left">
+      <p class="hd-tag">Diagnóstico fiscal · Brasil 2026 · Contribuinte anônimo</p>
+      <h1 class="hd-title">Radiografia<span>Tributária</span></h1>
+    </div>
+    <div class="hd-right">
+      <p class="hd-salary-label">Salário bruto mensal</p>
+      <div class="hd-salary" id="salDisplay">R$ 3.000</div>
+      <p class="hd-remaining-label">Restante após impostos</p>
+    </div>
+  </div>
+
+  <!-- STICKY BAR -->
+  <div class="bar-wrap">
+    <div class="bar-label">
+      <span>QUANTO SOBROU</span>
+      <span id="barPctLabel">100%</span>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" id="barFill" style="width:100%"></div>
+    </div>
+    <div class="bar-pct" id="barPctSub">R$ 3.000,00 intacto — por enquanto</div>
+  </div>
+
+  <!-- IMPOSTOS -->
+  <div class="taxes" id="taxes"></div>
+
+  <!-- GRAND TOTAL -->
+  <div class="grand" id="grand">
+    <div>
+      <div class="grand-label">Total consumido pelo Estado</div>
+      <div style="font-size:9px;color:var(--dim);letter-spacing:0.2em;margin-top:4px">Sobre um salário de R$3.000 — direto e indireto</div>
+    </div>
+    <div class="grand-value" id="grandVal">—</div>
+  </div>
+
+  <!-- FINALE -->
+  <div class="finale" id="finale">
+    <div class="divider">
+      <div class="div-line"></div>
+      <span class="div-label">O que sobra</span>
+      <div class="div-line"></div>
+    </div>
+
+    <div class="finale-grid" id="fgrid"></div>
+
+    <div class="divider" style="padding-top:40px">
+      <div class="div-line"></div>
+      <span class="div-label">Veredicto</span>
+      <div class="div-line"></div>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"Imposto sobre imposto.<br>O Estado taxando a própria ganância."</p>
+      <p class="quote-sub">— Cumulatividade tributária brasileira · documentada</p>
+    </div>
+
+    <p class="last-line">
+      Você acorda às 5h. Trabalha 8h. Paga <strong>impostos em cascata</strong> que incidem uns sobre os outros —
+      o chamado <strong>efeito cumulativo</strong>, proibido em países desenvolvidos.
+      No Brasil, é <strong>política fiscal oficial</strong>.
+      Você não é contribuinte. Você é <strong>o produto</strong>.
+    </p>
+  </div>
+
+</div>
+
+<script>
+// ── DADOS ─────────────────────────────────────────────────────────
+const SALARIO = 3000;
+
+const impostos = [
+  // nome, sigla, mordida estimada R$, % do salário, tier, tooltip, small?
+  {
+    nome: 'Imposto de Renda Pessoa Física',
+    sigla: 'IRPF',
+    valor: 210,
+    pct: 7.0,
+    tier: 'tier-2',
+    tip: 'Alíquota progressiva. Para R$3k/mês, incide ~7% após a dedução padrão. Retido na fonte antes de você ver o dinheiro.',
+  },
+  {
+    nome: 'Previdência Social',
+    sigla: 'INSS',
+    valor: 330,
+    pct: 11.0,
+    tier: 'tier-2',
+    tip: 'Contribuição obrigatória. Você financia uma aposentadoria que talvez não chegue ou valha menos do que contribuiu.',
+  },
+  {
+    nome: 'Imposto sobre Consumo',
+    sigla: 'ICMS / ISS',
+    valor: 210,
+    pct: 7.0,
+    tier: 'tier-1',
+    tip: 'Embutido em tudo que você compra. Alimentação, vestuário, serviços. Invisível — mas sempre presente.',
+  },
+  {
+    nome: 'Imposto sobre Produtos Industrializados',
+    sigla: 'IPI',
+    valor: 90,
+    pct: 3.0,
+    tier: 'tier-1',
+    tip: 'Incide sobre manufaturados. Eletrônicos, bebidas, cigarros, veículos. Faz o celular custar o dobro do exterior.',
+  },
+  {
+    nome: 'Imposto sobre Eletrônicos',
+    sigla: 'IPI + II + ICMS',
+    valor: 120,
+    pct: 4.0,
+    tier: 'tier-1',
+    tip: 'Combinação de três impostos sobre um único produto digital. Um notebook de R$3.000 tem R$1.500 em tributação embutida.',
+    small: true,
+  },
+  {
+    nome: 'Imposto sobre Importação',
+    sigla: 'II',
+    valor: 75,
+    pct: 2.5,
+    tier: 'tier-1',
+    tip: 'Protege a indústria local. Na prática: protege oligopólios e mantém o brasileiro pagando caro pelo que o mundo compra barato.',
+    small: true,
+  },
+  {
+    nome: 'Imposto sobre Exportação',
+    sigla: 'IE',
+    valor: 30,
+    pct: 1.0,
+    tier: 'tier-1',
+    tip: 'Cobra de quem vende para fora. O custo é repassado internamente. Você paga no preço final.',
+    small: true,
+  },
+  {
+    nome: 'Contribuição sobre Salário',
+    sigla: 'PIS / COFINS',
+    valor: 102,
+    pct: 3.4,
+    tier: 'tier-2',
+    tip: 'PIS e COFINS incidem sobre faturamento das empresas, que repassam ao preço. Você paga na prateleira sem saber.',
+  },
+  {
+    nome: 'Imposto sobre Imóvel',
+    sigla: 'IPTU / ITBI',
+    valor: 60,
+    pct: 2.0,
+    tier: 'tier-1',
+    tip: 'IPTU mensal proporcional + ITBI na compra. Você paga para morar onde já pagou para comprar.',
+    small: true,
+  },
+  {
+    nome: 'Imposto sobre Aluguel',
+    sigla: 'IR s/ aluguel',
+    valor: 45,
+    pct: 1.5,
+    tier: 'tier-1',
+    tip: 'Se você aluga, o proprietário paga IR sobre o rendimento e repassa no preço. Você financia o imposto do seu próprio locador.',
+    small: true,
+  },
+  {
+    nome: 'Imposto sobre Operações no Cartão',
+    sigla: 'IOF',
+    valor: 36,
+    pct: 1.2,
+    tier: 'tier-1',
+    tip: 'IOF sobre crédito, câmbio e seguros. Você paga para usar o dinheiro que já foi tributado quando recebeu.',
+    small: true,
+  },
+  {
+    nome: 'Imposto sobre Gasolina',
+    sigla: 'CIDE + ICMS + PIS/COFINS',
+    valor: 126,
+    pct: 4.2,
+    tier: 'tier-2',
+    tip: 'Quatro tributos diferentes no litro de combustível. 42% do preço na bomba é imposto. Você paga para ir trabalhar.',
+  },
+  {
+    nome: 'Imposto sobre Esgoto / Saneamento',
+    sigla: 'COSIP + taxas',
+    valor: 24,
+    pct: 0.8,
+    tier: 'tier-1',
+    tip: 'Taxa de iluminação pública, esgoto, lixo. Serviços que deveriam ser financiados pelo imposto que você já paga.',
+    small: true,
+  },
+  {
+    nome: 'Contribuição de Melhoria',
+    sigla: 'Contrib. Social',
+    valor: 54,
+    pct: 1.8,
+    tier: 'tier-1',
+    tip: 'CSLL, contribuições compulsórias. Incide sobre o lucro das empresas, repassado ao consumidor. Tributação invisível.',
+    small: true,
+  },
+  {
+    nome: 'Imposto sobre Imposto',
+    sigla: 'Cumulatividade',
+    valor: 138,
+    pct: 4.6,
+    tier: 'tier-last',
+    tip: 'O efeito cascata: tributos incidindo sobre bases que já incluem outros tributos. ICMS sobre PIS/COFINS. IPI sobre II. Ilegal em países desenvolvidos. Aqui: norma constitucional.',
+    last: true,
+  },
+];
+
+// ── RENDER ────────────────────────────────────────────────────────
+let totalDeducted = 0;
+let itemIdx = 0;
+
+const container = document.getElementById('taxes');
+const barFill    = document.getElementById('barFill');
+const barPctLbl  = document.getElementById('barPctLabel');
+const barPctSub  = document.getElementById('barPctSub');
+const salDisplay = document.getElementById('salDisplay');
+const grandEl    = document.getElementById('grand');
+const grandVal   = document.getElementById('grandVal');
+
+function fmt(n) {
+  return 'R$ ' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function updateBar(remaining) {
+  const pct = Math.max(0, (remaining / SALARIO) * 100);
+  barFill.style.width = pct + '%';
+
+  // Color shift
+  if (pct > 60) barFill.style.background = 'var(--green)';
+  else if (pct > 35) barFill.style.background = 'var(--amber)';
+  else { barFill.style.background = 'var(--red)'; barFill.style.boxShadow = '0 0 12px rgba(229,62,62,0.4)'; }
+
+  barPctLbl.textContent = pct.toFixed(1) + '%';
+  barPctSub.textContent = fmt(remaining) + ' restante de ' + fmt(SALARIO);
+
+  salDisplay.textContent = fmt(remaining);
+  if (pct < 40) salDisplay.classList.add('danger');
+  else salDisplay.classList.remove('danger');
+}
+
+function addTax() {
+  if (itemIdx >= impostos.length) {
+    showGrand();
+    return;
+  }
+
+  const t = impostos[itemIdx++];
+  totalDeducted += t.valor;
+  const remaining = SALARIO - totalDeducted;
+
+  const div = document.createElement('div');
+  div.className = `tax-item ${t.tier || ''}`;
+  div.innerHTML = `
+    <span class="tax-num">${String(itemIdx).padStart(2,'0')}</span>
+    <div class="tax-name">
+      ${t.nome}
+      <small>${t.tip.substring(0, 80)}...</small>
+    </div>
+    <span class="tax-sigla">${t.sigla}</span>
+    <span class="tax-bite ${t.small ? 'small' : ''} ${t.last ? 'last' : ''}">${fmt(t.valor)}</span>
+    <div class="tax-tooltip">${t.tip}<br><br><strong style="color:var(--red)">${t.pct}% do salário</strong></div>
+  `;
+  container.appendChild(div);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('show')));
+  updateBar(remaining);
+
+  // Delay varies
+  let delay = 320;
+  if (t.last) delay = 600;
+  else if (t.small) delay = 220;
+
+  setTimeout(addTax, delay);
+}
+
+function showGrand() {
+  const remaining = SALARIO - totalDeducted;
+  grandEl.classList.add('show');
+  grandVal.textContent = fmt(totalDeducted);
+
+  setTimeout(() => showFinale(remaining), 800);
+}
+
+function showFinale(remaining) {
+  const pct = ((totalDeducted / SALARIO) * 100).toFixed(1);
+  const cards = [
+    { label: 'Você ganhou', val: fmt(SALARIO), cls: 'white', sub: 'bruto, antes de tudo' },
+    { label: 'Estado pegou', val: fmt(totalDeducted), cls: 'red', sub: `${pct}% do seu salário` },
+    { label: 'Sobrou pra você', val: fmt(remaining), cls: 'amber', sub: 'para viver, comer, pagar aluguel' },
+  ];
+
+  const grid = document.getElementById('fgrid');
+  cards.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = 'fg-card';
+    el.innerHTML = `
+      <div class="fg-label">${c.label}</div>
+      <div class="fg-val ${c.cls}">${c.val}</div>
+      <div class="fg-sub">${c.sub}</div>
+    `;
+    grid.appendChild(el);
+    setTimeout(() => el.classList.add('show'), 200 + i * 180);
+  });
+
+  document.getElementById('finale').classList.add('show');
+  setTimeout(() => {
+    document.querySelectorAll('.fg-card').forEach(c => c.classList.add('show'));
+  }, 400);
+}
+
+// ── SCROLL PROGRESS ───────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('prog').style.width = pct + '%';
+});
+
+// ── START ─────────────────────────────────────────────────────────
+updateBar(SALARIO);
+setTimeout(addTax, 600);
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

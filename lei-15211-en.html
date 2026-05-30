@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Law 15,211/2025 — Brazil's Digital Apartheid: Critical Intelligence Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --surface: #111114;
+    --surface2: #18181d;
+    --surface3: #1f1f26;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --fg: #f0f0f0;
+    --fg2: #a8a8b3;
+    --fg3: #5c5c6e;
+    --accent: #ff3b3b;
+    --accent2: #ff6b35;
+    --warn: #ffb800;
+    --ok: #00e599;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --mono: 'Space Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --pad: 16px;
+    --radius: 4px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    border-bottom: 1px solid var(--border2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,11,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px var(--pad);
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+
+  .threat-badge {
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 4px 7px;
+    text-transform: uppercase;
+    animation: pulse-red 2s infinite;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--fg);
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse-red 1s infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-red {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ─── TICKER ─── */
+  .ticker {
+    background: rgba(255,59,59,0.08);
+    border-bottom: 1px solid rgba(255,59,59,0.25);
+    padding: 8px var(--pad);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .ticker-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: rgba(255,59,59,0.18);
+    padding: 3px 7px;
+    border: 1px solid rgba(255,59,59,0.35);
+    flex-shrink: 0;
+  }
+
+  .ticker-text {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,80,80,0.9);
+    white-space: nowrap;
+    animation: scroll-left 28s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ─── NAV TABS (mobile section jump) ─── */
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    padding: 10px 14px;
+    white-space: nowrap;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .nav-tab:hover { color: var(--fg); border-color: var(--border2); }
+  .nav-tab.active { color: var(--accent); border-color: var(--accent); }
+
+  /* ─── MAIN ─── */
+  .main {
+    padding: var(--pad);
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .section-tag.red    { color: var(--accent);  border-color: rgba(255,59,59,0.4);   background: rgba(255,59,59,0.07); }
+  .section-tag.orange { color: var(--accent2); border-color: rgba(255,107,53,0.4);  background: rgba(255,107,53,0.07); }
+  .section-tag.yellow { color: var(--warn);    border-color: rgba(255,184,0,0.4);   background: rgba(255,184,0,0.07); }
+  .section-tag.blue   { color: var(--blue);    border-color: rgba(59,130,246,0.4);  background: rgba(59,130,246,0.07); }
+  .section-tag.green  { color: var(--ok);      border-color: rgba(0,229,153,0.4);   background: rgba(0,229,153,0.07); }
+  .section-tag.purple { color: var(--purple);  border-color: rgba(168,85,247,0.4);  background: rgba(168,85,247,0.07); }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: 0.01em;
+  }
+
+  /* ─── GRIDS — mobile first ─── */
+  .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  @media (min-width: 600px) {
+    .grid-2, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (min-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .grid-2-1 { grid-template-columns: 2fr 1fr; }
+    .grid-1-2 { grid-template-columns: 1fr 2fr; }
+  }
+
+  /* ─── CARDS ─── */
+  .card { background: var(--surface); border: 1px solid var(--border); padding: var(--pad); }
+  .card-lg { background: var(--surface); border: 1px solid var(--border); padding: var(--pad); }
+
+  /* ─── METRIC CARDS ─── */
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+
+  .metric-value {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .metric-value.red    { color: var(--accent); }
+  .metric-value.orange { color: var(--accent2); }
+  .metric-value.yellow { color: var(--warn); }
+  .metric-value.blue   { color: var(--blue); }
+  .metric-value.green  { color: var(--ok); }
+
+  .metric-sub { font-size: 11px; color: var(--fg2); }
+
+  .metric-change { font-family: var(--mono); font-size: 9px; display: flex; align-items: center; gap: 4px; }
+  .metric-change.bad  { color: var(--accent); }
+  .metric-change.warn { color: var(--warn); }
+
+  /* ─── PROGRESS ─── */
+  .progress-bar { height: 3px; background: var(--surface3); overflow: hidden; margin-top: 4px; }
+  .progress-fill { height: 100%; }
+
+  /* ─── CARD TITLE ─── */
+  .card-title {
+    font-family: var(--display);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: var(--pad);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '15,211';
+    position: absolute;
+    right: -10px;
+    top: -20px;
+    font-family: var(--display);
+    font-size: clamp(80px, 25vw, 180px);
+    font-weight: 800;
+    color: rgba(255,59,59,0.04);
+    pointer-events: none;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(22px, 6vw, 34px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin-bottom: 12px;
+  }
+
+  .hero-title span { color: var(--accent); }
+
+  .hero-desc {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    max-width: 680px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media (min-width: 480px) { .hero-stats { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 720px) { .hero-stats { grid-template-columns: repeat(5, 1fr); } }
+
+  .hero-stat { display: flex; flex-direction: column; gap: 3px; }
+
+  .hero-stat-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--fg3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  /* ─── SEVERITY BADGE ─── */
+  .severity {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .severity.critical { background: rgba(255,59,59,0.12);  color: var(--accent);  border: 1px solid rgba(255,59,59,0.3); }
+  .severity.high     { background: rgba(255,107,53,0.12); color: var(--accent2); border: 1px solid rgba(255,107,53,0.3); }
+  .severity.medium   { background: rgba(255,184,0,0.12);  color: var(--warn);    border: 1px solid rgba(255,184,0,0.3); }
+  .severity.low      { background: rgba(59,130,246,0.12); color: var(--blue);    border: 1px solid rgba(59,130,246,0.3); }
+  .severity.ok       { background: rgba(0,229,153,0.12);  color: var(--ok);      border: 1px solid rgba(0,229,153,0.3); }
+
+  /* ─── ALERT CARDS ─── */
+  .alert-card {
+    border-left: 3px solid;
+    padding: 12px 14px;
+    background: var(--surface);
+    display: flex;
+    gap: 10px;
+  }
+
+  .alert-card.critical { border-color: var(--accent);  background: rgba(255,59,59,0.05); }
+  .alert-card.high     { border-color: var(--accent2); background: rgba(255,107,53,0.05); }
+  .alert-card.medium   { border-color: var(--warn);    background: rgba(255,184,0,0.05); }
+  .alert-card.info     { border-color: var(--blue);    background: rgba(59,130,246,0.05); }
+
+  .alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .alert-content h4 { font-size: 12px; font-weight: 600; color: var(--fg); margin-bottom: 3px; font-family: var(--body); }
+  .alert-content p  { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+  /* ─── QUOTE ─── */
+  .quote-block {
+    border-left: 2px solid var(--accent);
+    padding: 10px 14px;
+    background: rgba(255,59,59,0.04);
+    margin: 12px 0;
+  }
+
+  .quote-text   { font-size: 12px; font-style: italic; color: var(--fg2); line-height: 1.6; margin-bottom: 5px; }
+  .quote-source { font-family: var(--mono); font-size: 8px; color: var(--fg3); letter-spacing: 0.08em; }
+
+  /* ─── LAW TEXT ─── */
+  .law-text {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .law-article { font-family: var(--mono); font-size: 8px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; }
+  .law-content { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+  .law-highlight { background: rgba(255,59,59,0.15); color: var(--fg); padding: 0 2px; border-bottom: 1px solid var(--accent); }
+
+  /* ─── ANNOTATION ─── */
+  .annotation {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--surface3);
+    margin-top: 8px;
+    border-left: 2px solid var(--fg3);
+    align-items: flex-start;
+  }
+
+  .annotation-icon { font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+  .annotation-text { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+  .annotation-text strong { color: var(--warn); font-weight: 600; }
+
+  /* ─── TIMELINE ─── */
+  .timeline { display: flex; flex-direction: column; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 64px 1px 1fr;
+    gap: 0 12px;
+    min-height: 56px;
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--fg3);
+    letter-spacing: 0.04em;
+    text-align: right;
+    padding-top: 2px;
+    line-height: 1.4;
+  }
+
+  .timeline-line-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  .timeline-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .timeline-connector { width: 1px; flex: 1; background: var(--border); margin-top: 4px; }
+
+  .timeline-content { padding-bottom: 18px; padding-top: 0; }
+
+  .timeline-title { font-size: 12px; font-weight: 600; color: var(--fg); margin-bottom: 3px; }
+  .timeline-desc  { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+  /* ─── COMPARE GRID ─── */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); }
+
+  .compare-header {
+    padding: 10px 12px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .compare-header:first-child { border-right: 1px solid var(--border); }
+
+  .compare-cell {
+    padding: 9px 12px;
+    font-size: 11px;
+    color: var(--fg2);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    line-height: 1.45;
+  }
+
+  .compare-cell:nth-child(odd) { border-right: 1px solid var(--border); }
+
+  /* ─── FLOW ─── */
+  .flow { display: flex; flex-direction: column; }
+
+  .flow-step { display: flex; align-items: stretch; gap: 0; }
+
+  .flow-icon-col { display: flex; flex-direction: column; align-items: center; width: 36px; flex-shrink: 0; }
+
+  .flow-icon {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .flow-line { width: 1px; flex: 1; background: var(--border); min-height: 16px; }
+
+  .flow-content { padding: 0 0 18px 10px; flex: 1; }
+
+  .flow-title { font-size: 12px; font-weight: 600; color: var(--fg); margin-bottom: 3px; padding-top: 5px; }
+  .flow-desc  { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+  /* ─── IMPACT SECTOR ─── */
+  .impact-sector {
+    padding: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .impact-sector-name { font-family: var(--display); font-size: 12px; font-weight: 700; color: var(--fg); }
+  .impact-sector-desc { font-size: 10px; color: var(--fg2); line-height: 1.45; }
+
+  .impact-bar  { height: 3px; background: var(--surface3); margin-top: 4px; overflow: hidden; }
+  .impact-fill { height: 100%; }
+
+  /* ─── ENTITY CARD ─── */
+  .entity-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .entity-role { font-family: var(--mono); font-size: 8px; color: var(--fg3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .entity-name { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--fg); }
+  .entity-desc { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+  /* ─── CASE CARD ─── */
+  .case-card { background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+
+  .case-header {
+    padding: 12px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .case-title { font-family: var(--display); font-size: 12px; font-weight: 700; color: var(--fg); }
+  .case-body  { padding: 12px 14px; }
+
+  .case-stat { display: flex; gap: 4px; align-items: baseline; margin-bottom: 6px; }
+  .case-stat-value { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--fg); }
+  .case-stat-unit  { font-family: var(--mono); font-size: 10px; color: var(--fg3); }
+  .case-desc { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+  /* ─── REF LIST ─── */
+  .ref-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .ref-item {
+    display: flex;
+    gap: 8px;
+    padding: 9px 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .ref-num { font-family: var(--mono); font-size: 8px; color: var(--accent); font-weight: 700; flex-shrink: 0; min-width: 22px; margin-top: 1px; }
+
+  .ref-title  { font-size: 11px; font-weight: 600; color: var(--fg); margin-bottom: 2px; }
+  .ref-source { font-family: var(--mono); font-size: 8px; color: var(--fg3); letter-spacing: 0.04em; }
+
+  /* ─── VERDICT ─── */
+  .verdict-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .verdict-icon { font-size: 18px; flex-shrink: 0; }
+  .verdict-content h4 { font-size: 12px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+  .verdict-content p  { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+  /* ─── CONCLUSION ─── */
+  .conclusion-box {
+    background: rgba(255,59,59,0.05);
+    border: 1px solid rgba(255,59,59,0.22);
+    padding: var(--pad);
+  }
+
+  .conclusion-title {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .conclusion-text { font-size: 13px; color: var(--fg2); line-height: 1.7; }
+
+  .conclusion-items { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+
+  .conclusion-item { display: flex; gap: 10px; font-size: 12px; color: var(--fg2); align-items: flex-start; }
+  .conclusion-bullet { color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+  /* ─── DIVIDER ─── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+
+  /* ─── SECTION ANCHOR ─── */
+  .section-anchor { scroll-margin-top: 90px; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 16px var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--fg3);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  @media (min-width: 600px) {
+    .footer { flex-direction: row; justify-content: space-between; text-align: left; }
+    --pad: 24px;
+  }
+
+  @media (min-width: 900px) {
+    :root { --pad: 32px; }
+    .main { gap: 32px; }
+    .card-lg { padding: 24px; }
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface3); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="threat-badge">⚠ CRITICAL</div>
+      <div class="header-title">Law 15,211/2025 — Intelligence Report</div>
+    </div>
+    <div class="live-indicator">
+      <div class="live-dot"></div>
+      IN EFFECT NOW
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-label">⚡ ALERT</div>
+  <div class="ticker-text">
+    LAW 15,211/2025 IN EFFECT TODAY 03/17/2026 · MANDATORY AGE VERIFICATION · FREE FIRE REMOVES EVENTS · RIOT GAMES REQUIRES TAX ID · DISCORD LEAKS 70K IDs IN UK · SPOTIFY REQUIRES BIOMETRICS · LINUX COLLATERAL TARGET · ANATEL MAY BLOCK REPOSITORIES · DIGITAL APARTHEID UNDERWAY ·
+    LAW 15,211/2025 IN EFFECT TODAY 03/17/2026 · MANDATORY AGE VERIFICATION · FREE FIRE REMOVES EVENTS · RIOT GAMES REQUIRES TAX ID · DISCORD LEAKS 70K IDs IN UK · SPOTIFY REQUIRES BIOMETRICS · LINUX COLLATERAL TARGET · ANATEL MAY BLOCK REPOSITORIES · DIGITAL APARTHEID UNDERWAY ·
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<nav class="nav-tabs" id="nav">
+  <a class="nav-tab active" href="#overview">Overview</a>
+  <a class="nav-tab" href="#metrics">Metrics</a>
+  <a class="nav-tab" href="#article12">Article 12</a>
+  <a class="nav-tab" href="#timeline">Timeline</a>
+  <a class="nav-tab" href="#impact">Impact</a>
+  <a class="nav-tab" href="#cases">Cases</a>
+  <a class="nav-tab" href="#mechanism">Mechanism</a>
+  <a class="nav-tab" href="#actors">Actors</a>
+  <a class="nav-tab" href="#flaws">Flaws</a>
+  <a class="nav-tab" href="#refs">Sources</a>
+  <a class="nav-tab" href="#verdict">Verdict</a>
+</nav>
+
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero section-anchor" id="overview">
+    <div class="hero-label">
+      <div class="live-dot"></div>
+      INTELLIGENCE REPORT — TOTAL IMPACT ASSESSMENT
+    </div>
+    <div class="hero-title">Brazil's <span>Digital Apartheid</span> starts today</div>
+    <div class="hero-desc">
+      Law 15,211/2025 ("Felca Law"), enacted under the pretext of protecting children and teenagers online,
+      took effect on this date. This dashboard maps the damage vectors, responsible actors,
+      international precedents, and systemic consequences for privacy, open-source software,
+      and individual freedom in Brazil.
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value" style="color:var(--accent);">Art. 12</span>
+        <span class="hero-stat-label">Crisis epicenter</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value" style="color:var(--warn);">70K+</span>
+        <span class="hero-stat-label">IDs leaked (UK)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value" style="color:var(--accent2);">550K</span>
+        <span class="hero-stat-label">Sign against OSA (UK)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value" style="color:var(--blue);">~214M</span>
+        <span class="hero-stat-label">Brazilians affected</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value" style="color:var(--ok);">Token</span>
+        <span class="hero-stat-label">Privacy alternative (ANPD)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="section-anchor" id="metrics">
+    <div class="section-header">
+      <div class="section-tag red">📊 Risk Metrics</div>
+      <div class="section-title">Calculated Impact Indices</div>
+    </div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Privacy Risk</div>
+        <div class="metric-value red">9.4</div>
+        <div class="metric-sub">out of 10 possible</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:94%;background:var(--accent);"></div></div>
+        <div class="metric-change bad">▲ Biometrics imminent</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Threat to Linux</div>
+        <div class="metric-value orange">8.1</div>
+        <div class="metric-sub">Legal exposure level</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:81%;background:var(--accent2);"></div></div>
+        <div class="metric-change bad">▲ Art. 12 has no technical fix</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Data Breach Risk</div>
+        <div class="metric-value yellow">8.7</div>
+        <div class="metric-sub">Based on Discord UK case</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:87%;background:var(--warn);"></div></div>
+        <div class="metric-change warn">▲ Documents exposed to hacks</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Censorship Potential</div>
+        <div class="metric-value blue">7.5</div>
+        <div class="metric-sub">Blocking via Anatel</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--blue);"></div></div>
+        <div class="metric-change bad">▲ No immediate judicial brake</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORIGIN + ARTICLE 12 -->
+  <div class="grid-1-2 section-anchor" id="article12">
+    <div>
+      <div class="section-header">
+        <div class="section-tag orange">📜 Origin</div>
+        <div class="section-title">What is Law 15,211</div>
+      </div>
+      <div class="card-lg">
+        <p style="font-size:12px;color:var(--fg2);line-height:1.7;margin-bottom:14px;">
+          Formally known as <strong style="color:var(--fg);">Law No. 15,211 of 2025</strong>,
+          nicknamed the <em>"Felca Law"</em>, it originated from a viral video by influencer Felca
+          denouncing child sexualization and predatory monetization on digital platforms.
+          It updates Brazil's <strong style="color:var(--fg);">Digital Statute for Children and Adolescents</strong>.
+        </p>
+        <div class="quote-block">
+          <div class="quote-text">"The stated goal is to combat early adultization and predatory commercial profiling.
+          However, when dissecting the enacted text, we find that protection is merely the packaging
+          of an unprecedented access-control system."</div>
+          <div class="quote-source">— CRITICAL ANALYSIS OF THE DOCUMENTARY CONTENT</div>
+        </div>
+        <div class="divider" style="margin:14px 0;"></div>
+        <div class="verdict-box">
+          <div class="verdict-icon">🎯</div>
+          <div class="verdict-content">
+            <h4>Real cause vs. declared cause</h4>
+            <p>Felca himself stated he feared his video would be "hijacked" by politicians to justify unjust regulations. He was right.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-header">
+        <div class="section-tag red">⚖️ Article 12</div>
+        <div class="section-title">The Legal Minefield</div>
+      </div>
+      <div class="card-lg">
+        <div class="law-text">
+          <div class="law-article">ART. 12 — LAW 15,211/2025 · CRITICAL ANALYSIS</div>
+          <div class="law-content">
+            The text mandates that all <span class="law-highlight">operating system vendors</span>
+            offer mechanisms that are <span class="law-highlight">proportionate, transparent, and auditable</span>
+            to verify user identity and age. The requirement to provide an
+            <span class="law-highlight">age signal via a secure API</span> to every installed application
+            is the critical point. Validation against a government database
+            (<span class="law-highlight">GOV.BR or SERPRO</span>) is required.
+          </div>
+        </div>
+        <div class="annotation">
+          <div class="annotation-icon">⚠️</div>
+          <div class="annotation-text"><strong>TECHNICAL TRAP:</strong> For Windows/macOS, this is one line of code. For Linux — a decentralized ecosystem with no legal "head" — it is a technical and legal death sentence.</div>
+        </div>
+        <div class="annotation" style="margin-top:8px;background:rgba(255,184,0,0.06);border-left:2px solid var(--warn);">
+          <div class="annotation-icon">🔍</div>
+          <div class="annotation-text"><strong>COLOSSAL LOOPHOLE:</strong> The law won't be enforced at full force tomorrow — it plants the seed for future legal interpretation. Persistent statism: create the norm today, apply it when society is already numb.</div>
+        </div>
+        <div class="annotation" style="margin-top:8px;background:rgba(59,130,246,0.06);border-left:2px solid var(--blue);">
+          <div class="annotation-icon">📌</div>
+          <div class="annotation-text"><strong>PRACTICAL CONSEQUENCE:</strong> With no entity to fine or arrest, the Brazilian state will punish the distribution channel — blocking Linux repos via Anatel and national internet backbones.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE + COMPARISON -->
+  <div class="section-anchor" id="timeline">
+    <div class="section-header">
+      <div class="section-tag blue">📅 Timeline</div>
+      <div class="section-title">From Viral Video to Digital Apartheid</div>
+    </div>
+    <div class="grid-2">
+      <div class="card-lg">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">Oct<br>2023</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--blue);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">UK Online Safety Act passed</div>
+              <div class="timeline-desc">Approved Oct 26, 2023. Requires age verification and biometrics. Becomes a warning sign for Brazil.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2024<br>viral</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--warn);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Felca's video goes viral</div>
+              <div class="timeline-desc">Influencer exposes child sexualization and NPC lives. Triggers massive public outrage.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Jan<br>2025</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--accent2);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">UK OSA takes effect</div>
+              <div class="timeline-desc">Spotify, X, Reddit, Discord demand facial scans or documents. Privacy problems emerge immediately.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Oct<br>2025</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--accent);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Discord: 70,000 IDs leaked</div>
+              <div class="timeline-desc">Data breach exposes identity documents of UK users forced to verify. PornHub exits the UK entirely.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Oct<br>2025</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--purple);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">ANPD publishes study</div>
+              <div class="timeline-desc">Government explores "age token" and rejects facial biometrics. Indian model proposed as privacy-preserving alternative.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2025</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--accent);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Law 15,211/2025 enacted</div>
+              <div class="timeline-desc">Final text including the controversial Art. 12 on OS-level verification is signed into law.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Feb<br>2026</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--accent2);"></div><div class="timeline-connector"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Riot Games requires CPF for LoL</div>
+              <div class="timeline-desc">League of Legends mandates Brazilian tax ID. First confirmed case of mandatory identity verification in gaming.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Mar 17<br>2026</div>
+            <div class="timeline-line-wrap"><div class="timeline-dot" style="background:var(--accent);box-shadow:0 0 8px var(--accent);"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" style="color:var(--accent);">⚡ TODAY — Full enforcement</div>
+              <div class="timeline-desc">Law enters full effect. Free Fire removes diamond-based events. Systemic impact begins now.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-lg">
+        <div class="card-title">
+          <div class="card-title-dot" style="background:var(--blue);"></div>
+          Brazil vs. UK: The Precedent That Should Worry Everyone
+        </div>
+        <div class="compare-grid">
+          <div class="compare-header" style="color:var(--ok);">🇧🇷 Brazil (Law 15,211)</div>
+          <div class="compare-header" style="color:var(--blue);">🇬🇧 UK (Online Safety Act)</div>
+          <div class="compare-cell">Exploring "age token" without exposing data directly</div>
+          <div class="compare-cell">Facial biometrics + document scan required</div>
+          <div class="compare-cell">ANPD appears to show some privacy concern</div>
+          <div class="compare-cell">Ofcom can block non-compliant sites</div>
+          <div class="compare-cell">Art. 12 could be weaponized to block Linux</div>
+          <div class="compare-cell">Small sites and indie games shut down</div>
+          <div class="compare-cell">Garena, Riot already adapting in advance</div>
+          <div class="compare-cell">Spotify, Reddit, X, Discord — universal verification</div>
+          <div class="compare-cell">Impacts on loot boxes and mobile games</div>
+          <div class="compare-cell">Urban Dead shut down after 20 years</div>
+          <div class="compare-cell">Public petition still possible, elections near</div>
+          <div class="compare-cell">550K sign against — government ignored them all</div>
+          <div class="compare-cell">VPNs as potential resistance tool</div>
+          <div class="compare-cell">50% of Brits use unregulated sites now</div>
+          <div class="compare-cell" style="color:var(--ok);">⚡ Indian model as privacy alternative</div>
+          <div class="compare-cell" style="color:var(--accent);">✗ No privacy-preserving alternative in place</div>
+        </div>
+        <div class="annotation" style="margin-top:12px;">
+          <div class="annotation-icon">💡</div>
+          <div class="annotation-text"><strong>UK LESSON:</strong> Even with good intentions, the practical result was: user isolation, data breaches, shutdown of legitimate services, and 50% migrating to completely unmoderated sites — the opposite of the stated goal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPACT BY SECTOR -->
+  <div class="section-anchor" id="impact">
+    <div class="section-header">
+      <div class="section-tag red">🎯 Sector Impact</div>
+      <div class="section-title">Damage Vectors by Domain</div>
+    </div>
+    <div class="grid-4">
+      <div class="impact-sector">
+        <div class="impact-sector-name">🐧 Open Source / Linux</div>
+        <div class="impact-sector-desc">No entity to fine, no office to serve notice. Target of repository blocking via Anatel. Devs in Germany/Japan won't implement a Brazilian tax-ID API.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:90%;background:var(--accent);"></div></div>
+        <div class="severity critical">● CRITICAL</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">🎮 Online Games</div>
+        <div class="impact-sector-desc">Free Fire removes diamond Menu Royale. Riot Games requires CPF for LoL. Loot box mechanics under scrutiny. Monetization models at risk.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:85%;background:var(--accent2);"></div></div>
+        <div class="severity high">● HIGH</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">🔐 Privacy / LGPD</div>
+        <div class="impact-sector-desc">Biometric and document collection creates vulnerable databases. Discord UK case (70K IDs) shows the real risk. Potential conflict with Brazil's LGPD.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:92%;background:var(--accent);"></div></div>
+        <div class="severity critical">● CRITICAL</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">📱 Social Media</div>
+        <div class="impact-sector-desc">Platforms like X, Reddit, Discord must implement age checks. Risk of "digital leprosy" — blocking users who lack verification means.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:80%;background:var(--warn);"></div></div>
+        <div class="severity high">● HIGH</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">🎵 Streaming / Entertainment</div>
+        <div class="impact-sector-desc">Spotify already requires verification (Yoti partnership) for 18+ content. Model expands to other services. Cultural access restricted.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:65%;background:var(--warn);"></div></div>
+        <div class="severity medium">● MEDIUM</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">🏛️ Free Expression</div>
+        <div class="impact-sector-desc">Gradual normalization of digital censorship. Infrastructure built for future control. "Persistent statism" — create the norm, deploy it later.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:88%;background:var(--accent);"></div></div>
+        <div class="severity critical">● CRITICAL</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">🏢 Indie / Small Tech</div>
+        <div class="impact-sector-desc">Small sites and apps unable to implement verification. Risk of forced shutdown like Urban Dead in the UK after 20 years of existence.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:78%;background:var(--accent2);"></div></div>
+        <div class="severity high">● HIGH</div>
+      </div>
+      <div class="impact-sector">
+        <div class="impact-sector-name">🎓 Education / Access</div>
+        <div class="impact-sector-desc">Youth without documents, elderly users, and vulnerable populations lose access. Wikipedia was affected in the UK. Knowledge barriers grow.</div>
+        <div class="impact-bar"><div class="impact-fill" style="width:70%;background:var(--warn);"></div></div>
+        <div class="severity medium">● MEDIUM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTED CASES -->
+  <div class="section-anchor" id="cases">
+    <div class="section-header">
+      <div class="section-tag orange">📋 Evidence</div>
+      <div class="section-title">Documented Cases of Real-World Impact</div>
+    </div>
+    <div class="grid-3">
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title">🎮 Free Fire — Garena</div>
+          <div class="severity high">ADAPTED</div>
+        </div>
+        <div class="case-body">
+          <div class="case-stat"><div class="case-stat-value">Mar 17</div><div class="case-stat-unit">/2026</div></div>
+          <div class="case-desc">Diamond-based Menu Royale removed from Brazil. Events based on luck mechanics with paid currency eliminated. Tokens and tickets converted automatically. Gold Royale (free currency) remains active.</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title">🎮 Riot Games — League of Legends</div>
+          <div class="severity critical">CPF REQUIRED</div>
+        </div>
+        <div class="case-body">
+          <div class="case-stat"><div class="case-stat-value">CPF</div><div class="case-stat-unit">tax ID mandatory</div></div>
+          <div class="case-desc">Now requires Brazilian tax ID (CPF) to play. Under-18s blocked. First confirmed case of mandatory identity verification in a major game title in Brazil.</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title">💬 Discord — UK (Precedent)</div>
+          <div class="severity critical">DATA BREACH</div>
+        </div>
+        <div class="case-body">
+          <div class="case-stat"><div class="case-stat-value">70K</div><div class="case-stat-unit">IDs leaked</div></div>
+          <div class="case-desc">Data breach exposed ID document photos of 70,000 British users who were forced to verify under the OSA. Occurred October 2025 — just months after enforcement began.</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title">🎵 Spotify — Yoti Verification</div>
+          <div class="severity medium">IMPLEMENTED</div>
+        </div>
+        <div class="case-body">
+          <div class="case-stat"><div class="case-stat-value">18+</div><div class="case-stat-unit">facial scan</div></div>
+          <div class="case-desc">Partnership with Yoti for adult content verification. Selfie or document photo required. "Photos are not saved" — but that assurance comes from the verifier itself, with no independent audit.</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title">🎮 Urban Dead — UK (Precedent)</div>
+          <div class="severity critical">SHUT DOWN</div>
+        </div>
+        <div class="case-body">
+          <div class="case-stat"><div class="case-stat-value">20</div><div class="case-stat-unit">years of existence</div></div>
+          <div class="case-desc">British indie game shut down because it couldn't comply with the OSA's "impossible" demands. Was about to celebrate 20 years. Collateral damage of legislation.</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title">🔞 PornHub — UK (Precedent)</div>
+          <div class="severity high">BLOCKED</div>
+        </div>
+        <div class="case-body">
+          <div class="case-stat"><div class="case-stat-value">50%</div><div class="case-stat-unit">moved to unmoderated sites</div></div>
+          <div class="case-desc">Exited the UK after the data breach. Paradoxical result: 50% of Brits moved to adult sites with zero moderation — the exact opposite of the law's stated goal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MECHANISM / FLOW -->
+  <div class="section-anchor" id="mechanism">
+    <div class="section-header">
+      <div class="section-tag red">🔗 Mechanism</div>
+      <div class="section-title">How the Digital Apartheid Works</div>
+    </div>
+    <div class="grid-2-1">
+      <div class="card-lg">
+        <div class="card-title">
+          <div class="card-title-dot" style="background:var(--accent);"></div>
+          Control Flow — From Art. 12 to Digital Isolation
+        </div>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-icon-col">
+              <div class="flow-icon" style="background:rgba(255,59,59,0.12);border:1px solid rgba(255,59,59,0.3);">📜</div>
+              <div class="flow-line"></div>
+            </div>
+            <div class="flow-content">
+              <div class="flow-title">Art. 12 mandates an age-verification API</div>
+              <div class="flow-desc">Every OS must provide an auditable identity verification mechanism, integrating with GOV.BR or SERPRO.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon-col">
+              <div class="flow-icon" style="background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);">🏢</div>
+              <div class="flow-line"></div>
+            </div>
+            <div class="flow-content">
+              <div class="flow-title">Microsoft and Apple: trivial compliance</div>
+              <div class="flow-desc">Centralized infrastructure + existing telemetry = one line of code. They're already inside the regulatory fence.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon-col">
+              <div class="flow-icon" style="background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.3);">🐧</div>
+              <div class="flow-line"></div>
+            </div>
+            <div class="flow-content">
+              <div class="flow-title">Linux: technical and legal impossibility</div>
+              <div class="flow-desc">Decentralized ecosystem. No CNPJ (tax ID), no office, no "head to cut off." German or Japanese devs will not add a Brazilian government API to the kernel.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon-col">
+              <div class="flow-icon" style="background:rgba(255,184,0,0.12);border:1px solid rgba(255,184,0,0.3);">⚡</div>
+              <div class="flow-line"></div>
+            </div>
+            <div class="flow-content">
+              <div class="flow-title">Linux classified as "systemic risk tool for minors"</div>
+              <div class="flow-desc">Non-compliant OS gets categorized as a risk environment for children. Liability shifts to the distribution channel.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon-col">
+              <div class="flow-icon" style="background:rgba(255,59,59,0.12);border:1px solid rgba(255,59,59,0.3);">🔒</div>
+              <div class="flow-line"></div>
+            </div>
+            <div class="flow-content">
+              <div class="flow-title">Anatel blocks repos and mirror servers</div>
+              <div class="flow-desc">ISPs and backbones ordered to block official repositories. No updates, no security packages.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon-col">
+              <div class="flow-icon" style="background:rgba(255,59,59,0.18);border:1px solid rgba(255,59,59,0.4);box-shadow:0 0 10px rgba(255,59,59,0.25);">🏝️</div>
+            </div>
+            <div class="flow-content">
+              <div class="flow-title" style="color:var(--accent);">ISOLATED MACHINE — Digital Apartheid Complete</div>
+              <div class="flow-desc">Linux box without updates = attack target. VPN becomes a "clandestine" necessity. The only way to be "legal" is to accept total surveillance.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="section-header" style="margin-bottom:4px;">
+          <div class="section-tag yellow">⚠️ Alerts</div>
+          <div class="section-title" style="font-size:14px;">Immediate Risks</div>
+        </div>
+        <div class="alert-card critical">
+          <div class="alert-icon">🔴</div>
+          <div class="alert-content">
+            <h4>National-scale data breach</h4>
+            <p>If implemented with biometrics, any breach exposes irreversible data — faces can't be "reset" like passwords.</p>
+          </div>
+        </div>
+        <div class="alert-card critical">
+          <div class="alert-icon">🔴</div>
+          <div class="alert-content">
+            <h4>Linux repository blocking</h4>
+            <p>Anatel may force ISPs to block kernel.org, GitHub, and mirrors. Brazilian developers face professional risk.</p>
+          </div>
+        </div>
+        <div class="alert-card high">
+          <div class="alert-icon">🟠</div>
+          <div class="alert-content">
+            <h4>LGPD vs. Law 15,211 conflict</h4>
+            <p>Mandatory biometric collection may violate Brazil's own LGPD data minimization principles. Legal war incoming.</p>
+          </div>
+        </div>
+        <div class="alert-card high">
+          <div class="alert-icon">🟠</div>
+          <div class="alert-content">
+            <h4>Market as enforcement arm</h4>
+            <p>Banks and apps may refuse to run on non-compliant Linux, making the OS practically unusable without direct state action.</p>
+          </div>
+        </div>
+        <div class="alert-card medium">
+          <div class="alert-icon">🟡</div>
+          <div class="alert-content">
+            <h4>Blowback effect (UK paradox)</h4>
+            <p>Like the UK, restrictions may push users toward completely unmoderated environments — the opposite of the goal.</p>
+          </div>
+        </div>
+        <div class="alert-card info">
+          <div class="alert-icon">🔵</div>
+          <div class="alert-content">
+            <h4>Persistent statism precedent</h4>
+            <p>The norm exists today. It will be fully deployed when popular resistance is at its lowest — likely after elections.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTORS -->
+  <div class="section-anchor" id="actors">
+    <div class="section-header">
+      <div class="section-tag purple">👥 Actors</div>
+      <div class="section-title">Responsible Parties and Stakeholders</div>
+    </div>
+    <div class="grid-4">
+      <div class="entity-card">
+        <div class="entity-role">PROPOSER / LEGISLATURE</div>
+        <div class="entity-name">Brazilian Congress</div>
+        <div class="entity-desc">Passed Law 15,211/2025 including the problematic Art. 12 without adequate technical impact assessment on open-source software.</div>
+        <div><div class="severity high">HIGH RESP.</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">EXECUTIVE / SIGNATORY</div>
+        <div class="entity-name">Presidency / Casa Civil</div>
+        <div class="entity-desc">Signed the law. Responsible for technical regulation and the decrees that define how Art. 12 will be applied in practice.</div>
+        <div><div class="severity high">HIGH RESP.</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">TELECOM REGULATOR</div>
+        <div class="entity-name">Anatel</div>
+        <div class="entity-desc">Brazil's FCC equivalent. Can force ISPs to block Linux repos. Controls national backbones and internet exchange points — the silent "kill switch."</div>
+        <div><div class="severity critical">CRITICAL RISK</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">DATA REGULATOR</div>
+        <div class="entity-name">ANPD</div>
+        <div class="entity-desc">Published study in Oct 2025 acknowledging risks. Exploring "age token" as a less invasive alternative. Positive signal, but no binding force yet.</div>
+        <div><div class="severity medium">AMBIGUOUS</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">COMPANY / COMPLIANCE</div>
+        <div class="entity-name">Garena (Free Fire)</div>
+        <div class="entity-desc">Preemptively removed the diamond-based Menu Royale before enforcement date. Template for how large corporations comply — by removing user features.</div>
+        <div><div class="severity medium">ADAPTED</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">COMPANY / COMPLIANCE</div>
+        <div class="entity-name">Riot Games</div>
+        <div class="entity-desc">Requires CPF (Brazilian tax ID) to play League of Legends. Blocks under-18s. First major confirmed case of mandatory ID in gaming.</div>
+        <div><div class="severity medium">ADAPTED</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">DATA INFRASTRUCTURE</div>
+        <div class="entity-name">SERPRO / GOV.BR</div>
+        <div class="entity-desc">Government databases for identity validation. Centralizes national digital control. High-value targets in any large-scale cyberattack.</div>
+        <div><div class="severity high">INFRA RISK</div></div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-role">CATALYST / INVOLUNTARY</div>
+        <div class="entity-name">Felca (Influencer)</div>
+        <div class="entity-desc">Legitimate exposé of child sexualization was "hijacked" politically. He publicly stated his concern that his video would be used to justify unjust regulations.</div>
+        <div><div class="severity low">INVOLUNTARY</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLAWS -->
+  <div class="section-anchor" id="flaws">
+    <div class="section-header">
+      <div class="section-tag yellow">❌ Flaws</div>
+      <div class="section-title">Technical, Legal, and Conceptual Failures of the Law</div>
+    </div>
+    <div class="grid-2">
+      <div class="card-lg">
+        <div class="card-title">
+          <div class="card-title-dot" style="background:var(--warn);"></div>
+          Technical Failures
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="alert-card medium" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">⚙️</div>
+            <div class="alert-content">
+              <h4>Ignorance of the open-source model</h4>
+              <p>Legislators treated Linux as if it were a centralized commercial product. No "vendor" can be held liable for distributions like Arch or Gentoo.</p>
+            </div>
+          </div>
+          <div class="alert-card medium" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">🌐</div>
+            <div class="alert-content">
+              <h4>Local law in a global ecosystem</h4>
+              <p>International developers won't adapt global projects to local Brazilian regulations. Result: Brazil gets isolated, not the problem.</p>
+            </div>
+          </div>
+          <div class="alert-card medium" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">🔑</div>
+            <div class="alert-content">
+              <h4>CPF API in the kernel = impossible and dangerous</h4>
+              <p>Inserting government validation into the Linux kernel would break OS architecture, create a permanent backdoor, and violate GPL licenses.</p>
+            </div>
+          </div>
+          <div class="alert-card medium" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">📡</div>
+            <div class="alert-content">
+              <h4>Biometrics are irreversible</h4>
+              <p>Unlike passwords, biometric data cannot be "reset" after a breach. A single leak permanently compromises the citizen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-lg">
+        <div class="card-title">
+          <div class="card-title-dot" style="background:var(--accent);"></div>
+          Conceptual and Legal Failures
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="alert-card critical" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">🎭</div>
+            <div class="alert-content">
+              <h4>Moral shield: sensitive cause, hidden objective</h4>
+              <p>Using child protection as justification makes any criticism politically difficult — even when that criticism is purely technical and legitimate.</p>
+            </div>
+          </div>
+          <div class="alert-card critical" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">📊</div>
+            <div class="alert-content">
+              <h4>No regulatory impact assessment (RIA)</h4>
+              <p>No public cost-benefit analysis comparing less invasive alternatives like the Indian age-token model.</p>
+            </div>
+          </div>
+          <div class="alert-card high" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">⚖️</div>
+            <div class="alert-content">
+              <h4>Conflict with LGPD (Law 13,709/2018)</h4>
+              <p>Mandatory biometric collection may violate Brazil's own data protection law principles of minimization, purpose, and necessity. No legal resolution in sight.</p>
+            </div>
+          </div>
+          <div class="alert-card high" style="border:none;padding:10px 12px;background:var(--surface2);">
+            <div class="alert-icon">🎯</div>
+            <div class="alert-content">
+              <h4>Attacks the medium, not the problem</h4>
+              <p>Major channels sexualizing children for millions in revenue, explicit song lyrics normalizing abuse, and digital gambling platforms all remain untouched.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERENCES -->
+  <div class="section-anchor" id="refs">
+    <div class="section-header">
+      <div class="section-tag blue">📚 Sources</div>
+      <div class="section-title">References and Documentation</div>
+    </div>
+    <div class="grid-2">
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">[01]</div>
+          <div class="ref-content">
+            <div class="ref-title">UK Online Safety Act — approval and enforcement</div>
+            <div class="ref-source">GOV.UK · legislation.gov.uk · October 2023 / January 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[02]</div>
+          <div class="ref-content">
+            <div class="ref-title">Discord breach — 70,000 identity documents leaked</div>
+            <div class="ref-source">The Guardian · theguardian.com/media/2025/oct/09 · October 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[03]</div>
+          <div class="ref-content">
+            <div class="ref-title">Half of Brits use unregulated adult sites after age verification rollout</div>
+            <div class="ref-source">The Independent · independent.co.uk · 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[04]</div>
+          <div class="ref-content">
+            <div class="ref-title">Brazilian government studies "age token," rejects facial biometrics</div>
+            <div class="ref-source">JOTA · jota.info/executivo · November 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[05]</div>
+          <div class="ref-content">
+            <div class="ref-title">Felca fears his video's cause is being "hijacked"</div>
+            <div class="ref-source">République · @republiqueBRA · Twitter/X · August 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[06]</div>
+          <div class="ref-content">
+            <div class="ref-title">ANPD — Study on age verification and privacy</div>
+            <div class="ref-source">ANPD · gov.br/anpd · October 14, 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">[07]</div>
+          <div class="ref-content">
+            <div class="ref-title">Law 15,211/2025 impacts Free Fire — Menu Royale removed</div>
+            <div class="ref-source">Journalistic coverage · Ronny Rolim · March 2026</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[08]</div>
+          <div class="ref-content">
+            <div class="ref-title">Thread — Possible impacts of Law 15,211 on Brazil's internet</div>
+            <div class="ref-source">@fellyume · Twitter/X · February 5, 2026</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[09]</div>
+          <div class="ref-content">
+            <div class="ref-title">Prof. Alan Woodward (Univ. of Surrey) — OSA is "technically dangerous and ethically questionable"</div>
+            <div class="ref-source">University of Surrey · Public statement · 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[10]</div>
+          <div class="ref-content">
+            <div class="ref-title">UK petition against OSA — 550,000+ signatures (government ignored them)</div>
+            <div class="ref-source">UK Parliament Petitions · petitions.parliament.uk · 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[11]</div>
+          <div class="ref-content">
+            <div class="ref-title">Spotify — Yoti partnership for 18+ content verification</div>
+            <div class="ref-source">Spotify Safety &amp; Privacy Center · support.spotify.com · 2025</div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">[12]</div>
+          <div class="ref-content">
+            <div class="ref-title">Documentary / Analysis — "Brazil's Technological Apartheid"</div>
+            <div class="ref-source">Transcribed video · Unidentified channel · March 17, 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="conclusion-box section-anchor" id="verdict">
+    <div class="conclusion-title">
+      ⚖️ Analytical Conclusion — Dashboard Verdict
+    </div>
+    <div class="conclusion-text">
+      Law 15,211/2025 marks an inflection point for digital freedom in Brazil. Born from a legitimate cause
+      — child protection — it was transformed into broad-spectrum surveillance infrastructure.
+      UK precedents show this path produces the opposite of what was promised: greater vulnerability,
+      less real protection, and digitally marginalized citizens.
+    </div>
+    <div class="conclusion-items">
+      <div class="conclusion-item">
+        <div class="conclusion-bullet">01</div>
+        <div><strong style="color:var(--fg);">Article 12</strong> is technically inapplicable to the Linux ecosystem without destroying it — a failure that reveals either legislative ignorance or a deliberate intent to eliminate alternatives to the Microsoft/Apple duopoly.</div>
+      </div>
+      <div class="conclusion-item">
+        <div class="conclusion-bullet">02</div>
+        <div>The <strong style="color:var(--fg);">biometric breach risk</strong> is empirically confirmed by the Discord UK case (70K). In Brazil, with 214 million citizens, the potential scale of damage is catastrophic.</div>
+      </div>
+      <div class="conclusion-item">
+        <div class="conclusion-bullet">03</div>
+        <div>The law does not attack the true vectors of the problem: major predatory content channels, music that sexualizes minors, digital gambling platforms operating freely.</div>
+      </div>
+      <div class="conclusion-item">
+        <div class="conclusion-bullet">04</div>
+        <div>The concept of <strong style="color:var(--fg);">"persistent statism"</strong> is the gravest threat: the norm is planted, waiting for the moment of least resistance to be fully activated.</div>
+      </div>
+      <div class="conclusion-item">
+        <div class="conclusion-bullet">05</div>
+        <div>The alternative exists: the <strong style="color:var(--ok);">age token</strong> (Indian model, studied by ANPD) could achieve the stated goal without exposing biometric data. That the government chose not to implement it says everything about the true priorities.</div>
+      </div>
+      <div class="conclusion-item">
+        <div class="conclusion-bullet">06</div>
+        <div><strong style="color:var(--fg);">Technical resistance</strong> — VPNs, alternative mirrors, decentralized distributions — is the only immediate antidote. Open-source software survived the SCO legal war in the 2000s. It can survive bureaucrats too.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div>LAW 15,211/2025 · CRITICAL INTELLIGENCE REPORT · ARTES DO SUL / AI NATIVO BRASIL</div>
+  <div>GENERATED: 03/17/2026 · LAW ENFORCEMENT DATE · FOR EDUCATIONAL AND INFORMATIONAL USE</div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fills = document.querySelectorAll('.progress-fill, .impact-fill');
+    fills.forEach(fill => {
+      const w = fill.style.width;
+      fill.style.width = '0';
+      setTimeout(() => {
+        fill.style.transition = 'width 1.2s cubic-bezier(0.25,1,0.5,1)';
+        fill.style.width = w;
+      }, 300);
+    });
+
+    const tabs = document.querySelectorAll('.nav-tab');
+    const sections = document.querySelectorAll('.section-anchor');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tabs.forEach(t => {
+            t.classList.toggle('active', t.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(tab.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  });
+</script>
+
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

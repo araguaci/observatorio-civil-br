@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prisão Econômica — A Arquitetura da Dependência no Brasil · Dossiê 2026</title>
+<meta name="description" content="94 milhões no CadÚnico, Selic, captura do INSS, Bolsa Família e o loop rentista: dossiê sobre a engenharia da dependência no Brasil — lawfare-timeline / gosurf.site.">
+<link rel="canonical" href="https://gosurf.site/prisao-economica">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gosurf.site/prisao-economica">
+<meta property="og:title" content="Prisão Econômica — A Arquitetura da Dependência no Brasil">
+<meta property="og:description" content="94 milhões no CadÚnico não são falha de política pública: são resultado de juros altos, captura do fluxo de benefícios e política industrial ausente. Dossiê com dados e gráficos.">
+<meta property="og:image" content="https://gosurf.site/og-prisao-economica.png">
+<meta property="og:image:secure_url" content="https://gosurf.site/og-prisao-economica.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="572">
+<meta property="og:image:alt" content="Prisão Econômica — investimento público versus juros, fluxo Tesouro–rentistas–bancos">
+<meta property="og:site_name" content="gosurf.site">
+<meta property="og:locale" content="pt_BR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://gosurf.site/prisao-economica">
+<meta name="twitter:title" content="Prisão Econômica — A Arquitetura da Dependência no Brasil">
+<meta name="twitter:description" content="94 milhões no CadÚnico, Selic, captura do INSS e o loop rentista: engenharia da dependência documentada.">
+<meta name="twitter:image" content="https://gosurf.site/og-prisao-economica.png">
+<meta name="twitter:image:alt" content="Prisão Econômica — arquitetura da dependência Brasil">
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #070b0f;
+  --bg1: #0c1118;
+  --bg2: #111820;
+  --bg3: #1a2430;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --fg: #e8ecf0;
+  --fg2: #8a9ab0;
+  --fg3: #4a5a6a;
+  --red: #e84040;
+  --red2: rgba(232,64,64,0.13);
+  --amber: #e8a020;
+  --amber2: rgba(232,160,32,0.13);
+  --blue: #3090e8;
+  --blue2: rgba(48,144,232,0.10);
+  --green: #28c880;
+  --green2: rgba(40,200,128,0.10);
+  --purple: #a060e8;
+  --purple2: rgba(160,96,232,0.10);
+  --cyan: #20d0e8;
+  --cyan2: rgba(32,208,232,0.10);
+  --gold: #f0c040;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+/* ───── HEADER ───── */
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border2);
+  padding: 32px 40px 28px;
+  position: relative;
+  overflow: hidden;
+}
+@media (max-width:700px){ .header { padding: 24px 20px 20px; } }
+.header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--purple), var(--blue), var(--red));
+  background-size: 300% 100%;
+  animation: scanline 5s linear infinite;
+}
+@keyframes scanline { to { background-position: 300% 0; } }
+.header::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(232,64,64,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.badge-red { background: var(--red2); color: var(--red); border: 1px solid rgba(232,64,64,0.28); }
+.badge-amber { background: var(--amber2); color: var(--amber); border: 1px solid rgba(232,160,32,0.28); }
+.badge-blue { background: var(--blue2); color: var(--blue); border: 1px solid rgba(48,144,232,0.28); }
+.badge-purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(160,96,232,0.28); }
+.badge-green { background: var(--green2); color: var(--green); border: 1px solid rgba(40,200,128,0.28); }
+.badge-cyan { background: var(--cyan2); color: var(--cyan); border: 1px solid rgba(32,208,232,0.28); }
+.badge-gray { background: rgba(255,255,255,0.04); color: var(--fg3); border: 1px solid var(--border); }
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.20em;
+  text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--red); }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+.hero-title .hl { color: var(--red); }
+.hero-title .hl2 { color: var(--amber); }
+.hero-sub {
+  font-size: 12px; color: var(--fg2);
+  max-width: 860px; line-height: 1.75;
+  margin-bottom: 28px;
+}
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+  gap: 10px;
+}
+.stat {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.stat-ico {
+  font-size: 20px; line-height: 1; opacity: 0.92;
+  font-style: normal;
+}
+.stat-n {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-l { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ───── NAV ───── */
+.nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(7,11,15,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex; overflow-x: auto; scrollbar-width: none;
+  padding: 0 40px;
+}
+@media (max-width:700px){ .nav { padding: 0 16px; } }
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 14px 14px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--fg3); background: none; border: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; cursor: pointer;
+  font-family: var(--font-mono);
+  transition: color 0.15s, border-color 0.15s;
+}
+.nav-btn:hover { color: var(--fg2); }
+.nav-btn.active { color: var(--fg); border-bottom-color: var(--red); }
+
+/* ───── LAYOUT ───── */
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 40px 80px; }
+@media (max-width:700px){ .wrap { padding: 0 16px 60px; } }
+.panel { padding-top: 32px; scroll-margin-top: 58px; }
+.section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--fg3);
+  margin-bottom: 18px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label .lbl-ico {
+  font-size: 16px; line-height: 1; flex-shrink: 0; opacity: 0.92;
+  font-style: normal;
+}
+.section-label .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.g2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; margin-bottom: 20px; }
+.g3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; margin-bottom: 20px; }
+.g4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 10px; margin-bottom: 20px; }
+
+/* ───── CARDS ───── */
+.card {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-radius: 6px; padding: 18px;
+}
+.card-left {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-left: 3px solid; border-radius: 0 6px 6px 0; padding: 16px 18px;
+}
+.card-title {
+  font-family: var(--font-display); font-size: 14px;
+  font-weight: 700; color: var(--fg); margin-bottom: 8px;
+}
+.card-body { font-size: 12px; color: var(--fg2); line-height: 1.75; }
+.card-body strong { color: var(--fg); }
+.card-meta { font-size: 10px; color: var(--fg3); letter-spacing: 0.06em; margin-top: 10px; }
+
+/* ───── LOOP VISUAL ───── */
+.loop-box {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 28px 24px; margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+.loop-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--red));
+  background-size: 200% 100%;
+  animation: scanline 3s linear infinite;
+}
+.loop-steps {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 0; margin-bottom: 16px;
+}
+.loop-step {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 12px 14px;
+  font-size: 11px; font-weight: 600; text-align: center;
+  min-width: 110px; flex-shrink: 0;
+}
+.loop-arrow {
+  font-size: 18px; color: var(--amber); padding: 0 6px; flex-shrink: 0;
+}
+.loop-close {
+  font-size: 10px; color: var(--fg3); text-align: center; margin-top: 8px;
+  border-top: 1px solid var(--border); padding-top: 10px;
+}
+.loop-close strong { color: var(--red); }
+
+/* ───── CAMADA ───── */
+.layer {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-radius: 6px; overflow: hidden; margin-bottom: 12px;
+}
+.layer-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.15s;
+}
+.layer-head:hover { background: var(--bg3); }
+.layer-num {
+  font-family: var(--font-display); font-size: 18px;
+  font-weight: 800; min-width: 28px; line-height: 1;
+}
+.layer-title-wrap { flex: 1; }
+.layer-title {
+  font-family: var(--font-display); font-size: 14px;
+  font-weight: 700; color: var(--fg);
+}
+.layer-subtitle { font-size: 10px; color: var(--fg3); margin-top: 2px; }
+.layer-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.layer-arrow { font-size: 12px; color: var(--fg3); transition: transform 0.2s; }
+.layer-body {
+  padding: 18px; font-size: 12px; color: var(--fg2);
+  line-height: 1.75; display: none;
+}
+.layer-body.open { display: block; }
+.layer-body strong { color: var(--fg); }
+.layer-body .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin-top: 12px; }
+.layer-body .kv-k { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 3px; }
+.layer-body .kv-v { font-size: 12px; color: var(--fg2); }
+.layer-body .kv-v strong { color: var(--fg); }
+
+/* ───── TIMELINE ───── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 5px; top: 6px; bottom: 6px;
+  width: 1px; background: var(--border2);
+}
+.tl-item { position: relative; padding-bottom: 24px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid var(--bg1); flex-shrink: 0;
+}
+.tl-date { font-size: 10px; color: var(--fg3); letter-spacing: 0.06em; margin-bottom: 3px; }
+.tl-title {
+  font-family: var(--font-display); font-size: 13px;
+  font-weight: 700; color: var(--fg); margin-bottom: 5px;
+}
+.tl-body { font-size: 11px; color: var(--fg2); line-height: 1.7; }
+.tl-body strong { color: var(--fg); }
+
+/* ───── ALERT ───── */
+.alert {
+  border-radius: 6px; padding: 14px 18px;
+  display: flex; gap: 12px; margin-bottom: 16px;
+  border: 1px solid; font-size: 12px; line-height: 1.7;
+}
+.alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-body { color: var(--fg2); }
+.alert-body strong { color: var(--fg); }
+.alert-red { background: var(--red2); border-color: rgba(232,64,64,0.22); }
+.alert-amber { background: var(--amber2); border-color: rgba(232,160,32,0.22); }
+.alert-blue { background: var(--blue2); border-color: rgba(48,144,232,0.22); }
+.alert-purple { background: var(--purple2); border-color: rgba(160,96,232,0.22); }
+
+/* ───── QUOTE ───── */
+.quote {
+  border-left: 3px solid var(--amber); padding: 16px 20px;
+  background: var(--bg2); border-radius: 0 6px 6px 0;
+  margin-bottom: 20px;
+}
+.quote-text {
+  font-size: 13px; color: var(--fg); line-height: 1.7;
+  font-style: italic; margin-bottom: 8px;
+}
+.quote-attr { font-size: 10px; color: var(--fg3); letter-spacing: 0.06em; }
+
+/* ───── COMPARATIVO ───── */
+.comp-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--border2); border-radius: 6px; overflow: hidden;
+  margin-bottom: 14px;
+}
+@media (max-width:600px){ .comp-row { grid-template-columns: 1fr; } }
+.comp-col { background: var(--bg1); padding: 16px 18px; }
+.comp-head {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ───── CHART WRAP ───── */
+.chart-wrap {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-radius: 6px; padding: 20px; margin-bottom: 20px;
+}
+.chart-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--fg2); margin-bottom: 14px;
+}
+.chart-title::before {
+  content: '📊';
+  margin-right: 8px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+.canvas-wrap { position: relative; height: 260px; }
+
+/* ───── ARTEFATOS RELACIONADOS ───── */
+.related-block {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border2);
+  scroll-margin-top: 64px;
+}
+.related-head {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--fg);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.related-head .lbl-ico { font-size: 18px; }
+.related-sub { font-size: 11px; color: var(--fg3); margin-bottom: 18px; max-width: 720px; line-height: 1.65; }
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+.related-card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.related-card:hover {
+  border-color: var(--border2);
+  background: var(--bg2);
+}
+.related-card a {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.related-card .rc-ico {
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 10px;
+  display: block;
+}
+.related-card .rc-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.related-card .rc-desc {
+  font-size: 11px;
+  color: var(--fg2);
+  line-height: 1.6;
+}
+.related-card .rc-link {
+  font-size: 10px;
+  color: var(--amber);
+  margin-top: 10px;
+  letter-spacing: 0.06em;
+}
+
+/* ───── VOLTAR AO TOPO ───── */
+#go-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 500;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+  background: rgba(12,17,24,0.92);
+  color: var(--fg);
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s, border-color 0.15s, color 0.15s;
+}
+#go-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+#go-top:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ───── PADRÃO CARD ───── */
+.pattern-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent, var(--red));
+  border-radius: 0 6px 6px 0; padding: 14px 16px;
+  margin-bottom: 10px; cursor: pointer;
+  transition: background 0.15s;
+}
+.pattern-card:hover { background: var(--bg3); }
+.pattern-card.open .pc-detail { display: block; }
+.pc-id { font-size: 10px; color: var(--fg3); letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 4px; }
+.pc-title {
+  font-family: var(--font-display); font-size: 13px;
+  font-weight: 700; color: var(--fg); margin-bottom: 6px;
+}
+.pc-desc { font-size: 11px; color: var(--fg2); line-height: 1.65; }
+.pc-detail {
+  display: none; margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--fg2); line-height: 1.7;
+}
+.pc-detail strong { color: var(--fg); }
+
+/* ───── CONCLUSÃO ───── */
+.concl {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 24px; margin-bottom: 14px;
+}
+.concl-title {
+  font-family: var(--font-display); font-size: 16px;
+  font-weight: 800; margin-bottom: 10px;
+}
+.concl-body { font-size: 12px; color: var(--fg2); line-height: 1.8; }
+.concl-body strong { color: var(--fg); }
+
+/* ───── FOOTER ───── */
+.footer {
+  margin-top: 60px; padding: 20px 0;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer-text { font-size: 10px; color: var(--fg3); }
+
+/* ───── TAGS ───── */
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+.tag {
+  padding: 2px 7px; border-radius: 3px; font-size: 10px;
+  font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.tag-red { background: var(--red2); color: var(--red); }
+.tag-amber { background: var(--amber2); color: var(--amber); }
+.tag-blue { background: var(--blue2); color: var(--blue); }
+.tag-purple { background: var(--purple2); color: var(--purple); }
+.tag-green { background: var(--green2); color: var(--green); }
+.tag-gray { background: rgba(255,255,255,0.04); color: var(--fg3); }
+
+/* ───── ANIM ENTRADA ───── */
+.panel { animation: fadeUp 0.3s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="header">
+  <div class="meta-row">
+    <span class="badge badge-red">Dossiê</span>
+    <span class="badge badge-amber">Análise Estrutural</span>
+    <span class="badge badge-blue">lawfare-timeline · gosurf.site</span>
+    <span class="badge badge-purple">Padrões P3 · P4 · P7</span>
+    <span class="badge badge-green">Verificado Mai/2026</span>
+    <span class="badge badge-gray">CC0 1.0 Domínio Público</span>
+  </div>
+  <div class="eyebrow">Dossiê · Economia Política da Miséria</div>
+  <h1 class="hero-title">
+    <span class="hl">Prisão Econômica</span><br>
+    A Arquitetura da <span class="hl2">Dependência</span> no Brasil
+  </h1>
+  <p class="hero-sub">
+    94 milhões de brasileiros no Cadastro Único não é o fracasso de uma política pública.
+    É o resultado aritmético mensurável de um modelo que opera em três camadas simultâneas:
+    juros que matam o investimento produtivo, captura do fluxo de benefício pelos mesmos
+    agentes que destruíram o emprego, e instrumentalização eleitoral da dependência gerada.
+    Este dossiê documenta a engenharia do ciclo — e nomeia seus operadores.
+  </p>
+  <div class="stats-strip">
+    <div class="stat"><span class="stat-ico" aria-hidden="true">👥</span><div class="stat-n" style="color:var(--red)">94M</div><div class="stat-l">no CadÚnico (jan/2025)</div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">🎫</span><div class="stat-n" style="color:var(--amber)">19,8M</div><div class="stat-l">famílias Bolsa Família (2025)</div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">💸</span><div class="stat-n" style="color:var(--blue)">R$160B</div><div class="stat-l">transferências/ano (2025)</div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">🏦</span><div class="stat-n" style="color:var(--purple)">R$6,3B</div><div class="stat-l">roubados do INSS (2019–2024)</div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">📈</span><div class="stat-n" style="color:var(--red)">14,75%</div><div class="stat-l">Selic mai/2025</div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">🏭</span><div class="stat-n" style="color:var(--amber)">16,5%</div><div class="stat-l">FBCF/PIB — mínimo hist.</div></div>
+  </div>
+</header>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="goTo('cap01')">📊 01 · O Número</button>
+  <button class="nav-btn" onclick="goTo('cap02')">📈 02 · Motor da Pobreza</button>
+  <button class="nav-btn" onclick="goTo('cap03')">🏦 03 · Captura do Fluxo</button>
+  <button class="nav-btn" onclick="goTo('cap04')">🔗 04 · Engenharia da Dependência</button>
+  <button class="nav-btn" onclick="goTo('cap05')">🗳️ 05 · Instrumento Eleitoral</button>
+  <button class="nav-btn" onclick="goTo('cap06')">🚪 06 · A Saída que Não Veio</button>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════ CAP 01 ══════════════ -->
+<section class="panel" id="cap01">
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">🔢</span><span class="dot" style="background:var(--red)"></span>Capítulo 01 — O Número: O Que Representa e O Que Não É</div>
+
+  <div class="alert alert-amber">
+    <div class="alert-icon">⚠</div>
+    <div class="alert-body">
+      <strong>Distinção metodológica obrigatória:</strong> Os 94 milhões são pessoas registradas no Cadastro Único — portal de acesso a mais de 40 programas federais. Desses, 19,8 milhões de famílias recebiam Bolsa Família mensalmente em 2025. O número agrega realidades heterogêneas que o debate público trata como monolito.
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="card-left" style="border-left-color: var(--red)">
+      <div class="card-title">Bolsa Família</div>
+      <div class="card-body">
+        <strong>19,8M de famílias</strong> — R$ 680 médio/mês em 2025. Total: ~R$ 160B/ano. Critério: renda per capita abaixo de R$ 218. Condicionalidades: frequência escolar + cartão de vacinas. 57% dos beneficiários têm emprego formal parcial ou renda variável.
+      </div>
+      <div class="tags"><span class="tag tag-red">Transferência direta</span><span class="tag tag-gray">Condicional</span></div>
+    </div>
+    <div class="card-left" style="border-left-color: var(--blue)">
+      <div class="card-title">BPC — Benefício de Prestação Continuada</div>
+      <div class="card-body">
+        <strong>+5M de beneficiários</strong> — 1 salário mínimo para idosos (65+) e pessoas com deficiência em extrema pobreza. Direito constitucional (art. 203 CF/88). Equivalente ao SSI americano ou Grundsicherung alemão. Não é discricionário — é dívida do Estado.
+      </div>
+      <div class="tags"><span class="tag tag-blue">Constitucional</span><span class="tag tag-gray">Não-discricionário</span></div>
+    </div>
+    <div class="card-left" style="border-left-color: var(--amber)">
+      <div class="card-title">Demais programas do CadÚnico</div>
+      <div class="card-body">
+        Auxílio Gás (5,5M famílias), Tarifa Social de Energia Elétrica, Minha Casa Minha Vida, Pronatec, ID Jovem e outros 35+ programas. Cadastrar-se não implica receber todos — é pré-condição de elegibilidade. Parte dos 94M não recebe nenhum benefício ativo.
+      </div>
+      <div class="tags"><span class="tag tag-amber">Cadastro ≠ benefício</span></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="chart-wrap">
+      <div class="chart-title">Evolução de famílias no Bolsa Família (milhões) — 2004–2025</div>
+      <div class="canvas-wrap"><canvas id="chartBF"></canvas></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <div class="section-label" style="margin-bottom:10px;border:none;padding:0"><span class="lbl-ico" aria-hidden="true">🔎</span><span class="dot" style="background:var(--amber)"></span>O que o número revela de fato</div>
+        <div class="card-body">
+          Em países com mercado de trabalho formal robusto e distribuição de renda adequada, programas de transferência direta cobrem <strong>5–10% da população</strong>. No Brasil, cobrem <strong>44% da população total</strong> — quadro comparável a nações em colapso macroeconômico.
+          <br><br>
+          Isso não é anomalia administrativa. É o resultado mensurável de décadas de destruição da base produtiva formal — desindustrialização, Selic cronicamente acima de 10% a.a., crowding out do investimento privado.
+          <br><br>
+          <strong>A pergunta correta não é: "por que 94 milhões recebem auxílio?"</strong><br>
+          É: <strong>"por que o modelo econômico não gera emprego formal suficiente para que 94 milhões não precisem?"</strong>
+        </div>
+      </div>
+      <div class="alert alert-blue">
+        <div class="alert-icon">ℹ</div>
+        <div class="alert-body">
+          Em 2025, <strong>2 milhões de famílias saíram do Bolsa Família</strong> após aumento de renda — demonstrando que o programa funciona como rede de segurança transitória, não como armadilha permanente quando há emprego disponível. O problema é a escassez estrutural do emprego, não a existência do benefício.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <div class="comp-col">
+      <div class="comp-head" style="color:var(--red)">❌ Diagnóstico equivocado</div>
+      <div class="card-body">
+        "94 milhões dependentes do governo é prisão econômica causada pelo assistencialismo." Esta leitura identifica o sintoma como causa, propõe extinguir o remédio sem tratar a doença, e — não por acaso — é a narrativa que beneficia quem lucra com juros altos e trabalho barato.
+      </div>
+    </div>
+    <div class="comp-col">
+      <div class="comp-head" style="color:var(--green)">✓ Diagnóstico estrutural</div>
+      <div class="card-body">
+        "94 milhões no CadÚnico é o resultado de uma economia que não gera emprego formal suficiente — consequência de Selic cronicamente alta, desindustrialização deliberada e captura rentista do Estado que inviabiliza investimento produtivo."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CAP 02 ══════════════ -->
+<section class="panel" id="cap02">
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">⚡</span><span class="dot" style="background:var(--amber)"></span>Capítulo 02 — O Motor da Pobreza: Selic × FBCF × Desindustrialização</div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">⚡</div>
+    <div class="alert-body">
+      <strong>Tese central deste capítulo:</strong> A Selic cronicamente acima de 10% a.a. é o mecanismo primário de destruição do emprego formal no Brasil. Ela não é apenas política monetária — é redistribuição de renda estrutural dos trabalhadores para os detentores de títulos da dívida pública.
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="chart-wrap">
+      <div class="chart-title">Taxa Selic real vs. FBCF/PIB — 2010–2025 (estimativa)</div>
+      <div class="canvas-wrap"><canvas id="chartSelic"></canvas></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card-left" style="border-left-color:var(--red)">
+        <div class="card-title">Crowding Out do Investimento Privado</div>
+        <div class="card-body">Com Tesouro pagando 14,75% a.a. sem risco, por que qualquer empresário arriscaria capital em fábrica, máquina ou emprego? O título público substitui o investimento produtivo na alocação de capital. <strong>FBCF/PIB no Brasil: ~16,5%</strong>. China e Coreia do Sul em fase de industrialização: acima de 30%.</div>
+      </div>
+      <div class="card-left" style="border-left-color:var(--amber)">
+        <div class="card-title">Serviço da Dívida × Política Social</div>
+        <div class="card-body">O Brasil gasta mais em <strong>juros da dívida</strong> do que em saúde e educação combinadas. Em 2024, a dívida pública bruta atingiu <strong>76,5% do PIB</strong>, projetada para 79,4% em 2025. O beneficiário do Bolsa Família e o detentor de LFT são ambos financiados pelo mesmo Tesouro — mas em proporções radicalmente diferentes.</div>
+      </div>
+      <div class="card-left" style="border-left-color:var(--purple)">
+        <div class="card-title">A CNI Confirma</div>
+        <div class="card-body">Em mai/2025, a Confederação Nacional da Indústria afirmou oficialmente: <em>"A Selic favorece o rentismo e a especulação, em detrimento da geração de empregos, do investimento produtivo e do crescimento econômico de médio e longo prazo."</em> — posição idêntica à análise estrutural do projeto.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:8px"><span class="lbl-ico" aria-hidden="true">🏭</span><span class="dot" style="background:var(--amber)"></span>A Desindustrialização como Política de Estado</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--blue)"></div>
+      <div class="tl-date">1994–2002 · Plano Real e suas armadilhas</div>
+      <div class="tl-title">Âncora cambial destrói indústria nascente</div>
+      <div class="tl-body">Estabilização pelo câmbio valorizado + abertura comercial abrupta elimina setores industriais inteiros. O Brasil opta por importar manufaturado barato — exatamente o oposto do que EUA, Alemanha e Coreia fizeram em seus períodos de industrialização. <strong>Ha-Joon Chang documenta o padrão: "chutando a escada" após subir.</strong></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--amber)"></div>
+      <div class="tl-date">2003–2010 · Lula I e II — boom de commodities</div>
+      <div class="tl-title">Crescimento real sem estrutura produtiva</div>
+      <div class="tl-body">Boom de commodities (soja, minério) gera crescimento do PIB sem industrialização. Bolsa Família tira 30M da pobreza — mas o modelo é baseado em preço externo de matéria-prima. Quando o ciclo acabar, não há base produtiva para sustentar os empregos criados.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--red)"></div>
+      <div class="tl-date">2011–2014 · Nova Matriz Econômica</div>
+      <div class="tl-title">Tentativa de industrialização — fracasso documentado</div>
+      <div class="tl-body">Desonerações fiscais seletivas + crédito subsidiado via BNDES. Resultado: benefícios capturados por setores conectados politicamente sem contrapartida de investimento. Inflação sobe. Credibilidade fiscal destrói-se. A Lava Jato vai revelar por que o BNDES distribuiu R$ 500B sem retorno.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--purple)"></div>
+      <div class="tl-date">2015–2022 · Austeridade seletiva</div>
+      <div class="tl-title">Corte de investimento público, manutenção de juros altos</div>
+      <div class="tl-body">PEC do Teto de Gastos (EC 95/2016) congela investimento em educação, saúde e infraestrutura — mas não limita pagamento de juros. A escolha de <em>o que</em> cortar é em si a política: corta-se o que gera emprego, preserva-se o que serve o rentista.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--cyan)"></div>
+      <div class="tl-date">2023–2026 · Crescimento com juros máximos</div>
+      <div class="tl-title">PIB cresce, Selic sobe — contradição reveladora</div>
+      <div class="tl-body">FBCF cresce 6,9% em 2024 — mas como proporção do PIB permanece em 16,5%, abaixo do mínimo necessário para industrialização sustentada. Em mai/2025, Selic a 14,75% — o BC mantém política contracionista mesmo com atividade desacelerando. O investimento produtivo não consegue competir com o rendimento sem risco do Tesouro.</div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <div class="quote-text">"Os países ricos pregam o livre comércio enquanto usaram protecionismo pesado para se industrializar. Depois de chegar ao topo, chutaram a escada para que outros não subissem."</div>
+    <div class="quote-attr">— Ha-Joon Chang, Universidade de Cambridge · "Chutando a Escada" (2002) · Referenciado em faixa-tropical.html</div>
+  </div>
+</section>
+
+<!-- ══════════════ CAP 03 ══════════════ -->
+<section class="panel" id="cap03">
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">🧲</span><span class="dot" style="background:var(--purple)"></span>Capítulo 03 — A Captura do Fluxo: Quem Extrai Renda do Benefício</div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>Achado central documentado:</strong> Os mesmos agentes que capturaram o Estado e destruíram a base produtiva — criando a necessidade do benefício — também capturaram o fluxo financeiro do benefício antes que chegue ao receptor. Esta não é coincidência. É o Padrão P7 (Captura Transgeracional) em operação.
+    </div>
+  </div>
+
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">🚨</span><span class="dot" style="background:var(--red)"></span>Operação Sem Desconto — PF + CGU — Abril/2025</div>
+
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-title" style="color:var(--red)">O Esquema — Anatomia Documentada</div>
+        <div class="card-body">
+          Associações com Acordo de Cooperação Técnica (ACT) com o INSS descontavam valores diretamente da folha de aposentados e pensionistas <strong>sem autorização dos beneficiários</strong>. O mecanismo: falsificação de documentos, assinaturas e áudios para simular filiação. Duas frentes: (1) associações associativas; (2) crédito consignado não solicitado.
+        </div>
+        <div class="kv" style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin-top:14px;font-size:11px;">
+          <span style="color:var(--fg3);letter-spacing:0.08em;text-transform:uppercase;padding-top:2px">Período</span><span style="color:var(--fg2)"><strong style="color:var(--fg)">2019–2024</strong> (governos Bolsonaro e Lula)</span>
+          <span style="color:var(--fg3);letter-spacing:0.08em;text-transform:uppercase;padding-top:2px">Prejuízo</span><span style="color:var(--fg2)"><strong style="color:var(--red)">R$ 6,3 bilhões</strong> — uma das maiores fraudes da história do país</span>
+          <span style="color:var(--fg3);letter-spacing:0.08em;text-transform:uppercase;padding-top:2px">Vítimas</span><span style="color:var(--fg2)"><strong style="color:var(--fg)">9,3 milhões</strong> de aposentados e pensionistas</span>
+          <span style="color:var(--fg3);letter-spacing:0.08em;text-transform:uppercase;padding-top:2px">Concentração</span><span style="color:var(--fg2)">64% do valor desviado em <strong style="color:var(--fg)">2023–2024</strong></span>
+          <span style="color:var(--fg3);letter-spacing:0.08em;text-transform:uppercase;padding-top:2px">Exemplo</span><span style="color:var(--fg2)">AMBEC: arrecadação saltou de R$ 135 (2021) para <strong style="color:var(--red)">R$ 91M (2023)</strong> — crescimento de 11.092.533%</span>
+        </div>
+      </div>
+
+      <div class="alert alert-amber">
+        <div class="alert-icon">⚠</div>
+        <div class="alert-body">
+          <strong>7 de abril de 2025:</strong> O então presidente do INSS, Alessandro Stefanutto, informou ao Congresso que <em>"não havia indício de fraudes"</em> em relação aos descontos indevidos. <strong>Menos de 3 semanas depois</strong>, a Operação Sem Desconto deflagrou — confirmando existência e dimensão do esquema.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="chart-wrap">
+        <div class="chart-title">Crescimento do desvio no INSS — R$ bilhões/ano</div>
+        <div class="canvas-wrap"><canvas id="chartINSS"></canvas></div>
+      </div>
+      <div class="card-left" style="border-left-color:var(--purple)">
+        <div class="card-title">Conexão com Banco Master (Compliance Zero)</div>
+        <div class="card-body">
+          O Banco Master tinha <strong>Acordo de Cooperação com o INSS</strong> — 74% dos contratos de consignado com irregularidades. O crédito consignado de aposentados é renda perpétua: a aposentadoria compulsória não cancela o contrato. Capturar o fluxo de consignado é capturar uma renda perpétua sobre um universo cativo que não pode sair do contrato. <strong>Padrão P7 documentado.</strong>
+        </div>
+        <div class="tags">
+          <span class="tag tag-purple">P7 · Captura Transgeracional</span>
+          <span class="tag tag-red">Compliance Zero</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:8px"><span class="lbl-ico" aria-hidden="true">🏛️</span><span class="dot" style="background:var(--blue)"></span>Os 91 Bancos Credenciados — O Mercado Institucionalizado</div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Crédito Consignado INSS — Estrutura do Mercado</div>
+      <div class="card-body">
+        De 2020 a 2024, o INSS autorizou <strong>91 bancos</strong> a venderem crédito consignado para aposentados e pensionistas. O desconto automático na folha é a garantia perfeita: inadimplência zero para o banco, endividamento crescente para o beneficiário.
+        <br><br>
+        O crédito consignado não é apenas um produto financeiro — é um instrumento de extração do fluxo de transferência estatal: o Estado paga, o banco desconta antes que o dinheiro chegue ao receptor, o beneficiário recebe o líquido.
+        <br><br>
+        <strong>Arquitetura do ciclo:</strong> (1) Estado paga benefício → (2) desconto automático captura parcela → (3) receptor recebe menos → (4) precisa de novo consignado para cobrir déficit → (5) retorno ao passo 2.
+      </div>
+    </div>
+    <div>
+      <div class="pattern-card" style="--accent: var(--red)" onclick="togglePC(this)">
+        <div class="pc-id">Padrão P7 · Geracional / Sistêmico</div>
+        <div class="pc-title">Captura Transgeracional</div>
+        <div class="pc-desc">Infiltração em sistemas de longo prazo que garantem extração perpétua de rendas futuras. O objetivo não é o lucro imediato — é o controle da infraestrutura que gera lucro por décadas.</div>
+        <div class="pc-detail">
+          <strong>Mecanismo no INSS:</strong> Aposentadoria compulsória não cancela contratos de consignado. INSS paga por décadas. Capturar o fluxo de consignado é capturar uma renda perpétua sobre um universo cativo de beneficiários que não podem sair do contrato.<br><br>
+          <strong>Escala documentada:</strong> 9,3 milhões de vítimas, R$ 6,3B desviados em 5 anos.<br><br>
+          <strong>Interseção Compliance Zero:</strong> Banco Master + ACT INSS = mesmo ator capturando a mesma fonte por canais diferentes (consignado fraudulento + associações fachada).
+        </div>
+        <div class="tags" style="margin-top:8px">
+          <span class="tag tag-red">Sem Desconto</span>
+          <span class="tag tag-purple">Compliance Zero</span>
+          <span class="tag tag-gray">▸ expandir</span>
+        </div>
+      </div>
+      <div class="pattern-card" style="--accent: var(--amber)" onclick="togglePC(this)">
+        <div class="pc-id">Padrão P4 · Financeiro / Regulatório</div>
+        <div class="pc-title">Regulador Omisso / Cego Deliberado</div>
+        <div class="pc-desc">Autoridade regulatória com capacidade técnica documentada deixa de agir durante o período de maior extração — omissão que não pode ser explicada por incompetência.</div>
+        <div class="pc-detail">
+          <strong>Evidência no INSS:</strong> 7 de abril de 2025 — presidente do INSS afirma ao Congresso que não há indícios de fraude. A PF deflagra operação em 23 de abril. A CPMI aprovou investigação retroativa até 2015.
+          <br><br>
+          <strong>Comparação estrutural:</strong> O mesmo padrão aparece no Banco Master — BC com dados disponíveis durante 3+ anos antes de agir. O padrão não é incompetência — é janela de extração protegida.
+        </div>
+        <div class="tags" style="margin-top:8px">
+          <span class="tag tag-amber">Cegueira Deliberada</span>
+          <span class="tag tag-red">Omissão Estrutural</span>
+          <span class="tag tag-gray">▸ expandir</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CAP 04 ══════════════ -->
+<section class="panel" id="cap04">
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">♾️</span><span class="dot" style="background:var(--cyan)"></span>Capítulo 04 — A Engenharia da Dependência: O Loop Fechado</div>
+
+  <div class="loop-box">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:800;margin-bottom:20px;color:var(--fg)">
+      O Ciclo de Extração — Autorreprodução Estrutural
+    </div>
+    <div class="loop-steps">
+      <div class="loop-step" style="border-color:rgba(232,64,64,0.4)">
+        <div style="color:var(--red);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">Passo 1</div>
+        <div style="color:var(--fg)">Selic alta</div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:3px">mata investimento produtivo</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step" style="border-color:rgba(232,160,32,0.4)">
+        <div style="color:var(--amber);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">Passo 2</div>
+        <div style="color:var(--fg)">Desindustrialização</div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:3px">elimina empregos formais</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step" style="border-color:rgba(48,144,232,0.4)">
+        <div style="color:var(--blue);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">Passo 3</div>
+        <div style="color:var(--fg)">Desemprego estrutural</div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:3px">94M no CadÚnico</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step" style="border-color:rgba(160,96,232,0.4)">
+        <div style="color:var(--purple);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">Passo 4</div>
+        <div style="color:var(--fg)">Transferência direta</div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:3px">R$ 160B/ano do Tesouro</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step" style="border-color:rgba(232,64,144,0.4)">
+        <div style="color:var(--pink,#e84090);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">Passo 5</div>
+        <div style="color:var(--fg)">Captura do fluxo</div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:3px">consignado + associações</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step" style="border-color:rgba(240,192,64,0.4)">
+        <div style="color:var(--gold);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">Passo 6</div>
+        <div style="color:var(--fg)">Retorno para rentistas</div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:3px">juros + extração financeira</div>
+      </div>
+    </div>
+    <div class="loop-close">
+      O passo 6 <strong>financia o passo 1</strong>: rentistas com lucro recorde não têm incentivo para industrializar. O loop se fecha. <strong>O Estado paga para criar a pobreza que justifica o Estado pagar.</strong>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">📚</span><span class="dot" style="background:var(--cyan)"></span>As Camadas do Sistema — Expandir para Detalhar</div>
+
+  <div class="layer" id="layer1">
+    <div class="layer-head" onclick="toggleLayer('layer1')">
+      <div class="layer-num" style="color:var(--red)">1</div>
+      <div class="layer-title-wrap">
+        <div class="layer-title">Captura do Estado — Quem define as regras</div>
+        <div class="layer-subtitle">Poder Legislativo + STF + Banco Central</div>
+      </div>
+      <div class="layer-tags">
+        <span class="badge badge-red">P1 · P2</span>
+        <span class="badge badge-purple">Documentado</span>
+      </div>
+      <div class="layer-arrow">▼</div>
+    </div>
+    <div class="layer-body">
+      O Parlamento não aprova Reforma Tributária que onere capital financeiro. O STF interpreta leis que protegem o patrimônio rentista. O BC opera mandato de inflação que mantém Selic em patamar incompatível com industrialização.<br><br>
+      <strong>Conexão com o corpus documentado:</strong> O Banco Master operou durante anos com dados de insolvência disponíveis porque os mecanismos de captura do regulador (P4) estavam ativos. O INSS foi capturado por associações durante 5+ anos com informação disponível ao governo. Em ambos os casos: a omissão regulatória não foi incompetência — foi janela de extração.
+      <div class="tags" style="margin-top:12px">
+        <span class="tag tag-red">republica-capturada.html</span>
+        <span class="tag tag-purple">padroes-sistemicos-dashboard.html</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer" id="layer2">
+    <div class="layer-head" onclick="toggleLayer('layer2')">
+      <div class="layer-num" style="color:var(--amber)">2</div>
+      <div class="layer-title-wrap">
+        <div class="layer-title">Destruição do Emprego — Como o mercado formal encolhe</div>
+        <div class="layer-subtitle">Selic × FBCF × política industrial ausente</div>
+      </div>
+      <div class="layer-tags">
+        <span class="badge badge-amber">Macro</span>
+        <span class="badge badge-gray">Estrutural</span>
+      </div>
+      <div class="layer-arrow">▼</div>
+    </div>
+    <div class="layer-body">
+      Com FBCF/PIB em 16,5% — abaixo de qualquer país que tenha industrializado com sucesso — o Brasil não cria empregos formais na velocidade da expansão da força de trabalho. A economia cresce pelo consumo (puxado por transferências) sem base produtiva que o sustente quando o crédito esgota.<br><br>
+      <strong>Resultado:</strong> Trabalhador informal, subempregado ou desempregado que não acumula FGTS, não contribui para INSS em valor suficiente e inevitavelmente cairá nas redes de assistência no envelhecimento — perpetuando o ciclo.
+      <div class="tags" style="margin-top:12px">
+        <span class="tag tag-amber">faixa-tropical.html</span>
+        <span class="tag tag-gray">FBCF/PIB 16,5%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer" id="layer3">
+    <div class="layer-head" onclick="toggleLayer('layer3')">
+      <div class="layer-num" style="color:var(--blue)">3</div>
+      <div class="layer-title-wrap">
+        <div class="layer-title">Captura do Fluxo de Benefício — Extração pós-transferência</div>
+        <div class="layer-subtitle">Consignado + Associações + Fintechs</div>
+      </div>
+      <div class="layer-tags">
+        <span class="badge badge-red">R$ 6,3B</span>
+        <span class="badge badge-blue">9,3M vítimas</span>
+      </div>
+      <div class="layer-arrow">▼</div>
+    </div>
+    <div class="layer-body">
+      Após o Estado transferir renda ao beneficiário, o sistema financeiro captura parcela do fluxo via consignado automático. A fraude documentada pela Operação Sem Desconto é a versão ilegal do que acontece legalmente todos os dias: o desconto automático na folha é garantia perfeita para o banco — e endividamento garantido para o beneficiário.<br><br>
+      <strong>Ciclo interno do consignado:</strong> beneficiário pega empréstimo → desconto automático → renda líquida cai abaixo do mínimo → precisa de novo empréstimo → novo desconto automático. Aprisionamento financeiro dentro do aprisionamento econômico.<br><br>
+      <strong>Extensão para o Banco Master:</strong> 74% dos contratos de consignado do INSS pelo Master tinham irregularidades. O banco usava o INSS como origem de renda perpétua — aposentadoria não prescreve, receptor não pode fugir.
+      <div class="tags" style="margin-top:12px">
+        <span class="tag tag-red">Sem Desconto</span>
+        <span class="tag tag-purple">Compliance Zero</span>
+        <span class="tag tag-gray">P7 ativo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer" id="layer4">
+    <div class="layer-head" onclick="toggleLayer('layer4')">
+      <div class="layer-num" style="color:var(--green)">4</div>
+      <div class="layer-title-wrap">
+        <div class="layer-title">Instrumentalização Eleitoral — A dependência como ativo político</div>
+        <div class="layer-subtitle">Fidelização via benefício × despolitização</div>
+      </div>
+      <div class="layer-tags">
+        <span class="badge badge-purple">Político</span>
+        <span class="badge badge-gray">Bipartisan</span>
+      </div>
+      <div class="layer-arrow">▼</div>
+    </div>
+    <div class="layer-body">
+      A dependência de transferência não beneficia apenas quem recebe — beneficia quem distribui politicamente. O eleitor que depende do benefício para comer tem horizonte de risco distinto: qualquer candidato que ameace o benefício é inviável eleitoralmente. Isso não é fenômeno exclusivo da esquerda — é estrutural em qualquer sistema onde o Estado é o principal provedor de renda de quase metade da população.<br><br>
+      <strong>O paradoxo:</strong> Resolver a dependência requer políticas que destruam empregos de curto prazo antes de criar empregos de longo prazo (industrialização, educação técnica, reforma tributária). Nenhum governo com horizonte de 4 anos tem incentivo eleitoral para implementá-las.
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════ CAP 05 ══════════════ -->
+<section class="panel" id="cap05">
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">🗳️</span><span class="dot" style="background:var(--green)"></span>Capítulo 05 — O Instrumento Eleitoral: Benefício como Cédula</div>
+
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-title">O Dado Eleitoral</div>
+        <div class="card-body">
+          Em 2022, Lula venceu com <strong>~60,3 milhões de votos</strong>. O eleitorado total era ~158,6 milhões. O Cadastro Único registrava ~40 milhões de famílias. A sobreposição geográfica entre municípios com maior concentração de beneficiários do Bolsa Família e resultados eleitorais de primeiro turno foi documentada em múltiplos estudos.<br><br>
+          <strong>Nota metodológica:</strong> Correlação não é causalidade. O fato de que beneficiários do Bolsa Família votam majoritariamente em quem o criou pode refletir julgamento racional de interesse — não manipulação. A questão estrutural é diferente: o sistema <em>mantém a necessidade do benefício</em> como condição de manutenção do poder.
+        </div>
+      </div>
+      <div class="alert alert-amber">
+        <div class="alert-icon">⚠</div>
+        <div class="alert-body">
+          <strong>Distinção essencial:</strong> O problema não é o beneficiário votar em quem mantém o benefício — isso é comportamento racional. O problema é o sistema político não ter incentivo para criar as condições que tornem o benefício desnecessário. O benefício como ativo eleitoral permanente é interesse tanto de quem o distribui quanto de quem captura o fluxo financeiro gerado por ele.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label"><span class="lbl-ico" aria-hidden="true">⚖️</span><span class="dot" style="background:var(--green)"></span>O Bipartidarismo da Captura</div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--red)"></div>
+          <div class="tl-date">Governo Bolsonaro (2019–2022)</div>
+          <div class="tl-title">Auxílio Brasil — 600 para 20M às vésperas da eleição</div>
+          <div class="tl-body">Em 2022, o Auxílio Brasil foi elevado a R$ 600 — dobro do valor — via PEC aprovada em agosto/2022, três meses antes da eleição. O instrumento eleitoral não é exclusividade ideológica: é arquitetura bipartidária. A fraude no INSS iniciou em <strong>2019</strong> — governo Bolsonaro — e continuou até 2024.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--amber)"></div>
+          <div class="tl-date">Governo Lula III (2023–2026)</div>
+          <div class="tl-title">Bolsa Família relançado + elevação de R$ 600 para R$ 680 médio</div>
+          <div class="tl-body">O governo renomeou, ampliou e tornou o programa o centro da narrativa de gestão. Em 2025, R$ 160B/ano — maior investimento absoluto da história. Em 2026, cogita-se elevação para R$ 700. Outubro/2026: eleição presidencial.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--purple)"></div>
+          <div class="tl-date">Estrutura permanente</div>
+          <div class="tl-title">A armadilha bipartidária</div>
+          <div class="tl-body">Qualquer candidato que proponha reduzir transferências sem política industrial crível para substituir o emprego inexistente perde eleitoralmente. O sistema se auto-sustenta: a esquerda distribui, a direita critica a distribuição mas não resolve a desindustrialização — e quando chega ao poder, amplia o benefício eleitoralmente. Loop perfeito.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <div class="quote-text">"O 'pai dos pobres' e o 'candidato do mercado' concordam em uma coisa: nenhum dos dois propõe industrialização real. Um distribui. O outro corta. Nenhum constrói. E quem lucra com juros altos financia os dois."</div>
+    <div class="quote-attr">— Análise estrutural · lawfare-timeline · republica-capturada.html</div>
+  </div>
+</section>
+
+<!-- ══════════════ CAP 06 ══════════════ -->
+<section class="panel" id="cap06">
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">🔒</span><span class="dot" style="background:var(--blue)"></span>Capítulo 06 — A Saída que Não Veio: Por Que o Loop Não Se Rompe</div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Por que a Nova Matriz Econômica (2011–2014) Falhou</div>
+      <div class="card-body">
+        A tentativa mais ambiciosa de reindustrialização recente. Desonerações fiscais de R$ 100B+ para indústria, crédito subsidiado via BNDES, câmbio gerenciado. <strong>Resultado: fracasso documentado.</strong><br><br>
+        <strong>Por que falhou:</strong><br>
+        (1) Desonerações foram capturadas por setores politicamente conectados sem contrapartida de investimento (padrão P3 — Financista de Banco Frágil em versão industrial).<br>
+        (2) O BNDES distribuiu R$ 500B+ sem mecanismos de accountability — dinheiro que a Lava Jato parcialmente rastreou para propinas.<br>
+        (3) Inflação subiu sem base produtiva que absorvesse a demanda criada — contraindicando expansão adicional.<br>
+        (4) Credibilidade fiscal destruída — capital externo saiu, câmbio desvalorizou, importados encareceram, inflação acelerou.<br><br>
+        <strong>Conclusão estrutural:</strong> Política industrial sem enforcement regulatório e sem combate à corrupção é apenas redistribuição de renda para o setor industrial capturado.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--amber)">Por que a Lava Jato Não Chegou à Estrutura Produtiva</div>
+      <div class="card-body">
+        A Lava Jato atingiu construtoras e Petrobras — o setor de obras públicas. Não atingiu:<br><br>
+        (1) O setor financeiro rentista que se beneficia de Selic alta e títulos públicos;<br>
+        (2) A estrutura de captura do INSS (que começou em 2015 ou antes — CPMI aprovando investigação retroativa);<br>
+        (3) Os mecanismos de desindustrialização via política cambial e tarifária.<br><br>
+        <strong>Por que não chegou:</strong> A Lava Jato existiu porque um campo político usou o instrumento contra o outro. Quando as investigações começaram a convergir para o sistema financeiro e para o STF (Padrão P2 — Chokepoint Judicial), o instrumento foi desmontado. <strong>Documentado em republica-capturada.html e zero-x-zero.html.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="lbl-ico" aria-hidden="true">🔧</span><span class="dot" style="background:var(--blue)"></span>O Que Seria Necessário — Condições Estruturais para Romper o Loop</div>
+
+  <div class="g3">
+    <div class="card-left" style="border-left-color:var(--red)">
+      <div class="card-title">1 · Política Industrial com Accountability</div>
+      <div class="card-body">
+        Política industrial funciona em países onde o Estado captura retorno do investimento subsidiado e pune setores que não entregam contrapartida (Coreia do Sul, modelo Park). No Brasil, o subsídio é capturado sem contrapartida — porque quem captura financia quem decide o subsídio. Romper o loop exige enforcement que o atual STF demonstrou não ter interesse em exercer.
+      </div>
+    </div>
+    <div class="card-left" style="border-left-color:var(--amber)">
+      <div class="card-title">2 · Reforma Tributária Que Onere Capital Financeiro</div>
+      <div class="card-body">
+        A atual reforma tributária consolida o IBS/CBS mas não muda a tributação de rendimentos financeiros — que permanecem taxados abaixo dos rendimentos do trabalho. O capital que poderia ir para fábrica prefere título público porque o diferencial tributário favorece a renda passiva sobre a produtiva.
+      </div>
+    </div>
+    <div class="card-left" style="border-left-color:var(--blue)">
+      <div class="card-title">3 · Integridade das Transferências</div>
+      <div class="card-body">
+        A Operação Sem Desconto demonstra que R$ 6,3B foram roubados de 9,3M de beneficiários durante 5 anos com dados disponíveis para o regulador. Enquanto o fluxo de transferência for capturável por agentes financeiros com proteção regulatória, o beneficiário recebe menos do que o Estado paga — e o loop continua.
+      </div>
+    </div>
+  </div>
+
+  <div class="concl" style="border-left:3px solid var(--red);border-radius:0 8px 8px 0">
+    <div class="concl-title" style="color:var(--red)">⬛ Síntese Analítica Final</div>
+    <div class="concl-body">
+      O texto original estava certo no sintoma e errado na causa.<br><br>
+      <strong>Correto:</strong> 94 milhões em transferência direta é assustador.<br>
+      <strong>Incorreto:</strong> A causa é o benefício. A causa é o modelo que torna o benefício necessário.<br><br>
+      O carcereiro não é o Bolsa Família. O carcereiro é a arquitetura de três andares:<br><br>
+      <strong>Andar 1 (Macroeconômico):</strong> Selic que destrói investimento produtivo e garante renda ao capital financeiro sem trabalho.<br>
+      <strong>Andar 2 (Financeiro):</strong> Captura do fluxo de transferência via consignado, associações fraudulentas e fintechs — documentado em R$ 6,3B na Operação Sem Desconto.<br>
+      <strong>Andar 3 (Político):</strong> Instrumentalização bipartidária da dependência gerada — nenhum dos dois campos tem incentivo eleitoral para resolver o problema porque o problema é o fundamento da sua viabilidade política.<br><br>
+      <strong>O paradoxo final:</strong> Os 200 milhões de brasileiros que pagam impostos financiam simultaneamente a Selic que garante renda ao rentista, o benefício que cobre o déficit de emprego gerado pela Selic, e a captura do fluxo do benefício pelo sistema financeiro. Pagam três vezes pelo mesmo problema — e o problema nunca é resolvido porque sua reprodução é funcional para quem controla o sistema.
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="concl">
+      <div class="concl-title" style="color:var(--amber)">Janelas de Ruptura</div>
+      <div class="concl-body">
+        A história registra rupturas desse tipo de loop em três condições:<br><br>
+        <strong>(1) Pressão externa com interesse próprio:</strong> O DOJ entrou na Lava Jato porque havia violações americanas. A fraude do INSS e a estrutura Delaware do Grupo Refit criam potencial de interesse americano análogo — se o DOJ considerar que viola sanções OFAC.<br><br>
+        <strong>(2) Documentação pública acumulada:</strong> Este dossiê. O lawfare-timeline. Os registros da CPMI do INSS. Pela primeira vez há documentação pública suficiente para nomear o mecanismo com precisão cirúrgica — condição necessária para que qualquer vetor de ruptura se converta em ação.<br><br>
+        <strong>(3) Janela eleitoral 2026:</strong> Com eleição presidencial em outubro/2026, candidatos que consigam articular o diagnóstico estrutural com proposta industrial crível têm janela. A condição é que o diagnóstico preceda a janela — não que surja dela.
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Distribuição do orçamento federal estimado — fluxo da extração</div>
+      <div class="canvas-wrap"><canvas id="chartOrc"></canvas></div>
+    </div>
+  </div>
+
+  <div class="alert alert-purple">
+    <div class="alert-icon">🔗</div>
+    <div class="alert-body">
+      <strong>Conexões no corpus documentado:</strong> Este dossiê intersecta <strong>republica-capturada.html</strong> (captura do Estado e do fluxo financeiro), <strong>banco-master-compliance-zero.html</strong> (captura transgeracional do INSS), <strong>faixa-tropical.html</strong> (desindustrialização deliberada), <strong>padroes-sistemicos-dashboard.html</strong> (P4, P7 ativos), <strong>zero-x-zero.html</strong> (vetores de ruptura histórica) e <strong>paralelos.html</strong> (padrão bipartidário de captura).
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ARTEFATOS RELACIONADOS ══════════════ -->
+<section class="related-block" id="artefatos-relacionados" aria-labelledby="related-head">
+  <h2 class="related-head" id="related-head"><span class="lbl-ico" aria-hidden="true">📎</span>Artefatos relacionados</h2>
+  <p class="related-sub">
+    Peças do mesmo arquivo que cruzam captura do Estado, extração sobre benefícios, desindustrialização e padrões sistêmicos documentados no <strong>lawfare-timeline</strong>.
+  </p>
+  <div class="related-grid">
+    <article class="related-card">
+      <a href="https://gosurf.site/operacao-sem-desconto">
+        <span class="rc-ico" aria-hidden="true">🚨</span>
+        <div class="rc-title">Operação Sem Desconto</div>
+        <div class="rc-desc">PF/CGU — desvios na folha do INSS, R$ 6,3B e 9,3M de vítimas; base factual da captura do fluxo.</div>
+        <div class="rc-link">gosurf.site/operacao-sem-desconto →</div>
+      </a>
+    </article>
+    <article class="related-card">
+      <a href="https://gosurf.site/republica-capturada">
+        <span class="rc-ico" aria-hidden="true">🏛️</span>
+        <div class="rc-title">República Capturada</div>
+        <div class="rc-desc">Captura institucional e do circuito financeiro que condiciona política e orçamento.</div>
+        <div class="rc-link">gosurf.site/republica-capturada →</div>
+      </a>
+    </article>
+    <article class="related-card">
+      <a href="https://gosurf.site/banco-master-compliance-zero">
+        <span class="rc-ico" aria-hidden="true">🏦</span>
+        <div class="rc-title">Banco Master · Compliance zero</div>
+        <div class="rc-desc">Intermediários financeiros, risco socializado e desenho de dependência no sistema.</div>
+        <div class="rc-link">gosurf.site/banco-master-compliance-zero →</div>
+      </a>
+    </article>
+    <article class="related-card">
+      <a href="https://gosurf.site/faixa-tropical">
+        <span class="rc-ico" aria-hidden="true">🌿</span>
+        <div class="rc-title">Faixa tropical</div>
+        <div class="rc-desc">Desindustrialização, comércio e o padrão “chutar a escada” na economia brasileira.</div>
+        <div class="rc-link">gosurf.site/faixa-tropical →</div>
+      </a>
+    </article>
+    <article class="related-card">
+      <a href="https://gosurf.site/padroes-sistemicos-dashboard">
+        <span class="rc-ico" aria-hidden="true">📊</span>
+        <div class="rc-title">Padrões sistêmicos</div>
+        <div class="rc-desc">Dashboard P4, P7 e cruzamentos com o dossiê de prisão econômica.</div>
+        <div class="rc-link">gosurf.site/padroes-sistemicos-dashboard →</div>
+      </a>
+    </article>
+    <article class="related-card">
+      <a href="https://gosurf.site/zero-x-zero">
+        <span class="rc-ico" aria-hidden="true">🎯</span>
+        <div class="rc-title">Zero × Zero</div>
+        <div class="rc-desc">Vetores históricos de ruptura e janelas de mudança de regime.</div>
+        <div class="rc-link">gosurf.site/zero-x-zero →</div>
+      </a>
+    </article>
+    <article class="related-card">
+      <a href="https://gosurf.site/paralelos">
+        <span class="rc-ico" aria-hidden="true">⇄</span>
+        <div class="rc-title">Paralelos</div>
+        <div class="rc-desc">Simetria bipartidária e padrões de captura entre frentes políticas.</div>
+        <div class="rc-link">gosurf.site/paralelos →</div>
+      </a>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="footer-text">
+    Dossiê · Prisão Econômica — A Arquitetura da Dependência · Mai/2026 · CC0 1.0 Domínio Público
+  </div>
+  <div class="footer-text">
+    gosurf.site · lawfare-timeline · Artes do Sul Desenvolvimento Web
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<button type="button" id="go-top" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+<script>
+// ── NAV ATIVO ──
+function goTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.remove('active');
+    if(b.getAttribute('onclick').includes(id)) b.classList.add('active');
+  });
+}
+
+// Atualiza nav conforme scroll
+const panels = ['cap01','cap02','cap03','cap04','cap05','cap06'];
+const navBtns = document.querySelectorAll('.nav-btn');
+window.addEventListener('scroll', () => {
+  let current = 'cap01';
+  panels.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  navBtns.forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick').includes(current));
+  });
+});
+
+// ── Voltar ao topo ──
+(function () {
+  const btn = document.getElementById('go-top');
+  if (!btn) return;
+  const onScroll = () => btn.classList.toggle('visible', window.scrollY > 400);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+// ── CAMADAS ──
+function toggleLayer(id) {
+  const layer = document.getElementById(id);
+  const body = layer.querySelector('.layer-body');
+  const arrow = layer.querySelector('.layer-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
+// ── PADRÕES ──
+function togglePC(el) {
+  el.classList.toggle('open');
+}
+
+// ── CHARTS ──
+Chart.defaults.color = '#4a5a6a';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.font.size = 11;
+
+// Chart 1 — Evolução Bolsa Família
+new Chart(document.getElementById('chartBF'), {
+  type: 'line',
+  data: {
+    labels: ['2004','2006','2008','2010','2012','2014','2016','2018','2020','2022','2023','2024','2025'],
+    datasets: [{
+      label: 'Famílias BF (milhões)',
+      data: [6.5, 11.0, 10.6, 12.8, 13.9, 14.0, 13.6, 13.5, 14.3, 21.6, 21.9, 20.8, 19.8],
+      borderColor: '#e84040',
+      backgroundColor: 'rgba(232,64,64,0.08)',
+      borderWidth: 2,
+      pointRadius: 4,
+      pointBackgroundColor: '#e84040',
+      fill: true,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4a5a6a' } },
+      x: { grid: { display: false }, ticks: { color: '#4a5a6a' } }
+    }
+  }
+});
+
+// Chart 2 — Selic vs FBCF
+new Chart(document.getElementById('chartSelic'), {
+  type: 'line',
+  data: {
+    labels: ['2010','2012','2014','2016','2018','2020','2021','2022','2023','2024','2025'],
+    datasets: [
+      {
+        label: 'Selic real a.a. (%)',
+        data: [6.5, 5.5, 7.1, 9.2, 6.5, 0.5, 4.2, 8.5, 7.5, 6.2, 9.5],
+        borderColor: '#e84040',
+        backgroundColor: 'transparent',
+        borderWidth: 2, pointRadius: 3,
+        yAxisID: 'y',
+        tension: 0.3
+      },
+      {
+        label: 'FBCF/PIB (%)',
+        data: [19.5, 18.9, 17.5, 15.6, 15.4, 16.5, 19.7, 18.2, 16.5, 16.9, 16.5],
+        borderColor: '#3090e8',
+        backgroundColor: 'rgba(48,144,232,0.08)',
+        borderWidth: 2, pointRadius: 3,
+        fill: true,
+        yAxisID: 'y2',
+        tension: 0.3
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        labels: { color: '#8a9ab0', boxWidth: 12 }
+      }
+    },
+    scales: {
+      y: {
+        position: 'left',
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { color: '#e84040' },
+        title: { display: true, text: 'Selic real %', color: '#e84040', font: { size: 10 } }
+      },
+      y2: {
+        position: 'right',
+        grid: { display: false },
+        ticks: { color: '#3090e8' },
+        title: { display: true, text: 'FBCF/PIB %', color: '#3090e8', font: { size: 10 } }
+      },
+      x: { grid: { display: false }, ticks: { color: '#4a5a6a' } }
+    }
+  }
+});
+
+// Chart 3 — Desvio INSS
+new Chart(document.getElementById('chartINSS'), {
+  type: 'bar',
+  data: {
+    labels: ['2019','2020','2021','2022','2023','2024 (jan-mar)'],
+    datasets: [{
+      label: 'Desvio estimado (R$ milhões)',
+      data: [120, 300, 480, 720, 1800, 880],
+      backgroundColor: [
+        'rgba(232,160,32,0.6)',
+        'rgba(232,160,32,0.65)',
+        'rgba(232,64,64,0.5)',
+        'rgba(232,64,64,0.6)',
+        'rgba(232,64,64,0.8)',
+        'rgba(232,64,64,0.9)'
+      ],
+      borderColor: ['#e8a020','#e8a020','#e84040','#e84040','#e84040','#e84040'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { color: '#4a5a6a', callback: v => 'R$' + v + 'M' }
+      },
+      x: { grid: { display: false }, ticks: { color: '#4a5a6a' } }
+    }
+  }
+});
+
+// Chart 4 — Orçamento
+new Chart(document.getElementById('chartOrc'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Juros da dívida pública', 'Previdência (INSS)', 'Transferências sociais (BF+BPC)', 'Saúde', 'Educação', 'Investimento público'],
+    datasets: [{
+      data: [32, 28, 12, 8, 6, 4],
+      backgroundColor: [
+        'rgba(232,64,64,0.85)',
+        'rgba(232,160,32,0.75)',
+        'rgba(48,144,232,0.75)',
+        'rgba(40,200,128,0.6)',
+        'rgba(160,96,232,0.6)',
+        'rgba(32,208,232,0.5)'
+      ],
+      borderColor: 'rgba(0,0,0,0)',
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#8a9ab0', boxWidth: 10, font: { size: 10 }, padding: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.label + ': ' + ctx.raw + '% est.'
+        }
+      }
+    }
+  }
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

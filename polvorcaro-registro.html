@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro #153–158 — O Polvorcaro | lawfare-timeline</title>
+<meta name="description" content="Registro documental: artigo 'Todo Poder Emana do Polvo' (Dr. Paulo Faria) + verificação das consultorias informais de servidores do Banco Central + entradas JSON 153–158 do lawfare-timeline.">
+<meta property="og:title" content="O Polvorcaro — Registro Documental lawfare-timeline">
+<meta property="og:description" content="Captura do regulador: servidores do BC como consultores de Vorcaro. R$ 793mi em CDBs sem dono. Análise editorial do campo jurídico.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#09090b;
+    --bg2:#111115;
+    --bg3:#18181e;
+    --border:rgba(255,255,255,0.06);
+    --border2:rgba(255,255,255,0.12);
+    --red:#ff4545;
+    --red-dim:rgba(255,69,69,0.12);
+    --amber:#f5a623;
+    --amber-dim:rgba(245,166,35,0.10);
+    --cyan:#00d4ff;
+    --cyan-dim:rgba(0,212,255,0.08);
+    --purple:#a855f7;
+    --purple-dim:rgba(168,85,247,0.10);
+    --green:#22c55e;
+    --green-dim:rgba(34,197,94,0.08);
+    --text:#f0f0f5;
+    --text2:#8888a0;
+    --text3:#555566;
+    --serif:'DM Serif Display',serif;
+    --sans:'DM Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before{
+    content:'';position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;z-index:0;opacity:0.6;
+  }
+
+  /* ─── HEADER ─── */
+  .masthead{
+    padding:40px 32px 32px;
+    border-bottom:1px solid var(--border2);
+    position:relative;
+    overflow:hidden;
+  }
+  .masthead::after{
+    content:'';position:absolute;
+    bottom:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,var(--red),var(--amber),transparent);
+  }
+  .masthead-eyebrow{
+    display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;
+  }
+  .pill{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:3px;
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+  }
+  .pill-red{background:var(--red-dim);border:1px solid rgba(255,69,69,0.3);color:var(--red)}
+  .pill-amber{background:var(--amber-dim);border:1px solid rgba(245,166,35,0.3);color:var(--amber)}
+  .pill-cyan{background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.25);color:var(--cyan)}
+  .pill-purple{background:var(--purple-dim);border:1px solid rgba(168,85,247,0.3);color:var(--purple)}
+  .pill-green{background:var(--green-dim);border:1px solid rgba(34,197,94,0.25);color:var(--green)}
+
+  .masthead h1{
+    font-family:var(--serif);
+    font-size:clamp(32px,5vw,52px);
+    line-height:1.05;
+    letter-spacing:-0.5px;
+    margin-bottom:12px;
+  }
+  .masthead h1 em{
+    color:var(--amber);
+    font-style:italic;
+  }
+  .masthead-sub{
+    font-size:14px;color:var(--text2);
+    max-width:700px;line-height:1.7;
+  }
+  .masthead-meta{
+    display:flex;gap:20px;margin-top:18px;flex-wrap:wrap;
+  }
+  .mm{font-family:var(--mono);font-size:11px;color:var(--text3)}
+  .mm b{color:var(--text2)}
+
+  /* ─── NAV ─── */
+  nav{
+    display:flex;gap:2px;padding:10px 24px;
+    background:rgba(9,9,11,0.92);
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:100;
+    backdrop-filter:blur(12px);
+    overflow-x:auto;
+  }
+  .nb{
+    padding:6px 16px;border-radius:4px;
+    background:transparent;border:1px solid transparent;
+    color:var(--text2);font-family:var(--sans);
+    font-size:12px;font-weight:500;cursor:pointer;
+    transition:all .18s;white-space:nowrap;
+  }
+  .nb:hover{color:var(--text);border-color:var(--border2)}
+  .nb.act{background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.3);color:var(--amber);font-weight:600}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  .sec{padding:32px 0;border-bottom:1px solid var(--border);display:none}
+  .sec.act{display:block}
+
+  /* ─── SECTION HEADERS ─── */
+  .sec-title{
+    font-family:var(--serif);
+    font-size:26px;
+    margin-bottom:6px;
+    color:#fff;
+  }
+  .sec-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+
+  /* ─── ARTICLE BLOCK ─── */
+  .article-block{
+    background:var(--bg2);
+    border:1px solid var(--border2);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:24px;
+  }
+  .article-header{
+    padding:18px 22px 14px;
+    border-bottom:1px solid var(--border);
+    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .article-source{
+    font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px;
+  }
+  .article-title{
+    font-family:var(--serif);font-size:18px;color:#fff;line-height:1.25;
+  }
+  .article-date{
+    font-family:var(--mono);font-size:11px;color:var(--text3);white-space:nowrap;margin-top:2px;
+  }
+  .article-body{
+    padding:20px 22px;
+    font-size:14px;
+    color:var(--text);
+    line-height:1.8;
+  }
+  .article-body p{margin-bottom:14px}
+  .article-body p:last-child{margin-bottom:0}
+  .article-body strong{color:#fff;font-weight:600}
+  .quote-block{
+    border-left:3px solid var(--amber);
+    margin:18px 0;padding:12px 18px;
+    background:rgba(245,166,35,0.04);
+    border-radius:0 6px 6px 0;
+    font-style:italic;
+    font-family:var(--serif);
+    font-size:16px;
+    color:rgba(240,240,245,0.85);
+    line-height:1.6;
+  }
+
+  /* ─── VERIFY BLOCK ─── */
+  .verify-banner{
+    background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(0,212,255,0.02));
+    border:1px solid rgba(0,212,255,0.2);
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:20px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .verify-icon{font-size:18px}
+  .verify-text{font-size:13px;color:var(--cyan)}
+  .verify-text b{font-weight:600}
+
+  /* ─── FACT CARDS ─── */
+  .fact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:14px;
+    margin:20px 0;
+  }
+  .fact-card{
+    background:var(--bg3);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px 18px;
+    position:relative;
+    transition:border-color .2s;
+  }
+  .fact-card:hover{border-color:var(--border2)}
+  .fact-card-label{
+    font-family:var(--mono);font-size:10px;
+    font-weight:600;letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .fact-card-value{
+    font-family:var(--serif);font-size:22px;
+    color:#fff;margin-bottom:6px;
+  }
+  .fact-card-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+  /* ─── SOURCE ROW ─── */
+  .source-row{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:12px 0;
+    border-top:1px solid var(--border);
+    margin-top:14px;
+  }
+  .source-row a{
+    font-family:var(--mono);font-size:11px;
+    color:var(--cyan);text-decoration:none;
+    border-bottom:1px solid rgba(0,212,255,0.3);
+    padding-bottom:1px;
+    transition:border-color .2s;
+  }
+  .source-row a:hover{border-color:var(--cyan)}
+  .source-row span{font-family:var(--mono);font-size:10px;color:var(--text3)}
+
+  /* ─── ACTOR LIST ─── */
+  .actor-list{
+    display:flex;flex-direction:column;gap:1px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    margin:20px 0;
+  }
+  .actor-row{
+    display:grid;
+    grid-template-columns:180px 1fr auto;
+    gap:16px;align-items:center;
+    padding:12px 16px;
+    background:var(--bg2);
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+    transition:background .15s;
+  }
+  .actor-row:last-child{border-bottom:none}
+  .actor-row:hover{background:var(--bg3)}
+  .actor-name{font-weight:600;color:#fff}
+  .actor-role{color:var(--text2);font-size:12px}
+  .actor-status{font-family:var(--mono);font-size:11px;text-align:right}
+
+  /* ─── JSON ENTRIES ─── */
+  .json-block{
+    background:#080810;
+    border:1px solid rgba(168,85,247,0.2);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:16px;
+  }
+  .json-header{
+    padding:10px 16px;
+    background:rgba(168,85,247,0.08);
+    border-bottom:1px solid rgba(168,85,247,0.15);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .json-id{
+    font-family:var(--mono);font-size:11px;
+    color:var(--purple);font-weight:600;
+  }
+  .json-cat{
+    font-family:var(--mono);font-size:10px;
+    color:var(--text3);letter-spacing:1px;text-transform:uppercase;
+  }
+  .json-pre{
+    padding:16px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    line-height:1.7;
+    color:#c9d1d9;
+    overflow-x:auto;
+    white-space:pre;
+  }
+  .json-key{color:#79c0ff}
+  .json-str{color:#a5d6ff}
+  .json-num{color:#f0c674}
+  .json-arr{color:#e2c08d}
+
+  /* ─── PATTERN BADGES ─── */
+  .pattern-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .pbadge{
+    padding:4px 10px;border-radius:4px;
+    font-family:var(--mono);font-size:11px;font-weight:600;
+    letter-spacing:1px;
+  }
+  .pbadge-p3{background:rgba(255,69,69,0.12);border:1px solid rgba(255,69,69,0.3);color:var(--red)}
+  .pbadge-p4{background:rgba(245,166,35,0.10);border:1px solid rgba(245,166,35,0.3);color:var(--amber)}
+  .pbadge-p5{background:rgba(168,85,247,0.10);border:1px solid rgba(168,85,247,0.3);color:var(--purple)}
+
+  /* ─── ANALYSIS BOX ─── */
+  .analysis-box{
+    border-left:3px solid;
+    padding:16px 20px;
+    border-radius:0 8px 8px 0;
+    margin:16px 0;
+    font-size:13px;
+    line-height:1.7;
+  }
+  .analysis-box.red{border-color:var(--red);background:rgba(255,69,69,0.04)}
+  .analysis-box.amber{border-color:var(--amber);background:rgba(245,166,35,0.04)}
+  .analysis-box.cyan{border-color:var(--cyan);background:rgba(0,212,255,0.04)}
+  .analysis-box.purple{border-color:var(--purple);background:rgba(168,85,247,0.04)}
+  .analysis-box .box-label{
+    font-family:var(--mono);font-size:10px;
+    font-weight:700;letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    opacity:0.7;
+  }
+  .analysis-box.red .box-label{color:var(--red)}
+  .analysis-box.amber .box-label{color:var(--amber)}
+  .analysis-box.cyan .box-label{color:var(--cyan)}
+  .analysis-box.purple .box-label{color:var(--purple)}
+
+  /* ─── TIMELINE ─── */
+  .tl{position:relative;padding-left:28px;margin:20px 0}
+  .tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:var(--border2)}
+  .tl-item{position:relative;margin-bottom:20px}
+  .tl-item::before{
+    content:'';position:absolute;left:-24px;top:5px;
+    width:8px;height:8px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--amber);
+  }
+  .tl-item.critico::before{border-color:var(--red);box-shadow:0 0 6px rgba(255,69,69,0.4)}
+  .tl-date{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:3px}
+  .tl-title{font-weight:600;font-size:14px;color:#fff;margin-bottom:4px}
+  .tl-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+  /* ─── LACUNA ─── */
+  .lacuna-box{
+    background:rgba(255,69,69,0.04);
+    border:1px solid rgba(255,69,69,0.2);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:20px 0;
+  }
+  .lacuna-box h3{
+    font-family:var(--serif);
+    font-size:16px;color:var(--red);margin-bottom:10px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .lacuna-box p{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px}
+  .lacuna-box .question{
+    font-family:var(--mono);font-size:12px;
+    color:var(--amber);padding:10px 14px;
+    background:rgba(245,166,35,0.05);
+    border-radius:4px;margin-top:10px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer{
+    padding:24px 32px;
+    text-align:center;
+    border-top:1px solid var(--border);
+    font-family:var(--mono);
+    font-size:11px;color:var(--text3);
+    line-height:2;
+  }
+  footer a{color:var(--cyan);text-decoration:none}
+
+  @media(max-width:640px){
+    .actor-row{grid-template-columns:1fr;gap:4px}
+    .actor-status{text-align:left}
+    .masthead{padding:28px 20px 22px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ MASTHEAD ══ -->
+<div class="masthead">
+  <div class="masthead-eyebrow">
+    <span class="pill pill-amber">lawfare-timeline</span>
+    <span class="pill pill-red">IDs 153–158</span>
+    <span class="pill pill-cyan">Compliance Zero</span>
+    <span class="pill pill-purple">Registro Documental</span>
+  </div>
+  <h1>Todo Poder Emana<br>do <em>Polvorcaro</em></h1>
+  <p class="masthead-sub">Registro consolidado: artigo do campo jurídico + verificação das consultorias informais de servidores do Banco Central + entradas JSON 153–158 do lawfare-timeline. Captura do regulador confirmada. R$ 793 mi em CDBs sem titular identificado.</p>
+  <div class="masthead-meta">
+    <span class="mm"><b>Registro:</b> 11/abr/2026</span>
+    <span class="mm"><b>Operação:</b> Compliance Zero — 3ª fase</span>
+    <span class="mm"><b>Padrões:</b> P3 · P4 · P5</span>
+    <span class="mm"><b>Licença:</b> CC0 1.0</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <button class="nb act" onclick="show('artigo')">Artigo-Fonte</button>
+  <button class="nb" onclick="show('verificacao')">Verificação</button>
+  <button class="nb" onclick="show('atores')">Atores BC</button>
+  <button class="nb" onclick="show('analise')">Análise</button>
+  <button class="nb" onclick="show('json')">JSON 153–158</button>
+  <button class="nb" onclick="show('lacunas')">Lacunas</button>
+</nav>
+
+<!-- ══ WRAP ══ -->
+<div class="wrap">
+
+<!-- ── ARTIGO ── -->
+<div id="sec-artigo" class="sec act">
+  <div class="sec-title">Artigo-Fonte</div>
+  <div class="sec-sub">Dr. Paulo Faria (@drpaulofaria22) — Advogado e Jornalista — 11/abr/2026</div>
+
+  <div class="article-block">
+    <div class="article-header">
+      <div>
+        <div class="article-source">X / @drpaulofaria22 · Advogado e Jornalista</div>
+        <div class="article-title">Todo Poder Emana do Polvo</div>
+      </div>
+      <div class="article-date">11 abr 2026</div>
+    </div>
+    <div class="article-body">
+      <p><strong>"Todo poder emana do povo"</strong>, diz o parágrafo único do artigo 1º da Constituição. Mas, à luz dos fatos recentes, talvez seja mais honesto admitir a versão não oficial que parece reger os bastidores de Brasília: todo poder emana do polvo — uma criatura de múltiplos tentáculos, capaz de se infiltrar simultaneamente no sistema financeiro, nas estruturas jurídicas e nos centros decisórios do Estado.</p>
+
+      <p>A revelação de que o Banco Master, sob liderança de Daniel Vorcaro, destinou cifras que ultrapassam a casa dos <strong>R$ 300 milhões — e que, segundo o conjunto mais amplo de contratos, superam R$ 500 milhões em consultorias</strong> — a escritórios de advocacia expõe algo que vai além de números: revela um padrão de articulação entre dinheiro e influência institucional, precificando o poder.</p>
+
+      <p>Entre os contratados, não estão apenas advogados, mas figuras com histórico direto no comando de estruturas-chave da República. Ex-presidentes da Ordem dos Advogados do Brasil, como <strong>Marcus Vinicius Furtado Coêlho e Felipe Santa Cruz</strong>, aparecem na lista. Nomes com trânsito nos mais altos níveis da administração pública, da política econômica e do sistema financeiro orbitam o mesmo núcleo de interesses.</p>
+
+      <div class="quote-block">"O que exatamente está sendo contratado? Conhecimento técnico? Certamente. Capacidade de interlocução? Provavelmente. Acesso? Possivelmente. No Brasil, essas três dimensões frequentemente se confundem."</div>
+
+      <p>A Polícia Federal surge no contexto das investigações que apontam, inclusive, para a existência de <strong>"consultorias informais" envolvendo servidores do Banco Central</strong> — um dado que, se confirmado, eleva o grau de gravidade do cenário e reforça a percepção de permeabilidade entre estruturas técnicas do Estado e interesses privados.</p>
+
+      <p>O caso não se limita à advocacia. Ele sugere um modelo mais amplo, no qual diferentes esferas do poder — jurídico, econômico, regulatório e investigativo — passam a ser tangenciadas por um mesmo eixo de interesses. Além do STF e OAB, tais <strong>tentáculos já foram identificados no TCU, no Banco Central, na própria Polícia Federal, nas entranhas do governo do PT, no Senado, na Câmara</strong>. Pergunto: escapa alguma instituição?</p>
+
+      <p>O ponto central não é um indivíduo, mas o padrão: <strong>a sobreposição de redes</strong>. A Ordem dos Advogados do Brasil é colocada em posição desconfortável. Quando ex-presidentes da entidade passam a atuar em operações dessa escala financeira, a discussão não é sobre direito ao exercício profissional — isso é indiscutível. A questão é outra: quais são os limites éticos quando o capital simbólico acumulado em funções institucionais passa a ser monetizado em ambientes de alta sensibilidade política?</p>
+
+      <div class="quote-block">"Quando a sociedade passa a enxergar que os mesmos nomes — ou círculos muito próximos — transitam entre defesa jurídica, influência política e interlocução institucional, forma-se a percepção de captura. E percepção, em política, tem peso concreto. Democracias não sobrevivem apenas de normas. Elas dependem de confiança."</div>
+
+      <p>O que o caso do Banco Master explicita não é uma anomalia isolada, mas um modelo recorrente no Brasil: a circulação contínua de elites entre o público e o privado, com alto grau de interdependência, corrupção, e corruptores ativos e passivos. Ex-presidente da República, ex-ministros da Fazenda, ex-dirigentes do Banco Central, ex-presidentes da OAB — muitos deles hoje atuando como advogados ou consultores — compõem um ecossistema onde <strong>experiência, acesso e influência se transformam em ativos de alto valor</strong>.</p>
+
+      <div class="quote-block">"A Constituição continua afirmando que o poder emana do povo. Mas, na prática, episódios como esse alimentam a sensação de que ele é exercido por estruturas mais complexas — difusas, interligadas e pouco transparentes. O poder, nesse caso, emanou, por longos anos, no 'Polvorcaro'."</div>
+    </div>
+  </div>
+
+  <div class="analysis-box amber">
+    <div class="box-label">Relevância Documental</div>
+    <p>Este artigo é fonte primária da perspectiva interna do campo jurídico sobre o padrão de captura documentado no lawfare-timeline. A relevância vai além do conteúdo: um advogado — com responsabilidade ética profissional — nomeando publicamente o mecanismo em colegas de profissão. O <strong>silêncio institucional da OAB</strong> mencionado no texto é ele mesmo um dado investigativo.</p>
+  </div>
+
+  <div class="pattern-row">
+    <span class="pbadge pbadge-p3">P3 — Captura Institucional</span>
+    <span class="pbadge pbadge-p4">P4 — Weaponização de mídia / influência</span>
+    <span class="pbadge pbadge-p5">P5 — Fundos públicos como vetor</span>
+  </div>
+</div>
+
+<!-- ── VERIFICAÇÃO ── -->
+<div id="sec-verificacao" class="sec">
+  <div class="sec-title">Verificação Web</div>
+  <div class="sec-sub">Dado mencionado no artigo — "consultorias informais envolvendo servidores do BC" — verificado e amplificado</div>
+
+  <div class="verify-banner">
+    <span class="verify-icon">✓</span>
+    <span class="verify-text"><b>CONFIRMADO E AMPLIFICADO.</b> O dado foi verificado contra fontes primárias: STF (despacho André Mendonça), PF, CGU, BC. A captura do regulador é mais profunda do que o artigo sugeria.</span>
+  </div>
+
+  <div class="fact-grid">
+    <div class="fact-card" style="border-top:2px solid var(--red)">
+      <div class="fact-card-label" style="color:var(--red)">Servidores do BC investigados</div>
+      <div class="fact-card-value">2</div>
+      <div class="fact-card-desc">Paulo Sérgio Neves de Souza (ex-diretor de Fiscalização) e Belline Santana (ex-chefe do Desup). Juntos: ~56 anos de carreira no regulador.</div>
+    </div>
+    <div class="fact-card" style="border-top:2px solid var(--amber)">
+      <div class="fact-card-label" style="color:var(--amber)">Período de cooptação</div>
+      <div class="fact-card-value">2017–2023</div>
+      <div class="fact-card-desc">Souza estava na Diretoria de Fiscalização durante a aquisição e expansão do banco por Vorcaro. A captura foi concomitante ao crescimento fraudulento.</div>
+    </div>
+    <div class="fact-card" style="border-top:2px solid var(--purple)">
+      <div class="fact-card-label" style="color:var(--purple)">CDBs sem titular</div>
+      <div class="fact-card-value">R$ 793mi</div>
+      <div class="fact-card-desc">Aplicações em CDBs do banco liquidado cujos titulares não se identificaram. Hipótese: remuneração indireta de atores protegidos.</div>
+    </div>
+    <div class="fact-card" style="border-top:2px solid var(--cyan)">
+      <div class="fact-card-label" style="color:var(--cyan)">Presos na 3ª fase</div>
+      <div class="fact-card-value">7</div>
+      <div class="fact-card-desc">Mandados em SP, RJ, MG, BA e DF. Acusações: fraude bilionária, lavagem, corrupção, invasão de sistemas (PF, MPF, Interpol).</div>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="tl-item critico">
+      <div class="tl-date">04 mar 2026</div>
+      <div class="tl-title">3ª fase da Operação Compliance Zero</div>
+      <div class="tl-desc">PF prende Vorcaro pela 3ª vez. Servidores do BC recebem cautelares (tornozeleira + afastamento). André Mendonça descreve-os como "consultores privados de Vorcaro".</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">06–11 mar 2026</div>
+      <div class="tl-title">BC inicia pente-fino interno</div>
+      <div class="tl-desc">Autarquia investiga hipótese de ~1 dúzia de servidores com relações informais com instituições supervisionadas. Material enviado à CGU em 10/mar.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">10 mar 2026</div>
+      <div class="tl-title">CGU abre inquérito preliminar</div>
+      <div class="tl-desc">Prazo: 180 dias. Pode resultar em PAD (expulsão) e PAR (responsabilização do banco). Primeiro caso da espécie na história do BC.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">11 mar 2026</div>
+      <div class="tl-title">CPI investiga aeronave Legacy 650</div>
+      <div class="tl-desc">Diários de bordo podem revelar encontros com organizações criminosas 2025–2026. Zanin já havia negado CPI no Congresso.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">10 abr 2026</div>
+      <div class="tl-title">R$ 793mi em CDBs sem dono identificado</div>
+      <div class="tl-desc">BC, Coaf, PF e MPF mapeiam cadeia de propriedade. Hipótese: remuneração indireta de políticos, assessores e familiares de magistrados.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">11 abr 2026</div>
+      <div class="tl-title">Artigo "Todo Poder Emana do Polvo" — Dr. Paulo Faria</div>
+      <div class="tl-desc">Análise interna do campo jurídico nomeia o padrão. Registrado como ID 157 no lawfare-timeline.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ATORES ── -->
+<div id="sec-atores" class="sec">
+  <div class="sec-title">Atores — Captura do Regulador</div>
+  <div class="sec-sub">Servidores do Banco Central investigados na Operação Compliance Zero — 3ª fase</div>
+
+  <div class="actor-list">
+    <div class="actor-row" style="background:rgba(255,69,69,0.04)">
+      <div>
+        <div class="actor-name">Paulo Sérgio Neves de Souza</div>
+        <div class="actor-role">Ex-diretor de Fiscalização (Difis) do BC — 2017–2023</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2)">Cooptado por Vorcaro ainda durante o cargo. Revisava documentos do Master. Sugeria argumentos para reuniões com o BC. Participava de grupo de WhatsApp com Vorcaro. Recebeu vantagens indevidas via estruturas financeiras indiretas. Estava no cargo-chave durante a expansão fraudulenta.</div>
+      <div class="actor-status" style="color:var(--red)">Tornozeleira<br>Afastado</div>
+    </div>
+    <div class="actor-row" style="background:rgba(255,69,69,0.04)">
+      <div>
+        <div class="actor-name">Belline Santana</div>
+        <div class="actor-role">Ex-chefe do Desup (Supervisão Bancária) — desde 2019</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2)">Comandava o departamento responsável pelo monitoramento direto do Banco Master. Revisava documentos antes do envio ao regulador. Atuava como "interlocutor interno" dos interesses do banco. Investigado por comunicações diretas com Vorcaro e recebimento de vantagens indevidas.</div>
+      <div class="actor-status" style="color:var(--red)">Tornozeleira<br>Afastado</div>
+    </div>
+    <div class="actor-row">
+      <div>
+        <div class="actor-name">Marcus Vinicius Furtado Coêlho</div>
+        <div class="actor-role">Ex-presidente da OAB — consultor contratado</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2)">Mencionado no artigo do Dr. Paulo Faria como contratado via escritório de advocacia no universo de R$ 300–500mi em consultorias do Banco Master. Caso exemplar de monetização de capital simbólico institucional.</div>
+      <div class="actor-status" style="color:var(--amber)">Citado<br>Sem cautelar</div>
+    </div>
+    <div class="actor-row">
+      <div>
+        <div class="actor-name">Felipe Santa Cruz</div>
+        <div class="actor-role">Ex-presidente da OAB — consultor contratado</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2)">Idem. Trânsito nos altos níveis da administração pública. Contratado no período em que a fraude estrutural estava em curso.</div>
+      <div class="actor-status" style="color:var(--amber)">Citado<br>Sem cautelar</div>
+    </div>
+    <div class="actor-row">
+      <div>
+        <div class="actor-name">~1 dúzia de servidores (BC)</div>
+        <div class="actor-role">Suspeitos de relações informais — investigação em curso</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2)">BC investiga hipótese de outros servidores com relações irregulares com instituições supervisionadas. Se confirmado, a captura não foi pontual — foi estrutural.</div>
+      <div class="actor-status" style="color:var(--text3)">Em apuração</div>
+    </div>
+  </div>
+
+  <div class="analysis-box red">
+    <div class="box-label">Implicação Sistêmica</div>
+    <p>Os dois servidores investigados controlavam, respectivamente, o órgão que decide <em>quando intervir</em> (Fiscalização) e o órgão que decide <em>como monitorar</em> (Supervisão Bancária). Com ambos comprometidos, Vorcaro essencialmente possuía um radar regulatório interno — sabendo com antecedência de qualquer ação do regulador contra seu banco.</p>
+    <p style="margin-top:10px">Isso explica por que o BC identificou os problemas apenas em março/2025, embora a fraude estivesse em construção desde 2018: as duas camadas de alarme estavam desativadas por dentro.</p>
+  </div>
+</div>
+
+<!-- ── ANÁLISE ── -->
+<div id="sec-analise" class="sec">
+  <div class="sec-title">Análise Estrutural</div>
+  <div class="sec-sub">Convergência entre o artigo do Dr. Paulo Faria e os padrões documentados no lawfare-timeline</div>
+
+  <div class="analysis-box amber">
+    <div class="box-label">Novo Conceito Analítico — "Capital Simbólico Monetizado"</div>
+    <p>O artigo introduz uma formulação que o lawfare-timeline ainda não capturava explicitamente: a distinção entre a <em>legalidade</em> de contratar ex-autoridades e a <em>ética</em> de fazê-lo em contexto de alta sensibilidade regulatória.</p>
+    <p style="margin-top:10px">Não é sobre o que é ilegal — é sobre o que <strong>está sendo comprado</strong>. Quando se contrata quem ocupou a cúpula do regulador, compra-se: (1) conhecimento técnico, (2) acesso informal a ex-colegas ainda no cargo, (3) sinal de poder para o mercado. O terceiro item raramente é investigado.</p>
+  </div>
+
+  <div class="analysis-box cyan">
+    <div class="box-label">Mecanismo Inovador — CDBs como Remuneração Disfarçada</div>
+    <p>Os R$ 793 milhões em CDBs sem titular identificado sugerem um mecanismo mais sofisticado do que contratos de consultoria nominais: aplicações financeiras no próprio banco investigado como forma de remuneração.</p>
+    <p style="margin-top:10px">Vantagens do mecanismo: (1) não aparece como contrato — aparece como investimento pessoal; (2) cria conflito de interesse no potencial investigador — quem tem CDB do banco não vai decretar sua liquidação; (3) o banco controla a liquidez, podendo bloquear resgates como instrumento de coerção.</p>
+  </div>
+
+  <div class="analysis-box purple">
+    <div class="box-label">Padrão P3 Ampliado — Captura Regulatória Sistêmica</div>
+    <p>O P3 original documentava a captura via indicações políticas e controle de pautas. O caso Banco Master adiciona uma camada nova: a <strong>captura operacional do regulador</strong> — os próprios servidores que executam a fiscalização no dia a dia são corrompidos.</p>
+    <p style="margin-top:10px">Isso é qualitativamente diferente de "capturar quem indica o presidente do BC". É capturar as mãos que fazem as inspeções. A pergunta analítica que emerge: isso é exclusivo do Banco Master ou é o modelo operacional padrão do "Polvorcaro"?</p>
+  </div>
+
+  <div class="analysis-box red">
+    <div class="box-label">Silêncio Institucional como Dado</div>
+    <p>O Dr. Paulo Faria nota o silêncio da OAB sobre a monetização do capital simbólico de seus ex-presidentes. O lawfare-timeline registra como padrão geral: o <strong>silêncio das entidades</strong> diante de comportamentos de seus ex-membros é ele mesmo um indicador de captura.</p>
+    <p style="margin-top:10px">Entidades que silenciam: OAB (ex-presidentes contratados), BC (omissão regulatória 2018–2025), TCU (tentativa de bloquear liquidação por Jhonatan de Jesus), STF (Toffoli como relator do caso que investigava seu financiador).</p>
+  </div>
+</div>
+
+<!-- ── JSON ── -->
+<div id="sec-json" class="sec">
+  <div class="sec-title">Entradas JSON — IDs 153–158</div>
+  <div class="sec-sub">Prontas para inserção no lawfare-timeline. Schema padrão do projeto.</div>
+
+  <div class="json-block">
+    <div class="json-header">
+      <span class="json-id">ID 153</span>
+      <span class="json-cat">falha_institucional</span>
+    </div>
+    <pre class="json-pre"><span class="json-key">"titulo"</span>: <span class="json-str">"R$ 793 milhões em CDBs do Master sem titular identificado"</span>,
+<span class="json-key">"padroes"</span>: <span class="json-arr">["P5", "P3"]</span>,
+<span class="json-key">"nota_editorial"</span>: <span class="json-str">"Remuneração disfarçada via aplicação financeira:
+duplamente eficiente — remunera e cria conflito de interesse
+no investigador potencial."</span></pre>
+  </div>
+
+  <div class="json-block">
+    <div class="json-header">
+      <span class="json-id">ID 154</span>
+      <span class="json-cat">corrupção_regulatória ← NOVA CATEGORIA</span>
+    </div>
+    <pre class="json-pre"><span class="json-key">"titulo"</span>: <span class="json-str">"Compliance Zero 3ª fase: servidores do BC presos por
+corrupção interna"</span>,
+<span class="json-key">"atores"</span>: <span class="json-arr">["Paulo Sérgio Neves de Souza", "Belline Santana",
+          "Daniel Vorcaro", "André Mendonça", "PF"]</span>,
+<span class="json-key">"impacto"</span>: <span class="json-str">"critico"</span>,
+<span class="json-key">"nota_editorial"</span>: <span class="json-str">"Primeiro caso de corrupção no alto escalão do BC.
+Souza estava no cargo durante a expansão fraudulenta (2018–2023).
+A captura não foi posterior ao crime — foi concomitante."</span></pre>
+  </div>
+
+  <div class="json-block">
+    <div class="json-header">
+      <span class="json-id">ID 155</span>
+      <span class="json-cat">falha_institucional</span>
+    </div>
+    <pre class="json-pre"><span class="json-key">"titulo"</span>: <span class="json-str">"CGU instala inquérito preliminar contra servidores do BC"</span>,
+<span class="json-key">"status"</span>: <span class="json-str">"em_apuracao"</span>,
+<span class="json-key">"nota_editorial"</span>: <span class="json-str">"Hipótese de ~1 dúzia de servidores com relações informais
+sugere captura estrutural, não pontual."</span></pre>
+  </div>
+
+  <div class="json-block">
+    <div class="json-header">
+      <span class="json-id">ID 156</span>
+      <span class="json-cat">investigação_parlamentar</span>
+    </div>
+    <pre class="json-pre"><span class="json-key">"titulo"</span>: <span class="json-str">"CPI do Banco Master: quebra de sigilos e aeronave
+Embraer Legacy 650"</span>,
+<span class="json-key">"lacuna_investigativa"</span>: <span class="json-str">"Zanin negou CPI no Congresso — decisão de competência
+que merece análise separada como aplicação de P3 via Judiciário."</span></pre>
+  </div>
+
+  <div class="json-block">
+    <div class="json-header">
+      <span class="json-id">ID 157</span>
+      <span class="json-cat">analise_editorial</span>
+    </div>
+    <pre class="json-pre"><span class="json-key">"titulo"</span>: <span class="json-str">"'Todo Poder Emana do Polvo' — Dr. Paulo Faria
+(@drpaulofaria22)"</span>,
+<span class="json-key">"categoria"</span>: <span class="json-str">"analise_editorial"</span>,
+<span class="json-key">"padroes"</span>: <span class="json-arr">["P3", "P4"]</span>,
+<span class="json-key">"nota_editorial"</span>: <span class="json-str">"Voz interna da advocacia nomeando o padrão em colegas
+de profissão. Silêncio da OAB como dado investigativo."</span></pre>
+  </div>
+
+  <div class="json-block">
+    <div class="json-header">
+      <span class="json-id">ID 158</span>
+      <span class="json-cat">lacuna_investigativa</span>
+    </div>
+    <pre class="json-pre"><span class="json-key">"titulo"</span>: <span class="json-str">"Lacuna: correlação entre CDBs Master não reclamados
+e decisões favoráveis ao banco"</span>,
+<span class="json-key">"pergunta_central"</span>: <span class="json-str">"Existe correlação entre posse de CDBs Master e padrão
+de votos/decisões favoráveis ao banco no período 2018–2025?
+Se sim, configura corrupção estrutural não investigada."</span>,
+<span class="json-key">"status"</span>: <span class="json-str">"lacuna_aberta"</span>,
+<span class="json-key">"impacto"</span>: <span class="json-str">"critico"</span></pre>
+  </div>
+
+  <div class="analysis-box amber">
+    <div class="box-label">Nova Categoria Proposta</div>
+    <p><strong>corrupção_regulatória</strong> — Para casos em que o próprio corpo técnico do regulador (não apenas sua liderança política) é capturado. Distinto de <em>falha_institucional</em> (omissão/negligência) porque implica ato intencional de servidores de carreira.</p>
+  </div>
+</div>
+
+<!-- ── LACUNAS ── -->
+<div id="sec-lacunas" class="sec">
+  <div class="sec-title">Lacunas Abertas</div>
+  <div class="sec-sub">Próximos passos analíticos emergentes deste registro</div>
+
+  <div class="lacuna-box">
+    <h3>⬡ Lacuna 1 — Mapa de Correlação CDB × Decisões</h3>
+    <p>R$ 793 mi em CDBs do Master sem titular identificado. Se os titulares forem atores com capacidade de influenciar decisões regulatórias ou judiciais, a correlação temporal entre suas aplicações e suas decisões favoráveis ao banco seria o documento mais explosivo do caso.</p>
+    <div class="question">Pergunta central (ID 158): Existe correlação entre posse de CDBs Master e padrão de votos/decisões favoráveis ao banco no período 2018–2025?</div>
+  </div>
+
+  <div class="lacuna-box">
+    <h3>⬡ Lacuna 2 — Decisão de Zanin sobre a CPI do Master</h3>
+    <p>O ministro Zanin negou a instauração da CPI do Banco Master no Congresso. A decisão precisa de análise separada: trata-se de uma aplicação do Padrão P3 via Judiciário (uso de decisão jurisdicional para limitar investigação parlamentar) ou de fundamento jurídico legítimo?</p>
+    <div class="question">Ausência de análise pública sobre os fundamentos da decisão de Zanin. Candidata a entrada ID 159.</div>
+  </div>
+
+  <div class="lacuna-box">
+    <h3>⬡ Lacuna 3 — Extensão da captura no BC além de dois servidores</h3>
+    <p>A hipótese interna do BC é de ~1 dúzia de servidores com relações irregulares. Se confirmado, não é maçã podre — é estrutural. Implica revisão do P3 para incluir captura operacional (nível técnico) além de captura política (nível de liderança).</p>
+    <div class="question">Pente-fino em curso. Prazo CGU: 180 dias a partir de 10/mar/2026. Monitorar.</div>
+  </div>
+
+  <div class="lacuna-box">
+    <h3>⬡ Lacuna 4 — Silêncio da OAB como objeto de análise</h3>
+    <p>O Dr. Paulo Faria nota o silêncio institucional da OAB diante da monetização do capital simbólico de seus ex-presidentes. O silêncio de entidades corporativas diante do comportamento de seus ex-membros nunca foi sistematicamente mapeado no lawfare-timeline como indicador de captura.</p>
+    <div class="question">Proposta: categoria analítica "omissão_corporativa" para registrar silêncios institucionais como dados investigativos.</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div>lawfare-timeline · Registro Documental #153–158 · Operação Compliance Zero</div>
+  <div><a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a> · CC0 1.0 Universal · Domínio Público Total</div>
+  <div style="margin-top:6px;color:var(--text3)">Fontes: STF (despacho André Mendonça, 04/mar/2026) · CGU · Correio Braziliense · Gazeta do Povo · Brasil 247 · Revista Liberta · @drpaulofaria22</div>
+</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));
+  document.getElementById('sec-'+id).classList.add('act');
+  event.currentTarget.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

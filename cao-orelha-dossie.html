@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dossiê CC0: caso Cão Orelha (Florianópolis, 2026) — cronologia, inconsistências, padrões P3/P8, análise de risco, prospectiva e tese sobre captura institucional por classe.">
+<meta property="og:title" content="Caso Cão Orelha — Dossiê: Captura Institucional por Classe">
+<meta property="og:description" content="Não precisa de conspiração. Precisa apenas que o sistema funcione normalmente — e que 'normalmente' signifique uma coisa para famílias do Condomínio Água Marinha e outra para todo o resto.">
+<meta property="og:image" content="https://gosurf.site/og-cao_orelha.png">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gosurf.site/og-cao_orelha.png">
+<link rel="canonical" href="https://gosurf.site/cao-orelha-dossie.html">
+<title>Caso Cão Orelha — Dossiê: Captura Institucional por Classe</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090c;
+  --bg1: #0b0f14;
+  --bg2: #10161e;
+  --bg3: #16202c;
+  --bg4: #1c2a38;
+  --border: rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.10);
+  --border3: rgba(255,255,255,0.16);
+  --fg: #dde4ec;
+  --fg2: #7a8fa8;
+  --fg3: #3a4e62;
+  --red: #e04040;
+  --red2: rgba(224,64,64,0.12);
+  --red3: rgba(224,64,64,0.25);
+  --amber: #d99020;
+  --amber2: rgba(217,144,32,0.12);
+  --amber3: rgba(217,144,32,0.25);
+  --blue: #2880d8;
+  --blue2: rgba(40,128,216,0.10);
+  --green: #20b870;
+  --green2: rgba(32,184,112,0.10);
+  --purple: #9050d8;
+  --purple2: rgba(144,80,216,0.10);
+  --orange: #d86020;
+  --orange2: rgba(216,96,32,0.10);
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+  --font-serif: 'Crimson Pro', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); }
+
+/* ── ALERTA TOPO ── */
+.alert-banner {
+  background: var(--red);
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.alert-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: rgba(255,255,255,0.08);
+  transform: skewX(-20deg);
+  animation: sweep 3s ease-in-out infinite;
+}
+@keyframes sweep { 0%,100% { left:-100%; } 50% { left:150%; } }
+
+/* ── HEADER ── */
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border2);
+  padding: 40px 24px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), var(--amber), transparent);
+}
+@media (min-width: 768px) { .header { padding: 48px 60px 36px; } }
+
+.meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.badge-red { background: var(--red2); color: var(--red); border: 1px solid rgba(224,64,64,0.25); }
+.badge-amber { background: var(--amber2); color: var(--amber); border: 1px solid rgba(217,144,32,0.25); }
+.badge-blue { background: var(--blue2); color: var(--blue); border: 1px solid rgba(40,128,216,0.2); }
+.badge-purple { background: var(--purple2); color: var(--purple); border: 1px solid rgba(144,80,216,0.2); }
+.badge-green { background: var(--green2); color: var(--green); border: 1px solid rgba(32,184,112,0.2); }
+.badge-gray { background: rgba(255,255,255,0.04); color: var(--fg3); border: 1px solid var(--border); }
+.badge-orange { background: var(--orange2); color: var(--orange); border: 1px solid rgba(216,96,32,0.2); }
+
+.hero-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 6vw, 54px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.hero-title .accent { color: var(--red); }
+.hero-title .dim { color: var(--fg2); }
+
+.hero-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 2.2vw, 18px);
+  color: var(--fg2);
+  line-height: 1.65;
+  max-width: 780px;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+  gap: 10px;
+  max-width: 820px;
+}
+.stat-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 14px 16px;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-num.red { color: var(--red); }
+.stat-num.amber { color: var(--amber); }
+.stat-num.blue { color: var(--blue); }
+.stat-num.purple { color: var(--purple); }
+.stat-label {
+  font-size: 9px;
+  color: var(--fg3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── NAV (sticky + destaque conforme scroll) ── */
+.nav.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(7, 9, 12, 0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.nav.doc-nav .nav-scroll {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav.doc-nav .nav-scroll::-webkit-scrollbar { display: none; }
+@media (min-width: 768px) { .nav.doc-nav .nav-scroll { padding: 0 60px; } }
+
+.nav-tab {
+  padding: 14px 16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: var(--font-mono);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-tab:hover { color: var(--fg2); }
+.nav-tab.active { color: var(--fg); border-bottom-color: var(--red); }
+a.nav-tab:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+}
+
+.topic-panel { scroll-margin-top: 72px; }
+.article-selectable {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ── MAIN — rolagem contínua (todo o texto acessível a Ctrl+A / Ctrl+C) ── */
+.dossier-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+}
+@media (min-width: 768px) { .dossier-main { padding: 40px 60px 56px; } }
+
+.hero-visual {
+  margin-top: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  max-width: 100%;
+}
+.hero-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+.article-ai-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 28px 24px 12px;
+  margin: 0 auto;
+  max-width: 1200px;
+  border-top: 1px solid var(--border);
+}
+@media (min-width: 768px) {
+  .article-ai-tools { padding-left: 60px; padding-right: 60px; }
+}
+.article-ai-tools-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  font-weight: 700;
+}
+.btn-copy-ai {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  color: var(--fg2);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.btn-copy-ai:hover {
+  border-color: var(--red);
+  color: var(--fg);
+  background: var(--bg3);
+}
+.btn-copy-ai:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Voltar ao topo */
+.gotop {
+  position: fixed;
+  right: 22px;
+  bottom: 28px;
+  z-index: 300;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: rgba(11, 15, 20, 0.94);
+  color: var(--fg2);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s, border-color 0.2s, color 0.2s, background 0.2s;
+  backdrop-filter: blur(10px);
+}
+.gotop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.gotop:hover {
+  border-color: var(--red);
+  color: #fff;
+}
+.gotop:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .gotop { right: 16px; bottom: 20px; width: 42px; height: 42px; }
+}
+
+.section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── CARDS ── */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 14px; margin-bottom: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 20px; }
+
+.card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+.card.red { border-left: 3px solid var(--red); }
+.card.amber { border-left: 3px solid var(--amber); }
+.card.blue { border-left: 3px solid var(--blue); }
+.card.purple { border-left: 3px solid var(--purple); }
+.card.green { border-left: 3px solid var(--green); }
+.card.orange { border-left: 3px solid var(--orange); }
+
+.card-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 10px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  color: var(--fg);
+}
+.card-body {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.7;
+}
+.card-body p { margin-bottom: 8px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--fg); font-weight: 600; }
+.card-body em { color: var(--amber); font-style: normal; }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 6px; bottom: 0;
+  width: 1px;
+  background: var(--border2);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 24px;
+  padding-left: 20px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border3);
+}
+.tl-item.critical::before { background: var(--red); border-color: var(--red); box-shadow: 0 0 8px rgba(224,64,64,0.4); }
+.tl-item.warning::before { background: var(--amber); border-color: var(--amber); }
+.tl-item.info::before { background: var(--blue); border-color: var(--blue); }
+.tl-item.neutral::before { background: var(--fg3); border-color: var(--fg3); }
+
+.tl-date {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  color: var(--fg3);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tl-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.tl-body {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.65;
+}
+.tl-body strong { color: var(--fg); }
+.tl-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  background: var(--red2);
+  color: var(--red);
+  border: 1px solid rgba(224,64,64,0.2);
+}
+.tl-tag.amber { background: var(--amber2); color: var(--amber); border-color: rgba(217,144,32,0.2); }
+.tl-tag.blue { background: var(--blue2); color: var(--blue); border-color: rgba(40,128,216,0.2); }
+.tl-tag.purple { background: var(--purple2); color: var(--purple); border-color: rgba(144,80,216,0.2); }
+
+/* ── INCONSISTÊNCIAS ── */
+.incon-item {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.incon-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.incon-header:hover { background: var(--bg2); }
+.incon-num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--red);
+  opacity: 0.4;
+  line-height: 1;
+  min-width: 28px;
+  margin-top: 2px;
+}
+.incon-content { flex: 1; }
+.incon-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.incon-sub {
+  font-size: 11px;
+  color: var(--fg2);
+  line-height: 1.6;
+}
+.incon-sub strong { color: var(--amber); font-weight: 500; }
+.incon-arrow {
+  font-size: 11px;
+  color: var(--fg3);
+  margin-top: 4px;
+  transition: transform 0.2s;
+}
+.incon-item.open .incon-arrow { transform: rotate(180deg); }
+.incon-detail {
+  display: none;
+  padding: 0 20px 16px 62px;
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.incon-item.open .incon-detail { display: block; }
+.incon-detail strong { color: var(--fg); }
+.incon-detail em { color: var(--red); font-style: normal; }
+
+/* ── PADRÕES ── */
+.padrao-card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.padrao-id {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--fg3);
+  margin-bottom: 8px;
+}
+.padrao-nome {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.padrao-desc {
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.padrao-evidencias { }
+.padrao-ev-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 8px;
+}
+.padrao-ev-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--fg2);
+  line-height: 1.6;
+}
+.padrao-ev-item::before {
+  content: '→';
+  color: var(--red);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.padrao-ev-item strong { color: var(--fg); }
+.padrao-status {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--bg2);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--fg2);
+  border-left: 3px solid var(--amber);
+  line-height: 1.6;
+}
+.padrao-status strong { color: var(--amber); }
+
+/* ── ALERTA PROSPECTIVO ── */
+.alert-card {
+  background: linear-gradient(135deg, rgba(224,64,64,0.06) 0%, rgba(217,144,32,0.04) 100%);
+  border: 1px solid rgba(224,64,64,0.2);
+  border-radius: 8px;
+  padding: 28px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.alert-card::before {
+  content: '⚠';
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  font-size: 40px;
+  opacity: 0.06;
+  color: var(--red);
+}
+.alert-card-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+.alert-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.alert-card-body {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--fg2);
+  line-height: 1.75;
+  font-style: italic;
+}
+.alert-card-body strong { color: var(--fg); font-style: normal; font-family: var(--font-mono); font-size: 12px; }
+
+/* ── BLOCKQUOTE ── */
+.bq {
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  background: var(--bg2);
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+.bq-text {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--fg);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.bq-source {
+  font-size: 10px;
+  color: var(--fg3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── MATRIZ ── */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 11px;
+}
+.matrix-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg2);
+}
+.matrix-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg2);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.matrix-table tr:hover td { background: var(--bg2); }
+.matrix-table td strong { color: var(--fg); font-weight: 500; }
+.nivel {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.nivel-alto { background: var(--red2); color: var(--red); border: 1px solid rgba(224,64,64,0.2); }
+.nivel-medio { background: var(--amber2); color: var(--amber); border: 1px solid rgba(217,144,32,0.2); }
+.nivel-baixo { background: var(--blue2); color: var(--blue); border: 1px solid rgba(40,128,216,0.2); }
+.nivel-aberto { background: var(--purple2); color: var(--purple); border: 1px solid rgba(144,80,216,0.2); }
+
+/* ── SEPARADOR ── */
+.sep { height: 1px; background: var(--border); margin: 28px 0; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--bg1);
+  border-top: 1px solid var(--border);
+  padding: 24px 60px;
+  font-size: 10px;
+  color: var(--fg3);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer a { color: var(--fg3); text-decoration: none; }
+.footer a:hover { color: var(--fg2); }
+
+/* ── ANIMAÇÕES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── PLAUSIBILIDADE ── */
+.plab-bar {
+  margin-bottom: 16px;
+}
+.plab-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--fg2);
+}
+.plab-label strong { color: var(--fg); font-size: 12px; }
+.plab-label span { font-size: 10px; color: var(--fg3); }
+.plab-track {
+  height: 4px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.plab-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s ease-out;
+}
+.plab-fill.red { background: var(--red); }
+.plab-fill.amber { background: var(--amber); }
+.plab-fill.blue { background: var(--blue); }
+.plab-note {
+  font-size: 10px;
+  color: var(--fg3);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ALERTA TOPO -->
+<div class="alert-banner">
+  ⚠ Dossiê em Aberto — Caso Não Encerrado — Comissão Interamericana: Petição Protocolada
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="hero-eyebrow">Dossiê · Florianópolis, SC · 2026</div>
+  <div class="meta-row">
+    <span class="badge badge-red">Captura Institucional</span>
+    <span class="badge badge-amber">Irrecuperabilidade Fabricada</span>
+    <span class="badge badge-purple">Padrão P3 / P8</span>
+    <span class="badge badge-blue">Aberto · Sem Julgamento</span>
+    <span class="badge badge-gray">CC0 1.0 Domínio Público</span>
+  </div>
+  <h1 class="hero-title">
+    Caso <span class="accent">Cão Orelha</span><br>
+    <span class="dim">Quando o Sistema Funciona</span>
+  </h1>
+  <p class="hero-sub">
+    "Não precisa de conspiração. Precisa apenas que o sistema funcione normalmente — e que 'normalmente' signifique uma coisa para famílias do Condomínio Água Marinha e outra coisa para todo o resto."
+  </p>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num red">170</div>
+      <div class="stat-label">Páginas do parecer MP</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num amber">~2000</div>
+      <div class="stat-label">Arquivos analisados</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num blue">0</div>
+      <div class="stat-label">Condenações</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num purple">1</div>
+      <div class="stat-label">Investigado morto durante processo</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--green)">CIDHM</div>
+      <div class="stat-label">Petição interamericana ativa</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav doc-nav" aria-label="Índice do dossiê">
+  <div class="nav-scroll">
+    <a class="nav-tab active" href="#sec-cronologia" aria-current="page">Cronologia</a>
+    <a class="nav-tab" href="#sec-inconsistencias">Inconsistências</a>
+    <a class="nav-tab" href="#sec-padroes">Padrões sistêmicos</a>
+    <a class="nav-tab" href="#sec-risco">Análise de risco</a>
+    <a class="nav-tab" href="#sec-prospectiva">Vai acontecer novamente</a>
+    <a class="nav-tab" href="#sec-tese">Tese central</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="article-main" class="article-selectable dossier-main" tabindex="-1">
+
+  <!-- ── CRONOLOGIA ── -->
+  <div id="sec-cronologia" class="topic-panel">
+    <div class="section-label">Linha do Tempo Documentada</div>
+
+    <div class="grid-2">
+      <div class="card red">
+        <div class="card-label">Fato Central</div>
+        <div class="card-title">Orelha — 10 anos na Praia Brava</div>
+        <div class="card-body">
+          <p>Cão comunitário, símbolo do bairro. Vacinado, vermifugado, cuidado por moradores, pescadores e comerciantes. Conhecido por turistas. Vivia há uma década naquele trecho de litoral.</p>
+          <p><strong>Praia Brava:</strong> área de condomínios de luxo e mansões no norte da ilha de Florianópolis. Apartamentos de veraneio de famílias de alto poder aquisitivo.</p>
+        </div>
+      </div>
+      <div class="card amber">
+        <div class="card-label">Contexto Socioeconômico</div>
+        <div class="card-title">Dois Mundos no Mesmo Bairro</div>
+        <div class="card-body">
+          <p>De um lado: cão comunitário, cuidado coletivo informal. Do outro: adolescentes em apartamentos de veraneio, famílias descritas como <em>"poderosas e importantes do estado catarinense"</em>.</p>
+          <p>Esse contraste não é contextual. É estruturalmente determinante para o que veio depois.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item neutral">
+        <div class="tl-date">4 jan 2026 — madrugada</div>
+        <div class="tl-title">Orelha desaparece</div>
+        <div class="tl-body">Animal some durante a noite. Última vez visto em situação normal por moradores da Praia Brava.</div>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">5 jan 2026</div>
+        <div class="tl-title">Animal encontrado agonizando sob carro</div>
+        <div class="tl-body">
+          Ferimentos graves na cabeça e olho esquerdo. Sangramentos. Sinais de trauma severo e desidratação. <strong>Veterinário clínico em atendimento imediato diagnostica: "agressão por objeto contundente"</strong> — pauladas ou garrafadas. Eutanásia necessária diante da gravidade.
+        </div>
+        <span class="tl-tag">Laudo Clínico Contemporâneo</span>
+      </div>
+
+      <div class="tl-item warning">
+        <div class="tl-date">5–15 jan 2026</div>
+        <div class="tl-title">12 dias sem investigação</div>
+        <div class="tl-body">A denúncia às autoridades só ocorre <strong>12 dias após o evento</strong>. A Polícia Civil não abre inquérito por iniciativa própria — abre apenas após a repercussão pública explodir nas redes sociais.</div>
+        <span class="tl-tag amber">P3 — Omissão Seletiva</span>
+      </div>
+
+      <div class="tl-item info">
+        <div class="tl-date">16 jan 2026</div>
+        <div class="tl-title">Polícia Civil abre inquérito</div>
+        <div class="tl-body">Pressão popular obriga abertura de investigação. Quatro adolescentes identificados como suspeitos via imagens de câmeras e depoimentos. Porteiro do condomínio fotografou os jovens na praia e compartilhou em grupo de WhatsApp — material torna-se peça central.</div>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">12–13 jan 2026</div>
+        <div class="tl-title">Porteiro coagido — adultos indiciados</div>
+        <div class="tl-body">
+          Três adultos — <strong>dois empresários e um advogado</strong>, familiares dos adolescentes — indiciados por coação ao porteiro que possuía imagens do caso. Um deles flagrado com "volume na região da cintura" durante abordagem ao funcionário, segundo a delegada responsável. 22 pessoas depõem no inquérito de coação.
+        </div>
+        <span class="tl-tag">Coação de Testemunha</span>
+      </div>
+
+      <div class="tl-item warning">
+        <div class="tl-date">Jan 2026</div>
+        <div class="tl-title">Juíza se declara impedida por vínculo pessoal</div>
+        <div class="tl-body">A magistrada originalmente designada para o caso <strong>declara impedimento por vínculo com os acusados</strong>. Nenhuma especificação pública sobre a natureza do vínculo. Substituição por outra juíza.</div>
+        <span class="tl-tag amber">Nó Decisório Comprometido</span>
+      </div>
+
+      <div class="tl-item info">
+        <div class="tl-date">28 jan 2026</div>
+        <div class="tl-title">Liminar remove identidades das redes</div>
+        <div class="tl-body">Tribunal determina remoção em 24h de todo conteúdo com identidade dos adolescentes de Meta (Facebook, Instagram, WhatsApp) e ByteDance (TikTok). Famílias obtêm proteção judicial de acesso restrito para a maioria dos brasileiros.</div>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">Fev 2026</div>
+        <div class="tl-title">MP questiona investigação policial</div>
+        <div class="tl-body">Ministério Público considera a apuração inicial inconsistente. Solicita 35 diligências complementares. Pede exumação do corpo. Abre investigação contra o ex-delegado-geral Ulisses Gabriel por suspeita de improbidade e vazamento de sigilosos.</div>
+        <span class="tl-tag amber">Investigação do Investigador</span>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">13 abr 2026</div>
+        <div class="tl-title">Adulto indiciado por coação morre de infarto</div>
+        <div class="tl-body">
+          <strong>Tony Marcos de Souza, 52 anos</strong>, empresário, tio do adolescente com internação solicitada, morre de infarto durante o curso das investigações. Advogado relata que estava "muito deprimido com toda a injustiça" e havia emagrecido 10 kg por estresse.
+        </div>
+        <span class="tl-tag">Fato Registrado — Sem Inferência de Nexo</span>
+      </div>
+
+      <div class="tl-item warning">
+        <div class="tl-date">8 mai 2026</div>
+        <div class="tl-title">MP protocoliza pedido de arquivamento — 170 páginas</div>
+        <div class="tl-body">Três Promotorias de Justiça assinam parecer enviado à Vara da Infância. Conclusões: (1) adolescentes não estavam no mesmo local que o cão; (2) laudo de exumação não encontrou fraturas; (3) animal teria osteomielite crônica preexistente.</div>
+      </div>
+
+      <div class="tl-item info">
+        <div class="tl-date">12 mai 2026</div>
+        <div class="tl-title">Arquivamento tornado público</div>
+        <div class="tl-body">MP divulga conclusões. Defesa dos adolescentes afirma receber com "certeza de que a verdade prevalece". Corregedoria da Polícia Civil acionada para apurar irregularidades na investigação original. CyberGaeco investigará monetização de conteúdos falsos.</div>
+      </div>
+
+      <div class="tl-item critical">
+        <div class="tl-date">Mai 2026 — em curso</div>
+        <div class="tl-title">Petição à Comissão Interamericana de Direitos Humanos</div>
+        <div class="tl-body">
+          Associação protocola petição na CIDH pedindo reabertura e revisão do inquérito desde o início. Documento afirma: <strong>"é de se estranhar que, pelo fato dos menores serem filhos de pessoas importantes, sejam inocentados de acusações tão sérias"</strong>.
+        </div>
+        <span class="tl-tag">Instância Internacional Ativa</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── INCONSISTÊNCIAS ── -->
+  <div id="sec-inconsistencias" class="topic-panel">
+    <div class="section-label">Lacunas e Inconsistências Documentadas</div>
+
+    <div class="bq">
+      <div class="bq-text">"A hipótese de agressão ao animal ganhou força a partir de um áudio divulgado nas redes sociais por um funcionário do condomínio — embora ele próprio não tivesse presenciado qualquer ataque."</div>
+      <div class="bq-source">— Vara da Infância e Juventude de Florianópolis, decisão de arquivamento</div>
+    </div>
+
+    <div class="incon-item" onclick="toggleIncon(this)">
+      <div class="incon-header">
+        <div class="incon-num">01</div>
+        <div class="incon-content">
+          <div class="incon-title">Laudo clínico vs. laudo de exumação — regiões anatômicas distintas, conclusão por exclusão</div>
+          <div class="incon-sub">Veterinário viu <strong>trauma craniano agudo num animal vivo</strong>. Exumação encontrou infecção maxilar crônica. São quadros diferentes — um não refuta o outro.</div>
+        </div>
+        <div class="incon-arrow">▼</div>
+      </div>
+      <div class="incon-detail">
+        O laudo da exumação identificou osteomielite na região maxilar esquerda — mandíbula, não crânio. O veterinário clínico diagnosticou trauma na cabeça e olho esquerdo. São regiões anatômicas distintas.<br><br>
+        <strong>Problema técnico central:</strong> maus-tratos em tecidos moles — contusões, hematomas, hemorragias subcutâneas — não deixam rastro ósseo após esqueletização. O laudo da exumação <em>não pode refutar</em> o laudo clínico por este motivo. Apenas não o confirma.<br><br>
+        Os próprios peritos ressalvaram no documento: <strong>"a ausência de fraturas não elimina completamente a possibilidade de trauma craniano ou agressões em tecidos moles"</strong>. O MP converteu esse "não confirmado" em "descartado" — o que não é tecnicamente equivalente.
+      </div>
+    </div>
+
+    <div class="incon-item" onclick="toggleIncon(this)">
+      <div class="incon-header">
+        <div class="incon-num">02</div>
+        <div class="incon-content">
+          <div class="incon-title">30 minutos de descompasso — erro de câmera ou resultado conveniente?</div>
+          <div class="incon-sub">A prova central que colocou o adolescente no local foi derrubada por <strong>30 minutos de dessincronização</strong> entre câmeras do condomínio e sistema público.</div>
+        </div>
+        <div class="incon-arrow">▼</div>
+      </div>
+      <div class="incon-detail">
+        O "descompasso temporal" de 30 minutos nas câmeras do condomínio privado é o pivô de todo o arquivamento. Com a correção, o adolescente estava a 600 metros do cão no momento da suposta agressão.<br><br>
+        <strong>Lacuna não respondida:</strong> câmeras de condomínio de luxo com administração profissional apresentam erro de 30 minutos consistente? Quem gerenciava o sistema de câmeras? Houve peritagem independente sobre quando e como o dessincronismo ocorreu? O inquérito não responde.<br><br>
+        <em>Este ponto não é afirmação de sabotagem</em> — é registrar que a pergunta não foi feita publicamente, e que a resposta determina se a prova foi falha por negligência técnica ou por outro motivo.
+      </div>
+    </div>
+
+    <div class="incon-item" onclick="toggleIncon(this)">
+      <div class="incon-header">
+        <div class="incon-num">03</div>
+        <div class="incon-content">
+          <div class="incon-title">12 dias sem investigação — quem protegeu esse intervalo?</div>
+          <div class="incon-sub">A Polícia Civil não agiu por iniciativa própria. <strong>12 dias se passaram</strong> entre o crime e a abertura do inquérito — tempo suficiente para destruição de evidências.</div>
+        </div>
+        <div class="incon-arrow">▼</div>
+      </div>
+      <div class="incon-detail">
+        Em crimes de maus-tratos a animais, câmeras têm ciclos de gravação de 7 a 15 dias. Em 12 dias sem investigação oficial, imagens do evento em câmeras que não foram identificadas já seriam sobrescritas.<br><br>
+        <strong>O ex-delegado-geral Ulisses Gabriel</strong> está sob investigação do MP por suspeita de improbidade administrativa e vazamento de sigilosos. A investigação criminal contra ele foi suspensa pela Justiça estadual com base em foro privilegiado — ele ocupava cargo equiparado a secretário estadual.<br><br>
+        <em>Quem decide que um caso merece ou não investigação imediata</em> é estruturalmente o mesmo sistema que depois suspende as investigações sobre si próprio por foro.
+      </div>
+    </div>
+
+    <div class="incon-item" onclick="toggleIncon(this)">
+      <div class="incon-header">
+        <div class="incon-num">04</div>
+        <div class="incon-content">
+          <div class="incon-title">Juíza impedida — vínculo não especificado publicamente</div>
+          <div class="incon-sub">A magistrada original se declarou impedida por <strong>vínculo pessoal com os acusados</strong>. Qual a natureza do vínculo? Nunca foi esclarecido.</div>
+        </div>
+        <div class="incon-arrow">▼</div>
+      </div>
+      <div class="incon-detail">
+        Impedimento judicial pressupõe conexão pessoal relevante — parentesco, amizade íntima, relação comercial ou outro vínculo que comprometa a imparcialidade. A magistrada agiu corretamente ao se declarar impedida.<br><br>
+        <strong>O que não foi respondido:</strong> qual a natureza do vínculo? Com qual dos acusados? É o tipo de vínculo que existe numa cidade pequena onde elites locais se conhecem há décadas — clubes, escolas, igrejas, eventos sociais.<br><br>
+        A declaração de impedimento foi <em>formalmente correta</em>. Mas o vínculo existia antes do processo, e o fato de existir em si — independente da declaração — é o dado estruturalmente relevante.
+      </div>
+    </div>
+
+    <div class="incon-item" onclick="toggleIncon(this)">
+      <div class="incon-header">
+        <div class="incon-num">05</div>
+        <div class="incon-content">
+          <div class="incon-title">Coação de testemunha arquivada — mas o porteiro foi afastado</div>
+          <div class="incon-sub">A coação foi arquivada por "ausência de provas". O porteiro com as imagens do caso <strong>foi afastado do emprego</strong>. Os dois fatos coexistem.</div>
+        </div>
+        <div class="incon-arrow">▼</div>
+      </div>
+      <div class="incon-detail">
+        O porteiro fotografou os adolescentes, compartilhou as imagens no grupo de WhatsApp do condomínio, e foi a principal testemunha material do caso. Depois: foi afastado do emprego pela síndica, que justificou o afastamento porque os adolescentes "pertenciam a famílias poderosas e importantes do estado catarinense".<br><br>
+        O inquérito de coação identificou ameaças, ouviu 22 testemunhas, indiciou dois empresários e um advogado. Depois foi arquivado pelo MP por "ausência de provas suficientes".<br><br>
+        <em>O resultado funcional:</em> a principal testemunha material foi removida do local antes de o inquérito principal ser concluído. Isso é documentado. O mecanismo pelo qual isso ocorreu foi arquivado.
+      </div>
+    </div>
+
+    <div class="incon-item" onclick="toggleIncon(this)">
+      <div class="incon-header">
+        <div class="incon-num">06</div>
+        <div class="incon-content">
+          <div class="incon-title">Causa da morte — oficialmente indeterminada</div>
+          <div class="incon-sub">A exumação <strong>não conseguiu determinar a causa da morte</strong>. O animal morreu de "doença preexistente" é conclusão do MP — não é o que o laudo técnico diz.</div>
+        </div>
+        <div class="incon-arrow">▼</div>
+      </div>
+      <div class="incon-detail">
+        O laudo da Polícia Científica é explícito: não foi possível determinar de forma conclusiva a causa da morte. A ausência de fraturas foi registrada — mas com a ressalva de que traumas em tecidos moles não deixam marca óssea.<br><br>
+        <strong>O MP afirmou, no comunicado público:</strong> "a morte está associada a uma condição grave e preexistente". Essa formulação vai além do que o laudo técnico sustenta. O laudo diz "inconclusivo". O MP traduziu para "causa natural".<br><br>
+        <em>Essa tradução</em> — de "inconclusivo" para "natural" — é o momento em que a incerteza técnica real é convertida em narrativa de encerramento. É juridicamente sustentável. É tecnicamente imprecisa.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PADRÕES SISTÊMICOS ── -->
+  <div id="sec-padroes" class="topic-panel">
+    <div class="section-label">Padrões Sistêmicos Identificados</div>
+
+    <div class="bq">
+      <div class="bq-text">"O nó decisório já estava ocupado antes do crime acontecer. Ninguém precisou fazer uma reunião."</div>
+      <div class="bq-source">— Análise estrutural do caso, maio 2026</div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P3 — CAPTURA DE NÓ DECISÓRIO</div>
+      <div class="padrao-nome">Captura como Condição Ambiental</div>
+      <div class="padrao-desc">
+        Captura não exige coordenação ativa. Exige apenas que as pessoas nos pontos críticos de decisão já estejam, antes do evento, inseridas nas redes sociais das famílias com poder econômico. A juíza com vínculo pessoal. O delegado-geral com foro no mesmo tribunal. O MP que opera numa cidade onde todos se conhecem.
+      </div>
+      <div class="padrao-evidencias">
+        <div class="padrao-ev-label">Evidências no Caso</div>
+        <div class="padrao-ev-item"><strong>Juíza original com vínculo declarado</strong> — substituída, mas vínculo existia antes do processo</div>
+        <div class="padrao-ev-item"><strong>Delegado-geral investigado</strong> — protegido por foro no mesmo TJ-SC com possível vínculo às famílias</div>
+        <div class="padrao-ev-item"><strong>12 dias sem investigação</strong> — intervalo suficiente para destruição de evidências voláteis</div>
+        <div class="padrao-ev-item"><strong>Liminares contra Meta/TikTok em 24h</strong> — acesso ao judiciário que a maioria não possui</div>
+      </div>
+      <div class="padrao-status">
+        <strong>Status:</strong> Este padrão foi confirmado em Castelo de Areia, Satiagraha, Lava Jato e Compliance Zero no nível federal. O caso Orelha representa sua aplicação no nível municipal — com a mesma arquitetura funcional, escala reduzida.
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P8 — NEUTRALIZAÇÃO DE TESTEMUNHO</div>
+      <div class="padrao-nome">Remoção da Testemunha Material</div>
+      <div class="padrao-desc">
+        O porteiro possuía as imagens. Foi afastado do emprego antes da conclusão do inquérito. O inquérito de coação foi arquivado. O resultado funcional — remoção da testemunha material — foi alcançado independentemente de como se caracterize juridicamente o processo.
+      </div>
+      <div class="padrao-evidencias">
+        <div class="padrao-ev-label">Sequência Documentada</div>
+        <div class="padrao-ev-item"><strong>Porteiro fotografa adolescentes</strong> e compartilha imagens — torna-se testemunha central</div>
+        <div class="padrao-ev-item"><strong>Síndica afasta o porteiro</strong> — justificativa declarada: famílias são "poderosas e importantes"</div>
+        <div class="padrao-ev-item"><strong>Adultos indiciados por coação</strong> — dois empresários e advogado das famílias</div>
+        <div class="padrao-ev-item"><strong>Inquérito de coação arquivado</strong> — "ausência de provas suficientes"</div>
+        <div class="padrao-ev-item"><strong>Resultado:</strong> testemunha material removida antes da conclusão do processo principal</div>
+      </div>
+      <div class="padrao-status">
+        <strong>Nota metodológica:</strong> O arquivamento da coação não prova que a coação não ocorreu. Prova que não houve provas suficientes para responsabilização formal. São afirmações distintas.
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">P3-MUNICIPAL — IRRECUPERABILIDADE FABRICADA</div>
+      <div class="padrao-nome">Verdade Tornada Inacessível por Design Institucional</div>
+      <div class="padrao-desc">
+        Irrecuperabilidade não exige destruição ativa de provas. Basta o acúmulo de condições que tornam a verdade tecnicamente inverificável: cadáver esqueletizado antes da exumação, câmeras com dados sobrescritos pelo intervalo de 12 dias, testemunha principal removida, nó decisório com vínculo prévio.
+      </div>
+      <div class="padrao-evidencias">
+        <div class="padrao-ev-label">Mecanismos de Irrecuperabilidade</div>
+        <div class="padrao-ev-item"><strong>Temporal:</strong> 12 dias sem investigação → imagens de câmeras não identificadas sobrescritas</div>
+        <div class="padrao-ev-item"><strong>Forense:</strong> exumação meses depois → cadáver esqueletizado → tecidos moles inexistentes → laudo inconclusivo</div>
+        <div class="padrao-ev-item"><strong>Testemunhal:</strong> porteiro afastado → testemunho central fragilizado</div>
+        <div class="padrao-ev-item"><strong>Jurisdicional:</strong> delegado protegido por foro → investigação suspensa no mesmo sistema com vínculo</div>
+      </div>
+      <div class="padrao-status">
+        <strong>Conclusão estrutural:</strong> Nenhum desses mecanismos exigiu ação coordenada maliciosa. Cada um tem explicação individual plausível. A convergência de todos, produzindo o mesmo resultado, é o dado analiticamente relevante.
+      </div>
+    </div>
+
+    <div class="padrao-card">
+      <div class="padrao-id">ASSIMETRIA DE CLASSE — RECURSO PROCESSUAL</div>
+      <div class="padrao-nome">O que Capital Compra num Processo Judicial</div>
+      <div class="padrao-desc">
+        A assimetria documentada neste caso não é ideológica — é de classe. As ferramentas utilizadas são estruturalmente inacessíveis para famílias sem capital econômico e social equivalente.
+      </div>
+      <div class="padrao-evidencias">
+        <div class="padrao-ev-label">Recursos Mobilizados pelas Famílias</div>
+        <div class="padrao-ev-item"><strong>Advogado de ponta</strong> — incluído entre os adultos indiciados, o que indica acesso imediato a assessoria jurídica qualificada</div>
+        <div class="padrao-ev-item"><strong>Liminar em 24h</strong> contra Meta e TikTok — custo, velocidade e acesso judicial excepcionais</div>
+        <div class="padrao-ev-item"><strong>Internação do adolescente bloqueada</strong> — recursos jurídicos que famílias comuns não acessam com a mesma velocidade</div>
+        <div class="padrao-ev-item"><strong>Adolescente no aeroporto</strong> ao retornar dos EUA — família com mobilidade internacional durante investigação ativa</div>
+        <div class="padrao-ev-item"><strong>Síndica remove testemunha</strong> — capital social que produz resultados sem necessidade de ato formal</div>
+      </div>
+      <div class="padrao-status">
+        <strong>Nota:</strong> Este padrão opera independentemente de orientação política das famílias. Funciona da mesma forma para elites de qualquer campo — o vetor é classe, não facção.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── ANÁLISE DE RISCO ── -->
+  <div id="sec-risco" class="topic-panel">
+    <div class="section-label">Matriz de Plausibilidade — Hipóteses Investigativas</div>
+
+    <div class="bq">
+      <div class="bq-text">"A constatação é mais perturbadora que a conspiração — porque não tem solução penal. Não tem réu. Não tem sentença que resolva."</div>
+      <div class="bq-source">— Análise estrutural, mai 2026</div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-label">Avaliação de Plausibilidade por Hipótese</div>
+      <div style="margin-top:14px;">
+
+        <div class="plab-bar">
+          <div class="plab-label">
+            <strong>Influência econômica informal na condução do caso</strong>
+            <span>Alta</span>
+          </div>
+          <div class="plab-track"><div class="plab-fill red" style="width:85%"></div></div>
+          <div class="plab-note">Sustentado por: juíza com vínculo, delegado com foro, síndica remove porteiro, liminares obtidas em 24h, 12 dias sem investigação. Documentado. Não exige coordenação.</div>
+        </div>
+
+        <div class="plab-bar">
+          <div class="plab-label">
+            <strong>Depoimentos construídos sobre "ouvir dizer" e redes sociais</strong>
+            <span>Alta</span>
+          </div>
+          <div class="plab-track"><div class="plab-fill red" style="width:80%"></div></div>
+          <div class="plab-note">O próprio MP confirmou: expressões "ouvi dizer" e "vi nas redes sociais" aparecem com frequência nos depoimentos. Pode ser precipitação investigativa genuína OU fabricação dirigida. Ambas produzem o mesmo resultado.</div>
+        </div>
+
+        <div class="plab-bar">
+          <div class="plab-label">
+            <strong>Laudo de exumação produzido para ser inconclusivo</strong>
+            <span>Média</span>
+          </div>
+          <div class="plab-track"><div class="plab-fill amber" style="width:50%"></div></div>
+          <div class="plab-note">Cadáver esqueletizado legitimamente não permite diagnóstico de trauma em tecidos moles. O laudo "inconclusivo" pode ser tecnicamente correto. Ou pode ter sido conduzido com esse resultado em mente. Não verificável.</div>
+        </div>
+
+        <div class="plab-bar">
+          <div class="plab-label">
+            <strong>Coação ativa e coordenada de testemunhas</strong>
+            <span>Média</span>
+          </div>
+          <div class="plab-track"><div class="plab-fill amber" style="width:45%"></div></div>
+          <div class="plab-note">Há indícios documentados (porteiro afastado, adultos indiciados). Mas a coação foi arquivada. O resultado funcional existe. A prova formal foi insuficiente para responsabilização.</div>
+        </div>
+
+        <div class="plab-bar">
+          <div class="plab-label">
+            <strong>Conluio formalizado entre veterinário, delegado e juiz</strong>
+            <span>Baixa</span>
+          </div>
+          <div class="plab-track"><div class="plab-fill blue" style="width:20%"></div></div>
+          <div class="plab-note">Não há evidência documental de coordenação ativa entre essas partes. A confluência de resultados favoráveis às famílias pode ser produzida por captura ambiental sem necessidade de conluio explícito.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:28px;">Lacunas Investigativas Abertas</div>
+
+    <div class="matrix-table" style="overflow-x:auto;">
+      <table class="matrix-table" style="min-width:600px;">
+        <thead>
+          <tr>
+            <th>Lacuna</th>
+            <th>Por que importa</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Natureza do vínculo da juíza</strong> com os acusados</td>
+            <td>Determina se é coincidência ou padrão de rede social entre elites</td>
+            <td><span class="nivel nivel-aberto">Não respondido</span></td>
+          </tr>
+          <tr>
+            <td><strong>Causa do dessincronismo de 30 min</strong> nas câmeras do condomínio</td>
+            <td>Distingue erro técnico de adulteração de prova</td>
+            <td><span class="nivel nivel-aberto">Não respondido</span></td>
+          </tr>
+          <tr>
+            <td><strong>Câmeras não inventariadas</strong> no intervalo de 12 dias</td>
+            <td>Imagens de câmeras não identificadas podem ter sido sobrescritas</td>
+            <td><span class="nivel nivel-alto">Irrecuperável</span></td>
+          </tr>
+          <tr>
+            <td><strong>Investigação criminal do delegado-geral</strong> Ulisses Gabriel</td>
+            <td>Suspensa por foro — TJ-SC não abriu processo</td>
+            <td><span class="nivel nivel-alto">Suspensa</span></td>
+          </tr>
+          <tr>
+            <td><strong>Identidade das famílias</strong> e conexões institucionais</td>
+            <td>Mapeamento de redes permitiria verificar captura ambiental</td>
+            <td><span class="nivel nivel-medio">Parcial</span></td>
+          </tr>
+          <tr>
+            <td><strong>Petição CIDH</strong> — resultado e prazo</td>
+            <td>Única instância com capacidade de revisão independente restante</td>
+            <td><span class="nivel nivel-aberto">Em curso</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ── VAI ACONTECER NOVAMENTE ── -->
+  <div id="sec-prospectiva" class="topic-panel">
+    <div class="section-label">Análise Prospectiva — Condições de Recorrência</div>
+
+    <div class="alert-card">
+      <div class="alert-card-label">⚠ Alerta Estrutural</div>
+      <div class="alert-card-title">Vai Acontecer Novamente — As Condições Não Foram Alteradas</div>
+      <div class="alert-card-body">
+        O caso Orelha não é uma anomalia. É uma demonstração de funcionamento regular. Enquanto as condições estruturais que produziram este resultado permanecerem intactas, <strong>qualquer evento semelhante com as mesmas assimetrias de classe</strong> produzirá o mesmo desfecho. A variável não é a crueldade do crime. É o capital econômico e social das famílias envolvidas.
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card red">
+        <div class="card-label">Condição 1 — Não Alterada</div>
+        <div class="card-title">Elites locais com acesso privilegiado ao judiciário</div>
+        <div class="card-body">
+          <p>A rede social entre famílias com poder econômico, magistrados, delegados e síndicos em cidades pequenas não foi mapeada, auditada ou interrompida por este caso.</p>
+          <p>A juíza com vínculo foi substituída. O vínculo como padrão sistêmico permanece.</p>
+        </div>
+      </div>
+      <div class="card amber">
+        <div class="card-label">Condição 2 — Não Alterada</div>
+        <div class="card-title">Investigação que aguarda pressão pública para existir</div>
+        <div class="card-body">
+          <p>A Polícia Civil levou 12 dias para abrir inquérito — apenas após comoção nas redes. O próximo caso semelhante que não viralizar não terá inquérito nenhum.</p>
+          <p>Proteção depende de atenção midiática. Atenção midiática é volátil por design.</p>
+        </div>
+      </div>
+      <div class="card orange">
+        <div class="card-label">Condição 3 — Não Alterada</div>
+        <div class="card-title">Foro privilegiado como escudo de investigados</div>
+        <div class="card-body">
+          <p>O delegado-geral que pode ter conduzido investigação tendenciosa está protegido pelo mesmo tribunal que teria vínculo com as famílias.</p>
+          <p>A lógica circular de foro-dentro-de-foro permanece intacta.</p>
+        </div>
+      </div>
+      <div class="card purple">
+        <div class="card-label">Condição 4 — Não Alterada</div>
+        <div class="card-title">Ausência de cadeia de custódia para evidências voláteis</div>
+        <div class="card-body">
+          <p>Câmeras de segurança sobrescrevem em 7–15 dias. Sem investigação imediata, qualquer evidência não inventariada nesse intervalo é irrecuperável.</p>
+          <p>A lei não obriga preservação preventiva em crimes contra animais.</p>
+        </div>
+      </div>
+      <div class="card blue">
+        <div class="card-label">Condição 5 — Não Alterada</div>
+        <div class="card-title">Redes sociais como única pressão funcional</div>
+        <div class="card-body">
+          <p>A investigação só existiu porque o caso viralizou. A próxima vítima — animal ou pessoa sem poder — que não produza engajamento suficiente não terá nem esse recurso.</p>
+          <p>Justiça mediada por algoritmo não é justiça.</p>
+        </div>
+      </div>
+      <div class="card green">
+        <div class="card-label">Única Variável Que Mudou</div>
+        <div class="card-title">Decreto Federal — R$1.500 a R$50.000</div>
+        <div class="card-body">
+          <p>O governo federal lançou decreto com multas para maus-tratos a animais. Para famílias com poder econômico das investigadas: multa de R$50.000 é custo de processo — não desincentivo.</p>
+          <p>Sem enforcement independente do judiciário local, a norma é simbólica.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="section-label">O Próximo Caso — Perfil de Risco</div>
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-body">
+        <p>O próximo caso com este perfil de risco terá: <strong>vítima sem voz própria</strong> (animal, criança, trabalhador informal), <strong>suspeitos com capital econômico suficiente</strong> para mobilizar advogados em 24h, <strong>jurisdição estadual</strong> onde as redes sociais entre elites e judiciário são densas, e <strong>evidências físicas voláteis</strong> que requerem ação imediata para preservação.</p>
+        <p style="margin-top:10px;">Em Santa Catarina, nas cidades litorâneas com condomínios de veraneio de famílias do interior e do Planalto, essas condições se repetem sazonalmente. O caso Orelha não é exceção. É a norma documentada.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── TESE CENTRAL ── -->
+  <div id="sec-tese" class="topic-panel">
+    <div class="section-label">Tese Central — Análise Estrutural</div>
+
+    <div class="bq">
+      <div class="bq-text">"Teoria da conspiração exige coordenação secreta, intenção provada, vilões identificados. O que este caso demonstra não precisa de nada disso."</div>
+      <div class="bq-source">— Dossiê Cão Orelha, 2026</div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px; padding:28px;">
+      <div class="card-label">Tese</div>
+      <div class="card-title" style="font-size:18px; margin-bottom:16px;">Captura Não Como Evento — Como Condição Ambiental</div>
+      <div class="card-body" style="font-family: var(--font-serif); font-size: 15px; line-height: 1.8; color: var(--fg);">
+        <p>Não precisa que o veterinário da exumação tenha sido subornado. Basta que ele tenha feito um laudo tecnicamente defensável num cadáver esqueletizado — o que é mais fácil de produzir quando o resultado esperado já é "inconclusivo".</p>
+        <p>Não precisa que o MP tenha sido comprado. Basta que promotores numa cidade pequena saibam quem são aquelas famílias, quem frequenta os mesmos clubes, quem indica cargos, quem financia campanhas.</p>
+        <p>Não precisa que a juíza tenha agido de má-fé. Ela se declarou impedida — o que é formalmente correto. Mas o vínculo existia antes do processo, e ninguém perguntou como.</p>
+        <p>Não precisa de conspiração. Precisa apenas que o sistema funcione normalmente — e que "normalmente" signifique uma coisa para famílias do Condomínio Água Marinha e outra coisa para todo o resto.</p>
+        <p>O nó decisório já estava ocupado antes do crime acontecer. Ninguém precisou fazer uma reunião.</p>
+        <p>A constatação é mais perturbadora que a conspiração — porque não tem solução penal. Não tem réu. Não tem sentença que resolva. É o funcionamento regular de um sistema desenhado, ao longo de décadas, para produzir exatamente esse resultado.</p>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="section-label">Distinção Metodológica Essencial</div>
+    <div class="grid-2">
+      <div class="card green">
+        <div class="card-label">O que é Documentado</div>
+        <div class="card-title">Fatos com Fonte Primária</div>
+        <div class="card-body">
+          <p>— Juíza com vínculo pessoal declarado</p>
+          <p>— Delegado-geral sob investigação, protegido por foro</p>
+          <p>— Porteiro afastado após fotografar suspeitos</p>
+          <p>— 12 dias sem investigação policial</p>
+          <p>— Laudo de exumação inconclusivo (não "causa natural")</p>
+          <p>— Famílias descritas como "poderosas e importantes" pela própria síndica</p>
+          <p>— Petição ativa na Comissão Interamericana</p>
+        </div>
+      </div>
+      <div class="card amber">
+        <div class="card-label">O que é Inferência Estrutural</div>
+        <div class="card-title">Análise Baseada em Padrão — Não Afirmação de Fato</div>
+        <div class="card-body">
+          <p>— Que o dessincronismo de câmeras foi intencional</p>
+          <p>— Que o laudo de exumação foi produzido para ser inconclusivo</p>
+          <p>— Que houve coordenação explícita entre as partes</p>
+          <p>— Que a morte foi causada por maus-tratos (verdade irrecuperável)</p>
+          <p>— Que a morte foi causada por doença (verdade irrecuperável)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="section-label">Fontes e Licenciamento</div>
+    <div class="card-body" style="font-size:11px; color:var(--fg3); line-height:1.8;">
+      <p>Fontes primárias: MP-SC (parecer 170pp, mai/2026) · Polícia Científica de SC (laudo de exumação) · Vara da Infância e Juventude de Florianópolis · Metrópoles · NSC Total · ND Mais · Gazeta do Povo · Rádio Itatiaia · Portal Leo Dias · Informe Blumenau · SCemPauta · Jornal GGN · Wikipedia (Caso Orelha)</p>
+      <p style="margin-top:8px;">Este documento é parte do projeto <strong>lawfare-timeline</strong> — arquivo forense independente de padrões sistêmicos de captura institucional no Brasil. Publicado sob <strong>CC0 1.0 Domínio Público</strong>. Reprodução livre sem restrições.</p>
+      <p style="margin-top:8px;">gosurf.site · Atualizado: mai 2026</p>
+    </div>
+
+  </div>
+
+</main>
+
+  <div class="article-ai-tools">
+    <span class="article-ai-tools-label">Cópia / IA</span>
+    <button type="button" class="btn-copy-ai" id="copy-article-ai" title="Copia o texto completo do dossiê (equivalente a selecionar o corpo do artigo)">Copiar texto do dossiê</button>
+    <button type="button" class="btn-copy-ai" id="copy-page-url" title="Copiar URL canônica desta página">Copiar link</button>
+    <button type="button" class="btn-copy-ai" id="share-native" title="Abrir compartilhamento do sistema" hidden>Compartilhar…</button>
+  </div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Dossiê: Caso Cão Orelha · Florianópolis SC · Jan–Mai 2026</span>
+  <span>lawfare-timeline · CC0 1.0 · gosurf.site</span>
+  <span>P3 · P8 · Captura por Classe · Irrecuperabilidade Fabricada</span>
+</div>
+
+<button type="button" id="gotop" class="gotop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+function toggleIncon(el) {
+  el.classList.toggle('open');
+}
+
+function animateBars() {
+  document.querySelectorAll('.plab-fill').forEach(function (bar) {
+    var w = bar.style.width;
+    bar.style.width = '0%';
+    setTimeout(function () { bar.style.width = w; }, 100);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  animateBars();
+});
+
+(function () {
+  var nav = document.querySelector('nav.doc-nav');
+  if (!nav) return;
+  var sections = document.querySelectorAll('.topic-panel[id^="sec-"]');
+  var links = nav.querySelectorAll('a.nav-tab');
+  if (!sections.length || !links.length) return;
+
+  function navOffset() {
+    return nav.getBoundingClientRect().height + 8;
+  }
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if (on) {
+        a.setAttribute('aria-current', 'page');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function syncFromScroll() {
+    var yCut = navOffset();
+    var activeId = sections[0].id;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= yCut) activeId = sections[i].id;
+    }
+    setActive(activeId);
+  }
+
+  window.addEventListener('scroll', syncFromScroll, { passive: true });
+  window.addEventListener('resize', syncFromScroll, { passive: true });
+  syncFromScroll();
+
+  if (location.hash && document.querySelector(location.hash)) {
+    requestAnimationFrame(syncFromScroll);
+  }
+
+  window.addEventListener('hashchange', function () {
+    requestAnimationFrame(syncFromScroll);
+  });
+
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var href = a.getAttribute('href');
+      if (!href || href.indexOf('#') !== 0) return;
+      var el = document.querySelector(href);
+      if (!el) return;
+      e.preventDefault();
+      var top = el.getBoundingClientRect().top + window.scrollY - navOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+      setActive(el.id);
+    });
+  });
+})();
+
+(function () {
+  var btn = document.getElementById('gotop');
+  if (!btn) return;
+  function toggle() {
+    if (window.scrollY > 280) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+(function () {
+  var copyBtn = document.getElementById('copy-article-ai');
+  if (!copyBtn) return;
+  copyBtn.addEventListener('click', function () {
+    var main = document.getElementById('article-main');
+    if (!main) return;
+    var t = main.innerText.replace(/\n{3,}/g, '\n\n').trim();
+    navigator.clipboard.writeText(t).then(function () {
+      var o = copyBtn.textContent;
+      copyBtn.textContent = 'Copiado.';
+      setTimeout(function () { copyBtn.textContent = o; }, 2000);
+    }).catch(function () {
+      window.alert('Não foi possível copiar automaticamente. Use Ctrl+A no texto do artigo e depois Ctrl+C.');
+    });
+  });
+})();
+
+(function () {
+  var urlBtn = document.getElementById('copy-page-url');
+  if (!urlBtn) return;
+  urlBtn.addEventListener('click', function () {
+    var url = (document.querySelector('link[rel="canonical"]') || {}).href || window.location.href;
+    navigator.clipboard.writeText(url).then(function () {
+      var o = urlBtn.textContent;
+      urlBtn.textContent = 'Link copiado.';
+      setTimeout(function () { urlBtn.textContent = o; }, 2000);
+    }).catch(function () {
+      window.prompt('Copie o link:', url);
+    });
+  });
+})();
+
+(function () {
+  var shareBtn = document.getElementById('share-native');
+  if (!shareBtn || !navigator.share) return;
+  shareBtn.hidden = false;
+  shareBtn.addEventListener('click', function () {
+    var url = (document.querySelector('link[rel="canonical"]') || {}).href || window.location.href;
+    navigator.share({ title: document.title, url: url, text: document.title }).catch(function () {});
+  });
+})();
+
+const observer = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.tl-item, .padrao-card, .card').forEach(function (el) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(10px)';
+  el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+  observer.observe(el);
+});
+</script>
+
+<script src="https://gosurf.site/share-bar.js"></script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

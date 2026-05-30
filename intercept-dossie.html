@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossiê — The Intercept: Controlled Opposition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111113;
+    --bg3: #18181b;
+    --border: rgba(255,255,255,0.07);
+    --border-mid: rgba(255,255,255,0.12);
+    --fg: #e8e6e0;
+    --fg2: #9e9b94;
+    --fg3: #5c5a55;
+    --accent: #c8a96e;
+    --accent2: #8b6f3e;
+    --red: #c0392b;
+    --red-soft: rgba(192,57,43,0.15);
+    --red-border: rgba(192,57,43,0.3);
+    --green: #1d9e75;
+    --green-soft: rgba(29,158,117,0.12);
+    --green-border: rgba(29,158,117,0.3);
+    --amber: #c8a96e;
+    --amber-soft: rgba(200,169,110,0.1);
+    --amber-border: rgba(200,169,110,0.25);
+    --purple-soft: rgba(127,119,221,0.1);
+    --purple-border: rgba(127,119,221,0.25);
+    --purple: #7f77dd;
+    --nav-h: 56px;
+    --r: 6px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(10,10,11,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 0;
+  }
+
+  .nav-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-right: 32px;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+  }
+
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--fg3);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: var(--r);
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links a:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
+  .nav-links a.active { color: var(--accent); background: var(--amber-soft); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: calc(var(--nav-h) + 48px) 32px 120px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+
+  .hero-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 900;
+    line-height: 1.08;
+    color: #f0ede6;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .meta-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--fg3);
+    border: 1px solid var(--border-mid);
+    border-radius: 4px;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 80px;
+    scroll-margin-top: calc(var(--nav-h) + 24px);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #f0ede6;
+    line-height: 1.2;
+  }
+
+  p { color: var(--fg2); margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--fg); font-weight: 600; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .badge-red { background: var(--red-soft); color: #e57373; border: 1px solid var(--red-border); }
+  .badge-green { background: var(--green-soft); color: #4db896; border: 1px solid var(--green-border); }
+  .badge-amber { background: var(--amber-soft); color: var(--accent); border: 1px solid var(--amber-border); }
+  .badge-purple { background: var(--purple-soft); color: #a09ae6; border: 1px solid var(--purple-border); }
+  .badge-gray { background: rgba(255,255,255,0.05); color: var(--fg3); border: 1px solid var(--border-mid); }
+
+  .card p { margin-bottom: 0; font-size: 14px; }
+
+  /* ── ALERT BOX ── */
+  .alert {
+    border-left: 3px solid;
+    border-radius: 0 var(--r) var(--r) 0;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+
+  .alert-red { border-color: var(--red); background: var(--red-soft); }
+  .alert-amber { border-color: var(--amber); background: var(--amber-soft); }
+  .alert-green { border-color: var(--green); background: var(--green-soft); }
+  .alert-purple { border-color: var(--purple); background: var(--purple-soft); }
+
+  .alert-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .alert-red .alert-title { color: #e57373; }
+  .alert-amber .alert-title { color: var(--accent); }
+  .alert-green .alert-title { color: #4db896; }
+  .alert-purple .alert-title { color: #a09ae6; }
+  .alert p { font-size: 14px; margin-bottom: 0; }
+
+  /* ── KPI GRID ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .kpi-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .kpi-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+    color: var(--fg3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ACTOR GRID ── */
+  .actor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .actor-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px;
+  }
+
+  .actor-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+
+  .actor-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .actor-desc {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* ── CASE BLOCK ── */
+  .case-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .case-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .case-flag { font-size: 20px; }
+
+  .case-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  .case-body { padding: 20px; }
+  .case-body p { font-size: 14px; margin-bottom: 10px; }
+
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .timeline-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    white-space: nowrap;
+    padding-top: 2px;
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .timeline-text {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.55;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+
+  .compare-table th {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-mid);
+    text-align: left;
+  }
+
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg2);
+    vertical-align: top;
+  }
+
+  .compare-table td:first-child {
+    color: var(--fg);
+    font-weight: 500;
+    width: 28%;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  /* ── REFS ── */
+  .ref-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ref-list li {
+    font-size: 13px;
+    color: var(--fg2);
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    display: flex;
+    gap: 12px;
+  }
+
+  .ref-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  /* ── STRATEGY STEPS ── */
+  .strategy-steps {
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .strategy-step {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px 20px 20px 24px;
+    position: relative;
+  }
+
+  .strategy-step::before {
+    counter-increment: step;
+    content: "0" counter(step);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+
+  .step-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 6px;
+    padding-left: 28px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.6;
+    padding-left: 28px;
+    margin-bottom: 0;
+  }
+
+  /* ── CONCLUSÃO HIGHLIGHT ── */
+  .conclusion-box {
+    background: var(--bg3);
+    border: 1px solid var(--amber-border);
+    border-radius: var(--r);
+    padding: 32px;
+    margin-top: 32px;
+  }
+
+  .conclusion-box .pull-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+  }
+
+  /* ── PLAYBOOK ── */
+  .playbook {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .playbook-cell {
+    background: var(--bg2);
+    padding: 16px 18px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .playbook-cell:nth-child(2n) { border-right: none; }
+  .playbook-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+  .playbook-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--fg3);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .playbook-value {
+    font-size: 13px;
+    color: var(--fg2);
+    line-height: 1.5;
+  }
+
+  /* ── DIVIDER ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  /* ── GO TO TOP ── */
+  #gtt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 40px;
+    height: 40px;
+    background: var(--bg3);
+    border: 1px solid var(--border-mid);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s, background 0.2s;
+    z-index: 200;
+  }
+
+  #gtt.visible { opacity: 1; transform: translateY(0); }
+  #gtt:hover { background: var(--bg2); border-color: var(--accent); }
+
+  #gtt svg { stroke: var(--fg3); transition: stroke 0.2s; }
+  #gtt:hover svg { stroke: var(--accent); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    main { padding-left: 20px; padding-right: 20px; }
+    nav { padding: 0 16px; }
+    .nav-brand { display: none; }
+    .playbook { grid-template-columns: 1fr; }
+    .playbook-cell { border-right: none; }
+    .actor-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-brand">INQ // Dossiê</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#resumo">Resumo</a>
+    <a href="#mecanismo">Mecanismo</a>
+    <a href="#alertas">Alertas</a>
+    <a href="#cases">Cases</a>
+    <a href="#atores">Atores</a>
+    <a href="#kpis">KPIs</a>
+    <a href="#estrategia">Estratégia</a>
+    <a href="#referencias">Referências</a>
+    <a href="#conclusao">Conclusão</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero" id="resumo">
+    <div class="hero-label">Dossiê analítico // Classified open-source</div>
+    <h1>The Intercept<br>como <em>Controlled Opposition</em></h1>
+    <p style="color:var(--fg2); font-size:16px; max-width:620px; margin-top: 20px;">
+      Análise estrutural do padrão de financiamento, curadoria editorial e seletividade sistemática do The Intercept — com foco nos casos Ucrânia (2014) e Brasil (2019–2022) — e suas implicações para soberania informacional.
+    </p>
+    <div class="hero-meta">
+      <span class="meta-pill">Brasil · Ucrânia</span>
+      <span class="meta-pill">2014 – 2026</span>
+      <span class="meta-pill">Geopolítica · Mídia · Lawfare</span>
+      <span class="meta-pill">Nível: estratégico</span>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <div class="alert alert-amber">
+        <div class="alert-title">Resumo executivo</div>
+        <p>O The Intercept opera como veículo de <strong>controlled opposition</strong>: revela verdades reais e seletivas (credibilidade), oculta sistematicamente o que compromete seus financiadores e beneficiários (controle), e produz resultados geopolíticos alinhados ao establishment progressista americano — destruição da Lava Jato, eleição de Lula, pivô da Ucrânia para a NATO — enquanto nunca investigou o lawfare do STF, a parceria USAID-TSE de 2021 ou a interferência estrangeira documentada nas eleições de 2022.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MECANISMO -->
+  <section id="mecanismo">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>O mecanismo do limited hangout</h2>
+    </div>
+
+    <p>O termo <strong>limited hangout</strong> é de vocabulário de inteligência americana: liberar uma quantidade controlada de informação verdadeira e comprometedora para satisfazer a demanda pública por transparência, protegendo o núcleo do que realmente não pode ser revelado. O mecanismo tem cinco estágios:</p>
+
+    <div class="strategy-steps" style="margin: 24px 0;">
+      <div class="strategy-step">
+        <div class="step-title">Financiamento capturado desde a origem</div>
+        <p class="step-desc">Omidyar (eBay), USAID, NED e Open Society co-financiam o veículo e as operações que ele supostamente fiscaliza. A independência declarada coexiste com dependência estrutural ao mesmo ecossistema de poder.</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Credibilidade como matéria-prima estratégica</div>
+        <p class="step-desc">Revelações reais e relevantes — NSA/Snowden, Moro-Dallagnol — constroem o capital de credibilidade que torna as omissões subsequentes aceitáveis como "escolhas editoriais legítimas."</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Curadoria com agenda não declarada</div>
+        <p class="step-desc">Do arquivo total de 7 TB (caso Spoofing), apenas 0,5% foi publicado. Alguém decidiu o que entrava nos 99,5% restantes. Essa decisão é a operação — não o que foi publicado.</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Seletividade como política editorial sistemática</div>
+        <p class="step-desc">O padrão de omissões não é aleatório. Nunca investigou: parceria USAID-TSE 2021, lawfare do STF, interferência estrangeira em 2022, o que o próprio Intercept protegeu ao publicar apenas 0,5% do material Delgatti.</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Beneficiários finais sempre do mesmo lado</div>
+        <p class="step-desc">Ucrânia: queda de Yanukovych, pivô NATO. Brasil: destruição da Lava Jato, Lula eleito, STF fortalecido. O veículo "anti-establishment" produz resultados sistematicamente alinhados ao establishment democrata americano.</p>
+      </div>
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-title">Prova documental mais forte</div>
+      <p>O próprio editor do Intercept Brasil confirmou que o arquivo Spoofing tem 7 terabytes — o da Vaza Jato corresponde a <strong>0,5% disso</strong>. O limited hangout é confessado nas métricas do próprio veículo.</p>
+    </div>
+  </section>
+
+  <!-- ALERTAS -->
+  <section id="alertas">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Alertas e sinais de risco</h2>
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-title">Alerta crítico — duplo padrão editorial documentado</div>
+      <p>Em 2024, quando a Folha revelou que Moraes pedia informações extraoficiais ao TSE para embasar decisões — padrão estruturalmente idêntico ao que derrubou Moro — o Intercept publicou artigo defendendo Moraes: <em>"Os casos são completamente diferentes."</em> A inversão de critério é a prova mais objetiva do padrão duplo.</p>
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-title">Alerta crítico — silêncio sobre USAID-TSE</div>
+      <p>Em 2021, USAID e TSE co-produziram um "Guia de Combate à Desinformação" usado como base para ordens de remoção de conteúdo eleitoral, com participação documentada de Barroso em evento promovido pela USAID. O Intercept nunca tocou no tema — em nenhuma linha.</p>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-title">Alerta — filtro político do material Delgatti</div>
+      <p>Delgatti ofereceu o material vazado primeiro à deputada Manuela D'Ávila (PCdoB). Após recusa, repassou ao Intercept. O material passou por triagem política antes de chegar ao veículo. Quem o convenceu a filtrar e entregar especificamente ao Intercept permanece sem resposta pública.</p>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-title">Alerta — armazenamento externo não identificado</div>
+      <p>Delgatti afirmou em nota que o conjunto das mensagens extraídas "era armazenado por terceiros no exterior." Por quem? Em qual país? Com qual finalidade? Perguntas nunca respondidas — e nunca feitas pelo Intercept.</p>
+    </div>
+
+    <div class="alert alert-purple">
+      <div class="alert-title">Atenção — separação formal de 2022 não muda DNA editorial</div>
+      <p>O Intercept Brasil tornou-se organização independente em outubro de 2022. Independência de financiamento não implica independência editorial quando cultura, quadro jornalístico e identidade política foram formados sob a estrutura Omidyar. A linha editorial pós-separação é idêntica à anterior.</p>
+    </div>
+
+    <div class="alert alert-green">
+      <div class="alert-title">Nota epistêmica — o que é documentado vs. inferido</div>
+      <p><strong>Documentado:</strong> co-financiamento Omidyar-USAID-NED na Ucrânia (registros públicos); parceria USAID-TSE 2021 (site do TSE); 0,5% do arquivo publicado (editor do Intercept); material filtrado politicamente antes de chegar ao Greenwald (CNN Brasil).<br><strong>Hipótese de trabalho:</strong> supressão deliberada e coordenada. Pode resultar de viés ideológico genuíno — e não de instrução explícita externa. O padrão é real; a intencionalidade coordenada é inferência forte, não prova.</p>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Cases documentados</h2>
+    </div>
+
+    <div class="case-block">
+      <div class="case-header">
+        <span class="case-flag">🇺🇦</span>
+        <div>
+          <div class="case-title">Ucrânia — Maidan 2014</div>
+          <span class="badge badge-red">Interferência confirmada em registros públicos</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="timeline-item">
+          <span class="timeline-year">2011</span>
+          <span class="timeline-text">Omidyar Network doa US$ 335 mil ao projeto New Citizen — ONG anti-Yanukovych financiada conjuntamente com USAID.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2012</span>
+          <span class="timeline-text">Omidyar fornece 36% do orçamento da Centre UA (US$ ~200 mil). USAID fornece 54%. NED complementa. Total: US$ 500 mil.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2014</span>
+          <span class="timeline-text">Maidan. O Financial Times confirma: o grupo financiado por Omidyar "desempenhou papel importante em colocar o protesto em movimento." Yanukovych cai. Ucrânia pivota para NATO/UE.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2017</span>
+          <span class="timeline-text">Consolidação: Omidyar anuncia novo investimento de US$ 1 milhão em "tecnologia cívica" na Ucrânia e Polônia. O ciclo se completa.</span>
+        </div>
+        <p><strong>Posição do Intercept:</strong> Nenhuma investigação sobre o co-financiamento de seu próprio dono. Um analista da redação especulou sobre "evidências de golpe" — sem jamais investigar que o empregador era co-financiador das organizações envolvidas.</p>
+      </div>
+    </div>
+
+    <div class="case-block">
+      <div class="case-header">
+        <span class="case-flag">🇧🇷</span>
+        <div>
+          <div class="case-title">Brasil — Vaza Jato &amp; Eleições 2022</div>
+          <span class="badge badge-red">Limited hangout de 0,5% do material disponível</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="timeline-item">
+          <span class="timeline-year">Jun/19</span>
+          <span class="timeline-text">Vaza Jato publicada. Material chega ao Intercept via Delgatti, após ser recusado por Manuela D'Ávila (PCdoB). Arquivo armazenado "por terceiros no exterior."</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Jul/19</span>
+          <span class="timeline-text">Delgatti preso na Operação Spoofing. Confessa hacking. Arquivo total: 7 TB. Publicado: 0,5%.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2021</span>
+          <span class="timeline-text">USAID e TSE co-produzem "Guia de Combate à Desinformação" em dois eventos. Barroso participa de evento promovido pela USAID/CEPPS. Guia concebido para "ser replicado em outros países."</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Out/22</span>
+          <span class="timeline-text">Lula eleito. STF usa material Vaza Jato para anular condenações. Intercept Brasil torna-se organização independente.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Ago/24</span>
+          <span class="timeline-text">Folha revela diálogos de Moraes com estrutura do TSE — padrão análogo ao Vaza Jato. Intercept publica artigo defendendo Moraes: "casos completamente diferentes."</span>
+        </div>
+
+        <div class="playbook" style="margin-top: 20px;">
+          <div class="playbook-cell">
+            <div class="playbook-label">Alvo destruído</div>
+            <div class="playbook-value">Lava Jato / Moro / candidatura</div>
+          </div>
+          <div class="playbook-cell">
+            <div class="playbook-label">Alvo protegido</div>
+            <div class="playbook-value">STF / Moraes / Lula / PT</div>
+          </div>
+          <div class="playbook-cell">
+            <div class="playbook-label">Material publicado</div>
+            <div class="playbook-value">0,5% do arquivo total</div>
+          </div>
+          <div class="playbook-cell">
+            <div class="playbook-label">Resultado político</div>
+            <div class="playbook-value">Lula eleito · STF fortalecido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <p><strong>Comparação sistêmica — o mesmo playbook em dois continentes:</strong></p>
+      <table class="compare-table" style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th>Dimensão</th>
+            <th>🇺🇦 Ucrânia</th>
+            <th>🇧🇷 Brasil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Alvo</td><td>Yanukovych / órbita russa</td><td>Lava Jato / Moro / candidatura</td></tr>
+          <tr><td>Ferramenta</td><td>ONGs financiadas</td><td>Hacking + vazamento seletivo</td></tr>
+          <tr><td>Co-financiador</td><td>Omidyar + USAID + NED</td><td>Omidyar (Intercept)</td></tr>
+          <tr><td>Resultado</td><td>Mudança de regime pró-NATO</td><td>Lula eleito / Lava Jato destruída</td></tr>
+          <tr><td>Material omitido</td><td>Financiamento próprio do dono</td><td>99,5% do arquivo Spoofing</td></tr>
+          <tr><td>Beneficiário final</td><td>Eixo ocidental / NATO</td><td>Foro de São Paulo / PT / STF</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ATORES -->
+  <section id="atores">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Mapa de atores</h2>
+    </div>
+
+    <p style="margin-bottom: 24px;">Os atores estão organizados em quatro camadas: <strong>financiadores</strong>, <strong>operadores</strong>, <strong>instrumentos</strong> e <strong>beneficiários</strong>.</p>
+
+    <div style="margin-bottom: 12px;"><span class="badge badge-red">Financiadores</span></div>
+    <div class="actor-grid" style="margin-bottom: 24px;">
+      <div class="actor-card">
+        <div class="actor-name">Pierre Omidyar</div>
+        <div class="actor-role">Financiador principal</div>
+        <p class="actor-desc">Fundador do eBay. Via First Look Media, criou e financiou o Intercept. Co-financiou Maidan com USAID e NED. Parceiro declarado do braço midiático da NED (CIMA). Separa-se formalmente em 2022.</p>
+      </div>
+      <div class="actor-card">
+        <div class="actor-name">USAID / NED</div>
+        <div class="actor-role">Agências americanas</div>
+        <p class="actor-desc">NED: fundada em 1983 como substituta civil da CIA. USAID: agência de desenvolvimento com histórico de interferência geopolítica. Co-financiadoras de operações na Ucrânia. Parceira formal do TSE brasileiro em 2021.</p>
+      </div>
+      <div class="actor-card">
+        <div class="actor-name">Open Society / Soros</div>
+        <div class="actor-role">Rede de influência</div>
+        <p class="actor-desc">Parceira da Omidyar Network em múltiplos projetos. Integra o mesmo ecossistema de financiamento de "sociedade civil" em países-alvo. Compartilha agenda com USAID e NED em operações de influência.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 12px;"><span class="badge badge-purple">Operadores</span></div>
+    <div class="actor-grid" style="margin-bottom: 24px;">
+      <div class="actor-card">
+        <div class="actor-name">Glenn Greenwald</div>
+        <div class="actor-role">Fundador / operador</div>
+        <p class="actor-desc">Cofundador com Poitras e Scahill. Saiu em 2020 alegando censura editorial sobre Hunter Biden. Seu marido David Miranda foi eleito deputado federal pelo PSOL. Contradição central: defendeu Bolsonaro em liberdade de imprensa, mas nunca investigou USAID-TSE.</p>
+      </div>
+      <div class="actor-card">
+        <div class="actor-name">Intercept Brasil (pós-2022)</div>
+        <div class="actor-role">Veículo local independente</div>
+        <p class="actor-desc">Separado formalmente em out/2022. Financiamento por assinaturas. Linha editorial: alinhada ao PT/STF, crítica à direita. Em 2024 publicou artigo defendendo Moraes, comparando-o com Moro para absolvê-lo.</p>
+      </div>
+      <div class="actor-card">
+        <div class="actor-name">Walter Delgatti Neto</div>
+        <div class="actor-role">Hacker / fonte Vaza Jato</div>
+        <p class="actor-desc">Codinome "Vermelho." Ofereceu material a Manuela D'Ávila (recusa), depois ao Intercept. Arquivo armazenado "no exterior por terceiros." Preso em 2019 (Spoofing). Migrou para campo oposto: contratado por Carla Zambelli para hackear sistema do CNJ.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 12px;"><span class="badge badge-green">Beneficiários</span></div>
+    <div class="actor-grid">
+      <div class="actor-card">
+        <div class="actor-name">PT / Lula</div>
+        <div class="actor-role">Beneficiário Brasil</div>
+        <p class="actor-desc">Direto: destruição da Lava Jato → anulação de condenações → elegibilidade → eleição 2022. Linha direta documentada entre Vaza Jato e retorno ao poder.</p>
+      </div>
+      <div class="actor-card">
+        <div class="actor-name">STF / Moraes</div>
+        <div class="actor-role">Beneficiário institucional</div>
+        <p class="actor-desc">Fortalecimento do Inquérito das Fake News. Uso do material Vaza Jato como base para anular condenações. Proteção editorial pelo Intercept em 2024 quando diálogos de Moraes vazam com perfil idêntico ao caso Moro.</p>
+      </div>
+      <div class="actor-card">
+        <div class="actor-name">Eixo NATO / EUA</div>
+        <div class="actor-role">Beneficiário geopolítico</div>
+        <p class="actor-desc">Ucrânia: pivô para NATO. Brasil: governo alinhado com agenda Biden / progressista global. Lava Jato destruiu investigações que alcançavam empresas e políticos de interesse americano na região.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIS -->
+  <section id="kpis">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>KPIs do padrão</h2>
+    </div>
+
+    <p style="margin-bottom: 24px;">Métricas objetivas que quantificam o padrão de limited hangout e seletividade editorial:</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-value">0,5%</div>
+        <div class="kpi-label">do arquivo Spoofing (7 TB) publicado pelo Intercept</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">36%</div>
+        <div class="kpi-label">do orçamento da Centre UA financiado por Omidyar (2012)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">54%</div>
+        <div class="kpi-label">do mesmo orçamento financiado pela USAID</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">US$1M+</div>
+        <div class="kpi-label">investidos por Omidyar em ONGs ucranianas antes do Maidan</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">2</div>
+        <div class="kpi-label">eventos formais USAID-TSE em 2021 antes das eleições de 2022</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">R$267M</div>
+        <div class="kpi-label">repassados pela USAID a mais de 25 ONGs brasileiras (levantamento Gazeta do Povo)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">reportagens do Intercept investigando parceria USAID-TSE</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">7 anos</div>
+        <div class="kpi-label">de duração do Inquérito das Fake News — nunca investigado pelo Intercept</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="badge badge-amber">Índice de seletividade</span></div>
+      <p>Se o padrão editorial fosse neutro, a proporção de investigações favoráveis à esquerda vs. direita tenderia ao equilíbrio ao longo do tempo. No caso do Intercept Brasil, a proporção de alvos comprometedores investigados é: <strong>100% à direita / 0% ao campo que seus financiadores originais e seu ecossistema de leitores apoiam</strong>. Isso não é acaso estatístico — é parâmetro editorial.</p>
+    </div>
+  </section>
+
+  <!-- ESTRATÉGIA -->
+  <section id="estrategia">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Estratégia operacional de análise</h2>
+    </div>
+
+    <p style="margin-bottom: 24px;">Para qualquer revelação do Intercept — ou de qualquer veículo com perfil análogo — aplicar o protocolo de três perguntas em sequência obrigatória:</p>
+
+    <div class="strategy-steps">
+      <div class="strategy-step">
+        <div class="step-title">Quem isso destrói?</div>
+        <p class="step-desc">Identificar o alvo imediato e visível da revelação. Geralmente óbvio — é para onde a atenção é dirigida.</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Quem isso protege?</div>
+        <p class="step-desc">Identificar o beneficiário real — raramente coincide com o que parece à primeira leitura. Aplicar o princípio: quem ganha com esse timing, esse conteúdo, essa forma de enquadramento?</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">O que não está sendo dito?</div>
+        <p class="step-desc">A omissão é sempre mais reveladora que a revelação. Mapear o que o veículo não investigou sobre o mesmo tema, no mesmo período, com os mesmos recursos disponíveis.</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Verificar o financiamento da fonte</div>
+        <p class="step-desc">Rastrear quem financia o veículo, quem financia a fonte, quem armazena e cuida do material antes de chegar à redação. Cada elo da cadeia tem interesse — identificar cada um.</p>
+      </div>
+      <div class="strategy-step">
+        <div class="step-title">Cruzar com o padrão histórico</div>
+        <p class="step-desc">Uma revelação isolada pode ser acidente. Um padrão de revelações sistematicamente favoráveis a um campo, ao longo de anos, é política editorial — consciente ou não.</p>
+      </div>
+    </div>
+
+    <div class="alert alert-amber" style="margin-top: 32px;">
+      <div class="alert-title">Regra de ouro operacional</div>
+      <p>Fontes com agenda própria são úteis para cruzamento de dados e verificação de fatos específicos, mas <strong>perigosas como referência primária ou exclusiva</strong>. O Intercept deve ser tratado como: fonte com credibilidade parcial e agenda não declarada — útil para dados verificáveis, inutilizável como árbitro de narrativa.</p>
+    </div>
+
+    <hr>
+
+    <p><strong>Aplicação ao contexto brasileiro 2026:</strong></p>
+
+    <div class="card" style="margin-top: 16px;">
+      <div class="card-title">Eleições 2026 — vetores de risco</div>
+      <p>O corte do financiamento da USAID pela administração Trump em 2025 removeu parte da infraestrutura de fact-checking que operava no circuito USAID → agências → TSE → censura eleitoral. Eduardo Bolsonaro declarou na CPAC Texas que "já temos metade do caminho andado." A outra metade depende de fiscalização independente do processo eleitoral por atores sem vínculo com o ecossistema de influência mapeado neste dossiê.</p>
+    </div>
+  </section>
+
+  <!-- REFERÊNCIAS -->
+  <section id="referencias">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Referências e fontes primárias</h2>
+    </div>
+
+    <ul class="ref-list">
+      <li><span class="ref-num">[01]</span><span>Rubinstein &amp; Blumenthal, "How tech oligarch Pierre Omidyar funds regime-change networks and partners with CIA cutouts" — The Grayzone, fev. 2019.</span></li>
+      <li><span class="ref-num">[02]</span><span>Mark Ames, "Pierre Omidyar co-funded Ukraine revolution groups with US government, documents show" — Pando, fev. 2014. Registro financeiro público: 36% do orçamento da Centre UA.</span></li>
+      <li><span class="ref-num">[03]</span><span>Financial Times (2014): grupo financiado por Omidyar "desempenhou papel importante em colocar o protesto do Maidan em movimento."</span></li>
+      <li><span class="ref-num">[04]</span><span>TSE.jus.br — publicação oficial: parceria TSE-USAID, lançamento do "Guia de Combate à Desinformação" (abr. 2021) e evento "Eleições e a transformação digital" com Barroso (dez. 2021).</span></li>
+      <li><span class="ref-num">[05]</span><span>Editor do Intercept Brasil Leandro Demori: "o arquivo da Spoofing tem 7 terabytes: o da Vaza Jato corresponde a 0,5% disso." — Brasil 247, mar. 2021.</span></li>
+      <li><span class="ref-num">[06]</span><span>CNN Brasil: "Delgatti chegou a oferecer os dados coletados a parlamentares de esquerda, como a então deputada federal Manuela D'Ávila (PCdoB). Com a recusa, repassou as informações para veículos de imprensa."</span></li>
+      <li><span class="ref-num">[07]</span><span>Intercept Brasil (ago. 2024): "Por que os diálogos vazados sobre Alexandre de Moraes não são a Vaza Jato da extrema direita." Fonte primária do duplo padrão editorial.</span></li>
+      <li><span class="ref-num">[08]</span><span>Gazeta do Povo: levantamento de mais de 25 ONGs brasileiras receptoras de recursos USAID, totalizando R$ 267 milhões. Dados do site ForeignAssistance.gov.</span></li>
+      <li><span class="ref-num">[09]</span><span>Pando (jul. 2015): "I can't think of another media tycoon who co-funded a pro-US regime change with American intelligence cutouts like USAID and the NED."</span></li>
+      <li><span class="ref-num">[10]</span><span>Wikipedia / Walter Delgatti Neto: declaração à PF de que o material era "armazenado por terceiros no exterior." Condenado a 8 anos e 3 meses pelo STF (mai. 2025).</span></li>
+      <li><span class="ref-num">[11]</span><span>Pepe Escobar, TV 247: "Era um 'limited hangout' e ficou confirmado que era um 'limited hangout'. Termo de inteligência clássico onde você solta apenas um gostinho."</span></li>
+      <li><span class="ref-num">[12]</span><span>NED cofundador Allen Weinstein ao Washington Post: "A lot of what we do today was done covertly 25 years ago by the CIA."</span></li>
+    </ul>
+  </section>
+
+  <!-- CONCLUSÃO -->
+  <section id="conclusao">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Conclusão</h2>
+    </div>
+
+    <p>A resposta à pergunta "por que o Intercept nunca investigou o lawfare do STF ou a interferência americana em 2022?" não é silêncio — é posição. Em agosto de 2024, o Intercept publicou um artigo argumentando ativamente que o comportamento de Moraes, estruturalmente idêntico ao de Moro, não é um problema. Isso é mais revelador do que qualquer omissão: é linha editorial declarada.</p>
+
+    <p>O mecanismo completo do controlled opposition tem quatro propriedades que o tornam difícil de combater analiticamente:</p>
+
+    <div class="card" style="margin: 20px 0;">
+      <div class="card-title"><span class="badge badge-amber">Propriedade 1</span> Credibilidade real</div>
+      <p>O Intercept revelou coisas genuinamente importantes. Isso não é maquiagem — é o que torna a estrutura funcional. Um veículo que só mentisse seria inútil como instrumento de controle.</p>
+    </div>
+
+    <div class="card" style="margin: 20px 0;">
+      <div class="card-title"><span class="badge badge-amber">Propriedade 2</span> Imunidade por associação</div>
+      <p>Criticar o Intercept é imediatamente enquadrado como "defesa da Lava Jato" ou "bolsonarismo." A identidade política do veículo funciona como escudo contra escrutínio crítico vindo do mesmo campo.</p>
+    </div>
+
+    <div class="card" style="margin: 20px 0;">
+      <div class="card-title"><span class="badge badge-amber">Propriedade 3</span> Conspiração dispensável</div>
+      <p>Não é necessário que jornalistas do Intercept recebam instruções de agências de inteligência. Basta que o viés ideológico, as fontes, os leitores e o modelo de financiamento criem incentivos estruturais para a seletividade. O resultado é idêntico — sem a necessidade de coordenação explícita.</p>
+    </div>
+
+    <div class="card" style="margin: 20px 0;">
+      <div class="card-title"><span class="badge badge-amber">Propriedade 4</span> Autossustentabilidade</div>
+      <p>Após a separação de Omidyar, o Intercept Brasil financia-se por assinaturas de um público ideologicamente coeso. O leitor médio do Intercept não quer que o STF seja investigado. A seletividade editorial vira produto — não patologia.</p>
+    </div>
+
+    <div class="conclusion-box">
+      <div class="pull-quote">"A omissão é sempre mais reveladora que a revelação. O padrão ao longo do tempo vale mais que qualquer documento isolado."</div>
+      <p>O The Intercept é o caso mais sofisticado e documentado de controlled opposition no jornalismo contemporâneo não porque seja necessariamente uma operação coordenada de inteligência — mas porque sua estrutura de financiamento, sua cultura editorial e seu ecossistema de leitores produzem, sistematicamente, o mesmo resultado que uma operação coordenada produziria.</p>
+      <p style="margin-top: 12px;">Para fins analíticos e operacionais, a distinção entre "instrumento consciente" e "veículo estruturalmente capturado" é menos importante do que o padrão de resultados. O resultado é o dado. E o resultado, em todos os casos estudados, aponta na mesma direção.</p>
+      <p style="margin-top: 12px; color: var(--fg3); font-size: 13px;">Documentação: AI Nativo Brasil · Artes do Sul · Bombinhas-SC · 2026</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- GO TO TOP -->
+<button id="gtt" title="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<script>
+  // Go to top visibility
+  const gtt = document.getElementById('gtt');
+  window.addEventListener('scroll', () => {
+    gtt.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
+  // Scroll-spy nav highlight
+  const sections = document.querySelectorAll('section[id], div[id="resumo"]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navH = 56 + 30;
+
+  function updateNav() {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.getBoundingClientRect().top;
+      if (top <= navH + 20) current = s.id;
+    });
+    navLinks.forEach(a => {
+      const href = a.getAttribute('href').replace('#', '');
+      a.classList.toggle('active', href === current);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Smooth scroll for nav links
+  navLinks.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY - 56 - 16;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

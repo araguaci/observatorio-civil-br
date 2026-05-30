@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kené — A Linguagem Sagrada Shipibo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0a07;
+    --deep: #120e09;
+    --cream: #f2e8d5;
+    --parchment: #e8d5b0;
+    --terracotta: #c4623a;
+    --ochre: #d4922a;
+    --gold: #c8a84b;
+    --line: rgba(242, 232, 213, 0.85);
+    --line-dim: rgba(242, 232, 213, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, opacity 0.3s;
+  }
+  .cursor-trail {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(200, 168, 75, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease;
+  }
+
+  /* CANVAS */
+  #kene-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.55;
+  }
+
+  /* GRAIN */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,10,7,0.9) 0%, transparent 100%);
+  }
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 2; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.6s forwards;
+  }
+  .hero-title span {
+    color: var(--terracotta);
+    display: block;
+  }
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    color: var(--parchment);
+    opacity: 0;
+    max-width: 560px;
+    line-height: 1.7;
+    animation: fadeUp 1.2s ease 0.9s forwards;
+    margin-bottom: 60px;
+  }
+  .hero-divider {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto 60px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1.2s forwards;
+  }
+  .scroll-hint {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeIn 1.5s ease 1.8s forwards, float 3s ease-in-out 2s infinite;
+  }
+
+  /* PATTERN BAND */
+  .pattern-band {
+    height: 4px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--terracotta) 0px, var(--terracotta) 12px,
+      var(--ochre) 12px, var(--ochre) 20px,
+      var(--gold) 20px, var(--gold) 28px,
+      var(--ochre) 28px, var(--ochre) 36px,
+      var(--terracotta) 36px, var(--terracotta) 48px,
+      transparent 48px, transparent 60px
+    );
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  /* INTRO */
+  #intro {
+    padding: 120px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .intro-kene {
+    position: relative;
+  }
+  .intro-kene canvas {
+    width: 100%;
+    border: 1px solid rgba(200, 168, 75, 0.2);
+  }
+  .intro-kene::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border: 1px solid rgba(200, 168, 75, 0.1);
+    pointer-events: none;
+  }
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 24px;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 28px;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .section-body {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: rgba(242, 232, 213, 0.72);
+    font-weight: 300;
+  }
+  .section-body + .section-body { margin-top: 16px; }
+
+  /* SERPENTE */
+  #serpente {
+    padding: 100px 40px;
+    text-align: center;
+    background: radial-gradient(ellipse at center, rgba(196, 98, 58, 0.06) 0%, transparent 70%);
+  }
+  .serpente-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .quote-mark {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 6rem;
+    color: var(--terracotta);
+    opacity: 0.3;
+    line-height: 0.5;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .quote-text {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--cream);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .quote-source {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* CARDS */
+  #elementos {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .cards-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .card {
+    background: rgba(242, 232, 213, 0.03);
+    border: 1px solid rgba(242, 232, 213, 0.07);
+    padding: 48px 36px;
+    transition: background 0.4s, border-color 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--terracotta), var(--ochre));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .card:hover { background: rgba(242, 232, 213, 0.06); border-color: rgba(242, 232, 213, 0.15); }
+  .card:hover::before { transform: scaleX(1); }
+  .card-glyph {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 28px;
+  }
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .card-text {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(242, 232, 213, 0.65);
+    font-weight: 300;
+  }
+
+  /* KENE LIVE */
+  #kene-live {
+    padding: 100px 40px;
+    text-align: center;
+    background: rgba(242, 232, 213, 0.015);
+  }
+  #kene-live .section-title { margin-bottom: 16px; }
+  #kene-live .section-body { max-width: 500px; margin: 0 auto 60px; }
+  #interactive-canvas {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgba(200, 168, 75, 0.2);
+    cursor: none;
+  }
+  .canvas-hint {
+    margin-top: 24px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px;
+    text-align: center;
+    border-top: 1px solid rgba(242, 232, 213, 0.07);
+  }
+  .footer-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .footer-text {
+    font-size: 0.85rem;
+    color: rgba(242, 232, 213, 0.35);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #intro { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+    #elementos { padding: 80px 24px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    #kene-live { padding: 80px 24px; }
+    #interactive-canvas { width: 100% !important; height: auto !important; }
+    footer { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- BACKGROUND CANVAS -->
+<canvas id="kene-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">KENÉ</a>
+  <ul class="nav-links">
+    <li><a href="#intro">Origem</a></li>
+    <li><a href="#elementos">Elementos</a></li>
+    <li><a href="#kene-live">Vivenciar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Amazônia Peruana · Povo Shipibo-Conibo</p>
+  <h1 class="hero-title">KENÉ<span>Sagrado</span></h1>
+  <p class="hero-subtitle">A linguagem geométrica da Grande Serpente — onde o canto se torna traçado e o traçado se torna cura.</p>
+  <div class="hero-divider"></div>
+  <p class="scroll-hint">↓ &nbsp; Descer</p>
+</section>
+
+<div class="pattern-band"></div>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="intro-kene reveal">
+    <canvas id="static-kene" width="480" height="480"></canvas>
+  </div>
+  <div class="reveal" style="transition-delay:0.2s">
+    <span class="section-label">O que é Kené</span>
+    <h2 class="section-title">Padrões nascidos<br>de <em>visões</em></h2>
+    <p class="section-body">Os traçados Kené são grafismos geométricos sagrados criados pelo povo Shipibo-Conibo da Amazônia peruana. Cada linha que você vê não foi desenhada por mãos comuns — ela foi <em>recebida</em> em estados visionários de ayahuasca e transcrita com precisão extraordinária, sem régua nem instrumento.</p>
+    <p class="section-body" style="margin-top:16px">São redes labirínticas e simétricas que representam a teia da vida: a interconexão invisível entre todos os seres, plantas e espíritos da floresta. Em 2023, o Kené foi reconhecido pela UNESCO como Patrimônio Cultural Imaterial da Humanidade.</p>
+  </div>
+</section>
+
+<!-- SERPENTE -->
+<section id="serpente">
+  <div class="serpente-inner reveal">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">Cada padrão é um canto. Cada canto é uma cura. A Grande Serpente Ronin carrega em suas escamas toda a sabedoria do cosmos.</p>
+    <p class="quote-source">Cosmologia Shipibo-Conibo</p>
+  </div>
+</section>
+
+<div class="pattern-band"></div>
+
+<!-- ELEMENTOS -->
+<section id="elementos">
+  <div class="cards-header reveal">
+    <span class="section-label">Os quatro pilares</span>
+    <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.5rem)">Os elementos do <em>Kené</em></h2>
+  </div>
+  <div class="cards-grid">
+    <div class="card reveal">
+      <svg class="card-glyph" viewBox="0 0 56 56" fill="none">
+        <rect x="8" y="8" width="40" height="40" stroke="#c8a84b" stroke-width="1" opacity="0.4"/>
+        <path d="M8 28 L28 8 L48 28 L28 48 Z" stroke="#c4623a" stroke-width="1.5" fill="none"/>
+        <rect x="20" y="20" width="16" height="16" stroke="#d4922a" stroke-width="1" fill="none"/>
+        <circle cx="28" cy="28" r="3" fill="#c8a84b"/>
+      </svg>
+      <h3 class="card-title">Geometria</h3>
+      <p class="card-text">Linhas retas, ângulos precisos e simetria perfeita. Os padrões nunca usam curvas suaves — apenas ângulos retos que criam labirintos fractais de infinita profundidade.</p>
+    </div>
+    <div class="card reveal" style="transition-delay:0.15s">
+      <svg class="card-glyph" viewBox="0 0 56 56" fill="none">
+        <path d="M4 28 Q14 14 28 28 Q42 42 52 28" stroke="#c4623a" stroke-width="1.5" fill="none"/>
+        <path d="M4 20 Q14 6 28 20 Q42 34 52 20" stroke="#d4922a" stroke-width="1" fill="none" opacity="0.6"/>
+        <path d="M4 36 Q14 22 28 36 Q42 50 52 36" stroke="#c8a84b" stroke-width="1" fill="none" opacity="0.6"/>
+        <circle cx="28" cy="28" r="4" fill="none" stroke="#c8a84b" stroke-width="1.5"/>
+      </svg>
+      <h3 class="card-title">Icaro & Canto</h3>
+      <p class="card-text">Cada traçado é a representação visual de um icaro — canto xamânico de cura. Música e desenho são a mesma realidade em formas diferentes. O canto se torna visível.</p>
+    </div>
+    <div class="card reveal" style="transition-delay:0.3s">
+      <svg class="card-glyph" viewBox="0 0 56 56" fill="none">
+        <path d="M10 10 L46 10 L46 46 L10 46 Z" stroke="#c8a84b" stroke-width="1" fill="none" opacity="0.3"/>
+        <path d="M10 10 L22 10 L22 22 L34 22 L34 10 L46 10" stroke="#c4623a" stroke-width="1.5" fill="none"/>
+        <path d="M10 46 L22 46 L22 34 L34 34 L34 46 L46 46" stroke="#c4623a" stroke-width="1.5" fill="none"/>
+        <path d="M10 10 L10 22 L22 22 L22 34 L10 34 L10 46" stroke="#d4922a" stroke-width="1" fill="none"/>
+        <path d="M46 10 L46 22 L34 22 L34 34 L46 34 L46 46" stroke="#d4922a" stroke-width="1" fill="none"/>
+      </svg>
+      <h3 class="card-title">Labirinto</h3>
+      <p class="card-text">O padrão em meandro — linha que nunca se cruza, que caminha pelo espaço em um fluxo único e contínuo. Representa o caminho da alma pelos mundos visíveis e invisíveis.</p>
+    </div>
+    <div class="card reveal" style="transition-delay:0.1s">
+      <svg class="card-glyph" viewBox="0 0 56 56" fill="none">
+        <circle cx="28" cy="28" r="20" stroke="#c8a84b" stroke-width="1" fill="none" opacity="0.3"/>
+        <circle cx="28" cy="28" r="12" stroke="#d4922a" stroke-width="1" fill="none"/>
+        <circle cx="28" cy="28" r="4" fill="#c4623a"/>
+        <line x1="8" y1="28" x2="20" y2="28" stroke="#c8a84b" stroke-width="1"/>
+        <line x1="36" y1="28" x2="48" y2="28" stroke="#c8a84b" stroke-width="1"/>
+        <line x1="28" y1="8" x2="28" y2="20" stroke="#c8a84b" stroke-width="1"/>
+        <line x1="28" y1="36" x2="28" y2="48" stroke="#c8a84b" stroke-width="1"/>
+      </svg>
+      <h3 class="card-title">Cura</h3>
+      <p class="card-text">Os traçados têm poder terapêutico. Quando a xaritana (curandeira) pinta o corpo de um doente com Kené, ela ativa vibrações que reequilibram o espírito perturbado.</p>
+    </div>
+    <div class="card reveal" style="transition-delay:0.25s">
+      <svg class="card-glyph" viewBox="0 0 56 56" fill="none">
+        <path d="M28 4 L52 28 L28 52 L4 28 Z" stroke="#c8a84b" stroke-width="1" fill="none" opacity="0.4"/>
+        <path d="M28 12 L44 28 L28 44 L12 28 Z" stroke="#d4922a" stroke-width="1.5" fill="none"/>
+        <path d="M20 28 L28 20 L36 28 L28 36 Z" stroke="#c4623a" stroke-width="1" fill="none"/>
+        <circle cx="28" cy="28" r="2.5" fill="#c8a84b"/>
+      </svg>
+      <h3 class="card-title">Simetria</h3>
+      <p class="card-text">Toda composição Kené é perfeitamente simétrica em dois ou quatro eixos. As mulheres Shipibo criam essa simetria perfeita de memória, sem qualquer auxílio — um feito extraordinário.</p>
+    </div>
+    <div class="card reveal" style="transition-delay:0.4s">
+      <svg class="card-glyph" viewBox="0 0 56 56" fill="none">
+        <path d="M8 48 Q18 8 28 28 Q38 48 48 8" stroke="#c4623a" stroke-width="1.5" fill="none"/>
+        <path d="M8 36 Q18 16 28 28 Q38 40 48 20" stroke="#d4922a" stroke-width="1" fill="none" opacity="0.7"/>
+        <circle cx="8" cy="48" r="2" fill="#c8a84b"/>
+        <circle cx="28" cy="28" r="2" fill="#c8a84b"/>
+        <circle cx="48" cy="8" r="2" fill="#c8a84b"/>
+      </svg>
+      <h3 class="card-title">Transmissão</h3>
+      <p class="card-text">O conhecimento Kené é transmitido de mãe para filha ao longo de gerações. As mulheres são as guardiãs dessa linguagem sagrada — tecelãs de mundos entre o visível e o invisível.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KENE INTERATIVO -->
+<section id="kene-live">
+  <span class="section-label reveal">Experiência Interativa</span>
+  <h2 class="section-title reveal">Crie seu próprio <em>Kené</em></h2>
+  <p class="section-body reveal">Mova o cursor sobre a tela e observe os traçados sagrados se formando ao seu toque.</p>
+  <canvas id="interactive-canvas" width="680" height="480"></canvas>
+  <p class="canvas-hint">↑ Mova o cursor para criar padrões</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">KENÉ</span>
+  <p class="footer-text">Patrimônio Cultural Imaterial da Humanidade · UNESCO 2023</p>
+  <p class="footer-text" style="margin-top:8px">Povo Shipibo-Conibo · Amazônia Peruana · Rio Ucayali</p>
+  <div style="padding:24px 40px;border-top:1px solid var(--border);text-align:center;font-family:var(--font-mono);font-size:13px;color:var(--fg3);background:var(--bg);">
+    <a href="https://www.artesdosul.com/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">Desenvolvido por Artes do Sul</a>
+  </div>
+</footer>
+
+<script>
+// ─── CURSOR ───────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    trail.style.left = e.clientX + 'px';
+    trail.style.top = e.clientY + 'px';
+  }, 80);
+});
+
+// ─── BACKGROUND CANVAS ────────────────────────────────────────
+const bgCanvas = document.getElementById('kene-canvas');
+const bgCtx = bgCanvas.getContext('2d');
+let bgW, bgH;
+
+function resizeBg() {
+  bgW = bgCanvas.width = window.innerWidth;
+  bgH = bgCanvas.height = window.innerHeight;
+  drawBackground();
+}
+
+function drawKeneLine(ctx, x, y, size, color, alpha) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = alpha;
+  ctx.lineWidth = 0.8;
+  const u = size / 8;
+  ctx.beginPath();
+  // Meander pattern - classic Shipibo motif
+  const pts = [
+    [0,0],[4,0],[4,2],[2,2],[2,6],[4,6],[4,4],[8,4],[8,8],
+    [6,8],[6,4],[4,4],[4,8],[0,8],[0,6],[2,6],[2,2],[0,2],[0,0]
+  ];
+  ctx.moveTo(x + pts[0][0]*u, y + pts[0][1]*u);
+  for(let i=1;i<pts.length;i++) ctx.lineTo(x + pts[i][0]*u, y + pts[i][1]*u);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawKeneCross(ctx, x, y, size, color, alpha) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = alpha;
+  ctx.lineWidth = 0.7;
+  const h = size / 2;
+  ctx.beginPath();
+  ctx.rect(x - h, y - h, size, size);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.rect(x - h*0.6, y - h*0.6, size*0.6, size*0.6);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x - h, y);
+  ctx.lineTo(x - h*0.6, y);
+  ctx.moveTo(x + h*0.6, y);
+  ctx.lineTo(x + h, y);
+  ctx.moveTo(x, y - h);
+  ctx.lineTo(x, y - h*0.6);
+  ctx.moveTo(x, y + h*0.6);
+  ctx.lineTo(x, y + h);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawBackground() {
+  bgCtx.clearRect(0, 0, bgW, bgH);
+  const cellSize = 72;
+  const cols = Math.ceil(bgW / cellSize) + 1;
+  const rows = Math.ceil(bgH / cellSize) + 1;
+  for(let r = 0; r < rows; r++) {
+    for(let c = 0; c < cols; c++) {
+      const x = c * cellSize;
+      const y = r * cellSize;
+      const dist = Math.hypot(x - bgW/2, y - bgH/2);
+      const alpha = Math.max(0.03, 0.18 - dist/(Math.max(bgW,bgH)*0.9));
+      const seed = (r * cols + c) % 5;
+      if(seed < 2) drawKeneLine(bgCtx, x, y, cellSize, '#f2e8d5', alpha);
+      else if(seed < 4) drawKeneCross(bgCtx, x + cellSize/2, y + cellSize/2, cellSize * 0.55, '#c8a84b', alpha * 0.7);
+      else {
+        bgCtx.save();
+        bgCtx.globalAlpha = alpha * 0.5;
+        bgCtx.strokeStyle = '#c4623a';
+        bgCtx.lineWidth = 0.6;
+        bgCtx.beginPath();
+        bgCtx.rect(x+4, y+4, cellSize-8, cellSize-8);
+        bgCtx.stroke();
+        bgCtx.restore();
+      }
+    }
+  }
+}
+
+window.addEventListener('resize', resizeBg);
+resizeBg();
+
+// ─── STATIC KENE (intro canvas) ──────────────────────────────
+const sk = document.getElementById('static-kene');
+const skCtx = sk.getContext('2d');
+
+function drawStaticKene() {
+  const W = sk.width, H = sk.height;
+  skCtx.fillStyle = '#0d0a07';
+  skCtx.fillRect(0, 0, W, H);
+
+  const u = 12; // grid unit
+  const offX = 24, offY = 24;
+
+  function line(x1,y1,x2,y2,color,alpha,lw) {
+    skCtx.save();
+    skCtx.strokeStyle = color||'#f2e8d5';
+    skCtx.globalAlpha = alpha||0.8;
+    skCtx.lineWidth = lw||1.2;
+    skCtx.beginPath();
+    skCtx.moveTo(offX + x1*u, offY + y1*u);
+    skCtx.lineTo(offX + x2*u, offY + y2*u);
+    skCtx.stroke();
+    skCtx.restore();
+  }
+
+  // Draw authentic Shipibo-style kené pattern
+  const colors = ['#f2e8d5','#c8a84b','#c4623a','#d4922a'];
+  
+  // Outer frame
+  const patterns = [
+    // outer rectangle
+    [[0,0,36,0],[36,0,36,36],[36,36,0,36],[0,36,0,0]],
+    // inner rectangle
+    [[2,2,34,2],[34,2,34,34],[34,34,2,34],[2,34,2,2]],
+    // cross
+    [[18,2,18,16],[18,20,18,34],[2,18,16,18],[20,18,34,18]],
+    // center diamond
+    [[18,10,26,18],[26,18,18,26],[18,26,10,18],[10,18,18,10]],
+  ];
+
+  patterns.forEach((group, gi) => {
+    const color = colors[gi % colors.length];
+    group.forEach(([x1,y1,x2,y2]) => {
+      line(x1,y1,x2,y2, color, 0.9, gi===0?1.5:1);
+    });
+  });
+
+  // Meander borders - top
+  for(let i = 0; i < 36; i += 4) {
+    line(i, 3, i+2, 3, '#c8a84b', 0.5);
+    line(i+2, 3, i+2, 5, '#c8a84b', 0.5);
+    line(i+2, 5, i+4, 5, '#c8a84b', 0.5);
+  }
+  // Meander borders - bottom
+  for(let i = 0; i < 36; i += 4) {
+    line(i, 33, i+2, 33, '#c8a84b', 0.5);
+    line(i+2, 33, i+2, 31, '#c8a84b', 0.5);
+    line(i+2, 31, i+4, 31, '#c8a84b', 0.5);
+  }
+  // Left meander
+  for(let j = 0; j < 36; j += 4) {
+    line(3, j, 3, j+2, '#d4922a', 0.5);
+    line(3, j+2, 5, j+2, '#d4922a', 0.5);
+    line(5, j+2, 5, j+4, '#d4922a', 0.5);
+  }
+  // Right meander
+  for(let j = 0; j < 36; j += 4) {
+    line(33, j, 33, j+2, '#d4922a', 0.5);
+    line(33, j+2, 31, j+2, '#d4922a', 0.5);
+    line(31, j+2, 31, j+4, '#d4922a', 0.5);
+  }
+
+  // Quadrant motifs
+  const quads = [[4,4],[22,4],[4,22],[22,22]];
+  quads.forEach(([qx,qy]) => {
+    const qc = quads.indexOf([qx,qy]) % 2 === 0 ? '#c4623a' : '#c8a84b';
+    // small diamond
+    skCtx.save();
+    skCtx.strokeStyle = qc;
+    skCtx.globalAlpha = 0.7;
+    skCtx.lineWidth = 1;
+    skCtx.beginPath();
+    const cx = offX + (qx+7)*u, cy = offY + (qy+7)*u, r = u*3.5;
+    skCtx.moveTo(cx, cy-r);
+    skCtx.lineTo(cx+r, cy);
+    skCtx.lineTo(cx, cy+r);
+    skCtx.lineTo(cx-r, cy);
+    skCtx.closePath();
+    skCtx.stroke();
+    // inner cross
+    skCtx.beginPath();
+    skCtx.moveTo(cx-r*0.5, cy); skCtx.lineTo(cx+r*0.5, cy);
+    skCtx.moveTo(cx, cy-r*0.5); skCtx.lineTo(cx, cy+r*0.5);
+    skCtx.stroke();
+    skCtx.restore();
+  });
+
+  // Center ornament
+  skCtx.save();
+  skCtx.strokeStyle = '#c8a84b';
+  skCtx.globalAlpha = 0.9;
+  skCtx.lineWidth = 1.5;
+  const cx = offX + 18*u, cy = offY + 18*u;
+  for(let i = 0; i < 4; i++) {
+    skCtx.save();
+    skCtx.translate(cx, cy);
+    skCtx.rotate(i * Math.PI / 2);
+    skCtx.beginPath();
+    skCtx.moveTo(0, -u*1.5);
+    skCtx.lineTo(u, -u*2.5);
+    skCtx.lineTo(u, -u*1.5);
+    skCtx.lineTo(u*2, -u*1.5);
+    skCtx.stroke();
+    skCtx.restore();
+  }
+  skCtx.beginPath();
+  skCtx.arc(cx, cy, u*1.2, 0, Math.PI*2);
+  skCtx.stroke();
+  skCtx.restore();
+
+  // Outer corner ornaments
+  [[0,0],[36,0],[0,36],[36,36]].forEach(([cx2,cy2], i) => {
+    const sx = i%2===0?1:-1, sy = i<2?1:-1;
+    skCtx.save();
+    skCtx.strokeStyle = '#c4623a';
+    skCtx.globalAlpha = 0.7;
+    skCtx.lineWidth = 1;
+    const bx = offX + cx2*u, by = offY + cy2*u;
+    skCtx.beginPath();
+    skCtx.moveTo(bx + sx*u*0.5, by);
+    skCtx.lineTo(bx + sx*u*2, by);
+    skCtx.lineTo(bx + sx*u*2, by + sy*u*2);
+    skCtx.lineTo(bx, by + sy*u*2);
+    skCtx.lineTo(bx, by + sy*u*0.5);
+    skCtx.stroke();
+    skCtx.restore();
+  });
+}
+
+drawStaticKene();
+
+// ─── INTERACTIVE CANVAS ──────────────────────────────────────
+const ic = document.getElementById('interactive-canvas');
+const icCtx = ic.getContext('2d');
+let icW = ic.width, icH = ic.height;
+
+// Responsive
+function resizeIC() {
+  const maxW = Math.min(680, window.innerWidth - 48);
+  ic.style.width = maxW + 'px';
+  ic.style.height = Math.round(maxW * 480/680) + 'px';
+}
+window.addEventListener('resize', resizeIC);
+resizeIC();
+
+icCtx.fillStyle = '#0d0a07';
+icCtx.fillRect(0, 0, icW, icH);
+
+// Draw grid
+function drawIcGrid() {
+  const gSize = 20;
+  icCtx.strokeStyle = 'rgba(242,232,213,0.05)';
+  icCtx.lineWidth = 0.5;
+  for(let x = 0; x <= icW; x += gSize) {
+    icCtx.beginPath();
+    icCtx.moveTo(x,0); icCtx.lineTo(x,icH); icCtx.stroke();
+  }
+  for(let y = 0; y <= icH; y += gSize) {
+    icCtx.beginPath();
+    icCtx.moveTo(0,y); icCtx.lineTo(icW,y); icCtx.stroke();
+  }
+}
+drawIcGrid();
+
+let lastIcX = null, lastIcY = null;
+let icHue = 0;
+const icColors = ['#f2e8d5','#c8a84b','#c4623a','#d4922a','#e8d5b0'];
+let icColorIdx = 0;
+
+function getCanvasCoords(e, canvas) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return {
+    x: (clientX - rect.left) * scaleX,
+    y: (clientY - rect.top) * scaleY
+  };
+}
+
+function drawKeneStroke(x1, y1, x2, y2) {
+  const color = icColors[icColorIdx % icColors.length];
+  const snap = 10;
+  const sx1 = Math.round(x1/snap)*snap;
+  const sy1 = Math.round(y1/snap)*snap;
+  const sx2 = Math.round(x2/snap)*snap;
+  const sy2 = Math.round(y2/snap)*snap;
+
+  icCtx.save();
+  icCtx.strokeStyle = color;
+  icCtx.lineWidth = 1.5;
+  icCtx.globalAlpha = 0.9;
+  icCtx.lineCap = 'square';
+
+  // Draw angular / orthogonal line (Shipibo uses only right angles)
+  icCtx.beginPath();
+  icCtx.moveTo(sx1, sy1);
+  // go horizontal then vertical for right-angle style
+  if(Math.abs(sx2-sx1) > Math.abs(sy2-sy1)) {
+    icCtx.lineTo(sx2, sy1);
+    icCtx.lineTo(sx2, sy2);
+  } else {
+    icCtx.lineTo(sx1, sy2);
+    icCtx.lineTo(sx2, sy2);
+  }
+  icCtx.stroke();
+
+  // Mirror horizontally
+  const mx1 = icW - sx1, mx2 = icW - sx2;
+  icCtx.strokeStyle = icColors[(icColorIdx+1) % icColors.length];
+  icCtx.globalAlpha = 0.5;
+  icCtx.beginPath();
+  icCtx.moveTo(mx1, sy1);
+  if(Math.abs(mx2-mx1) > Math.abs(sy2-sy1)) {
+    icCtx.lineTo(mx2, sy1);
+    icCtx.lineTo(mx2, sy2);
+  } else {
+    icCtx.lineTo(mx1, sy2);
+    icCtx.lineTo(mx2, sy2);
+  }
+  icCtx.stroke();
+
+  // Mirror vertically
+  const my1 = icH - sy1, my2 = icH - sy2;
+  icCtx.strokeStyle = icColors[(icColorIdx+2) % icColors.length];
+  icCtx.globalAlpha = 0.4;
+  icCtx.beginPath();
+  icCtx.moveTo(sx1, my1);
+  if(Math.abs(sx2-sx1) > Math.abs(my2-my1)) {
+    icCtx.lineTo(sx2, my1);
+    icCtx.lineTo(sx2, my2);
+  } else {
+    icCtx.lineTo(sx1, my2);
+    icCtx.lineTo(sx2, my2);
+  }
+  icCtx.stroke();
+
+  // Mirror both axes
+  icCtx.strokeStyle = icColors[(icColorIdx+3) % icColors.length];
+  icCtx.globalAlpha = 0.3;
+  icCtx.beginPath();
+  icCtx.moveTo(mx1, my1);
+  if(Math.abs(mx2-mx1) > Math.abs(my2-my1)) {
+    icCtx.lineTo(mx2, my1);
+    icCtx.lineTo(mx2, my2);
+  } else {
+    icCtx.lineTo(mx1, my2);
+    icCtx.lineTo(mx2, my2);
+  }
+  icCtx.stroke();
+
+  icCtx.restore();
+  icColorIdx++;
+}
+
+function onMove(e) {
+  e.preventDefault();
+  const {x, y} = getCanvasCoords(e, ic);
+  if(lastIcX !== null) {
+    drawKeneStroke(lastIcX, lastIcY, x, y);
+  }
+  lastIcX = x; lastIcY = y;
+}
+function onEnd() { lastIcX = null; lastIcY = null; }
+
+ic.addEventListener('mousemove', onMove);
+ic.addEventListener('touchmove', onMove, {passive:false});
+ic.addEventListener('mouseleave', onEnd);
+ic.addEventListener('touchend', onEnd);
+
+// Double-click to clear
+ic.addEventListener('dblclick', () => {
+  icCtx.fillStyle = '#0d0a07';
+  icCtx.fillRect(0, 0, icW, icH);
+  drawIcGrid();
+  icColorIdx = 0;
+});
+
+// ─── ANIMATED BACKGROUND PULSE ───────────────────────────────
+let bgTime = 0;
+function animateBg() {
+  bgTime += 0.003;
+  bgCtx.clearRect(0, 0, bgW, bgH);
+
+  const cellSize = 72;
+  const cols = Math.ceil(bgW / cellSize) + 1;
+  const rows = Math.ceil(bgH / cellSize) + 1;
+  for(let r = 0; r < rows; r++) {
+    for(let c = 0; c < cols; c++) {
+      const x = c * cellSize;
+      const y = r * cellSize;
+      const dist = Math.hypot(x - bgW/2, y - bgH/2);
+      const wave = Math.sin(bgTime + dist * 0.008) * 0.04;
+      const alpha = Math.max(0.02, 0.14 - dist/(Math.max(bgW,bgH)*0.9) + wave);
+      const seed = (r * cols + c) % 5;
+      if(seed < 2) drawKeneLine(bgCtx, x, y, cellSize, '#f2e8d5', alpha);
+      else if(seed < 4) drawKeneCross(bgCtx, x + cellSize/2, y + cellSize/2, cellSize * 0.55, '#c8a84b', alpha * 0.8);
+      else {
+        bgCtx.save();
+        bgCtx.globalAlpha = alpha * 0.5;
+        bgCtx.strokeStyle = '#c4623a';
+        bgCtx.lineWidth = 0.6;
+        bgCtx.beginPath();
+        bgCtx.rect(x+4, y+4, cellSize-8, cellSize-8);
+        bgCtx.stroke();
+        bgCtx.restore();
+      }
+    }
+  }
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+// ─── REVEAL ON SCROLL ────────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.12});
+reveals.forEach(el => obs.observe(el));
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

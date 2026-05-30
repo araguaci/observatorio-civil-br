@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operador Inconsciente do Sistema — lawfare-timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a08;
+  --bg2: #111110;
+  --bg3: #1a1a18;
+  --line: rgba(255,255,255,0.08);
+  --text: #e8e4d8;
+  --text2: #9a9485;
+  --text3: #5a5650;
+  --amber: #c4872a;
+  --amber-dim: #7a5218;
+  --amber-bg: rgba(196,135,42,0.08);
+  --red: #c44040;
+  --red-dim: #7a2828;
+  --red-bg: rgba(196,64,64,0.07);
+  --teal: #2a9a7a;
+  --teal-bg: rgba(42,154,122,0.08);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { background: var(--bg); color: var(--text); font-family: var(--mono); }
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main { position: relative; z-index: 1; }
+
+/* ── HEADER ── */
+header {
+  border-bottom: 1px solid var(--line);
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.header-left { flex: 1; }
+
+.corpus-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.corpus-tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--amber);
+  border-radius: 50%;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--text);
+  max-width: 700px;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--amber);
+}
+
+.header-meta {
+  font-size: 0.7rem;
+  color: var(--text3);
+  line-height: 2;
+  text-align: right;
+  min-width: 180px;
+}
+
+/* ── AXIOM BAND ── */
+.axiom-band {
+  background: var(--amber-bg);
+  border-top: 1px solid var(--amber-dim);
+  border-bottom: 1px solid var(--amber-dim);
+  padding: 1.2rem 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.axiom-label {
+  font-size: 0.6rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.axiom-text {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ── LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; }
+  header { flex-direction: column; }
+  .header-meta { text-align: left; }
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 3rem;
+  border-right: 1px solid var(--line);
+}
+section:last-child { border-right: none; }
+
+.section-label {
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+/* ── MECHANISM CARDS ── */
+.mech-list { display: flex; flex-direction: column; gap: 0; }
+
+.mech-item {
+  border-bottom: 1px solid var(--line);
+  padding: 1.5rem 0;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.mech-item:first-child { padding-top: 0; }
+.mech-item:last-child { border-bottom: none; }
+
+.mech-num {
+  font-size: 0.65rem;
+  color: var(--text3);
+  font-family: var(--mono);
+  padding-top: 0.15rem;
+}
+
+.mech-content {}
+
+.mech-name {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.mech-quote {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text2);
+  border-left: 2px solid var(--amber-dim);
+  padding-left: 0.8rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.mech-analysis {
+  font-size: 0.75rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.mech-tag {
+  display: inline-block;
+  font-size: 0.55rem;
+  color: var(--amber);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-dim);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+/* ── DATA PANEL ── */
+.data-panel { background: var(--bg2); }
+
+.data-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  font-family: var(--mono);
+}
+
+.data-table th {
+  color: var(--text3);
+  font-weight: 500;
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.data-table td {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--text2);
+  vertical-align: top;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+
+.data-table .mono-val {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.data-table .delta-pos {
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.data-table .alert {
+  color: var(--red);
+}
+
+/* ── ANOMALY BAR ── */
+.anomaly-bar {
+  margin: 1.5rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--red-bg);
+  border: 1px solid var(--red-dim);
+  border-radius: 2px;
+}
+
+.anomaly-label {
+  font-size: 0.55rem;
+  color: var(--red);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.anomaly-text {
+  font-size: 0.75rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.anomaly-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── DIAGNOSIS ── */
+.diagnosis-section {
+  background: var(--bg3);
+  border-top: 1px solid var(--line);
+  padding: 3rem;
+}
+
+.diagnosis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.diag-card {
+  border: 1px solid var(--line);
+  padding: 1.5rem;
+  border-radius: 2px;
+  position: relative;
+}
+
+.diag-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.diag-card.amber::before { background: var(--amber); }
+.diag-card.teal::before { background: var(--teal); }
+.diag-card.red::before { background: var(--red); }
+
+.diag-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.diag-card.amber .diag-label { color: var(--amber); }
+.diag-card.teal .diag-label { color: var(--teal); }
+.diag-card.red .diag-label { color: var(--red); }
+
+.diag-content {
+  font-size: 0.8rem;
+  color: var(--text2);
+  line-height: 1.8;
+}
+
+.diag-content strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── AXIOM FINAL ── */
+.axiom-final {
+  border-top: 1px solid var(--line);
+  padding: 3rem;
+  text-align: center;
+}
+
+.axiom-final-text {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-style: italic;
+  color: var(--text);
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.5;
+}
+
+.axiom-final-text em { color: var(--amber); }
+
+.axiom-sub {
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── DEFINITION BLOCK ── */
+.definition-block {
+  border: 1px solid var(--amber-dim);
+  background: var(--amber-bg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 2px;
+}
+
+.def-label {
+  font-size: 0.55rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.def-term {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+}
+
+.def-text {
+  font-size: 0.75rem;
+  color: var(--text2);
+  line-height: 1.8;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-corpus {
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+}
+
+.footer-license {
+  font-size: 0.6rem;
+  color: var(--text3);
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="header-left">
+    <div class="corpus-tag">lawfare-timeline · categoria analítica · METHODOLOGY-v2.2</div>
+    <h1>Operador<br><em>Inconsciente</em><br>do Sistema</h1>
+  </div>
+  <div class="header-meta">
+    CATEGORIA: OIS<br>
+    PADRÃO: P04 / P08<br>
+    STATUS: documentado<br>
+    DATA: 12/05/2026<br>
+    LICENÇA: CC0 1.0<br>
+    gosurf.site
+  </div>
+</header>
+
+<div class="axiom-band">
+  <span class="axiom-label">Axioma</span>
+  <span class="axiom-text">Conspiração não é necessária. Crença é suficiente.</span>
+</div>
+
+<div class="two-col">
+  <!-- MECANISMOS -->
+  <section class="reveal">
+    <span class="section-label">// mecanismos documentados — caso primário 12/05/2026</span>
+
+    <div class="mech-list">
+
+      <div class="mech-item">
+        <span class="mech-num">01</span>
+        <div class="mech-content">
+          <div class="mech-name">Inoculação afetiva</div>
+          <div class="mech-quote">"me causa constrangimento exibir contracheques"</div>
+          <div class="mech-analysis">Anuncia desconforto preventivamente para criar empatia antes da crítica. Quem já sofre não precisa ser atacado. O leitor é desarmado antes de receber o dado.</div>
+          <span class="mech-tag">P04 — weaponização narrativa</span>
+        </div>
+      </div>
+
+      <div class="mech-item">
+        <span class="mech-num">02</span>
+        <div class="mech-content">
+          <div class="mech-name">Autoridade por ancestralidade</div>
+          <div class="mech-quote">"Aprendi com minha mãe, que me criou"</div>
+          <div class="mech-analysis">Ancora o discurso em valor cultural legítimo (humildade, discrição) para depois violar esse valor — e apresentar a violação como sacrifício nobilitante. "Abro mão do meu pudor pelo bem público."</div>
+          <span class="mech-tag">legitimação simbólica</span>
+        </div>
+      </div>
+
+      <div class="mech-item">
+        <span class="mech-num">03</span>
+        <div class="mech-content">
+          <div class="mech-name">Transparência como gestão de percepção</div>
+          <div class="mech-quote">"Decidi mostrar mesmo assim."</div>
+          <div class="mech-analysis">Exibe o documento, controla a narrativa sobre ele. Os contracheques são reais. A estrutura que gerou +106% em bruto em 27 meses não é mencionada. O dado é a isca; o silêncio, a armadilha.</div>
+          <span class="mech-tag">transparência seletiva</span>
+        </div>
+      </div>
+
+      <div class="mech-item">
+        <span class="mech-num">04</span>
+        <div class="mech-content">
+          <div class="mech-name">Comparação não falsificável</div>
+          <div class="mech-quote">"Na iniciativa privada, com a formação e a experiência que tenho, estaria recebendo bem mais."</div>
+          <div class="mech-analysis">Impossível verificar. Impossível refutar. Funciona exclusivamente como regulação emocional do leitor: "você deveria me agradecer por estar aqui."</div>
+          <span class="mech-tag">P04 — argumento irrefutável</span>
+        </div>
+      </div>
+
+      <div class="mech-item">
+        <span class="mech-num">05</span>
+        <div class="mech-content">
+          <div class="mech-name">Difusão moral via solidariedade corporativa</div>
+          <div class="mech-quote">"a maioria dos colegas que conheço"</div>
+          <div class="mech-analysis">Dilui responsabilidade individual em pertencimento de grupo. Se todos fazem, ninguém é responsável. O padrão individual torna-se norma coletiva — e norma coletiva, regra legítima.</div>
+          <span class="mech-tag">P08 — captura cultural</span>
+        </div>
+      </div>
+
+      <div class="mech-item">
+        <span class="mech-num">06</span>
+        <div class="mech-content">
+          <div class="mech-name">Vitimização prospectiva</div>
+          <div class="mech-quote">"O movimento em curso é de redução, não de aumento."</div>
+          <div class="mech-analysis">Apresenta a correção institucional de uma distorção estrutural como perda pessoal injusta. O acórdão do STF de mai/2026 reconhece que penduricalhos foram usados sistematicamente para ultrapassar o teto. O post normaliza o mecanismo como prática legítima — e a correção, como perseguição.</div>
+          <span class="mech-tag">inversão causal</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DADOS -->
+  <section class="data-panel reveal">
+    <span class="section-label">// evidência primária — contracheques TRT4</span>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>período</th>
+            <th>bruto R$</th>
+            <th>descontos R$</th>
+            <th>líquido R$</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>jan/2024</td>
+            <td class="mono-val">36.893,19</td>
+            <td>17.278,79</td>
+            <td class="mono-val">19.614,40</td>
+          </tr>
+          <tr>
+            <td>fev/2026</td>
+            <td class="mono-val">72.208,89</td>
+            <td>30.110,03</td>
+            <td class="mono-val">42.098,86</td>
+          </tr>
+          <tr>
+            <td>mar/2026</td>
+            <td class="mono-val">70.054,79</td>
+            <td>40.812,29</td>
+            <td class="mono-val">29.242,50</td>
+          </tr>
+          <tr>
+            <td>abr/2026</td>
+            <td class="mono-val">76.149,22</td>
+            <td>30.262,97</td>
+            <td class="mono-val">45.886,25</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="anomaly-bar">
+      <div class="anomaly-label">⚠ anomalia documentada</div>
+      <div class="anomaly-text">
+        Variação bruto jan/2024 → abr/2026: <strong>+106,4%</strong> em 27 meses.<br>
+        IPCA no período: <strong>~10–12%</strong>.<br>
+        Teto constitucional: <strong>R$ 46.366</strong>.<br>
+        Bruto abr/2026: <strong>R$ 76.149</strong> — <span class="alert">64% acima do teto</span>.<br><br>
+        O argumento de que "não recebe" os excessos não elimina o fato de que o bruto remuneratório ultrapassa o teto via mecanismos (GECJ, indenização de licença, férias, acúmulo) que o acórdão de mai/2026 visa exatamente endereçar.
+      </div>
+    </div>
+
+    <div class="definition-block">
+      <div class="def-label">METHODOLOGY-v2.2 · definição formal</div>
+      <div class="def-term">Operador Inconsciente do Sistema (OIS)</div>
+      <div class="def-text">
+        Ator que se beneficia estruturalmente de mecanismos extrativistas documentados, racionaliza os benefícios como merecidos via comparação não falsificável ou esforço pessoal, e percebe a correção institucional como injustiça.<br><br>
+        Distingue-se do operador consciente pela ausência de ocultamento ativo: a transparência seletiva substitui a dissimulação. O dano sistêmico é equivalente; a culpabilidade subjetiva, menor.<br><br>
+        A prevalência do tipo OIS em sistemas capturados é estruturalmente superior à do operador consciente — é o mecanismo de reprodução do sistema <em>sem conspiração</em>.
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="diagnosis-section reveal">
+  <span class="section-label">// perfil psicológico — síntese analítica</span>
+
+  <div class="diagnosis-grid">
+
+    <div class="diag-card amber">
+      <div class="diag-label">estrutura cognitiva</div>
+      <div class="diag-content">
+        <strong>Ego-sintônico, baixa dissonância.</strong><br><br>
+        O sujeito não experimenta conflito interno entre seus valores declarados e sua posição material. A racionalização é fluída e pré-consciente — não é construída em resposta à crítica, é a forma natural de percepção. Distingue-se do cínico: o cínico sabe e simula; o OIS acredita genuinamente.
+      </div>
+    </div>
+
+    <div class="diag-card teal">
+      <div class="diag-label">locus de controle</div>
+      <div class="diag-content">
+        <strong>Externo seletivo.</strong><br><br>
+        Responsabilidade pelos problemas sistêmicos → o sistema, o governo, "a crise". Benefícios obtidos dentro do mesmo sistema → mérito pessoal, esforço, formação, 36 anos de serviço. O mesmo sistema que extrai é o que recompensa — mas as categorias não se tocam na percepção do sujeito.
+      </div>
+    </div>
+
+    <div class="diag-card red">
+      <div class="diag-label">por que importa metodologicamente</div>
+      <div class="diag-content">
+        <strong>Durabilidade sistêmica.</strong><br><br>
+        O corpus documenta operadores conscientes. Mas a reprodução do sistema extrativista depende majoritariamente dos OIS. Magistrados, servidores, assessores, jornalistas que internalizam a lógica e a reproduzem de boa-fé são o tecido do sistema — não a exceção. A prevalência do OIS é o dado estrutural mais relevante.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AXIOM FINAL -->
+<div class="axiom-final reveal">
+  <div class="axiom-final-text">
+    "O perfil clássico de quem opera dentro de um sistema extrativista<br>
+    <em>sem se perceber como operador dele.</em>"
+  </div>
+  <div class="axiom-sub">lawfare-timeline · categoria OIS · P04/P08 · 12 mai 2026</div>
+</div>
+
+<footer>
+  <div class="footer-corpus">
+    lawfare-timeline · AI Nativo Brasil · Artes do Sul Desenvolvimento Web<br>
+    Bombinhas/SC · @araguaci · gosurf.site
+  </div>
+  <div class="footer-license">CC0 1.0 Universal — Domínio Público Total</div>
+</footer>
+
+</main>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

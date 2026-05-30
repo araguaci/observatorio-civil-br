@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corte Medieval — lawfare-timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #09080c;
+  --bg2:   #110f18;
+  --bg3:   #1a1726;
+  --line:  rgba(255,255,255,0.07);
+  --line2: rgba(255,255,255,0.13);
+  --text:  #e4e0f0;
+  --text2: #8a8098;
+  --text3: #4a4460;
+  --gold:  #c8a040;
+  --gold2: #8a6820;
+  --gold-bg: rgba(200,160,64,0.09);
+  --gold-border: rgba(200,160,64,0.25);
+  --red:   #c84040;
+  --red2:  rgba(200,64,64,0.08);
+  --red-border: rgba(200,64,64,0.25);
+  --purple: #9060d0;
+  --purple-bg: rgba(144,96,208,0.09);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono:  'IBM Plex Mono', monospace;
+  --sans:  'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); color: var(--text); font-family: var(--mono); -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; position: relative; overflow-x: hidden; }
+
+/* scanline top */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--gold), var(--red), var(--purple));
+  background-size: 300% 100%;
+  animation: scan 5s linear infinite;
+  z-index: 999;
+}
+@keyframes scan { to { background-position: 300% 0; } }
+
+/* grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none; z-index: 0;
+}
+
+main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+
+/* ── HEADER ── */
+header {
+  padding: 3rem 3rem 2rem;
+  border-bottom: 1px solid var(--line2);
+  position: relative;
+}
+
+.meta-row {
+  display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+}
+
+.badge {
+  font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.2rem 0.6rem; border-radius: 2px; font-weight: 600;
+}
+.b-gold   { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); }
+.b-red    { background: var(--red2);    color: var(--red);  border: 1px solid var(--red-border); }
+.b-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(144,96,208,0.3); }
+.b-dim    { background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--line); }
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 400; line-height: 1.0;
+  color: var(--text); margin-bottom: 1rem;
+}
+h1 em { font-style: italic; color: var(--gold); }
+
+.header-sub {
+  font-size: 0.75rem; color: var(--text2); line-height: 1.8;
+  max-width: 620px;
+}
+
+/* ── AXIOM ── */
+.axiom {
+  background: var(--gold-bg);
+  border-top: 1px solid var(--gold-border);
+  border-bottom: 1px solid var(--gold-border);
+  padding: 1.1rem 3rem;
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.axiom-label { font-size: 0.55rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
+.axiom-text  { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--text); }
+
+/* ── FACTS STRIP ── */
+.facts-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  border-bottom: 1px solid var(--line2);
+}
+.fact-cell {
+  padding: 1.8rem 2rem;
+  border-right: 1px solid var(--line);
+}
+.fact-cell:last-child { border-right: none; }
+.fact-val {
+  font-family: var(--sans); font-size: 1.8rem; font-weight: 800;
+  color: var(--gold); line-height: 1; margin-bottom: 0.4rem;
+}
+.fact-label { font-size: 0.65rem; color: var(--text3); line-height: 1.6; }
+.fact-sub   { font-size: 0.65rem; color: var(--text2); margin-top: 0.3rem; }
+
+/* ── BODY GRID ── */
+.body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line2);
+}
+@media (max-width: 760px) { .body-grid { grid-template-columns: 1fr; } }
+
+.body-col {
+  padding: 2.5rem 3rem;
+  border-right: 1px solid var(--line);
+}
+.body-col:last-child { border-right: none; }
+
+.col-label {
+  font-size: 0.55rem; color: var(--text3); letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 1.8rem; display: block;
+}
+
+/* ── COMPARATIVO DE POSSES ── */
+.posse-list { display: flex; flex-direction: column; gap: 0; }
+.posse-item {
+  border-bottom: 1px solid var(--line);
+  padding: 1.2rem 0;
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 0.8rem;
+  align-items: start;
+}
+.posse-item:last-child { border-bottom: none; }
+.posse-year { font-size: 0.7rem; color: var(--text3); font-family: var(--mono); padding-top: 2px; }
+.posse-minister { font-size: 0.7rem; color: var(--gold); font-weight: 600; margin-bottom: 0.3rem; }
+.posse-desc { font-size: 0.72rem; color: var(--text2); line-height: 1.7; }
+.posse-tag {
+  display: inline-block; margin-top: 0.4rem;
+  font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border-radius: 2px;
+}
+.tag-zero   { background: rgba(40,200,128,0.1); color: #28c880; border: 1px solid rgba(40,200,128,0.3); }
+.tag-coqut  { background: rgba(48,144,232,0.1); color: #3090e8; border: 1px solid rgba(48,144,232,0.3); }
+.tag-gala   { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); }
+
+/* ── ANÁLISE ESTRUTURAL ── */
+.analysis-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.analysis-item {}
+.analysis-title {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  color: var(--gold); text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+.analysis-text { font-size: 0.73rem; color: var(--text2); line-height: 1.8; }
+.analysis-text strong { color: var(--text); font-weight: 500; }
+
+/* ── FILTRO SOCIAL ── */
+.filter-block {
+  margin: 2rem 0 0;
+  padding: 1.2rem;
+  background: var(--red2);
+  border: 1px solid var(--red-border);
+  border-radius: 2px;
+}
+.filter-label { font-size: 0.55rem; color: var(--red); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.filter-text  { font-size: 0.72rem; color: var(--text2); line-height: 1.8; }
+.filter-text strong { color: var(--text); font-weight: 500; }
+
+/* ── CONEXÃO OIS ── */
+.ois-band {
+  background: var(--purple-bg);
+  border-top: 1px solid rgba(144,96,208,0.25);
+  border-bottom: 1px solid rgba(144,96,208,0.25);
+  padding: 2rem 3rem;
+}
+.ois-title {
+  font-size: 0.55rem; color: var(--purple); letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 1.2rem;
+}
+.ois-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 600px) { .ois-grid { grid-template-columns: 1fr; } }
+
+.ois-col {}
+.ois-who { font-family: var(--sans); font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.ois-register { font-size: 0.65rem; color: var(--text3); margin-bottom: 0.7rem; }
+.ois-quote {
+  font-family: var(--serif); font-style: italic; font-size: 0.85rem;
+  color: var(--text2); border-left: 2px solid var(--gold2);
+  padding-left: 0.8rem; line-height: 1.5;
+}
+.ois-mechanism { font-size: 0.65rem; color: var(--text3); margin-top: 0.6rem; }
+
+.ois-connector {
+  text-align: center; padding: 1.5rem 0 0;
+  font-family: var(--serif); font-size: 0.9rem; font-style: italic; color: var(--text2);
+}
+.ois-connector em { color: var(--gold); }
+
+/* ── PATTERN BLOCK ── */
+.pattern-section {
+  padding: 2.5rem 3rem;
+  border-bottom: 1px solid var(--line2);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 600px) { .pattern-section { grid-template-columns: 1fr; } }
+
+.pattern-code {
+  font-family: var(--sans); font-size: 3rem; font-weight: 800;
+  color: var(--gold); opacity: 0.3; line-height: 1;
+}
+.pattern-body {}
+.pattern-name {
+  font-family: var(--sans); font-size: 0.9rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.6rem;
+}
+.pattern-def { font-size: 0.73rem; color: var(--text2); line-height: 1.8; margin-bottom: 1rem; }
+.pattern-def strong { color: var(--text); font-weight: 500; }
+.pattern-instance {
+  font-size: 0.65rem; color: var(--text3); line-height: 1.7;
+  border-left: 1px solid var(--line2); padding-left: 1rem;
+}
+
+/* ── CLOSING ── */
+.closing {
+  padding: 3rem;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.closing-main {
+  font-family: var(--serif); font-size: clamp(1.1rem, 3vw, 1.7rem);
+  font-style: italic; color: var(--text); max-width: 720px;
+  margin: 0 auto 1rem; line-height: 1.45;
+}
+.closing-main em { color: var(--gold); }
+.closing-sub { font-size: 0.6rem; color: var(--text3); letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.footer-left, .footer-right { font-size: 0.6rem; color: var(--text3); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<main>
+
+<!-- HEADER -->
+<header class="reveal">
+  <div class="meta-row">
+    <span class="badge b-gold">lawfare-timeline</span>
+    <span class="badge b-purple">P09 — captura cultural</span>
+    <span class="badge b-red">mecanismo_sistemico</span>
+    <span class="badge b-dim">12/05/2026 · TSE · Brasília</span>
+  </div>
+  <h1>A <em>Corte</em><br>Medieval</h1>
+  <div class="header-sub">
+    Posse de Kassio Nunes Marques na presidência do TSE — cargo administrativo interno, sem nova investidura constitucional — celebrada com jantar de gala a R$ 800 por ingresso. Análise estrutural do ritual como mecanismo de autossegregação institucional.
+  </div>
+</header>
+
+<!-- AXIOM -->
+<div class="axiom reveal">
+  <span class="axiom-label">Axioma</span>
+  <span class="axiom-text">O ritual não serve à função. Serve ao status. A tarifa não é receita — é filtro.</span>
+</div>
+
+<!-- FACTS -->
+<div class="facts-strip reveal">
+  <div class="fact-cell">
+    <div class="fact-val">R$800</div>
+    <div class="fact-label">ingresso por pessoa</div>
+    <div class="fact-sub">bebida e comida incluídas<br>modelo "por adesão"</div>
+  </div>
+  <div class="fact-cell">
+    <div class="fact-val">~R$640k</div>
+    <div class="fact-label">arrecadado até a posse</div>
+    <div class="fact-sub">~800 pagantes<br>Ajufe responsável pela venda</div>
+  </div>
+  <div class="fact-cell">
+    <div class="fact-val">0</div>
+    <div class="fact-label">novos poderes conferidos</div>
+    <div class="fact-sub">presidência do TSE = rotatividade interna<br>sem investidura constitucional nova</div>
+  </div>
+  <div class="fact-cell">
+    <div class="fact-val">53,5×</div>
+    <div class="fact-label">ingresso vs. salário mínimo/dia</div>
+    <div class="fact-sub">salário mínimo 2026: ~R$1.518<br>R$800 = 16 dias de trabalho</div>
+  </div>
+</div>
+
+<!-- BODY GRID -->
+<div class="body-grid">
+
+  <!-- COMPARATIVO DE POSSES -->
+  <div class="body-col reveal">
+    <span class="col-label">// histórico comparado — posses TSE recentes</span>
+
+    <div class="posse-list">
+
+      <div class="posse-item">
+        <span class="posse-year">2022</span>
+        <div>
+          <div class="posse-minister">Alexandre de Moraes</div>
+          <div class="posse-desc">Coquetel nas dependências do próprio TSE. Presença de mais de duas mil pessoas. Espaço público, acesso irrestrito a convidados.</div>
+          <span class="posse-tag tag-coqut">coquetel institucional</span>
+        </div>
+      </div>
+
+      <div class="posse-item">
+        <span class="posse-year">2024</span>
+        <div>
+          <div class="posse-minister">Cármen Lúcia</div>
+          <div class="posse-desc">Optou por não realizar nenhum evento de confraternização. Cerimônia oficial apenas. Nenhuma festa.</div>
+          <span class="posse-tag tag-zero">sem evento</span>
+        </div>
+      </div>
+
+      <div class="posse-item">
+        <span class="posse-year">2026</span>
+        <div>
+          <div class="posse-minister">Kassio Nunes Marques</div>
+          <div class="posse-desc">Salão de festas privado na Asa Sul. Ingresso a R$ 800. Restrito a pagantes. Até ministros de tribunais superiores pagam para participar. Convite formal a Bolsonaro — em prisão domiciliar — seguindo "praxe" de ex-presidentes.</div>
+          <span class="posse-tag tag-gala">gala tarifada</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ANÁLISE ESTRUTURAL -->
+  <div class="body-col reveal">
+    <span class="col-label">// análise estrutural — P09</span>
+
+    <div class="analysis-list">
+
+      <div class="analysis-item">
+        <div class="analysis-title">O ritual como linguagem de poder</div>
+        <div class="analysis-text">
+          Toda corte medieval produzia rituais cujo conteúdo funcional era zero — o rei já era rei antes da coroação. A função do ritual não é transferir poder: é <strong>tornar o poder visível, hierarquizar os presentes e sinalizar pertencimento</strong>. O jantar de R$ 800 opera exatamente assim. A posse já aconteceu. O cargo já foi assumido. A festa não adiciona nada à função — adiciona tudo ao status.
+        </div>
+      </div>
+
+      <div class="analysis-item">
+        <div class="analysis-title">R$ 800 como filtro social, não como receita</div>
+        <div class="analysis-text">
+          O valor não é alto o suficiente para excluir ministros de tribunais superiores — <strong>é alto o suficiente para excluir quem não pertence</strong>. Servidores de nível médio, advogados sem clientela de peso, jornalistas sem credenciamento, cidadãos sem rede — todos ficam do lado de fora não por proibição explícita, mas por preço. O filtro é elegante porque é voluntário.
+        </div>
+      </div>
+
+      <div class="analysis-item">
+        <div class="analysis-title">Ajufe como cobertura institucional</div>
+        <div class="analysis-text">
+          A operacionalização via Associação dos Juízes Federais do Brasil cria distância formal entre o ministro e a arrecadação. <strong>O evento não é "do ministro" — é "da associação".</strong> A estrutura de pessoa jurídica interposta para organizar ritual pessoal de poder é padrão documentado no corpus em outros contextos.
+        </div>
+      </div>
+
+      <div class="analysis-item">
+        <div class="analysis-title">O convite a Bolsonaro — praxe ou sinal?</div>
+        <div class="analysis-text">
+          A justificativa é "praxe": ex-presidentes são sempre convidados. Mas o contexto específico — Nunes Marques foi indicado por Bolsonaro em 2020, <strong>presidirá o TSE nas eleições de outubro/2026, e Bolsonaro ainda tem inelegibilidade pendente de revisão</strong> — transforma a praxe em sinal. O corpus não afirma intenção. Documenta configuração.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="filter-block">
+      <div class="filter-label">⚠ mecanismo documentado</div>
+      <div class="filter-text">
+        Salário mínimo 2026: <strong>~R$ 1.518/mês</strong>. Um ingresso = <strong>16 dias de trabalho</strong> para quem ganha o mínimo. O cidadão que financia o Judiciário via impostos não tem acesso ao ritual de posse de quem vai presidir sua eleição. Isso não é exclusão acidental — é <strong>autossegregação como design</strong>.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONEXÃO OIS -->
+<div class="ois-band reveal">
+  <div class="ois-title">// conexão analítica — OIS (categoria 12/05/2026) · dois registros do mesmo sistema</div>
+  <div class="ois-grid">
+
+    <div class="ois-col">
+      <div class="ois-who">Juiz do TRT4 — registro por baixo</div>
+      <div class="ois-register">contracheque · bruto R$ 76.149 · abr/2026</div>
+      <div class="ois-quote">"me causa constrangimento exibir contracheques... parece-me condizente com 36 anos de Justiça"</div>
+      <div class="ois-mechanism">mecanismo: humildade performática + transparência seletiva</div>
+    </div>
+
+    <div class="ois-col">
+      <div class="ois-who">Ministro do STF/TSE — registro por cima</div>
+      <div class="ois-register">posse administrativa · jantar R$ 800/pessoa · ~R$ 640k arrecadados</div>
+      <div class="ois-quote">Gala tarifada para função burocrática rotineira. Filtro social via preço. Ritual imperial para cargo de rodízio.</div>
+      <div class="ois-mechanism">mecanismo: pompa como linguagem de legitimidade + filtro de pertencimento</div>
+    </div>
+
+  </div>
+  <div class="ois-connector">
+    Um usa a linguagem da <em>humildade produtiva</em>. O outro, da <em>pompa merecida</em>.<br>
+    Ambos naturalizam o abismo — um por baixo, outro por cima.
+  </div>
+</div>
+
+<!-- PATTERN -->
+<div class="pattern-section reveal">
+  <div class="pattern-code">P09</div>
+  <div class="pattern-body">
+    <div class="pattern-name">Captura Cultural e Legitimidade Simbólica</div>
+    <div class="pattern-def">
+      Produção deliberada de legitimidade cultural como escudo e reforço de poder institucional. O ritual não é ornamento — é <strong>função sistêmica</strong>: hierarquiza, segrega, naturaliza e reproduz a posição de dominância como ordem legítima.<br><br>
+      Neste caso, a variante documentada é <strong>autossegregação ritual</strong>: a corte se separa do público que financia sua existência via mecanismo de preço — não via proibição, o que seria juridicamente vulnerável, mas via barreira econômica voluntária, que é socialmente invisível.
+    </div>
+    <div class="pattern-instance">
+      <strong>Instância anterior documentada:</strong> cerimônias do STF com protocolos de acesso restrito, cobertura orquestrada, linguagem de deferência obrigatória em audiências. O padrão transcende o ator individual — é o design institucional que produz e exige o ritual.<br><br>
+      <strong>Distinção metodológica:</strong> o corpus não afirma que Nunes Marques agiu com intenção de exclusão. Documenta que o efeito estrutural é exclusão — independente da intenção.
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing reveal">
+  <div class="closing-main">
+    "Era só ir lá e assinar o documento.<br>
+    Mas tudo que envolve o poder judiciário nesse país<br>
+    tem que <em>lembrar uma corte da monarquia europeia medieval.</em>"
+  </div>
+  <div class="closing-sub">lawfare-timeline · P09 · mecanismo_sistemico · 12 mai 2026 · ev-confirmed</div>
+</div>
+
+<!-- SOURCES -->
+<div style="padding: 1.5rem 3rem; border-bottom: 1px solid var(--line);">
+  <div style="font-size: 0.55rem; color: var(--text3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.8rem;">// fontes primárias</div>
+  <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+    <a href="https://www.correiobraziliense.com.br/politica/2026/05/7417644-nunes-marques-assume-presidencia-do-tse-com-festa-a-rs-800-o-convite.html"
+       target="_blank" style="font-size: 0.65rem; color: var(--gold); text-decoration: none; hover: underline;">
+      Correio Braziliense — Nunes Marques assume presidência do TSE com festa a R$ 800 o convite (12/05/2026)
+    </a>
+    <a href="https://agenciabrasil.ebc.com.br/justica/noticia/2026-05/nunes-marques-toma-posse-na-presidencia-do-tse-e-vai-comandar-eleicoes"
+       target="_blank" style="font-size: 0.65rem; color: var(--gold); text-decoration: none;">
+      Agência Brasil — Nunes Marques toma posse na presidência do TSE (12/05/2026)
+    </a>
+    <a href="https://fatonews.com.br/2026/05/12/festa-de-posse-de-nunes-marques-no-tse-tem-ingresso-a-r-800-e-convite-a-bolsonaro/"
+       target="_blank" style="font-size: 0.65rem; color: var(--gold); text-decoration: none;">
+      FatoNews — Festa de posse tem ingresso a R$ 800 e convite a Bolsonaro (12/05/2026)
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left"><a href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener noreferrer">lawfare-timeline</a> · <a href="https://gosurf.site" target="_blank" rel="noopener noreferrer">gosurf.site</a></div>
+  <div class="footer-right">CC0 1.0 Universal — Domínio Público Total</div>
+</footer>
+
+</main>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.04 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

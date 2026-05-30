@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retorno Zero — lawfare-timeline</title>
+<meta name="description" content="Judiciário mais caro do mundo em proporção ao PIB, acesso regressivo, caso Biazucci, loop P11 e território sob facções — equação custo × entrega documentada. CC0.">
+<link rel="canonical" href="https://gosurf.site/retorno-zero">
+<meta property="og:title" content="Retorno Zero — lawfare-timeline">
+<meta property="og:description" content="Custo máximo, entrega mínima, beneficiário invertido: P11, P03 e dados verificáveis sobre o sistema judiciário brasileiro.">
+<meta property="og:url" content="https://gosurf.site/retorno-zero">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://gosurf.site/og-retorno-zero.png">
+<meta property="og:image:alt" content="Retorno Zero — P11 custo × entrega · lawfare-timeline">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retorno Zero — lawfare-timeline">
+<meta name="twitter:description" content="Equação de retorno: quem paga não recebe. Dados, caso Biazucci e loop judicial P11.">
+<meta name="twitter:image" content="https://gosurf.site/og-retorno-zero.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07090b;--bg2:#0d1014;--bg3:#141820;
+  --line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.10);
+  --text:#dde4ec;--text2:#6e8096;--text3:#38485a;
+  --red:#d84848;--red-bg:rgba(216,72,72,0.08);--red-b:rgba(216,72,72,0.22);
+  --amber:#d89028;--amber-bg:rgba(216,144,40,0.08);--amber-b:rgba(216,144,40,0.22);
+  --green:#28b068;--green-bg:rgba(40,176,104,0.08);--green-b:rgba(40,176,104,0.22);
+  --blue:#3888d0;--blue-bg:rgba(56,136,208,0.08);--blue-b:rgba(56,136,208,0.20);
+  --purple:#9060d0;--purple-bg:rgba(144,96,208,0.08);--purple-b:rgba(144,96,208,0.22);
+  --serif:'DM Serif Display',Georgia,serif;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Syne',sans-serif;
+  --pad:clamp(1rem,4vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+body{min-height:100vh;overflow-x:hidden;position:relative;}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--amber),var(--red));background-size:200% 100%;animation:sc 4s linear infinite;z-index:999;}
+@keyframes sc{to{background-position:200% 0;}}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");background-size:256px;pointer-events:none;z-index:0;}
+main{position:relative;z-index:1;max-width:1120px;margin:0 auto;}
+
+/* BADGES */
+.meta-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.badge{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .55rem;border-radius:2px;font-weight:600;}
+.b-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-b);}
+.b-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-b);}
+.b-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b);}
+.b-purple{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-b);}
+.b-dim{background:rgba(255,255,255,.03);color:var(--text3);border:1px solid var(--line);}
+
+/* HEADER */
+header{padding:var(--pad);padding-bottom:calc(var(--pad)*.7);border-bottom:1px solid var(--line2);}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,8vw,4.4rem);font-weight:400;line-height:1;color:var(--text);margin-bottom:.9rem;}
+h1 em{font-style:italic;color:var(--red);}
+.header-sub{font-size:clamp(.68rem,2.2vw,.78rem);color:var(--text2);line-height:1.85;max-width:680px;}
+
+/* AXIOM */
+.axiom{border-top:1px solid var(--red-b);border-bottom:1px solid var(--red-b);background:var(--red-bg);padding:1rem var(--pad);display:flex;align-items:flex-start;gap:1rem;}
+.ax-l{font-size:.5rem;color:var(--red);letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;padding-top:.15rem;}
+.ax-t{font-family:var(--serif);font-size:clamp(.85rem,2.5vw,1rem);font-style:italic;color:var(--text);line-height:1.55;}
+
+/* TABS */
+.tabs-nav{display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line2);background:var(--bg2);position:sticky;top:0;z-index:100;-webkit-overflow-scrolling:touch;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;display:flex;align-items:center;gap:.4rem;padding:.85rem clamp(.6rem,2.5vw,1.2rem);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;font-family:var(--mono);font-weight:600;}
+.tab-btn svg{flex-shrink:0;}
+.tab-btn:hover{color:var(--text2);}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--red);}
+a.tab-btn{text-decoration:none;color:inherit;}
+.tab-panel{scroll-margin-top:58px;}
+
+/* SECTIONS */
+.sec-label{font-size:.5rem;color:var(--text3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:.5rem;}
+.panel{padding:var(--pad);border-bottom:1px solid var(--line2);}
+.panel.alt{background:var(--bg2);}
+
+/* EQUATION */
+.eq-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.8rem;align-items:center;margin-bottom:1rem;}
+@media(max-width:600px){.eq-row{grid-template-columns:1fr;}.eq-op{text-align:center;font-size:1.2rem;}}
+.eq-cell{padding:1rem 1.1rem;border:1px solid var(--line2);border-radius:3px;background:var(--bg3);}
+.eq-cell.inp{border-color:var(--green-b);background:var(--green-bg);}
+.eq-cell.out{border-color:var(--red-b);background:var(--red-bg);}
+.eq-val{font-family:var(--sans);font-size:clamp(1rem,4vw,1.5rem);font-weight:800;line-height:1;margin-bottom:.3rem;}
+.eq-val.g{color:var(--green);}.eq-val.r{color:var(--red);}.eq-val.a{color:var(--amber);}
+.eq-desc{font-size:.6rem;color:var(--text2);line-height:1.6;}
+.eq-op{font-family:var(--sans);font-size:1.4rem;font-weight:800;color:var(--text3);text-align:center;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;border:1px solid var(--line2);border-radius:3px;overflow:hidden;margin-bottom:1.2rem;}
+.stat-cell{padding:1rem 1.1rem;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);}
+.stat-ico{margin-bottom:.45rem;opacity:.65;}
+.stat-val{font-family:var(--sans);font-size:clamp(1rem,3.5vw,1.35rem);font-weight:800;line-height:1;margin-bottom:.2rem;}
+.stat-val.hi{color:var(--red);}.stat-val.mid{color:var(--amber);}.stat-val.lo{color:var(--green);}
+.stat-country{font-size:.52rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem;}
+.stat-sub{font-size:.56rem;color:var(--text2);line-height:1.5;}
+
+/* INV */
+.inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:600px){.inv-grid{grid-template-columns:1fr;}}
+.inv-card{border:1px solid var(--line2);border-radius:3px;overflow:hidden;}
+.inv-head{padding:.7rem 1rem;display:flex;align-items:center;gap:.5rem;}
+.inv-head.pays{background:var(--green-bg);border-bottom:1px solid var(--green-b);}
+.inv-head.gets{background:var(--red-bg);border-bottom:1px solid var(--red-b);}
+.inv-head-lbl{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;}
+.inv-head.pays .inv-head-lbl{color:var(--green);}
+.inv-head.gets .inv-head-lbl{color:var(--red);}
+.inv-body{padding:1rem;}
+.inv-item{font-size:.67rem;color:var(--text2);line-height:1.85;padding:.3rem 0;border-bottom:1px solid var(--line);display:flex;gap:.5rem;align-items:flex-start;}
+.inv-item:last-child{border-bottom:none;}
+.inv-item svg{flex-shrink:0;margin-top:2px;opacity:.5;}
+.inv-item strong{color:var(--text);font-weight:500;}
+
+/* FILTER STEPS */
+.fsteps{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;border:1px solid var(--line2);border-radius:3px;overflow:hidden;margin-bottom:1.2rem;}
+.fstep{padding:.9rem 1rem;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);}
+.fstep-ico{margin-bottom:.4rem;}
+.fstep-n{font-size:.48rem;color:var(--text3);letter-spacing:.15em;margin-bottom:.3rem;}
+.fstep-title{font-size:.65rem;color:var(--amber);font-weight:600;font-family:var(--sans);margin-bottom:.25rem;}
+.fstep-body{font-size:.6rem;color:var(--text2);line-height:1.65;}
+.fstep.blocked .fstep-title{color:var(--red);}
+.fstep.blocked{background:rgba(216,72,72,.04);}
+
+/* CASE */
+.case-card{border:1px solid var(--amber-b);border-radius:3px;overflow:hidden;margin-bottom:1.2rem;}
+.case-head{background:var(--amber-bg);border-bottom:1px solid var(--amber-b);padding:.75rem 1.1rem;display:flex;align-items:center;gap:.6rem;}
+.case-head-lbl{font-size:.52rem;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+.case-body{padding:1.1rem;}
+.case-row{display:grid;grid-template-columns:3.5rem 1fr;gap:.8rem;padding:.65rem 0;border-bottom:1px solid var(--line);align-items:start;}
+.case-row:last-child{border-bottom:none;}
+.case-year{font-size:.58rem;color:var(--text3);font-family:var(--mono);padding-top:2px;}
+.case-text{font-size:.68rem;color:var(--text2);line-height:1.75;}
+.case-text strong{color:var(--text);font-weight:500;}
+.case-text .hot{color:var(--red);font-weight:500;}
+.case-text .ok{color:var(--green);font-weight:500;}
+
+/* TERRITORY */
+.terr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.2rem;}
+.terr-card{padding:1rem;border:1px solid var(--line2);border-radius:3px;display:flex;flex-direction:column;gap:.35rem;}
+.terr-ico{opacity:.55;}
+.terr-val{font-family:var(--sans);font-size:clamp(1rem,4vw,1.45rem);font-weight:800;color:var(--red);line-height:1;}
+.terr-label{font-size:.6rem;color:var(--text2);line-height:1.55;}
+.terr-sub{font-size:.53rem;color:var(--text3);}
+
+/* LOOP */
+.loop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;border:1px solid var(--line2);border-radius:3px;overflow:hidden;}
+.loop-step{padding:.85rem 1rem;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);}
+.loop-ico{margin-bottom:.35rem;opacity:.55;}
+.loop-n{font-size:.46rem;color:var(--text3);letter-spacing:.15em;margin-bottom:.25rem;}
+.loop-title{font-size:.63rem;color:var(--amber);font-weight:600;font-family:var(--sans);margin-bottom:.2rem;}
+.loop-body{font-size:.58rem;color:var(--text2);line-height:1.6;}
+
+/* CALLOUTS */
+.callout{padding:1rem 1.2rem;border-radius:2px;font-size:.68rem;color:var(--text2);line-height:1.8;margin-top:.9rem;}
+.callout strong{font-weight:500;}
+.callout-label{font-size:.46rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem;display:block;}
+.callout.amber{background:var(--amber-bg);border:1px solid var(--amber-b);}
+.callout.amber .callout-label,.callout.amber strong{color:var(--amber);}
+.callout.red{background:var(--red-bg);border:1px solid var(--red-b);}
+.callout.red .callout-label,.callout.red strong{color:var(--red);}
+.callout.purple{background:var(--purple-bg);border:1px solid var(--purple-b);}
+.callout.purple .callout-label,.callout.purple strong{color:var(--purple);}
+
+.analysis{font-size:.68rem;color:var(--text2);line-height:1.88;}
+.analysis strong{color:var(--text);font-weight:500;}
+.analysis .hl{color:var(--amber);font-weight:500;}
+
+/* CLOSING */
+.closing{padding:var(--pad);text-align:center;border-bottom:1px solid var(--line);}
+.closing-pre{font-size:.55rem;color:var(--text3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;}
+.closing-quote{font-family:var(--serif);font-size:clamp(1rem,3.5vw,1.6rem);font-style:italic;color:var(--text);max-width:720px;margin:0 auto .5rem;line-height:1.45;}
+.closing-quote em{color:var(--red);}
+.closing-attr{font-size:.52rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-top:1rem;}
+
+/* SOURCES */
+.sources{padding:var(--pad);border-bottom:1px solid var(--line);}
+.src-label{font-size:.48rem;color:var(--text3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem;}
+.src-link{display:flex;align-items:flex-start;gap:.4rem;font-size:.6rem;color:var(--blue);text-decoration:none;line-height:2;}
+.src-link:hover{text-decoration:underline;}
+.src-link svg{flex-shrink:0;margin-top:5px;opacity:.6;}
+.src-row{border:1px solid var(--line2);border-radius:3px;overflow:hidden;margin-bottom:.55rem;}
+.src-row .src-link{padding:.65rem 1rem;border-bottom:1px solid var(--line);}
+.src-row .share-strip{border:none;border-radius:0;margin:0;}
+.share-strip{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .55rem;padding:.55rem .75rem .65rem;background:var(--bg3);border:1px solid var(--line2);border-radius:3px;}
+.share-strip-label{font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);display:inline-flex;align-items:center;gap:.35rem;margin-right:.25rem;}
+.share-strip-label svg{opacity:.75;}
+.share-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:4px;border:1px solid var(--line2);background:var(--bg2);color:var(--text2);cursor:pointer;transition:color .15s,border-color .15s,background .15s;padding:0;}
+.share-btn:hover{border-color:var(--line);color:var(--text);background:var(--bg);}
+.share-btn:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
+.share-ic{width:15px;height:15px;flex-shrink:0;}
+.share-btn.copied{border-color:var(--green-b);color:var(--green);}
+.share-panel{margin:0 var(--pad);padding:1.25rem 1rem;border:1px solid var(--line2);border-radius:3px;background:var(--bg2);margin-bottom:1rem;}
+.share-panel h3{font-family:var(--sans);font-size:.78rem;font-weight:800;color:var(--text);margin-bottom:.5rem;display:flex;align-items:center;gap:.45rem;}
+.share-panel>p{font-size:.62rem;color:var(--text2);line-height:1.75;margin-bottom:.85rem;}
+.share-panel .share-strip{background:var(--bg3);}
+.related-block{margin:0 var(--pad) 1rem;}
+.related-block-h{font-size:.48rem;color:var(--text3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;}
+.related-wrap{display:flex;flex-direction:column;gap:0;}
+.related-card{background:var(--bg3);border:1px solid var(--line2);padding:.75rem .85rem;text-decoration:none;display:block;transition:border-color .15s;border-radius:3px 3px 0 0;border-bottom-color:transparent;}
+.related-card:hover{border-color:var(--line);}
+.related-card .rc-lbl{font-size:.48rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;}
+.related-card .rc-title{font-family:var(--sans);font-size:.65rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:.2rem;}
+.related-card .rc-url{font-size:.5rem;color:var(--red);font-family:var(--mono);}
+.related-wrap .share-strip{border-radius:0 0 3px 3px;border-top:none;margin-top:-1px;}
+
+/* FOOTER */
+footer{padding:1rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.f-l,.f-r{font-size:.55rem;color:var(--text3);}
+
+/* GO TOP */
+#gotop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:40px;height:40px;border-radius:50%;background:var(--bg3);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s,background .2s;}
+#gotop.show{opacity:1;pointer-events:auto;}
+#gotop:hover{background:var(--red-bg);border-color:var(--red-b);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div id="top"></div>
+<main>
+
+<header class="reveal">
+  <div class="meta-row">
+    <span class="badge b-red">lawfare-timeline</span>
+    <span class="badge b-amber">P11 — loop extração</span>
+    <span class="badge b-red">P03 — chokepoint</span>
+    <span class="badge b-purple">acesso regressivo</span>
+    <span class="badge b-dim">2013–2026 · CNJ · STJ · Cambridge · Sou da Paz</span>
+  </div>
+  <h1>Retorno<br><em>Zero</em></h1>
+  <div class="header-sub">O Brasil opera o Judiciário mais caro do mundo em proporção ao PIB. O cidadão que financia via tributos é o que menos acessa e o que mais sofre com os resultados. O mesmo sistema prendeu um inocente 7 meses, negou indenização e cobrou R$479k dele. Custo máximo. Entrega mínima. Beneficiário invertido.</div>
+</header>
+
+<div class="axiom reveal">
+  <span class="ax-l">Tese</span>
+  <span class="ax-t">Quem paga não recebe. Quem não paga é servido. O sistema é regressivo no acesso e progressivo no custo — e cobra do inocente que ousou pedir conta.</span>
+</div>
+
+<nav class="tabs-nav" id="tabs-nav" aria-label="Seções do artigo">
+  <a class="tab-btn active" href="#sec-custo" data-sec="sec-custo">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Custo
+  </a>
+  <a class="tab-btn" href="#sec-acesso" data-sec="sec-acesso">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Acesso
+  </a>
+  <a class="tab-btn" href="#sec-biazucci" data-sec="sec-biazucci">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Caso Biazucci
+  </a>
+  <a class="tab-btn" href="#sec-territorio" data-sec="sec-territorio">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="2.5"/></svg>Território
+  </a>
+  <a class="tab-btn" href="#sec-loop" data-sec="sec-loop">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>Loop P11
+  </a>
+</nav>
+
+<section class="tab-panel" id="sec-custo">
+<div id="tab-custo">
+<div class="panel alt reveal">
+  <div class="sec-label"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>a equação de retorno</div>
+  <div class="eq-row">
+    <div class="eq-cell inp"><div class="eq-val g">R$181,5bi</div><div class="eq-desc">custo sistema de justiça<br>2024 · 1,55% do PIB<br>Tesouro Nacional / Cofog</div></div>
+    <div class="eq-op">÷</div>
+    <div class="eq-cell"><div class="eq-val a">215mi</div><div class="eq-desc">brasileiros que pagam<br>via tributos<br>IBGE 2024</div></div>
+    <div class="eq-op">=</div>
+    <div class="eq-cell out"><div class="eq-val r">R$843</div><div class="eq-desc">custo per capita anual<br>~R$70/mês por pessoa<br>retorno: 35% dos homicídios</div></div>
+  </div>
+  <div class="callout amber"><span class="callout-label">o que R$843/ano compra</span><strong>35% de chance</strong> de que um homicídio contra sua família seja esclarecido. Sem garantia de acesso a advogado. Sem prazo. Sem garantia de que a investigação chegue ao beneficiário final. A Fazenda-SP pagou <strong>R$513k líquidos a um auditor</strong> em um mês via mecanismo que o STF "limitou" na semana anterior.</div>
+</div>
+<div class="panel reveal">
+  <div class="sec-label"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>comparativo internacional — gasto com justiça / PIB</div>
+  <div class="stat-grid">
+    <div class="stat-cell"><div class="stat-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="stat-country">Brasil</div><div class="stat-val hi">1,55%</div><div class="stat-sub">do PIB · 2024<br>2º mais caro do mundo</div></div>
+    <div class="stat-cell"><div class="stat-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="stat-country">El Salvador</div><div class="stat-val hi">1,59%</div><div class="stat-sub">único acima do Brasil<br>1º colocado global</div></div>
+    <div class="stat-cell"><div class="stat-ico"><svg width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="stat-country">Média emergentes</div><div class="stat-val mid">0,5%</div><div class="stat-sub">Brasil: 3,1× acima<br>do grupo</div></div>
+    <div class="stat-cell"><div class="stat-ico"><svg width="18" height="18" fill="none" stroke="var(--green)" stroke-width="1.8" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="stat-country">Média OCDE</div><div class="stat-val lo">0,3%</div><div class="stat-sub">Brasil: 5,2× acima<br>dos países ricos</div></div>
+    <div class="stat-cell"><div class="stat-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="stat-country">% em pessoal</div><div class="stat-val hi">89,2%</div><div class="stat-sub">R$130,6bi em salários<br>e aposentadorias</div></div>
+    <div class="stat-cell"><div class="stat-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="stat-country">Crescimento 2024</div><div class="stat-val hi">+15,8%</div><div class="stat-sub">em relação a 2023<br>série histórica: sempre sobe</div></div>
+  </div>
+  <div class="callout red"><strong>Custo médio por magistrado:</strong> Tribunais Superiores R$101,6k/mês · Justiça Estadual R$92,8k/mês · Justiça do Trabalho R$68,7k/mês. <strong>89,2% do orçamento em pessoal</strong> — restam 10,8% para o funcionamento efetivo. O orçamento cresce. A taxa de esclarecimento de homicídios permanece estagnada em ~35% desde 2015.</div>
+</div>
+</div><!-- /tab-custo inner -->
+</section><!-- /sec-custo -->
+
+<!-- TAB ACESSO -->
+<section class="tab-panel" id="sec-acesso">
+<div id="tab-acesso">
+<div class="panel reveal">
+  <div class="sec-label"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>filtros de acesso — onde o sistema bloqueia quem mais precisa</div>
+  <div class="fsteps">
+    <div class="fstep"><div class="fstep-ico"><svg width="18" height="18" fill="none" stroke="var(--text2)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="fstep-n">01 · entrada</div><div class="fstep-title">Cidadão comum</div><div class="fstep-body">Trabalhador formal. Contribuinte. Vítima. Financia R$843/ano. Precisa da Justiça.</div></div>
+    <div class="fstep blocked"><div class="fstep-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="fstep-n">02 · filtro 1</div><div class="fstep-title">Advogado / gratuidade</div><div class="fstep-body">Custo inacessível. Defensoria sucateada. Gratuidade negada mesmo com CPC/15 art. 99 §3º. Inversão normativa documentada (Bello/Migalhas).</div></div>
+    <div class="fstep blocked"><div class="fstep-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="fstep-n">03 · filtro 2</div><div class="fstep-title">Sucumbência punitiva</div><div class="fstep-body">Se perder, paga honorários do adversário. Biazucci: inocente preso 7 meses → condenado a pagar R$479k ao Estado.</div></div>
+    <div class="fstep blocked"><div class="fstep-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="fstep-n">04 · filtro 3</div><div class="fstep-title">Prazo / prescrição</div><div class="fstep-body">Varas congestionadas. Anos de espera. Quem não tem reserva desiste. P06: prescrição como resultado esperado.</div></div>
+    <div class="fstep blocked"><div class="fstep-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="fstep-n">05 · filtro 4</div><div class="fstep-title">Chokepoint STF</div><div class="fstep-body">Investigações sobre poder econômico param antes do beneficiário final. P03: o tribunal define seus próprios salários e quem chega até ele.</div></div>
+  </div>
+  <div class="inv-grid">
+    <div class="inv-card">
+      <div class="inv-head pays"><svg width="13" height="13" fill="none" stroke="var(--green)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span class="inv-head-lbl">quem mais paga</span></div>
+      <div class="inv-body">
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span><strong>Trabalhador formal</strong> — FGTS, IR, INSS, impostos embutidos em tudo</span></div>
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span><strong>Acesso efetivo:</strong> advogado inacessível, Defensoria sucateada, anos de espera</span></div>
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span><strong>Homicídio:</strong> 65% de impunidade — série estagnada desde 2015</span></div>
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg><span><strong>Território:</strong> 25–30% da população sob regras de facções</span></div>
+      </div>
+    </div>
+    <div class="inv-card">
+      <div class="inv-head gets"><svg width="13" height="13" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg><span class="inv-head-lbl">quem mais usa</span></div>
+      <div class="inv-body">
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span><strong>Facções e cleptocracia</strong> — HC, nulidades, recursos protelatórios, prescrição</span></div>
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span><strong>Acesso efetivo:</strong> escritórios especializados, STF via ADI e HC, INQ reflexivo</span></div>
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg><span><strong>Resultado:</strong> P01 (vício), P06 (prescrição), P03 (chokepoint STF)</span></div>
+        <div class="inv-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span><strong>Expansão:</strong> 88 facções · PCC/CV 13 estados · +138% em 5 anos</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="callout purple"><span class="callout-label">inversão normativa documentada — Bello / Migalhas · mai/2026</span>CPC/15 art. 99 §3º positivou presunção de veracidade da hipossuficiência. Lei 13.869/19 art. 33 criminalizou exigência de obrigação sem amparo legal. <strong>Resultado empírico: a prática de negar gratuidade arbitrariamente intensificou-se após ambas as normas.</strong> A proteção formal correspondeu, na prática, a uma redução da proteção efetiva. Padrão documentado no corpus: norma que não altera cultura institucional.</div>
+</div>
+</div><!-- /tab-acesso inner -->
+</section><!-- /sec-acesso -->
+
+<!-- TAB BIAZUCCI -->
+<section class="tab-panel" id="sec-biazucci">
+<div id="tab-biazucci">
+<div class="panel reveal">
+  <div class="sec-label"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>caso André Biazucci — IDs 1511–1513 · ev-confirmed</div>
+  <div class="case-card">
+    <div class="case-head"><svg width="15" height="15" fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="case-head-lbl">André Luiz Medeiros Biazucci Cardoso · dentista · 39 anos · Belford Roxo RJ</span></div>
+    <div class="case-body">
+      <div class="case-row"><span class="case-year">out/2013</span><div class="case-text">Preso preventivamente por 7 acusações de estupro em série. Reconhecimento via <strong>foto em rede social</strong> + fila com policiais uniformizados — método proibido pelo <strong>art. 226 CPP</strong>. Apresentado algemado à imprensa.</div></div>
+      <div class="case-row"><span class="case-year">210 dias</span><div class="case-text">Preso. Parte em isolamento total. <strong class="hot">Perde o emprego.</strong> Família vende o carro para pagar advogados e peritos particulares. O Estado não busca prova de inocência — o inocente a financia.</div></div>
+      <div class="case-row"><span class="case-year">2014</span><div class="case-text">DNA custeado pela defesa exclui André em todos os 7 processos. Câmeras confirmam que ele não estava em Belford Roxo. <strong class="ok">MP-RJ manifesta-se pela soltura.</strong> Absolvido. Muda de cidade.</div></div>
+      <div class="case-row"><span class="case-year">2015</span><div class="case-text">Ingresso com ação indenizatória: <strong>R$4 milhões</strong> pelos danos. Inicia uma década de processo.</div></div>
+      <div class="case-row"><span class="case-year">set/2025</span><div class="case-text">STJ rejeita em definitivo. Fundamento: <strong>"exercício regular da atividade repressiva penal"</strong>. Erro do Estado não reconhecido. Sucumbência: André condenado a pagar <strong class="hot">R$478,9 mil</strong> à PGE-RJ.</div></div>
+      <div class="case-row"><span class="case-year">mar/2026</span><div class="case-text">Defesa protocola petição na <strong>CIDH</strong>. Violação dos arts. 7, 8, 10 e 11 da Convenção Americana. Questiona a sucumbência punitiva — cobrar do inocente os honorários do Estado que o prendeu.</div></div>
+    </div>
+  </div>
+  <div class="callout red"><span class="callout-label">saldo líquido do inocente</span><strong>Indenização recebida: R$0.</strong> Cobrado pelo Estado: <strong>R$478.900.</strong> Saldo: <strong>−R$478.900.</strong> Anos de processo: 10. Meses preso: 7. Empregos perdidos: 1. Cidades mudadas: 1.</div>
+  <div class="callout amber"><span class="callout-label">mecanismo estrutural</span>A sucumbência aplicada à vítima de erro estatal cria <strong>desincentivo sistêmico</strong>: qualquer inocente que acione o Judiciário assume o risco de pagar os honorários do Estado. O custo esperado do acionamento é negativo mesmo quando a prisão é comprovadamente ilegítima. Filtro na saída, como a gratuidade negada opera na entrada.</div>
+</div>
+</div><!-- /tab-biazucci inner -->
+</section><!-- /sec-biazucci -->
+
+<!-- TAB TERRITORIO -->
+<section class="tab-panel" id="sec-territorio">
+<div id="tab-territorio">
+<div class="panel alt reveal">
+  <div class="sec-label"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="2.5"/></svg>o que o sistema não entrega</div>
+  <div class="terr-grid">
+    <div class="terr-card"><div class="terr-ico"><svg width="20" height="20" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="terr-val">50–61mi</div><div class="terr-label">brasileiros sob regras de facções</div><div class="terr-sub">Cambridge · ago/2025 · 25–30% da pop.</div></div>
+    <div class="terr-card"><div class="terr-ico"><svg width="20" height="20" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="terr-val">88</div><div class="terr-label">facções mapeadas no Brasil</div><div class="terr-sub">Senapen/MJ · dez/2024 · 37 em 2019</div></div>
+    <div class="terr-card"><div class="terr-ico"><svg width="20" height="20" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="terr-val">35%</div><div class="terr-label">homicídios esclarecidos · série 2015–2023</div><div class="terr-sub">Instituto Sou da Paz · global: 63%</div></div>
+    <div class="terr-card"><div class="terr-ico"><svg width="20" height="20" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div class="terr-val">13 est.</div><div class="terr-label">hegemonia PCC ou CV</div><div class="terr-sub">FBSP · dez/2025 · CV 2× em 2 anos</div></div>
+    <div class="terr-card"><div class="terr-ico"><svg width="20" height="20" fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><div class="terr-val">40k</div><div class="terr-label">homicídios/ano · série histórica</div><div class="terr-sub">Atlas da Violência IPEA/FBSP</div></div>
+    <div class="terr-card"><div class="terr-ico"><svg width="20" height="20" fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="terr-val">97%</div><div class="terr-label">impunidade em fraudes por celular</div><div class="terr-sub">FBSP · dez/2025</div></div>
+  </div>
+  <div class="analysis">O corpus documenta <strong>coexistência estrutural</strong>: o sistema mais caro do mundo opera em paralelo com a maior expansão do crime organizado da série histórica. <span class="hl">40 mil homicídios/ano, 65% sem esclarecimento, série estagnada há uma década.</span> O custo sobe. A entrega não.<br><br>Juliana Sakai (Transparência Brasil): <strong>"A Justiça decide sobre os salários de seus próprios membros."</strong> O mesmo design que produz o conflito de interesse remuneratório produz o conflito de interesse jurisdicional.</div>
+</div>
+</div><!-- /tab-territorio inner -->
+</section><!-- /sec-territorio -->
+
+<!-- TAB LOOP -->
+<section class="tab-panel" id="sec-loop">
+<div id="tab-loop">
+<div class="panel reveal">
+  <div class="sec-label"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>P11 — loop de extração perpétua · variante judicial</div>
+  <div class="callout amber" style="margin-bottom:1.2rem"><strong>A ineficiência não é o custo do sistema — é o produto.</strong> P11 documenta o loop macroeconômico onde o custo é socializado e o benefício é capturado por uma camada estreita. A variante judicial é estruturalmente idêntica.</div>
+  <div class="loop-grid">
+    <div class="loop-step"><div class="loop-ico"><svg width="18" height="18" fill="none" stroke="var(--green)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="loop-n">01</div><div class="loop-title">Tributos universais</div><div class="loop-body">R$843/pessoa/ano. Toda a população financia via impostos diretos e indiretos.</div></div>
+    <div class="loop-step"><div class="loop-ico"><svg width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="loop-n">02</div><div class="loop-title">Concentração pessoal</div><div class="loop-body">89% em salários. R$101,6k/mês por magistrado superior. Penduricalhos blindados.</div></div>
+    <div class="loop-step"><div class="loop-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div class="loop-n">03</div><div class="loop-title">Acesso por renda</div><div class="loop-body">Gratuidade negada. Advogado inacessível. Sucumbência punitiva. Filtro duplo: entrada e saída.</div></div>
+    <div class="loop-step"><div class="loop-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 3a3 3 0 00-3 3v12a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3H6a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3V6a3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3h12a3 3 0 003-3 3 3 0 00-3-3z"/></svg></div><div class="loop-n">04</div><div class="loop-title">Chokepoint STF</div><div class="loop-body">P03: investigações param antes do beneficiário final. O tribunal define as regras e as exceções.</div></div>
+    <div class="loop-step"><div class="loop-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="loop-n">05</div><div class="loop-title">Impunidade estrutural</div><div class="loop-body">65% de homicídios não esclarecidos. 88 facções. Território perdido. Série estagnada.</div></div>
+    <div class="loop-step"><div class="loop-ico"><svg width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="loop-n">06</div><div class="loop-title">Custo sobe</div><div class="loop-body">+15,8% em 2024. Série histórica: sempre cresce. Loop retorna ao passo 01.</div></div>
+  </div>
+  <div class="callout red"><span class="callout-label">caso Biazucci como instância do loop</span>Passo 01: André financia via tributos. Passo 03: preso com método ilegal — inocente custeia sua própria absolvição. Passo 04: STJ aplica "exercício regular" — erro absorvido sem responsabilização. <strong>Passo extra: inocente paga honorários do Estado que o prendeu.</strong> Custo total transferido para a vítima: R$478.900 + emprego + saúde mental + uma década de processo.</div>
+</div>
+</div><!-- /tab-loop inner -->
+</section><!-- /sec-loop -->
+
+<div class="closing reveal">
+  <div class="closing-pre">formulação original · 12/05/2026</div>
+  <div class="closing-quote">"Eu até concordaria que um juiz recebesse cem mil reais mensais,<br>caso não tivéssemos 26% do território nacional<br>sob o domínio de <em>quem eles soltam.</em>"</div>
+  <div class="closing-attr">lawfare-timeline · P11 · P03 · acesso regressivo · 12 mai 2026 · ev-confirmed</div>
+</div>
+
+<div class="sources reveal">
+  <div class="src-label">// fontes primárias</div>
+  <a class="src-link" href="https://www.gazetadopovo.com.br/republica/justica-brasil-custa-1-5-pib-segunda-mais-cara-mundo/" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Gazeta do Povo — Justiça do Brasil custa 1,5% do PIB (abr/2026) · Tesouro Nacional/Cofog/OCDE</a>
+  <a class="src-link" href="https://www.gazetadopovo.com.br/republica/gastos-do-judiciario-brasileiro-atingem-r-1465-bilhoes-diz-cnj/" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Gazeta do Povo — CNJ · Justiça em Números 2025 (set/2025)</a>
+  <a class="src-link" href="https://www.cnnbrasil.com.br/nacional/brasil/menos-de-40-dos-homicidios-no-brasil-sao-resolvidos-diz-pesquisa/" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>CNN Brasil — Instituto Sou da Paz · Onde Mora a Impunidade (out/2025)</a>
+  <a class="src-link" href="https://www.gazetadopovo.com.br/brasil/brasileiros-vivem-sob-dominio-do-crime-faccoes-criminosas/" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Gazeta do Povo — Cambridge / Perspectives on Politics (fev/2026)</a>
+  <a class="src-link" href="https://www.conjur.com.br/2026-abr-26/dentista-preso-injustamente-no-rio-recorre-a-cidh-apos-stj-negar-indenizacao/" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Conjur — Biazucci recorre à CIDH após STJ negar indenização (abr/2026)</a>
+  <a class="src-link" href="https://www.migalhas.com.br/depeso/454006/o-periodo-das-trevas-do-judiciario-brasileiro" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Migalhas — Mizael Bello · O período das trevas do Judiciário brasileiro (mai/2026)</a>
+  <a class="src-link" href="https://www.cnnbrasil.com.br/nacional/brasil/presente-em-todo-o-pais-cv-e-pcc-tem-hegemonia-em-13-estados/" target="_blank" rel="noopener noreferrer"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>CNN Brasil — FBSP · CV e PCC hegemonia em 13 estados (dez/2025)</a>
+</div>
+
+<div class="share-panel" id="compartilhar-retorno-zero">
+  <h3><svg class="share-ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 5.51l-6.82 3.98"/></svg>Compartilhar este artigo</h3>
+  <p><strong>URL canônica:</strong> <code style="font-size:.58rem;color:var(--green)">https://gosurf.site/retorno-zero</code> · <strong>Sharecard (Open Graph):</strong> <code style="font-size:.58rem;color:var(--amber)">https://gosurf.site/og-retorno-zero.png</code> — para colar em redes ou em ferramentas de IA.</p>
+  <div id="page-share-root"></div>
+</div>
+
+<div class="related-block" id="artefatos-relacionados">
+  <div class="related-block-h"><svg width="14" height="14" fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Artefatos relacionados no corpus</div>
+  <div class="related-grid">
+    <div class="related-wrap">
+      <a class="related-card" href="https://gosurf.site/prisao-economica" target="_blank" rel="noopener noreferrer">
+        <div class="rc-lbl">P11 · Loop de extração</div>
+        <div class="rc-title">Prisão Econômica</div>
+        <div class="rc-url">gosurf.site/prisao-economica</div>
+      </a>
+    </div>
+    <div class="related-wrap">
+      <a class="related-card" href="https://gosurf.site/assimetria-punitiva" target="_blank" rel="noopener noreferrer">
+        <div class="rc-lbl">P3 · Dado central</div>
+        <div class="rc-title">Assimetria Punitiva</div>
+        <div class="rc-url">gosurf.site/assimetria-punitiva</div>
+      </a>
+    </div>
+    <div class="related-wrap">
+      <a class="related-card" href="https://gosurf.site/padroes-sistemicos-dashboard" target="_blank" rel="noopener noreferrer">
+        <div class="rc-lbl">Framework</div>
+        <div class="rc-title">Padrões sistêmicos P1–P11</div>
+        <div class="rc-url">gosurf.site/padroes-sistemicos-dashboard</div>
+      </a>
+    </div>
+    <div class="related-wrap">
+      <a class="related-card" href="https://gosurf.site/duplo-padrao-judicial" target="_blank" rel="noopener noreferrer">
+        <div class="rc-lbl">Dossiê</div>
+        <div class="rc-title">Duplo padrão judicial</div>
+        <div class="rc-url">gosurf.site/duplo-padrao-judicial</div>
+      </a>
+    </div>
+    <div class="related-wrap">
+      <a class="related-card" href="https://gosurf.site/republica-capturada" target="_blank" rel="noopener noreferrer">
+        <div class="rc-lbl">Dashboard</div>
+        <div class="rc-title">República Capturada</div>
+        <div class="rc-url">gosurf.site/republica-capturada</div>
+      </a>
+    </div>
+    <div class="related-wrap">
+      <a class="related-card" href="https://gosurf.site/lawfare-timeline" target="_blank" rel="noopener noreferrer">
+        <div class="rc-lbl">longform</div>
+        <div class="rc-title">Lawfare timeline — dossiê</div>
+        <div class="rc-url">gosurf.site/lawfare-timeline</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-l"><a href="https://lawfare-timeline.vercel.app/" target="_blank" rel="noopener noreferrer">lawfare-timeline</a> · <a href="https://gosurf.site" target="_blank" rel="noopener noreferrer">gosurf.site</a></div>
+  <div class="f-r">CC0 1.0 Universal — Domínio Público Total</div>
+</footer>
+
+</main>
+
+<button id="gotop" type="button" title="Voltar ao topo" aria-label="Voltar ao topo">
+  <svg width="16" height="16" fill="none" stroke="var(--text2)" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+(function(){
+  var PAGE_URL = 'https://gosurf.site/retorno-zero';
+  var PAGE_TITLE = document.title;
+
+  function makeShareStrip(url, title) {
+    var el = document.createElement('div');
+    el.className = 'share-strip';
+    el.setAttribute('role', 'group');
+    el.setAttribute('aria-label', 'Compartilhar esta fonte');
+    el.dataset.shareUrl = url;
+    el.dataset.shareTitle = title;
+    el.innerHTML =
+      '<span class="share-strip-label"><svg class="share-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 5.51l-6.82 3.98"/></svg>Compartilhar</span>' +
+      '<button type="button" class="share-btn" data-share="copy" title="Copiar link" aria-label="Copiar link"><svg class="share-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>' +
+      '<button type="button" class="share-btn" data-share="x" title="X" aria-label="Compartilhar no X"><svg class="share-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>' +
+      '<button type="button" class="share-btn" data-share="whatsapp" title="WhatsApp" aria-label="WhatsApp"><svg class="share-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>' +
+      '<button type="button" class="share-btn" data-share="linkedin" title="LinkedIn" aria-label="LinkedIn"><svg class="share-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></button>' +
+      '<button type="button" class="share-btn share-btn-native" data-share="native" title="Compartilhar…" aria-label="Compartilhar pelo sistema"><svg class="share-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>';
+    if (!navigator.share) {
+      var nb = el.querySelector('.share-btn-native');
+      if (nb) nb.hidden = true;
+    }
+    return el;
+  }
+
+  function wrapSources() {
+    var box = document.querySelector('.sources');
+    if (!box || box.dataset.shareWrapped === '1') return;
+    [].slice.call(box.querySelectorAll('a.src-link')).forEach(function(a) {
+      var wrap = document.createElement('div');
+      wrap.className = 'src-row';
+      a.parentNode.insertBefore(wrap, a);
+      wrap.appendChild(a);
+      var title = a.textContent.replace(/\s+/g, ' ').trim();
+      if (title.length > 140) title = title.slice(0, 137) + '…';
+      wrap.appendChild(makeShareStrip(a.href, title));
+    });
+    box.dataset.shareWrapped = '1';
+  }
+
+  function mountRelatedShares() {
+    document.querySelectorAll('.related-wrap').forEach(function(w) {
+      if (w.querySelector('.share-strip')) return;
+      var a = w.querySelector('a.related-card[href]');
+      if (!a) return;
+      var t = a.querySelector('.rc-title');
+      var title = ((t && t.textContent) || '').trim();
+      w.appendChild(makeShareStrip(a.href, (title ? title + ' · ' : '') + 'gosurf.site'));
+    });
+  }
+
+  function mountPageShare() {
+    var root = document.getElementById('page-share-root');
+    if (root && !root.querySelector('.share-strip')) {
+      root.appendChild(makeShareStrip(PAGE_URL, PAGE_TITLE));
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.share-btn[data-share]');
+    if (!btn || btn.hidden) return;
+    e.preventDefault();
+    var strip = btn.closest('.share-strip');
+    if (!strip) return;
+    var url = strip.dataset.shareUrl || PAGE_URL;
+    var title = strip.dataset.shareTitle || PAGE_TITLE;
+    var kind = btn.dataset.share;
+    if (kind === 'copy') {
+      var done = function() {
+        btn.classList.add('copied');
+        setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done).catch(function() {
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); done(); } catch (err) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta2 = document.createElement('textarea');
+        ta2.value = url;
+        document.body.appendChild(ta2);
+        ta2.select();
+        try { document.execCommand('copy'); done(); } catch (err2) {}
+        document.body.removeChild(ta2);
+      }
+      return;
+    }
+    if (kind === 'native' && navigator.share) {
+      navigator.share({ title: title, text: title, url: url }).catch(function() {});
+      return;
+    }
+    if (kind === 'x') {
+      window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(url), '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (kind === 'whatsapp') {
+      window.open('https://wa.me/?text=' + encodeURIComponent(title + ' ' + url), '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (kind === 'linkedin') {
+      window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank', 'noopener,noreferrer');
+    }
+  });
+
+  function initNavScrollSpy() {
+    var links = [].slice.call(document.querySelectorAll('.tabs-nav .tab-btn'));
+    function setActive(hash) {
+      var h = hash && document.querySelector('.tabs-nav a.tab-btn[href="' + hash + '"]') ? hash : '#sec-custo';
+      links.forEach(function(a) {
+        var on = a.getAttribute('href') === h;
+        a.classList.toggle('active', on);
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }
+    setActive(window.location.hash);
+    window.addEventListener('hashchange', function() { setActive(window.location.hash); });
+    var panels = [].slice.call(document.querySelectorAll('.tab-panel[id]'));
+    if ('IntersectionObserver' in window && panels.length) {
+      var obs = new IntersectionObserver(function(entries) {
+        var visible = entries.filter(function(en) { return en.isIntersecting; })
+          .sort(function(a, b) { return b.intersectionRatio - a.intersectionRatio; })[0];
+        if (!visible || !visible.target.id) return;
+        var href = '#' + visible.target.id;
+        if (document.querySelector('.tabs-nav a.tab-btn[href="' + href + '"]')) setActive(href);
+      }, { rootMargin: '-38% 0px -38% 0px', threshold: [0, 0.1, 0.25, 0.5, 1] });
+      panels.forEach(function(p) { obs.observe(p); });
+    }
+  }
+
+  wrapSources();
+  mountRelatedShares();
+  mountPageShare();
+  initNavScrollSpy();
+
+  var obsReveal = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obsReveal.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.04 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obsReveal.observe(el); });
+
+  var gt = document.getElementById('gotop');
+  var topAnchor = document.getElementById('top');
+  if (gt && topAnchor) {
+    window.addEventListener('scroll', function() {
+      gt.classList.toggle('show', (window.scrollY || document.documentElement.scrollTop) > 400);
+    }, { passive: true });
+    gt.addEventListener('click', function() {
+      topAnchor.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+})();
+</script>
+</body>
+</html>

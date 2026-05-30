@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como Ler Este Corpus — lawfare-timeline · gosurf.site</title>
+<meta name="description" content="Guia de entrada para o corpus lawfare-timeline: três trilhas temáticas, mapa do projeto, hierarquia de evidências e ponto de partida para cada tipo de leitor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0f0d;--ink2:#383835;--ink3:#6b6b66;--ink4:#9a9a94;
+  --paper:#f7f4ee;--paper2:#f0ece3;--paper3:#e8e3d8;
+  --red:#8b1c1c;--red2:#b52626;--red3:rgba(139,28,28,.08);
+  --amber:#7a5c0a;--amber2:#a07a12;--amber3:rgba(122,92,10,.08);
+  --teal:#0d4a38;--teal2:#1a6b52;--teal3:rgba(13,74,56,.08);
+  --blue:#0f2d4a;--blue2:#1a4a72;--blue3:rgba(15,45,74,.08);
+  --violet:#2a1a4a;--violet2:#4a2a82;--violet3:rgba(42,26,74,.08);
+  --serif:'Crimson Pro',serif;
+  --display:'Syne',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --border:1px solid rgba(15,15,13,.1);
+  --border2:1px solid rgba(15,15,13,.06);
+  --shadow:0 1px 3px rgba(15,15,13,.08);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── TOPBAR ─── */
+.topbar{
+  border-bottom:var(--border);
+  padding:12px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-size:11px;
+  color:var(--ink3);letter-spacing:.5px;
+  background:var(--paper);
+  position:sticky;top:0;z-index:100;
+}
+.topbar .logo{font-weight:500;color:var(--ink);text-decoration:none}
+.topbar .back{color:var(--teal2);text-decoration:none;display:flex;align-items:center;gap:6px}
+.topbar .back:hover{color:var(--teal)}
+@media(max-width:600px){.topbar{padding:10px 20px}}
+
+/* ─── HERO ─── */
+.hero{
+  padding:64px 40px 48px;
+  border-bottom:2px solid var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:repeating-linear-gradient(90deg,
+    var(--red) 0,var(--red) 32px,
+    var(--amber) 32px,var(--amber) 64px,
+    var(--teal) 64px,var(--teal) 96px,
+    transparent 96px,transparent 104px
+  );
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:3px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:20px;
+}
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(32px,5vw,64px);
+  font-weight:800;line-height:1.05;
+  letter-spacing:-1px;margin-bottom:20px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--teal),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-family:var(--serif);font-size:clamp(16px,2vw,20px);
+  font-weight:300;color:var(--ink2);max-width:680px;line-height:1.6;
+  margin-bottom:32px;
+}
+.hero-stats{
+  display:flex;gap:32px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:12px;
+}
+.hero-stat{display:flex;flex-direction:column;gap:2px}
+.hero-stat .n{font-size:22px;font-weight:500;color:var(--ink);letter-spacing:-1px}
+.hero-stat .l{color:var(--ink3)}
+@media(max-width:600px){.hero{padding:40px 20px 36px}}
+
+/* ─── CONTAINER ─── */
+.wrap{max-width:1040px;margin:0 auto;padding:0 40px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+
+/* ─── SECTION LABEL ─── */
+.sec-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  color:var(--ink4);text-transform:uppercase;
+  padding:32px 40px 0;
+}
+@media(max-width:600px){.sec-label{padding:28px 20px 0}}
+
+/* ─── CHOOSE PATH ─── */
+.choose-section{padding:24px 40px 48px;border-bottom:var(--border)}
+@media(max-width:600px){.choose-section{padding:20px 20px 40px}}
+.choose-section h2{
+  font-family:var(--display);font-size:clamp(22px,3vw,36px);
+  font-weight:700;margin-bottom:8px;
+}
+.choose-section .intro{
+  font-size:17px;color:var(--ink3);margin-bottom:32px;max-width:640px;
+}
+
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+
+.path-card{
+  border:var(--border);
+  padding:28px 24px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform .15s,box-shadow .15s;
+  text-decoration:none;color:inherit;display:block;
+}
+.path-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,15,13,.1)}
+.path-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+}
+.path-card.juridico::before{background:var(--red2)}
+.path-card.financeiro::before{background:var(--amber2)}
+.path-card.eletro::before{background:var(--teal2)}
+.path-card.fsd::before{background:var(--blue2)}
+.path-card.crime::before{background:var(--violet2)}
+
+.path-icon{
+  font-size:28px;margin-bottom:14px;display:block;line-height:1;
+}
+.path-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:8px;display:block;
+}
+.path-card.juridico .path-tag{color:var(--red2)}
+.path-card.financeiro .path-tag{color:var(--amber2)}
+.path-card.eletro .path-tag{color:var(--teal2)}
+.path-card.fsd .path-tag{color:var(--blue2)}
+.path-card.crime .path-tag{color:var(--violet2)}
+
+.path-card h3{
+  font-family:var(--display);font-size:20px;font-weight:700;
+  margin-bottom:10px;line-height:1.2;
+}
+.path-card p{font-size:15px;color:var(--ink2);line-height:1.5;margin-bottom:16px}
+
+.path-links{display:flex;flex-direction:column;gap:6px}
+.path-link{
+  font-size:13px;color:var(--ink3);
+  display:flex;align-items:center;gap:6px;
+  padding:5px 0;border-top:var(--border2);
+  text-decoration:none;transition:color .1s;
+}
+.path-link:hover{color:var(--ink)}
+.path-link .arrow{opacity:.4;font-size:11px;margin-left:auto;flex-shrink:0}
+.path-link.first{font-weight:600;color:var(--ink);border-top:none;padding-top:0}
+.path-link.first .arrow{opacity:1}
+
+.path-cta{
+  margin-top:16px;
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  color:var(--ink4);display:flex;align-items:center;gap:4px;
+}
+
+/* ─── HOW IT WORKS ─── */
+.how-section{padding:24px 40px 48px;border-bottom:var(--border)}
+@media(max-width:600px){.how-section{padding:20px 20px 40px}}
+.how-section h2{
+  font-family:var(--display);font-size:clamp(20px,2.5vw,32px);
+  font-weight:700;margin-bottom:32px;
+}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(15,15,13,.08)}
+@media(max-width:640px){.how-grid{grid-template-columns:1fr}}
+.how-cell{background:var(--paper);padding:20px 22px}
+.how-cell .step{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  color:var(--ink4);text-transform:uppercase;margin-bottom:10px;
+}
+.how-cell h4{
+  font-family:var(--display);font-size:16px;font-weight:700;
+  margin-bottom:8px;
+}
+.how-cell p{font-size:14px;color:var(--ink2);line-height:1.6}
+
+/* ─── EVIDENCE SCALE ─── */
+.evidence-section{
+  padding:24px 40px 48px;border-bottom:var(--border);
+}
+@media(max-width:600px){.evidence-section{padding:20px 20px 40px}}
+.evidence-section h2{
+  font-family:var(--display);font-size:clamp(20px,2.5vw,32px);
+  font-weight:700;margin-bottom:8px;
+}
+.evidence-section .intro{
+  font-size:16px;color:var(--ink3);margin-bottom:28px;max-width:640px;
+}
+.ev-table{width:100%;border-collapse:collapse}
+.ev-table tr{border-bottom:var(--border2)}
+.ev-table tr:first-child{border-top:var(--border)}
+.ev-table td{padding:12px 14px;vertical-align:top;font-size:14px}
+.ev-table td:first-child{
+  width:72px;
+  font-family:var(--mono);font-size:10px;letter-spacing:1px;
+  color:#fff;text-align:center;font-weight:500;
+}
+.ev-i td:first-child{background:var(--teal2)}
+.ev-ii td:first-child{background:#2a8060}
+.ev-iii td:first-child{background:var(--amber2)}
+.ev-iv td:first-child{background:#c09020;color:var(--ink)}
+.ev-x td:first-child{background:var(--red2)}
+.ev-table td:nth-child(2){font-weight:600;color:var(--ink);padding-left:16px}
+.ev-table td:nth-child(3){color:var(--ink3);font-family:var(--mono);font-size:12px}
+
+/* ─── WHO ─── */
+.who-section{
+  padding:24px 40px 48px;border-bottom:var(--border);
+  background:var(--paper2);
+}
+@media(max-width:600px){.who-section{padding:20px 20px 40px}}
+.who-section h2{
+  font-family:var(--display);font-size:clamp(20px,2.5vw,32px);
+  font-weight:700;margin-bottom:28px;
+}
+.who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.who-card{
+  background:var(--paper);border:var(--border);
+  padding:18px 16px;
+}
+.who-card .who-icon{font-size:22px;margin-bottom:10px;display:block}
+.who-card h4{
+  font-family:var(--display);font-size:15px;font-weight:700;
+  margin-bottom:6px;
+}
+.who-card p{font-size:13px;color:var(--ink2);line-height:1.5;margin-bottom:10px}
+.who-card .start{
+  font-family:var(--mono);font-size:11px;color:var(--teal2);
+  text-decoration:none;display:flex;align-items:center;gap:4px;
+}
+.who-card .start:hover{color:var(--teal)}
+
+/* ─── MAP ─── */
+.map-section{padding:24px 40px 48px;border-bottom:var(--border)}
+@media(max-width:600px){.map-section{padding:20px 20px 40px}}
+.map-section h2{
+  font-family:var(--display);font-size:clamp(20px,2.5vw,32px);
+  font-weight:700;margin-bottom:28px;
+}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.map-cluster{
+  border:var(--border);padding:18px 16px;
+  position:relative;
+}
+.map-cluster::before{
+  content:'';width:3px;position:absolute;top:0;left:0;bottom:0;
+}
+.mc-red::before{background:var(--red2)}
+.mc-amber::before{background:var(--amber2)}
+.mc-teal::before{background:var(--teal2)}
+.mc-blue::before{background:var(--blue2)}
+.mc-violet::before{background:var(--violet2)}
+.mc-gray::before{background:var(--ink3)}
+
+.map-cluster .cluster-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:8px;display:block;
+}
+.mc-red .cluster-tag{color:var(--red2)}
+.mc-amber .cluster-tag{color:var(--amber2)}
+.mc-teal .cluster-tag{color:var(--teal2)}
+.mc-blue .cluster-tag{color:var(--blue2)}
+.mc-violet .cluster-tag{color:var(--violet2)}
+.mc-gray .cluster-tag{color:var(--ink3)}
+
+.map-cluster h4{
+  font-family:var(--display);font-size:15px;font-weight:700;
+  margin-bottom:10px;
+}
+.map-cluster ul{list-style:none;padding:0}
+.map-cluster ul li{
+  font-size:13px;color:var(--ink2);
+  padding:4px 0;border-bottom:var(--border2);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.map-cluster ul li:last-child{border-bottom:none}
+.map-cluster ul li a{
+  color:inherit;text-decoration:none;
+  flex:1;
+}
+.map-cluster ul li a:hover{color:var(--teal2)}
+.map-cluster ul li .badge{
+  font-family:var(--mono);font-size:9px;
+  padding:2px 5px;background:var(--paper2);
+  color:var(--ink4);flex-shrink:0;margin-left:6px;
+}
+
+/* ─── METHODOLOGY ─── */
+.method-section{padding:24px 40px 48px;border-bottom:var(--border)}
+@media(max-width:600px){.method-section{padding:20px 20px 40px}}
+.method-section h2{
+  font-family:var(--display);font-size:clamp(20px,2.5vw,32px);
+  font-weight:700;margin-bottom:28px;
+}
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(15,15,13,.08)}
+@media(max-width:640px){.do-dont{grid-template-columns:1fr}}
+.dd-col{background:var(--paper);padding:0}
+.dd-header{
+  padding:12px 16px;font-family:var(--mono);font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  border-bottom:var(--border);
+}
+.dd-col.do .dd-header{color:var(--teal2);background:var(--teal3)}
+.dd-col.dont .dd-header{color:var(--red2);background:var(--red3)}
+.dd-item{
+  padding:10px 16px;font-size:14px;color:var(--ink2);
+  border-bottom:var(--border2);line-height:1.5;
+}
+.dd-item:last-child{border-bottom:none}
+.dd-item strong{color:var(--ink)}
+
+/* ─── FOOTER ENTRY ─── */
+.entry-footer{
+  padding:40px 40px;
+  display:flex;flex-wrap:wrap;gap:16px;
+  align-items:center;justify-content:space-between;
+  border-top:2px solid var(--ink);
+}
+@media(max-width:600px){.entry-footer{padding:32px 20px}}
+.entry-footer .project{
+  font-family:var(--display);font-size:18px;font-weight:700;
+}
+.entry-footer .tagline{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  color:var(--ink3);text-transform:uppercase;margin-top:2px;
+}
+.entry-footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.entry-footer-links a{
+  font-family:var(--mono);font-size:11px;color:var(--teal2);
+  text-decoration:none;letter-spacing:.5px;
+}
+.entry-footer-links a:hover{color:var(--teal)}
+
+/* ─── REVEAL ─── */
+.r{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.rv{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.r,.rv{opacity:1;transform:none;transition:none}}
+
+/* ─── ACTIVE PATH HIGHLIGHT ─── */
+.path-card.active-path{
+  box-shadow:0 0 0 2px var(--ink);
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a class="logo" href="https://gosurf.site">gosurf.site</a>
+  <a class="back" href="https://gosurf.site">← corpus principal</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">lawfare-timeline · guia de entrada · mai/2026</div>
+    <h1>Como ler<br><em>este corpus</em></h1>
+    <p class="hero-sub">
+      100+ páginas analíticas, 1.424+ entradas documentadas, 5 repositórios interligados.
+      Esta página é o mapa. Escolha a trilha que corresponde ao que você quer entender —
+      e chegue ao documento certo em menos de dois cliques.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="n">1.424+</span><span class="l">entradas JSON</span></div>
+      <div class="hero-stat"><span class="n">100+</span><span class="l">páginas gosurf.site</span></div>
+      <div class="hero-stat"><span class="n">5</span><span class="l">trilhas temáticas</span></div>
+      <div class="hero-stat"><span class="n">1992</span><span class="l">primeiro evento</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PATHS -->
+<div class="sec-label wrap">escolha uma trilha de entrada</div>
+<section class="choose-section">
+<div class="wrap">
+  <h2 class="r">Por onde você quer começar?</h2>
+  <p class="intro r">Cada trilha é uma porta de entrada diferente para o mesmo corpus. Você pode percorrer todas — mas comece pela que corresponde à sua pergunta principal.</p>
+
+  <div class="paths r">
+
+    <!-- TRILHA 1 -->
+    <div class="path-card juridico">
+      <span class="path-icon">⚖️</span>
+      <span class="path-tag">Trilha 1 — Jurídica</span>
+      <h3>O que o sistema judicial fez — e o que deveria ter feito</h3>
+      <p>Para quem quer entender como o Judiciário foi transformado de árbitro em instrumento. Começa no INQ 4781 e percorre a ministrocracia, a assimetria punitiva e o lawfare eleitoral.</p>
+      <div class="path-links">
+        <a class="path-link first" href="https://gosurf.site/inq4781">INQ 4.781 — Mapa Mental Completo <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/vaza-toga">VAZA TOGA — Dossiê INQ 4.781 <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/assimetria-punitiva">Assimetria Punitiva — P3 Invertido <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/duplo-padrao-judicial">Duplo Padrão Judicial <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/paradoxo-constitucional">Paradoxo Constitucional <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/rumble-tmtg-vs-moraes">Processo 8:25-cv-00411 (EUA) <span class="arrow">→</span></a>
+      </div>
+      <div class="path-cta">6 documentos · leitura estimada 3–4h</div>
+    </div>
+
+    <!-- TRILHA 2 -->
+    <div class="path-card financeiro">
+      <span class="path-icon">💰</span>
+      <span class="path-tag">Trilha 2 — Financeira</span>
+      <h3>Como o dinheiro público e privado circula no sistema de captura</h3>
+      <p>Para quem quer rastrear fluxos: desvios de pandemia, fraudes financeiras, captura do regulador e recursos naturais como vetor geopolítico. Começa pelo Banco Master.</p>
+      <div class="path-links">
+        <a class="path-link first" href="https://gosurf.site/banco-master-compliance-zero">Banco Master — Operação Compliance Zero <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/pandemia-capturada">Pandemia Capturada — R$ 2,27B por UF <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/operacao-greenwashing">Operação Greenwashing (Amazônia) <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/operacao-mineracao">Mineração — Master × Minerais Críticos <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/jbs-leviata-batista">JBS/J&F — O Leviatã dos Batistas <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/prisao-economica">Prisão Econômica — 94M no CadÚnico <span class="arrow">→</span></a>
+      </div>
+      <div class="path-cta">6 documentos · leitura estimada 4–5h</div>
+    </div>
+
+    <!-- TRILHA 3 -->
+    <div class="path-card eletro">
+      <span class="path-icon">📡</span>
+      <span class="path-tag">Trilha 3 — Informacional / Digital</span>
+      <h3>Como o espaço de informação foi fechado entre 2019 e 2026</h3>
+      <p>Para quem quer entender o regime de censura digital: do INQ 4781 às suspensões de plataformas, passando pela arquitetura de influência eleitoral e a Lei 15.211.</p>
+      <div class="path-links">
+        <a class="path-link first" href="https://gosurf.site/operacao-silencio-digital">Operação Silêncio Digital (2020–2026) <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/guerra-da-informacao-br2022">Firehose of Falsehood — Brasil 2022 <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/controle-total-2026">Controle Total — Arquitetura do Poder <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/lei-15211">Lei 15.211/2025 — Apartheid Digital <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/donos-da-midia-brasil">Donos da Mídia Brasil <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/soberania-ameacada">Palantir × Soberania Digital <span class="arrow">→</span></a>
+      </div>
+      <div class="path-cta">6 documentos · leitura estimada 3–4h</div>
+    </div>
+
+    <!-- TRILHA 4 -->
+    <div class="path-card fsd">
+      <span class="path-icon">🔭</span>
+      <span class="path-tag">Trilha 4 — Framework Analítico (FSD)</span>
+      <h3>O modelo que conecta tudo: Full-Spectrum Dominance aplicado ao Brasil</h3>
+      <p>Para quem quer o framework antes dos casos específicos. Explica como os 7 domínios de controle operam de forma simultânea e por que o corpus não é conspiração.</p>
+      <div class="path-links">
+        <a class="path-link first" href="https://gosurf.site/violencia-estatal-captura">Por que nomear o sistema com exatidão <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/padroes-sistemicos-dashboard">Padrões Sistêmicos P1–P10 (dashboard) <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/rede-recorrente-1999-2026">Rede Recorrente 1999–2026 <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/golpe-brasil-analise-evidencial">Quem Deu o Golpe? — Análise Evidencial <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/brasil-estado-totalitario">Weaponized Legalism — Anatomia <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/republica-capturada">República Capturada — Dashboard <span class="arrow">→</span></a>
+      </div>
+      <div class="path-cta">6 documentos · leitura estimada 5–6h</div>
+    </div>
+
+    <!-- TRILHA 5 -->
+    <div class="path-card crime">
+      <span class="path-icon">🕸️</span>
+      <span class="path-tag">Trilha 5 — Crime Organizado / Soberania</span>
+      <h3>Como facções criminosas operam como estrutura de governança paralela</h3>
+      <p>Para quem quer entender a dimensão territorial do problema: PCC, CV, narcoestética, tráfico transnacional e a captura de recursos soberanos pela criminalidade organizada.</p>
+      <div class="path-links">
+        <a class="path-link first" href="https://gosurf.site/pcc-cv-intel-dashboard-2026">PCC & CV — Inteligência 2026 <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/brasil-fabrica-cocaina-v2">Brasil: Não É Só o Porto — É a Fábrica <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/operacao-narco-fluxo">Narco Fluxo — R$ 1,6bi via narcoestética <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/rede-master-conexoes">Teia Master — PCC × STF × INSS <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/faixa-tropical">A Faixa do Silêncio — Geopolítica <span class="arrow">→</span></a>
+        <a class="path-link" href="https://gosurf.site/exploracao-vulnerabilidade-brasil">Exploração de Vulnerabilidade Humana <span class="arrow">→</span></a>
+      </div>
+      <div class="path-cta">6 documentos · leitura estimada 4–5h</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- WHO IS THIS FOR -->
+<div class="sec-label wrap">para quem é este corpus</div>
+<section class="who-section">
+<div class="wrap">
+  <h2 class="r">Cada leitor tem um ponto de entrada diferente</h2>
+  <div class="who-grid r">
+
+    <div class="who-card">
+      <span class="who-icon">🧑‍💼</span>
+      <h4>Cidadão comum</h4>
+      <p>Sente que algo está errado mas não tem o mapa completo. Quer entender sem jargão jurídico.</p>
+      <a class="start" href="https://gosurf.site/o-que-aconteceu-com-o-brasil">Começa aqui → "O Que Aconteceu com o Brasil"</a>
+    </div>
+
+    <div class="who-card">
+      <span class="who-icon">⚖️</span>
+      <h4>Operador jurídico</h4>
+      <p>Advogado, promotor ou juiz que quer base documental para análise técnica de decisões.</p>
+      <a class="start" href="https://gosurf.site/dossie-juridico-nulidades-8jan">Começa aqui → "Dossiê Jurídico — Nulidades"</a>
+    </div>
+
+    <div class="who-card">
+      <span class="who-icon">📰</span>
+      <h4>Jornalista / pesquisador</h4>
+      <p>Precisa de referências cruzadas, fontes primárias citáveis e cronologia verificável.</p>
+      <a class="start" href="https://gosurf.site/paralelos">Começa aqui → "Paralelos — 4 Operações"</a>
+    </div>
+
+    <div class="who-card">
+      <span class="who-icon">🌍</span>
+      <h4>Leitor internacional</h4>
+      <p>Quer entender o Brasil 2019–2026 sem depender da narrativa da mídia corporativa local.</p>
+      <a class="start" href="https://gosurf.site/brazil-democratic-erosion-2026">Começa aqui → "Democratic Erosion 2026" (EN)</a>
+    </div>
+
+    <div class="who-card">
+      <span class="who-icon">💡</span>
+      <h4>Analista político</h4>
+      <p>Quer o framework estrutural antes dos casos específicos. Padrões sistêmicos e modelos comparativos.</p>
+      <a class="start" href="https://gosurf.site/padroes-sistemicos-dashboard">Começa aqui → "Padrões Sistêmicos P1–P10"</a>
+    </div>
+
+    <div class="who-card">
+      <span class="who-icon">🛡️</span>
+      <h4>Vítima do sistema</h4>
+      <p>Passou por perseguição jurídica, censura ou confisco. Quer entender o mecanismo e como documentar.</p>
+      <a class="start" href="https://gosurf.site/manual-sobrevivencia">Começa aqui → "Manual de Sobrevivência"</a>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="sec-label wrap">como o projeto funciona</div>
+<section class="how-section">
+<div class="wrap">
+  <h2 class="r">Quatro princípios operacionais</h2>
+  <div class="how-grid r">
+    <div class="how-cell">
+      <div class="step">Princípio 01</div>
+      <h4>Fonte antes de tudo</h4>
+      <p>Cada entrada deriva de, no mínimo, um documento primário verificável: decisão no DJe, processo com número de autos, registro de patente no USPTO, relatório de órgão público com protocolo. Sem fonte, sem entrada.</p>
+    </div>
+    <div class="how-cell">
+      <div class="step">Princípio 02</div>
+      <h4>Fato separado de inferência</h4>
+      <p>"A decisão viola o art. 5º, LV, CF/88" é fato jurídico verificável. "O ministro agiu de má-fé" é inferência sobre intenção. O corpus registra o primeiro. A conclusão sobre o segundo pertence ao leitor.</p>
+    </div>
+    <div class="how-cell">
+      <div class="step">Princípio 03</div>
+      <h4>Padrão sobre personalidade</h4>
+      <p>O corpus mapeia funções estruturais recorrentes — Banqueiro Frágil, Regulador Omisso, Juiz Capturável — não personalidades. Os ocupantes mudam a cada ciclo. As funções persistem. O projeto documenta o sistema, não os atores.</p>
+    </div>
+    <div class="how-cell">
+      <div class="step">Princípio 04</div>
+      <h4>Memória contra saturação</h4>
+      <p>O mecanismo documentado opera pela produção de tanto ruído que fatos verificáveis se perdem. A resposta não é mais ruído — é estrutura, metodologia e persistência. 1.424+ entradas indexadas. Cada uma com data. Cada uma verificável.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MAP DO CORPUS -->
+<div class="sec-label wrap">mapa do corpus por cluster temático</div>
+<section class="map-section">
+<div class="wrap">
+  <h2 class="r">O que existe e onde está</h2>
+  <div class="map-grid r">
+
+    <div class="map-cluster mc-red">
+      <span class="cluster-tag">Judicial / Lawfare</span>
+      <h4>Captura do Judiciário</h4>
+      <ul>
+        <li><a href="https://gosurf.site/inq4781">INQ 4.781 — Mapa Mental</a><span class="badge">⭐ início</span></li>
+        <li><a href="https://gosurf.site/vaza-toga">VAZA TOGA — Dossiê</a></li>
+        <li><a href="https://gosurf.site/alem-da-toga">Gilmar Mendes — Condutas</a></li>
+        <li><a href="https://gosurf.site/duplo-padrao-judicial">Duplo Padrão Judicial</a></li>
+        <li><a href="https://gosurf.site/analise-voto-fux-ap-2668">Voto Fux — AP 2668</a></li>
+        <li><a href="https://gosurf.site/dossie-juridico-nulidades-8jan">Nulidades 8 de Janeiro</a></li>
+        <li><a href="https://gosurf.site/armadilha-do-decoro">Armadilha do Decoro</a></li>
+        <li><a href="https://gosurf.site/rumble-tmtg-vs-moraes">Processo EUA 8:25-cv-00411</a><span class="badge">novo</span></li>
+      </ul>
+    </div>
+
+    <div class="map-cluster mc-amber">
+      <span class="cluster-tag">Financeiro / Econômico</span>
+      <h4>Captura de Recursos</h4>
+      <ul>
+        <li><a href="https://gosurf.site/banco-master-compliance-zero">Banco Master — Compliance Zero</a><span class="badge">⭐ início</span></li>
+        <li><a href="https://gosurf.site/pandemia-capturada">Pandemia Capturada</a></li>
+        <li><a href="https://gosurf.site/operacao-greenwashing">Op. Greenwashing</a></li>
+        <li><a href="https://gosurf.site/carbono-oculto">Carbono Oculto</a></li>
+        <li><a href="https://gosurf.site/operacao-mineracao">Mineração × Minerais Críticos</a></li>
+        <li><a href="https://gosurf.site/jbs-leviata-batista">JBS/J&F — Leviatã</a></li>
+        <li><a href="https://gosurf.site/biomm-insider-operacao-completa">Biomm — Insider IBGE</a></li>
+        <li><a href="https://gosurf.site/pacto-federativo-extracao">Pacto Federativo Extração</a></li>
+      </ul>
+    </div>
+
+    <div class="map-cluster mc-teal">
+      <span class="cluster-tag">Crime Organizado</span>
+      <h4>Soberania e Território</h4>
+      <ul>
+        <li><a href="https://gosurf.site/pcc-cv-intel-dashboard-2026">PCC & CV — Intel 2026</a><span class="badge">⭐ início</span></li>
+        <li><a href="https://gosurf.site/brasil-fabrica-cocaina-v2">Brasil: A Fábrica v2</a></li>
+        <li><a href="https://gosurf.site/operacao-narco-fluxo">Narco Fluxo</a></li>
+        <li><a href="https://gosurf.site/dossie-pcc-salve-geral">PCC — Salve Geral</a></li>
+        <li><a href="https://gosurf.site/rede-master-conexoes">Teia Master</a></li>
+        <li><a href="https://gosurf.site/faixa-tropical">Faixa do Silêncio</a></li>
+        <li><a href="https://gosurf.site/operacao-armadilha-ice">Op. Armadilha ICE</a></li>
+        <li><a href="https://gosurf.site/exploracao-vulnerabilidade-brasil">Exploração Vulnerabilidade</a></li>
+      </ul>
+    </div>
+
+    <div class="map-cluster mc-blue">
+      <span class="cluster-tag">Informacional / Digital</span>
+      <h4>Controle do Espaço Público</h4>
+      <ul>
+        <li><a href="https://gosurf.site/operacao-silencio-digital">Op. Silêncio Digital</a><span class="badge">⭐ início</span></li>
+        <li><a href="https://gosurf.site/guerra-da-informacao-br2022">Firehose of Falsehood</a></li>
+        <li><a href="https://gosurf.site/controle-total-2026">Controle Total 2026</a></li>
+        <li><a href="https://gosurf.site/lei-15211">Lei 15.211 — Apartheid Digital</a></li>
+        <li><a href="https://gosurf.site/donos-da-midia-brasil">Donos da Mídia</a></li>
+        <li><a href="https://gosurf.site/intercept-dossie">The Intercept — Dossiê</a></li>
+        <li><a href="https://gosurf.site/soberania-ameacada">Palantir × Soberania</a></li>
+        <li><a href="https://gosurf.site/splc-modelo-brasil">SPLC → Brasil</a></li>
+      </ul>
+    </div>
+
+    <div class="map-cluster mc-violet">
+      <span class="cluster-tag">Padrões Sistêmicos</span>
+      <h4>Framework Analítico</h4>
+      <ul>
+        <li><a href="https://gosurf.site/padroes-sistemicos-dashboard">Padrões P1–P10 (dashboard)</a><span class="badge">⭐ início</span></li>
+        <li><a href="https://gosurf.site/rede-recorrente-1999-2026">Rede Recorrente</a></li>
+        <li><a href="https://gosurf.site/republica-capturada">República Capturada</a></li>
+        <li><a href="https://gosurf.site/emaranhamento-operacoes">Matriz de Emaranhamento</a></li>
+        <li><a href="https://gosurf.site/anticorrupcao-trilhas">Trilhas Anticorrupção</a></li>
+        <li><a href="https://gosurf.site/paralelos">Paralelos — 4 Operações</a></li>
+        <li><a href="https://gosurf.site/global-kompromat">Global Kompromat</a></li>
+        <li><a href="https://gosurf.site/violencia-politica-perseguicao-juridica">Perseguição Global 2018–2025</a></li>
+      </ul>
+    </div>
+
+    <div class="map-cluster mc-gray">
+      <span class="cluster-tag">Epistemologia</span>
+      <h4>Por que isso não é conspiração</h4>
+      <ul>
+        <li><a href="https://gosurf.site/violencia-estatal-captura">Nomear o Sistema</a><span class="badge">⭐ início</span></li>
+        <li><a href="https://gosurf.site/paradoxo-constitucional">Paradoxo Constitucional</a></li>
+        <li><a href="https://gosurf.site/golpe-brasil-analise-evidencial">Quem Deu o Golpe?</a></li>
+        <li><a href="https://gosurf.site/narrativa-vs-evidencia">Narrativa vs. Evidência</a></li>
+        <li><a href="https://gosurf.site/operador-inconsciente">Operador Inconsciente</a></li>
+        <li><a href="https://gosurf.site/manual-sobrevivencia">Manual de Sobrevivência</a></li>
+        <li><a href="https://gosurf.site/armadura-mental">Armadura Mental</a></li>
+        <li><a href="https://gosurf.site/nao-e-conspiracao">Não É Conspiração — manifesto</a><span class="badge">novo</span></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- EVIDENCE -->
+<div class="sec-label wrap">padrão forense</div>
+<section class="evidence-section">
+<div class="wrap">
+  <h2 class="r">O que entra e o que não entra</h2>
+  <p class="intro r">Cada entrada precisa de, no mínimo, uma fonte de Nível I ou II. Sem isso, não existe no corpus.</p>
+  <table class="ev-table r">
+    <tr class="ev-i"><td>I</td><td>Documento primário oficial</td><td>Decisão no DJe · número de processo · registro de patente USPTO · Diário Oficial</td></tr>
+    <tr class="ev-ii"><td>II</td><td>Declaração pública verificável</td><td>Depoimento no Congresso · entrevista gravada identificada · documento vazado autenticado</td></tr>
+    <tr class="ev-iii"><td>III</td><td>Análise acadêmica / jornalística</td><td>Peer review com autoria · investigação com documentação publicada · relatório independente</td></tr>
+    <tr class="ev-iv"><td>IV</td><td>Análise editorial fundamentada</td><td>Argumentação com referência explícita a fontes I–III · marcada como análise, não como fato</td></tr>
+    <tr class="ev-x"><td>✗</td><td>Inferência não fundamentada</td><td>Não incluída — especulação sobre intenção sem cadeia de comando documentada</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- DO / DON'T -->
+<div class="sec-label wrap">o que o corpus faz e não faz</div>
+<section class="method-section">
+<div class="wrap">
+  <h2 class="r">Separação rigorosa entre fato e conclusão</h2>
+  <div class="do-dont r">
+    <div class="dd-col do">
+      <div class="dd-header">✓ O que documentamos</div>
+      <div class="dd-item"><strong>"Moraes assinou o mandado X em data Y"</strong> — com número do processo no DJe</div>
+      <div class="dd-item"><strong>"A decisão viola o art. 5º, LV, CF/88"</strong> — análise jurídica técnica com norma explícita</div>
+      <div class="dd-item"><strong>"1.500 condenados em N meses / zero condenações por R$2,27B"</strong> — dado verificável CNJ/PF</div>
+      <div class="dd-item"><strong>"Padrões P1–P10 identificados em 25 anos de operações"</strong> — recorrência documentada por múltiplos casos</div>
+      <div class="dd-item"><strong>"O processo 8:25-cv-00411 citou Moraes em 08/jul/2025"</strong> — registro público tribunal federal EUA</div>
+    </div>
+    <div class="dd-col dont">
+      <div class="dd-header">✗ O que não fazemos</div>
+      <div class="dd-item"><strong>"Moraes agiu de má-fé"</strong> — julgamento moral sobre intenção sem cadeia de comando documentada</div>
+      <div class="dd-item"><strong>"O STF é ilegítimo"</strong> — avaliação política que pertence ao leitor, não ao documento</div>
+      <div class="dd-item"><strong>"Há perseguição política coordenada"</strong> — conclusão que o leitor tira dos dados; não o projeto</div>
+      <div class="dd-item"><strong>"O sistema é irrecuperável"</strong> — niilismo; o corpus documenta, não declara colapso</div>
+      <div class="dd-item"><strong>"Eles planejaram tudo junto"</strong> — coordenação central sem prova documental de planejamento conjunto</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="entry-footer">
+  <div>
+    <div class="project">lawfare-timeline · gosurf.site</div>
+    <div class="tagline">documentação forense · fontes primárias · padrão verificável · CC0 1.0</div>
+  </div>
+  <div class="entry-footer-links">
+    <a href="https://gosurf.site">corpus principal ↗</a>
+    <a href="https://lawfare-timeline.vercel.app">lawfare-timeline ↗</a>
+    <a href="https://geoengenharia.vercel.app">geoengenharia ↗</a>
+    <a href="https://gosurf.site/padroes-sistemicos-dashboard">padrões sistêmicos ↗</a>
+    <a href="https://gosurf.site/nao-e-conspiracao">não é conspiração ↗</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('rv') });
+}, {threshold: 0.07});
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

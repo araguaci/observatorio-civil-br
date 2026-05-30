@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasil: Não É Só o Porto — É a Fábrica · v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--paper:#f4f0e8;--paper-warm:#ede8dc;--accent:#c0392b;--accent-dark:#8b1a12;--gold:#a08030;--muted:#6b6456;--border:rgba(10,10,10,0.15);--green:#1a5c2a;--amber:#7a4f00;--mono:'IBM Plex Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.75;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");opacity:.35}
+
+/* MASTHEAD */
+.masthead{border-bottom:3px double var(--ink);padding:18px 0 12px;text-align:center;background:var(--paper)}
+.masthead-label{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.masthead-pub{font-family:var(--display);font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.masthead-rule{height:1px;background:var(--ink);margin:10px 40px}
+.masthead-date{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em}
+
+/* HERO */
+.hero{max-width:900px;margin:0 auto;padding:60px 40px 40px}
+.hero-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-kicker::before{content:'';display:inline-block;width:28px;height:1.5px;background:var(--accent)}
+.hero-headline{font-family:var(--display);font-size:clamp(42px,7vw,88px);font-weight:900;line-height:.95;letter-spacing:-.02em;color:var(--ink);margin-bottom:28px;animation:fadeUp .8s ease both}
+.hero-headline em{font-style:italic;color:var(--accent)}
+.hero-deck{font-family:var(--serif);font-size:19px;font-weight:300;font-style:italic;color:var(--muted);line-height:1.55;max-width:620px;border-left:3px solid var(--accent);padding-left:20px;margin-bottom:32px;animation:fadeUp .8s .15s ease both}
+.hero-byline{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:20px;flex-wrap:wrap;animation:fadeUp .8s .25s ease both}
+.hero-byline span{opacity:.5}
+
+/* LAYOUT */
+.container{max-width:900px;margin:0 auto;padding:0 40px}
+
+/* STAT BANNER */
+.stat-banner{background:var(--ink);color:var(--paper);padding:40px;margin:48px 0;position:relative;overflow:hidden}
+.stat-banner::after{content:'BRASIL';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:140px;font-weight:900;opacity:.06;color:var(--paper);letter-spacing:-5px;line-height:1;pointer-events:none;white-space:nowrap}
+.stat-banner-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;position:relative;z-index:1}
+.stat-number{font-family:var(--display);font-size:46px;font-weight:900;line-height:1;color:var(--paper);margin-bottom:6px}
+.stat-number sup{font-size:20px;vertical-align:super}
+.stat-accent{color:var(--accent)}
+.stat-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,232,.5);line-height:1.5}
+
+/* BODY */
+.body-text{font-family:var(--serif);font-size:17px;line-height:1.8;color:var(--ink);max-width:640px}
+.body-text+.body-text{margin-top:20px}
+.dropcap::first-letter{font-family:var(--display);font-size:72px;font-weight:900;line-height:.75;float:left;margin-right:8px;margin-top:8px;color:var(--accent)}
+
+/* SECTION HEADERS */
+.section-header{margin:56px 0 28px}
+.section-header-label{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.section-header h2{font-family:var(--display);font-size:clamp(26px,3.5vw,38px);font-weight:700;line-height:1.15;color:var(--ink)}
+
+/* PULLQUOTE */
+.pullquote{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:28px 0 24px;margin:48px 0}
+.pullquote-text{font-family:var(--display);font-size:clamp(22px,3vw,30px);font-weight:700;font-style:italic;line-height:1.3;color:var(--ink);margin-bottom:12px}
+.pullquote-source{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+/* ALERTAS */
+.alert{display:flex;gap:16px;padding:20px 22px;margin:24px 0;border-radius:2px}
+.alert-critical{background:#fdf0ef;border-left:4px solid var(--accent)}
+.alert-warning{background:#fdf8ed;border-left:4px solid #c68a00}
+.alert-info{background:#eef4fb;border-left:4px solid #1a5c8b}
+.alert-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.alert-body{}
+.alert-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;margin-bottom:6px}
+.alert-critical .alert-title{color:var(--accent-dark)}
+.alert-warning .alert-title{color:#7a4f00}
+.alert-info .alert-title{color:#1a5c8b}
+.alert-text{font-family:var(--serif);font-size:14.5px;line-height:1.6;color:var(--ink)}
+.alert-ref{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:6px}
+.alert-ref a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* LAB MAP */
+.lab-map-section{background:var(--paper-warm);border:1px solid var(--border);padding:40px;margin:48px 0}
+.lab-map-title{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+.lab-item{display:flex;flex-direction:column;gap:4px}
+.lab-state{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.lab-bar-wrap{display:flex;align-items:center;gap:8px}
+.lab-bar{height:6px;border-radius:1px;flex-shrink:0;opacity:.85}
+.lab-count{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink)}
+.lab-note{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:20px;padding-top:14px;border-top:1px solid var(--border);letter-spacing:.05em}
+
+/* ROTAS */
+.route-card{border-left:3px solid var(--accent);padding:20px 24px;margin-bottom:16px;background:var(--paper-warm);position:relative}
+.route-card::before{content:attr(data-num);position:absolute;right:20px;top:18px;font-family:var(--display);font-size:48px;font-weight:900;color:var(--ink);opacity:.06;line-height:1}
+.route-name{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.route-path{font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.route-desc{font-family:var(--serif);font-size:14.5px;color:var(--muted);line-height:1.65}
+
+/* AFRICA FLOW VISUAL */
+.africa-flow{background:var(--ink);padding:36px 40px;margin:32px 0;position:relative;overflow:hidden}
+.africa-flow::before{content:'ATLÂNTICO';position:absolute;font-family:var(--display);font-size:80px;font-weight:900;opacity:.05;color:var(--paper);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.flow-title{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,240,232,.4);margin-bottom:24px}
+.flow-nodes{display:flex;align-items:center;gap:0;flex-wrap:wrap;position:relative;z-index:1}
+.flow-node{text-align:center;padding:0 12px}
+.flow-node-box{background:rgba(244,240,232,.1);border:1px solid rgba(244,240,232,.2);padding:10px 16px;border-radius:2px;margin-bottom:8px;min-width:110px}
+.flow-node-name{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--paper);letter-spacing:.05em}
+.flow-node-port{font-family:var(--mono);font-size:9.5px;color:rgba(244,240,232,.5);margin-top:3px}
+.flow-arrow{font-size:18px;color:var(--accent);padding:0 4px;flex-shrink:0;align-self:center;margin-bottom:16px}
+.flow-node-box.highlight{background:rgba(192,57,43,.2);border-color:var(--accent)}
+
+/* OPS TABLE */
+.ops-table{width:100%;border-collapse:collapse}
+.ops-table thead tr{border-bottom:2px solid var(--ink)}
+.ops-table th{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:10px 12px 10px 0;text-align:left;font-weight:400}
+.ops-table td{font-family:var(--serif);font-size:14.5px;padding:14px 12px 14px 0;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+.ops-table td:first-child{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);white-space:nowrap;padding-right:20px}
+.ops-table td:last-child{color:var(--muted);font-size:13.5px}
+.ops-table a{color:var(--accent);font-size:10px;font-family:var(--mono);text-decoration:underline;text-underline-offset:2px;display:block;margin-top:4px}
+
+/* PCC BLOCK */
+.pcc-block{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink);margin:48px 0}
+.pcc-left{background:var(--ink);color:var(--paper);padding:36px 32px}
+.pcc-right{padding:36px 32px;background:var(--paper-warm)}
+.pcc-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,232,.45);margin-bottom:16px}
+.pcc-label-right{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.pcc-big{font-family:var(--display);font-size:64px;font-weight:900;line-height:1;color:var(--paper);margin-bottom:8px}
+.pcc-sub{font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(244,240,232,.6);line-height:1.55}
+.pcc-list{list-style:none;margin-top:8px}
+.pcc-list li{font-family:var(--serif);font-size:14.5px;padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;color:var(--ink)}
+.pcc-list li strong{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent)}
+
+/* FINTECH CHART */
+.fintech-block{background:var(--paper-warm);border:1px solid var(--border);padding:36px 40px;margin:36px 0}
+.fintech-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.fintech-bars{display:flex;flex-direction:column;gap:14px}
+.fintech-row{display:flex;align-items:center;gap:12px}
+.fintech-label{font-family:var(--mono);font-size:11px;color:var(--muted);width:160px;flex-shrink:0;line-height:1.3}
+.fintech-bar-outer{flex:1;background:rgba(10,10,10,.08);height:20px;border-radius:1px;overflow:hidden}
+.fintech-bar-inner{height:100%;border-radius:1px;display:flex;align-items:center;padding-left:8px;transition:width .6s ease}
+.fintech-val{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--paper);white-space:nowrap}
+
+/* NARCOGARIMPO VISUAL */
+.narco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.narco-card{padding:20px;background:var(--paper-warm);border:1px solid var(--border);border-top:3px solid}
+.narco-card.red{border-top-color:var(--accent)}
+.narco-card.amber{border-top-color:#c68a00}
+.narco-card.green{border-top-color:var(--green)}
+.narco-icon{font-size:22px;margin-bottom:10px}
+.narco-title{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.narco-card.red .narco-title{color:var(--accent)}
+.narco-card.amber .narco-title{color:#7a4f00}
+.narco-card.green .narco-title{color:var(--green)}
+.narco-text{font-family:var(--serif);font-size:14px;color:var(--muted);line-height:1.6}
+.narco-stat{font-family:var(--display);font-size:32px;font-weight:900;color:var(--ink);margin-bottom:4px;line-height:1}
+
+/* TIMELINE */
+.timeline{margin:32px 0;position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:1.5px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-dot{position:absolute;left:-24px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)}
+.tl-date{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.tl-text{font-family:var(--serif);font-size:15px;color:var(--ink);line-height:1.6}
+.tl-ref{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:3px}
+.tl-ref a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* RESPOSTA ESTADO */
+.state-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);margin:32px 0}
+.state-col{padding:28px 32px}
+.state-col:first-child{border-right:1px solid var(--border)}
+.state-col-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.state-item{font-family:var(--serif);font-size:14.5px;padding:8px 0;border-bottom:1px solid var(--border);color:var(--ink);line-height:1.5}
+.state-item:last-child{border-bottom:none}
+.state-item strong{font-family:var(--mono);font-size:11px;display:block;margin-bottom:2px}
+.positive strong{color:var(--green)}
+.negative strong{color:var(--accent)}
+
+/* CORRUPTION */
+.corruption-block{border:2px solid var(--accent);padding:0;margin:40px 0;overflow:hidden}
+.corruption-header{background:var(--accent);padding:14px 24px;display:flex;align-items:center;gap:12px}
+.corruption-header-text{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);font-weight:500}
+.corruption-body{padding:24px}
+.corruption-case{padding:14px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:120px 1fr;gap:16px}
+.corruption-case:last-child{border-bottom:none}
+.corruption-date{font-family:var(--mono);font-size:11px;color:var(--accent);line-height:1.4}
+.corruption-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink);line-height:1.55}
+.corruption-ref{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px}
+.corruption-ref a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* PRICE ARBITRAGE */
+.price-visual{display:flex;align-items:flex-end;gap:0;margin:28px 0;height:180px;background:var(--paper-warm);padding:20px 24px 0;border:1px solid var(--border)}
+.price-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.price-bar{width:60%;border-radius:1px 1px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:8px;min-width:60px}
+.price-val{font-family:var(--display);font-size:16px;font-weight:700;color:var(--paper)}
+.price-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;padding:8px 0 4px;border-top:2px solid var(--border);width:100%;margin-top:0}
+.price-note{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+
+/* CONCLUSION */
+.conclusion{background:var(--ink);color:var(--paper);padding:64px 40px;margin-top:64px;position:relative;overflow:hidden}
+.conclusion::before{content:'∞';position:absolute;font-family:var(--display);font-size:400px;opacity:.04;color:var(--paper);right:-60px;bottom:-100px;line-height:1;pointer-events:none}
+.conclusion-inner{max-width:640px;position:relative;z-index:1}
+.conclusion-label{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,240,232,.4);margin-bottom:24px}
+.conclusion h2{font-family:var(--display);font-size:clamp(28px,4vw,42px);font-weight:900;font-style:italic;line-height:1.15;color:var(--paper);margin-bottom:28px}
+.conclusion h2 em{color:var(--accent);font-style:normal}
+.conclusion p{font-family:var(--serif);font-size:16px;line-height:1.8;color:rgba(244,240,232,.75);margin-bottom:18px}
+
+/* FOOTNOTES */
+.footnotes{max-width:900px;margin:0 auto;padding:40px;border-top:1px solid var(--border)}
+.footnotes-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.footnotes p{font-family:var(--serif);font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+.footnotes a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;word-break:break-all}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* TOC */
+.toc{background:var(--paper-warm);border:1px solid var(--border);padding:24px 28px;margin:0 0 48px}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.toc-list{list-style:none;counter-reset:toc}
+.toc-list li{counter-increment:toc;font-family:var(--mono);font-size:12px;padding:5px 0;border-bottom:1px dashed rgba(10,10,10,.1)}
+.toc-list li:last-child{border-bottom:none}
+.toc-list li::before{content:counter(toc,decimal-leading-zero)'. ';color:var(--accent)}
+.toc-list a{color:var(--ink);text-decoration:none}
+.toc-list a:hover{color:var(--accent);text-decoration:underline}
+
+@media(max-width:640px){
+  .container,.hero{padding:0 20px}
+  .stat-banner{padding:28px 20px}
+  .stat-banner-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .pcc-block,.state-grid{grid-template-columns:1fr}
+  .pcc-block .pcc-left{border-bottom:1px solid rgba(255,255,255,.1)}
+  .state-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
+  .narco-grid{grid-template-columns:1fr}
+  .conclusion{padding:40px 20px}
+  .footnotes{padding:28px 20px}
+  .hero{padding:40px 20px 24px}
+  .africa-flow{padding:24px 20px}
+  .flow-nodes{flex-direction:column;align-items:flex-start}
+  .flow-arrow{transform:rotate(90deg)}
+  .fintech-label{width:110px;font-size:9.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-label">Dossiê Investigativo · Crime Organizado Transnacional · Edição Ampliada</div>
+  <div class="masthead-rule"></div>
+  <div class="masthead-pub">Inteligência &amp; Análise Estratégica</div>
+  <div class="masthead-rule"></div>
+  <div class="masthead-date">Maio de 2026 &nbsp;·&nbsp; Versão 2.0 — Lacunas preenchidas</div>
+</div>
+
+<div class="hero">
+  <div class="hero-kicker">Narcotráfico internacional</div>
+  <h1 class="hero-headline">Brasil:<br><em>não é só<br>o porto —</em><br>é a fábrica</h1>
+  <p class="hero-deck">
+    Durante décadas, o Brasil foi tratado como corredor de passagem. Os dados de 2025 revelam uma mutação estrutural: o país emergiu como refinador industrial, hub financeiro ilícito e exportador transoceânico de cocaína — com redes que alcançam África, Europa e Ásia.
+  </p>
+  <div class="hero-byline">
+    InSight Crime · Floresta em Pó · Polícia Federal · Fórum Brasileiro de Segurança Pública · UNODC · Europol · CNN Brasil · The Intercept Brasil · Gazeta do Povo · Público (PT) <span>·</span> 2025–2026
+  </div>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Índice do dossiê</div>
+  <ol class="toc-list">
+    <li><a href="#s1">A mutação: da rota à fábrica</a></li>
+    <li><a href="#s2">550 laboratórios: mapa nacional</a></li>
+    <li><a href="#s3">PCC vs. CV: duas facções, um mercado</a></li>
+    <li><a href="#s4">Rotas: Amazônia, caipira, atlântico</a></li>
+    <li><a href="#s5">Rota atlântica: Brasil → África → Europa</a></li>
+    <li><a href="#s6">Lavagem: fintechs, cripto e bets</a></li>
+    <li><a href="#s7">Narcogarimpo: crime ambiental integrado</a></li>
+    <li><a href="#s8">Corrupção: o Estado infiltrado</a></li>
+    <li><a href="#s9">Arbitragem de preço: por que o refino compensa</a></li>
+    <li><a href="#s10">Cronologia da mutação</a></li>
+    <li><a href="#s11">Resposta do Estado: avanços e lacunas</a></li>
+    <li><a href="#s12">Síntese analítica</a></li>
+  </ol>
+</div>
+
+<!-- STAT BANNER -->
+<div class="stat-banner">
+  <div class="stat-banner-grid">
+    <div class="stat-item">
+      <div class="stat-number"><span class="stat-accent">US$</span> 65,7<sup>bi</sup></div>
+      <div class="stat-label">Mercado cocaína<br>Brasil 2024</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span class="stat-accent">550</span></div>
+      <div class="stat-label">Labs de refino<br>confirmados<br>32× mais que o oficial</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span class="stat-accent">344</span></div>
+      <div class="stat-label">Municípios amazônicos<br>com facções ativas<br>44,6% do total</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span class="stat-accent">R$</span> 28,2<sup>bi</sup></div>
+      <div class="stat-label">Lavados via<br>8 fintechs em<br>6 anos</div>
+    </div>
+  </div>
+</div>
+
+<!-- S1 -->
+<div id="s1" class="section-header">
+  <div class="section-header-label">Análise 01</div>
+  <h2>A mutação: da rota à fábrica</h2>
+</div>
+
+<p class="body-text dropcap">
+  Por quase trinta anos, o Brasil ocupou um papel secundário no imaginário geopolítico do narcotráfico. Era o caminho, não a origem. O porto, não a planta. Colômbia, Peru e Bolívia cultivavam e processavam; o Brasil escoava. Essa narrativa, conveniente para autoridades e analistas, começa a desmoronar diante de uma evidência incontestável: o crime organizado brasileiro construiu, silenciosamente, uma infraestrutura de processamento industrial.
+</p>
+<p class="body-text">
+  O estudo "Floresta em Pó" (Fogo Cruzado / Iniciativa Negra, outubro de 2025) é o primeiro levantamento sistemático dessa realidade. O resultado é perturbador: 550 laboratórios confirmados, estimativa de até 5.000 operando atualmente, e um mercado que com o refino movimentou mais de R$ 30 bilhões extras para as facções. A indústria da cocaína no Brasil supera em cinco vezes o total do Fundo Amazônia.
+</p>
+
+<div class="alert alert-critical">
+  <div class="alert-icon">⚠</div>
+  <div class="alert-body">
+    <div class="alert-title">Alerta estrutural · Subnotificação oficial</div>
+    <div class="alert-text">Os órgãos de segurança reconheciam oficialmente apenas 17 laboratórios no país. O "Floresta em Pó" identificou 550 confirmados — 32,4 vezes mais. Estimativas com base na taxa de interceptação (10–20% do mercado real) apontam até 5.000 estruturas ativas. A diferença entre o dado oficial e a realidade é o tamanho do problema não reconhecido.</div>
+    <div class="alert-ref">Fonte: <a href="https://www.intercept.com.br/2025/11/12/avanco-faccoes-ameaca-amazonia-brasil-refinador-cocaina/" target="_blank">The Intercept Brasil, nov/2025</a> · <a href="https://oeco.org.br/reportagens/amazonia-sofre-escalada-do-crime-organizado-e-da-devastacao-territorial-ligada-a-cocaina/" target="_blank">(O)Eco, nov/2025</a></div>
+  </div>
+</div>
+
+<div class="pullquote">
+  <div class="pullquote-text">"O papel do Brasil como hub global de refino e escoamento já não pode mais ser tratado como fenômeno marginal."</div>
+  <div class="pullquote-source">Floresta em Pó · Instituto Fogo Cruzado · 2025</div>
+</div>
+
+<!-- S2 -->
+<div id="s2" class="section-header">
+  <div class="section-header-label">Análise 02</div>
+  <h2>550 laboratórios: mapa nacional</h2>
+</div>
+
+<p class="body-text">
+  A distribuição dos laboratórios revela uma lógica geográfica precisa: eles se concentram nos nós logísticos das rotas, não necessariamente nas fronteiras. Goiás, no centro do país, lidera com 125 — posicionado como ponto de convergência entre as rotas boliviana/paraguaia e os portos do Sudeste e Nordeste.
+</p>
+
+<div class="lab-map-section">
+  <div class="lab-map-title">Laboratórios de processamento de cocaína por estado · jan. 2019 – jul. 2025 · Fonte: Floresta em Pó / Instituto Fogo Cruzado</div>
+  <div class="lab-grid" id="labGrid"></div>
+  <div class="lab-note">* Dados obtidos via Lei de Acesso à Informação e cruzamento com registros de imprensa. Estimativas apontam até 5.000 estruturas ativas, considerando que apreensões representam 10–20% do mercado real. Referência: <a href="https://www.noticiasaominuto.com.br/brasil/2328084/estudo-identifica-550-laboratorios-para-processar-cocaina-no-brasil" target="_blank">Notícias ao Minuto BR, out/2025</a> · <a href="https://www.gazetadopovo.com.br/brasil/brasil-refina-cada-vez-mais-cocaina-com-expansao-de-faccoes-criminosas/" target="_blank">Gazeta do Povo, dez/2025</a></div>
+</div>
+
+<!-- S3 -->
+<div id="s3" class="section-header">
+  <div class="section-header-label">Análise 03</div>
+  <h2>PCC vs. CV: duas facções, um mercado global</h2>
+</div>
+
+<p class="body-text">
+  O dossiê original tratava o PCC como protagonista exclusivo. Os dados do estudo "Cartografias da Violência na Amazônia" (FBSP, nov/2025) revelam que o Comando Vermelho é igualmente decisivo — mas com lógica territorial e modelo de negócio distintos.
+</p>
+
+<div class="pcc-block">
+  <div class="pcc-left">
+    <div class="pcc-label">PCC · Modelo corporativo</div>
+    <div class="pcc-big">28</div>
+    <div class="pcc-sub">países com membros confirmados. Foco em exportação via portos. Controla refino, logística marítima, lavagem via fintechs e rede europeia (87 membros em Portugal). Opera como multinacional verticalizada.</div>
+  </div>
+  <div class="pcc-right">
+    <div class="pcc-label-right">CV · Modelo territorial</div>
+    <ul class="pcc-list">
+      <li>Municípios amazônicos <strong>202 cidades</strong></li>
+      <li>Modelo "narcogarimpo" <strong>síndico do ouro</strong></li>
+      <li>Fronteira Peru/Colômbia <strong>Loreto e Ucayali</strong></li>
+      <li>Terras indígenas <strong>corredor logístico</strong></li>
+      <li>Crescimento 2023→2025 <strong>+32% municípios</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="alert alert-warning">
+  <div class="alert-icon">◆</div>
+  <div class="alert-body">
+    <div class="alert-title">Alerta geopolítico · Disputa territorial na Amazônia</div>
+    <div class="alert-text">Dos 772 municípios amazônicos, 344 (44,6%) têm presença confirmada de facções — 86 deles com disputa ativa entre duas ou mais organizações. A taxa de homicídios na região é 31% superior à média nacional. A competição PCC/CV por rotas e territórios é o principal vetor de violência amazônica.</div>
+    <div class="alert-ref">Fonte: <a href="https://www.infomoney.com.br/brasil/comando-vermelho-pcc-grupo-da-venezuela-e-mais-14-faccoes-estao-ativas-na-amazonia/" target="_blank">Infomoney / Estadão, nov/2025</a> · <a href="https://bncamazonas.com.br/municipios/avanco-das-faccoes-criminosas-na-amazonia-vai-muito-alem-do-narcotrafico/" target="_blank">BNC Amazônia, fev/2026</a></div>
+  </div>
+</div>
+
+<p class="body-text">
+  Um dado revela a escala do negócio: pasta-base de cocaína comprada no Peru por cerca de US$ 1.000 é revendida na Europa por US$ 50.000 — multiplicação de 50 vezes. O refino no Brasil agrega valor adicional a essa cadeia, aumentando a margem bruta das facções antes do produto cruzar o Atlântico.
+</p>
+
+<!-- S4 -->
+<div id="s4" class="section-header">
+  <div class="section-header-label">Análise 04</div>
+  <h2>Rotas: Amazônia, caipira e atlântico</h2>
+</div>
+
+<div class="route-card" data-num="1">
+  <div class="route-name">Rota 01 · Amazônica</div>
+  <div class="route-path">Tríplice Fronteira → Solimões → Barcarena (PA) / Santana (AP) → Europa / África</div>
+  <div class="route-desc">A rota mais antiga e hoje mais sofisticada. Usa a hidrovia do Solimões para descer a produção até os portos paraenses e amapaenses. Em 2025, o maior narcosubmarino europeu apreendido — 6,5 toneladas capturadas por Portugal — tinha sido carregado ao largo da costa brasileira com tripulação de 10 brasileiros. Tabatinga (AM) é o ponto de entrada; Santana (AP) é o principal porto de saída norteamazônico.</div>
+</div>
+<div class="route-card" data-num="2">
+  <div class="route-name">Rota 02 · Caipira</div>
+  <div class="route-path">Bolívia / Paraguai → MT / MS → Goiás → São Paulo → Santos / Paranaguá → Europa</div>
+  <div class="route-desc">Entra pelo Mato Grosso do Sul e atravessa o interior até São Paulo. Goiás — 125 laboratórios — é o principal nó de refino. A PF identificou migração crescente de Santos para Paranaguá e Salvador após intensificação de varreduras. Imóveis, restaurantes e empresas de serviço são usados para lavagem ao longo desta rota.</div>
+</div>
+<div class="route-card" data-num="3">
+  <div class="route-name">Rota 03 · Nordeste / Atlântico</div>
+  <div class="route-path">Bolívia → Nordeste (PI, CE, RN, BA) → Recife / Fortaleza / Natal → Cabo Verde / Nigéria → Europa</div>
+  <div class="route-desc">Rota emergente e estratégica. A Operação Narco Vela (PF, abril/2025) revelou veleiros partindo do litoral nordestino para a costa africana e Ilhas Canárias. Portos de Natal e Recife foram identificados pela ONU como ponto de saída crescente para esta rota. Suape (PE) também é monitorado como hub emergente.</div>
+</div>
+<div class="route-card" data-num="4">
+  <div class="route-name">Rota 04 · Aérea / Humana</div>
+  <div class="route-path">São Paulo (Guarulhos / Viracopos) → Lisboa / Luxemburgo / Frankfurt</div>
+  <div class="route-desc">187 pessoas presas em Guarulhos em 2025 por ingestão de cápsulas — recorde histórico. Em Viracopos, preso em agosto/2025 operador do PCC que coordenava embarque em aviões de carga e de passageiros. Aviões de carga são o vetor preferencial para volumes maiores, com cumplicidade de funcionários de aeroporto e despachantes.</div>
+</div>
+
+<!-- S5 -->
+<div id="s5" class="section-header">
+  <div class="section-header-label">Análise 05 · Lacuna preenchida</div>
+  <h2>Rota atlântica: Brasil → África → Europa</h2>
+</div>
+
+<p class="body-text">
+  Esta rota estava ausente do dossiê original e representa uma das evoluções mais significativas do tráfico transoceânico brasileiro. A lógica é de evasão: ao invés de ir diretamente do Brasil para a Europa — onde a fiscalização é intensa — a droga faz uma escala africana que dificulta o rastreamento de origem.
+</p>
+
+<div class="africa-flow">
+  <div class="flow-title">Fluxo Brasil → África → Europa · Rotas documentadas 2025</div>
+  <div class="flow-nodes">
+    <div class="flow-node">
+      <div class="flow-node-box highlight">
+        <div class="flow-node-name">BRASIL</div>
+        <div class="flow-node-port">Natal · Recife · Santos · Suape</div>
+      </div>
+      <div class="price-label" style="color:rgba(244,240,232,.4);border-top-color:rgba(244,240,232,.15)">Origem</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-box">
+        <div class="flow-node-name">CABO VERDE</div>
+        <div class="flow-node-port">Praia · Alto mar</div>
+      </div>
+      <div class="price-label" style="color:rgba(244,240,232,.4);border-top-color:rgba(244,240,232,.15)">Trânsito 1</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-box">
+        <div class="flow-node-name">GUINÉ-BISSAU</div>
+        <div class="flow-node-port">Armazenamento</div>
+      </div>
+      <div class="price-label" style="color:rgba(244,240,232,.4);border-top-color:rgba(244,240,232,.15)">Trânsito 2</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-box">
+        <div class="flow-node-name">NIGÉRIA / SENEGAL</div>
+        <div class="flow-node-port">Lagos · Dakar · Durban</div>
+      </div>
+      <div class="price-label" style="color:rgba(244,240,232,.4);border-top-color:rgba(244,240,232,.15)">Redistribuição</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-box highlight">
+        <div class="flow-node-name">EUROPA</div>
+        <div class="flow-node-port">Lisboa · Ibiza · Rotterdam</div>
+      </div>
+      <div class="price-label" style="color:rgba(244,240,232,.4);border-top-color:rgba(244,240,232,.15)">Destino</div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-info">
+  <div class="alert-icon">◉</div>
+  <div class="alert-body">
+    <div class="alert-title">Operação Narco Vela · PF · Abril 2025</div>
+    <div class="alert-text">A Polícia Federal revelou em abril/2025 esquema de veleiros transportando cocaína do litoral brasileiro até a costa africana e Ilhas Canárias. Investigação iniciada após apreensão pela Marinha dos EUA de 3 toneladas em 2023. Em novembro/2024, autoridades portuguesas, brasileiras e cabo-verdianas interceptaram barco de pesca com bandeira brasileira a oeste de Cabo Verde com 1,6 tonelada. Em setembro/2025, rede receptora foi desmantelada na Espanha — 37 presos. Em dezembro/2025, oito presos no Brasil.</div>
+    <div class="alert-ref">Fonte: <a href="https://ndmais.com.br/seguranca/do-brasil-a-africa-rota-do-trafico-internacional-de-drogas/" target="_blank">ND Mais / PF, abr/2025</a> · <a href="https://www.securitymagazine.pt/2025/12/18/autoridades-policiais-desafiam-as-principais-cadeias-de-abastecimento-de-cocaina-na-europa/" target="_blank">Security Magazine PT, dez/2025</a></div>
+  </div>
+</div>
+
+<p class="body-text">
+  Portos brasileiros do Nordeste — Natal, Recife, Pecém e Suape — emergiram como pontos de saída para esta rota. A ONU identificou aumento consistente desde 2019 de embarcações partindo da zona de Recife e Natal em direção à África Ocidental. Guiné-Bissau, considerada um narcoestado pelo UNODC, funciona como armazém de longa permanência antes da travessia final para Portugal e Espanha.
+</p>
+
+<!-- S6 -->
+<div id="s6" class="section-header">
+  <div class="section-header-label">Análise 06 · Lacuna preenchida</div>
+  <h2>Lavagem: fintechs, cripto e apostas online</h2>
+</div>
+
+<p class="body-text">
+  A inovação financeira tornou-se aliada estrutural do narcotráfico brasileiro. PCC e CV não dependem mais exclusivamente de empresas de fachada e imóveis — eles infiltraram o sistema financeiro digital com sofisticação crescente.
+</p>
+
+<div class="fintech-block">
+  <div class="fintech-title">Escala da lavagem digital · PCC e CV · Dados investigativos 2025</div>
+  <div class="fintech-bars" id="fintechBars"></div>
+  <div class="lab-note" style="margin-top:16px;padding-top:12px">Fonte: <a href="https://economicnewsbrasil.com.br/2025/08/03/dinheiro-do-pcc-fintechs/" target="_blank">Economic News Brasil, ago/2025</a> · <a href="https://techcripto.com/noticias/pcc-e-cv-usam-criptomoedas-bets-e-fintechs-para-lavagem-de-dinheiro/06/2025/" target="_blank">TechCripto, jul/2025</a> · <a href="https://portuguese.news-pravda.com/world/2026/05/10/383006.html" target="_blank">News Pravda PT, mai/2026</a></div>
+</div>
+
+<div class="alert alert-warning">
+  <div class="alert-icon">◆</div>
+  <div class="alert-body">
+    <div class="alert-title">Alerta financeiro · Vetores de lavagem documentados</div>
+    <div class="alert-text">O estudo do Instituto Esfera / FBSP (2025) identificou os seguintes mecanismos: (1) Fintechs: contas laranja, transações forjadas, empréstimos simulados. (2) Criptoativos: conversão de recursos em Bitcoin e stablecoins para transferência internacional. (3) Apostas online (bets): alto volume e baixa rastreabilidade permitem integração de recursos. (4) IA: uso de inteligência artificial para automatizar operações suspeitas abaixo dos limites de reporte do COAF. Operações suspeitas no COAF cresceram 766,6% entre 2015 e 2024.</div>
+    <div class="alert-ref">Fonte: <a href="https://techcripto.com/noticias/pcc-e-cv-usam-criptomoedas-bets-e-fintechs-para-lavagem-de-dinheiro/06/2025/" target="_blank">TechCripto / Instituto Esfera, jul/2025</a></div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div id="s7" class="section-header">
+  <div class="section-header-label">Análise 07 · Lacuna preenchida</div>
+  <h2>Narcogarimpo: crime ambiental integrado</h2>
+</div>
+
+<p class="body-text">
+  A conexão entre narcotráfico e crimes ambientais não é marginal — é estrutural. As facções adotaram um modelo descrito por especialistas do FBSP como "maximização das ilegalidades": a mesma logística, as mesmas rotas, os mesmos agentes servem simultaneamente ao tráfico de drogas, ao garimpo ilegal, à grilagem e ao desmatamento.
+</p>
+
+<div class="narco-grid">
+  <div class="narco-card red">
+    <div class="narco-stat">4.000+</div>
+    <div class="narco-title">Garimpos ilegais</div>
+    <div class="narco-text">Locais de mineração ilegal em toda a Amazônia, segundo Amazon Conservation. Entre 2018–2024, causaram perda de mais de 2 milhões de hectares. O CV atua como "síndico do garimpo" em regiões como a TI Sararé (MT).</div>
+  </div>
+  <div class="narco-card amber">
+    <div class="narco-stat">280%</div>
+    <div class="narco-title">Alta do ouro 2015–2025</div>
+    <div class="narco-text">O preço da onça passou de US$ 1.060 para US$ 4.030 em dez anos. A valorização tornou o narcogarimpo ainda mais lucrativo — o ouro lavado financia operações de tráfico e é mais difícil de rastrear que moeda.</div>
+  </div>
+  <div class="narco-card green">
+    <div class="narco-stat">1.200%</div>
+    <div class="narco-title">Crescimento garimpo ilegal</div>
+    <div class="narco-text">Aumento do garimpo ilegal entre 1985 e 2022, segundo estudo publicado em dezembro/2025. O crescimento se concentra em Terras Indígenas, onde a fiscalização é mais difícil e o controle das facções é mais rígido.</div>
+  </div>
+</div>
+
+<div class="alert alert-critical">
+  <div class="alert-icon">⚠</div>
+  <div class="alert-body">
+    <div class="alert-title">Alerta ambiental · Nexo cocaína–desmatamento</div>
+    <div class="alert-text">Redes criminosas usam carregamentos de madeira para transportar cocaína, compartilham rotas de tráfico com extratores ilegais e usam o lucro do narcotráfico para abrir garimpos, construir estradas clandestinas e negociar terras. O CV cruzou a fronteira e se estabeleceu no Peru, promovendo cultivo de coca em Loreto e Ucayali, onde a área cultivada aumentou drasticamente nos últimos cinco anos. A legislação brasileira ainda não tipifica especificamente o "narcogarimpo" como crime autônomo.</div>
+    <div class="alert-ref">Fonte: <a href="https://www.observatoriodaimprensa.com.br/meio-ambiente-2/amazonia-extracao-ilegal-de-ouro-impulsionou-desmatamento-em-2025-revela-relatorio-internacional/" target="_blank">Observatório da Imprensa, mar/2026</a> · <a href="https://periodicos.newsciencepubl.com/err01/article/view/11381" target="_blank">ERR01 / Narcogarimpo, dez/2025</a></div>
+  </div>
+</div>
+
+<!-- S8 -->
+<div id="s8" class="section-header">
+  <div class="section-header-label">Análise 08 · Lacuna preenchida</div>
+  <h2>Corrupção: o Estado infiltrado</h2>
+</div>
+
+<p class="body-text">
+  A capacidade do crime organizado de operar com tal escala não se explica apenas pela incompetência institucional. Há infiltração ativa no Estado — em corporações policiais, no sistema portuário e na cadeia judicial. Os casos documentados em 2025 revelam a profundidade do problema.
+</p>
+
+<div class="corruption-block">
+  <div class="corruption-header">
+    <div class="corruption-header-text">⚠ Casos documentados de corrupção ligada ao narcotráfico · 2024–2026</div>
+  </div>
+  <div class="corruption-body">
+    <div class="corruption-case">
+      <div class="corruption-date">Dez 2025<br>São Paulo (SP)</div>
+      <div class="corruption-desc">
+        Dois policiais do Denarc (Departamento Estadual de Prevenção e Repressão ao Narcotráfico) e um advogado presos pelo MPSP por cobrar propina de traficante do PCC. R$ 1 milhão em bens bloqueados. Investigação havia sido interrompida após pagamento — laboratório de refino ligado ao "Costurado" ficou ativo por mais tempo. Áudios revelados pelo SBT Brasil mostraram negociação do propino.
+        <div class="corruption-ref">Fonte: <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/policiais-suspeitos-de-corrupcao-sao-presos-em-operacao-do-mpsp/" target="_blank">CNN Brasil, dez/2025</a></div>
+      </div>
+    </div>
+    <div class="corruption-case">
+      <div class="corruption-date">Nov 2025<br>Bahia / São Paulo</div>
+      <div class="corruption-desc">
+        Operações Mar Branco e Maiaù (PF): desarticulação de organização voltada ao tráfico marítimo com 28 mandados de busca e 3 prisões preventivas. Investigação identificou facilitadores dentro da cadeia logística portuária de Salvador e São Paulo. Duas embarcações apreendidas.
+        <div class="corruption-ref">Fonte: <a href="https://www.segurancaportuariaemfoco.com.br/2025/11/pf-deflagra-operacao-contra-o-trafico.html" target="_blank">Segurança Portuária em Foco, nov/2025</a></div>
+      </div>
+    </div>
+    <div class="corruption-case">
+      <div class="corruption-date">Mar 2026<br>Porto de Santos (SP)</div>
+      <div class="corruption-desc">
+        Inquérito instaurado pela PF após informações compartilhadas pela França indicando brasileiros na logística de cocaína embarcada em Santos. Indícios de que a droga é inserida nos containers ainda no território brasileiro com cumplicidade de trabalhadores portuários.
+        <div class="corruption-ref">Fonte: <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/pf-mira-trafico-internacional-de-drogas-ligado-ao-pcc-no-porto-de-santos/" target="_blank">CNN Brasil, mar/2026</a></div>
+      </div>
+    </div>
+    <div class="corruption-case">
+      <div class="corruption-date">2025 (recorrente)<br>Aeroporto Guarulhos</div>
+      <div class="corruption-desc">
+        A PF registrou 820 prisões ao longo de 2025 no Aeroporto Internacional de Guarulhos. O padrão de ingestão de cápsulas — 187 casos — pressupõe facilitação no embarque por parte de funcionários. O esquema de "mulas" humanas é tipicamente coordenado por operadores com acesso às rotinas do aeroporto.
+        <div class="corruption-ref">Fonte: <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/policia-federal-apreendeu-quase-4-toneladas-de-drogas-em-2025/" target="_blank">CNN Brasil, jan/2026</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S9 -->
+<div id="s9" class="section-header">
+  <div class="section-header-label">Análise 09 · Lacuna preenchida</div>
+  <h2>Arbitragem de preço: por que o refino compensa</h2>
+</div>
+
+<p class="body-text">
+  A racionalidade econômica por trás da transformação do Brasil em refinador é simples e devastadora: cada etapa da cadeia produtiva multiplica o valor do produto. Refinar no Brasil antes de exportar representa apropriar-se de uma margem que antes ficava nos países andinos.
+</p>
+
+<div class="price-visual" id="priceViz"></div>
+<div class="price-note">Fonte: FBSP / Cartografias da Violência na Amazônia — Estadão, nov/2025. Multiplicação de 50× ao longo da cadeia. O refino no Brasil agrega valor entre a pasta-base (US$ 1k) e a cocaína pronta (potencialmente US$ 50k no varejo europeu).</div>
+
+<div class="alert alert-info">
+  <div class="alert-icon">◉</div>
+  <div class="alert-body">
+    <div class="alert-title">Dado econômico · A lógica do hub refinador</div>
+    <div class="alert-text">Com produção global de cocaína atingindo 3.708 toneladas em 2023 (alta de 34%, maior volume histórico, UNODC) e demanda europeia em expansão, o Brasil se posicionou como o elo mais lucrativo da cadeia: transforma matéria-prima barata em produto acabado de alto valor, com portos de saída em múltiplos continentes e redes financeiras para lavar o lucro. A indústria da cocaína no Brasil (US$ 65,7 bi em 2024) supera em cinco vezes o total do Fundo Amazônia acumulado.</div>
+    <div class="alert-ref">Fonte: <a href="https://vocativo.com/2025/11/02/industria-da-cocaina-supera-em-cinco-vezes-o-fundo-amazonia/" target="_blank">Vocativo, nov/2025</a></div>
+  </div>
+</div>
+
+<!-- S10 -->
+<div id="s10" class="section-header">
+  <div class="section-header-label">Análise 10 · Lacuna preenchida</div>
+  <h2>Cronologia da mutação: 2008–2026</h2>
+</div>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">2008</div>
+    <div class="tl-text">Expulsão da DEA da Bolívia por Evo Morales. Redução da pressão internacional sobre rotas bolivianas que abastecem o Brasil. PCC já opera internacionalmente mas sem infraestrutura de refino estruturada.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">2013–2016</div>
+    <div class="tl-text">Expansão do PCC para o Paraguai e a Bolívia. Primeiro controle sistematizado de rotas de pasta-base para o Brasil. Início da "rota caipira" como corredor consolidado.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">2019</div>
+    <div class="tl-text">Marco do estudo "Floresta em Pó": primeiro laboratório de refino registrado no banco de dados. A partir deste ano, a curva de identificação de labs sobe de forma constante.
+      <div class="tl-ref">Ref: <a href="https://jornaldebrasilia.com.br/noticias/brasil/estudo-identifica-550-laboratorios-para-processar-cocaina-no-brasil/" target="_blank">Jornal de Brasília, out/2025</a></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">2019–2022</div>
+    <div class="tl-text">Aumento da vigilância em Antuérpia e Rotterdam. Traficantes buscam rotas alternativas — o Brasil emerge como hub de redistribuição para portos secundários europeus e africanos.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">2023</div>
+    <div class="tl-text">Marinha dos EUA apreende 3 toneladas de cocaína de veleiro com origem no litoral brasileiro, dando início à investigação que resultaria na Operação Narco Vela (2025). Rota Brasil → África → Europa documentada pela ONU.
+      <div class="tl-ref">Ref: <a href="https://ndmais.com.br/seguranca/do-brasil-a-africa-rota-do-trafico-internacional-de-drogas/" target="_blank">ND Mais, abr/2025</a></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">Out 2025</div>
+    <div class="tl-text">Publicação do estudo "Floresta em Pó": 550 laboratórios mapeados, estimativa de US$ 65,7 bilhões no mercado brasileiro. Apresentado na COP30 em Belém. Reconhecimento público internacional do Brasil como refinador.
+      <div class="tl-ref">Ref: <a href="https://oeco.org.br/reportagens/amazonia-sofre-escalada-do-crime-organizado-e-da-devastacao-territorial-ligada-a-cocaina/" target="_blank">(O)Eco, nov/2025</a></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">Nov–Dez 2025</div>
+    <div class="tl-text">Operações Mar Branco, Maiaù e prisão de policiais do Denarc. Portugal captura narcosubmarino de 6,5 toneladas de origem brasileira. Rede Brasil–Espanha–Cabo Verde desarticulada (37 presos na Espanha, 8 no Brasil).
+      <div class="tl-ref">Ref: <a href="https://www.securitymagazine.pt/2025/12/18/autoridades-policiais-desafiam-as-principais-cadeias-de-abastecimento-de-cocaina-na-europa/" target="_blank">Security Magazine PT, dez/2025</a></div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-dot"></div>
+    <div class="tl-date">Mar 2026</div>
+    <div class="tl-text">PF instaura inquérito sobre tráfico ligado ao PCC no Porto de Santos após compartilhamento de informações pela França. Reconhecimento formal de infiltração portuária sistemática.
+      <div class="tl-ref">Ref: <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/pf-mira-trafico-internacional-de-drogas-ligado-ao-pcc-no-porto-de-santos/" target="_blank">CNN Brasil, mar/2026</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- S11 -->
+<div id="s11" class="section-header">
+  <div class="section-header-label">Análise 11 · Lacuna preenchida</div>
+  <h2>Resposta do Estado: avanços e lacunas críticas</h2>
+</div>
+
+<div class="state-grid">
+  <div class="state-col">
+    <div class="state-col-label">Avanços documentados</div>
+    <div class="state-item positive">
+      <strong>PF · Descapitalização</strong>
+      R$ 7 bilhões em bens retirados de criminosos em 2024 — dobro do ano anterior. Recorde histórico.
+    </div>
+    <div class="state-item positive">
+      <strong>Operações na Amazônia · 2025</strong>
+      176 operações até out/2025, sendo 104 na Amazônia. Prejuízo estimado de R$ 1,1 bilhão às organizações.
+    </div>
+    <div class="state-item positive">
+      <strong>Cooperação internacional</strong>
+      Operações conjuntas com Portugal, EUA, Cabo Verde, Espanha e França. CCPI-Amazônia criado para coordenação regional.
+    </div>
+    <div class="state-item positive">
+      <strong>Cripto · Apreensões +600%</strong>
+      R$ 71 milhões em criptoativos apreendidos em 2025 — seis vezes o valor de 2024.
+    </div>
+  </div>
+  <div class="state-col">
+    <div class="state-col-label">Lacunas críticas</div>
+    <div class="state-item negative">
+      <strong>Sem tipificação do narcogarimpo</strong>
+      Legislação brasileira não reconhece o narcogarimpo como crime autônomo. Garimpeiros executores são alvos; financiadores raramente são processados.
+    </div>
+    <div class="state-item negative">
+      <strong>COAF sob pressão política</strong>
+      Órgão enfrenta "forte pressão" institucional, segundo Instituto Esfera/FBSP. Capacidade de investigação de ativos digitais ainda limitada.
+    </div>
+    <div class="state-item negative">
+      <strong>Corrupção nas corporações</strong>
+      Casos Denarc e Santos revelam infiltração ativa. Investigações interrompidas por propina representam buracos negros no sistema de inteligência.
+    </div>
+    <div class="state-item negative">
+      <strong>Subnotificação oficial</strong>
+      Apenas 17 labs reconhecidos oficialmente contra 550 confirmados. Ausência de estatísticas governamentais sistemáticas sobre refino.
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-info">
+  <div class="alert-icon">◉</div>
+  <div class="alert-body">
+    <div class="alert-title">Resposta oficial · Ministério da Justiça</div>
+    <div class="alert-text">Em nota ao Intercept Brasil, o MJ reconheceu que "o narcotráfico se sobrepõe a ilícitos ambientais e exige integração entre forças federais e estaduais." Anunciou atuação via CCPI-Amazônia e fortalecimento do diálogo com Interpol, Europol e Ameripol. A Operação Ágata Amazônia (2025) integrou PF, Forças Armadas, Funai e Ibama, com apoio a mais de 70 comunidades indígenas.</div>
+    <div class="alert-ref">Fonte: <a href="https://www.intercept.com.br/2025/11/12/avanco-faccoes-ameaca-amazonia-brasil-refinador-cocaina/" target="_blank">The Intercept Brasil, nov/2025</a> · <a href="https://www.gov.br/secom/pt-br/assuntos/noticias/2025/10/nota-do-governo-do-brasil-sobre-combate-ao-trafico-de-drogas-e-ao-crime-organizado" target="_blank">Secom / Gov.br, out/2025</a></div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- CONCLUSION -->
+<div id="s12" class="conclusion">
+  <div class="conclusion-inner">
+    <div class="conclusion-label">Síntese analítica · Dossiê completo</div>
+    <h2>O Brasil que não aparece<br>nas estatísticas <em>oficiais</em></h2>
+    <p>
+      Quando as autoridades brasileiras reportam 135,3 toneladas de cocaína apreendidas em 2025, estão capturando, na melhor das hipóteses, entre 10% e 20% do fluxo real. Os outros 80% atravessam um país que construiu, silenciosamente, uma cadeia produtiva completa: importa pasta-base dos Andes, refina em 550 laboratórios, lava o lucro via fintechs e criptoativos, e exporta produto finalizado para os maiores mercados consumidores do mundo — com escalas na África.
+    </p>
+    <p>
+      O narcogarimpo integrou definitivamente cocaína e destruição ambiental: as mesmas rotas, a mesma logística, os mesmos agentes. O garimpo ilegal financia o tráfico; o tráfico protege o garimpo. A floresta amazônica tornou-se simultaneamente depósito, corredor e lavanderia. Com 4.000 garimpos ilegais e mais de 2 milhões de hectares destruídos entre 2018–2024, o custo ambiental do narcotráfico brasileiro é mensurável — e ainda não foi posto na conta.
+    </p>
+    <p>
+      A corrupção institucional explica o gap entre os 17 labs reconhecidos oficialmente e os 550 confirmados independentemente. Policiais do Denarc cobram propina para proteger laboratórios; funcionários de porto inserem cocaína em containers; operadores de aeroporto facilitam mulas. O Estado não é apenas ineficiente: em partes, é cúmplice.
+    </p>
+    <p>
+      O Brasil não é só o porto. É a fábrica, a lavanderia, a rota e, em alguns casos, o refúgio. Reconhecer isso plenamente — com dados, tipificações legais adequadas e cooperação internacional sem cumplicidade interna — é o primeiro passo para qualquer resposta de Estado que aspire à seriedade.
+    </p>
+  </div>
+</div>
+
+<div class="footnotes">
+  <div class="footnotes-label">Fontes com links verificáveis · Todas as referências são públicas e acessíveis</div>
+  <p><strong>InSight Crime</strong> — 2025 Cocaine Seizure Round-Up (Marina Cavalari et al., 2025). <a href="https://insightcrime.org/news/insight-crimes-2025-cocaine-seizure-round-up/" target="_blank">insightcrime.org</a></p>
+  <p><strong>Floresta em Pó</strong> — Instituto Fogo Cruzado / Iniciativa Negra, out/2025. Ref: <a href="https://www.intercept.com.br/2025/11/12/avanco-faccoes-ameaca-amazonia-brasil-refinador-cocaina/" target="_blank">The Intercept Brasil</a> · <a href="https://www.noticiasaominuto.com.br/brasil/2328084/estudo-identifica-550-laboratorios-para-processar-cocaina-no-brasil" target="_blank">Notícias ao Minuto BR</a> · <a href="https://www.gazetadopovo.com.br/brasil/brasil-refina-cada-vez-mais-cocaina-com-expansao-de-faccoes-criminosas/" target="_blank">Gazeta do Povo</a></p>
+  <p><strong>Cartografias da Violência na Amazônia</strong> — FBSP, nov/2025. Ref: <a href="https://www.infomoney.com.br/brasil/comando-vermelho-pcc-grupo-da-venezuela-e-mais-14-faccoes-estao-ativas-na-amazonia/" target="_blank">Infomoney</a> · <a href="https://istoe.com.br/comando-vermelho-pcc-grupo-da-venezuela-e-mais-14-faccoes-estao-ativas-na-amazonia" target="_blank">IstoÉ</a></p>
+  <p><strong>Narcogarimpo</strong> — Amazon Conservation / Observatório da Imprensa, mar/2026. <a href="https://www.observatoriodaimprensa.com.br/meio-ambiente-2/amazonia-extracao-ilegal-de-ouro-impulsionou-desmatamento-em-2025-revela-relatorio-internacional/" target="_blank">Observatório da Imprensa</a> · <a href="https://periodicos.newsciencepubl.com/err01/article/view/11381" target="_blank">ERR01 · Narcogarimpo, dez/2025</a></p>
+  <p><strong>Lavagem digital</strong> — Instituto Esfera / FBSP, 2025. <a href="https://techcripto.com/noticias/pcc-e-cv-usam-criptomoedas-bets-e-fintechs-para-lavagem-de-dinheiro/06/2025/" target="_blank">TechCripto</a> · <a href="https://economicnewsbrasil.com.br/2025/08/03/dinheiro-do-pcc-fintechs/" target="_blank">Economic News Brasil</a> · <a href="https://portuguese.news-pravda.com/world/2026/05/10/383006.html" target="_blank">News Pravda PT, mai/2026</a></p>
+  <p><strong>Rota atlântica</strong> — Operação Narco Vela (PF, abr/2025). <a href="https://ndmais.com.br/seguranca/do-brasil-a-africa-rota-do-trafico-internacional-de-drogas/" target="_blank">ND Mais</a> · ONU News: <a href="https://news.un.org/pt/story/2023/04/1812352" target="_blank">news.un.org</a> · <a href="https://www.securitymagazine.pt/2025/12/18/autoridades-policiais-desafiam-as-principais-cadeias-de-abastecimento-de-cocaina-na-europa/" target="_blank">Security Magazine PT, dez/2025</a></p>
+  <p><strong>Corrupção</strong> — MPSP / CNN Brasil, dez/2025. <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/policiais-suspeitos-de-corrupcao-sao-presos-em-operacao-do-mpsp/" target="_blank">CNN Brasil</a> · PCC / Porto de Santos: <a href="https://www.cnnbrasil.com.br/nacional/sudeste/sp/pf-mira-trafico-internacional-de-drogas-ligado-ao-pcc-no-porto-de-santos/" target="_blank">CNN Brasil, mar/2026</a></p>
+  <p><strong>Resposta do Estado</strong> — Secom / Gov.br, out/2025. <a href="https://www.gov.br/secom/pt-br/assuntos/noticias/2025/10/nota-do-governo-do-brasil-sobre-combate-ao-trafico-de-drogas-e-ao-crime-organizado" target="_blank">gov.br/secom</a></p>
+  <p style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(10,10,10,.12)">Este documento é uma síntese analítica de fontes públicas para fins informativos e de documentação investigativa. Não representa posição institucional de qualquer órgão de segurança ou governo.</p>
+</div>
+
+<script>
+// LAB MAP
+const labs=[{state:'Goiás',abbr:'GO',n:125},{state:'Amazonas',abbr:'AM',n:42},{state:'São Paulo',abbr:'SP',n:37},{state:'Minas Gerais',abbr:'MG',n:34},{state:'Mato Grosso',abbr:'MT',n:29},{state:'Paraná',abbr:'PR',n:25},{state:'Bahia',abbr:'BA',n:24},{state:'Dist. Federal',abbr:'DF',n:22},{state:'Rio Gde. Sul',abbr:'RS',n:22},{state:'Mato Gdo. Sul',abbr:'MS',n:20},{state:'Pará',abbr:'PA',n:18},{state:'Ceará',abbr:'CE',n:15},{state:'Alagoas',abbr:'AL',n:14},{state:'Paraíba',abbr:'PB',n:14},{state:'Sergipe',abbr:'SE',n:14},{state:'Rio Gde. Norte',abbr:'RN',n:13},{state:'Espírito Santo',abbr:'ES',n:12},{state:'Santa Catarina',abbr:'SC',n:11},{state:'Acre',abbr:'AC',n:10},{state:'Rio de Janeiro',abbr:'RJ',n:10},{state:'Tocantins',abbr:'TO',n:9},{state:'Amapá',abbr:'AP',n:7},{state:'Pernambuco',abbr:'PE',n:7},{state:'Maranhão',abbr:'MA',n:5},{state:'Rondônia',abbr:'RO',n:5},{state:'Piauí',abbr:'PI',n:3},{state:'Roraima',abbr:'RR',n:3}];
+const maxN=125;
+const grid=document.getElementById('labGrid');
+labs.forEach(l=>{
+  const pct=Math.round((l.n/maxN)*120);
+  const isHigh=l.n>=30;const isMid=l.n>=15&&l.n<30;
+  const barColor=isHigh?'#c0392b':isMid?'#c68a00':'#888780';
+  const div=document.createElement('div');div.className='lab-item';
+  div.innerHTML=`<div class="lab-state">${l.abbr} · ${l.state}</div><div class="lab-bar-wrap"><div class="lab-bar" style="width:${pct}px;background:${barColor}"></div><span class="lab-count">${l.n}</span></div>`;
+  grid.appendChild(div);
+});
+
+// FINTECH BARS
+const fintechData=[
+  {label:'8 fintechs\n(PCC/CV, 6 anos)',val:28200,max:30000,unit:'R$ bi',display:'R$ 28,2 bi',color:'#c0392b'},
+  {label:'Cripto apreendido\nPF 2025',val:71,max:30000,unit:'R$ mi',display:'R$ 71 mi',color:'#888780'},
+  {label:'Operações suspeitas\nCOAF (+766% 2015–24)',val:7667,max:10000,unit:'índice',display:'+766%',color:'#c68a00'},
+  {label:'Cripto ilícito global\nChainalysis 2025',val:154000,max:200000,unit:'US$',display:'US$ 154 bi',color:'#1a5c8b'},
+];
+const fb=document.getElementById('fintechBars');
+fintechData.forEach(d=>{
+  const pct=Math.round((d.val/d.max)*100);
+  const row=document.createElement('div');row.className='fintech-row';
+  row.innerHTML=`<div class="fintech-label">${d.label.replace('\n','<br>')}</div><div class="fintech-bar-outer"><div class="fintech-bar-inner" style="width:${pct}%;background:${d.color}"><span class="fintech-val">${d.display}</span></div></div>`;
+  fb.appendChild(row);
+});
+
+// PRICE VISUAL
+const prices=[
+  {label:'Pasta-base\nno Peru',val:1,color:'#888780'},
+  {label:'Pasta-base\nna fronteira BR',val:3,color:'#b0a090'},
+  {label:'Cocaína refinada\nno Brasil',val:15,color:'#c68a00'},
+  {label:'Atacado\nem Lisboa',val:35,color:'#c0392b'},
+  {label:'Varejo\nna Europa',val:50,color:'#8b1a12'},
+];
+const pv=document.getElementById('priceViz');
+const maxP=50;
+prices.forEach((p,i)=>{
+  const h=Math.round((p.val/maxP)*120);
+  const wrap=document.createElement('div');wrap.className='price-bar-wrap';
+  wrap.innerHTML=`<div class="price-bar" style="height:${h}px;background:${p.color}"><span class="price-val">US$${p.val}k</span></div><div class="price-label">${p.label.replace('\n','<br>')}</div>`;
+  pv.appendChild(wrap);
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

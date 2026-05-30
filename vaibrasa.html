@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Brasileiro Comum — Edição Completa</title>
+
+<!-- SEO & OG Graph -->
+<meta name="description" content="Um depoimento cru sobre a realidade do contribuinte brasileiro em 2026. Burocracia, impostos e a luta diária do motor do Brasil.">
+<meta property="og:title" content="O Brasileiro Comum — Edição Completa">
+<meta property="og:description" content="Um depoimento cru sobre a realidade do contribuinte brasileiro em 2026. Burocracia, impostos e a luta diária do motor do Brasil.">
+<meta property="og:image" content="https://gosurf.site/vaibrasa-og.png">
+<meta property="og:url" content="https://gosurf.site/vaibrasa">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="O Brasileiro Comum — Edição Completa">
+<meta name="twitter:description" content="Um depoimento cru sobre a realidade do contribuinte brasileiro em 2026. Burocracia, impostos e a luta diária do motor do Brasil.">
+<meta name="twitter:image" content="https://gosurf.site/vaibrasa-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="O Brasileiro Comum - Reality Check 2026">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
+  :root {
+    --bg: #060606;
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.08);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.08);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.08);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.08);
+    --white: #ede9e0;
+    --muted: #2e2e2e;
+    --mid: #4a4a4a;
+    --dim: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 3px,
+      rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* BOOT */
+  #boot {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 100;
+    gap: 4px;
+    transition: opacity 0.8s ease;
+  }
+  #boot.fade-out { opacity: 0; pointer-events: none; }
+
+  .boot-line {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--green);
+    opacity: 0;
+    animation: bootIn 0.05s ease forwards;
+  }
+  .boot-line.warn { color: var(--amber); }
+  .boot-line.err  { color: var(--red); }
+  @keyframes bootIn { to { opacity: 1; } }
+
+  /* PROGRESS */
+  .progress-bar {
+    position: fixed; bottom: 0; left: 0;
+    height: 2px; background: var(--green);
+    z-index: 200; transition: width 0.15s ease;
+    box-shadow: 0 0 10px rgba(74,222,128,0.5);
+  }
+
+  /* SIDE */
+  .side-info {
+    position: fixed; top: 50%; left: 16px;
+    transform: translateY(-50%) rotate(-90deg);
+    font-size: 8px; letter-spacing: 0.4em;
+    color: var(--muted); white-space: nowrap;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  /* COUNTER */
+  .line-counter {
+    position: fixed; top: 24px; right: 24px;
+    font-size: 9px; letter-spacing: 0.2em;
+    color: var(--mid);
+    z-index: 50;
+  }
+  .line-counter span { color: var(--green); }
+
+  /* MAIN */
+  main {
+    max-width: 900px; margin: 0 auto;
+    padding: 80px 32px 180px;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  main.visible { opacity: 1; }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--muted);
+    padding-bottom: 28px; margin-bottom: 60px;
+  }
+  .header-meta {
+    font-size: 11px; letter-spacing: 0.4em;
+    color: var(--mid); text-transform: uppercase; margin-bottom: 20px;
+  }
+  .header-meta em { color: var(--green); font-style: normal; margin: 0 6px; }
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 300; font-style: italic;
+    line-height: 1.0; color: var(--white);
+  }
+  .header-title strong {
+    font-weight: 600; font-style: normal; display: block;
+  }
+  .header-sub {
+    margin-top: 16px;
+    font-size: 13px; letter-spacing: 0.25em;
+    color: var(--dim); text-transform: uppercase;
+  }
+
+  /* LINES */
+  .lines { display: flex; flex-direction: column; }
+
+  .line {
+    display: flex; align-items: baseline;
+    gap: 22px; padding: 12px 0;
+    opacity: 0; transform: translateX(-6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+    position: relative;
+    border-left: 2px solid transparent;
+  }
+  .line.typed { opacity: 1; transform: translateX(0); }
+  .line.active { 
+    background: rgba(255,255,255,0.05); 
+    border-left-color: var(--green);
+    padding-left: 12px;
+  }
+  .line:hover { background: rgba(255,255,255,0.02); }
+
+  .line.empty { opacity: 1; transform: none; padding: 4px 0; }
+
+  .line-num {
+    font-size: 11px; color: var(--muted);
+    min-width: 32px; text-align: right;
+    user-select: none; flex-shrink: 0;
+  }
+
+  .line-text {
+    font-size: clamp(16px, 2.8vw, 24px);
+    line-height: 1.7; color: var(--white);
+    font-weight: 300;
+  }
+
+  /* SECTION BREAK */
+  .section-wrap {
+    opacity: 0; transition: opacity 0.4s ease;
+    padding: 32px 0 8px;
+  }
+  .section-wrap.typed { opacity: 1; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.5em;
+    color: var(--mid); text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--muted);
+  }
+
+  /* COMMENT */
+  .line.comment .line-text {
+    color: var(--dim); font-style: italic;
+  }
+  .line.comment .line-num { color: #1e1e1e; }
+
+  /* HIGHLIGHT VARIANTS */
+  .line.hl-green { background: var(--green-dim); border-left: 2px solid var(--green); padding-left: 12px; }
+  .line.hl-green .line-text { color: var(--green); font-weight: 400; }
+
+  .line.hl-amber { background: var(--amber-dim); border-left: 2px solid var(--amber); padding-left: 12px; }
+  .line.hl-amber .line-text { color: var(--amber); }
+
+  .line.hl-red { background: var(--red-dim); border-left: 2px solid var(--red); padding-left: 12px; }
+  .line.hl-red .line-text { color: var(--red); }
+
+  .line.hl-blue { background: var(--blue-dim); border-left: 2px solid var(--blue); padding-left: 12px; }
+  .line.hl-blue .line-text { color: var(--blue); }
+
+  /* SARCASM TAG */
+  .sarcasm {
+    display: inline-block;
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--amber);
+    font-size: 8px; letter-spacing: 0.2em;
+    padding: 1px 6px; margin-left: 8px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    font-style: normal;
+  }
+
+  /* FINALE */
+  .finale-wrap {
+    margin-top: 80px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .finale-wrap.visible { opacity: 1; transform: translateY(0); }
+
+  .finale-divider {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 52px;
+  }
+  .div-line { flex: 1; height: 1px; background: var(--muted); }
+  .div-text {
+    font-size: 8px; letter-spacing: 0.4em;
+    color: var(--mid); text-transform: uppercase; white-space: nowrap;
+  }
+
+  .finale-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 48px;
+  }
+
+  .stat-card {
+    border: 1px solid var(--muted);
+    padding: 16px 20px;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .stat-card.visible { opacity: 1; transform: translateY(0); }
+
+  .stat-label {
+    font-size: 8px; letter-spacing: 0.3em;
+    color: var(--mid); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 600; line-height: 1;
+    color: var(--white);
+  }
+  .stat-value.red { color: var(--red); }
+  .stat-value.amber { color: var(--amber); }
+  .stat-value.green { color: var(--green); }
+
+  .finale-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 600; font-style: italic;
+    line-height: 1.35; color: var(--white);
+    border-left: 3px solid var(--amber);
+    padding-left: 28px; margin-bottom: 12px;
+  }
+
+  .finale-attr {
+    font-size: 9px; letter-spacing: 0.3em;
+    color: var(--mid); text-transform: uppercase;
+    padding-left: 28px; margin-bottom: 52px;
+  }
+
+  .stamp-row {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+
+  .stamp {
+    display: inline-block;
+    border: 2px solid var(--red); color: var(--red);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 600; letter-spacing: 0.3em;
+    text-transform: uppercase; padding: 8px 20px;
+    transform: rotate(-1.5deg);
+    opacity: 0; transition: opacity 1s ease 0.5s;
+  }
+  .stamp.visible { opacity: 1; }
+
+  .stamp2 {
+    display: inline-block;
+    border: 2px solid var(--amber); color: var(--amber);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 600; letter-spacing: 0.25em;
+    text-transform: uppercase; padding: 8px 20px;
+    transform: rotate(0.8deg);
+    opacity: 0; transition: opacity 1s ease 1s;
+  }
+  .stamp2.visible { opacity: 1; }
+
+  /* SHARE CARD */
+  .share-card {
+    margin-top: 60px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid var(--muted);
+    border-radius: 4px;
+    padding: 32px;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.8s ease;
+  }
+  .share-card.visible { opacity: 1; transform: translateY(0); }
+  .share-header {
+    font-size: 11px; letter-spacing: 0.3em;
+    color: var(--green); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .share-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 600; font-style: italic;
+    color: var(--white); margin-bottom: 12px;
+  }
+  .share-desc {
+    font-size: 12px; color: var(--dim); line-height: 1.6;
+    margin-bottom: 24px; max-width: 480px;
+  }
+  .share-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .s-btn {
+    background: var(--muted); border: 1px solid transparent;
+    color: var(--white); font-size: 10px; letter-spacing: 0.1em;
+    padding: 10px 18px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .s-btn:hover { background: var(--mid); border-color: var(--dim); }
+  .s-btn.wa:hover { border-color: #25d366; color: #25d366; }
+  .s-btn.x:hover { border-color: #fff; color: #fff; }
+
+  @media (max-width: 600px) {
+    .side-info, .line-counter { display: none; }
+    main { padding: 50px 18px 120px; }
+    .finale-stats { grid-template-columns: 1fr; }
+    .share-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="boot">
+  <div class="boot-line" style="animation-delay:0s">SISTEMA BR-2026 v4.7.1</div>
+  <div class="boot-line" style="animation-delay:0.15s">CARREGANDO REALIDADE_NACIONAL.exe...</div>
+  <div class="boot-line warn" style="animation-delay:0.4s">AVISO: CONTEÚDO PODE CAUSAR DESCONFORTO</div>
+  <div class="boot-line" style="animation-delay:0.65s">MÓDULOS: IMPOSTO · SAÚDE · EDUCAÇÃO · SEGURANÇA</div>
+  <div class="boot-line" style="animation-delay:0.9s">MÓDULOS: BUROCRACIA · TRÂNSITO · APOSENTADORIA · DIGITAL</div>
+  <div class="boot-line err" style="animation-delay:1.15s">ERRO 404: REPRESENTAÇÃO_POLÍTICA não encontrada</div>
+  <div class="boot-line warn" style="animation-delay:1.5s">INICIANDO DEPOIMENTO EM 2s...</div>
+</div>
+
+<div class="side-info" id="sideInfo">05:00 · TURNO ATIVO</div>
+<div class="line-counter">linha <span id="lineCount">0</span></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<main id="main">
+  <header class="header">
+    <p class="header-meta">depoimento #001 <em>///</em> brasil, 2026 <em>///</em> contribuinte anônimo</p>
+    <h1 class="header-title">
+      Seja o
+      <strong>Brasileiro Comum.</strong>
+    </h1>
+    <p class="header-sub">Edição expandida · Versão completa com todas as benesses do sistema</p>
+  </header>
+
+  <div class="lines" id="lines"></div>
+
+  <div class="finale-wrap" id="finale">
+    <div class="finale-divider">
+      <div class="div-line"></div>
+      <span class="div-text">Balanço final</span>
+      <div class="div-line"></div>
+    </div>
+
+    <div class="finale-stats" id="stats"></div>
+
+    <p class="finale-quote">"A Lei Áurea não foi abolida,<br>ela só foi renomeada."</p>
+    <p class="finale-attr">— Depoimento anônimo · Brasil · 2026</p>
+
+    <div class="stamp-row">
+      <div class="stamp" id="stamp1">Ainda Vigente</div>
+      <div class="stamp2" id="stamp2">Aprovado pelo Contribuinte</div>
+    </div>
+
+    <div class="share-card" id="shareCard">
+      <div class="share-header">propagar sinal</div>
+      <div class="share-title">Ajude a compartilhar a realidade.</div>
+      <div class="share-desc">A cada compartilhamento, uma nova pessoa toma consciência do abismo entre o que pagamos e o que recebemos.</div>
+      <div class="share-btns">
+        <a href="https://wa.me/?text=O%20Brasileiro%20Comum%20—%20Um%20depoimento%20cru%20sobre%20a%20realidade%20nacional%20em%202026.%20Leia%20em:%20https://gosurf.site/vaibrasa" target="_blank" class="s-btn wa">WhatsApp</a>
+        <a href="https://twitter.com/intent/tweet?text=O%20Brasileiro%20Comum%20—%20Um%20depoimento%20cru%20sobre%20a%20realidade%20nacional%20em%202026.%20https://gosurf.site/vaibrasa" target="_blank" class="s-btn x">X / Twitter</a>
+        <button onclick="copyLink()" class="s-btn">Copiar Link</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const script = [
+  // TRABALHO E IMPOSTO
+  { type: 'section', label: 'TRABALHO & IMPOSTO' },
+  { type: 'hl-green', text: 'Acorde às 5h para trabalhar.' },
+  { type: 'normal',   text: 'Tome o ônibus das 5h40. Cheio. Quebrado. Atrasado.' },
+  { type: 'comment',  text: 'Parabéns. Você é o motor do Brasil.' },
+  { type: 'normal',   text: 'Pague 35% do salário em imposto.' },
+  { type: 'normal',   text: 'Já foi retido na fonte. Você não viu a cor.' },
+  { type: 'hl-amber', text: 'Pague IPTU do imóvel que você mal conseguiu comprar.' },
+  { type: 'normal',   text: 'Pague IPVA do carro que você precisa para trabalhar.' },
+  { type: 'hl-red',   text: 'O carro que ficou parado 3h no congestionamento hoje.' },
+  { type: 'comment',  text: 'A rua estava em obras. As obras começaram em 2019.' },
+  { type: 'normal',   text: 'Pague pedágio na rodovia federal privatizada.' },
+  { type: 'comment',  text: 'A rodovia tem buraco desde o governo passado. E o retrasado.' },
+  { type: 'empty' },
+
+  // SAÚDE
+  { type: 'section', label: 'SAÚDE PÚBLICA' },
+  { type: 'normal',   text: 'Você sente uma dor no peito faz 3 semanas.' },
+  { type: 'hl-amber', text: 'Tenta marcar no UBS. Próxima vaga: 47 dias.' },
+  { type: 'comment',  text: 'Não é urgência, é o padrão.' },
+  { type: 'normal',   text: 'Vai ao pronto-socorro às 3h da manhã.' },
+  { type: 'normal',   text: 'Espera 6 horas na cadeira de plástico.' },
+  { type: 'hl-red',   text: 'O médico de plantão está há 24h no hospital.' },
+  { type: 'comment',  text: 'Ele também é brasileiro comum. Só que com CRM.' },
+  { type: 'normal',   text: 'Médico pede exame. Prazo para exame: 90 dias.' },
+  { type: 'hl-amber', text: 'Você não tem plano. Plano custa R$800/mês.' },
+  { type: 'comment',  text: 'Seu salário é R$1.800. Matemática difícil.' },
+  { type: 'normal',   text: 'O remédio da receita não tem no posto.' },
+  { type: 'normal',   text: 'Tem no CEAF. Prazo para CEAF: 60 dias.' },
+  { type: 'hl-red',   text: 'Você compra o remédio. Parcela em 12x.' },
+  { type: 'comment',  text: 'Sorte sua. O juro do cartão é só 432% ao ano.' },
+  { type: 'empty' },
+
+  // EDUCAÇÃO
+  { type: 'section', label: 'EDUCAÇÃO' },
+  { type: 'normal',   text: 'Mande seu filho para a escola pública.' },
+  { type: 'hl-amber', text: 'Escola não tem professor de matemática faz 4 meses.' },
+  { type: 'comment',  text: 'Está em concurso. Edital de 2022. Nomeação prevista pra 2027.' },
+  { type: 'normal',   text: 'Tem professor substituto. Passa YouTube.' },
+  { type: 'normal',   text: 'Seu filho não aprende a ler direito.' },
+  { type: 'normal',   text: 'Mas passa de ano. Progressão continuada.' },
+  { type: 'hl-red',   text: 'Brasil: 30 milhões de adultos funcionalmente analfabetos.' },
+  { type: 'comment',  text: 'Mas estamos no caminho certo segundo o ministro.' },
+  { type: 'normal',   text: 'Diretor da escola tem cargo comissionado.' },
+  { type: 'normal',   text: 'Indicado pelo vereador. Que indicou o pai do vereador.' },
+  { type: 'comment',  text: 'Meritocracia é um conceito importado. Nem chegou aqui ainda.' },
+  { type: 'empty' },
+
+  // SEGURANÇA
+  { type: 'section', label: 'SEGURANÇA PÚBLICA' },
+  { type: 'normal',   text: 'Você mora num bairro sem policiamento.' },
+  { type: 'hl-red',   text: 'Te roubaram 3 vezes esse ano.' },
+  { type: 'normal',   text: 'Você foi à delegacia. Registrou B.O.' },
+  { type: 'comment',  text: 'Parabéns. O B.O. vai para uma gaveta digital.' },
+  { type: 'normal',   text: 'O ladrão foi preso. Saiu no mesmo dia.' },
+  { type: 'hl-amber', text: 'Tornozeleira eletrônica. Sem bateria. Sumiu.' },
+  { type: 'normal',   text: 'Você coloca câmera na porta. R$600.' },
+  { type: 'normal',   text: 'Câmera foi roubada.' },
+  { type: 'comment',  text: 'Ao menos você tem imagens nítidas do ladrão.' },
+  { type: 'hl-red',   text: 'PCC e CV: organizações criminosas. Não terroristas, calma.' },
+  { type: 'comment',  text: 'Terrorista tem conotação política. Isso aqui é só negócio.' },
+  { type: 'empty' },
+
+  // ECONOMIA
+  { type: 'section', label: 'ECONOMIA DOMÉSTICA' },
+  { type: 'normal',   text: 'Você vai ao mercado na sexta-feira.' },
+  { type: 'hl-red',   text: 'O frango tá R$30 o kg.' },
+  { type: 'normal',   text: 'Cesta básica subiu 40% em 2 anos.' },
+  { type: 'normal',   text: 'Você corta o frango, come ovo.' },
+  { type: 'comment',  text: 'Ovo também subiu. Proteína é artigo de luxo.' },
+  { type: 'normal',   text: 'Come macarrão. Imposto no macarrão.' },
+  { type: 'normal',   text: 'Come arroz e feijão. Imposto no arroz e no feijão.' },
+  { type: 'hl-amber', text: 'Brasil tem carga tributária de 33% do PIB sobre alimentos.' },
+  { type: 'comment',  text: 'O prato mais tributado do mundo é a marmita brasileira.' },
+  { type: 'normal',   text: 'Você bebe refrigerante na festa do filho.' },
+  { type: 'comment',  text: 'IPI, ICMS, PIS, COFINS, ISS. Feliz aniversário.' },
+  { type: 'empty' },
+
+  // BUROCRACIA
+  { type: 'section', label: 'BUROCRACIA & ESTADO' },
+  { type: 'normal',   text: 'Você abre uma MEI. Sonho de empreender.' },
+  { type: 'hl-amber', text: '11 guias diferentes para pagar por mês.' },
+  { type: 'normal',   text: 'DARF, DAS, FGTS, DAE, DAM, INSS, ISS...' },
+  { type: 'comment',  text: 'O governo simplificou. Tinha 14 antes.' },
+  { type: 'normal',   text: 'Você vai renovar a CNH.' },
+  { type: 'normal',   text: 'DETRAN: sistema fora do ar. Volta amanhã.' },
+  { type: 'hl-amber', text: 'Volta amanhã. O sistema caiu de novo.' },
+  { type: 'comment',  text: 'O contrato do sistema custa R$40 milhões por ano.' },
+  { type: 'normal',   text: 'Você espera na fila do INSS. Dia de semana.' },
+  { type: 'normal',   text: 'Número 743. Painel marcando 512.' },
+  { type: 'comment',  text: 'Você tira foto. Posta no Twitter. Nada acontece.' },
+  { type: 'empty' },
+
+  // DIGITAL E DIREITOS
+  { type: 'section', label: 'LIBERDADE DIGITAL' },
+  { type: 'normal',   text: 'Você posta uma opinião política no X.' },
+  { type: 'hl-red',   text: 'Post derrubado. Decisão monocrática. Sem recurso. Sem notificação.' },
+  { type: 'comment',  text: 'Liberdade de expressão, mas com moderação. Deles.' },
+  { type: 'normal',   text: 'Você instala VPN. Problema resolvido.' },
+  { type: 'normal',   text: 'Notícia: governo estuda taxar VPN.' },
+  { type: 'comment',  text: 'Taxar o buraco na cerca que eles mesmos fizeram. Claro.' },
+  { type: 'hl-amber', text: 'Relatório dos EUA aponta censura judicial no Brasil (2025).' },
+  { type: 'comment',  text: 'Mas lá fora são os fascistas. Aqui é democracia.' },
+  { type: 'normal',   text: 'Você liga para a TV a cabo. Assiste telejornal.' },
+  { type: 'comment',  text: 'O âncora explica que a inflação não é culpa do governo.' },
+  { type: 'normal',   text: 'Você desliga. Você sabe o preço do ovo.' },
+  { type: 'empty' },
+
+  // HABITAÇÃO
+  { type: 'section', label: 'HABITAÇÃO' },
+  { type: 'normal',   text: 'Você tem aluguel atrasado.' },
+  { type: 'hl-amber', text: 'Quis financiar um imóvel. Juros: 12% ao ano.' },
+  { type: 'comment',  text: 'Seu bisavô já pagava isso. Troféu de continuidade.' },
+  { type: 'normal',   text: 'Tentou o Minha Casa Minha Vida.' },
+  { type: 'normal',   text: 'Lista de espera: 4 anos. Em 2 cidades simultâneas.' },
+  { type: 'hl-red',   text: 'R$17 bilhões em precatórios do FGTS não pagos.' },
+  { type: 'comment',  text: 'Mas o fundo tá lá. Guardadinho para o governo usar depois.' },
+  { type: 'normal',   text: 'IPTU reajustado acima da inflação pelo 3º ano seguido.' },
+  { type: 'comment',  text: 'A prefeitura precisa de recursos. Para o quê? Boa pergunta.' },
+  { type: 'empty' },
+
+  // APOSENTADORIA
+  { type: 'section', label: 'APOSENTADORIA' },
+  { type: 'normal',   text: 'Você pensa em se aposentar.' },
+  { type: 'hl-red',   text: 'Com a reforma de 2019: trabalhe até 65 anos.' },
+  { type: 'comment',  text: 'A expectativa de vida do trabalhador informal é 67. Aproveite.' },
+  { type: 'normal',   text: 'Sua contribuição ao INSS: R$280/mês por 35 anos.' },
+  { type: 'hl-amber', text: 'Total contribuído: R$117.600 em valores corrigidos.' },
+  { type: 'normal',   text: 'Benefício médio concedido: R$1.700/mês.' },
+  { type: 'comment',  text: 'Teto do INSS: R$7.786. Para quem nunca vai chegar.' },
+  { type: 'hl-red',   text: 'Servidores do INSS desviaram R$1 bilhão de aposentados. (2026)' },
+  { type: 'comment',  text: 'Não se preocupe. Foram afastados. Com salário.' },
+  { type: 'empty' },
+
+  // JUDICIÁRIO
+  { type: 'section', label: 'PODER JUDICIÁRIO' },
+  { type: 'normal',   text: 'Você lê a notícia de ontem.' },
+  { type: 'hl-red',   text: 'STF: juiz pode receber até R$78.000/mês.' },
+  { type: 'normal',   text: '+35% em penduricalhos. +35% em quinquênio ressuscitado.' },
+  { type: 'normal',   text: 'Extinto há 20 anos. Ressuscitou. Retroativo.' },
+  { type: 'hl-red',   text: 'R$17 bilhões gastos acima do teto constitucional por ano.' },
+  { type: 'comment',  text: 'O mesmo teto que não vale para quem o criou. Lógico.' },
+  { type: 'normal',   text: 'Um ministro fez 32 decisões monocráticas em um fim de semana.' },
+  { type: 'comment',  text: 'Fim de semana dele. Você estava no plantão.' },
+  { type: 'hl-amber', text: 'Um réu esperou 14 anos preso sem julgamento. Inocente.' },
+  { type: 'comment',  text: 'O sistema funciona. Só não especificaram para quem.' },
+  { type: 'empty' },
+
+  // COMBUSTÍVEL E MOBILIDADE
+  { type: 'section', label: 'COMBUSTÍVEL & MOBILIDADE' },
+  { type: 'normal',   text: 'Você abastece o carro. R$6,80 o litro.' },
+  { type: 'hl-amber', text: '42% do preço é imposto. Você paga imposto para trabalhar.' },
+  { type: 'comment',  text: 'Isso se chama: custo de existir no Brasil.' },
+  { type: 'normal',   text: 'Você para no sinal. Flanelinha pede R$5 para guardar.' },
+  { type: 'normal',   text: 'Você paga. Não é opcional.' },
+  { type: 'comment',  text: 'Terceirização da segurança pública. Modelo inovador.' },
+  { type: 'hl-red',   text: 'Acidente na rodovia. Ambulância demora 47 minutos.' },
+  { type: 'comment',  text: 'Mas o pedágio foi cobrado na hora certa. R$18,70.' },
+  { type: 'empty' },
+
+  // ENCERRAMENTO
+  { type: 'section', label: 'AMANHÃ' },
+  { type: 'normal',   text: 'Você vê o ministro falar em "governança responsável".' },
+  { type: 'normal',   text: 'Você fecha o celular.' },
+  { type: 'normal',   text: 'Você coloca o despertador para as 5h.' },
+  { type: 'hl-green', text: 'Você vai trabalhar de novo amanhã às 5h.' },
+  { type: 'comment',  text: 'Afinal, alguém tem que pagar os penduricalhos.' },
+];
+
+// ── STATS for finale ──
+const stats = [
+  { label: 'Carga tributária', value: '35%', cls: 'red', sub: 'do salário sumido na fonte' },
+  { label: 'Homicídios em 18 anos', value: '≈1M', cls: 'red', sub: 'segundo a ONU' },
+  { label: 'Analfabetos funcionais', value: '30M', cls: 'amber', sub: 'adultos brasileiros' },
+  { label: 'Teto do STF', value: 'R$78k', cls: 'amber', sub: 'salário mensal do juiz' },
+  { label: 'Acima do teto constitucional', value: 'R$17bi', cls: 'red', sub: 'por ano, só no judiciário' },
+  { label: 'Próxima consulta no SUS', value: '47d', cls: 'amber', sub: 'para dor no peito' },
+];
+
+// ── ENGINE ────────────────────────────────────────────────────────────────
+let lineNum = 0;
+let visibleLines = 0;
+const container = document.getElementById('lines');
+
+function renderLine(data) {
+  if (data.type === 'section') {
+    const wrap = document.createElement('div');
+    wrap.className = 'section-wrap';
+    wrap.innerHTML = `<div class="section-label">${data.label}</div>`;
+    container.appendChild(wrap);
+    requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('typed')));
+    return;
+  }
+
+  if (data.type === 'empty') {
+    const div = document.createElement('div');
+    div.className = 'line empty';
+    div.innerHTML = '<div style="height:6px"></div>';
+    container.appendChild(div);
+    return;
+  }
+
+  lineNum++;
+  visibleLines++;
+  document.getElementById('lineCount').textContent = visibleLines;
+
+  const div = document.createElement('div');
+  div.className = `line ${data.type} active`;
+  div.innerHTML = `
+    <span class="line-num">${String(lineNum).padStart(2,'0')}</span>
+    <span class="line-text">${data.text}</span>
+  `;
+  
+  // Remove active from previous
+  const prevActive = container.querySelector('.line.active');
+  if (prevActive) prevActive.classList.remove('active');
+
+  container.appendChild(div);
+  requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('typed')));
+
+  // Auto scroll
+  div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+let idx = 0;
+function typeNext() {
+  if (idx >= script.length) {
+    showFinale();
+    return;
+  }
+  const data = script[idx++];
+  renderLine(data);
+
+  let delay = 450;
+  if (data.type === 'empty') delay = 300;
+  else if (data.type === 'section') delay = 1500;
+  else if (data.type === 'hl-red') delay = 1200;
+  else if (data.type === 'comment') delay = 600;
+
+  const pauses = [
+    'Tornozeleira sem bateria. Sumiu.',
+    'Câmera foi roubada.',
+    'Você desliga. Você sabe o preço do ovo.',
+    'Você vai trabalhar de novo amanhã às 5h.',
+    'Afinal, alguém tem que pagar os penduricalhos.',
+  ];
+  if (pauses.includes(data.text)) delay = 3000;
+
+  setTimeout(typeNext, delay);
+}
+
+function showFinale() {
+  const finale = document.getElementById('finale');
+  setTimeout(() => {
+    finale.classList.add('visible');
+
+    // Stats
+    const statsEl = document.getElementById('stats');
+    stats.forEach((s, i) => {
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.innerHTML = `
+        <div class="stat-label">${s.label}</div>
+        <div class="stat-value ${s.cls}">${s.value}</div>
+        <div style="font-size:9px;color:var(--mid);margin-top:4px;letter-spacing:0.1em">${s.sub}</div>
+      `;
+      statsEl.appendChild(card);
+      setTimeout(() => card.classList.add('visible'), 300 + i * 150);
+    });
+
+    setTimeout(() => {
+      document.getElementById('stamp1').classList.add('visible');
+      document.getElementById('stamp2').classList.add('visible');
+    }, 1200);
+
+    setTimeout(() => {
+      document.getElementById('shareCard').classList.add('visible');
+    }, 2000);
+  }, 400);
+}
+
+function copyLink() {
+  navigator.clipboard.writeText('https://gosurf.site/vaibrasa').then(() => {
+    alert('Link copiado para a área de transferência.');
+  });
+}
+
+// BOOT
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const boot = document.getElementById('boot');
+    boot.classList.add('fade-out');
+    setTimeout(() => {
+      boot.style.display = 'none';
+      document.getElementById('main').classList.add('visible');
+      setTimeout(typeNext, 500);
+    }, 800);
+  }, 2800);
+});
+
+// SCROLL PROGRESS
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+// CLOCK
+function tick() {
+  const n = new Date();
+  const t = `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+  document.getElementById('sideInfo').textContent = `${t} · TURNO ATIVO`;
+}
+tick();
+setInterval(tick, 30000);
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

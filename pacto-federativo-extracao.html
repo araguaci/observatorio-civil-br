@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacto Federativo: A Rede de Extração — Dossiê 2024–2026</title>
+<link rel="canonical" href="https://gosurf.site/pacto-federativo-extracao">
+<meta name="description" content="Análise forense dos fluxos de transferência federal, FPE, captura intermediária e falhas do pacto federativo brasileiro (dados 2024–2026).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pacto Federativo: A Rede de Extração — Dossiê 2024–2026">
+<meta property="og:description" content="O desequilíbrio fiscal entre estados não é falha de design — é o mecanismo. Fluxos de repasse, redes de captura e padrões P3·P11.">
+<meta property="og:url" content="https://gosurf.site/pacto-federativo-extracao">
+<meta property="og:image" content="https://gosurf.site/og-pacto-federativo-extracao.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pacto Federativo: A Rede de Extração — Dossiê 2024–2026">
+<meta name="twitter:description" content="Análise forense dos fluxos de transferência e da rede de captura no federalismo brasileiro.">
+<meta name="twitter:image" content="https://gosurf.site/og-pacto-federativo-extracao.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #07090c;
+  --bg1:   #0c1018;
+  --bg2:   #111820;
+  --bg3:   #192030;
+  --bg4:   #1e2838;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --fg:    #dde4ed;
+  --fg2:   #7f92a8;
+  --fg3:   #3d5068;
+  --red:   #e84040;
+  --red2:  rgba(232,64,64,0.13);
+  --red3:  rgba(232,64,64,0.25);
+  --amber: #e8a020;
+  --amber2:rgba(232,160,32,0.13);
+  --amber3:rgba(232,160,32,0.22);
+  --green: #28c870;
+  --green2:rgba(40,200,112,0.12);
+  --blue:  #3898e8;
+  --blue2: rgba(56,152,232,0.12);
+  --cyan:  #20d0e0;
+  --cyan2: rgba(32,208,224,0.10);
+  --purple:#a060e8;
+  --purple2:rgba(160,96,232,0.12);
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+  --font-serif: 'Crimson Pro', serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ──── HEADER ──── */
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border2);
+  padding: 32px 40px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--red));
+  background-size: 200% 100%;
+  animation: scanline 5s linear infinite;
+}
+@keyframes scanline { to { background-position: -200% 0; } }
+.header-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 2px;
+  background: var(--red);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  color: var(--fg);
+}
+.hero-title em { color: var(--red); font-style: normal; }
+.hero-sub {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--fg2);
+  max-width: 800px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.hero-visual {
+  margin-top: 8px;
+  margin-bottom: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  max-width: 960px;
+}
+.hero-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  max-height: min(40vh, 360px);
+}
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.badge-red    { background: var(--red2);    color: var(--red);    border: 1px solid rgba(232,64,64,0.3); }
+.badge-amber  { background: var(--amber2);  color: var(--amber);  border: 1px solid rgba(232,160,32,0.3); }
+.badge-blue   { background: var(--blue2);   color: var(--blue);   border: 1px solid rgba(56,152,232,0.3); }
+.badge-green  { background: var(--green2);  color: var(--green);  border: 1px solid rgba(40,200,112,0.3); }
+.badge-cyan   { background: var(--cyan2);   color: var(--cyan);   border: 1px solid rgba(32,208,224,0.3); }
+.badge-gray   { background: rgba(255,255,255,0.05); color: var(--fg3); border: 1px solid var(--border); }
+
+/* ──── NAV ──── */
+.nav {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(12px);
+  padding: 0 40px;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-tab {
+  padding: 14px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: var(--font-mono);
+  text-decoration: none;
+}
+.nav-tab:hover { color: var(--fg2); }
+.nav-tab.active { color: var(--fg); border-bottom-color: var(--red); }
+a.nav-tab:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: -2px;
+}
+
+/* ──── LAYOUT ──── */
+.container { max-width: 1440px; margin: 0 auto; padding: 0 40px 100px; }
+.section { padding: 32px 0; border-bottom: 1px solid var(--border); }
+.section:last-child { border-bottom: none; }
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label .idx {
+  color: var(--red);
+  font-size: 11px;
+}
+
+/* ──── GRIDS ──── */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; margin-bottom: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px; margin-bottom: 18px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; margin-bottom: 18px; }
+
+/* ──── KPI CARDS ──── */
+.kpi {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+.kpi-red::after   { background: var(--red); }
+.kpi-amber::after { background: var(--amber); }
+.kpi-green::after { background: var(--green); }
+.kpi-blue::after  { background: var(--blue); }
+.kpi-cyan::after  { background: var(--cyan); }
+.kpi-purple::after{ background: var(--purple); }
+.kpi-label { font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; }
+.kpi-value { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 4px; }
+.kpi-red .kpi-value   { color: var(--red); }
+.kpi-amber .kpi-value { color: var(--amber); }
+.kpi-green .kpi-value { color: var(--green); }
+.kpi-blue .kpi-value  { color: var(--blue); }
+.kpi-cyan .kpi-value  { color: var(--cyan); }
+.kpi-purple .kpi-value{ color: var(--purple); }
+.kpi-unit  { font-size: 11px; color: var(--fg2); margin-bottom: 6px; }
+.kpi-delta { font-size: 10px; color: var(--fg3); font-style: italic; }
+
+/* ──── DATA CARDS ──── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 20px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.card-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+
+/* ──── COMPARISON TABLE ──── */
+.comp-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+.comp-table th {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg2);
+}
+.comp-table td {
+  padding: 10px 12px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+}
+.comp-table tr:hover td { background: var(--bg2); }
+.num { font-weight: 600; font-variant-numeric: tabular-nums; }
+.red-num   { color: var(--red); }
+.green-num { color: var(--green); }
+.amber-num { color: var(--amber); }
+.blue-num  { color: var(--blue); }
+
+/* ──── BAR COMPONENT ──── */
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bar-label { width: 160px; font-size: 11px; color: var(--fg2); flex-shrink: 0; }
+.bar-track { flex: 1; background: var(--bg3); border-radius: 2px; height: 18px; overflow: hidden; position: relative; }
+.bar-fill  { height: 100%; border-radius: 2px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-weight: 700; min-width: 40px; transition: width 0.8s ease; }
+.bar-red    { background: var(--red3); color: var(--red); }
+.bar-green  { background: var(--green2); color: var(--green); }
+.bar-amber  { background: var(--amber3); color: var(--amber); }
+.bar-blue   { background: var(--blue2); color: var(--blue); }
+
+/* ──── ALERT BOX ──── */
+.alert {
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.alert-red    { background: var(--red2);    border: 1px solid rgba(232,64,64,0.25); }
+.alert-amber  { background: var(--amber2);  border: 1px solid rgba(232,160,32,0.25); }
+.alert-blue   { background: var(--blue2);   border: 1px solid rgba(56,152,232,0.25); }
+.alert-green  { background: var(--green2);  border: 1px solid rgba(40,200,112,0.25); }
+.alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-title { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.alert-red   .alert-title { color: var(--red); }
+.alert-amber .alert-title { color: var(--amber); }
+.alert-blue  .alert-title { color: var(--blue); }
+.alert-green .alert-title { color: var(--green); }
+.alert-body { font-size: 12px; color: var(--fg2); line-height: 1.65; }
+
+/* ──── QUOTE ──── */
+.quote {
+  background: var(--bg2);
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+}
+.quote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--fg);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.quote-src { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ──── FLOW DIAGRAM ──── */
+.flow { display: flex; flex-direction: column; gap: 0; margin-bottom: 18px; }
+.flow-node {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 14px 18px;
+  position: relative;
+}
+.flow-node-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.flow-node-body { font-size: 11px; color: var(--fg2); }
+.flow-arrow {
+  width: 2px;
+  height: 24px;
+  background: var(--border2);
+  margin: 0 auto;
+  position: relative;
+}
+.flow-arrow::after {
+  content: '▼';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--fg3);
+}
+.flow-node-red { border-color: rgba(232,64,64,0.4); background: var(--red2); }
+.flow-node-amber { border-color: rgba(232,160,32,0.35); background: var(--amber2); }
+.flow-node-green { border-color: rgba(40,200,112,0.3); background: var(--green2); }
+
+/* ──── OPERATION PILL ──── */
+.ops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+.op-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.op-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.op-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--fg); }
+.op-estado { font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.op-valor { font-size: 11px; font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; text-align: right; }
+.op-body { font-size: 11px; color: var(--fg2); line-height: 1.6; }
+.op-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.op-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--bg3);
+  color: var(--fg3);
+}
+
+/* ──── PATTERN BOX ──── */
+.pattern-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.pattern-id {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.pattern-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.pattern-body { font-size: 12px; color: var(--fg2); line-height: 1.7; }
+.pattern-ref { font-size: 10px; color: var(--fg3); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+/* ──── FAILURE LIST ──── */
+.fail-list { list-style: none; padding: 0; }
+.fail-list li {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--fg2);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.fail-list li::before {
+  content: '→';
+  color: var(--red);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.fail-list li:last-child { border-bottom: none; }
+
+/* ──── SCOREBOARD ──── */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.sb-cell {
+  background: var(--bg1);
+  padding: 20px;
+}
+.sb-val {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.sb-label { font-size: 11px; color: var(--fg2); line-height: 1.5; }
+
+/* ──── TIMELINE ──── */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border2);
+}
+.tl-event {
+  position: relative;
+  margin-bottom: 20px;
+}
+.tl-event::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 5px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid var(--bg);
+}
+.tl-date { font-size: 10px; color: var(--red); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+.tl-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.tl-body { font-size: 12px; color: var(--fg2); line-height: 1.6; }
+
+/* ──── FOOTER ──── */
+.footer {
+  background: var(--bg1);
+  border-top: 1px solid var(--border);
+  padding: 24px 40px;
+  font-size: 10px;
+  color: var(--fg3);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ──── Seções (página única — conteúdo inteiro visível para leitura e Ctrl+C) ──── */
+.tab-panel { display: block; scroll-margin-top: 64px; }
+
+/* ──── Voltar ao topo ──── */
+.gotop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  color: var(--red);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s, background 0.2s, border-color 0.2s, color 0.2s;
+  font-family: var(--font-mono);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+.gotop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.gotop:hover {
+  background: var(--bg3);
+  border-color: var(--red);
+  color: #fff;
+}
+.gotop:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* ──── RESPONSIVE ──── */
+@media (max-width: 1024px) {
+  .ops-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+  .header { padding: 24px 20px; }
+  .nav { padding: 0 12px; }
+  .container { padding: 0 16px 80px; }
+  .footer { padding: 20px; }
+  .bar-label { width: 100px; font-size: 10px; }
+  .gotop { right: 16px; bottom: 20px; width: 42px; height: 42px; }
+  .ops-grid { grid-template-columns: 1fr; }
+}
+
+/* ──── ANIMATIONS ──── */
+.fade-in { animation: fadeIn 0.4s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Chart wrapper */
+.chart-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 18px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Lawfare Timeline · Dossiê Estrutural</div>
+  <h1 class="hero-title">Pacto Federativo:<br><em>A Rede de Extração</em></h1>
+  <p class="hero-sub">
+    O desequilíbrio fiscal entre estados não é falha de design — é o mecanismo. Uma análise forense dos fluxos de transferência, das redes de captura intermediária e das falhas sistêmicas que convertem redistribuição constitucional em instrumento de extração permanente.
+  </p>
+  <div class="meta-row">
+    <span class="badge badge-red">⚠ Alerta Sistêmico</span>
+    <span class="badge badge-amber">P3 · P11</span>
+    <span class="badge badge-blue">Dados 2024</span>
+    <span class="badge badge-gray">Atualizado: Mai 2026</span>
+    <span class="badge badge-gray">CC0 1.0 Domínio Público</span>
+  </div>
+  <div class="hero-visual" role="img" aria-label="Ilustração em estilo dossier: fluxos de recursos e pacto federativo">
+    <img src="../assets/img/pacto-federativo-extracao-hero.png" alt="Visual abstrato: rede de fluxos fiscais e transferências no Brasil — tema pacto federativo" width="1200" height="630" loading="eager" decoding="async">
+  </div>
+</div>
+
+<!-- NAV (âncoras — página única, todo o texto abaixo fica selecionável) -->
+<nav class="nav" aria-label="Seções do dossiê">
+  <a class="nav-tab active" href="#sec-fluxo" aria-current="true">01 · Fluxo de Recursos</a>
+  <a class="nav-tab" href="#sec-comparativo">02 · Comparativo</a>
+  <a class="nav-tab" href="#sec-captura">03 · Rede de Captura</a>
+  <a class="nav-tab" href="#sec-operacoes">04 · Operações</a>
+  <a class="nav-tab" href="#sec-alertas">05 · Alertas e Falhas</a>
+  <a class="nav-tab" href="#sec-padroes">06 · Padrões P3·P11</a>
+</nav>
+
+<!-- MAIN -->
+<div class="container">
+
+<!-- ══════════════════════════ TAB 01: FLUXO ══════════════════════════ -->
+<div id="sec-fluxo" class="tab-panel">
+
+  <div class="section">
+    <div class="section-label"><span class="idx">01</span> KPIs Primários — Arrecadação vs. Retorno Federal 2024</div>
+
+    <div class="scoreboard">
+      <div class="sb-cell">
+        <div class="sb-val" style="color:var(--red)">R$ 2,65tri</div>
+        <div class="sb-label">Arrecadação total da União em 2024 (+12,6% vs 2023)</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val" style="color:var(--amber)">R$ 281,7bi</div>
+        <div class="sb-label">Repasses federais a estados (10,6% do total arrecadado)</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val" style="color:var(--red)">3,64%</div>
+        <div class="sb-label">Retorno federal a SC sobre total arrecadado no estado</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val" style="color:var(--red)">1,74%</div>
+        <div class="sb-label">Retorno federal a SP sobre R$ 1,03 tri arrecadado</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val" style="color:var(--amber)">52,46%</div>
+        <div class="sb-label">Coeficiente do FPE destinado ao Nordeste</div>
+      </div>
+      <div class="sb-cell">
+        <div class="sb-val" style="color:var(--amber)">6,52%</div>
+        <div class="sb-label">Coeficiente do FPE destinado ao Sul (SC + PR + RS)</div>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Retorno Federal por Estado — 2024 (arrecadação vs. repasse)</div>
+
+    <div class="card" style="margin-bottom:18px;">
+      <div style="margin-bottom: 16px;">
+        <div class="bar-row">
+          <div class="bar-label">São Paulo</div>
+          <div class="bar-track"><div class="bar-fill bar-red" style="width:1.74%">1,74%</div></div>
+          <div style="font-size:10px;color:var(--fg3);white-space:nowrap">R$ 1,03tri → R$ 18,05bi</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Rio de Janeiro</div>
+          <div class="bar-track"><div class="bar-fill bar-red" style="width:1.56%">1,56%</div></div>
+          <div style="font-size:10px;color:var(--fg3);white-space:nowrap">R$ 459bi → R$ 7,16bi</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Santa Catarina</div>
+          <div class="bar-track"><div class="bar-fill bar-red" style="width:3.64%">3,64%</div></div>
+          <div style="font-size:10px;color:var(--fg3);white-space:nowrap">R$ 140,2bi → R$ 5,11bi</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Maranhão</div>
+          <div class="bar-track"><div class="bar-fill bar-amber" style="width:35%">~173%</div></div>
+          <div style="font-size:10px;color:var(--fg3);white-space:nowrap">R$ 10,7bi → R$ 18,7bi</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Piauí</div>
+          <div class="bar-track"><div class="bar-fill bar-amber" style="width:50%">~200%+</div></div>
+          <div style="font-size:10px;color:var(--fg3);white-space:nowrap">Recebe &gt; arrecada</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Acre</div>
+          <div class="bar-track"><div class="bar-fill bar-amber" style="width:60%">~300%+</div></div>
+          <div style="font-size:10px;color:var(--fg3);white-space:nowrap">FPE = principal receita</div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--fg3);">Fontes: <a href="https://www.michelteixeira.com.br/voce-sabia-santa-catarina-recebe-apenas-36-de-retorno-da-uniao/" target="_blank">Michel Teixeira / Receita Federal 2024</a> · <a href="https://blog.1doc.com.br/fundo-de-participacao-dos-estados/" target="_blank">Coeficientes FPE</a></div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Distribuição do FPE por Região — Lei Complementar 62/1989</div>
+
+    <div class="grid-3">
+      <div class="kpi kpi-red">
+        <div class="kpi-label">Sul (SC + PR + RS)</div>
+        <div class="kpi-value">6,52%</div>
+        <div class="kpi-unit">do total do FPE / ano</div>
+        <div class="kpi-delta">Região com maior PIB per capita nacional</div>
+      </div>
+      <div class="kpi kpi-amber">
+        <div class="kpi-label">Nordeste (9 estados)</div>
+        <div class="kpi-value">52,46%</div>
+        <div class="kpi-unit">do total do FPE / ano</div>
+        <div class="kpi-delta">FPE ≥ ICMS em 2022 (R$ 115,7bi vs R$ 115,5bi)</div>
+      </div>
+      <div class="kpi kpi-blue">
+        <div class="kpi-label">Norte (7 estados)</div>
+        <div class="kpi-value">25,37%</div>
+        <div class="kpi-unit">do total do FPE / ano</div>
+        <div class="kpi-delta">Acre, Amapá, Roraima: FPE = 60–80% receita</div>
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-icon">⚠</div>
+      <div>
+        <div class="alert-title">Coeficientes Congelados Desde 1989</div>
+        <div class="alert-body">Os coeficientes do FPE fixados na LC 62/1989 eram para ser provisionais — substituídos após o Censo 1990. Permaneceram inalterados por décadas. O STF deu prazo até 2013 para reforma; o Congresso aprovou nova regra (LC 143/2013) que manteve a estrutura redistributiva sem correção de distorções acumuladas. Resultado: critérios de 35 anos atrás distribuem trilhões hoje, sem auditoria efetiva de eficiência no uso.</div>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Fluxo Sistêmico — Do Contribuinte à Captura</div>
+
+    <div class="flow">
+      <div class="flow-node flow-node-green">
+        <div class="flow-node-title">CONTRIBUINTE CATARINENSE / GAÚCHO / PAULISTA</div>
+        <div class="flow-node-body">Recolhe IR + IPI + PIS/COFINS + CSLL. SC arrecadou R$ 140,2bi para a União em 2024. SP: R$ 1,03 tri. Base industrial, agroindustrial e exportadora gera o fundo comum.</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-node-title">BRASÍLIA — TESOURO NACIONAL</div>
+        <div class="flow-node-body">Centraliza arrecadação. Distribui FPE (21,5% IR+IPI), FPM (22,5% IR+IPI), Bolsa Família (~R$ 168bi/ano 2024), SUS federal, FUNDEB, CIDE, emendas parlamentares (~R$ 50bi/ano). Decisão política sobre distribuição, não mercado.</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node flow-node-amber">
+        <div class="flow-node-title">GOVERNOS ESTADUAIS / MUNICIPAIS RECEPTORES</div>
+        <div class="flow-node-body">Maranhão recebeu R$ 18,7bi em transferências (2024) contra ~R$ 10,7bi arrecadados localmente. Piauí, Acre, Amapá: FPE representa 60–80% da receita total. Estrutura de dependência permanente — sem pressão tributária local, sem accountability fiscal ao contribuinte regional.</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node flow-node-red">
+        <div class="flow-node-title">PONTO DE CAPTURA — ONDE OS RECURSOS DESAPARECEM</div>
+        <div class="flow-node-body">Organizações Sociais (OS) terceirizadas com contratos sem licitação · Secretarias de Saúde e Educação com superfaturamento documentado · Caixa 2 eleitoral via OS · Coronelismo estrutural como gateway de distribuição · Facções criminosas infiltradas em contratos municipais. O beneficiário final não é a população — é a rede de intermediação.</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node" style="background:var(--bg3)">
+        <div class="flow-node-title" style="color:var(--fg3)">POPULAÇÃO DEPENDENTE — BASE ELEITORAL GERENCIADA</div>
+        <div class="flow-node-body" style="color:var(--fg3)">Bolsa Família (programas sociais) como mecanismo de fidelização eleitoral documentado. Nordeste: programas sociais = 9–11% do RDpc (Maranhão 10,8%, Piauí 9,7%). Sul: 1,0–2,1%. Pobreza estrutural preservada como input do sistema — não combatida.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /sec-fluxo -->
+
+<!-- ══════════════════════════ TAB 02: COMPARATIVO ══════════════════════════ -->
+<div id="sec-comparativo" class="tab-panel">
+
+  <div class="section">
+    <div class="section-label"><span class="idx">02</span> Comparativo Estado a Estado — Dados 2024</div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Estado</th>
+          <th>Arrecadação Federal</th>
+          <th>Retorno FPE+FPM</th>
+          <th>Taxa Retorno</th>
+          <th>RDpc médio</th>
+          <th>Prog. Sociais / RDpc</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>São Paulo</td>
+          <td class="num">R$ 1,03 tri</td>
+          <td class="num">R$ 18,05 bi</td>
+          <td class="num red-num">1,74%</td>
+          <td class="num">~R$ 2.800</td>
+          <td class="num green-num">1,7%</td>
+          <td><span class="badge badge-red">Doador</span></td>
+        </tr>
+        <tr>
+          <td>Rio de Janeiro</td>
+          <td class="num">R$ 459,2 bi</td>
+          <td class="num">R$ 7,16 bi</td>
+          <td class="num red-num">1,56%</td>
+          <td class="num">~R$ 2.500</td>
+          <td class="num green-num">2,1%</td>
+          <td><span class="badge badge-red">Doador</span></td>
+        </tr>
+        <tr>
+          <td>Santa Catarina</td>
+          <td class="num">R$ 140,2 bi</td>
+          <td class="num">R$ 5,11 bi</td>
+          <td class="num red-num">3,64%</td>
+          <td class="num">~R$ 2.600</td>
+          <td class="num green-num">1,0%</td>
+          <td><span class="badge badge-red">Doador</span></td>
+        </tr>
+        <tr>
+          <td>Minas Gerais</td>
+          <td class="num">~R$ 280 bi</td>
+          <td class="num">~R$ 18 bi</td>
+          <td class="num amber-num">~6%</td>
+          <td class="num">~R$ 2.000</td>
+          <td class="num amber-num">3,8%</td>
+          <td><span class="badge badge-amber">Equilíbrio</span></td>
+        </tr>
+        <tr>
+          <td>Bahia</td>
+          <td class="num">~R$ 55 bi</td>
+          <td class="num">~R$ 38 bi</td>
+          <td class="num amber-num">~69%</td>
+          <td class="num">R$ 1.380</td>
+          <td class="num amber-num">9,6%</td>
+          <td><span class="badge badge-amber">Receptor</span></td>
+        </tr>
+        <tr>
+          <td>Ceará</td>
+          <td class="num">~R$ 28 bi</td>
+          <td class="num">~R$ 30 bi</td>
+          <td class="num amber-num">&gt;100%</td>
+          <td class="num">R$ 1.210</td>
+          <td class="num red-num">10,2%</td>
+          <td><span class="badge badge-amber">Receptor</span></td>
+        </tr>
+        <tr>
+          <td>Maranhão</td>
+          <td class="num">~R$ 10,7 bi</td>
+          <td class="num">R$ 18,7 bi</td>
+          <td class="num blue-num">175%</td>
+          <td class="num">R$ 1.078</td>
+          <td class="num red-num">10,8%</td>
+          <td><span class="badge badge-blue">Dep. estrutural</span></td>
+        </tr>
+        <tr>
+          <td>Piauí</td>
+          <td class="num">~R$ 8 bi</td>
+          <td class="num">~R$ 15 bi</td>
+          <td class="num blue-num">&gt;180%</td>
+          <td class="num">~R$ 950</td>
+          <td class="num red-num">9,7%</td>
+          <td><span class="badge badge-blue">Dep. estrutural</span></td>
+        </tr>
+        <tr>
+          <td>Acre</td>
+          <td class="num">&lt;R$ 5 bi</td>
+          <td class="num">~R$ 10 bi</td>
+          <td class="num blue-num">&gt;200%</td>
+          <td class="num">~R$ 1.100</td>
+          <td class="num red-num">FPE = 60–80% rec.</td>
+          <td><span class="badge badge-blue">Dep. estrutural</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:10px;color:var(--fg3);margin-bottom:18px;">
+      Fontes: <a href="https://www.michelteixeira.com.br/voce-sabia-santa-catarina-recebe-apenas-36-de-retorno-da-uniao/" target="_blank">Receita Federal / Siconfi 2024</a> · <a href="https://blogdoibre.fgv.br/posts/nordeste-lidera-o-crescimento-da-renda-entre-2022-e-2024-mas-desigualdades-persistem" target="_blank">FGV/IBRE PNAD 2024</a> · <a href="https://investindoporai.com.br/transferencias-constitucionais-para-o-nordeste-crescem-98-ate-julho-de-2024/" target="_blank">Tesouro Nacional</a>
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-icon">🔴</div>
+      <div>
+        <div class="alert-title">Paradoxo da Redistribuição Sem Desenvolvimento</div>
+        <div class="alert-body">
+          O Nordeste recebe 52,46% do FPE há 35 anos. O Maranhão apresenta RDpc de R$ 1.078 — menor do Brasil. O Piauí lidera o menor índice de participação dos rendimentos do trabalho no RDpc (64,1%). A estrutura redistributiva <strong style="color:var(--red)">não produziu convergência econômica</strong>: produziu dependência permanente de transferência e base eleitoral gerenciável. Esse é o mecanismo, não o bug.
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Gini do Rendimento do Trabalho — PNAD 2024</div>
+    <div class="grid-3">
+      <div class="kpi kpi-green">
+        <div class="kpi-label">Sul (Gini - trabalho)</div>
+        <div class="kpi-value">0,449</div>
+        <div class="kpi-unit">Menor desigualdade do país</div>
+        <div class="kpi-delta">Modelo: renda do trabalho dominante</div>
+      </div>
+      <div class="kpi kpi-red">
+        <div class="kpi-label">Nordeste (Gini - trabalho)</div>
+        <div class="kpi-value">0,510</div>
+        <div class="kpi-unit">Mais desigual do país</div>
+        <div class="kpi-delta">Após décadas e R$ trilhões em transferências</div>
+      </div>
+      <div class="kpi kpi-amber">
+        <div class="kpi-label">FPE Nordeste 2024 (jan–jul)</div>
+        <div class="kpi-value">R$ 45,9bi</div>
+        <div class="kpi-unit">51,6% do total nacional distribuído</div>
+        <div class="kpi-delta">+9,8% real vs 2023 — acima da média nacional</div>
+      </div>
+    </div>
+
+    <div class="quote">
+      <div class="quote-text">"Em 2022, o valor das transferências no Nordeste ultrapassou a arrecadação do ICMS da região, somando R$ 115,7 bilhões contra R$ 115,5 bilhões de ICMS. A estrutura de financiamento público regional inverte a lógica fiscal: a receita de transferência supera a receita própria."</div>
+      <div class="quote-src">Tesouro Nacional / Análise FPE+FPM Nordeste 2022–2024 · <a href="https://investindoporai.com.br/transferencias-constitucionais-para-o-nordeste-crescem-98-ate-julho-de-2024/" target="_blank">Fonte</a></div>
+    </div>
+
+  </div>
+
+</div><!-- /sec-comparativo -->
+
+<!-- ══════════════════════════ TAB 03: CAPTURA ══════════════════════════ -->
+<div id="sec-captura" class="tab-panel">
+
+  <div class="section">
+    <div class="section-label"><span class="idx">03</span> A Rede de Captura Intermediária — Onde o Dinheiro Some</div>
+
+    <div class="alert alert-red">
+      <div class="alert-icon">⚡</div>
+      <div>
+        <div class="alert-title">Tese Central — P3 aplicado ao Federalismo</div>
+        <div class="alert-body">O beneficiário das transferências não é a população nordestina. É a camada de captura intermediária que transforma pobreza estrutural em base eleitoral e fluxo de corrupção. A população nordestina é a <strong style="color:var(--red)">primeira vítima do sistema</strong> — mantida em dependência de programas para perpetuar a rede de extração que a mantém pobre.</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title" style="color:var(--red)">Mecanismo das Organizações Sociais (OS)</div>
+        <div class="card-body">
+          Hospitais e serviços de saúde terceirizados para OS sem licitação adequada. A OS recebe contrato público global, sub-contrata serviços superfaturados, distribui sobras ao núcleo político. Documentado em: Operação Calvário (PB), Operação Confraria (BA), Operação Lama Asfáltica (MA), escândalos de OS no RJ, CE, PI.
+          <br><br>
+          <strong style="color:var(--amber)">Estrutura-tipo:</strong> Governador → Secretário de Saúde → OS vinculada → Empresa de fachada → Caixa 2 para campanha → Reeleição → Loop reiniciado.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--amber)">Emendas Parlamentares como Instrumento</div>
+        <div class="card-body">
+          Bancada do Nordeste e Norte controla proporcional de emendas impositivas (~R$ 50bi/ano). Municípios de &lt;5.000 habitantes recebem repasses per capita 10× maiores que capitais produtivas. Prefeituras-laranja em municípios sem estrutura fiscal própria: o repasse federal sustenta a estrutura político-criminal local.
+          <br><br>
+          <strong style="color:var(--amber)">Dado crítico:</strong> Municípios com menos de 10.000 habitantes têm coeficiente FPM desproporcionalmente alto — incentivo estrutural à fragmentação municipal como captação de recursos.
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Circuito de Captura — Modelo Operacional</div>
+
+    <div class="grid-3">
+      <div class="pattern-box">
+        <div class="pattern-id">Vetor 01</div>
+        <div class="pattern-title">OS / OSCIP / Fundações Privadas</div>
+        <div class="pattern-body">
+          Contratos de gestão para saúde, educação, assistência social. Dispensa de licitação por "natureza da atividade". Sobrepreço em compras. Folhas de funcionários fantasmas. Desvio documentado via Calvário (R$ 134mi PB), escândalos RJ (R$ 1bi+), MA/CE (estimativas parciais de R$ 300–500mi em investigações abertas).
+        </div>
+        <div class="pattern-ref">Refs: MPPB · GAECO/CE · TCU Acórdão 1.777/2011 e derivados</div>
+      </div>
+      <div class="pattern-box">
+        <div class="pattern-id">Vetor 02</div>
+        <div class="pattern-title">Coronelismo Fiscal Municipal</div>
+        <div class="pattern-body">
+          Municípios com arrecadação própria próxima de zero são financeiramente dependentes do FPM. Prefeito controla empregos públicos + FPM + Bolsa Família local. Estrutura de dependência pessoal que inverte qualquer accountability. Eleição = renovação do contrato de acesso aos recursos federais.
+        </div>
+        <div class="pattern-ref">Refs: IBGE Perfil dos Municípios Brasileiros · TCM-BA, TCM-CE, TCM-MA</div>
+      </div>
+      <div class="pattern-box">
+        <div class="pattern-id">Vetor 03</div>
+        <div class="pattern-title">Caixa 2 Estrutural via Licitações</div>
+        <div class="pattern-body">
+          Superfaturamento em obras (BRs, hidrelétricas, adutoras) financiadas com verbas federais em estados receptores. A propina retorna ao financiamento de campanhas, fechando o loop: transferência federal → obra → caixa 2 → eleição → novo mandato → novas transferências.
+        </div>
+        <div class="pattern-ref">Refs: Lava Jato derivados estaduais · Operações TCU / CGU</div>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Assistencialismo como Mecanismo de Controle</div>
+
+    <div class="grid-4">
+      <div class="kpi kpi-amber">
+        <div class="kpi-label">Maranhão — Prog. Sociais / RDpc</div>
+        <div class="kpi-value">10,8%</div>
+        <div class="kpi-unit">da renda per capita vem de programas</div>
+        <div class="kpi-delta">+2,0pp entre 2023 e 2024</div>
+      </div>
+      <div class="kpi kpi-amber">
+        <div class="kpi-label">Piauí — Prog. Sociais / RDpc</div>
+        <div class="kpi-value">9,7%</div>
+        <div class="kpi-unit">+ menor participação trabalho: 64,1%</div>
+        <div class="kpi-delta">Última posição nacional</div>
+      </div>
+      <div class="kpi kpi-green">
+        <div class="kpi-label">Santa Catarina — Prog. Sociais / RDpc</div>
+        <div class="kpi-value">1,0%</div>
+        <div class="kpi-unit">renda majoritariamente do trabalho</div>
+        <div class="kpi-delta">Modelo de autonomia real</div>
+      </div>
+      <div class="kpi kpi-red">
+        <div class="kpi-label">Diferencial MA vs SC</div>
+        <div class="kpi-value">10,8×</div>
+        <div class="kpi-unit">mais dependência de programa social</div>
+        <div class="kpi-delta">Após 35 anos de FPE prioritário</div>
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-icon">📌</div>
+      <div>
+        <div class="alert-title">Nota Analítica: Distinção Estrutural vs. Populacional</div>
+        <div class="alert-body">
+          O problema documentado NÃO é a população nordestina. É a classe político-administrativa intermediária que captura os recursos antes que cheguem à população. A pobreza estrutural do Nordeste é <strong style="color:var(--amber)">mantida</strong> como input do sistema de transferências — reduzi-la eliminaria a justificativa para os coeficientes redistributivos que sustentam a rede de captura. Essa é a mecânica do Loop de Extração Perpétua (P11).
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /sec-captura -->
+
+<!-- ══════════════════════════ TAB 04: OPERAÇÕES ══════════════════════════ -->
+<div id="sec-operacoes" class="tab-panel">
+
+  <div class="section">
+    <div class="section-label"><span class="idx">04</span> Operações Documentadas — Captura de Recursos de Transferência Federal</div>
+
+    <div class="ops-grid">
+
+      <div class="op-card">
+        <div class="op-header">
+          <div>
+            <div class="op-name">Operação Calvário</div>
+            <div class="op-estado">Paraíba · 2018–2024</div>
+          </div>
+          <div class="op-valor">R$ 134,2mi</div>
+        </div>
+        <div class="op-body">
+          Esquema de desvio de recursos públicos das Secretarias de Saúde e Educação via OS durante governo Ricardo Coutinho (PSB). Desvio financiou campanhas eleitorais de 2012, 2014 e 2018. 55 denunciados, 11 denúncias do MPPB/GAECO. Ex-governador preso e tornou-se réu.
+        </div>
+        <div class="op-tags">
+          <span class="op-tag">OS/saúde</span>
+          <span class="op-tag">Caixa 2</span>
+          <span class="op-tag">PB</span>
+          <span class="op-tag">Confirmado</span>
+        </div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:8px;"><a href="https://www.mppb.mp.br/index.php/pt/comunicacao/noticias/51-gaeco/22522-operacao-calvario-em-18-meses-mppb-oferece-11-denuncias-contra-55-envolvidos" target="_blank">→ MPPB / GAECO</a></div>
+      </div>
+
+      <div class="op-card">
+        <div class="op-header">
+          <div>
+            <div class="op-name">OS Saúde — Rio de Janeiro</div>
+            <div class="op-estado">Rio de Janeiro · 2019–2020</div>
+          </div>
+          <div class="op-valor">R$ 1bi+</div>
+        </div>
+        <div class="op-body">
+          Operação Placebo e Tris in Idem investigaram OS Iabas e esquema de hospitais de campanha (COVID-19). Governador Wilson Witzel afastado. Contratos de R$ 836 milhões a OS. Desvio de respiradores. Mandados cumpridos no RJ, SP, AL, ES, MG, SE, PI, DF.
+        </div>
+        <div class="op-tags">
+          <span class="op-tag">COVID</span>
+          <span class="op-tag">OS</span>
+          <span class="op-tag">RJ</span>
+          <span class="op-tag">Governador afastado</span>
+        </div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:8px;"><a href="https://www.cnnbrasil.com.br/nacional/quase-r-2-bilhoes-relembre-operacoes-da-pf-contra-desvios-na-pandemia/" target="_blank">→ CNN Brasil / PF</a></div>
+      </div>
+
+      <div class="op-card">
+        <div class="op-header">
+          <div>
+            <div class="op-name">Pandemia — 61 Operações PF</div>
+            <div class="op-estado">Nacional · 2020 (até dez)</div>
+          </div>
+          <div class="op-valor">&gt;R$ 2bi investigados</div>
+        </div>
+        <div class="op-body">
+          61 operações da PF até dezembro de 2020 envolvendo irregularidades em contratos emergenciais de COVID-19. Alvos: mascaras, EPIs, respiradores, hospitais de campanha. Estados afetados: AP (Op. Alquimia), AM, RJ, AL, ES, MG, SE, SP, PI, DF. Dispensa de licitação como vetor de desvio.
+        </div>
+        <div class="op-tags">
+          <span class="op-tag">COVID</span>
+          <span class="op-tag">61 ops</span>
+          <span class="op-tag">Nacional</span>
+          <span class="op-tag">PF</span>
+        </div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:8px;"><a href="https://www.cnnbrasil.com.br/nacional/quase-r-2-bilhoes-relembre-operacoes-da-pf-contra-desvios-na-pandemia/" target="_blank">→ CNN Brasil</a></div>
+      </div>
+
+      <div class="op-card">
+        <div class="op-header">
+          <div>
+            <div class="op-name">Operação Amapá (Alquimia)</div>
+            <div class="op-estado">Amapá · 2020 (3 fases)</div>
+          </div>
+          <div class="op-valor">R$ 4,9mi+ apurados</div>
+        </div>
+        <div class="op-body">
+          Superfaturamento na aquisição de insumos para COVID-19 pela Secretaria de Saúde do AP. Três fases da PF. Esquema de pagamento de vantagens indevidas a servidora. Padrão idêntico documentado no Pará, Maranhão e Roraima no mesmo período.
+        </div>
+        <div class="op-tags">
+          <span class="op-tag">Saúde</span>
+          <span class="op-tag">AP</span>
+          <span class="op-tag">Superfaturamento</span>
+        </div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:8px;"><a href="https://www.cnnbrasil.com.br/nacional/quase-r-2-bilhoes-relembre-operacoes-da-pf-contra-desvios-na-pandemia/" target="_blank">→ CNN Brasil / PF</a></div>
+      </div>
+
+      <div class="op-card">
+        <div class="op-header">
+          <div>
+            <div class="op-name">FPE Norte — Dependência Terminal</div>
+            <div class="op-estado">Acre · Amapá · Roraima · Tocantins</div>
+          </div>
+          <div class="op-valor">60–80% da receita</div>
+        </div>
+        <div class="op-body">
+          Estados sem base tributária própria. FPE como única fonte de custeio da máquina pública. Ausência de pressão fiscal local elimina incentivo a eficiência. TCU documenta recorrentemente irregularidades em gestão de saúde e educação nestes estados sem que haja consequência efetiva.
+        </div>
+        <div class="op-tags">
+          <span class="op-tag">Estrutural</span>
+          <span class="op-tag">Dependência</span>
+          <span class="op-tag">Norte</span>
+        </div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:8px;"><a href="https://blog.1doc.com.br/fundo-de-participacao-dos-estados/" target="_blank">→ Tesouro Nacional / FPE</a></div>
+      </div>
+
+      <div class="op-card">
+        <div class="op-header">
+          <div>
+            <div class="op-name">Nordeste Integrado</div>
+            <div class="op-estado">8 estados · Fev 2025</div>
+          </div>
+          <div class="op-valor">320 prisões · 443 mandados</div>
+        </div>
+        <div class="op-body">
+          Operação integrada (PE, BA, CE, MA, PB, PI, RN, SE) contra facções criminosas nas divisas estaduais. 5.903 agentes, 7.688 veículos abordados. Erradicação de 335 mil pés de maconha no sertão PE+PB (Op. Carcará V / PF). PCC e CV documentados como dominantes no Nordeste via rotas do CV na Região.
+        </div>
+        <div class="op-tags">
+          <span class="op-tag">ORCRIM</span>
+          <span class="op-tag">Tráfico</span>
+          <span class="op-tag">Nordeste</span>
+          <span class="op-tag">8 estados</span>
+        </div>
+        <div style="font-size:10px;color:var(--fg3);margin-top:8px;"><a href="https://www.sds.pe.gov.br/noticias/12233-operacao-nordeste-integrado-320-prisoes-sao-efetuadas-em-acao-inedita-nas-divisas-de-oito-estados" target="_blank">→ SDS-PE</a></div>
+      </div>
+
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Escala do Problema — Pandemia como Caso Extremo</div>
+
+    <div class="grid-4">
+      <div class="kpi kpi-red">
+        <div class="kpi-label">Operações PF — COVID 2020</div>
+        <div class="kpi-value">61</div>
+        <div class="kpi-unit">operações contra desvios pandemia</div>
+        <div class="kpi-delta">Só até dezembro 2020</div>
+      </div>
+      <div class="kpi kpi-red">
+        <div class="kpi-label">Valor investigado pandemia</div>
+        <div class="kpi-value">&gt;R$ 2bi</div>
+        <div class="kpi-unit">só nas operações documentadas</div>
+        <div class="kpi-delta">Sem contar cifra negra</div>
+      </div>
+      <div class="kpi kpi-amber">
+        <div class="kpi-label">Condenações definitivas mandantes</div>
+        <div class="kpi-value">~0</div>
+        <div class="kpi-unit">condenações de mandantes políticos</div>
+        <div class="kpi-delta">vs ~1.500 de manifestantes 8/jan</div>
+      </div>
+      <div class="kpi kpi-blue">
+        <div class="kpi-label">PF 2024 — inquéritos instaurados</div>
+        <div class="kpi-value">48.732</div>
+        <div class="kpi-unit">+9% vs 2023 · 86% solução</div>
+        <div class="kpi-delta">Taxa de solução PF &gt;5× média estadual</div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /sec-operacoes -->
+
+<!-- ══════════════════════════ TAB 05: ALERTAS ══════════════════════════ -->
+<div id="sec-alertas" class="tab-panel">
+
+  <div class="section">
+    <div class="section-label"><span class="idx">05</span> Alertas Sistêmicos e Falhas Estruturais</div>
+
+    <div class="alert alert-red">
+      <div class="alert-icon">🚨</div>
+      <div>
+        <div class="alert-title">Alerta Nível Crítico — Janela Eleitoral 2026</div>
+        <div class="alert-body">
+          Outubro 2026: eleições estaduais e federais. Padrão histórico documenta aumento de transferências voluntárias e emendas parlamentares nos 12–18 meses pré-eleição. O ciclo político-orçamentário amplifica a extração nos estados dependentes. Cada real de FPE acima do necessário para custeio básico é capital eleitoral disponível para captura.
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="section-label"><span class="idx">→</span> Falhas de Design Estrutural</div>
+        <ul class="fail-list">
+          <li>Coeficientes FPE de 1989 não revisados para eficiência — apenas para magnitude de repasse</li>
+          <li>FPE incondicional: sem contrapartida de resultado em saúde, educação ou IDH</li>
+          <li>Ausência de auditoria compulsória de impacto antes da renovação de coeficientes</li>
+          <li>OS contratadas sem licitação ampla — "dispensa" como regra, não exceção</li>
+          <li>TCU com poder de recomendação mas não de execução em estados</li>
+          <li>Sobreposição de órgãos de controle (TCU, CGU, TCE, MP) sem coordenação sistêmica</li>
+          <li>Municípios com &lt;2.000 habitantes mantêm coeficientes FPM congelados</li>
+          <li>Emendas impositivas sem rastreabilidade efetiva de uso</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label"><span class="idx">→</span> Falhas de Controle e Accountability</div>
+        <ul class="fail-list">
+          <li>TCEs estaduais controlados pelo executivo local — conflito de interesse estrutural</li>
+          <li>Ministérios Públicos estaduais subfinanciados e com mandatos políticos dependentes</li>
+          <li>Prestação de contas de OS: relatórios genéricos, sem auditoria de efetividade</li>
+          <li>Dados de gastos municipais fragmentados — SICONFI incompleto para pequenos municípios</li>
+          <li>Ausência de indicador agregado de "retorno social por real de FPE transferido"</li>
+          <li>Operações da PF dependem de Ministério da Justiça — vulnerável à captura executiva</li>
+          <li>STF com competência para suspender monocraticamente qualquer lei de controle fiscal</li>
+          <li>Inexistência de mecanismo automático de redução de coeficiente por mau desempenho</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Alertas Quantificados</div>
+
+    <div class="grid-3">
+      <div class="alert alert-red" style="margin-bottom:0">
+        <div class="alert-icon">⚡</div>
+        <div>
+          <div class="alert-title">Emendas Parlamentares</div>
+          <div class="alert-body">~R$ 50bi/ano em emendas impositivas (2024). Bancada Norte-Nordeste com poder desproporcional no orçamento. Mecanismo de distribuição de recursos sem accountability de resultado.</div>
+        </div>
+      </div>
+      <div class="alert alert-amber" style="margin-bottom:0">
+        <div class="alert-icon">⚠</div>
+        <div>
+          <div class="alert-title">Isenção IR R$ 5.000</div>
+          <div class="alert-body">Projeto de isenção do IR até R$ 5.000 pode retirar R$ 25bi/ano do FPE+FPM. Estados dependentes sofrem; estados produtores ganham autonomia. Disputa federativa em curso.</div>
+        </div>
+      </div>
+      <div class="alert alert-blue" style="margin-bottom:0">
+        <div class="alert-icon">📊</div>
+        <div>
+          <div class="alert-title">Crescimento FPE Nordeste 2024</div>
+          <div class="alert-body">FPE Nordeste cresceu 21,3% nominal em 2024 (acima de 16,9% nacional). Crescimento assimétrico amplia a diferença estrutural sem critério de eficiência associado.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Timeline de Falhas Críticas</div>
+
+    <div class="timeline">
+      <div class="tl-event">
+        <div class="tl-date">1989</div>
+        <div class="tl-title">Coeficientes FPE Congelados</div>
+        <div class="tl-body">LC 62/1989 fixa coeficientes "provisórios" que deveriam durar até 1992. Permanecem estruturalmente inalterados. Base da distorção acumulada por 35 anos.</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2010–2013</div>
+        <div class="tl-title">STF x Congresso — Impasse do FPE</div>
+        <div class="tl-body">STF declara inconstitucionalidade dos coeficientes mas dá prazo para reforma. Congresso aprova LC 143/2013 que mantém estrutura distributiva sem correção de eficiência. Distorção legalizada.</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2018–2020</div>
+        <div class="tl-title">Onda de Operações Estaduais</div>
+        <div class="tl-body">Calvário (PB), Confraria (BA), OS no Ceará, RJ, MA. Padrão uniforme: OS + Secretaria de Saúde + caixa 2 + campanha. Modelo replicado em todos os estados receptores líquidos.</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2020</div>
+        <div class="tl-title">COVID-19 — Janela de Extração Acelerada</div>
+        <div class="tl-body">61 operações da PF em 12 meses. R$ 2bi+ investigados. Dispensa de licitação amplificou o mecanismo existente. Zero condenações definitivas de mandantes políticos até 2026.</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2023–2024</div>
+        <div class="tl-title">Expansão Assimétrica do FPE</div>
+        <div class="tl-body">FPE Nordeste cresce 21,3% (2024), acima da média nacional. Maranhão passa de R$ 10,7bi para R$ 18,7bi em transferências totais. Sem correlação com melhora de indicadores sociais ou de controle.</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2026</div>
+        <div class="tl-title">Janela Eleitoral — Risco Máximo</div>
+        <div class="tl-body">Eleições de outubro 2026. Padrão histórico projeta aumento de transferências voluntárias e emendas nos 12 meses anteriores. Ciclo se fecha: transferências → captura → campanha → mandato → transferências.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /sec-alertas -->
+
+<!-- ══════════════════════════ TAB 06: PADRÕES ══════════════════════════ -->
+<div id="sec-padroes" class="tab-panel">
+
+  <div class="section">
+    <div class="section-label"><span class="idx">06</span> Padrões Sistêmicos — P3 e P11 Aplicados ao Pacto Federativo</div>
+
+    <div class="pattern-box" style="border-left: 3px solid var(--red);">
+      <div class="pattern-id">P3 — Duplo Padrão Institucional</div>
+      <div class="pattern-title">Assimetria na Aplicação das Regras Fiscais e de Controle</div>
+      <div class="pattern-body">
+        Estados produtores (SP, SC, RS) submetidos a regras do Regime de Recuperação Fiscal, Lei de Responsabilidade Fiscal e auditorias frequentes do TCU. Estados receptores dependentes com desvios documentados continuam recebendo repasses integrais — sem mecanismo automático de penalização por má gestão. O controle é seletivo: a regra do FPE é de transferência incondicional por lei, não por resultado.
+        <br><br>
+        <strong style="color:var(--amber)">Instância documentada:</strong> Municípios com contas reprovadas pelo TCE continuam recebendo FPM enquanto municípios produtores têm FPM bloqueado por dívidas previdenciárias. O bloqueio (PGFN) incide majoritariamente sobre municípios com arrecadação própria — não sobre dependentes.
+      </div>
+      <div class="pattern-ref">
+        Refs: LC 62/1989 · LRF (LC 101/2000) · TCU · PGFN/Receita Federal · <a href="https://www.tesourotransparente.gov.br/temas/estados-e-municipios/transferencias-a-estados-e-municipios" target="_blank">Tesouro Transparente</a>
+      </div>
+    </div>
+
+    <div class="pattern-box" style="border-left: 3px solid var(--amber);">
+      <div class="pattern-id">P11 — Loop de Extração Perpétua</div>
+      <div class="pattern-title">A Pobreza como Input Estrutural do Sistema de Transferências</div>
+      <div class="pattern-body">
+        O coeficiente do FPE correlaciona com baixa renda per capita e alta população. Para manter o coeficiente alto, o estado receptor precisa manter IDH baixo e população dependente. Um estado que desenvolvesse sua economia (renda per capita crescendo) veria seu coeficiente FPE reduzir. O sistema desincentiva o desenvolvimento real.
+        <br><br>
+        <strong style="color:var(--red)">Dado estrutural:</strong> Nordeste recebe 52,46% do FPE há 35 anos. Gini do trabalho: 0,510 (pior do país). RDpc Maranhão 2024: R$ 1.078 (último lugar). Programas sociais = 10,8% do RDpc no MA. O loop não foi interrompido — foi reforçado.
+        <br><br>
+        <strong style="color:var(--amber)">Mecanismo político:</strong> A população dependente de transferências (Bolsa Família + emprego público estadual financiado pelo FPE) é base eleitoral capturável. O gestor que desenvolver genuinamente o estado elimina sua própria vantagem eleitoral — racionalmente, não o faz.
+      </div>
+      <div class="pattern-ref">
+        Refs: FGV/IBRE PNAD 2024 · IBGE Síntese Indicadores Sociais · <a href="https://blogdoibre.fgv.br/posts/nordeste-lidera-o-crescimento-da-renda-entre-2022-e-2024-mas-desigualdades-persistem" target="_blank">Blog IBRE FGV</a> · LC 143/2013
+      </div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Síntese: Geometria da Extração Federativa</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title" style="color:var(--red)">O que é documentado e estrutural</div>
+        <div class="card-body">
+          <ul class="fail-list">
+            <li>SC arrecadou R$ 140,2bi, recebeu R$ 5,11bi (3,64%) — dados Receita Federal 2024</li>
+            <li>FPE Nordeste = 52,46% do fundo total (Sul = 6,52%) — LC 143/2013</li>
+            <li>Maranhão: transferências superam arrecadação própria em 175% — Tesouro Nacional 2024</li>
+            <li>35 anos de coeficientes sem correlação com indicadores de eficiência</li>
+            <li>Calvário (PB), OS-RJ, 61 operações COVID: padrão uniforme de captura via saúde</li>
+            <li>Gini de trabalho no Nordeste: 0,510 — após décadas de FPE prioritário</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--amber)">O que a narrativa populista omite</div>
+        <div class="card-body">
+          <ul class="fail-list">
+            <li>A vítima do sistema é a população nordestina, não o contribuinte sulista isoladamente</li>
+            <li>O problema não é "nordeste": é a camada político-administrativa intermediária capturadora</li>
+            <li>O Sul também tem corrupção (operações no RS, PR, SC documentadas)</li>
+            <li>A solução não é cortar transferências — é condicioná-las a resultados auditados</li>
+            <li>A reforma federativa genuína ameaçaria tanto redes de captura no Norte quanto privilégios no Sul</li>
+            <li>O assistencialismo não foi criado pelo PT: é estrutura constitucional de 1988 capturada por todos os partidos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote">
+      <div class="quote-text">"O pacto federativo brasileiro não é um sistema redistributivo com capturas pontuais. É um sistema de captura com redistribuição periférica. A redistribuição serve de legitimação — e de combustível — para a extração."</div>
+      <div class="quote-src">Lawfare Timeline · Análise Estrutural · Padrões P3+P11 · 2026</div>
+    </div>
+
+    <div class="section-label"><span class="idx">→</span> Referências e Fontes Primárias</div>
+    <div class="card">
+      <div class="card-body">
+        <ul class="fail-list">
+          <li><a href="https://www.michelteixeira.com.br/voce-sabia-santa-catarina-recebe-apenas-36-de-retorno-da-uniao/" target="_blank">Receita Federal / Siconfi — SC: R$ 140,2bi arrecadados, R$ 5,11bi retornados (2024)</a></li>
+          <li><a href="https://blog.1doc.com.br/fundo-de-participacao-dos-estados/" target="_blank">Tesouro Nacional — Coeficientes FPE por região (LC 143/2013)</a></li>
+          <li><a href="https://investindoporai.com.br/transferencias-constitucionais-para-o-nordeste-crescem-98-ate-julho-de-2024/" target="_blank">Transferências Nordeste jan–jul 2024 — FPE R$ 45,9bi (51,6% total)</a></li>
+          <li><a href="https://blogdoibre.fgv.br/posts/nordeste-lidera-o-crescimento-da-renda-entre-2022-e-2024-mas-desigualdades-persistem" target="_blank">FGV/IBRE — PNAD 2024: Gini, RDpc, participação programas sociais por UF</a></li>
+          <li><a href="https://www.mppb.mp.br/index.php/pt/comunicacao/noticias/51-gaeco/22522-operacao-calvario-em-18-meses-mppb-oferece-11-denuncias-contra-55-envolvidos" target="_blank">MPPB/GAECO — Operação Calvário: 55 denunciados, R$ 134,2mi desviados (PB)</a></li>
+          <li><a href="https://www.cnnbrasil.com.br/nacional/quase-r-2-bilhoes-relembre-operacoes-da-pf-contra-desvios-na-pandemia/" target="_blank">CNN Brasil / PF — 61 operações COVID, R$ 2bi+ investigados (2020)</a></li>
+          <li><a href="https://www.sds.pe.gov.br/noticias/12233-operacao-nordeste-integrado-320-prisoes-sao-efetuadas-em-acao-inedita-nas-divisas-de-oito-estados" target="_blank">SDS-PE — Operação Nordeste Integrado: 320 prisões, 8 estados (2025)</a></li>
+          <li><a href="https://www.tesourotransparente.gov.br/temas/estados-e-municipios/transferencias-a-estados-e-municipios" target="_blank">Tesouro Transparente — Portal de Transferências Constitucionais</a></li>
+          <li><a href="https://multicidadesonline.com.br/receita/fpm/" target="_blank">FPM 2024 — Total R$ 220,81bi (+11,5% real) — MultiCidades</a></li>
+          <li><a href="https://www12.senado.leg.br/publicacoes/estudos-legislativos/tipos-de-estudos/outras-publicacoes/agenda-legislativa/capitulo-14-rateio-do-fpe-problemas-passados-e-riscos-futuros" target="_blank">Senado Federal — Análise: Rateio FPE: Problemas e Riscos</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /sec-padroes -->
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>Lawfare Timeline · <strong>Pacto Federativo: A Rede de Extração</strong> · Dossiê Estrutural 2024–2026</div>
+  <div>Padrões P3 · P11 · Dados verificados · CC0 1.0 Domínio Público</div>
+  <div>gosurf.site · @araguaci · Atualizado Mai 2026</div>
+</div>
+
+<button type="button" id="gotop" class="gotop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+(function () {
+  var btn = document.getElementById('gotop');
+  if (!btn) return;
+  var toggle = function () {
+    if (window.scrollY > 420) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  };
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+(function () {
+  var nav = document.querySelector('nav.nav');
+  if (!nav) return;
+  var sections = document.querySelectorAll('.tab-panel[id^="sec-"]');
+  var links = nav.querySelectorAll('a.nav-tab');
+  if (!sections.length || !links.length) return;
+
+  function navOffset() {
+    return nav.getBoundingClientRect().height + 6;
+  }
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if (on) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  function syncFromScroll() {
+    var yCut = navOffset();
+    var activeId = sections[0].id;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= yCut) activeId = sections[i].id;
+    }
+    setActive(activeId);
+  }
+
+  window.addEventListener('scroll', syncFromScroll, { passive: true });
+  window.addEventListener('resize', syncFromScroll, { passive: true });
+  syncFromScroll();
+
+  if (location.hash && document.querySelector(location.hash)) {
+    requestAnimationFrame(syncFromScroll);
+  }
+
+  window.addEventListener('hashchange', function () {
+    requestAnimationFrame(syncFromScroll);
+  });
+})();
+</script>
+
+<script src="https://gosurf.site/share-bar.js"></script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

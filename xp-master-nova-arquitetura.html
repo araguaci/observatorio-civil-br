@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XP, Banco Master, Will Bank — Nova Arquitetura do Poder Financeiro Digital</title>
+  <meta name="description" content="Como bilhões foram captados do varejo, riscos se concentraram e a confiança virou o produto mais valioso do sistema financeiro digital brasileiro.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="XP, Banco Master, Will Bank — Nova Arquitetura do Poder Financeiro Digital">
+  <meta property="og:description" content="Como bilhões foram captados do varejo, riscos se concentraram e a confiança virou o produto mais valioso do sistema.">
+  <meta property="twitter:card" content="summary_large_image">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#08090d;
+      --bg2:#0f1118;
+      --bg3:#151822;
+      --bg4:#1a1e2e;
+      --gold:#e8b84b;
+      --gold2:#f5d07a;
+      --gold-dim:#5a4510;
+      --red:#e85555;
+      --red2:#ff7a7a;
+      --red-dim:#5a1a1a;
+      --blue:#4a9eff;
+      --blue2:#7ab8ff;
+      --blue-dim:#1a3060;
+      --orange:#ff8c42;
+      --orange2:#ffb07a;
+      --orange-dim:#5a2f10;
+      --teal:#2ecfb0;
+      --teal2:#60ffd8;
+      --purple:#a07aff;
+      --purple2:#c8a8ff;
+      --border:rgba(255,255,255,0.07);
+      --border2:rgba(255,255,255,0.12);
+      --text:#dde2f0;
+      --text2:#7a8299;
+      --text3:#4a5070;
+      --font:'Syne',sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+      --serif:'DM Serif Display',serif;
+    }
+
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6}
+
+    /* ── SCANLINE OVERLAY ── */
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+    }
+
+    /* ── HEADER ── */
+    header{
+      padding:30px 24px 24px;
+      background:linear-gradient(135deg,#08090d 0%,#10121c 50%,#08090d 100%);
+      border-bottom:1px solid var(--gold-dim);
+      position:relative;overflow:hidden;
+    }
+    header::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 20% 50%,rgba(232,184,75,0.06) 0%,transparent 55%),
+                 radial-gradient(ellipse at 80% 20%,rgba(74,158,255,0.04) 0%,transparent 50%);
+    }
+    header::after{
+      content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold),var(--gold-dim),transparent);
+    }
+    .h-kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(232,184,75,0.08);border:1px solid var(--gold-dim);
+      border-radius:3px;padding:4px 12px;
+      font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--gold);
+      text-transform:uppercase;margin-bottom:14px;font-family:var(--mono);
+    }
+    .h-kicker .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    header h1{
+      font-family:var(--serif);font-size:clamp(22px,4vw,38px);
+      color:#fff;line-height:1.15;max-width:780px;
+      font-style:italic;
+    }
+    header h1 em{font-style:normal;color:var(--gold2)}
+    .h-sub{
+      font-size:13px;color:var(--text2);margin-top:10px;max-width:680px;
+      font-family:var(--mono);line-height:1.5;
+    }
+    .h-meta{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;align-items:center}
+    .hm{font-size:11px;color:var(--text3);font-family:var(--mono)}
+    .hm b{color:var(--text2)}
+    .tag{
+      display:inline-block;padding:2px 9px;border-radius:2px;
+      font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:var(--mono);
+    }
+    .tag-r{background:rgba(232,85,85,0.15);border:1px solid var(--red-dim);color:var(--red2)}
+    .tag-g{background:rgba(232,184,75,0.12);border:1px solid var(--gold-dim);color:var(--gold)}
+    .tag-b{background:rgba(74,158,255,0.12);border:1px solid var(--blue-dim);color:var(--blue2)}
+    .tag-o{background:rgba(255,140,66,0.12);border:1px solid var(--orange-dim);color:var(--orange2)}
+
+    /* ── NAV ── */
+    nav{
+      display:flex;gap:3px;padding:10px 20px;
+      background:rgba(10,11,18,0.95);border-bottom:1px solid var(--border);
+      overflow-x:auto;position:sticky;top:0;z-index:100;
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    .nb{
+      padding:6px 13px;border-radius:5px;border:1px solid transparent;
+      background:transparent;color:var(--text2);font-family:var(--font);
+      font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;
+      text-decoration:none;flex-shrink:0;
+    }
+    .nb:hover{border-color:var(--gold-dim);color:var(--gold2)}
+    .nb.act{background:rgba(232,184,75,0.1);border-color:var(--gold);color:var(--gold);font-weight:700}
+
+    /* ── MAIN ── */
+    main{padding:0 20px 48px;max-width:1200px;margin:0 auto}
+    .sec{
+      display:block;
+      padding-top:88px;
+      margin-top:-52px;
+      margin-bottom:40px;
+      scroll-margin-top:64px;
+    }
+    .sec:last-of-type{margin-bottom:24px}
+
+    /* ── KPI STRIP ── */
+    .kstrip{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:8px;padding:18px 0 12px;
+    }
+    .kcard{
+      background:var(--bg2);border:1px solid var(--border);
+      border-radius:8px;padding:14px 15px;position:relative;overflow:hidden;
+    }
+    .kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+    .kcard.kg::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+    .kcard.kr::before{background:linear-gradient(90deg,var(--red),var(--red2))}
+    .kcard.kb::before{background:linear-gradient(90deg,var(--blue),var(--blue2))}
+    .kcard.ko::before{background:linear-gradient(90deg,var(--orange),var(--orange2))}
+    .kcard.kt::before{background:linear-gradient(90deg,var(--teal),var(--teal2))}
+    .kcard.kp::before{background:linear-gradient(90deg,var(--purple),var(--purple2))}
+    .klabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:5px;font-family:var(--mono)}
+    .kval{font-size:22px;font-weight:800;line-height:1}
+    .kcard.kg .kval{color:var(--gold2)}
+    .kcard.kr .kval{color:var(--red2)}
+    .kcard.kb .kval{color:var(--blue2)}
+    .kcard.ko .kval{color:var(--orange2)}
+    .kcard.kt .kval{color:var(--teal)}
+    .kcard.kp .kval{color:var(--purple2)}
+    .ksub{font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--mono);line-height:1.4}
+
+    /* ── SECTION TITLE ── */
+    .stitle{
+      display:flex;align-items:center;gap:10px;
+      padding:18px 0 10px;
+      border-bottom:1px solid var(--border);margin-bottom:16px;
+    }
+    .stitle-num{
+      font-family:var(--mono);font-size:11px;font-weight:600;
+      color:var(--gold);letter-spacing:1px;
+      background:rgba(232,184,75,0.1);border:1px solid var(--gold-dim);
+      border-radius:3px;padding:2px 8px;
+    }
+    .stitle h2{font-size:18px;font-weight:700;color:#fff;font-family:var(--serif);font-style:italic}
+    .stitle-tag{margin-left:auto}
+
+    /* ── GRID 2/3 ── */
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .g2x1{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+    .g1x2{display:grid;grid-template-columns:1fr 2fr;gap:12px}
+    @media(max-width:760px){.g2,.g3,.g2x1,.g1x2{grid-template-columns:1fr}}
+
+    /* ── PANEL ── */
+    .panel{
+      background:var(--bg2);border:1px solid var(--border);
+      border-radius:10px;padding:18px;
+    }
+    .panel.br{border-color:var(--red-dim)}
+    .panel.bg{border-color:var(--gold-dim)}
+    .panel.bb{border-color:var(--blue-dim)}
+    .panel.bo{border-color:var(--orange-dim)}
+    .panel h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#fff}
+    .panel h3 span{color:var(--gold)}
+
+    /* ── ACTOR CARD ── */
+    .actor{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:10px;padding:16px;
+    }
+    .actor-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+    .actor-icon{
+      width:44px;height:44px;border-radius:8px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;font-weight:800;
+    }
+    .actor-icon.gold{background:rgba(232,184,75,0.15);color:var(--gold);border:1px solid var(--gold-dim)}
+    .actor-icon.red{background:rgba(232,85,85,0.15);color:var(--red2);border:1px solid var(--red-dim)}
+    .actor-icon.blue{background:rgba(74,158,255,0.15);color:var(--blue2);border:1px solid var(--blue-dim)}
+    .actor-icon.orange{background:rgba(255,140,66,0.15);color:var(--orange2);border:1px solid var(--orange-dim)}
+    .actor-name{font-size:16px;font-weight:700;color:#fff;line-height:1.2}
+    .actor-role{font-size:11px;color:var(--text2);font-family:var(--mono);margin-top:3px}
+
+    /* ── ITEM LIST ── */
+    .ilist{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .ilist li{
+      display:flex;gap:10px;align-items:flex-start;
+      font-size:13px;color:var(--text);line-height:1.5;
+    }
+    .ilist li::before{
+      content:'▸';color:var(--gold);font-size:11px;margin-top:2px;flex-shrink:0;
+    }
+    .ilist li.red::before{color:var(--red2)}
+    .ilist li.blue::before{color:var(--blue2)}
+    .ilist li.orange::before{color:var(--orange2)}
+    .ilist li strong{color:var(--gold2)}
+    .ilist li strong.r{color:var(--red2)}
+    .ilist li strong.b{color:var(--blue2)}
+    .ilist li strong.o{color:var(--orange2)}
+
+    /* ── QUOTE BLOCK ── */
+    .qblock{
+      background:rgba(232,184,75,0.04);
+      border-left:3px solid var(--gold);
+      border-radius:0 8px 8px 0;
+      padding:14px 16px;margin:14px 0;
+    }
+    .qblock p{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--text);line-height:1.65}
+    .qblock .qsrc{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:8px;letter-spacing:1px;text-transform:uppercase}
+
+    .qblock.red{background:rgba(232,85,85,0.04);border-color:var(--red)}
+    .qblock.red p{color:var(--red2)}
+
+    /* ── FLOW DIAGRAM ── */
+    .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0}
+    .fnode{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:8px;padding:12px 14px;flex:1;min-width:130px;
+      font-size:12px;text-align:center;
+    }
+    .fnode .fn-top{font-size:10px;font-family:var(--mono);color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
+    .fnode .fn-val{font-size:14px;font-weight:700;color:#fff}
+    .fnode .fn-sub{font-size:11px;color:var(--text2);margin-top:3px;font-family:var(--mono)}
+    .farrow{
+      display:flex;align-items:center;padding:0 6px;
+      color:var(--gold);font-size:18px;flex-shrink:0;
+    }
+    .fnode.danger{border-color:var(--red-dim);background:rgba(90,26,26,0.3)}
+    .fnode.danger .fn-val{color:var(--red2)}
+    .fnode.warn{border-color:var(--orange-dim);background:rgba(90,47,16,0.3)}
+    .fnode.warn .fn-val{color:var(--orange2)}
+    .fnode.ok{border-color:var(--gold-dim)}
+    .fnode.ok .fn-val{color:var(--gold2)}
+
+    /* ── TIMELINE ── */
+    .tl{position:relative;padding-left:28px;margin:14px 0;display:flex;flex-direction:column;gap:0}
+    .tl::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--gold-dim),var(--border))}
+    .tl-item{position:relative;padding:10px 0 10px 14px;border-bottom:1px solid var(--border)}
+    .tl-item:last-child{border-bottom:none}
+    .tl-dot{
+      position:absolute;left:-20px;top:14px;
+      width:10px;height:10px;border-radius:50%;
+      background:var(--gold-dim);border:2px solid var(--gold);
+    }
+    .tl-dot.red{background:var(--red-dim);border-color:var(--red)}
+    .tl-dot.blue{background:var(--blue-dim);border-color:var(--blue)}
+    .tl-dot.orange{background:var(--orange-dim);border-color:var(--orange)}
+    .tl-date{font-family:var(--mono);font-size:10px;color:var(--gold);font-weight:600;margin-bottom:3px;letter-spacing:1px}
+    .tl-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+    .tl-body{font-size:12px;color:var(--text2);line-height:1.5}
+
+    /* ── RISK MATRIX ── */
+    .rmatrix{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+    .rcell{
+      background:var(--bg3);border-radius:8px;padding:12px;
+      border:1px solid var(--border);
+    }
+    .rcell-label{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+    .rcell-val{font-size:13px;color:var(--text);line-height:1.5}
+    .rcell.hr{border-color:var(--red-dim)}
+    .rcell.hr .rcell-label{color:var(--red2)}
+    .rcell.ho{border-color:var(--orange-dim)}
+    .rcell.ho .rcell-label{color:var(--orange2)}
+    .rcell.hb{border-color:var(--blue-dim)}
+    .rcell.hb .rcell-label{color:var(--blue2)}
+    .rcell.hg{border-color:var(--gold-dim)}
+    .rcell.hg .rcell-label{color:var(--gold)}
+
+    /* ── CONCLUSION BOX ── */
+    .cbox{
+      background:linear-gradient(135deg,rgba(10,8,5,0.9),rgba(18,14,5,0.9));
+      border:1px solid var(--gold-dim);border-radius:12px;padding:24px;
+      margin:20px 0;position:relative;overflow:hidden;
+    }
+    .cbox::before{
+      content:'';position:absolute;top:-30px;right:-30px;
+      width:180px;height:180px;border-radius:50%;
+      background:radial-gradient(circle,rgba(232,184,75,0.07) 0%,transparent 70%);
+    }
+    .cbox h3{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--gold2);margin-bottom:14px}
+    .cbox p{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:10px}
+    .cbox p:last-child{margin-bottom:0}
+    .cbox strong{color:var(--gold2)}
+
+    /* ── FOOTNOTE ── */
+    .fnote{
+      font-size:11px;color:var(--text3);font-family:var(--mono);
+      border-top:1px solid var(--border);padding-top:12px;margin-top:16px;
+      line-height:1.6;
+    }
+    .fnote a{color:var(--text2);text-decoration:none}
+    .fnote a:hover{color:var(--gold)}
+    .fnote a.lawfare-link{color:var(--gold2)}
+    .fnote a.lawfare-link:hover{color:#fff}
+
+    /* ── RELATED ── */
+    .related-block{margin-top:48px;padding-top:40px;border-top:1px solid var(--border)}
+    .related-grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:8px;margin-top:16px;
+    }
+    .related-card{
+      background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+      padding:16px 18px;text-decoration:none;transition:all .2s;display:block;
+    }
+    .related-card:hover{border-color:var(--gold-dim);background:var(--bg3)}
+    .rc-cat{font-size:10px;font-family:var(--mono);letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+    .rc-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.35}
+    .rc-desc{font-size:11px;color:var(--text2);line-height:1.5;font-family:var(--mono)}
+
+    /* ── GO TOP ── */
+    #gotop{
+      position:fixed;bottom:28px;right:28px;width:44px;height:44px;
+      background:var(--bg3);border:1px solid var(--gold-dim);border-radius:50%;
+      color:var(--gold2);display:flex;align-items:center;justify-content:center;
+      cursor:pointer;opacity:0;visibility:hidden;
+      transition:opacity .3s,visibility .3s,transform .2s,background .2s;
+      z-index:1000;font-size:18px;line-height:1;
+      box-shadow:0 4px 16px rgba(0,0,0,.45);
+    }
+    #gotop.show{opacity:1;visibility:visible}
+    #gotop:hover{background:var(--bg4);transform:translateY(-3px)}
+
+    /* ── FOOTER ── */
+    footer{
+      border-top:1px solid var(--border);padding:20px 24px;
+      display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:12px;font-size:11px;color:var(--text3);font-family:var(--mono);
+    }
+    footer a{color:var(--text2);text-decoration:none}
+    footer a:hover{color:var(--gold)}
+    footer a.lawfare-link{color:var(--gold2)}
+    footer a.lawfare-link:hover{color:#fff}
+
+    /* ── DIVIDER ── */
+    .div{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:20px 0}
+
+    /* ── PATTERN BADGE ── */
+    .pbadge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(160,122,255,0.1);border:1px solid rgba(160,122,255,0.3);
+      border-radius:3px;padding:3px 10px;
+      font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--purple2);
+      text-transform:uppercase;font-family:var(--mono);
+    }
+
+    /* ── MORAL HAZARD BOX ── */
+    .mhbox{
+      background:rgba(232,85,85,0.06);border:1px solid var(--red-dim);
+      border-radius:10px;padding:18px;margin:14px 0;
+    }
+    .mhbox .mh-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red2);font-family:var(--mono);margin-bottom:10px}
+    .mhbox p{font-size:13px;color:var(--text);line-height:1.6}
+
+    /* ── SOURCE ROW ── */
+    .srcrow{
+      display:flex;flex-wrap:wrap;gap:6px;padding:12px 0;
+    }
+    .srclink{
+      display:inline-flex;align-items:center;gap:5px;
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:4px;padding:4px 10px;
+      font-size:11px;font-family:var(--mono);color:var(--text2);
+      text-decoration:none;transition:all .2s;
+    }
+    .srclink:hover{border-color:var(--gold-dim);color:var(--gold)}
+    .srclink::before{content:'↗';font-size:10px;color:var(--text3)}
+
+    /* ── SEPARATOR ── */
+    .sep{margin:16px 0;border:none;border-top:1px solid var(--border)}
+    .mt{margin-top:14px}
+    .mb{margin-bottom:14px}
+    .mh{margin:14px 0}
+
+    @media(max-width:760px){
+      .related-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      header{padding:20px 16px}
+      header h1{font-size:22px}
+      main{padding:0 12px 32px}
+      #gotop{bottom:20px;right:20px;width:40px;height:40px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="h-kicker"><span class="dot"></span> Dossiê · Poder Financeiro Digital</div>
+  <h1><em>XP, Banco Master, Will Bank</em><br>e a Nova Arquitetura do Poder Financeiro Digital</h1>
+  <p class="h-sub">Como bilhões foram captados do varejo, riscos se concentraram e a confiança virou o produto mais valioso do sistema.</p>
+  <div class="h-meta">
+    <span class="hm"><b>Corpus:</b> lawfare-timeline</span>
+    <span class="hm"><b>Padrão:</b> P2 · P3 · P5</span>
+    <span class="hm"><b>Valor em risco:</b> R$ 30B+</span>
+    <span class="tag tag-r">Alta Prioridade</span>
+    <span class="tag tag-g">Em Andamento</span>
+    <span class="pbadge">Captura Sistêmica</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#visao" class="nb act">Visão Geral</a>
+  <a href="#atores" class="nb">Atores</a>
+  <a href="#mecanismo" class="nb">Mecanismo</a>
+  <a href="#fgc" class="nb">FGC & Moral Hazard</a>
+  <a href="#constantino" class="nb">Constantino</a>
+  <a href="#timeline" class="nb">Linha do Tempo</a>
+  <a href="#conclusao" class="nb">Síntese Analítica</a>
+  <a href="#fontes" class="nb">Fontes</a>
+</nav>
+
+<main>
+
+<!-- ══ VISÃO GERAL ══ -->
+<div id="visao" class="sec">
+  <div class="kstrip">
+    <div class="kcard kg">
+      <div class="klabel">CDBs Master via XP</div>
+      <div class="kval">R$ 26B</div>
+      <div class="ksub">distribuídos ao varejo</div>
+    </div>
+    <div class="kcard kr">
+      <div class="klabel">Will Bank (XP)</div>
+      <div class="kval">R$ 4B</div>
+      <div class="ksub">papéis distribuídos</div>
+    </div>
+    <div class="kcard kb">
+      <div class="klabel">FGC coberto</div>
+      <div class="kval">R$ 73,5M</div>
+      <div class="ksub">na carteira em mar/2025</div>
+    </div>
+    <div class="kcard ko">
+      <div class="klabel">Cobertura FGC</div>
+      <div class="kval">R$ 250K</div>
+      <div class="ksub">por CPF / por instituição</div>
+    </div>
+    <div class="kcard kt">
+      <div class="klabel">Liquidação</div>
+      <div class="kval">18/11/2025</div>
+      <div class="ksub">Banco Central decreta</div>
+    </div>
+    <div class="kcard kp">
+      <div class="klabel">Status Vorcaro</div>
+      <div class="kval">Preso</div>
+      <div class="ksub">18 nov 2025</div>
+    </div>
+  </div>
+
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>O Sistema que Prometia Democratizar o Mercado</h2>
+  </div>
+
+  <div class="g2x1">
+    <div class="panel">
+      <h3>A Transformação Silenciosa do Sistema Financeiro</h3>
+      <p style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:14px">
+        O caso Banco Master é talvez um dos retratos mais perfeitos do novo capitalismo financeiro brasileiro: um sistema onde o aplicativo substituiu a agência, o influenciador substituiu o gerente, o algoritmo substituiu a relação bancária e a <strong style="color:var(--gold2)">confiança virou produto de prateleira</strong>.
+      </p>
+      <ul class="ilist">
+        <li>O varejo não compra produto financeiro — <strong>compra confiança institucional</strong></li>
+        <li class="red">Plataformas deixaram de ser intermediárias — <strong class="r">viraram certificadoras psicológicas</strong></li>
+        <li class="blue">"Se está na XP, alguém sério já analisou." — <strong class="b">essa é a percepção do investidor médio</strong></li>
+        <li>O liberalismo financeiro criou concentração ainda maior do que a estrutura que prometia destruir</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="panel br">
+        <div class="klabel" style="color:var(--red2);margin-bottom:8px">Regra Silenciosa do Mercado</div>
+        <div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text);line-height:1.6">
+          "Quanto maior o prêmio,<br>maior o medo oculto<br>por trás da captação."
+        </div>
+      </div>
+      <div class="panel bo">
+        <div class="klabel" style="color:var(--orange2);margin-bottom:8px">Paradoxo Final</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.6">
+          Saiu a agência física. Entrou o aplicativo elegante. <strong style="color:var(--orange2)">A concentração de poder continuou exatamente no mesmo lugar.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="stitle">
+    <span class="stitle-num">02</span>
+    <h2>Fluxo Sistêmico: do Banco ao Varejo</h2>
+  </div>
+
+  <div class="flow">
+    <div class="fnode ok">
+      <div class="fn-top">Emissor</div>
+      <div class="fn-val">Banco Master</div>
+      <div class="fn-sub">Taxas IPCA+11%, 12%, 13%+</div>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fnode ok">
+      <div class="fn-top">Distribuição</div>
+      <div class="fn-val">XP Investimentos</div>
+      <div class="fn-sub">R$ 26B em CDBs</div>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fnode warn">
+      <div class="fn-top">Validação</div>
+      <div class="fn-val">Confiança FGC</div>
+      <div class="fn-sub">"Renda fixa segura"</div>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fnode warn">
+      <div class="fn-top">Captação</div>
+      <div class="fn-val">Investidor Varejo</div>
+      <div class="fn-sub">Risco invisível</div>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fnode danger">
+      <div class="fn-top">Resultado</div>
+      <div class="fn-val">Colapso</div>
+      <div class="fn-sub">Prejuízo socializado</div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <p>"O discurso liberal de 'livre mercado' convive com estruturas altamente concentradas e opacas. Plataformas financeiras viraram gatekeepers de confiança. Concentração de poder, informação e distribuição ainda é feita por muito poucos."</p>
+    <div class="qsrc">Síntese analítica — lawfare-timeline corpus</div>
+  </div>
+</div>
+
+<!-- ══ ATORES ══ -->
+<div id="atores" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>Mapa de Atores e Funções Estruturais</h2>
+  </div>
+
+  <div class="g2">
+    <div class="actor">
+      <div class="actor-head">
+        <div class="actor-icon gold">XP</div>
+        <div>
+          <div class="actor-name">XP Investimentos</div>
+          <div class="actor-role">A Plataforma Gigante · Distribuidora Principal</div>
+        </div>
+      </div>
+      <ul class="ilist">
+        <li><strong>R$ 26 bilhões</strong> em CDBs do Banco Master distribuídos ao varejo</li>
+        <li><strong>R$ 4 bilhões</strong> em papéis do Will Bank distribuídos</li>
+        <li>Transformou-se em <strong>certificadora psicológica</strong> de confiança para milhões de brasileiros</li>
+        <li class="red">Recebeu comissões e margens por distribuição acelerada exponencial</li>
+        <li class="blue">Participação societária em Will Bank trocada por CDBs do Master</li>
+        <li>Relação com Master foi além da simples prateleira de produtos — <strong>tocou estruturas patrimoniais</strong></li>
+      </ul>
+    </div>
+
+    <div class="actor">
+      <div class="actor-head">
+        <div class="actor-icon red">M</div>
+        <div>
+          <div class="actor-name">Daniel Vorcaro</div>
+          <div class="actor-role">Controlador do Banco Master · Preso em 18/11/2025</div>
+        </div>
+      </div>
+      <ul class="ilist">
+        <li>Transformou o Master numa <strong>máquina de captação agressiva</strong> no varejo</li>
+        <li class="red">CDBs com taxas muito acima da média — sinal clássico de <strong class="r">prêmio de risco oculto</strong></li>
+        <li>Crescimento acelerado via captação bilionária e expansão da carteira de crédito</li>
+        <li class="orange">Sustentabilidade dependia de <strong class="o">liquidez contínua e novas emissões</strong></li>
+        <li>Problemas de liquidez, suspeitas de fraudes e operações estruturadas detectadas</li>
+        <li class="red">Banco Central decreta liquidação extrajudicial em <strong class="r">18 nov 2025</strong></li>
+      </ul>
+    </div>
+
+    <div class="actor">
+      <div class="actor-head">
+        <div class="actor-icon blue">W</div>
+        <div>
+          <div class="actor-name">Will Bank</div>
+          <div class="actor-role">Satélite do Mesmo Ecossistema</div>
+        </div>
+      </div>
+      <ul class="ilist">
+        <li>Banco digital ligado ao <strong>conglomerado Master</strong></li>
+        <li class="blue">XP tinha participação no Will Bank e, em 2024, trocou essa participação por <strong class="b">CDBs do próprio Master</strong></li>
+        <li>R$ 4 bilhões em papéis do Will Bank também distribuídos pela XP</li>
+        <li>Demonstra que a relação XP/Master era <strong>além da simples distribuição comercial</strong></li>
+        <li class="red">Exposição concatenada amplifica risco sistêmico para o investidor de varejo</li>
+      </ul>
+    </div>
+
+    <div class="actor">
+      <div class="actor-head">
+        <div class="actor-icon orange">BC</div>
+        <div>
+          <div class="actor-name">Bruno Constantino</div>
+          <div class="actor-role">CFO XP (2019–2024) · Conselho de Administração</div>
+        </div>
+      </div>
+      <ul class="ilist">
+        <li>Entrou na XP em <strong>2012</strong> — veterano do ciclo de expansão explosiva</li>
+        <li>CFO de <strong>2019 a 2024</strong>: enxergou os números internos da máquina financeira</li>
+        <li>Deixou cargo executivo em 2024, mas permaneceu no <strong>Conselho de Administração</strong></li>
+        <li class="orange">Membro dos comitês mais sensíveis: <strong class="o">Risco, Crédito, ESG, Estratégia, Performance</strong></li>
+        <li>Irmão de Rodrigo Constantino — conexão política e simbólica central do caso</li>
+        <li class="red">Exposição de <strong class="r">R$ 26B em CDBs</strong> entra em relatório, monitoramento, análise de concentração</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="panel mt">
+    <h3>Investidor de Varejo — <span>A Vítima Estrutural</span></h3>
+    <div class="g2">
+      <div>
+        <div class="klabel" style="color:var(--text2);margin-bottom:8px">O que o varejo acredita</div>
+        <ul class="ilist">
+          <li>"Se está na XP, alguém sério já analisou."</li>
+          <li>"FGC cobre até R$ 250K, então está seguro."</li>
+          <li>"Taxa alta = oportunidade de rentabilidade."</li>
+        </ul>
+      </div>
+      <div>
+        <div class="klabel" style="color:var(--red2);margin-bottom:8px">O que o varejo não analisa</div>
+        <ul class="ilist">
+          <li class="red">Balanço bancário e liquidez estrutural</li>
+          <li class="red">Concentração de funding e engenharia patrimonial</li>
+          <li class="red">Sustentabilidade financeira do emissor</li>
+          <li class="red">Risco sistêmico acima do limite FGC</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MECANISMO ══ -->
+<div id="mecanismo" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>Anatomia do Mecanismo de Captura</h2>
+  </div>
+
+  <div class="g3">
+    <div class="panel bg">
+      <h3>1. <span>Emissão Agressiva</span></h3>
+      <ul class="ilist">
+        <li>CDBs a IPCA+11%, 12%, 13%+</li>
+        <li>Taxas muito acima da curva CDI média</li>
+        <li>Prêmio alto = sinal de risco elevado para profissionais</li>
+        <li class="red">Percebido como <strong class="r">oportunidade</strong> pelo varejo leigo</li>
+      </ul>
+    </div>
+    <div class="panel bg">
+      <h3>2. <span>Distribuição em Escala</span></h3>
+      <ul class="ilist">
+        <li>XP como principal canal de varejo</li>
+        <li>Alcance de milhões de investidores via app</li>
+        <li>Influenciadores como distribuidores informais</li>
+        <li class="blue">Validação psicológica da plataforma <strong class="b">substitui due diligence</strong></li>
+      </ul>
+    </div>
+    <div class="panel bg">
+      <h3>3. <span>Crescimento Artificial</span></h3>
+      <ul class="ilist">
+        <li>Liquidez contínua via novas captações</li>
+        <li>Expansão de carteira de crédito e aquisições</li>
+        <li>Dependência total de novas emissões</li>
+        <li class="red">Modelo só funciona enquanto <strong class="r">captação não para</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="stitle">
+    <span class="stitle-num">02</span>
+    <h2>A Pergunta que o Mercado Não Faz</h2>
+  </div>
+
+  <div class="g1x2">
+    <div class="panel br" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="klabel" style="color:var(--red2);margin-bottom:10px">Questão Central</div>
+      <p style="font-family:var(--serif);font-style:italic;font-size:16px;color:var(--text);line-height:1.7">
+        Uma exposição de <strong style="font-style:normal;color:var(--red2)">R$ 26 bilhões</strong> em CDBs de um banco pequeno pagando taxas muito acima da média poderia realisticamente passar <strong style="font-style:normal;color:var(--red2)">despercebida</strong> dentro de estruturas de risco, crédito e estratégia de uma plataforma desta magnitude?
+      </p>
+    </div>
+    <div>
+      <div class="panel">
+        <h3>O que R$ 26B entra em:</h3>
+        <ul class="ilist">
+          <li><strong>Relatório</strong> de concentração de emissores</li>
+          <li><strong>Monitoramento</strong> contínuo de risco de crédito</li>
+          <li><strong>Análise</strong> de sustentabilidade do funding</li>
+          <li><strong>Discussão estratégica</strong> de comitê</li>
+          <li><strong>Avaliação</strong> de risco sistêmico</li>
+          <li class="red"><strong class="r">Qualquer sistema sério</strong> de governança corporativa</li>
+        </ul>
+      </div>
+      <div class="qblock red mt">
+        <p>"O debate técnico não é: Bruno vendeu pessoalmente um CDB? Isso seria uma simplificação infantil. O debate real é: como funcionava o ambiente interno de percepção de risco da XP enquanto bilhões do Banco Master eram distribuídos ao varejo?"</p>
+        <div class="qsrc">Análise analítica — @IceXTruths</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FGC & MORAL HAZARD ══ -->
+<div id="fgc" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>FGC: Escudo ou Anestesia?</h2>
+  </div>
+
+  <div class="g2">
+    <div class="panel">
+      <h3>O que o FGC faz</h3>
+      <ul class="ilist">
+        <li>Protege até <strong>R$ 250.000 por CPF por instituição</strong></li>
+        <li>Impede corridas bancárias e pânico sistêmico</li>
+        <li>FGC tem R$ 73,5M em CDBs do Master na carteira em mar/2025</li>
+        <li>Investidores até R$ 250K por CPF serão cobertos</li>
+        <li class="blue"><strong class="b">Acima disso: prejuízo direto</strong> ao investidor</li>
+      </ul>
+    </div>
+    <div class="panel br">
+      <h3>O que o FGC <span style="color:var(--red2)">não</span> faz</h3>
+      <ul class="ilist">
+        <li class="red">Não elimina o risco subjacente do emissor</li>
+        <li class="red">Não cobre valores acima do limite por CPF</li>
+        <li class="red">Não impede lucro privado com risco socializado</li>
+        <li class="red">Não responsabiliza distribuidores por distribuição inadequada</li>
+        <li class="red">Não compensa o tempo e custo do processo de recuperação</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mhbox">
+    <div class="mh-title">⚠ Moral Hazard — O Fenômeno Central</div>
+    <p>O FGC cria um fenômeno perigosíssimo: o banco cresce agressivamente, a plataforma distribui, os executivos lucram, o investidor assume risco sem perceber — e parte do prejuízo potencial é <strong style="color:var(--red2)">socializado sistemicamente</strong>. Risco privado. Lucro privado. Prejuízo coletivo.</p>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="stitle">
+    <span class="stitle-num">02</span>
+    <h2>Arquitetura do Risco Distribuído</h2>
+  </div>
+
+  <div class="rmatrix">
+    <div class="rcell hr">
+      <div class="rcell-label">Quem Assume o Risco</div>
+      <div class="rcell-val">Investidor de varejo — frequentemente sem plena compreensão da exposição real ao crédito do emissor além do limite FGC</div>
+    </div>
+    <div class="rcell ho">
+      <div class="rcell-label">Quem Distribui o Risco</div>
+      <div class="rcell-val">Plataformas (XP) que recebem comissão pela distribuição e usam sua marca como validação implícita de qualidade</div>
+    </div>
+    <div class="rcell hb">
+      <div class="rcell-label">Quem Monitora o Risco</div>
+      <div class="rcell-val">Comitês internos de Risco, Crédito e Estratégia — estruturas que deveriam sinalizar concentração em emissores problemáticos</div>
+    </div>
+    <div class="rcell hg">
+      <div class="rcell-label">Quem Lucra com o Risco</div>
+      <div class="rcell-val">Emissores (captação a custos que viabilizam expansão), distribuidores (comissão) e executivos (bônus por crescimento de AUC)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONSTANTINO ══ -->
+<div id="constantino" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>Bruno e Rodrigo Constantino — O Elo Político e Simbólico</h2>
+  </div>
+
+  <div class="g2">
+    <div class="actor">
+      <div class="actor-head">
+        <div class="actor-icon orange">BC</div>
+        <div>
+          <div class="actor-name">Bruno Constantino</div>
+          <div class="actor-role">Dentro da Estrutura da XP</div>
+        </div>
+      </div>
+      <div class="klabel" style="margin:12px 0 8px;color:var(--text2)">Trajetória</div>
+      <ul class="ilist">
+        <li><strong>2012</strong> — Entra na XP Investimentos</li>
+        <li><strong>2019</strong> — Torna-se CFO · início do ciclo de expansão agressiva</li>
+        <li><strong>2019–2024</strong> — CFO durante período de maior distribuição de CDBs Master</li>
+        <li><strong>2024</strong> — Deixa cargo executivo · permanece no Conselho</li>
+        <li class="orange">Membro dos comitês de <strong class="o">Risco, Crédito, ESG, Estratégia e Performance</strong></li>
+      </ul>
+      <div class="klabel" style="margin:14px 0 8px;color:var(--text2)">O que um CFO acompanha</div>
+      <ul class="ilist">
+        <li>Crescimento, captação, risco, liquidez</li>
+        <li>Estratégia financeira e exposição relevante</li>
+        <li>Sustentabilidade operacional</li>
+        <li class="red">Concentração de R$ 26B em um único emissor <strong class="r">não é detalhe operacional</strong></li>
+      </ul>
+    </div>
+
+    <div class="actor">
+      <div class="actor-head">
+        <div class="actor-icon red">RC</div>
+        <div>
+          <div class="actor-name">Rodrigo Constantino</div>
+          <div class="actor-role">O Elo Político e Simbólico · Irmão de Bruno</div>
+        </div>
+      </div>
+      <div class="mhbox" style="margin-top:0;margin-bottom:14px">
+        <div class="mh-title">⚠ Nota Metodológica</div>
+        <p style="font-size:12px">Não existe prova pública de que Rodrigo participou operacionalmente de qualquer estrutura financeira ligada ao caso. A análise a seguir é de natureza <strong style="color:var(--red2)">política e lógica</strong>, não jurídica.</p>
+      </div>
+      <div class="klabel" style="margin-bottom:8px;color:var(--text2)">O que Rodrigo combatia publicamente</div>
+      <ul class="ilist">
+        <li class="red">Compadrio e oligopólios financeiros</li>
+        <li class="red">Capitalismo de relações</li>
+        <li class="red">Elite protegida e distorções sistêmicas</li>
+        <li class="red">Concentração bancária e opacidade</li>
+      </ul>
+      <div class="klabel" style="margin:14px 0 8px;color:var(--text2)">A Contradição Central</div>
+      <ul class="ilist">
+        <li>Irmão Bruno estava no núcleo estratégico e de risco da XP</li>
+        <li>Período de maior distribuição de CDBs Master coincide com gestão de Bruno</li>
+        <li class="orange">Dois irmãos próximos — um no centro financeiro da XP: <strong class="o">jamais conversariam sobre bastidores?</strong></li>
+        <li>Não prova crime, não prova participação direta</li>
+        <li class="red"><strong class="r">Destrói completamente a narrativa de isolamento absoluto</strong> entre os mundos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="qblock">
+    <p>"O liberalismo brasileiro passou anos dizendo que destruiria os velhos bancos e democratizaria o mercado. Mas no fim criou plataformas gigantescas capazes de concentrar distribuição, confiança, informação, influência, dados e risco sistêmico em escala talvez ainda maior do que os bancos tradicionais."</p>
+    <div class="qsrc">Análise — @IceXTruths · Fonte primária do dossier</div>
+  </div>
+
+  <div class="cbox mt">
+    <h3>A Ironia do Caso Master</h3>
+    <p>Rodrigo Constantino construiu sua imagem pública combatendo compadrio e oligopólios. Seu irmão Bruno estava dentro da engrenagem de governança de uma das plataformas centrais na distribuição de bilhões em produtos de um banco que implodiu.</p>
+    <p>Isso não é necessariamente prova de crime. É algo estruturalmente mais interessante: é a <strong>demonstração de que as redes de poder e informação não respeitam os discursos que seus participantes veiculam publicamente</strong>. O discurso e a estrutura são mundos diferentes — e é a estrutura que determina os resultados.</p>
+  </div>
+</div>
+
+<!-- ══ TIMELINE ══ -->
+<div id="timeline" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>Linha do Tempo — Do Crescimento ao Colapso</h2>
+  </div>
+
+  <div class="g2x1">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2012</div>
+        <div class="tl-title">Bruno Constantino entra na XP</div>
+        <div class="tl-body">Início de trajetória que culminará no cargo de CFO em 2019.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2019</div>
+        <div class="tl-title">Bruno torna-se CFO da XP</div>
+        <div class="tl-body">Início do ciclo de expansão explosiva da companhia. Período de maior crescimento de distribuição de produtos de terceiros.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot orange"></div>
+        <div class="tl-date">2022–2024</div>
+        <div class="tl-title">Banco Master cresce fortemente</div>
+        <div class="tl-body">Emissão de CDBs com taxas muito acima do mercado. XP é o principal canal de distribuição — bilhões captados do varejo.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot blue"></div>
+        <div class="tl-date">2024</div>
+        <div class="tl-title">XP troca participação Will Bank por CDBs Master</div>
+        <div class="tl-body">Relação comercial aprofunda-se em rearranjo patrimonial. Bruno deixa cargo de CFO, permanece no Conselho.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot orange"></div>
+        <div class="tl-date">Mar/2025</div>
+        <div class="tl-title">FGC com R$ 73,5M em CDBs Master</div>
+        <div class="tl-body">Sinal de alerta sistêmico. Investidores com até R$ 250K/CPF teriam cobertura; acima disso, prejuízo direto.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot orange"></div>
+        <div class="tl-date">Abr/2025</div>
+        <div class="tl-title">Investidores tentam mais de R$ 10B em resgates</div>
+        <div class="tl-body">Banco Central intervém. Vencimentos até 2026/2027 em risco. Crise de liquidez confirmada publicamente.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-date">18/Nov/2025</div>
+        <div class="tl-title">Banco Central decreta liquidação extrajudicial</div>
+        <div class="tl-body">Daniel Vorcaro é preso. FGC é acionado. Prejuízo direto para investidores acima do limite.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="panel br">
+        <h3 style="color:var(--red2)">O Colapso</h3>
+        <ul class="ilist">
+          <li class="red">Problemas de liquidez confirmados</li>
+          <li class="red">Suspeitas de fraudes e operações estruturadas arriscadas</li>
+          <li class="red">Banco Central decreta liquidação extrajudicial</li>
+          <li class="red">Daniel Vorcaro preso em 18/11/2025</li>
+        </ul>
+      </div>
+      <div class="panel bg">
+        <h3>Números Finais</h3>
+        <ul class="ilist">
+          <li><strong>R$ 26B</strong> em CDBs Master via XP</li>
+          <li><strong>R$ 4B</strong> em papéis Will Bank via XP</li>
+          <li><strong>R$ 73,5M</strong> do FGC em CDBs Master (mar/2025)</li>
+          <li><strong>R$ 250K</strong> por CPF — limite de cobertura FGC</li>
+        </ul>
+      </div>
+      <div class="panel bb">
+        <h3>Nova Aristocracia Financeira Digital</h3>
+        <ul class="ilist">
+          <li class="blue">XP como gatekeeper de confiança</li>
+          <li class="blue">Risco é empurrado ao investidor comum</li>
+          <li class="blue">Lucros privados, riscos socializados</li>
+          <li class="blue">Discurso liberal + estruturas concentradas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONCLUSÃO ══ -->
+<div id="conclusao" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>Síntese Analítica — Padrões Sistêmicos Identificados</h2>
+  </div>
+
+  <div class="g3">
+    <div class="panel">
+      <div class="pbadge" style="margin-bottom:10px">P2 · Captura Regulatória</div>
+      <p style="font-size:13px;color:var(--text);line-height:1.6">Estruturas de governança interna que deveriam sinalizar riscos funcionam como legitimação da distribuição, não como freio. O regulador externo (BC) atua apenas após o colapso.</p>
+    </div>
+    <div class="panel">
+      <div class="pbadge" style="margin-bottom:10px">P3 · Assimetria Punitiva</div>
+      <p style="font-size:13px;color:var(--text);line-height:1.6">Investidores de varejo (pequenos) absorvem prejuízos acima do limite FGC enquanto executivos que supervisionaram o crescimento e a distribuição raramente enfrentam consequências simétricas.</p>
+    </div>
+    <div class="panel">
+      <div class="pbadge" style="margin-bottom:10px">P5 · Privatização do Lucro</div>
+      <p style="font-size:13px;color:var(--text);line-height:1.6">Lucros da distribuição de CDBs foram integralmente privados (comissões XP, crescimento Master). O risco foi transferido ao varejo e, via FGC, parcialmente socializado ao sistema.</p>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="cbox">
+    <h3>A Nova Aristocracia Financeira Digital</h3>
+    <p>O caso Master demonstra que a <strong>revolução fintech brasileira</strong> não democratizou o poder financeiro — ela o <strong>redistribuiu para novos chokepoints</strong>. As plataformas digitais replicaram a concentração dos bancos tradicionais em estruturas mais opacas, com menor regulação e maior velocidade de distribuição de risco para o varejo.</p>
+    <p>O discurso liberal serviu como cobertura ideológica para a construção de uma nova camada de intermediação que <strong>concentra informação, confiança e distribuição</strong> ao mesmo tempo que <strong>externaliza o risco</strong> para quem tem menos capacidade de avaliá-lo.</p>
+    <p>A questão não é sobre prova de crime — é sobre <strong>lógica e ambiente</strong>. Quando as estruturas de governança estão posicionadas para ver o risco e ele não é sinalizado, o resultado é sistêmico independente de intenção individual.</p>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="stitle">
+    <span class="stitle-num">02</span>
+    <h2>Resultado Final — O Sistema que Prometia Destruir os Velhos Bancos</h2>
+  </div>
+
+  <div class="g2">
+    <div>
+      <ul class="ilist">
+        <li>Plataformas financeiras viraram <strong>gatekeepers de confiança</strong></li>
+        <li class="red">Risco é empurrado ao investidor comum — <strong class="r">transparência assimétrica</strong></li>
+        <li class="orange">Concentração de poder, informação e distribuição <strong class="o">ainda é feita por muito poucos</strong></li>
+        <li>Lucros privados são <strong>socializados via FGC</strong> quando o modelo implode</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="ilist">
+        <li class="blue">O discurso de <strong class="b">"livre mercado"</strong> convive com estruturas altamente concentradas</li>
+        <li>Saiu a agência física, entrou o <strong>aplicativo elegante</strong> — o poder ficou no mesmo lugar</li>
+        <li class="red">A contradição Constantino: combater no discurso o que se participa na estrutura</li>
+        <li>Modelo precisa ser questionado antes, não apenas investigado depois do colapso</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FONTES ══ -->
+<div id="fontes" class="sec">
+  <div class="stitle">
+    <span class="stitle-num">01</span>
+    <h2>Fontes e Referências</h2>
+  </div>
+
+  <div class="panel mb">
+    <h3>Fonte Primária — Thread Analítico</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:12px;font-family:var(--mono)">@IceXTruths · X (Twitter) · ID: 2057970916844531727</p>
+    <p style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:14px">
+      Análise estrutural completa de 20 fontes primárias sobre as relações entre XP, Banco Master, Will Bank e os irmãos Constantino. Metodologia: prova documental + lógica estrutural, explicitamente distinta de inferência de crime.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>Links de Referência — <span>Thread Original</span></h3>
+    <div class="srcrow">
+      <a href="https://t.co/kc2FXnbyxV" class="srclink" target="_blank">Fonte 01</a>
+      <a href="https://t.co/BkY2vEAODu" class="srclink" target="_blank">Fonte 02</a>
+      <a href="https://t.co/bh0uemEre8" class="srclink" target="_blank">Fonte 03</a>
+      <a href="https://t.co/ubSQRlwrvR" class="srclink" target="_blank">Fonte 04</a>
+      <a href="https://t.co/kj4wX7ctUf" class="srclink" target="_blank">Fonte 05</a>
+      <a href="https://t.co/lByxywyuJq" class="srclink" target="_blank">Fonte 06</a>
+      <a href="https://t.co/63E64ZFJiA" class="srclink" target="_blank">Fonte 07</a>
+      <a href="https://t.co/qCKQNEHwxF" class="srclink" target="_blank">Fonte 08</a>
+      <a href="https://t.co/EIWJZUrgXH" class="srclink" target="_blank">Fonte 09</a>
+      <a href="https://t.co/QGraCwmqQ0" class="srclink" target="_blank">Fonte 10</a>
+      <a href="https://t.co/0P3W0nTpgC" class="srclink" target="_blank">Fonte 11</a>
+      <a href="https://t.co/6noLeobPuj" class="srclink" target="_blank">Fonte 12</a>
+      <a href="https://t.co/u6GciScS1G" class="srclink" target="_blank">Fonte 13</a>
+      <a href="https://t.co/9ZgRm2ZJKW" class="srclink" target="_blank">Fonte 14</a>
+      <a href="https://t.co/1NRaXWNUGM" class="srclink" target="_blank">Fonte 15</a>
+      <a href="https://t.co/pGT84aWvYH" class="srclink" target="_blank">Fonte 16</a>
+      <a href="https://t.co/GofoVI8SRn" class="srclink" target="_blank">Fonte 17</a>
+      <a href="https://t.co/GaTqC93ytH" class="srclink" target="_blank">Fonte 18</a>
+      <a href="https://t.co/sgo0hdP3Xk" class="srclink" target="_blank">Fonte 19</a>
+      <a href="https://t.co/LIXt3JkZPe" class="srclink" target="_blank">Fonte 20</a>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="panel bg">
+    <h3>Padrões Sistêmicos — <span>lawfare-timeline corpus</span></h3>
+    <ul class="ilist">
+      <li><strong>P2</strong> — Captura Regulatória</li>
+      <li><strong>P3</strong> — Assimetria Punitiva</li>
+      <li><strong>P5</strong> — Privatização do Lucro / Socialização do Risco</li>
+      <li><strong>P11</strong> — Loop de Extração Perpétua</li>
+    </ul>
+  </div>
+
+  <div class="fnote">
+    <strong>Nota metodológica:</strong> Este dossier registra fatos estruturais documentados e inferências analíticas explicitamente identificadas como tal. Não infere motivação individual nem culpa jurídica além do que está documentado em fontes primárias. Incertezas são sinalizadas. Licença CC0 1.0 — Domínio Público.
+  </div>
+</div>
+
+  <div class="related-block" id="artefatos-relacionados">
+    <div class="stitle" style="padding-top:0">
+      <span class="stitle-num">↗</span>
+      <h2>Artefatos Relacionados</h2>
+    </div>
+    <div class="related-grid">
+      <a class="related-card" href="https://gosurf.site/banco-master-compliance-zero" target="_blank" rel="noopener">
+        <div class="rc-cat">Crimes Financeiros</div>
+        <div class="rc-title">Banco Master — Compliance Zero</div>
+        <div class="rc-desc">Estruturas bancárias de captura e R$54bi+ de passivos documentados.</div>
+      </a>
+      <a class="related-card" href="https://gosurf.site/banco-master" target="_blank" rel="noopener">
+        <div class="rc-cat">Dossiê Master</div>
+        <div class="rc-title">Banco Master — Colapso Sistêmico</div>
+        <div class="rc-desc">Do crescimento agressivo à liquidação extrajudicial de nov/2025.</div>
+      </a>
+      <a class="related-card" href="https://gosurf.site/xp-banco-master-poder" target="_blank" rel="noopener">
+        <div class="rc-cat">XP · Master</div>
+        <div class="rc-title">XP e o Poder do Banco Master</div>
+        <div class="rc-desc">Distribuição, confiança institucional e concentração de risco no varejo.</div>
+      </a>
+      <a class="related-card" href="https://gosurf.site/banco-master-os-donos" target="_blank" rel="noopener">
+        <div class="rc-cat">Rede de Atores</div>
+        <div class="rc-title">Banco Master — Os Donos</div>
+        <div class="rc-desc">Mapa de controladores, satélites e vínculos patrimoniais do conglomerado.</div>
+      </a>
+      <a class="related-card" href="https://gosurf.site/banco-master-too-big" target="_blank" rel="noopener">
+        <div class="rc-cat">Too Big</div>
+        <div class="rc-title">Banco Master — Too Big to Fail?</div>
+        <div class="rc-desc">Moral hazard, FGC e a aritmética do colapso socializado.</div>
+      </a>
+      <a class="related-card" href="https://gosurf.site/padroes-sistemicos-dashboard" target="_blank" rel="noopener">
+        <div class="rc-cat">Padrões P2–P11</div>
+        <div class="rc-title">Padrões Sistêmicos Dashboard</div>
+        <div class="rc-desc">Matriz de indulgência sistêmica — 17 operações, R$156bi documentados.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<button type="button" id="gotop" aria-label="Voltar ao topo">↑</button>
+
+<footer>
+  <div>
+    <a href="https://gosurf.site" target="_blank" rel="noopener">gosurf.site</a> ·
+    <a href="https://lawfare-timeline.vercel.app/" class="lawfare-link" target="_blank" rel="noopener">lawfare-timeline</a> · CC0 1.0
+  </div>
+  <div>P2 · P3 · P5 · Captura Sistêmica</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.sec');
+  const navLinks = document.querySelectorAll('.nb');
+  const nav = document.querySelector('nav');
+  const gotop = document.getElementById('gotop');
+
+  function navOffset() {
+    return nav ? nav.getBoundingClientRect().height + 8 : 64;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.remove('act');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('act');
+            link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+      }
+    });
+  }, { root: null, rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) gotop.classList.add('show');
+    else gotop.classList.remove('show');
+  }, { passive: true });
+
+  gotop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<script src="https://gosurf.site/counter.js"></script>
+</body>
+</html>

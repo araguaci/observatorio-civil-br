@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full-Spectrum Dominance e o Lawfare Brasileiro</title>
+<link rel="canonical" href="https://gosurf.site/full_spectrum_dominance_lawfare_brasil">
+<meta property="og:url" content="https://gosurf.site/full_spectrum_dominance_lawfare_brasil">
+<meta property="og:type" content="article">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
+    --red:#c0392b;--red2:#e74c3c;--amber:#d4a017;--amber2:#f1c40f;
+    --blue:#1a5276;--blue2:#2980b9;--teal:#0e6655;--teal2:#1abc9c;
+    --gray:#888;--gray2:#555;--border:#2a2a2a;--border2:#333;
+    --text:#e8e8e0;--text2:#b0afa8;--text3:#707068;
+    --mono:'IBM Plex Mono',monospace;
+    --serif:'Playfair Display',serif;
+    --body:'Source Serif 4',serif;
+  }
+  body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;padding:0}
+  a{color:var(--amber2);text-decoration:none;transition:color .15s}
+  a:hover{color:#fff;text-decoration:underline}
+
+  /* ─── HEADER ─── */
+  .masthead{border-bottom:1px solid var(--border2);padding:32px 40px 24px;position:relative;overflow:hidden}
+  .masthead::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red) 0%,var(--amber) 50%,var(--red) 100%)}
+  .classification{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:12px}
+  .masthead h1{font-family:var(--serif);font-size:clamp(24px,3vw,42px);font-weight:900;line-height:1.1;color:#fff;margin-bottom:8px}
+  .masthead h1 span{color:var(--amber)}
+  .masthead .subtitle{font-family:var(--body);font-size:14px;color:var(--text2);max-width:700px;line-height:1.5}
+  .masthead .meta{font-family:var(--mono);font-size:10px;color:var(--gray2);margin-top:16px;display:flex;gap:24px}
+
+  /* ─── LAYOUT ─── */
+  .container{max-width:1100px;margin:0 auto;padding:0 24px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border)}
+  .grid-7{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border)}
+  .cell{background:var(--bg);padding:20px 24px}
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header{padding:16px 40px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;margin-top:1px}
+  .section-header .label{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase}
+  .section-header h2{font-family:var(--serif);font-size:18px;color:#fff}
+
+  /* ─── DOCTRINE BOX ─── */
+  .doctrine{background:var(--bg2);border:1px solid var(--border2)}
+  .doctrine-header{background:var(--red);padding:10px 20px;display:flex;align-items:center;gap:8px}
+  .doctrine-header span{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:#fff;text-transform:uppercase}
+  .doctrine-body{padding:16px 20px}
+  .doctrine-def{font-size:13px;color:var(--text2);line-height:1.6;border-left:2px solid var(--red);padding-left:12px;margin-bottom:12px}
+  .doctrine-origin{font-family:var(--mono);font-size:10px;color:var(--gray2)}
+
+  /* ─── SPECTRUM DOMAINS ─── */
+  .domain-card{background:var(--bg2);border-bottom:2px solid var(--border2);padding:16px 20px;position:relative;overflow:hidden;cursor:pointer;transition:background .15s}
+  .domain-card:hover{background:var(--bg3)}
+  .domain-card.active{background:var(--bg3);border-bottom-color:var(--amber)}
+  .domain-icon{font-family:var(--mono);font-size:28px;font-weight:500;opacity:.15;position:absolute;right:12px;top:8px;color:#fff}
+  .domain-num{font-family:var(--mono);font-size:10px;color:var(--gray2);margin-bottom:4px}
+  .domain-name{font-family:var(--serif);font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+  .domain-desc{font-size:12px;color:var(--text2);line-height:1.4}
+  .domain-br{font-family:var(--mono);font-size:10px;color:var(--amber);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);line-height:1.4}
+
+  /* ─── TIMELINE ─── */
+  .timeline-row{display:grid;grid-template-columns:80px 1fr;gap:0;border-bottom:1px solid var(--border)}
+  .timeline-row:last-child{border-bottom:none}
+  .timeline-year{background:var(--bg3);padding:14px 16px;display:flex;align-items:flex-start;justify-content:flex-end;border-right:2px solid var(--border2)}
+  .timeline-year span{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--amber)}
+  .timeline-event{padding:14px 20px}
+  .timeline-event .ev-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px}
+  .timeline-event .ev-desc{font-size:12px;color:var(--text2);line-height:1.5}
+  .tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;text-transform:uppercase}
+  .tag-red{background:rgba(192,57,43,.2);color:var(--red2);border:1px solid rgba(192,57,43,.3)}
+  .tag-amber{background:rgba(212,160,23,.15);color:var(--amber2);border:1px solid rgba(212,160,23,.25)}
+  .tag-teal{background:rgba(14,102,85,.2);color:var(--teal2);border:1px solid rgba(14,102,85,.3)}
+  .tag-blue{background:rgba(26,82,118,.2);color:var(--blue2);border:1px solid rgba(26,82,118,.3)}
+
+  /* ─── MATRIX ─── */
+  .matrix-header{background:var(--bg3);padding:10px 14px;text-align:center}
+  .matrix-header span{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--amber);text-transform:uppercase}
+  .matrix-row{display:grid;grid-template-columns:140px repeat(7,1fr);border-bottom:1px solid var(--border)}
+  .matrix-row:last-child{border-bottom:none}
+  .matrix-label{padding:10px 14px;font-size:12px;color:var(--text2);border-right:1px solid var(--border);background:var(--bg2)}
+  .matrix-cell{padding:8px;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border)}
+  .matrix-cell:last-child{border-right:none}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .dot-full{background:var(--red2)}
+  .dot-mid{background:var(--amber2);opacity:.7}
+  .dot-low{background:var(--border2);opacity:.5}
+  .matrix-head-row{display:grid;grid-template-columns:140px repeat(7,1fr);border-bottom:1px solid var(--border2)}
+  .matrix-head-cell{padding:8px 6px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--gray);border-right:1px solid var(--border);letter-spacing:.5px;line-height:1.3}
+  .matrix-head-cell:first-child{border-right:1px solid var(--border)}
+  .matrix-head-cell:last-child{border-right:none}
+
+  /* ─── THESIS BLOCK ─── */
+  .thesis{background:var(--bg2);border:1px solid var(--border2);padding:24px 28px}
+  .thesis-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:12px}
+  .thesis-text{font-family:var(--serif);font-size:17px;line-height:1.7;color:#fff;font-weight:400}
+  .thesis-text em{color:var(--amber);font-style:normal;font-weight:700}
+
+  /* ─── OPERATIONS ─── */
+  .op-card{background:var(--bg2);border:1px solid var(--border2);padding:16px 18px}
+  .op-name{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--amber);text-transform:uppercase;margin-bottom:6px}
+  .op-period{font-family:var(--mono);font-size:10px;color:var(--gray2);margin-bottom:8px}
+  .op-desc{font-size:12px;color:var(--text2);line-height:1.5}
+  .op-fsd{font-size:11px;color:var(--red2);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-style:italic}
+
+  /* ─── VECTOR ANALYSIS ─── */
+  .vec-item{padding:16px 20px;border-bottom:1px solid var(--border)}
+  .vec-item:last-child{border-bottom:none}
+  .vec-domain{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--amber);text-transform:uppercase;margin-bottom:4px}
+  .vec-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+  .vec-desc{font-size:12px;color:var(--text2);line-height:1.5}
+  .vec-bar{height:3px;background:var(--border2);margin-top:8px;border-radius:1px;overflow:hidden}
+  .vec-fill{height:100%;border-radius:1px;transition:width .6s}
+
+  /* ─── LOBACZEWSKI BRIDGE ─── */
+  .bridge{background:var(--bg2);border-left:3px solid var(--amber);padding:16px 20px;margin:0}
+  .bridge-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;margin-bottom:8px}
+  .bridge-text{font-size:13px;color:var(--text2);line-height:1.6}
+
+  /* ─── CONCLUSION ─── */
+  .conclusion{background:var(--bg2);padding:28px 32px;border-top:2px solid var(--red)}
+  .conclusion h3{font-family:var(--serif);font-size:20px;color:#fff;margin-bottom:16px}
+  .conclusion p{font-size:13px;color:var(--text2);line-height:1.7;max-width:800px}
+  .conclusion p + p{margin-top:12px}
+  .conclusion .source{font-family:var(--mono);font-size:10px;color:var(--gray2);margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+
+  /* ─── DIVIDER ─── */
+  .divider{height:1px;background:var(--border);margin:0}
+  .spread{padding:0 0 0 40px}
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+  .revealed{opacity:1;transform:none}
+</style>
+
+<div class="masthead">
+  <div class="container">
+    <div class="classification">documento analítico · dossier investigativo · série lawfare</div>
+    <h1>Full-Spectrum Dominance<br><span>e o Lawfare Brasileiro</span></h1>
+    <div class="subtitle">Como a doutrina militar de dominância total do espaço de batalha foi transposta para operações de controle político interno no Brasil — e como o <a href="/lawfare-timeline">lawfare-timeline</a> documenta cada vetor de sua execução.</div>
+    <div class="meta">
+      <span>ORIGEM: Joint Vision 2020 · DoD USA · 2000</span>
+      <span>APLICAÇÃO: Brasil 1992–2026</span>
+      <span>ENTRADAS <a href="/lawfare-timeline">LAWFARE-TIMELINE</a>: 1424+</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 1: A DOUTRINA -->
+<div class="section-header">
+  <div>
+    <div class="label">Parte I</div>
+    <h2>A Doutrina Original</h2>
+  </div>
+</div>
+
+<div class="container" style="padding:24px 24px">
+<div class="grid-2" style="gap:16px;background:transparent">
+  <div class="doctrine reveal">
+    <div class="doctrine-header"><span>Joint Vision 2020 · Definição Oficial</span></div>
+    <div class="doctrine-body">
+      <div class="doctrine-def">"The cumulative effect of dominance in the air, land, maritime, and space domains and information environment, which includes cyberspace, that permits the conduct of joint operations without effective opposition or prohibitive interference."</div>
+      <div class="doctrine-origin">— U.S. Department of Defense, April 2001 · JP 1-02</div>
+    </div>
+  </div>
+
+  <div class="doctrine reveal">
+    <div class="doctrine-header" style="background:var(--amber)"><span style="color:#000">Expansão Civil · Leitura Analítica</span></div>
+    <div class="doctrine-body">
+      <div class="doctrine-def" style="border-color:var(--amber)">"A capacidade de controlar todos os domínios do espaço de conflito — físico, jurídico, informacional, financeiro, psicológico — de modo que a liberdade de ação do adversário seja completamente constrangida."</div>
+      <div class="doctrine-origin">Aplicação a operações não-militares · Análise <a href="https://geoengenharia.vercel.app" target="_blank">Geoengineering-Patents</a> / <a href="/lawfare-timeline">Lawfare-Timeline</a></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SEÇÃO 2: OS 7 DOMÍNIOS -->
+<div class="section-header">
+  <div>
+    <div class="label">Parte II</div>
+    <h2>Os 7 Domínios de Controle — e sua Tradução Brasileira</h2>
+  </div>
+</div>
+
+<div id="domains" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="grid-7" style="background:var(--border)">
+
+    <div class="domain-card reveal" onclick="showDomain(0)">
+      <div class="domain-num">01</div>
+      <div class="domain-name">Jurídico</div>
+      <div class="domain-desc">Uso do sistema legal como arma de guerra</div>
+      <div class="domain-br"><a href="/inq4781" onclick="event.stopPropagation()">INQ 4781</a> · <a href="/lava-jato" onclick="event.stopPropagation()">Lava Jato</a> · <a href="/lei-15211" onclick="event.stopPropagation()">Lei Felca</a> · Monocracia</div>
+      <div class="domain-icon">⚖</div>
+    </div>
+
+    <div class="domain-card reveal" onclick="showDomain(1)">
+      <div class="domain-num">02</div>
+      <div class="domain-name">Informacional</div>
+      <div class="domain-desc">Controle da narrativa e censura de plataformas</div>
+      <div class="domain-br"><a href="/rumble-tmtg-vs-moraes" onclick="event.stopPropagation()">Bloqueio do X</a> · TSE · Decretos de desinformação</div>
+      <div class="domain-icon">📡</div>
+    </div>
+
+    <div class="domain-card reveal" onclick="showDomain(2)">
+      <div class="domain-num">03</div>
+      <div class="domain-name">Psicológico</div>
+      <div class="domain-desc">Operações cognitivas sobre população</div>
+      <div class="domain-br"><a href="/marcal-pnl-artigo" onclick="event.stopPropagation()">NLP/Marçal</a> · Mídia orgânica · Histeria induzida</div>
+      <div class="domain-icon">🧠</div>
+    </div>
+
+    <div class="domain-card reveal" onclick="showDomain(3)">
+      <div class="domain-num">04</div>
+      <div class="domain-name">Financeiro</div>
+      <div class="domain-desc">Congelamento de ativos e controle econômico</div>
+      <div class="domain-br">Contas bloqueadas · Passaportes apreendidos</div>
+      <div class="domain-icon">$</div>
+    </div>
+
+    <div class="domain-card reveal" onclick="showDomain(4)">
+      <div class="domain-num">05</div>
+      <div class="domain-name">Eletromagnético</div>
+      <div class="domain-desc">Vigilância de espaços físicos e comunicações</div>
+      <div class="domain-br">Smart TVs · Wi-Fi sensing · RFID · Vault 7</div>
+      <div class="domain-icon">📶</div>
+    </div>
+
+    <div class="domain-card reveal" onclick="showDomain(5)">
+      <div class="domain-num">06</div>
+      <div class="domain-name">Institucional</div>
+      <div class="domain-desc">Captura de cortes, ministérios e agências</div>
+      <div class="domain-br">Ministrocracia · STF ativo · TSE político</div>
+      <div class="domain-icon">🏛</div>
+    </div>
+
+    <div class="domain-card reveal" onclick="showDomain(6)">
+      <div class="domain-num">07</div>
+      <div class="domain-name">Físico/Climático</div>
+      <div class="domain-desc">Controle de recursos e modificação ambiental</div>
+      <div class="domain-br"><a href="https://geoengenharia.vercel.app" target="_blank" onclick="event.stopPropagation()">Patentes geoengenharia</a> · HAARP · <a href="/carbono-oculto" onclick="event.stopPropagation()">Carbono oculto</a></div>
+      <div class="domain-icon">🌍</div>
+    </div>
+  </div>
+
+  <div id="domain-detail" style="padding:20px 32px;border-top:1px solid var(--border);background:var(--bg3);display:none;min-height:120px">
+    <div id="detail-content"></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3: LAWFARE COMO VETOR PRIMÁRIO -->
+<div class="section-header">
+  <div>
+    <div class="label">Parte III</div>
+    <h2>Lawfare como Vetor Primário de FSD no Brasil</h2>
+  </div>
+</div>
+
+<div class="container" style="padding:24px">
+
+<div class="thesis reveal" style="margin-bottom:20px">
+  <div class="thesis-label">Hipótese central do <a href="/lawfare-timeline">lawfare-timeline</a></div>
+  <div class="thesis-text">
+    O que o <a href="/lawfare-timeline">lawfare-timeline</a> documenta desde 1992 não é uma série de eventos judiciais isolados. É a <em>execução sistemática</em> de dominância espectral sobre o campo político brasileiro — onde o sistema judicial substitui o campo de batalha, a monocracia substitui a operação de precisão, e a <em>supressão da oposição política</em> substitui a eliminação do inimigo militar.
+  </div>
+</div>
+
+<!-- Matrix de operações vs domínios -->
+<div style="border:1px solid var(--border2);overflow:hidden;margin-bottom:20px" class="reveal">
+  <div style="background:var(--bg3);padding:12px 16px;border-bottom:1px solid var(--border2)">
+    <span style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase">Matriz de Operações × Domínios FSD</span>
+  </div>
+  <div class="matrix-head-row">
+    <div class="matrix-head-cell" style="background:var(--bg2)">Operação</div>
+    <div class="matrix-head-cell">Jurídico</div>
+    <div class="matrix-head-cell">Inform.</div>
+    <div class="matrix-head-cell">Psico.</div>
+    <div class="matrix-head-cell">Financ.</div>
+    <div class="matrix-head-cell">Eletrom.</div>
+    <div class="matrix-head-cell">Instit.</div>
+    <div class="matrix-head-cell">Físico</div>
+  </div>
+  <div id="matrix-body">
+    <!-- rows injected by JS -->
+  </div>
+</div>
+</div>
+
+<!-- SEÇÃO 4: CRONOLOGIA CRUZADA -->
+<div class="section-header">
+  <div>
+    <div class="label">Parte IV</div>
+    <h2>Cronologia Cruzada — FSD e Lawfare no Brasil</h2>
+  </div>
+</div>
+
+<div style="border-top:1px solid var(--border)" class="reveal">
+  <div id="timeline-body">
+    <!-- rows injected by JS -->
+  </div>
+</div>
+
+<!-- SEÇÃO 5: BRIDGE LOBACZEWSKI -->
+<div class="section-header">
+  <div>
+    <div class="label">Parte V</div>
+    <h2>A Ponte Psicopolítica — Lobaczewski e FSD</h2>
+  </div>
+</div>
+
+<div class="container" style="padding:24px">
+<div class="grid-2" style="gap:16px;background:transparent">
+  <div class="bridge reveal">
+    <div class="bridge-label"><a href="https://ponerologia-psicopatas-no-poder.vercel.app" target="_blank">Ponerologia</a> (Lobaczewski, 1984)</div>
+    <div class="bridge-text">Psicopatas no poder não precisam de força militar para dominar uma nação. Eles utilizam a <strong>histeria induzida</strong> como veículo — transformando populações normais em amplificadores de sua própria dominação. A supressão da realidade psicológica compartilhada é o pré-requisito de qualquer dominância de espectro total.</div>
+  </div>
+
+  <div class="bridge reveal">
+    <div class="bridge-label">FSD Cognitivo (Joint Vision 2020 + Foucault)</div>
+    <div class="bridge-text">A dominância do domínio psicológico no FSD não é apenas propaganda. É a criação de um <strong>ambiente onde o adversário não consegue formular oposição coerente</strong> — porque o campo semântico onde ela se formaria foi ocupado. No Brasil: a palavra "democracia" foi capturada como escudo de operações antidemocráticas.</div>
+  </div>
+
+  <div class="bridge reveal">
+    <div class="bridge-label">Partido das Sombras (Horowitz/Soros)</div>
+    <div class="bridge-text">O FSD não requer um Estado como operador. Redes financeiras transnacionais podem <strong>financiar a captura simultânea de múltiplos domínios</strong> em países-alvo: ONGs (informacional), lawfare (jurídico), mídia (psicológico), <a href="/carbono-oculto">mercado de carbono</a> (físico/financeiro). O repositório <a href="https://geoengenharia.vercel.app" target="_blank">geoengineering-patents</a> documenta o domínio físico desta mesma rede.</div>
+  </div>
+
+  <div class="bridge reveal">
+    <div class="bridge-label">Supremos Erros + Inquérito do Fim do Mundo</div>
+    <div class="bridge-text">A "ministrocracia" — poder individual não sujeito a deliberação coletiva — é a expressão institucional do FSD jurídico. Um único ministro como investigador, acusador e juiz <strong>simultaneamente</strong> não é uma falha do sistema. É o sistema funcionando como instrumento de dominância de espectro completo. O <a href="/inq4781">INQ 4781</a> documenta essa atuação.</div>
+  </div>
+</div>
+</div>
+
+<!-- SEÇÃO 6: VETORES ATIVOS -->
+<div class="section-header">
+  <div>
+    <div class="label">Parte VI</div>
+    <h2>Vetores Ativos Documentados — Intensidade de Operação</h2>
+  </div>
+</div>
+
+<div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)" class="reveal">
+  <div id="vectors-body"></div>
+</div>
+
+<!-- CONCLUSÃO -->
+<div class="conclusion reveal">
+  <div class="container">
+    <h3>Síntese Analítica</h3>
+    <p>O <a href="/lawfare-timeline">lawfare-timeline</a> não é um arquivo de curiosidades jurídicas. É a documentação granular de uma operação de Full-Spectrum Dominance executada sobre o campo político brasileiro — com 1.424+ entradas que cobrem cada domínio da doutrina militar americana: jurídico, informacional, psicológico, financeiro, eletromagnético, institucional e físico.</p>
+    <p>A doutrina foi formalizada em 2000 pelo DoD americano para uso militar externo. Sua transposição para operações políticas internas — em qualquer país — segue a mesma lógica: <strong>controlar todos os vetores de resistência simultaneamente</strong>, de modo que o adversário não tenha espaço para responder em nenhum domínio. Quando o judiciário, a mídia, o sistema financeiro e o espaço eletromagnético são controlados de forma coordenada, a oposição política torna-se estruturalmente impossível — sem necessidade de um único tiro.</p>
+    <p>O repositório <a href="https://geoengenharia.vercel.app" target="_blank">geoengineering-patents</a> documenta o domínio físico/eletromagnético desta arquitetura. O <a href="/lawfare-timeline">lawfare-timeline</a> documenta os domínios jurídico e institucional. A série de análise psicológica (<a href="https://ponerologia-psicopatas-no-poder.vercel.app" target="_blank">PsychoProfiler</a>, análise de <a href="/marcal-pnl-artigo">Marçal</a>) documenta o domínio cognitivo. Juntos, eles formam um atlas de FSD aplicado ao Brasil.</p>
+    <div class="source">
+      REFERÊNCIAS DOUTRINÁRIAS: Joint Vision 2020 (DoD, 2000) · Lawfare in Hybrid Wars (Bachmann &amp; Mosquera, 2016) · The Pursuit of Full Spectrum Dominance (Queens U., 2017) · <a href="https://ponerologia-psicopatas-no-poder.vercel.app" target="_blank">Ponerologia</a> (Lobaczewski, 1984) · Supremos Erros (Pereira Junior) · Inquérito do Fim do Mundo (EDA, 2020) · Partido das Sombras (Horowitz, 2009)
+      <br>DADOS PRIMÁRIOS: <a href="https://lawfare-timeline.vercel.app" target="_blank">lawfare-timeline.vercel.app</a> · <a href="https://geoengenharia.vercel.app" target="_blank">geoengenharia.vercel.app</a> · <a href="https://ponerologia-psicopatas-no-poder.vercel.app" target="_blank">ponerologia-psicopatas-no-poder.vercel.app</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const domainDetails = [
+  {
+    title: "Domínio Jurídico — Lawfare Puro",
+    color: "#c0392b",
+    content: "O Inquérito 4781 (<a href='/inq4781'>INQ 4781</a>), iniciado em abril de 2019, representa a materialização mais direta do FSD jurídico no Brasil: um único ministro do STF (Moraes) com poderes de investigador, acusador e juiz simultaneamente. A 'ministrocracia' — poder monocrático sem deliberação coletiva — é a expressão institucional perfeita do 'precision engagement' da doutrina FSD: ataques cirúrgicos a alvos específicos sem possibilidade de resposta institucional.",
+    entries: ["<a href='/inq4781'>INQ 4781 (2019–presente)</a>", "<a href='/satiagraha'>Operação Satiagraha (2008)</a>", "<a href='/lava-jato'>Lava Jato (2014–2021)</a>", "<a href='/operacao-castelo-de-areia'>Castelo de Areia (2008)</a>", "<a href='/lei-15211'>Lei Felca (2023)</a>", "Prisões monocráticas"]
+  },
+  {
+    title: "Domínio Informacional — Controle de Narrativa",
+    color: "#2980b9",
+    content: "O bloqueio do X/Twitter em agosto de 2024, as suspensões de Telegram, os inquéritos sobre 'desinformação' e o papel do TSE como árbitro de verdade constituem o domínio informacional do FSD brasileiro. O objetivo não é apenas censurar — é estabelecer o controle sobre qual realidade é permitida circular no espaço público. Veja mais detalhes em <a href='/rumble-tmtg-vs-moraes'>Moraes vs Rumble/X</a>.",
+    entries: ["Bloqueio X/Twitter (ago/2024)", "Suspensão Telegram (2022)", "Resolução TSE nº 23.714", "Inquérito das fake news", "Acordos com plataformas"]
+  },
+  {
+    title: "Domínio Psicológico — Operações Cognitivas",
+    color: "#8e44ad",
+    content: "A <a href='/marcal-pnl-artigo'>análise de Pablo Marçal</a> documentou o uso sistemático de técnicas de NLP sobre audiências vulneráveis. Mas o domínio psicológico do FSD brasileiro é mais amplo: a captura semântica da palavra 'democracia', a construção de uma histeria coletiva sobre 'golpe', e a supressão da realidade psicológica compartilhada — exatamente o mecanismo que Lobaczewski descreveu como precondição de qualquer dominância psicopática.",
+    entries: ["<a href='/marcal-pnl-artigo'>Análise NLP/Marçal</a>", "Campanha 'defesa da democracia'", "Mídia orgânica coordenada", "Linguagem de gatilho judicial"]
+  },
+  {
+    title: "Domínio Financeiro — Congelamento e Controle",
+    color: "#d4a017",
+    content: "Em agosto de 2022, Moraes ordenou busca e apreensão, confisco de passaportes e bloqueio de contas bancárias de 8 empresários por mensagens em grupo privado de WhatsApp. Este é o FSD financeiro em operação: o congelamento de recursos como instrumento de guerra política, aplicado antes de qualquer condenação.",
+    entries: ["Bloqueio de contas (ago/2022)", "Apreensão de passaportes", "Restrições a financiadores políticos", "Multas a plataformas"]
+  },
+  {
+    title: "Domínio Eletromagnético — Vigilância Física",
+    color: "#0e6655",
+    content: "As patentes documentadas no repositório <a href='https://geoengenharia.vercel.app' target='_blank'>geoengineering-patents</a> demonstram que a capacidade de vigilância eletromagnética de espaços privados foi formalizada em registros públicos de patentes desde 1998. O ex-CIA John Kiriakou confirmou a capacidade operacional dessas tecnologias. No Brasil, o uso de grampos ilegais (Caso Moro-Dallagnol) e a interceptação de comunicações privadas documentam este domínio.",
+    entries: ["Caso Moro-Dallagnol (2019)", "Grampos ilegais Lula (2016)", "US5800481 (1998)", "US7645326 (2010)", "Wi-Fi Sensing (2018+)"]
+  },
+  {
+    title: "Domínio Institucional — Captura e Ministrocracia",
+    color: "#1a5276",
+    content: "A 'ministrocracia' foi identificada formalmente por pesquisadores brasileiros como Arguelhes e Ribeiro: um STF onde o poder individual de cada ministro supera a deliberação coletiva. Este não é um defeito — é uma feature de controle. Um único ministro como ponto de controle de todo o sistema judicial é a implementação perfeita de 'full dimensional protection' da doutrina FSD.",
+    entries: ["Ministrocracia (2019–presente)", "Poderes expandidos do STF (2020)", "Moraes como investigador+juiz", "TSE como árbitro político"]
+  },
+  {
+    title: "Domínio Físico/Climático — Recursos e Geoengenharia",
+    color: "#784212",
+    content: "O repositório <a href='https://geoengenharia.vercel.app' target='_blank'>geoengineering-patents</a> documenta 150+ patentes de modificação climática e controle ambiental. O projeto <a href='/faixa-tropical'>Faixa do Silêncio</a> analisa como a supressão tecnológica do cinturão tropical serve a interesses de controle de recursos. O mercado de <a href='/carbono-oculto'>carbono oculto</a> e as PCH auctions em Minas Gerais documentam o FSD sobre recursos naturais brasileiros.",
+    entries: ["<a href='https://geoengenharia.vercel.app' target='_blank'>150+ patentes geoengenharia</a>", "<a href='/faixa-tropical'>Faixa do Silêncio</a>", "<a href='/carbono-oculto'>Carbono oculto</a>", "PCH auctions Minas (Cemig)", "HAARP / ionosfera"]
+  }
+];
+
+const matrixData = [
+  {name: "Lava Jato", period:"2014-21", scores:[3,2,3,2,1,2,0]},
+  {name: "INQ 4781", period:"2019+", scores:[3,3,2,2,2,3,0]},
+  {name: "Impeachment Dilma", period:"2016", scores:[3,3,3,1,0,3,1]},
+  {name: "Bloqueio X/Twitter", period:"2024", scores:[2,3,3,0,1,2,0]},
+  {name: "Lei Felca", period:"2023", scores:[3,1,2,0,1,3,0]},
+  {name: "Cas. Areia+Satiagraha", period:"2008", scores:[3,1,1,2,3,1,0]},
+  {name: "Geoengenharia/EM", period:"1998+", scores:[0,0,1,0,3,1,3]},
+];
+
+const timelineData = [
+  {year:"1992", title:"<a href='/operacao-castelo-de-areia'>Castelo de Areia — Protótipo</a>", desc:"Primeira operação usando vazamento judicial coordenado com mídia para destruir candidatura presidencial. Modelo que será replicado em escala.", tags:["jurídico","informacional"]},
+  {year:"1994", title:"Plano Real e captura do BC", desc:"Controle do domínio financeiro — taxa de juros como instrumento de política, independência do BC como blindagem contra eleições.", tags:["financeiro","institucional"]},
+  {year:"2002", title:"Carta ao Povo Brasileiro", desc:"Capitulação antecipada ao domínio financeiro como condição de viabilidade eleitoral — FSD financeiro como filtro de candidatos.", tags:["financeiro","psicológico"]},
+  {year:"2005", title:"Mensalão — Primeiro Caso STF-Mídia", desc:"Julgamento televisionado e construção de narrativa midiática coordenada com decisão judicial. Primeiro experimento de FSD informacional-jurídico.", tags:["jurídico","informacional"]},
+  {year:"2008", title:"<a href='/satiagraha'>Satiagraha — Grampos e Exposição</a>", desc:"Operação com uso de escutas sem mandado, vazamento seletivo para mídia. FSD eletromagnético e informacional em operação conjunta.", tags:["eletromagnético","jurídico"]},
+  {year:"2014", title:"<a href='/lava-jato'>Lava Jato + Sítio de Atibaia</a>", desc:"Convergência total: grampos ilegais (EM), vazamentos para Veja (inform.), prisões preventivas (jurídico), bloqueio de ativos (financeiro). Primeira operação FSD multi-domínio documentada.", tags:["jurídico","informacional","financeiro","eletromagnético"]},
+  {year:"2016", title:"Impeachment + Grampo Lula-Dilma", desc:"Uso de gravação ilegal de conversa presidencial como arma informacional. Impeachment como operação jurídico-institucional coordenada com mídia.", tags:["jurídico","informacional","institucional"]},
+  {year:"2019", title:"<a href='/inq4781'>INQ 4781 — O Inquérito do Fim do Mundo</a>", desc:"STF assume poderes de investigar, acusar e julgar simultaneamente. Moraes como operador único de múltiplos domínios FSD. Ministrocracia formalizada.", tags:["jurídico","institucional","psicológico"]},
+  {year:"2022", title:"Bloqueio de contas + Passaportes", desc:"FSD financeiro puro: congelamento preventivo de ativos, confisco de documentos, busca e apreensão — sem condenação — de 8 empresários por mensagens privadas.", tags:["financeiro","jurídico","eletromagnético"]},
+  {year:"2023", title:"<a href='/lei-15211'>Lei Felca + Criminalização da oposição</a>", desc:"Criação de arcabouço jurídico para criminalizar dissidência política retrospectivamente. FSD jurídico preventivo — constrainment estrutural da oposição futura.", tags:["jurídico","institucional"]},
+  {year:"2024", title:"<a href='/rumble-tmtg-vs-moraes'>Bloqueio do X/Twitter</a>", desc:"Primeiro bloqueio de plataforma global. FSD informacional completo: 40 milhões de usuários brasileiros privados de canal de comunicação fora do controle institucional.", tags:["informacional","jurídico","psicológico"]},
+  {year:"2025", title:"Kiriakou + Geoengenharia declarada", desc:"Ex-CIA confirma publicamente capacidades de vigilância EM de espaços privados. Patentes documentadas no repositório <a href='https://geoengenharia.vercel.app' target='_blank'>geoengineering-patents</a> confirmam base tecnológica. FSD eletromagnético saindo do shadow.", tags:["eletromagnético","informacional"]},
+];
+
+const vectorsData = [
+  {domain:"Jurídico", title:"Monocracia e Ministrocracia", desc:"Poder individual irrestrito de ministros do STF como investigadores, acusadores e juízes simultaneamente.", intensity:95, color:"var(--red2)"},
+  {domain:"Informacional", title:"Controle de Plataformas Digitais", desc:"Bloqueio de X/Twitter, suspensão de Telegram, acordos com Meta/Google e mandados judiciais a plataformas.", intensity:88, color:"var(--blue2)"},
+  {domain:"Psicológico", title:"Captura Semântica e Histeria Induzida", desc:"Ocupação do campo semântico de 'democracia' e criação de ambiente de ameaça permanente para inibir oposição.", intensity:82, color:"#8e44ad"},
+  {domain:"Institucional", title:"Captura do TSE e STF como atores políticos", desc:"Cortes constitucionais atuando como operadores políticos ativos em vez de árbitros neutros.", intensity:90, color:"var(--teal2)"},
+  {domain:"Financeiro", title:"Bloqueio Preventivo de Recursos", desc:"Congelamento de ativos, confisco de passaportes e multas a plataformas antes de qualquer condenação judicial.", intensity:72, color:"var(--amber2)"},
+  {domain:"Eletromagnético", title:"Vigilância e Interceptação", desc:"Uso de grampos ilegais documentado (Caso Moro-Dallagnol, 2019). Capacidade EM avançada confirmada por Kiriakou.", intensity:60, color:"var(--teal2)"},
+  {domain:"Físico/Climático", title:"Controle de Recursos Naturais", desc:"Leilões de PCH, mercado de carbono e patentes de geoengenharia como instrumentos de FSD sobre território.", intensity:45, color:"#784212"},
+];
+
+function showDomain(idx) {
+  const d = domainDetails[idx];
+  document.querySelectorAll('.domain-card').forEach((c,i)=>c.classList.toggle('active',i===idx));
+  const det = document.getElementById('domain-detail');
+  const cont = document.getElementById('detail-content');
+  det.style.display='block';
+  cont.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start">
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:${d.color};text-transform:uppercase;margin-bottom:8px">Análise do Domínio</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6">${d.content}</div>
+      </div>
+      <div style="min-width:200px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--gray);margin-bottom:8px;text-transform:uppercase">Entradas Lawfare-Timeline</div>
+        ${d.entries.map(e=>`<div style="font-size:11px;color:var(--text3);padding:3px 0;border-bottom:1px solid var(--border)">→ ${e}</div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// Render matrix
+const mb = document.getElementById('matrix-body');
+matrixData.forEach(row=>{
+  const colors = ['var(--red2)','var(--blue2)','#8e44ad','var(--amber2)','var(--teal2)','#1a5276','#784212'];
+  mb.innerHTML += `<div class="matrix-row">
+    <div class="matrix-label">${row.name}<br><span style="font-family:var(--mono);font-size:9px;color:var(--gray2)">${row.period}</span></div>
+    ${row.scores.map((s,i)=>`<div class="matrix-cell">
+      <div class="dot ${s===3?'dot-full':s===2?'dot-mid':'dot-low'}" style="${s===3?'background:'+colors[i]:''}"></div>
+    </div>`).join('')}
+  </div>`;
+});
+
+// Render timeline
+const tb = document.getElementById('timeline-body');
+const tagMap = {jurídico:'tag-red',informacional:'tag-blue',psicológico:'tag-teal',financeiro:'tag-amber',eletromagnético:'tag-teal',institucional:'tag-blue','físico/climático':'tag-red'};
+timelineData.forEach(row=>{
+  tb.innerHTML += `<div class="timeline-row reveal">
+    <div class="timeline-year"><span>${row.year}</span></div>
+    <div class="timeline-event">
+      <div class="ev-title">${row.title}${row.tags.map(t=>`<span class="tag ${tagMap[t]||'tag-blue'}">${t}</span>`).join('')}</div>
+      <div class="ev-desc">${row.desc}</div>
+    </div>
+  </div>`;
+});
+
+// Render vectors
+const vb = document.getElementById('vectors-body');
+vectorsData.forEach(v=>{
+  vb.innerHTML += `<div class="vec-item">
+    <div style="display:grid;grid-template-columns:1fr auto;align-items:start;gap:12px">
+      <div>
+        <div class="vec-domain">${v.domain}</div>
+        <div class="vec-title">${v.title}</div>
+        <div class="vec-desc">${v.desc}</div>
+      </div>
+      <div style="text-align:right;min-width:50px">
+        <div style="font-family:var(--mono);font-size:18px;font-weight:500;color:${v.color}">${v.intensity}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--gray2)">intensidade</div>
+      </div>
+    </div>
+    <div class="vec-bar"><div class="vec-fill" style="width:${v.intensity}%;background:${v.color}"></div></div>
+  </div>`;
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('revealed')});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Activate first domain
+setTimeout(()=>showDomain(0), 300);
+</script>
+</html>
