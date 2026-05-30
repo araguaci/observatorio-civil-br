@@ -20,7 +20,8 @@
 - [x] **+69 entradas** Tier B em `artifacts.json` (66 + 3 alias `_` ↔ `-`)
 - [x] **52 HTML** copiados gosurf → painel; 14 já existiam
 - [x] Metadados: `totalArtifacts`, categorias, descrição
-- [ ] **Commit + push** `observatorio-civil-br` (adiado)
+- [x] **Commit** contagens v1.5.0 (30/mai)
+- [ ] **Push** `observatorio-civil-br`
 - Log: `D:\ai-projects\gosurf.site\docs\sync-observatorio-tier-b-log.json`
 
 ---
@@ -93,7 +94,7 @@ Indexar em `artifacts.json` + card:
 ## Manutenção
 
 - [ ] Revisar `lawfare_timeline.html` vs `lawfare-timeline.html`
-- [ ] `manifest.json` / PWA — contagem de artefatos
+- [x] `manifest.json` / PWA — contagem de artefatos (v1.5.0, 225+/170+)
 - [ ] `justicawatch-brasil.html` → redirect `jusmonitor`?
 - [ ] Categorias novas: **Eleições**, **Mídia** (filtros)
 - [ ] Entradas manifesto sem HTML: `estrategia-integrada-gestao-corporativa-na-seguranca-publica.html`

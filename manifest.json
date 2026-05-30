@@ -1,8 +1,8 @@
 {
   "name": "Observatório Civil BR",
   "short_name": "ObsCivil BR",
-  "version": "1.2.0",
-  "description": "Central de inteligência civil sobre crime organizado, corrupção sistêmica e colapso institucional no Brasil. Dados públicos, análises investigativas e artefatos baseados em evidências.",
+  "version": "1.5.0",
+  "description": "Central de inteligência civil sobre crime organizado, corrupção sistêmica e colapso institucional no Brasil. 225+ entradas catalogadas · 170+ artefatos no painel. Dados públicos e análises investigativas.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -12,6 +12,7 @@
   "lang": "pt-BR",
   "dir": "ltr",
   "categories": ["news", "politics", "education", "government"],
+  "icons": [
     { "src": "pwa_icon_512_1776544805489.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "pwa_icon_maskable_1776544827789.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
