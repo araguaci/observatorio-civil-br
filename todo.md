@@ -58,7 +58,7 @@ Indexar em `artifacts.json` + card:
 | `exploracao_vulnerabilidade_brasil.html` | |
 | `brasil_desperdicio_captura_institucional.html` | |
 | `brasil_institucional_colapso.html` | |
-| `lawfare_timeline.html` | duplicata de `lawfare-timeline.html`? |
+| `lawfare_timeline.html` | redirect → `lawfare-timeline.html` (canônico) |
 | `justicawatch-brasil.html` | legado → `jusmonitor`? |
 | `operacao_lava_jato.html` | pode já existir no manifesto com outro id |
 | `presidencia-capturada.html` | |
@@ -93,7 +93,7 @@ Indexar em `artifacts.json` + card:
 
 ## Manutenção
 
-- [ ] Revisar `lawfare_timeline.html` vs `lawfare-timeline.html`
+- [x] Revisar `lawfare_timeline.html` vs `lawfare-timeline.html` — canônico: `lawfare-timeline.html`; underscore vira redirect
 - [x] `manifest.json` / PWA — contagem de artefatos (v1.5.0, 225+/170+)
 - [ ] `justicawatch-brasil.html` → redirect `jusmonitor`?
 - [ ] Categorias novas: **Eleições**, **Mídia** (filtros)
