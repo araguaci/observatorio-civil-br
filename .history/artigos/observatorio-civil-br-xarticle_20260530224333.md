@@ -63,11 +63,11 @@ Indicadores que o painel usa como contexto fixo: **26%** do território com pres
 
 | Perfil | Artefato | URL curta |
 |--------|----------|-----------|
-| Analista jurídico | Duplo Padrão Judicial | `[duplo-padrao-judicial](https://observatorio-civil-br.vercel.app/duplo-padrao-judicial.html)` |
-| Analista de contas | Banco Master / Compliance Zero | `[banco-master-compliance-zero](https://observatorio-civil-br.vercel.app/banco-master-compliance-zero.html)` |
-| Investigador policial | Mare Liberum | `[mare-liberum](https://observatorio-civil-br.vercel.app/mare-liberum.html)` |
-| Autoridade estrangeira | PCC/CV — Soberania | `[pcc-cv-ameaca-nacional](https://observatorio-civil-br.vercel.app/pcc-cv-ameaca-nacional.html)` |
-| Eleitor indeciso | Seleção Antes da Eleição | `[selecao-antes-da-eleicao](https://observatorio-civil-br.vercel.app/selecao-antes-da-eleicao.html)` |
+| Analista jurídico | Duplo Padrão Judicial | `/duplo-padrao-judicial.html` |
+| Analista de contas | Banco Master / Compliance Zero | `/banco-master-compliance-zero.html` |
+| Investigador policial | Mare Liberum | `/mare-liberum.html` |
+| Autoridade estrangeira | PCC/CV — Soberania | `/pcc-cv-ameaca-nacional.html` |
+| Eleitor indeciso | Seleção Antes da Eleição | `/selecao-antes-da-eleicao.html` |
 
 ## Aviso editorial
 
