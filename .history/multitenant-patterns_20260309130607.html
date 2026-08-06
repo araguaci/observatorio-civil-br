@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistemas Sobre Metas — gosurf.site</title>
-<meta name="description" content="James Clear tinha razão: você não sobe ao nível das suas metas, você cai ao nível dos seus sistemas. Aplicado ao contexto de SaaS e automação com n8n.">
-<link rel="canonical" href="https://gosurf.site/sistemas-sobre-metas">
+<title>Multi-tenant com Laravel: 3 Padrões — gosurf.site</title>
+<meta name="description" content="Depois de implementar multi-tenancy em três SaaS diferentes, documentei os padrões que funcionam e os antipadrões que quebraram em produção.">
+<link rel="canonical" href="https://gosurf.site/multitenant-patterns">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://gosurf.site/sistemas-sobre-metas">
-<meta property="og:title" content="Sistemas Sobre Metas">
-<meta property="og:description" content="James Clear tinha razão: você não sobe ao nível das suas metas, você cai ao nível dos seus sistemas.">
+<meta property="og:url" content="https://gosurf.site/multitenant-patterns">
+<meta property="og:title" content="Multi-tenant com Laravel: 3 Padrões">
+<meta property="og:description" content="Padrões que funcionam e antipadrões que quebraram em produção.">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sistemas Sobre Metas">
-<meta property="og:image" content="https://gosurf.site/og-image.webp">
-<meta name="twitter:image" content="https://gosurf.site/og-image.webp">
+<meta name="twitter:title" content="Multi-tenant com Laravel: 3 Padrões">
+<meta property="og:image" content="https://gosurf.site/og-image.png">
+<meta name="twitter:image" content="https://gosurf.site/og-image.png">
 <link rel="icon" href="https://gosurf.site/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -40,17 +40,19 @@
 <body>
 <div class="shell">
   <a class="back" href="https://gosurf.site/">← Voltar ao painel</a>
-  <h1>Sistemas Sobre Metas</h1>
-  <div class="meta">20 jan 2025 · 6 min</div>
-  <div class="tags"><span class="tag">estratégia</span><span class="tag">automação</span></div>
+  <h1>Multi-tenant com Laravel: 3 Padrões</h1>
+  <div class="meta">1 mar 2025 · 12 min</div>
+  <div class="tags"><span class="tag">dev</span><span class="tag">laravel</span><span class="tag">arquitetura</span></div>
 
-  <p>James Clear tinha razão: você não sobe ao nível das suas metas, você cai ao nível dos seus sistemas. No contexto de SaaS e automação com n8n, isso ganha contornos práticos.</p>
+  <p>Depois de implementar multi-tenancy em três SaaS diferentes, documentei os padrões que funcionam e os antipadrões que quebraram em produção.</p>
 
-  <p>Uma meta como "aumentar MRR em 20%" é inspiradora, mas não executa sozinha. O que executa é o sistema: pipelines de vendas automatizados, follow-ups disparados no momento certo, métricas que disparam alertas quando algo desvia.</p>
+  <p><strong>Padrão 1 — Database por tenant:</strong> Um banco por cliente. Isolamento total, backup e restore simples. Funciona bem até ~50 tenants. Depois vira pesadelo de operação.</p>
 
-  <p>O n8n entra aqui como orquestrador. Cada workflow é um tijolo do sistema. Um workflow que envia relatórios semanais não é "automação por automação" — é o sistema garantindo que a informação chegue sem depender de memória humana.</p>
+  <p><strong>Padrão 2 — Schema por tenant:</strong> Mesmo banco, schemas separados (PostgreSQL) ou prefixos de tabela. Bom equilíbrio entre isolamento e operação. Escala até centenas de tenants. O truque é nunca esquecer o tenant_id no middleware.</p>
 
-  <p>Metas mudam. Sistemas bem desenhados se adaptam. O investimento em construir o sistema correto paga dividendos muito além do trimestre.</p>
+  <p><strong>Padrão 3 — Row-level (tenant_id em tudo):</strong> Uma tabela, coluna tenant_id em cada registro. Mais simples de implementar, mais barato. O risco: um único WHERE esquecido vaza dados entre tenants. Exige disciplina e testes rigorosos.</p>
+
+  <p>O antipadrão que quebrou: misturar abordagens no mesmo produto. Escolha um e vá até o fim.</p>
   <p style="margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--fg3);"><a href="https://www.artesdosul.com/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Desenvolvido por Artes do Sul</a></p>
 </div>
 <script src="https://gosurf.site/share-bar.js"></script>

@@ -15,7 +15,7 @@ const PRECACHE_URLS = [
   '/favicon.ico',
   '/pwa_icon_512_1776544805489.png',
   '/pwa_icon_maskable_1776544827789.png',
-  '/og-image.webp',
+  '/og-image.png',
 ];
 
 // ── INSTALL ────────────────────────────────────────────────────────────────
